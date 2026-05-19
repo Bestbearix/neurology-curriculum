@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 2 — Stroke & Cerebrovascular Disease (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#ff6b6b; --accent-2:#ffb1b1;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);
+    color:var(--ink); min-height:100vh;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(255,107,107,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+
+  nav.tabs{
+    display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px;
+    border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px;
+  }
+  nav.tabs button{
+    background:transparent; color:var(--muted); border:none; padding:9px 14px;
+    border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease;
+  }
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#1a0808; font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#ffd6d6}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px; transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  details.acc .body p{margin:.4em 0}
+  details.acc .body ul{margin:.3em 0 .6em 1.2em}
+
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(255,107,107,.10); border-color:var(--accent); color:#ffd5d5}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+
+  /* Flashcards */
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{
+    position:absolute; inset:0; backface-visibility:hidden;
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  }
+  .flashcard .front{color:var(--accent-2); font-size:1.02rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+
+  /* Quiz */
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+
+  /* Decision tool */
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px; font-size:1.0rem}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#1a0808; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(255,107,107,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+
+  /* NIHSS calculator */
+  .nihss{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .nihss .item{padding:10px 0; border-bottom:1px dashed var(--line)}
+  .nihss .item:last-child{border-bottom:none}
+  .nihss .item-label{color:var(--accent-2); font-weight:600; margin-bottom:6px}
+  .nihss .item-desc{color:var(--muted); font-size:.85rem; margin-bottom:6px}
+  .nihss select{background:var(--panel-2); color:var(--ink); border:1px solid var(--line); padding:6px 10px; border-radius:6px; font:inherit; font-size:.92rem; width:100%; max-width:520px}
+  .nihss-total{position:sticky; bottom:8px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:12px 18px; font-size:1.1rem; font-weight:600; color:var(--accent-2); text-align:center; margin-top:14px}
+  .nihss-total .severity{display:block; font-size:.85rem; color:var(--muted); font-weight:400; margin-top:4px}
+
+  /* Score widget */
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+
+  @media (max-width:560px){
+    .wrap{padding:18px 12px 60px}
+    header h1{font-size:1.35rem}
+    nav.tabs{flex-direction:column}
+    nav.tabs button{text-align:left}
+    .deck{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 2</span>
+    <span class="badge">General physician</span>
+    <h1>Stroke &amp; Cerebrovascular Disease — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 33) and Merritt's <em>Neurology</em> (14e, Ch. 16, 36, 37, 39, 40, 41, 45).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="tool">Reperfusion Tool</button>
+    <button data-tab="nihss">NIHSS Calculator</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Stroke is the most common life-threatening neurological diagnosis a general physician will meet. Outcomes are extraordinarily time-sensitive: every 15 minutes saved in door-to-needle time translates into a real reduction in 90-day disability. This module covers what you need to recognise, manage in the first hour, and follow up afterwards.</p>
+
+    <h3>After this module you will be able to:</h3>
+    <ul>
+      <li>Distinguish ischaemic from haemorrhagic stroke clinically and confirm with CT.</li>
+      <li>Activate a stroke pathway and run the first-hour workflow.</li>
+      <li>Decide whether a patient is a candidate for tPA, thrombectomy, or both.</li>
+      <li>Recognise the major vascular territory syndromes and lacunar patterns.</li>
+      <li>Run BP, anticoagulation reversal, and acute management for ICH and SAH.</li>
+      <li>Build an aetiology-tailored secondary prevention plan.</li>
+    </ul>
+
+    <h3>How to use this module</h3>
+    <ul>
+      <li><strong>Lessons</strong> — collapsible, structured.</li>
+      <li><strong>Flashcards</strong> — 20 flippable cards.</li>
+      <li><strong>Quiz</strong> — 10 board-style questions with explanations.</li>
+      <li><strong>Reperfusion Tool</strong> — walks you through tPA + thrombectomy eligibility.</li>
+      <li><strong>NIHSS Calculator</strong> — live score with severity interpretation.</li>
+      <li><strong>Cases</strong> — 5 vignettes.</li>
+    </ul>
+
+    <div class="time"><strong>The single most important sentence in this module:</strong> in stroke, time is brain. 1.9 million neurons die every minute the brain remains ischaemic.</div>
+  </section>
+
+  <!-- LESSONS -->
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+    <p class="muted">One panel per sitting works well.</p>
+
+    <details class="acc">
+      <summary>1. Recognising stroke — the three criteria</summary>
+      <div class="body">
+        <p>Adams &amp; Victor's diagnostic triad:</p>
+        <ol>
+          <li>Sudden temporal profile.</li>
+          <li>Focal deficit in a vascular territory.</li>
+          <li>Clinical setting consistent with vascular disease.</li>
+        </ol>
+        <p>Both ischaemic and haemorrhagic strokes present this way; the CT scanner separates them. Approximately <strong>85% ischaemic, 10% ICH, 5% SAH</strong>.</p>
+        <p>Useful FAST/BE-FAST tools for laypeople, but in a clinical setting any sudden focal deficit is stroke until proven otherwise.</p>
+        <div class="pearl"><strong>Maximal-at-onset</strong> deficit + alert patient = think <em>embolism</em>. Stepwise worsening = think <em>thrombosis</em> (atherothrombotic in situ). Worsening over hours + headache + nausea = think <em>haemorrhage</em>.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. The first hour — workflow that saves brain</summary>
+      <div class="body">
+        <p>Five parallel tasks (assign to different team members):</p>
+        <ol>
+          <li>ABCs and LOC.</li>
+          <li>Focused history — <strong>exact time of onset / last known well</strong>; medications (anticoagulants?); witness account.</li>
+          <li>Large-bore IV × 2; labs (CBC, electrolytes, glucose, INR/PTT, troponin); finger-stick glucose.</li>
+          <li>NIHSS.</li>
+          <li>To CT — non-contrast, ideally with CTA.</li>
+        </ol>
+        <p><strong>Time targets:</strong> door-to-CT &lt; 25 min, door-to-needle &lt; 60 min. The Helsinki model demonstrates &lt; 20 min is feasible.</p>
+        <div class="warn"><strong>Hypoglycaemia mimics stroke.</strong> Always check finger-stick glucose first. Hypo- or hyperglycaemia can unmask old deficits or fake new ones.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Imaging — what each modality tells you</summary>
+      <div class="body">
+        <table>
+          <tr><th>Study</th><th>Question answered</th></tr>
+          <tr><td>Non-contrast CT</td><td>Is there blood? (Yes/no — mandatory before tPA.)</td></tr>
+          <tr><td>CT angiography</td><td>Is there a large-vessel occlusion? (Triggers thrombectomy pathway.)</td></tr>
+          <tr><td>CT perfusion</td><td>How much penumbra remains? (Extends thrombectomy and tPA windows.)</td></tr>
+          <tr><td>MRI / DWI</td><td>Confirms infarct; distinguishes stroke from mimic; DWI–FLAIR mismatch identifies wake-up strokes eligible for tPA.</td></tr>
+        </table>
+        <p>Early CT signs of ischaemia: loss of grey-white differentiation, sulcal effacement, hyperdense vessel (visible thrombus). Quantified by <strong>ASPECTS</strong> (10 minus regions affected); ASPECTS &lt; 7 predicts haemorrhagic transformation after tPA.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Reperfusion — tPA</summary>
+      <div class="body">
+        <p><strong>Alteplase 0.9 mg/kg IV (max 90 mg)</strong> — 10% bolus, 90% over 1 hour.</p>
+        <p><strong>Windows:</strong> 0–3 h standard (NINDS); 3–4.5 h in selected patients (ECASS III, excludes age &gt; 80 + NIHSS &gt; 25 + diabetes with prior stroke); 4.5–9 h with perfusion mismatch (EXTEND).</p>
+        <p><strong>BP rule:</strong> must be &lt; 185/110 before tPA; keep &lt; 180/105 for 24 h after.</p>
+        <p><strong>After tPA:</strong> no antithrombotics for 24 h; repeat CT before any. Watch for orolingual angioedema (more common with ACEi co-treatment) and symptomatic ICH (~6%).</p>
+        <div class="pearl"><strong>NNT for tPA:</strong> about 5 if given within 90 min, 8 within 3 h, 15 in the 3–4.5 h window. Speed beats almost everything.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Reperfusion — thrombectomy</summary>
+      <div class="body">
+        <p>Mechanical thrombectomy for proximal large-vessel occlusion (ICA, M1, basilar, proximal M2):</p>
+        <ul>
+          <li><strong>0–6 h</strong> — standard (MR CLEAN, ESCAPE, EXTEND-IA, SWIFT-PRIME, REVASCAT).</li>
+          <li><strong>6–24 h</strong> — standard if perfusion/MRI shows small core, large penumbra (DAWN, DEFUSE-3).</li>
+        </ul>
+        <p>tPA and thrombectomy are <strong>not</strong> mutually exclusive — give tPA if eligible, then transfer for thrombectomy ("drip-and-ship"). Best NNT for functional independence is around 2.6 in well-selected patients.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Vascular territory syndromes — the high-yield set</summary>
+      <div class="body">
+        <table>
+          <tr><th>Vessel</th><th>Picture</th></tr>
+          <tr><td>MCA stem (M1)</td><td>Hemiplegia (face=arm=leg), hemianesthesia, gaze deviation toward lesion, global aphasia (L) or neglect (R).</td></tr>
+          <tr><td>MCA superior division</td><td>Brachiofacial weakness, Broca aphasia (L). Leg spared.</td></tr>
+          <tr><td>MCA inferior division</td><td>Wernicke aphasia (L) or left neglect (R); little weakness.</td></tr>
+          <tr><td>Lenticulostriate (lacunar territory)</td><td>Pure motor hemiparesis; no cortical signs.</td></tr>
+          <tr><td>ACA</td><td>Contralateral leg &gt; arm &gt; face; abulia, incontinence, alien hand.</td></tr>
+          <tr><td>ICA</td><td>Amaurosis fugax (ipsilateral), MCA ± ACA territory.</td></tr>
+          <tr><td>PCA cortical</td><td>Contralateral homonymous hemianopia, macular sparing; alexia w/o agraphia (L).</td></tr>
+          <tr><td>PCA proximal (top-of-basilar)</td><td>Bilateral thalami, midbrain, occipital — coma, vertical-gaze palsy, cortical blindness.</td></tr>
+          <tr><td>Basilar</td><td>Bilateral long-tract signs, CN palsies, coma. Pontine = locked-in.</td></tr>
+          <tr><td>Lateral medullary (PICA/VA)</td><td>Wallenberg — vertigo, ipsilateral Horner + face P/T loss + ataxia + dysphagia + hoarse; contralateral body P/T loss. <em>No weakness.</em></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Lacunar syndromes — the five classics</summary>
+      <div class="body">
+        <p>Small subcortical infarcts from lipohyalinosis of penetrators. <em>No cortical signs.</em> Tightly associated with hypertension and diabetes.</p>
+        <ul>
+          <li>Pure motor hemiparesis (posterior limb internal capsule, pons).</li>
+          <li>Pure sensory stroke (VPL thalamus).</li>
+          <li>Sensorimotor stroke (thalamocapsular).</li>
+          <li>Ataxic hemiparesis (pons, capsule).</li>
+          <li>Dysarthria-clumsy hand (pons, anterior internal capsule).</li>
+        </ul>
+        <div class="pearl"><strong>If the patient has aphasia or neglect, it's not lacunar.</strong> Cortical involvement = cortical-branch artery (embolic or atherothrombotic).</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Intracerebral haemorrhage — the first hour</summary>
+      <div class="body">
+        <p>30-day mortality 30–40%; volume is the strongest predictor (ABC/2).</p>
+        <p><strong>Aetiology by location:</strong> deep structures (putamen, thalamus, pons, cerebellum) → hypertensive; lobar in the elderly → amyloid angiopathy; any location in younger or atypical pattern → AVM, tumour, drugs, anticoagulant, venous infarct.</p>
+        <p><strong>Acute priorities:</strong></p>
+        <ol>
+          <li><strong>Reverse anticoagulation immediately.</strong> Warfarin → 4-factor PCC + IV vitamin K. Dabigatran → idarucizumab. Xa inhibitors → andexanet alfa or 4-factor PCC.</li>
+          <li><strong>BP</strong> to systolic 130–150 (nicardipine, clevidipine, or labetalol IV).</li>
+          <li><strong>ICP</strong> measures if mass effect — head-up, mannitol or hypertonic saline, brief hyperventilation as bridge. <em>No steroids.</em></li>
+          <li><strong>EVD</strong> for hydrocephalus from intraventricular extension.</li>
+          <li><strong>Cerebellar haemorrhage &gt; 3 cm = neurosurgical emergency.</strong></li>
+          <li>Treat clinical seizures only; no prophylaxis.</li>
+        </ol>
+        <div class="refer"><strong>Cerebellar bleed → call neurosurgery now</strong>, even if the patient looks well. Brainstem compression can kill quickly.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Subarachnoid haemorrhage</summary>
+      <div class="body">
+        <p>80% from saccular aneurysm rupture at the circle of Willis. Classic presentation:</p>
+        <ul>
+          <li>Thunderclap headache — worst of life, peak in &lt; 1 min.</li>
+          <li>Transient LOC (50%).</li>
+          <li>Meningism develops over hours.</li>
+          <li>Sentinel leak in 10–40% in the preceding 1–2 weeks.</li>
+        </ul>
+        <p><strong>Diagnosis:</strong> non-contrast CT &gt; 99% sensitive within 6 h; LP for xanthochromia if CT negative and clinical suspicion remains. CTA / DSA to find the aneurysm.</p>
+        <p><strong>Treatment:</strong></p>
+        <ul>
+          <li>Secure aneurysm within 24 h — coiling (ISAT favours where feasible) or clipping.</li>
+          <li>BP &lt; 160 systolic until secured.</li>
+          <li><strong>Nimodipine</strong> 60 mg PO q4h × 21 days.</li>
+          <li>Watch for vasospasm/DCI (day 4–14), hydrocephalus, hyponatraemia, rebleed, neurogenic stunned myocardium.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Cerebral venous sinus thrombosis</summary>
+      <div class="body">
+        <p>Often missed. Young women on OCP / pregnant / postpartum; thrombophilia; sepsis; some COVID-19 vaccines.</p>
+        <p>Headache + seizures or focal deficits that don't respect arterial territories + papilloedema → think CVST.</p>
+        <p>Diagnose with <strong>CT venography or MR venography</strong>. Treat with <strong>anticoagulation even if haemorrhagic infarction is present</strong>. Endovascular intervention in deteriorating patients.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. TIA and high-risk transient deficits</summary>
+      <div class="body">
+        <p>Tissue-based definition (AHA/ASA 2009): transient neurological dysfunction from ischaemia, <em>without infarction on imaging</em>. Most last &lt; 1 hour.</p>
+        <p>Short-term stroke risk after TIA: ≈5% in 48 hours, up to 10% in 90 days. ABCD² score estimates risk but admit anyone with crescendo TIAs, AF, or carotid stenosis.</p>
+        <div class="pearl"><strong>The 21-day rule (CHANCE/POINT):</strong> aspirin + clopidogrel for 21–90 days in minor non-cardioembolic stroke or high-risk TIA reduces 90-day stroke ~30% with modest bleeding risk.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. Secondary prevention — the long game</summary>
+      <div class="body">
+        <table>
+          <tr><th>Mechanism</th><th>Strategy</th></tr>
+          <tr><td>Non-cardioembolic ischaemic stroke / TIA</td><td>Aspirin, clopidogrel, or aspirin + dipyridamole. Dual antiplatelet only short-term in minor stroke / high-risk TIA.</td></tr>
+          <tr><td>Atrial fibrillation</td><td>DOAC preferred (apixaban, rivaroxaban, dabigatran, edoxaban) over warfarin in non-valvular AF.</td></tr>
+          <tr><td>ICA stenosis 70–99% symptomatic</td><td>CEA within 2 weeks; NNT ≈ 5.</td></tr>
+          <tr><td>Intracranial atherosclerosis</td><td>Aggressive medical therapy beats stenting (SAMMPRIS).</td></tr>
+          <tr><td>PFO + cryptogenic stroke, age &lt; 60</td><td>PFO closure + antiplatelet in selected patients.</td></tr>
+        </table>
+        <p><strong>Risk factor targets:</strong> BP &lt; 130/80; LDL &lt; 70 mg/dL; HbA1c ≈ 7%; smoking cessation; Mediterranean diet; 150 min/week activity; treat OSA.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions, immediate feedback</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <!-- REPERFUSION TOOL -->
+  <section class="tab-panel" id="tool">
+    <h2>Reperfusion Decision Tool</h2>
+    <p class="muted">Walks through tPA + thrombectomy eligibility. Educational use only — local protocols always govern.</p>
+    <div class="tool" id="repTool">
+      <div class="q">1. CT findings?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="hem">Haemorrhage present</button>
+        <button class="opt" data-val="completed">Completed large infarct (&gt; 1/3 MCA)</button>
+        <button class="opt" data-val="normal">No haemorrhage, no large completed infarct</button>
+      </div>
+      <div id="tool-rest"></div>
+      <div class="result" id="tool-result"></div>
+      <button class="reset" onclick="resetTool()">Reset</button>
+    </div>
+  </section>
+
+  <!-- NIHSS CALCULATOR -->
+  <section class="tab-panel" id="nihss">
+    <h2>NIHSS Calculator</h2>
+    <p class="muted">For educational purposes only. Standardised testing and certified scoring is required for clinical use.</p>
+    <div class="nihss" id="nihssBox"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 68-year-old with sudden right hemiplegia 90 min ago</summary>
+      <div class="body">
+        <p>BP 200/110, AF on ECG, NIHSS 18, alert with global aphasia and right hemiparesis, no headache.</p>
+        <p><strong>Localization:</strong> dominant (left) MCA stem (M1) — face = arm = leg, aphasia, hemianesthesia.</p>
+        <p><strong>Plan:</strong> Activate stroke pathway. Non-contrast CT + CTA. If no haemorrhage and no completed infarct: lower BP to &lt; 185/110 (labetalol bolus), give tPA, transfer for thrombectomy because CTA almost certainly shows M1 occlusion. AF identified → after acute period, anticoagulate (DOAC unless contraindicated).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 55-year-old with sudden vertigo, hoarse voice, and difficulty swallowing</summary>
+      <div class="body">
+        <p>Examination: right Horner syndrome, right facial pain/temperature loss, left body pain/temperature loss, right limb ataxia. Limb power normal.</p>
+        <p><strong>Localization:</strong> right lateral medullary syndrome (Wallenberg). Vertebral artery atherothrombosis most likely (more common than PICA itself).</p>
+        <p><strong>Plan:</strong> CT/CTA of head &amp; neck — look for vertebral artery occlusion or dissection. <em>tPA not contraindicated.</em> Admit to stroke unit, monitor swallow, secondary prevention based on aetiology (dissection → antiplatelet or anticoagulation 3–6 months; atherosclerosis → antiplatelet + statin + risk factors).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 73-year-old hypertensive woman with sudden left-sided weakness and headache, vomiting twice</summary>
+      <div class="body">
+        <p>BP 230/130, GCS 13, dense left hemiplegia, eyes deviate to the right.</p>
+        <p><strong>Likely diagnosis:</strong> right basal ganglia (putamen) intracerebral haemorrhage — classic hypertensive bleed location.</p>
+        <p><strong>Plan:</strong> Urgent CT confirms. <em>Reverse any anticoagulation immediately.</em> Lower BP with nicardipine to systolic 130–150. ICU admission. ABC/2 measures volume; &gt; 30 mL is high risk. If hydrocephalus from intraventricular extension → EVD. Surgical evacuation rarely beneficial for deep supratentorial bleeds; case-by-case.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 45-year-old with "worst headache of my life" while jogging, brief LOC</summary>
+      <div class="body">
+        <p>BP 170/100, photophobic, mild neck stiffness, no focal deficit, alert.</p>
+        <p><strong>Likely diagnosis:</strong> aneurysmal subarachnoid haemorrhage.</p>
+        <p><strong>Plan:</strong> Immediate non-contrast CT (&gt; 99% sensitive within 6 h). If positive → CT angiography to localize aneurysm → neurosurgery / interventional neuroradiology for coiling or clipping within 24 h. If CT negative and clinical suspicion remains → LP for xanthochromia (after 12 h). Nimodipine 60 mg PO q4h × 21 d. BP &lt; 160 systolic until aneurysm secured. ICU admission.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 28-year-old woman on OCP, 5 days of worsening headache, now confused with a seizure</summary>
+      <div class="body">
+        <p>CT shows bilateral parasagittal hyperdensities with surrounding low attenuation.</p>
+        <p><strong>Likely diagnosis:</strong> superior sagittal sinus thrombosis with bilateral parasagittal venous infarcts.</p>
+        <p><strong>Plan:</strong> CT venography or MR venography to confirm. <strong>Start anticoagulation (LMWH or UFH) even though there are haemorrhagic infarcts.</strong> Stop OCP. Workup for thrombophilia, infection (look for source — otitis, sinusitis). Antiseizure medication. Long-term anticoagulation 3–12 months depending on provocation status.</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 2 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 33; Merritt's <em>Neurology</em> 14e Ch. 16, 36, 37, 39, 40, 41, 45.</p>
+    <p>Educational material; does not replace local stroke protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Time', q:'How many neurons die per minute in untreated AIS?', a:'≈ 1.9 million. The Helsinki model shows door-to-needle <20 min is achievable.'},
+  {tag:'Imaging', q:'Single mandatory study before tPA?', a:'Non-contrast CT — to exclude haemorrhage. CTA and perfusion guide thrombectomy but are not required for tPA.'},
+  {tag:'tPA', q:'tPA window for standard care?', a:'0–4.5 h from onset (or last known well). 0–3 h all eligible; 3–4.5 h excludes age >80, NIHSS >25, diabetes plus prior stroke.'},
+  {tag:'tPA', q:'tPA dose?', a:'Alteplase 0.9 mg/kg IV, max 90 mg — 10% bolus, 90% over 1 hour.'},
+  {tag:'BP', q:'BP threshold for tPA eligibility?', a:'Must be < 185/110 before tPA; keep < 180/105 for 24 h after.'},
+  {tag:'BP', q:'BP target in acute ICH?', a:'Systolic 130–150 mmHg. Lowering < 120 may worsen renal injury without added benefit.'},
+  {tag:'Thrombectomy', q:'Window for thrombectomy in LVO?', a:'0–6 h standard; 6–24 h if perfusion/MRI shows salvageable penumbra (DAWN, DEFUSE-3).'},
+  {tag:'MCA', q:'M1 occlusion — classic picture?', a:'Hemiplegia face=arm=leg, hemianesthesia, gaze toward lesion, global aphasia (L) or neglect (R), often homonymous hemianopia.'},
+  {tag:'ACA', q:'ACA stroke — which limb is most weak?', a:'Contralateral leg (and to lesser degree arm and shoulder); face spared. Often with abulia and urinary incontinence.'},
+  {tag:'PCA', q:'Classic visual finding of PCA stroke?', a:'Contralateral homonymous hemianopia with macular sparing.'},
+  {tag:'Wallenberg', q:'Crossed sensory finding in Wallenberg?', a:'Ipsilateral facial pain/temp loss + contralateral body pain/temp loss. Also ipsilateral Horner, ataxia, dysphagia, hoarseness — but no limb weakness.'},
+  {tag:'Lacunar', q:'Five lacunar syndromes — name them.', a:'Pure motor hemiparesis · Pure sensory · Sensorimotor · Ataxic hemiparesis · Dysarthria-clumsy hand. No cortical signs.'},
+  {tag:'Locked-in', q:'Which artery, which preserved function?', a:'Basilar artery (ventral pons). Vertical eye movement and consciousness preserved.'},
+  {tag:'ICH', q:'Hypertensive ICH classic locations?', a:'Putamen, thalamus, pons, cerebellum, deep white matter. Lobar bleeds in the elderly suggest amyloid angiopathy.'},
+  {tag:'Reversal', q:'Reverse warfarin-associated ICH with?', a:'4-factor PCC (faster than FFP) + IV vitamin K 10 mg. Goal INR < 1.5.'},
+  {tag:'Reversal', q:'Reverse dabigatran-associated ICH with?', a:'Idarucizumab 5 g IV.'},
+  {tag:'SAH', q:'Sensitivity of NCCT for SAH within 6 hours?', a:'> 99% on modern scanners. Falls to < 90% beyond 24 h — LP for xanthochromia if CT negative and suspicion remains.'},
+  {tag:'SAH', q:'Drug that reduces delayed cerebral ischaemia in SAH?', a:'Nimodipine 60 mg PO q4h for 21 days. Reduces neurological deficits from vasospasm (does NOT prevent the vasospasm itself on angiography).'},
+  {tag:'CVST', q:'Treat CVST with haemorrhagic infarction — anticoagulate or not?', a:'Yes — anticoagulate. The intracranial haemorrhage in CVST is venous and responds to anticoagulation.'},
+  {tag:'Prevention', q:'First-line stroke prevention in non-valvular AF?', a:'DOAC (apixaban, rivaroxaban, dabigatran, edoxaban) preferred over warfarin. Anticoagulate at CHA₂DS₂-VASc ≥ 2 in men, ≥ 3 in women.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `
+    <div class="face">
+      <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+      <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+    </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 70-year-old presents with right hemiparesis and global aphasia 2 hours after onset. BP 198/108. Non-contrast CT shows no haemorrhage and no early ischaemic changes. INR normal. Most appropriate next step?',
+   choices:['Withhold tPA because BP is too high','Lower BP to <185/110 then give IV alteplase 0.9 mg/kg','Give aspirin 300 mg and observe','Proceed directly to MRI before deciding'],
+   ans:1,
+   why:'BP can be acutely lowered to <185/110 before tPA; this is a relative, not absolute, contraindication. Within 4.5 h with no haemorrhage, tPA is indicated. The aphasia + hemiplegia picture strongly suggests dominant MCA occlusion — CTA should follow to assess thrombectomy candidacy.'},
+  {q:'Which finding best distinguishes a lacunar stroke from a cortical MCA stroke?',
+   choices:['Severity of weakness','Presence of dysarthria','Absence of cortical signs (aphasia, neglect, hemianopia)','Time course of onset'],
+   ans:2,
+   why:'Lacunar strokes are subcortical (lipohyalinosis of small penetrators); cortical features such as aphasia, neglect, or hemianopia are absent. Severe weakness alone occurs in both.'},
+  {q:'A 75-year-old with sudden left hemiplegia at 8:00 AM presents to your ED at 8:45 AM. NIHSS 14. CT shows no haemorrhage; CTA reveals right M1 occlusion. What is the best plan?',
+   choices:['IV tPA alone','IV tPA + transfer for mechanical thrombectomy','Mechanical thrombectomy alone, skip tPA','Heparin drip and observation'],
+   ans:1,
+   why:'Within the tPA window and with a proven LVO, both treatments are indicated. tPA and thrombectomy are complementary; the combination has the best outcomes when timing permits.'},
+  {q:'A 60-year-old with hypertension develops sudden vertigo, vomiting, hoarseness, and dysphagia. Examination shows ipsilateral Horner syndrome, ipsilateral facial pain loss, contralateral limb pain/temperature loss, and ipsilateral limb ataxia. Limb power is normal. Most likely lesion?',
+   choices:['Right anterior cerebral artery','Right middle cerebral artery','Lateral medulla (Wallenberg)','Medial medulla'],
+   ans:2,
+   why:'Classic Wallenberg syndrome — lateral medullary infarction, almost always from vertebral artery (more commonly than PICA itself) atherothrombosis. Notably no limb weakness because the corticospinal tract is medially located, and is spared.'},
+  {q:'A patient on warfarin (INR 3.2) presents with acute left hemiparesis. CT shows a 25 mL right putamen haemorrhage. Most appropriate immediate management?',
+   choices:['IV vitamin K alone','Fresh frozen plasma 4 units alone','Four-factor PCC 25–50 U/kg + IV vitamin K 10 mg','Andexanet alfa'],
+   ans:2,
+   why:'4-factor PCC is faster than FFP at reversing the INR (and uses less volume); IV vitamin K is added to maintain reversal. Goal INR < 1.5. Andexanet is for direct Xa inhibitors.'},
+  {q:'A 45-year-old presents with thunderclap headache 1 hour ago, brief LOC, mild neck stiffness, no focal deficit. Non-contrast CT performed 90 minutes after onset shows no abnormality. Most appropriate next step?',
+   choices:['Discharge with reassurance','Lumbar puncture for xanthochromia','MRI brain with diffusion','Start sumatriptan for presumed migraine'],
+   ans:1,
+   why:'Within 6 h NCCT is >99% sensitive but modern guidelines still favour LP when suspicion is high and onset >6 h ago, or as a backup. Xanthochromia appears after 12 hours and persists for 1–2 weeks. Missing SAH risks fatal rebleed.'},
+  {q:'Which medication has been shown to reduce delayed cerebral ischaemia after aneurysmal SAH?',
+   choices:['Mannitol','Nimodipine','Phenytoin','High-dose dexamethasone'],
+   ans:1,
+   why:'Nimodipine 60 mg PO every 4 hours for 21 days improves outcomes in SAH. It works by reducing the neurological consequences of vasospasm; it does not consistently reduce vasospasm on angiography.'},
+  {q:'In secondary prevention after a non-cardioembolic ischaemic stroke with NIHSS 3 (minor stroke), what is the role of dual antiplatelet therapy?',
+   choices:['Lifelong aspirin + clopidogrel','Aspirin + clopidogrel for 21–90 days, then single-agent antiplatelet','Aspirin monotherapy lifelong; never use dual therapy','Switch to warfarin'],
+   ans:1,
+   why:'CHANCE, POINT, and THALES support short-term dual antiplatelet therapy in minor stroke or high-risk TIA: aspirin + clopidogrel for 21–90 days, then single-agent. Lifelong dual therapy increases bleeding without further benefit.'},
+  {q:'A 30-year-old woman on combined oral contraceptives presents with 5 days of progressive headache, a focal seizure, and confusion. CT shows bilateral parasagittal haemorrhagic infarcts. Most likely diagnosis and treatment?',
+   choices:['Bilateral MCA strokes; antiplatelet','Cerebral venous sinus thrombosis; anticoagulation','Hypertensive encephalopathy; lower BP','Multiple sclerosis; pulse steroids'],
+   ans:1,
+   why:'Parasagittal haemorrhagic infarcts crossing arterial territories in a young woman on OCP suggest superior sagittal sinus thrombosis. Treat with anticoagulation even in the presence of haemorrhagic infarction. Confirm with CT venography or MR venography.'},
+  {q:'Which patient with symptomatic carotid stenosis benefits MOST from carotid endarterectomy?',
+   choices:['Asymptomatic 60% stenosis','Symptomatic 80% stenosis, surgery within 2 weeks','Symptomatic 30% stenosis','Symptomatic 95% stenosis with completed disabling stroke'],
+   ans:1,
+   why:'NASCET/ECST established that CEA for symptomatic 70–99% stenosis is highly beneficial (NNT ≈ 5 for stroke prevention over 2 years) when performed within 2 weeks of the ischaemic event. Completed disabling stroke and asymptomatic low-grade stenosis are less compelling indications.'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered='1';
+      const chosen = +btn.dataset.i;
+      if (chosen===q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent=score;
+    });
+  });
+});
+
+/* ===== Reperfusion Tool ===== */
+const tool = document.getElementById('repTool');
+const toolRest = document.getElementById('tool-rest');
+const toolResult = document.getElementById('tool-result');
+let toolState = {};
+
+function tAns(step, val) {
+  toolState[step] = val;
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o=>o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if(t) t.classList.add('sel');
+  // truncate later steps
+  Object.keys(toolState).forEach(k => { if(+k > step) delete toolState[k]; });
+  renderTool();
+}
+
+function renderTool() {
+  toolRest.innerHTML = '';
+  toolResult.classList.remove('show');
+  const s0 = toolState[0];
+  if (!s0) return;
+
+  if (s0 === 'hem') return showT('Haemorrhage on CT — go to ICH protocol',
+    ['<strong>Do NOT give tPA.</strong> Switch to ICH workflow:',
+     'Reverse anticoagulation immediately (PCC + vitamin K for warfarin; idarucizumab for dabigatran; andexanet/PCC for Xa inhibitors)',
+     'Lower BP to systolic 130–150 mmHg (nicardipine, clevidipine, labetalol)',
+     'ABC/2 to measure volume; if &gt; 30 mL or mass effect, consider neurosurgical input',
+     'Cerebellar bleed → call neurosurgery <em>now</em>',
+     'Do not give prophylactic antiseizure drugs',
+     'Admit to ICU']);
+
+  if (s0 === 'completed') return showT('Completed large infarct on CT',
+    ['tPA is contraindicated — reperfusion is too late.',
+     'Risk of haemorrhagic transformation is high.',
+     'Manage as established stroke: permissive HTN, aspirin within 24–48 h, statin, DVT prophylaxis.',
+     'Watch for malignant MCA syndrome — early neurosurgical input for hemicraniectomy candidacy if young patient and large MCA infarct.']);
+
+  if (s0 === 'normal') {
+    addT(1, '2. Time from onset (or last known well)?',
+      [['lt45','&lt; 4.5 hours'],['45to9','4.5–9 hours'],['gt9','&gt; 9 hours / unknown']]);
+
+    const t1 = toolState[1];
+    if (t1 === 'lt45') {
+      addT(2, '3. Any of: blood on CT, INR &gt; 1.7, platelets &lt; 100k, BP uncontrollable above 185/110, recent major surgery/GI bleed, or completed infarct &gt; 1/3 MCA?',
+        [['ok','No exclusions'],['rel','Relative concern present'],['abs','Absolute exclusion present']]);
+      if (toolState[2] === 'abs') return showT('tPA contraindicated',
+        ['Skip tPA; proceed directly to CTA / CT perfusion to assess thrombectomy eligibility (often still possible up to 24 h with imaging selection).',
+         'Manage as ischaemic stroke with antiplatelet (after the situation that excluded tPA is addressed).']);
+      if (toolState[2] === 'rel' || toolState[2] === 'ok') {
+        addT(3, '4. CT angiography findings?',
+          [['lvo','Large-vessel occlusion (ICA, M1, basilar, proximal M2)'],['no_lvo','No large-vessel occlusion'],['unsure','Not yet performed']]);
+        if (toolState[3] === 'lvo') return showT('tPA + Thrombectomy candidate',
+          ['Give IV alteplase 0.9 mg/kg (max 90 mg; 10% bolus, 90% over 1 h) <em>now</em>.',
+           'Tenecteplase 0.25 mg/kg is an increasingly used alternative.',
+           'Simultaneously: activate thrombectomy team or transfer to thrombectomy-capable centre (drip-and-ship).',
+           'BP &lt; 180/105 for 24 h after tPA.',
+           'No antithrombotics for 24 h; repeat CT before any.']);
+        if (toolState[3] === 'no_lvo') return showT('IV tPA alone',
+          ['Give IV alteplase 0.9 mg/kg as above.',
+           'Continue with stroke unit care; no thrombectomy indicated.',
+           'BP &lt; 180/105 for 24 h.']);
+        if (toolState[3] === 'unsure') return showT('Give tPA, then get CTA',
+          ['Do not delay tPA waiting for CTA. Give alteplase if otherwise eligible.',
+           'Obtain CTA immediately after tPA bolus — if LVO is found, proceed to thrombectomy.']);
+      }
+    }
+
+    if (t1 === '45to9') {
+      addT(2, '3. CT perfusion / MRI shows salvageable penumbra (large penumbra, small core)?',
+        [['yes','Yes — mismatch present'],['no','No mismatch / not performed']]);
+      if (toolState[2] === 'yes') return showT('Extended-window candidate',
+        ['Within 4.5–9 h: consider IV tPA if perfusion mismatch (EXTEND criteria) — modest benefit, evolving evidence.',
+         'If LVO on CTA → mechanical thrombectomy up to 24 h with mismatch (DAWN, DEFUSE-3) — strongly indicated.']);
+      if (toolState[2] === 'no') return showT('No reperfusion likely beneficial',
+        ['Without mismatch, IV tPA likely not beneficial and may cause harm.',
+         'Without LVO + mismatch, thrombectomy not indicated.',
+         'Manage as ischaemic stroke with antiplatelet, statin, BP permissive, secondary prevention.']);
+    }
+
+    if (t1 === 'gt9') {
+      addT(2, '3. Was onset truly &gt; 9 hours or is it unknown (e.g. wake-up stroke)?',
+        [['gt24','Confirmed &gt; 24 h'],['wake','Wake-up or unknown, presented now'],['mri','Already have MRI showing DWI–FLAIR mismatch']]);
+      if (toolState[2] === 'gt24') return showT('Beyond reperfusion window',
+        ['IV tPA and thrombectomy not indicated.',
+         'Manage as established stroke: antiplatelet, statin, BP control, secondary prevention, rehabilitation.']);
+      if (toolState[2] === 'wake') return showT('Consider extended-window selection',
+        ['Get CTA + CT perfusion (or MRI). If LVO + mismatch → thrombectomy up to 24 h.',
+         'If DWI–FLAIR mismatch on MRI and otherwise eligible → tPA can be considered (WAKE-UP trial).']);
+      if (toolState[2] === 'mri') return showT('DWI–FLAIR mismatch — give tPA',
+        ['DWI hyperintense without FLAIR hyperintensity suggests onset within ~4.5 h.',
+         'Give IV tPA if otherwise eligible.',
+         'CTA → if LVO, thrombectomy.']);
+    }
+  }
+}
+
+function addT(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l])=>`<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  toolRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => tAns(step, b.dataset.val)));
+  if (toolState[step]) {
+    const t = wrap.querySelector(`[data-val="${toolState[step]}"]`); if(t) t.classList.add('sel');
+  }
+}
+
+function showT(title, items) {
+  toolResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+  toolResult.classList.add('show');
+}
+
+function resetTool() {
+  toolState = {};
+  toolRest.innerHTML = '';
+  toolResult.classList.remove('show');
+  document.querySelectorAll('#repTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => tAns(0, b.dataset.val)));
+
+/* ===== NIHSS Calculator ===== */
+const nihssItems = [
+  {label:'1a. Level of consciousness', desc:'0 alert; 1 not alert, arousable; 2 obtunded; 3 unresponsive/reflex only', opts:[0,1,2,3]},
+  {label:'1b. LOC questions (month, age)', desc:'0 both correct; 1 one correct; 2 neither', opts:[0,1,2]},
+  {label:'1c. LOC commands (open/close eyes, grip)', desc:'0 both correct; 1 one correct; 2 neither', opts:[0,1,2]},
+  {label:'2. Best gaze', desc:'0 normal; 1 partial palsy; 2 forced deviation', opts:[0,1,2]},
+  {label:'3. Visual fields', desc:'0 no loss; 1 partial hemianopia; 2 complete hemianopia; 3 bilateral', opts:[0,1,2,3]},
+  {label:'4. Facial palsy', desc:'0 normal; 1 minor; 2 partial (lower face); 3 complete', opts:[0,1,2,3]},
+  {label:'5a. Motor arm — left', desc:'0 no drift; 1 drift; 2 some effort; 3 no effort; 4 no movement', opts:[0,1,2,3,4]},
+  {label:'5b. Motor arm — right', desc:'0 no drift; 1 drift; 2 some effort; 3 no effort; 4 no movement', opts:[0,1,2,3,4]},
+  {label:'6a. Motor leg — left', desc:'0 no drift; 1 drift; 2 some effort; 3 no effort; 4 no movement', opts:[0,1,2,3,4]},
+  {label:'6b. Motor leg — right', desc:'0 no drift; 1 drift; 2 some effort; 3 no effort; 4 no movement', opts:[0,1,2,3,4]},
+  {label:'7. Limb ataxia', desc:'0 absent; 1 in one limb; 2 in two limbs', opts:[0,1,2]},
+  {label:'8. Sensory', desc:'0 normal; 1 mild-moderate loss; 2 severe-total loss', opts:[0,1,2]},
+  {label:'9. Best language', desc:'0 no aphasia; 1 mild-moderate; 2 severe; 3 mute/global', opts:[0,1,2,3]},
+  {label:'10. Dysarthria', desc:'0 normal; 1 mild-moderate; 2 severe/unintelligible', opts:[0,1,2]},
+  {label:'11. Extinction / inattention', desc:'0 normal; 1 one modality; 2 multiple modalities', opts:[0,1,2]},
+];
+
+const nbox = document.getElementById('nihssBox');
+const values = new Array(nihssItems.length).fill(0);
+nihssItems.forEach((it, i) => {
+  const div = document.createElement('div');
+  div.className = 'item';
+  div.innerHTML = `
+    <div class="item-label">${it.label}</div>
+    <div class="item-desc">${it.desc}</div>
+    <select data-i="${i}">${it.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
+  nbox.appendChild(div);
+});
+const totalDiv = document.createElement('div');
+totalDiv.className = 'nihss-total';
+totalDiv.innerHTML = 'NIHSS Total: <span id="ntotal">0</span> <span class="severity" id="nseverity">No stroke symptoms</span>';
+nbox.appendChild(totalDiv);
+
+function recalcNIHSS() {
+  const t = values.reduce((a,b)=>a+b,0);
+  document.getElementById('ntotal').textContent = t;
+  let sev;
+  if (t === 0) sev = 'No stroke symptoms';
+  else if (t <= 4) sev = 'Minor stroke';
+  else if (t <= 15) sev = 'Moderate stroke';
+  else if (t <= 20) sev = 'Moderate to severe stroke';
+  else sev = 'Severe stroke';
+  document.getElementById('nseverity').textContent = sev;
+}
+nbox.querySelectorAll('select').forEach(sel => {
+  sel.addEventListener('change', e => {
+    values[+e.target.dataset.i] = +e.target.value;
+    recalcNIHSS();
+  });
+});
+</script>
+</body>
+</html>

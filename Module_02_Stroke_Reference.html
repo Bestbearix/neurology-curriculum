@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 2 — Stroke & Cerebrovascular Disease (Reference)</title>
+<style>
+  :root{
+    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#b03a3a; --soft:#fbf5f5;
+    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
+    --pearl-bg:#fdf0f0; --pearl-bd:#b03a3a; --pearl-ink:#6a1818;
+    --refer-bg:#fee5e2; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+    --time-bg:#eef7ff; --time-bd:#3a86b0; --time-ink:#163a6a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Charter','Iowan Old Style','Georgia',serif;
+    color:var(--ink); background:#fff; line-height:1.55;
+    max-width:880px; margin:0 auto; padding:48px 28px 96px;
+  }
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
+  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
+  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
+  h3{font-size:1.18rem; margin-top:1.8em; color:#3a1a1a}
+  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
+  li{margin:.25em 0}
+  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
+  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
+  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+
+  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
+  tbody tr:nth-child(even){background:#fafbfd}
+
+  .pearl,.warn,.refer,.time{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
+  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
+  .time{background:var(--time-bg); border-color:var(--time-bd); color:var(--time-ink)}
+
+  .src{font-size:.8rem; color:var(--muted)}
+  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
+  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+
+<h1>Module 2 — Stroke &amp; Cerebrovascular Disease</h1>
+<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 33) and <em>Merritt's Neurology</em> (14e, Ch. 16, 36, 37, 39, 40, 41, 45)</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Big picture: stroke as a syndrome</a></li>
+  <li><a href="#hyperacute">The first hour: door-to-needle</a></li>
+  <li><a href="#imaging">Imaging strategy</a></li>
+  <li><a href="#ischemic">Acute ischemic stroke: reperfusion</a></li>
+  <li><a href="#territories">Vascular territory syndromes</a></li>
+  <li><a href="#mimics">TIA, mimics, and the stroke differential</a></li>
+  <li><a href="#ich">Intracerebral haemorrhage (ICH)</a></li>
+  <li><a href="#sah">Subarachnoid haemorrhage (SAH)</a></li>
+  <li><a href="#cvst">Cerebral venous sinus thrombosis</a></li>
+  <li><a href="#secondary">Secondary prevention &mdash; the long game</a></li>
+  <li><a href="#redflags">Red flags &amp; when to refer</a></li>
+  <li><a href="#quick">Quick-reference tables</a></li>
+</ol>
+</div>
+
+<h2 id="frame">1 · Big picture: stroke as a syndrome</h2>
+<p>Adams &amp; Victor's defines stroke by three converging criteria: <strong>(1) sudden temporal profile, (2) focal neurological deficit in a vascular territory, and (3) a clinical setting consistent with vascular disease</strong> (atrial fibrillation, hypertension, atherosclerotic risk factors).</p>
+
+<p>The first division is <em>ischaemic versus haemorrhagic</em> &mdash; you cannot reliably distinguish them clinically; the CT scanner does that. About 85% are ischaemic, 15% are haemorrhagic (10% intracerebral, 5% subarachnoid).</p>
+
+<table>
+<tr><th>Type</th><th>Mechanism</th><th>Typical tempo</th><th>Distinctive features</th></tr>
+<tr><td>Embolic ischaemic</td><td>Cardioembolic, artery-to-artery, paradoxical</td><td>Maximal at onset, "bolt out of the blue"</td><td>Cortical syndromes, multiple territories on imaging</td></tr>
+<tr><td>Thrombotic ischaemic (large vessel)</td><td>Atherosclerosis with superimposed thrombus</td><td>Stepwise or stuttering over minutes-hours</td><td>Preceded by TIAs in the same territory</td></tr>
+<tr><td>Lacunar (small vessel)</td><td>Lipohyalinosis of penetrating arteries</td><td>Hours to a day</td><td>Pure motor, pure sensory, ataxic-hemiparesis, dysarthria-clumsy-hand; no cortical signs</td></tr>
+<tr><td>Intracerebral haemorrhage</td><td>Hypertensive, amyloid, AVM, tumour, anticoagulant</td><td>Minutes-to-hours, often <em>worsens</em> after onset</td><td>Headache, vomiting, altered consciousness, BP often very high</td></tr>
+<tr><td>Subarachnoid haemorrhage</td><td>Saccular aneurysm rupture (80%)</td><td>Instantaneous</td><td>Thunderclap headache, meningism, transient LOC</td></tr>
+</table>
+
+<div class="pearl"><strong>The four-step analysis (Adams &amp; Victor):</strong> (1) Is this really a stroke? (2) Ischaemic or haemorrhagic? (3) What is the mechanism? (4) What is the secondary-prevention plan?</div>
+
+<h2 id="hyperacute">2 · The first hour &mdash; door-to-needle</h2>
+<p>Modern stroke care resembles trauma resuscitation. Merritt's outlines five parallel priorities for the ED team:</p>
+
+<ol>
+  <li>Assess level of consciousness, airway, breathing, circulation.</li>
+  <li>Take a focused history &mdash; the single most important fact is <strong>time of symptom onset (or last known well)</strong>.</li>
+  <li>Establish large-bore (18-gauge) IV access; draw labs including CBC, electrolytes, glucose, INR/PTT, troponin.</li>
+  <li>Perform the <strong>NIHSS</strong>.</li>
+  <li>Get the patient to non-contrast CT &plusmn; CT angiography as fast as possible.</li>
+</ol>
+
+<div class="time"><strong>Time targets (NINDS):</strong> door-to-CT &lt; 25 min · door-to-needle &lt; 60 min (ideally &lt; 45 min). The Helsinki model achieves &lt; 20 min. <em>1.9 million neurons die every minute</em> the brain remains ischaemic.</div>
+
+<h3>Initial blood pressure</h3>
+<table>
+<tr><th>Situation</th><th>BP target</th></tr>
+<tr><td>Ischaemic stroke pre-CT</td><td>Permit up to 220/120 unless end-organ damage. Aggressive lowering reduces penumbral perfusion.</td></tr>
+<tr><td>Ischaemic stroke, candidate for tPA</td><td>Must be &lt; 185/110 before tPA; maintain &lt; 180/105 for 24 hours after.</td></tr>
+<tr><td>Intracerebral haemorrhage</td><td>Target systolic 130–150 mmHg. Lowering &lt;120 may worsen renal injury without additional benefit (ATACH-2 / INTERACT-2).</td></tr>
+<tr><td>SAH (unsecured aneurysm)</td><td>Systolic &lt; 160; aggressive control until aneurysm secured.</td></tr>
+</table>
+
+<h2 id="imaging">3 · Imaging strategy</h2>
+<p>Non-contrast CT (NCCT) is the only mandatory study before reperfusion. It excludes haemorrhage. Two important early signs:</p>
+<ul>
+  <li><strong>Hyperdense vessel sign</strong> (dense MCA / basilar) &mdash; visible thrombus, marker of large-vessel occlusion.</li>
+  <li><strong>Loss of grey-white differentiation / sulcal effacement / hypoattenuation</strong> &mdash; early ischaemic change. Quantified by ASPECTS (10-point MCA score, 1 point subtracted per region affected). <em>ASPECTS &lt; 7</em> predicts haemorrhagic transformation if tPA is given.</li>
+</ul>
+<p><strong>CT angiography (CTA)</strong> immediately after NCCT identifies large-vessel occlusion (LVO) &mdash; the population that benefits from <em>thrombectomy</em>. <strong>CT perfusion</strong> identifies salvageable penumbra and extends thrombectomy eligibility to 6–24 hours.</p>
+<p><strong>MRI / DWI</strong> is the gold standard for detecting infarction but is rate-limiting; reserve for unclear cases or wake-up strokes (DWI–FLAIR mismatch identifies recent infarcts eligible for tPA).</p>
+
+<h2 id="ischemic">4 · Acute ischaemic stroke &mdash; reperfusion therapy</h2>
+
+<h3>Intravenous thrombolysis (alteplase, tenecteplase)</h3>
+<table>
+<tr><th>Window</th><th>Comments</th></tr>
+<tr><td>0–3 hours</td><td>Standard of care since NINDS 1995. NNT ≈ 8 for good outcome at 3 months.</td></tr>
+<tr><td>3–4.5 hours</td><td>Standard care since ECASS III for patients &lt; 80 with NIHSS &lt; 25 and no diabetes plus prior stroke. NNT ≈ 15.</td></tr>
+<tr><td>4.5–9 hours (or wake-up)</td><td>Considered when perfusion or DWI–FLAIR mismatch demonstrates salvageable tissue (EXTEND, WAKE-UP).</td></tr>
+</table>
+
+<p><strong>Dose:</strong> alteplase 0.9 mg/kg IV (max 90 mg) &mdash; 10% bolus, 90% over 1 hour. Maintain BP &lt; 180/105 for 24 hours; no antithrombotics for 24 hours; repeat NCCT before any antithrombotic.</p>
+
+<div class="warn"><strong>Contraindications</strong> have become more relative over time. Absolute exclusions: blood on CT, completed infarct &gt; 1/3 MCA, unknown time of onset (without DWI–FLAIR mismatch). Strong relative exclusions: INR &gt; 1.7, platelets &lt; 100,000, recent surgery/trauma/GI bleed.</div>
+
+<h3>Mechanical thrombectomy</h3>
+<p>For LVO of the internal carotid, M1 MCA, basilar, or proximal M2:</p>
+<ul>
+  <li><strong>0–6 hours</strong> &mdash; standard of care (MR CLEAN, ESCAPE, EXTEND-IA, SWIFT-PRIME, REVASCAT pooled data).</li>
+  <li><strong>6–24 hours</strong> &mdash; standard if CT perfusion or MRI shows a small core and large penumbra (DAWN, DEFUSE 3).</li>
+</ul>
+<p>NNT for functional independence is as low as 2.6 in the best-selected patients. Door-to-puncture goal &lt; 90 min if patient arrives at a thrombectomy-capable centre; door-in-door-out from spoke hospital &lt; 60 min.</p>
+
+<div class="pearl"><strong>Two questions decide reperfusion eligibility:</strong> (1) Is there a large-vessel occlusion? (CTA answers it.) (2) How much penumbra is salvageable? (CT perfusion answers it.)</div>
+
+<h3>Acute medical management beyond reperfusion</h3>
+<ul>
+  <li><strong>Aspirin</strong> 160–300 mg within 24–48 h (after tPA: wait 24 h, repeat CT first).</li>
+  <li><strong>Dual antiplatelet</strong> (aspirin + clopidogrel) for 21–90 days in minor non-cardioembolic stroke or high-risk TIA (CHANCE, POINT).</li>
+  <li><strong>Permissive hypertension</strong> first 24–48 h if no tPA given.</li>
+  <li><strong>Statin</strong> &mdash; start high-intensity early.</li>
+  <li><strong>Glucose</strong> 140–180 mg/dL; avoid hypoglycaemia.</li>
+  <li><strong>Temperature</strong> normothermia.</li>
+  <li><strong>DVT prophylaxis</strong> &mdash; sequential compression devices immediately; pharmacological once bleeding excluded.</li>
+  <li><strong>Dysphagia screen</strong> before oral intake.</li>
+</ul>
+
+<h2 id="territories">5 · Vascular territory syndromes</h2>
+
+<h3>Anterior circulation</h3>
+
+<h4>Middle cerebral artery (MCA) &mdash; the most common stroke territory</h4>
+<table>
+<tr><th>Site</th><th>Picture</th></tr>
+<tr><td><strong>M1 stem occlusion</strong></td><td>Contralateral hemiplegia (face = arm = leg, capsular), hemianesthesia, homonymous hemianopia, gaze deviation <em>toward</em> the lesion, global aphasia (dominant) or neglect/anosognosia (non-dominant). Often drowsy from sheer territory size.</td></tr>
+<tr><td><strong>Superior division (M2 sup)</strong></td><td>Brachiofacial weakness &amp; sensory loss (leg spared), Broca aphasia (dominant). No homonymous hemianopia.</td></tr>
+<tr><td><strong>Inferior division (M2 inf)</strong></td><td>Wernicke aphasia (dominant) or left neglect/agitated confusion (non-dominant), superior quadrantanopia or hemianopia, little weakness.</td></tr>
+<tr><td><strong>Lenticulostriate (deep penetrators)</strong></td><td>"Striatocapsular" infarct &mdash; dense pure motor hemiparesis (face/arm/leg) without cortical signs.</td></tr>
+</table>
+
+<h4>Anterior cerebral artery (ACA)</h4>
+<p>Contralateral leg &gt; arm &gt; face weakness, sensory loss in same distribution, urinary incontinence, abulia, transcortical motor aphasia (dominant), grasp reflex, alien-hand. Bilateral ACA (azygos or vasospasm in SAH) produces paraplegia &amp; akinetic mutism.</p>
+
+<h4>Internal carotid artery (ICA)</h4>
+<p>Spectrum from asymptomatic (good Willis) to large MCA &plusmn; ACA territory infarction. <strong>Amaurosis fugax</strong> (transient monocular blindness) is a classic ipsilateral TIA from ophthalmic artery embolism.</p>
+
+<h3>Posterior circulation</h3>
+
+<h4>Posterior cerebral artery (PCA)</h4>
+<p><em>Proximal (P1):</em> midbrain &amp; thalamic syndromes &mdash; Weber (III + contralateral hemiparesis), Claude (III + contralateral ataxia), Benedikt (III + ataxia + tremor + hemiparesis); top-of-the-basilar syndrome with bilateral thalamic infarct, vertical gaze palsy, coma. <em>Cortical (P3):</em> contralateral homonymous hemianopia <strong>with macular sparing</strong>; alexia without agraphia if dominant. Bilateral PCA &rarr; cortical blindness (&plusmn; Anton syndrome &mdash; denial of blindness).</p>
+
+<h4>Basilar artery</h4>
+<p>Bilateral long-tract signs, cranial nerve palsies, cerebellar signs, decreased consciousness. The classic <strong>locked-in syndrome</strong> (ventral pontine infarction): quadriplegia, lower cranial-nerve palsies, preserved vertical eye movement and consciousness. Top-of-the-basilar: bilateral thalami / midbrain / occipital lobes.</p>
+
+<h4>Lateral medullary syndrome (Wallenberg) &mdash; vertebral or PICA</h4>
+<p>The most testable and one of the most distinctive brainstem syndromes. Lesion in lateral medulla, posterior to inferior olive.</p>
+<table>
+<tr><th>Ipsilateral</th><th>Contralateral</th></tr>
+<tr><td>Facial pain/temperature loss (CN V spinal nucleus)</td><td>Body pain/temperature loss (spinothalamic tract)</td></tr>
+<tr><td>Horner syndrome (sympathetic tract)</td><td></td></tr>
+<tr><td>Cerebellar ataxia (inferior cerebellar peduncle)</td><td></td></tr>
+<tr><td>Dysphagia, hoarseness, decreased gag (nucleus ambiguus / CN IX, X)</td><td></td></tr>
+<tr><td>Vertigo, nystagmus (vestibular nuclei)</td><td></td></tr>
+<tr><td>Loss of taste (nucleus solitarius)</td><td></td></tr>
+</table>
+<p><em>Notably absent:</em> no limb weakness, no facial weakness. Most cases are vertebral artery atherothrombosis, not PICA occlusion.</p>
+
+<h4>Cerebellar infarction</h4>
+<p>Vertigo, vomiting, ataxia, occipitonuchal headache. <strong>Critical:</strong> large PICA or SCA infarction can swell over 2–4 days and compress the brainstem &rarr; coma and death. <em>Early neurosurgical input</em> for any cerebellar infarct &gt; 1/3 of the hemisphere.</p>
+
+<h4>Lacunar syndromes</h4>
+<table>
+<tr><th>Syndrome</th><th>Location</th></tr>
+<tr><td>Pure motor hemiparesis (face + arm + leg)</td><td>Posterior limb of internal capsule, basis pontis</td></tr>
+<tr><td>Pure sensory stroke</td><td>VPL thalamus</td></tr>
+<tr><td>Sensorimotor stroke</td><td>Thalamocapsular</td></tr>
+<tr><td>Ataxic hemiparesis</td><td>Basis pontis, internal capsule, corona radiata</td></tr>
+<tr><td>Dysarthria-clumsy hand</td><td>Basis pontis, anterior limb of internal capsule, genu</td></tr>
+</table>
+<div class="pearl"><strong>Lacunar rules:</strong> small subcortical infarcts (&lt;15 mm) from lipohyalinosis of penetrators. <em>No cortical signs</em> (no aphasia, neglect, or visual-field cut). Tightly linked to hypertension and diabetes.</div>
+
+<h2 id="mimics">6 · TIA, mimics, and the stroke differential</h2>
+<p>The contemporary, <strong>tissue-based</strong> definition of TIA (AHA/ASA 2009): a transient episode of neurological dysfunction caused by focal brain, spinal cord, or retinal ischaemia <em>without acute infarction</em>. Duration is typically &lt; 1 hour; symptoms lasting longer almost always show DWI lesions.</p>
+<p>A TIA carries a high short-term stroke risk (≈ 5% in 48 hours; up to 10% in 90 days). Estimate with the <strong>ABCD²</strong> score (Age &ge; 60, BP &ge; 140/90, Clinical features, Duration, Diabetes) but admit anyone with crescendo TIAs, atrial fibrillation, or carotid stenosis regardless of score.</p>
+
+<h3>Stroke mimics &mdash; common and important</h3>
+<table>
+<tr><th>Mimic</th><th>Clues</th></tr>
+<tr><td>Seizure with Todd's paralysis</td><td>Witnessed convulsion; deficit gradually improves; EEG abnormalities; DWI usually normal.</td></tr>
+<tr><td>Complicated migraine</td><td>History of migraine, slow spreading positive symptoms (scintillations &rarr; numbness), then headache.</td></tr>
+<tr><td>Hypoglycaemia / hyperglycaemia</td><td>Glucose check &mdash; mandatory in every stroke code.</td></tr>
+<tr><td>Recrudescence of an old deficit</td><td>Old stroke unmasked by fever, sepsis, hyponatraemia.</td></tr>
+<tr><td>Subdural haematoma</td><td>Subacute, often elderly, fluctuating cognition.</td></tr>
+<tr><td>Tumour / abscess</td><td>Subacute, but may worsen acutely from seizure or bleed.</td></tr>
+<tr><td>Functional / conversion</td><td>Diagnosis of exclusion; positive Hoover sign; non-physiological pattern.</td></tr>
+<tr><td>Peripheral vestibulopathy</td><td>HINTS exam features and isolated vertigo without other neurological signs.</td></tr>
+</table>
+<p class="src">Adapted from Merritt's Table 16.2.</p>
+<p>Treating a stroke mimic with tPA is uncommon and safe (rate &lt; 1% symptomatic ICH); delay to exclude a mimic is more dangerous than the small risk of erroneous treatment.</p>
+
+<h2 id="ich">7 · Intracerebral haemorrhage (ICH)</h2>
+<p>ICH carries 30-day mortality of 30–40%, the worst of any stroke subtype. The most useful early prognostic marker is <strong>haemorrhage volume</strong> (ABC/2 method): a hematoma &lt; 30 mL has good potential; 30–70 mL high deterioration risk; &gt; 70 mL traditionally lethal (but salvageable with surgery in selected cases).</p>
+
+<h3>Aetiology by location</h3>
+<table>
+<tr><th>Location</th><th>Typical cause</th></tr>
+<tr><td>Putamen, thalamus, pons, cerebellum, deep white matter</td><td>Chronic hypertension (Charcot–Bouchard microaneurysms)</td></tr>
+<tr><td>Lobar (cortical)</td><td>Cerebral amyloid angiopathy in elderly; AVM, tumour, anticoagulant in younger</td></tr>
+<tr><td>Any location in younger or atypical pattern</td><td>AVM, dural fistula, cavernoma, vasculitis, drugs (cocaine, methamphetamine), tumour, RCVS, venous infarction</td></tr>
+</table>
+
+<h3>Acute management priorities</h3>
+<ol>
+  <li><strong>Reverse anticoagulation</strong> immediately. Warfarin &rarr; 4-factor PCC (preferred over FFP) plus IV vitamin K. Dabigatran &rarr; idarucizumab. Apixaban/rivaroxaban &rarr; andexanet alfa or 4-factor PCC. UFH &rarr; protamine. LMWH &rarr; protamine partial reversal.</li>
+  <li><strong>BP control</strong> &mdash; nicardipine or clevidipine infusion to systolic 130–150 mmHg. Avoid nitroprusside (raises ICP).</li>
+  <li><strong>ICP management</strong> for mass effect: head of bed 30°, brief hyperventilation (PCO₂ 30) as a bridge, mannitol 1–1.5 g/kg or 23.4% hypertonic saline 30 mL (central access). <em>Avoid steroids</em>.</li>
+  <li><strong>External ventricular drain</strong> for intraventricular extension with hydrocephalus.</li>
+  <li><strong>Surgery</strong> &mdash; <em>cerebellar haemorrhage &gt; 3 cm or with brainstem compression or hydrocephalus is a neurosurgical emergency</em>. Supratentorial evacuation: less clear benefit; case by case.</li>
+  <li><strong>Seizures</strong> &mdash; treat clinical or electrographic seizures; do not give prophylactic antiseizure drugs.</li>
+  <li>Admit to ICU.</li>
+</ol>
+
+<div class="refer"><strong>Cerebellar ICH is a surgical emergency.</strong> Patient may look stable for hours then collapse from brainstem compression. Call neurosurgery early.</div>
+
+<h2 id="sah">8 · Subarachnoid haemorrhage (SAH)</h2>
+<p>80% of spontaneous SAH is from rupture of a saccular (berry) aneurysm at the circle of Willis. Other causes: AVMs, perimesencephalic (benign) SAH, RCVS, trauma. Risk factors: hypertension, smoking, family history, polycystic kidney disease.</p>
+
+<h3>Classic presentation</h3>
+<ul>
+  <li><strong>Thunderclap headache</strong> &mdash; "worst of my life", peak in &lt; 1 minute.</li>
+  <li>Transient loss of consciousness in 50%.</li>
+  <li>Meningism (neck stiffness, photophobia) develops over hours.</li>
+  <li>Focal signs uncommon unless an ICH or vasospasm has occurred.</li>
+  <li>Sentinel/warning leak (1–2 weeks earlier) in 10–40%.</li>
+</ul>
+
+<h3>Diagnosis</h3>
+<ol>
+  <li>Non-contrast CT &mdash; sensitivity &gt; 99% within 6 hours of onset on a modern scanner; falls to &lt; 90% after 24 hours.</li>
+  <li>If CT negative within 6 h and clinical suspicion is high, modern guidelines accept CT alone in many centres. Otherwise lumbar puncture for xanthochromia (visible after 12 hours).</li>
+  <li>CT angiography (or DSA) to identify the aneurysm.</li>
+</ol>
+
+<h3>Acute management</h3>
+<ul>
+  <li><strong>Secure the aneurysm</strong> within 24 hours &mdash; endovascular coiling or surgical clipping (ISAT favours coiling when both are feasible).</li>
+  <li><strong>BP</strong> systolic &lt; 160 mmHg until secured.</li>
+  <li><strong>Nimodipine</strong> 60 mg PO every 4 hours for 21 days &mdash; reduces secondary deficits from vasospasm.</li>
+  <li>Watch for <strong>delayed cerebral ischaemia</strong> from vasospasm (day 4–14), <strong>hydrocephalus</strong>, <strong>hyponatraemia</strong> (cerebral salt wasting), <strong>rebleeding</strong>, <strong>seizures</strong>, and <strong>neurogenic stunned myocardium</strong>.</li>
+</ul>
+
+<div class="warn"><strong>Hunt–Hess grading</strong> on presentation predicts outcome: I asymptomatic; II moderate headache, no deficit; III drowsy, mild deficit; IV stupor, hemiparesis; V coma.</div>
+
+<h2 id="cvst">9 · Cerebral venous sinus thrombosis (CVST)</h2>
+<p>An uncommon but eminently treatable cause of stroke, predominantly in younger women. Risk factors: oral contraceptives, pregnancy/puerperium, thrombophilia, dehydration, sepsis (especially otitis or sinusitis), malignancy, COVID-19 / adenovirus-vectored vaccines.</p>
+
+<p>Presents with one or more of: <em>headache</em> (most common, often subacute or worsening), <em>seizures</em>, <em>focal deficits</em> that do not respect arterial territories, <em>encephalopathy</em>, <em>papilloedema</em> (idiopathic-intracranial-hypertension-like picture).</p>
+
+<p>Diagnosis is by <strong>CT venography or MR venography</strong>. Plain CT may show a dense vessel (cord sign) or empty delta sign on contrast study, or haemorrhagic infarcts not in arterial distributions (especially bilateral parasagittal or temporal).</p>
+
+<p>Treatment is <strong>anticoagulation</strong> (heparin then warfarin or DOAC) <em>even in the presence of haemorrhagic infarction</em>. Endovascular thrombectomy in deteriorating patients (TO-ACT was neutral but useful in selected cases). Treat underlying cause; consider thrombophilia workup.</p>
+
+<h2 id="secondary">10 · Secondary prevention &mdash; the long game</h2>
+
+<h3>Antithrombotic strategy by aetiology</h3>
+<table>
+<tr><th>Mechanism</th><th>Strategy</th></tr>
+<tr><td>Non-cardioembolic ischaemic stroke / TIA</td><td>Antiplatelet: aspirin 81 mg/d, clopidogrel 75 mg/d, or aspirin + dipyridamole. <em>Dual</em> aspirin + clopidogrel for 21–90 days only in minor stroke or high-risk TIA (CHANCE, POINT, THALES).</td></tr>
+<tr><td>Atrial fibrillation</td><td>DOAC (apixaban, rivaroxaban, dabigatran, edoxaban) preferred over warfarin in non-valvular AF. Warfarin (INR 2–3) for mechanical valves or moderate-severe mitral stenosis. Risk-stratify with CHA₂DS₂-VASc.</td></tr>
+<tr><td>Symptomatic ICA stenosis 70–99%</td><td>Carotid endarterectomy within 2 weeks (NNT 5) plus aggressive medical therapy.</td></tr>
+<tr><td>Symptomatic ICA stenosis 50–69%</td><td>Carotid endarterectomy considered, especially in men (NNT 22).</td></tr>
+<tr><td>Symptomatic intracranial atherosclerosis</td><td>Aggressive medical therapy beats stenting (SAMMPRIS).</td></tr>
+<tr><td>Patent foramen ovale + cryptogenic stroke (age &lt; 60)</td><td>PFO closure + antiplatelet in selected patients (RESPECT, CLOSE, REDUCE).</td></tr>
+<tr><td>Hypercoagulable state</td><td>Anticoagulation tailored to syndrome (e.g.&nbsp;antiphospholipid &rarr; warfarin).</td></tr>
+</table>
+
+<h3>Risk-factor reduction (the heavy hitters)</h3>
+<table>
+<tr><th>Target</th><th>Goal</th></tr>
+<tr><td>Hypertension</td><td>&lt; 130/80; thiazide + ACEi or ARB the workhorse combination. 10 mmHg systolic reduction = &gt; 40% stroke risk reduction.</td></tr>
+<tr><td>LDL cholesterol</td><td>High-intensity statin; target LDL &lt; 70 mg/dL (1.8 mmol/L) in atherosclerotic stroke (SPARCL, TST). PCSK9 inhibitor if statin-intolerant or LDL still high.</td></tr>
+<tr><td>Diabetes</td><td>HbA1c ~ 7%; avoid intensive control. SGLT2 inhibitors and GLP-1 agonists have cardiovascular benefit.</td></tr>
+<tr><td>Smoking</td><td>Cessation; risk normalizes after 5 years.</td></tr>
+<tr><td>Atrial fibrillation</td><td>Anticoagulate per CHA₂DS₂-VASc ≥ 2 (men) or ≥ 3 (women).</td></tr>
+<tr><td>Diet</td><td>Mediterranean diet reduced stroke ≈ 30% in PREDIMED.</td></tr>
+<tr><td>Physical activity</td><td>Moderate activity, ≥ 150 min/week.</td></tr>
+<tr><td>Alcohol</td><td>Limit to ≤ 2 drinks/d men, ≤ 1 drink/d women.</td></tr>
+<tr><td>OSA</td><td>Screen and treat.</td></tr>
+</table>
+
+<h2 id="redflags">11 · Red flags &amp; when to refer</h2>
+<div class="refer"><strong>Activate stroke pathway immediately for:</strong>
+<ul>
+  <li>Any acute focal neurological deficit, however mild &mdash; "time is brain".</li>
+  <li>Sudden severe headache (especially thunderclap or first-of-life).</li>
+  <li>Acute monocular vision loss.</li>
+  <li>Crescendo TIAs.</li>
+  <li>Acute vertigo with any central HINTS feature.</li>
+  <li>Suspected SAH or ICH on CT &mdash; emergency neurosurgical and neuro-ICU referral.</li>
+  <li>Cerebellar infarct or haemorrhage of any significant size &mdash; risk of delayed swelling and brainstem compression.</li>
+  <li>Spinal cord deficit with possible spinal-cord stroke.</li>
+</ul>
+</div>
+
+<h2 id="quick">12 · Quick-reference tables</h2>
+
+<h3>NIHSS at a glance (11 items, total 0–42)</h3>
+<table>
+<tr><th>Item</th><th>Max</th><th>Item</th><th>Max</th></tr>
+<tr><td>1a Level of consciousness</td><td>3</td><td>6 Motor leg (L/R)</td><td>4 each</td></tr>
+<tr><td>1b LOC questions (age, month)</td><td>2</td><td>7 Limb ataxia</td><td>2</td></tr>
+<tr><td>1c LOC commands (eyes, fist)</td><td>2</td><td>8 Sensory</td><td>2</td></tr>
+<tr><td>2 Best gaze</td><td>2</td><td>9 Best language (aphasia)</td><td>3</td></tr>
+<tr><td>3 Visual fields</td><td>3</td><td>10 Dysarthria</td><td>2</td></tr>
+<tr><td>4 Facial palsy</td><td>3</td><td>11 Extinction / inattention</td><td>2</td></tr>
+<tr><td>5 Motor arm (L/R)</td><td>4 each</td><td></td><td></td></tr>
+</table>
+<p>NIHSS &gt; 20 (left) or &gt; 15 (right) predicts large infarct and high poststroke disability.</p>
+
+<h3>ABC/2 method for ICH volume</h3>
+<p>Volume (mL) ≈ (A &times; B &times; C) / 2, where A and B are the largest perpendicular diameters on the slice through the haematoma centre (cm) and C is the number of slices × slice thickness (cm).</p>
+
+<h3>BP targets summary</h3>
+<table>
+<tr><th>Scenario</th><th>Target</th></tr>
+<tr><td>AIS, no tPA</td><td>Permissive &lt; 220/120</td></tr>
+<tr><td>AIS, eligible for tPA</td><td>&lt; 185/110 before, &lt; 180/105 for 24 h after</td></tr>
+<tr><td>ICH</td><td>Systolic 130–150</td></tr>
+<tr><td>SAH, aneurysm unsecured</td><td>Systolic &lt; 160</td></tr>
+<tr><td>Secondary prevention</td><td>&lt; 130/80</td></tr>
+</table>
+
+<h3>CHA₂DS₂-VASc</h3>
+<p>C 1 · H 1 · A₂ ≥ 75 y 2 · D 1 · S₂ stroke/TIA 2 · V vascular dx 1 · A 65–74 y 1 · Sc female 1. Anticoagulate at ≥ 2 in men or ≥ 3 in women.</p>
+
+<hr>
+<p class="src">Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Ch. 33 (vascular syndromes, brainstem eponyms, classification by age); Merritt's <em>Neurology</em> 14e, Ch. 16 (first hour, NIHSS, tPA criteria, reversal protocols), Ch. 36 (acute ischaemic stroke management), Ch. 37 (TIA), Ch. 39 (ICH), Ch. 40 (SAH), Ch. 41 (CVST), Ch. 45 (prevention).</p>
+
+</body>
+</html>

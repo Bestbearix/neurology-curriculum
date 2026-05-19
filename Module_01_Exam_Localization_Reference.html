@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 1 — Neurologic Exam & Localization (Reference)</title>
+<style>
+  :root{
+    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#1f5fb0; --soft:#f6f8fb;
+    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
+    --pearl-bg:#ecf4ff; --pearl-bd:#1f5fb0; --pearl-ink:#163a6a;
+    --refer-bg:#fff0ee; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Charter','Iowan Old Style','Georgia',serif;
+    color:var(--ink); background:#fff; line-height:1.55;
+    max-width:880px; margin:0 auto; padding:48px 28px 96px;
+  }
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
+  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
+  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
+  h3{font-size:1.18rem; margin-top:1.8em; color:#2a3a55}
+  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
+  li{margin:.25em 0}
+  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
+  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
+  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+
+  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
+  tbody tr:nth-child(even){background:#fafbfd}
+
+  .pearl,.warn,.refer{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
+  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
+  .pearl strong, .warn strong, .refer strong{display:inline-block; margin-right:.4em}
+
+  .pill{display:inline-block; padding:1px 8px; border-radius:10px; font-size:.78rem; background:#e8edf5; color:#2a3a55; margin-right:4px}
+  figure{margin:1.4em 0; text-align:center}
+  figcaption{color:var(--muted); font-size:.85rem; margin-top:.5em; font-style:italic}
+  .src{font-size:.8rem; color:var(--muted)}
+  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
+  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+
+<h1>Module 1 — The Neurologic Exam & Localization</h1>
+<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology, 12e</em> and <em>Merritt's Neurology, 14e</em></p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#cm">The clinical method &mdash; how a neurologist thinks</a></li>
+  <li><a href="#hx">The neurologic history</a></li>
+  <li><a href="#ex">The neurologic examination</a>
+    <ul>
+      <li><a href="#mse">Mental status</a></li>
+      <li><a href="#cn">Cranial nerves I&ndash;XII</a></li>
+      <li><a href="#motor">Motor system</a></li>
+      <li><a href="#reflex">Reflexes</a></li>
+      <li><a href="#sens">Sensation</a></li>
+      <li><a href="#coord">Coordination</a></li>
+      <li><a href="#gait">Gait and stance</a></li>
+    </ul></li>
+  <li><a href="#loc">Localization &mdash; the heart of neurology</a></li>
+  <li><a href="#red">Red flags &amp; when to refer</a></li>
+  <li><a href="#quick">Quick-reference tables</a></li>
+</ol>
+</div>
+
+<h2 id="cm">1 · The clinical method</h2>
+<p>Adams &amp; Victor's defines the clinical method as a five-step process. It is unchanged across editions because it works.</p>
+<ol>
+  <li><strong>Secure the symptoms and signs</strong> by history and examination.</li>
+  <li><strong>Interpret</strong> them in terms of physiology and anatomy &mdash; identify the function disturbed and the structures implicated.</li>
+  <li><strong>Localize</strong>: name the part(s) of the nervous system affected (the <em>anatomic diagnosis</em>). Recognise the resulting <em>syndrome</em>.</li>
+  <li>From anatomy + tempo + course + past history + investigations, deduce the <strong>etiologic diagnosis</strong>.</li>
+  <li>Estimate the <strong>functional impact</strong> and the <strong>prognosis</strong>.</li>
+</ol>
+<p>Merritt's poses the same logic as four questions, asked simultaneously by experienced clinicians:</p>
+<div class="pearl"><strong>Four questions:</strong>
+  <em>(1)</em> What anatomic structures are affected? &middot;
+  <em>(2)</em> What is the nature/syndrome of the disorder? &middot;
+  <em>(3)</em> What are the most likely etiologies? &middot;
+  <em>(4)</em> What "can't miss" diagnosis must be excluded?
+</div>
+
+<h2 id="hx">2 · The neurologic history</h2>
+<p>The history alone establishes the diagnosis in the majority of neurologic encounters; the exam confirms it. Take it before you reach for imaging.</p>
+
+<h3>Five essentials of a neurologic history</h3>
+<table>
+<tr><th>Element</th><th>Why it matters</th></tr>
+<tr><td><strong>Timing &amp; tempo</strong></td>
+    <td>Speed of onset and course is the single best clue to mechanism. <em>Seconds</em>&nbsp;&rarr;&nbsp;vascular or seizure; <em>minutes&ndash;hours</em>&nbsp;&rarr;&nbsp;migraine, demyelination, toxic; <em>days</em>&nbsp;&rarr;&nbsp;infection, GBS; <em>weeks&ndash;months</em>&nbsp;&rarr;&nbsp;tumor; <em>years</em>&nbsp;&rarr;&nbsp;degenerative.</td></tr>
+<tr><td><strong>Quality of the experience</strong></td>
+    <td>"Dizzy" must become vertigo, presyncope, disequilibrium, or psychogenic. "Numb" must become loss of sensation, paresthesia, or weakness. Never accept a patient's neurologic label at face value.</td></tr>
+<tr><td><strong>Aggravating / alleviating</strong></td>
+    <td>Postural change (orthostasis), exertion (claudication, MG fatigability), heat (Uhthoff in MS), Valsalva (raised ICP), positions of head/neck (BPPV, vertebral dissection).</td></tr>
+<tr><td><strong>Associated symptoms</strong></td>
+    <td>Headache + focal deficit; weakness + bowel/bladder; vertigo + hearing loss; tremor + slowness &mdash; these clusters define syndromes.</td></tr>
+<tr><td><strong>Observable behaviour</strong></td>
+    <td>Always corroborate with a witness for: seizures, syncope, dementia, sleep events. Patients are unreliable narrators of their own loss of awareness.</td></tr>
+</table>
+
+<div class="pearl"><strong>Pearl:</strong> Both texts emphasise that the <em>most common cause of a missed diagnosis is failure to consider it</em>. Start with a broad differential and prune; do not start narrow.</div>
+
+<h3>Localizing clues hidden in the history</h3>
+<table>
+<tr><th>Probable site</th><th>Historical features</th></tr>
+<tr><td>Cerebral hemisphere</td><td>Focal seizures, aphasia, hemiplegia, hemianopia, neglect; generalised: delirium, dementia.</td></tr>
+<tr><td>Brainstem</td><td>Cranial-nerve palsy + contralateral long-tract signs ("crossed"), diplopia, vertigo, dysarthria, ataxia. Eye-movement signs have special localizing value.</td></tr>
+<tr><td>Cerebellum</td><td>Ataxia of gait or limbs, intention tremor, dysarthria without weakness.</td></tr>
+<tr><td>Basal ganglia</td><td>Involuntary movements (tremor, chorea, dystonia), rigidity, bradykinesia.</td></tr>
+<tr><td>Spinal cord</td><td>Bilateral spastic legs &plusmn; sphincter or sensory <em>level</em>. Neck/back pain suggests compression; painless suggests demyelination/inflammation.</td></tr>
+<tr><td>Peripheral nerve</td><td>Distal weakness + sensory loss in a dermatomal or stocking-glove pattern.</td></tr>
+<tr><td>NMJ</td><td>Fluctuating, fatigable weakness without sensory loss; bulbar &amp; ocular involvement prominent.</td></tr>
+<tr><td>Muscle</td><td>Symmetric, proximal weakness; no sensory loss; preserved reflexes early.</td></tr>
+</table>
+<p class="src">Adapted from Merritt's Table 3.1.</p>
+
+<h2 id="ex">3 · The neurologic examination</h2>
+<p>The standard sequence is <strong>top-down</strong>: mental status &rarr; cranial nerves &rarr; motor &rarr; reflexes &rarr; sensation &rarr; coordination &rarr; gait. The same order keeps you from forgetting components and lets you build localization as you go.</p>
+
+<h3>Screening vs comprehensive exam</h3>
+<p>A general physician should be fluent in the <em>screening</em> exam (5&ndash;7 minutes) and able to escalate to the comprehensive exam when the history demands it.</p>
+<table>
+<tr><th>Domain</th><th>Screening (every patient)</th><th>Comprehensive (when indicated)</th></tr>
+<tr><td>Mental status</td><td>Alertness, orientation, appropriateness</td><td>+ language (fluency, comprehension, repetition, naming), memory, calculation, visuospatial, abstract reasoning</td></tr>
+<tr><td>Cranial nerves</td><td>Acuity, pupils, EOMs, smile/eye closure, hearing, speech</td><td>+ fields, fundi, facial sensation, palate, neck, tongue</td></tr>
+<tr><td>Motor</td><td>Pronator drift, 6&ndash;8 key muscle groups, gross involuntary movements</td><td>+ tone, bulk, full MRC of every key group</td></tr>
+<tr><td>Reflexes</td><td>Biceps, patellar, Achilles, plantar</td><td>+ triceps, brachioradialis, abdominal, clonus, frontal release</td></tr>
+<tr><td>Sensation</td><td>One modality at toes</td><td>Light touch, pinprick, temperature, vibration, proprioception, cortical (graphesthesia, stereognosis, extinction)</td></tr>
+<tr><td>Coordination</td><td>Fine finger, finger-to-nose</td><td>+ rapid alternating, heel-to-shin</td></tr>
+<tr><td>Gait</td><td>Casual, tandem</td><td>+ on toes, on heels, Romberg, pull test</td></tr>
+</table>
+<p class="src">Adapted from Merritt's Table 4.1 / Gelb et al. Neurology Clerkship Core Curriculum.</p>
+
+<h3 id="mse">Mental status</h3>
+<p>Mental status is built of interdependent domains: <strong>arousal</strong>, <strong>language</strong>, <strong>attention</strong>, <strong>memory</strong>, <strong>visuospatial</strong>, <strong>executive</strong>, and <strong>higher-order</strong> function. Test arousal first &mdash; everything else assumes a wakeful patient. Always document the actual response, not just whether it was right or wrong.</p>
+
+<h4>Language &mdash; the seven components</h4>
+<p>Fluency · prosody · repetition · naming · comprehension · reading · writing. The pattern across these seven tells you the type and site of aphasia.</p>
+<table>
+<tr><th>Aphasia</th><th>Fluency</th><th>Comprehension</th><th>Repetition</th><th>Localization</th></tr>
+<tr><td>Broca (expressive)</td><td>Effortful, agrammatic</td><td>Normal</td><td>Impaired</td><td>Dominant inferior frontal gyrus</td></tr>
+<tr><td>Wernicke (receptive)</td><td>Fluent, nonsensical, paraphasias</td><td>Impaired</td><td>Impaired</td><td>Dominant posterior superior temporal</td></tr>
+<tr><td>Conduction</td><td>Normal</td><td>Normal</td><td>Impaired</td><td>Arcuate fasciculus</td></tr>
+<tr><td>Global</td><td>Effortful / mute</td><td>Impaired</td><td>Impaired</td><td>Both Broca + Wernicke (large dominant MCA)</td></tr>
+<tr><td>Transcortical (any of above)</td><td>Variable</td><td>Variable</td><td><strong>Preserved</strong></td><td>Watershed (peri-Sylvian spared, surrounding cortex affected)</td></tr>
+</table>
+<p class="src">Adapted from Merritt's Table 4.2.</p>
+
+<div class="pearl"><strong>Practical tip:</strong> If the patient can repeat normally, the perisylvian language network is intact &mdash; think transcortical aphasia, often watershed ischemia or hypoxic injury.</div>
+
+<h4>Memory</h4>
+<p>Working (immediate, e.g.&nbsp;digit span), short-term (delayed recall after 3&ndash;5 minutes), and long-term (autobiographical, semantic). Test recall before recognition; a patient who fails free recall but succeeds with cueing has a retrieval (frontal/subcortical) pattern; one who fails both has a storage (hippocampal) pattern &mdash; the latter is the Alzheimer signature.</p>
+
+<h4>Other domains in brief</h4>
+<ul>
+  <li><strong>Attention:</strong> serial 7s, months backward, digit span.</li>
+  <li><strong>Visuospatial:</strong> clock-drawing, intersecting pentagons, cube copy. Be aware of education effects.</li>
+  <li><strong>Executive:</strong> Luria fist-edge-palm, alternating patterns, verbal fluency (list animals in 60 s &mdash; normal &gt;15).</li>
+  <li><strong>Higher order:</strong> proverb interpretation, judgment scenarios.</li>
+  <li><strong>Praxis:</strong> ideomotor ("show me how to wave goodbye") and ideational ("show me how you would brush your teeth"). Impaired without weakness suggests dominant parietal lesion.</li>
+</ul>
+
+<h3 id="cn">Cranial nerves I&ndash;XII</h3>
+<p>Examine in order I &rarr; XII, but describe in functional groups (vision, eye movements, lower face, bulbar, etc.) rather than nerve numbers.</p>
+<table>
+<tr><th>CN</th><th>Test</th><th>Common localizing pattern</th></tr>
+<tr><td>I &mdash; Olfactory</td><td>Coffee, mint, vanilla (non-noxious) at each nostril</td><td>Frontal/orbitofrontal mass, head trauma, early neurodegenerative disease (PD, AD).</td></tr>
+<tr><td>II &mdash; Optic</td><td>Acuity, fields (confrontation), fundus, pupillary reaction, RAPD</td><td>Monocular field loss = anterior to chiasm (optic nerve). Bitemporal hemianopia = chiasm (pituitary). Homonymous hemianopia = retrochiasmal. Congruity rises as lesions move posteriorly.</td></tr>
+<tr><td>III, IV, VI &mdash; Eye movement</td><td>H pattern, smooth pursuit, saccades, convergence, ptosis, pupils</td><td>III palsy with dilated pupil &rarr; <em>surgical</em> (PCom aneurysm, uncal herniation). III palsy with spared pupil &rarr; usually <em>ischemic</em> (diabetes, HTN). VI palsy &rarr; non-specific, often raised ICP. INO (failure of adduction with abducting nystagmus) &rarr; ipsilateral MLF &mdash; classically MS in young, lacune in elderly.</td></tr>
+<tr><td>V &mdash; Trigeminal</td><td>Light touch, pinprick over V1/V2/V3; masseter strength; corneal reflex</td><td>Numbness in V1 + ophthalmoplegia &rarr; cavernous sinus or superior orbital fissure. Trigeminal neuralgia: brief lancinating pain in V2/V3 territory.</td></tr>
+<tr><td>VII &mdash; Facial</td><td>Raise brows, close eyes tight, smile, puff cheeks</td><td><strong>UMN</strong> (cortex/internal capsule) spares the forehead; <strong>LMN</strong> (Bell's, brainstem, geniculate) involves the forehead. Always check.</td></tr>
+<tr><td>VIII &mdash; Vestibulocochlear</td><td>Finger rub, Weber/Rinne, head-impulse test, Dix-Hallpike if indicated</td><td>Sudden unilateral hearing loss is a neurologic emergency until proven otherwise. Vestibular vs central vertigo: HINTS exam.</td></tr>
+<tr><td>IX, X &mdash; Glosso-pharyngeal / Vagus</td><td>Palate elevation, gag, swallow, voice quality</td><td>Uvula deviates <em>away</em> from the weak side. Hoarseness + dysphagia &rarr; consider lateral medullary (Wallenberg), skull base, or vagal neuropathy.</td></tr>
+<tr><td>XI &mdash; Accessory</td><td>Shoulder shrug (trapezius), head turn (SCM)</td><td>Isolated weakness suggests peripheral injury (e.g.&nbsp;posterior triangle dissection).</td></tr>
+<tr><td>XII &mdash; Hypoglossal</td><td>Tongue protrusion, lateral movement, atrophy, fasciculations</td><td>Tongue deviates <em>toward</em> the weak (LMN) side. Atrophy + fasciculations bilaterally &rarr; consider ALS.</td></tr>
+</table>
+
+<div class="warn"><strong>HINTS exam pearls (acute vertigo):</strong> A <em>central</em> cause is suggested by an <strong>abnormal</strong> head-impulse (smooth eyes, no corrective saccade), <strong>direction-changing</strong> nystagmus, or <strong>skew</strong> deviation. Three reassuring HINTS features outperform early MRI for posterior-circulation stroke.</div>
+
+<h3 id="motor">Motor system</h3>
+<p>Examine in this sequence: <strong>observation</strong> (posture, involuntary movement) &rarr; <strong>bulk</strong> &rarr; <strong>tone</strong> &rarr; <strong>strength</strong> &rarr; <strong>functional tests</strong> (drift, gait). Always compare left to right and proximal to distal.</p>
+
+<h4>Tone</h4>
+<ul>
+  <li><strong>Spasticity</strong> &mdash; velocity-dependent, "clasp-knife," UMN lesion (corticospinal).</li>
+  <li><strong>Rigidity</strong> &mdash; velocity-independent, "lead-pipe" or "cogwheel" (Parkinsonism, basal ganglia).</li>
+  <li><strong>Paratonia (gegenhalten)</strong> &mdash; variable resistance, frontal lobe / dementia.</li>
+  <li><strong>Flaccidity</strong> &mdash; absent tone, LMN or acute UMN (spinal shock).</li>
+</ul>
+
+<h4>Strength &mdash; the MRC scale</h4>
+<table>
+<tr><th>Grade</th><th>Definition</th></tr>
+<tr><td>0</td><td>No contraction</td></tr>
+<tr><td>1</td><td>Flicker / trace</td></tr>
+<tr><td>2</td><td>Movement with gravity eliminated</td></tr>
+<tr><td>3</td><td>Movement against gravity but not resistance</td></tr>
+<tr><td>4&minus; / 4 / 4+</td><td>Movement against mild / moderate / strong resistance</td></tr>
+<tr><td>5</td><td>Normal power</td></tr>
+</table>
+
+<h4>Pattern recognition in weakness</h4>
+<table>
+<tr><th>Pattern</th><th>Likely site</th><th>Examples</th></tr>
+<tr><td>Hemiparesis (face + arm + leg, one side)</td><td>Contralateral cortex or internal capsule</td><td>Stroke, tumor</td></tr>
+<tr><td>"Crossed" findings (face one side, body other)</td><td>Brainstem</td><td>Lateral medullary, Weber syndrome</td></tr>
+<tr><td>Paraparesis (both legs)</td><td>Spinal cord (thoracic or above lumbar), parasagittal cortex</td><td>Cord compression, transverse myelitis, ACA bilateral</td></tr>
+<tr><td>Quadriparesis</td><td>High cervical cord, brainstem, NMJ, severe polyneuropathy</td><td>C-spine injury, MG crisis, GBS</td></tr>
+<tr><td>Distal &gt; proximal, often with sensory loss</td><td>Polyneuropathy</td><td>Diabetes, alcohol, chemotherapy</td></tr>
+<tr><td>Proximal &gt; distal, symmetric, no sensory loss</td><td>Muscle (myopathy)</td><td>Polymyositis, steroid myopathy, dystrophies</td></tr>
+<tr><td>Fatigable, fluctuating, ocular/bulbar prominent</td><td>NMJ</td><td>Myasthenia gravis, LEMS</td></tr>
+<tr><td>Dermatomal / single nerve / single root</td><td>Root, plexus, or peripheral nerve</td><td>Radiculopathy, mononeuropathy</td></tr>
+</table>
+
+<div class="pearl"><strong>UMN vs LMN at a glance:</strong> UMN &rarr; increased tone, increased reflexes, upgoing toe, no significant atrophy or fasciculations, weakness in a pyramidal distribution (extensors of arm, flexors of leg). LMN &rarr; decreased tone, decreased reflexes, downgoing toe, atrophy and fasciculations, weakness in nerve/root distribution.</div>
+
+<h3 id="reflex">Reflexes</h3>
+<table>
+<tr><th>Reflex</th><th>Nerve root</th></tr>
+<tr><td>Biceps</td><td>C5&ndash;C6</td></tr>
+<tr><td>Brachioradialis</td><td>C5&ndash;C6</td></tr>
+<tr><td>Triceps</td><td>C7</td></tr>
+<tr><td>Patellar</td><td>L3&ndash;L4</td></tr>
+<tr><td>Achilles</td><td>S1</td></tr>
+<tr><td>Plantar (Babinski)</td><td>L5&ndash;S1; upgoing = UMN sign</td></tr>
+</table>
+<p>Grading: 0 absent · 1 trace · 2 normal · 3 brisk · 4 clonus. Asymmetry &gt; absolute value. A unilaterally absent ankle jerk in an adult is usually radiculopathy (S1) or neuropathy; bilaterally absent ankle jerks raise concern for peripheral neuropathy.</p>
+
+<h3 id="sens">Sensation</h3>
+<p>Six modalities matter: <em>light touch, pinprick, temperature, vibration, proprioception, cortical sensation</em>. Pain &amp; temperature travel in the spinothalamic tract (crosses near entry into the cord); vibration and proprioception travel in the dorsal columns (crosses in the medulla). Light touch uses both. This is why a hemicord (Brown-S&eacute;quard) lesion produces ipsilateral dorsal-column loss and contralateral pain/temperature loss below the level.</p>
+
+<h4>Patterns of sensory loss</h4>
+<table>
+<tr><th>Pattern</th><th>Site</th></tr>
+<tr><td>Stocking-glove, symmetric</td><td>Length-dependent polyneuropathy</td></tr>
+<tr><td>Single dermatome</td><td>Nerve root (radiculopathy)</td></tr>
+<tr><td>Single peripheral-nerve distribution</td><td>Mononeuropathy (e.g.&nbsp;median &rarr; CTS)</td></tr>
+<tr><td>Dissociated (pain/temp lost, vibration spared)</td><td>Spinothalamic lesion (anterior cord, syringomyelia, brainstem)</td></tr>
+<tr><td>Sensory level on trunk</td><td>Spinal cord</td></tr>
+<tr><td>Hemisensory + hemiparesis</td><td>Contralateral cortex, internal capsule, or thalamus</td></tr>
+<tr><td>"Crossed" (face one side, body other)</td><td>Lateral medulla (Wallenberg)</td></tr>
+<tr><td>Loss of cortical modalities only (graphesthesia, stereognosis, extinction)</td><td>Contralateral parietal cortex</td></tr>
+</table>
+
+<h3 id="coord">Coordination</h3>
+<p>Test rapid alternating movements, finger-to-nose, heel-to-shin, and rebound. Cerebellar disease produces <em>ipsilateral</em> findings: dysmetria, intention tremor, dysdiadochokinesia, hypotonia, and scanning dysarthria. Midline (vermis) lesions cause trunk &amp; gait ataxia with relatively preserved limb coordination; hemispheric lesions cause limb ataxia on the same side.</p>
+
+<h3 id="gait">Gait and stance</h3>
+<table>
+<tr><th>Gait</th><th>Features</th><th>Site</th></tr>
+<tr><td>Hemiparetic</td><td>Circumduction of stiff leg, flexed arm</td><td>Contralateral pyramidal lesion (stroke)</td></tr>
+<tr><td>Spastic paraparetic / scissoring</td><td>Stiff legs, narrow base, adduction</td><td>Bilateral pyramidal (cord, parasagittal)</td></tr>
+<tr><td>Parkinsonian</td><td>Stooped, shuffling, festination, en bloc turning, reduced arm swing</td><td>Basal ganglia</td></tr>
+<tr><td>Cerebellar (ataxic)</td><td>Wide base, irregular steps, falls toward lesion</td><td>Cerebellum / connections</td></tr>
+<tr><td>Sensory ataxic</td><td>Wide base, slapping foot, positive Romberg, worse with eyes closed</td><td>Dorsal columns or large-fibre neuropathy</td></tr>
+<tr><td>Steppage</td><td>High step to clear a foot-drop</td><td>Peroneal nerve, L5 root, distal myopathy</td></tr>
+<tr><td>Waddling</td><td>Pelvis drops with each step (Trendelenburg)</td><td>Proximal myopathy</td></tr>
+<tr><td>Magnetic / apraxic ("feet glued to floor")</td><td>Hesitant start, short steps, preserved sitting movement</td><td>Frontal lobe, normal-pressure hydrocephalus</td></tr>
+<tr><td>Antalgic</td><td>Shortened stance on painful limb</td><td>Pain (joint, root)</td></tr>
+</table>
+<div class="pearl"><strong>Romberg test:</strong> measures dorsal-column / vestibular function, <em>not</em> cerebellar function. A patient who is steady with eyes open but falls when they close has a positive Romberg.</div>
+
+<h2 id="loc">4 · Localization &mdash; the heart of neurology</h2>
+<p>Localization is the discipline that gives neurology its diagnostic precision. Work it out before you order imaging: a study ordered without a localization is a study without a question.</p>
+
+<h3>A practical localization algorithm</h3>
+<ol>
+  <li><strong>Is the lesion central or peripheral?</strong> Hyperreflexia, upgoing toes, spasticity, cognitive or cranial-nerve signs &rarr; central. Hyporeflexia, atrophy, fasciculations, dermatomal sensory loss &rarr; peripheral.</li>
+  <li><strong>If central: cortex, subcortex, brainstem, cerebellum, or cord?</strong>
+    <ul>
+      <li><em>Cortex:</em> language, neglect, focal seizures, cortical sensory loss.</li>
+      <li><em>Subcortex / internal capsule:</em> dense hemiparesis without cortical signs.</li>
+      <li><em>Brainstem:</em> cranial-nerve signs ipsilateral + long-tract signs contralateral.</li>
+      <li><em>Cerebellum:</em> ipsilateral ataxia without weakness.</li>
+      <li><em>Spinal cord:</em> sensory level, bilateral long-tract signs below a level, sphincter involvement.</li>
+    </ul></li>
+  <li><strong>If peripheral: root, plexus, nerve, NMJ, or muscle?</strong>
+    <ul>
+      <li><em>Root:</em> dermatomal sensory + myotomal motor, often with pain.</li>
+      <li><em>Plexus:</em> multi-root, multi-nerve in one limb.</li>
+      <li><em>Single nerve:</em> classic nerve territory (e.g.&nbsp;ulnar, median, peroneal).</li>
+      <li><em>Polyneuropathy:</em> symmetric, length-dependent.</li>
+      <li><em>NMJ:</em> fatigable, ocular/bulbar, no sensory loss.</li>
+      <li><em>Muscle:</em> proximal &gt; distal, symmetric, no sensory loss, reflexes preserved early.</li>
+    </ul></li>
+</ol>
+
+<h3>Brainstem &mdash; "crossed" syndromes</h3>
+<table>
+<tr><th>Syndrome</th><th>Vessel</th><th>Key features</th></tr>
+<tr><td>Wallenberg (lateral medullary)</td><td>PICA / vertebral</td><td>Ipsilateral: face pain/temp loss, Horner, ataxia, dysphagia, hoarseness. Contralateral: body pain/temp loss. <em>No</em> weakness.</td></tr>
+<tr><td>Medial medullary</td><td>Anterior spinal artery</td><td>Contralateral hemiparesis (face spared), contralateral dorsal-column loss, ipsilateral tongue weakness.</td></tr>
+<tr><td>Weber</td><td>Midbrain branches of PCA</td><td>Ipsilateral CN III palsy + contralateral hemiparesis.</td></tr>
+<tr><td>Locked-in</td><td>Basilar (pontine)</td><td>Quadriplegia + lower CN palsies; vertical eye movement and consciousness preserved.</td></tr>
+</table>
+
+<h3>Cord syndromes</h3>
+<table>
+<tr><th>Syndrome</th><th>Pattern</th><th>Typical cause</th></tr>
+<tr><td>Complete transection</td><td>All modalities lost below the level, paraplegia/quadriplegia, sphincter loss; initial spinal shock then UMN signs.</td><td>Trauma, severe compression.</td></tr>
+<tr><td>Brown-S&eacute;quard (hemicord)</td><td>Ipsilateral UMN weakness &amp; dorsal-column loss below level; contralateral pain/temperature loss starting 1&ndash;2 levels below.</td><td>Penetrating trauma, MS plaque, tumor.</td></tr>
+<tr><td>Anterior cord</td><td>Bilateral UMN weakness + bilateral pain/temp loss; dorsal columns spared.</td><td>Anterior spinal artery occlusion, hyperflexion.</td></tr>
+<tr><td>Central cord</td><td>Upper-extremity &gt; lower-extremity weakness, "cape" dissociated sensory loss.</td><td>Syringomyelia, hyperextension in cervical stenosis.</td></tr>
+<tr><td>Posterior cord</td><td>Loss of vibration &amp; proprioception; sensory ataxia.</td><td>B12, tabes dorsalis, paraneoplastic.</td></tr>
+<tr><td>Conus medullaris</td><td>Symmetric saddle anesthesia, early bowel/bladder, mixed UMN/LMN in legs.</td><td>Tumor, infarct at conus.</td></tr>
+<tr><td>Cauda equina</td><td>Asymmetric LMN weakness in legs, saddle anesthesia, late bowel/bladder, severe radicular pain.</td><td>Disc herniation, tumor.</td></tr>
+</table>
+
+<h3>Classic syndromes on the exam alone</h3>
+<ul>
+  <li><strong>Horner's syndrome</strong> &mdash; partial ptosis, miosis, anhidrosis. Localizes to the sympathetic chain (hypothalamus &rarr; T1 root &rarr; carotid plexus). Painful Horner = carotid dissection until proven otherwise.</li>
+  <li><strong>Internuclear ophthalmoplegia (INO)</strong> &mdash; impaired adduction with abducting-eye nystagmus. Lesion of the ipsilateral MLF.</li>
+  <li><strong>Argyll Robertson pupil</strong> &mdash; accommodates but does not react to light. Neurosyphilis.</li>
+  <li><strong>Adie tonic pupil</strong> &mdash; sluggish, large, with absent DTRs. Benign, autonomic ganglion.</li>
+  <li><strong>Gerstmann syndrome</strong> &mdash; agraphia, acalculia, finger agnosia, left-right disorientation. Dominant inferior parietal.</li>
+  <li><strong>Anton's syndrome</strong> &mdash; cortical blindness with denial. Bilateral occipital.</li>
+  <li><strong>Foster Kennedy</strong> &mdash; ipsilateral optic atrophy + contralateral papilledema. Frontal mass.</li>
+</ul>
+
+<h2 id="red">5 · Red flags &amp; when to refer</h2>
+<div class="refer"><strong>Refer urgently (same day / emergency):</strong>
+  <ul>
+    <li>Sudden focal deficit lasting &gt;a few minutes (stroke / TIA window).</li>
+    <li>Thunderclap headache &mdash; "worst headache of life," peak in &lt;1 min.</li>
+    <li>New headache + fever and/or neck stiffness.</li>
+    <li>New severe headache after age 50, especially with jaw claudication, scalp tenderness, or visual symptoms (giant-cell arteritis).</li>
+    <li>Status epilepticus or first-ever seizure.</li>
+    <li>Acute spinal cord syndrome: bilateral leg weakness, sensory level, or new bowel/bladder dysfunction.</li>
+    <li>Acute ascending weakness with areflexia (Guillain-Barr&eacute;).</li>
+    <li>Rapidly progressive bulbar weakness, dyspnea, or dysphagia (MG crisis, GBS).</li>
+    <li>Sudden monocular vision loss (consider arteritic AION, central retinal artery occlusion, optic neuritis).</li>
+    <li>Acute vertigo with central HINTS features.</li>
+    <li>Painful third-nerve palsy with dilated pupil (PCom aneurysm).</li>
+    <li>Cauda equina symptoms.</li>
+  </ul>
+</div>
+<div class="warn"><strong>Refer routinely:</strong> progressive cognitive decline; chronic headache not meeting primary headache criteria; tremor or movement disorder; chronic neuropathy needing aetiologic workup; refractory epilepsy; suspected MS; suspected motor neuron disease.</div>
+
+<h2 id="quick">6 · Quick-reference tables</h2>
+
+<h4>Pupillary findings</h4>
+<table>
+<tr><th>Finding</th><th>Likely cause</th></tr>
+<tr><td>Small, reactive, bilateral</td><td>Pons (e.g.&nbsp;pontine haemorrhage), opioids</td></tr>
+<tr><td>Mid-position, fixed</td><td>Midbrain</td></tr>
+<tr><td>Dilated, fixed, unilateral</td><td>Uncal herniation, CN III compression (PCom aneurysm)</td></tr>
+<tr><td>RAPD (Marcus Gunn)</td><td>Optic-nerve / retinal disease on affected side</td></tr>
+<tr><td>Anisocoria worse in dark</td><td>Sympathetic problem (Horner)</td></tr>
+<tr><td>Anisocoria worse in light</td><td>Parasympathetic problem (CN III, Adie)</td></tr>
+</table>
+
+<h4>Glasgow Coma Scale</h4>
+<table>
+<tr><th>Eye (4)</th><th>Verbal (5)</th><th>Motor (6)</th></tr>
+<tr><td>4 spontaneous · 3 to speech · 2 to pain · 1 none</td>
+    <td>5 oriented · 4 confused · 3 inappropriate · 2 incomprehensible · 1 none</td>
+    <td>6 obeys · 5 localizes · 4 withdraws · 3 flexion · 2 extension · 1 none</td></tr>
+</table>
+
+<h4>Spinal cord landmarks</h4>
+<table>
+<tr><th>Level</th><th>Landmark</th></tr>
+<tr><td>C4</td><td>Top of shoulder; diaphragm (phrenic, C3&ndash;5 "keeps the diaphragm alive")</td></tr>
+<tr><td>T4</td><td>Nipple line</td></tr>
+<tr><td>T10</td><td>Umbilicus</td></tr>
+<tr><td>L1</td><td>Inguinal ligament</td></tr>
+<tr><td>S2&ndash;4</td><td>Perineum (anal wink, bulbocavernosus)</td></tr>
+</table>
+
+<hr>
+<p class="src">Sources for this module: Adams &amp; Victor's <em>Principles of Neurology</em>, 12e &mdash; Chapter 1 (Approach to the Patient With Neurologic Disease) and the symptom-localization framework that threads through Chapters 3&ndash;14. Merritt's <em>Neurology</em>, 14e &mdash; Chapter 3 (Neurologic History Taking, Localization, and Differential Diagnosis) and Chapter 4 (The Neurologic Examination). Tables drawn from Merritt's 3.1, 3.2, 4.1, and 4.2.</p>
+
+</body>
+</html>
