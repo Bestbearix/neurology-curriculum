@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 3 — Epilepsy & Seizure Disorders (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#b08aff; --accent-2:#d4bfff;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);
+    color:var(--ink); min-height:100vh;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(176,138,255,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#1a0f33; font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#e6d6ff}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px; transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(176,138,255,.10); border-color:var(--accent); color:#e6d6ff}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+
+  /* Flashcards */
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+
+  /* Quiz */
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+
+  /* Classifier */
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#1a0f33; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(176,138,255,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+
+  /* Stepper for SE walkthrough */
+  .stepper{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .stepper .nav{display:flex; gap:8px; align-items:center; justify-content:space-between; margin-bottom:16px}
+  .stepper .step-dots{display:flex; gap:6px}
+  .stepper .step-dot{width:11px; height:11px; border-radius:50%; background:var(--panel-2); border:1px solid var(--line); cursor:pointer}
+  .stepper .step-dot.active{background:var(--accent); border-color:var(--accent)}
+  .stepper .step-dot.done{background:var(--good); border-color:var(--good)}
+  .stepper button.step-btn{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:7px 14px; border-radius:6px; cursor:pointer; font:inherit; font-size:.9rem}
+  .stepper button.step-btn:hover{border-color:var(--accent); color:var(--accent-2)}
+  .stepper button.step-btn:disabled{opacity:.4; cursor:not-allowed}
+  .stepper .time-badge{display:inline-block; background:rgba(95,176,255,.15); color:#d5e8ff; padding:3px 10px; border-radius:14px; font-size:.78rem; margin-bottom:8px; letter-spacing:.5px}
+  .stepper h3{margin-top:6px; color:var(--accent-2)}
+  .stepper .step-body{min-height:280px}
+  .stepper .drug-card{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:12px 14px; margin:8px 0}
+  .stepper .drug-card .name{color:var(--accent-2); font-weight:600; margin-bottom:4px}
+  .stepper .drug-card .dose{font-family:'SF Mono','Consolas',monospace; font-size:.88rem; color:#d5e8ff; margin-bottom:4px}
+  .stepper .drug-card .notes{font-size:.85rem; color:var(--muted)}
+
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+
+  @media (max-width:560px){
+    .wrap{padding:18px 12px 60px}
+    header h1{font-size:1.35rem}
+    nav.tabs{flex-direction:column}
+    nav.tabs button{text-align:left}
+    .deck{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 3</span>
+    <span class="badge">General physician</span>
+    <h1>Epilepsy &amp; Seizure Disorders — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 15) and Merritt's <em>Neurology</em> (14e, Ch. 7, 60, 61).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="se">Status Walkthrough</button>
+    <button data-tab="classifier">Seizure Classifier</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>About 11% of people will have a seizure in their lifetime, and 1–2% will develop epilepsy. As a general physician, you will see first seizures, breakthrough seizures, suspected non-epileptic events, and the occasional status epilepticus. This module covers the bedside reasoning, the workup, the drug ladder, and the protocol that saves brain in status.</p>
+
+    <h3>After this module you will be able to:</h3>
+    <ul>
+      <li>Apply the ILAE 2017 classification to any witnessed event.</li>
+      <li>Distinguish seizure from syncope and PNES at the bedside.</li>
+      <li>Decide when to start an AED after a first seizure.</li>
+      <li>Pick a first-line AED appropriate to seizure type and patient.</li>
+      <li>Run the status epilepticus protocol on the clock.</li>
+      <li>Counsel women, older adults, and refractory patients about specific risks.</li>
+    </ul>
+
+    <h3>How to use this module</h3>
+    <ul>
+      <li><strong>Lessons</strong> &mdash; 10 collapsible panels.</li>
+      <li><strong>Flashcards</strong> &mdash; 20 flippable cards.</li>
+      <li><strong>Quiz</strong> &mdash; 10 board-style questions.</li>
+      <li><strong>Status Walkthrough</strong> &mdash; new for this module: a stepwise carousel through SE management on the clock (0–60 min).</li>
+      <li><strong>Seizure Classifier</strong> &mdash; click-through ILAE 2017 categorisation.</li>
+      <li><strong>Cases</strong> &mdash; 5 vignettes.</li>
+    </ul>
+
+    <div class="time"><strong>The clock that matters most in this module:</strong> in convulsive status, benzodiazepine within 5 min, second-line agent within 20 min, anaesthetic within 40–60 min if not controlled. Under-dosing and delay are the most common errors.</div>
+  </section>
+
+  <!-- LESSONS -->
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Definitions — seizure vs epilepsy vs provoked seizure</summary>
+      <div class="body">
+        <p>A <strong>seizure</strong> = transient clinical event from excessive synchronous cortical neuronal activity.</p>
+        <p><strong>Epilepsy</strong> (ILAE 2014): ≥ 2 unprovoked seizures &gt; 24 h apart, <em>or</em> 1 unprovoked seizure with &gt; 60% 10-year recurrence risk, <em>or</em> diagnosis of an epilepsy syndrome.</p>
+        <p><strong>Acute symptomatic / provoked seizure:</strong> caused by an immediate brain insult — stroke, head injury, CNS infection, severe metabolic derangement, drug exposure. Treat the cause; AEDs short-term or not at all.</p>
+        <div class="pearl"><strong>Pearl:</strong> A single seizure with an epileptiform EEG, structural lesion on MRI, nocturnal onset, or focal onset already meets ILAE criteria for epilepsy — start an AED.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. ILAE 2017 classification — onset, awareness, motor features</summary>
+      <div class="body">
+        <ol>
+          <li><strong>Onset:</strong> focal vs generalised vs unknown.</li>
+          <li><strong>Awareness</strong> (focal only): aware vs impaired awareness.</li>
+          <li><strong>Motor features:</strong> automatisms, tonic, clonic, atonic, myoclonic, hyperkinetic, behavioural arrest, etc.</li>
+        </ol>
+        <p>Retired terms: "simple partial" → focal aware; "complex partial" → focal impaired awareness; "secondarily generalised" → focal to bilateral tonic-clonic.</p>
+        <p>Localising auras: epigastric rising / déjà vu → mesial temporal; visual circles → occipital; sensory march → contralateral postcentral; forced head version → contralateral frontal eye field.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Seizure vs syncope vs PNES — the bedside distinction</summary>
+      <div class="body">
+        <table>
+          <tr><th></th><th>Seizure</th><th>Syncope</th><th>PNES</th></tr>
+          <tr><td>Eyes</td><td>Open/deviated</td><td>Roll up then close</td><td>Forced closed</td></tr>
+          <tr><td>Movements</td><td>Synchronous, sustained</td><td>Brief asynchronous myoclonus</td><td>Asynchronous, side-to-side head, pelvic thrust</td></tr>
+          <tr><td>Duration</td><td>1–3 min</td><td>Seconds</td><td>Often &gt; 2 min, waxing/waning</td></tr>
+          <tr><td>Tongue biting</td><td>Lateral</td><td>None</td><td>Tip, rare</td></tr>
+          <tr><td>Postictal</td><td>Confusion, minutes-hours</td><td>Quick recovery</td><td>Often abrupt; can recall</td></tr>
+        </table>
+        <div class="pearl"><strong>Lateral tongue biting and shoulder dislocation</strong> suggest GTC. <strong>Eyes forced closed</strong> during the event is one of the strongest signs of PNES.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. The first seizure workup</summary>
+      <div class="body">
+        <ol>
+          <li>Witness history (mandatory).</li>
+          <li>Exam — focal deficits, meningism, head injury, neurocutaneous stigmata.</li>
+          <li>Labs — CBC, electrolytes (Na, Ca, Mg), glucose, renal/liver, urine toxicology, pregnancy test.</li>
+          <li>ECG — exclude long-QT / Brugada (convulsive syncope mimic).</li>
+          <li>Non-contrast CT in ED to exclude acute lesions.</li>
+          <li>Outpatient MRI with epilepsy protocol.</li>
+          <li>EEG within 24–48 h (sleep-deprived if normal initially).</li>
+        </ol>
+        <p>Start an AED if recurrence risk &gt; 60%: epileptiform EEG, structural lesion, focal onset, nocturnal seizure, recognised syndrome (e.g. JME morning myoclonus).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Epilepsy syndromes worth knowing</summary>
+      <div class="body">
+        <table>
+          <tr><th>Syndrome</th><th>Key features</th></tr>
+          <tr><td>Childhood absence</td><td>4–12 y. 3-Hz generalised spike-wave. Ethosuximide or valproate.</td></tr>
+          <tr><td>Juvenile myoclonic epilepsy</td><td>Morning myoclonic jerks + GTC on awakening. Lifelong AED. <strong>Avoid Na-channel blockers</strong> (carbamazepine, oxcarbazepine, phenytoin) — worsen myoclonus.</td></tr>
+          <tr><td>Mesial temporal lobe epilepsy</td><td>Most common adult focal epilepsy. Febrile-seizure history; hippocampal sclerosis. Up to 80% become seizure-free after temporal lobectomy.</td></tr>
+          <tr><td>Frontal lobe epilepsy</td><td>Brief nocturnal cluster seizures with bizarre motor (bicycling, pelvic thrust). Often mistaken for PNES.</td></tr>
+          <tr><td>Benign Rolandic</td><td>Children 4–13 y, nocturnal hemifacial twitching, drooling, speech arrest. Self-limited.</td></tr>
+          <tr><td>Lennox-Gastaut</td><td>Multiple seizure types incl. atonic drops, slow spike-wave, intellectual disability. Refractory.</td></tr>
+          <tr><td>West syndrome (infantile spasms)</td><td>Flexor spasms in clusters, hypsarrhythmia, regression. <em>Emergency.</em> ACTH or vigabatrin.</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. AED first-line choices by seizure type</summary>
+      <div class="body">
+        <table>
+          <tr><th>Seizure type</th><th>First-line</th><th>Avoid</th></tr>
+          <tr><td>Focal</td><td>Lamotrigine, levetiracetam, lacosamide, oxcarbazepine</td><td>Ethosuximide</td></tr>
+          <tr><td>Generalised tonic-clonic (idiopathic)</td><td>Valproate (men), lamotrigine, levetiracetam</td><td>—</td></tr>
+          <tr><td>Absence</td><td>Ethosuximide (alone), valproate, lamotrigine</td><td>Carbamazepine, oxcarbazepine, phenytoin, gabapentin, vigabatrin (worsen)</td></tr>
+          <tr><td>JME</td><td>Valproate, levetiracetam, lamotrigine, topiramate</td><td>Carbamazepine, oxcarbazepine, phenytoin (worsen myoclonus)</td></tr>
+        </table>
+        <div class="warn"><strong>Valproate in women of childbearing age:</strong> 4–9% major malformation rate and reduced child IQ. Avoid unless no alternative; document careful counselling and contraception plan.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. AED side effects you must counsel about</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Lamotrigine</strong> &mdash; rash; slow titration is essential. Any rash → stop and contact you.</li>
+          <li><strong>Carbamazepine</strong> &mdash; SIADH/hyponatraemia, leucopenia; Stevens-Johnson if HLA-B*1502 positive (Asian populations — screen).</li>
+          <li><strong>Valproate</strong> &mdash; weight gain, tremor, hair loss, hepatotoxicity, pancreatitis, hyperammonaemia, teratogen.</li>
+          <li><strong>Phenytoin</strong> &mdash; gingival hyperplasia, hirsutism, cerebellar toxicity with chronic use; zero-order kinetics; many interactions.</li>
+          <li><strong>Levetiracetam</strong> &mdash; irritability/depression in ~10–15%.</li>
+          <li><strong>Topiramate</strong> &mdash; cognitive slowing, weight loss, paraesthesia, kidney stones, acute glaucoma.</li>
+          <li><strong>Phenobarbital</strong> &mdash; sedation, cognitive blunting, dependence, induction.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Status epilepticus — the protocol</summary>
+      <div class="body">
+        <p>SE = continuous seizure &gt; 5 min, or 2+ seizures without recovery between. Treat from minute 5.</p>
+        <ol>
+          <li><strong>0–5 min:</strong> ABC, glucose, IV access.</li>
+          <li><strong>5–20 min:</strong> Lorazepam 0.1 mg/kg IV (or IM midazolam 10 mg if no IV).</li>
+          <li><strong>20–40 min:</strong> Second-line agent — fosphenytoin 20 PE/kg <em>or</em> valproate 40 mg/kg <em>or</em> levetiracetam 60 mg/kg. ESETT trial: similar efficacy (~47%).</li>
+          <li><strong>40–60 min:</strong> Intubate. Continuous IV anaesthetic — midazolam, propofol, or pentobarbital. cEEG.</li>
+          <li><strong>&gt; 24 h:</strong> Super-refractory SE — add ketamine, ketogenic diet, hypothermia, immunotherapy.</li>
+        </ol>
+        <p>Use the <strong>Status Walkthrough</strong> tab to step through the protocol with timer and dose cards.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Women, older adults, and refractory epilepsy</summary>
+      <div class="body">
+        <h4>Pre-conception</h4>
+        <ul>
+          <li>Avoid valproate when possible.</li>
+          <li>Lamotrigine and levetiracetam are the safest AEDs in pregnancy.</li>
+          <li>Folic acid 0.4–5 mg daily before conception.</li>
+          <li>Lamotrigine levels fall in pregnancy — monitor and uptitrate.</li>
+          <li>Enzyme inducers reduce OCP efficacy and vice versa.</li>
+        </ul>
+        <h4>Older adults</h4>
+        <p>Stroke is the leading cause of new-onset epilepsy &gt; 60 y. Use lamotrigine or levetiracetam — clean profiles, minimal interactions. Renal dose levetiracetam.</p>
+        <h4>Refractory epilepsy</h4>
+        <p>Failure of 2 appropriate AEDs at adequate dose = drug-resistant epilepsy. Refer to an epilepsy centre. Up to 80% of selected temporal lobe epilepsy patients become seizure-free after surgery.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Red flags &amp; lifestyle counselling</summary>
+      <div class="body">
+        <div class="refer"><strong>Refer / admit immediately:</strong> status epilepticus · first-ever seizure with focal deficit / fever / meningism / suspected SAH · eclampsia · infantile spasms · failure to wake within 20 min of a convulsion (suspect non-convulsive SE).</div>
+        <p><strong>Lifestyle:</strong> Driving restrictions (6–12 months in most jurisdictions); no heights, no swimming alone, supervise bathing infants. Encourage seizure diary. Sudden unexpected death in epilepsy (SUDEP) — rare but real, particularly with nocturnal GTC; counsel about treatment adherence and avoiding triggers.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <!-- STATUS EPILEPTICUS WALKTHROUGH -->
+  <section class="tab-panel" id="se">
+    <h2>Status Epilepticus Stepwise Walkthrough</h2>
+    <p class="muted">Step through the protocol on the clock. Use Next / Previous to navigate.</p>
+    <div class="stepper" id="seStepper"></div>
+  </section>
+
+  <!-- SEIZURE CLASSIFIER -->
+  <section class="tab-panel" id="classifier">
+    <h2>Seizure Classifier (ILAE 2017)</h2>
+    <p class="muted">Answer the questions in order. The tool builds an ILAE-style classification.</p>
+    <div class="tool" id="classTool">
+      <div class="q">1. Was there a focal onset (any aura, lateralised motor or sensory feature, version, or focal EEG)?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="focal">Yes — focal onset</button>
+        <button class="opt" data-val="general">No — appears generalised from start</button>
+        <button class="opt" data-val="unknown">Unknown / unwitnessed</button>
+      </div>
+      <div id="cls-rest"></div>
+      <div class="result" id="cls-result"></div>
+      <button class="reset" onclick="resetClassifier()">Reset</button>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 19-year-old with morning jerks and a single GTC</summary>
+      <div class="body">
+        <p>For 2 years, brief arm jerks on waking that have caused her to drop her cereal bowl. Last week, she had a witnessed GTC the morning after a sleep-deprived night. MRI normal. EEG: generalised 4–5 Hz polyspike-and-wave.</p>
+        <p><strong>Diagnosis:</strong> juvenile myoclonic epilepsy. Lifelong AED required.</p>
+        <p><strong>AED choice:</strong> levetiracetam or lamotrigine (she is a young woman; avoid valproate). <em>Do not</em> use carbamazepine, oxcarbazepine, or phenytoin — they worsen myoclonus.</p>
+        <p>Counsel: sleep regularity, alcohol moderation, OCP/AED interaction, folic acid before any pregnancy, driving restrictions.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 38-year-old with episodes of déjà vu and lip-smacking</summary>
+      <div class="body">
+        <p>Past medical history includes a prolonged febrile seizure at age 18 months. Brief episodes of déjà vu, epigastric rising, and a "cold feeling", followed by witnessed unresponsiveness with lip smacking and right-hand fumbling, then confused for 5 minutes. MRI: right hippocampal atrophy and FLAIR hyperintensity (mesial temporal sclerosis). EEG: right anterior temporal sharp waves.</p>
+        <p><strong>Diagnosis:</strong> right mesial temporal lobe epilepsy with focal impaired awareness seizures.</p>
+        <p>Trial AED (lamotrigine or levetiracetam). If two AEDs fail → refer to epilepsy surgery centre; up to 80% become seizure-free after temporal lobectomy.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — Status epilepticus in the ED</summary>
+      <div class="body">
+        <p>A 52-year-old known epileptic arrives in active convulsion, started 8 minutes ago per EMS. Glucose 110. IV in place.</p>
+        <p><strong>0–5 min:</strong> ABCs done. <strong>5–20 min:</strong> Lorazepam 4 mg IV. Still seizing at 12 min — repeat lorazepam 4 mg IV. <strong>20–40 min:</strong> Add fosphenytoin 20 PE/kg IV. <strong>If still seizing at 40 min:</strong> intubate, midazolam infusion, cEEG.</p>
+        <p>Search for cause — missed AEDs, infection, low AED level, drugs lowering threshold.</p>
+        <div class="warn"><strong>Don't forget:</strong> if convulsions stop but the patient doesn't wake within 20 min, suspect non-convulsive SE — order cEEG.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — Possible PNES</summary>
+      <div class="body">
+        <p>A 26-year-old with recurrent "seizures" — eyes forced closed, side-to-side head movement, asynchronous limb thrashing lasting &gt; 5 minutes, with full recall afterwards. AED levels therapeutic. MRI normal. Interictal EEGs normal.</p>
+        <p><strong>Next step:</strong> admit for inpatient video-EEG monitoring to capture an event and confirm.</p>
+        <p>Important: many patients with PNES also have epilepsy. Don't withdraw AEDs without confirmation.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — First seizure, normal workup</summary>
+      <div class="body">
+        <p>A 45-year-old man has a single witnessed GTC after a night of poor sleep and alcohol. Examination normal. CT, EEG, and MRI all normal. No prior events.</p>
+        <p><strong>Recurrence risk:</strong> ~24% over 2 years (lower with normal EEG + MRI). Does not meet ILAE criteria for epilepsy after a single unprovoked seizure with negative workup.</p>
+        <p>Reasonable to not start an AED, with careful counselling about triggers (sleep, alcohol), driving restrictions per local law, and return if a second event occurs (which would meet criteria for epilepsy).</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 3 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 15; Merritt's <em>Neurology</em> 14e Ch. 7 (SE protocol, ESETT, NCS guidelines), Ch. 60 (ILAE 2017), Ch. 61 (Management).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Definition', q:'What duration of continuous seizure activity defines status epilepticus?', a:'≥ 5 minutes. The 5-minute threshold replaced the older 30-minute definition because isolated seizures rarely last longer and neuronal injury can begin by 5 min.'},
+  {tag:'Definition', q:'Two minimum criteria for diagnosing epilepsy?', a:'≥ 2 unprovoked seizures > 24 h apart, OR 1 unprovoked seizure with > 60% 10-year recurrence risk, OR a recognised epilepsy syndrome.'},
+  {tag:'Classification', q:'What replaced "complex partial seizure" in ILAE 2017?', a:'Focal impaired awareness seizure.'},
+  {tag:'Classification', q:'What replaced "secondarily generalised tonic-clonic"?', a:'Focal to bilateral tonic-clonic seizure.'},
+  {tag:'Localization', q:'Aura of déjà vu and epigastric rising — which lobe?', a:'Mesial temporal lobe.'},
+  {tag:'Aphasia', q:'Forced version of head and eyes during a seizure — where is the focus?', a:'Contralateral frontal eye field.'},
+  {tag:'1st seizure', q:'After a single unprovoked seizure, what factor most strongly predicts recurrence?', a:'An epileptiform EEG (next: structural lesion on MRI). These move recurrence risk above 60% over 10 y and meet ILAE criteria for epilepsy.'},
+  {tag:'AED', q:'First-line drug for absence seizures (alone)?', a:'Ethosuximide. Avoid carbamazepine, oxcarbazepine, phenytoin, gabapentin, vigabatrin — they can worsen absences.'},
+  {tag:'AED', q:'AEDs to AVOID in juvenile myoclonic epilepsy?', a:'Carbamazepine, oxcarbazepine, phenytoin — they worsen myoclonus. Lamotrigine sometimes does too.'},
+  {tag:'AED', q:'Safest AEDs in pregnancy?', a:'Lamotrigine and levetiracetam. Avoid valproate (4–9% malformation rate, reduced child IQ).'},
+  {tag:'AED', q:'Lamotrigine — key adverse effect requiring slow titration?', a:'Rash, including Stevens-Johnson syndrome. Titrate over weeks; any rash → stop and contact prescriber.'},
+  {tag:'AED', q:'Carbamazepine in Asian patients — what to screen for?', a:'HLA-B*1502 allele — strongly predicts Stevens-Johnson syndrome / TEN.'},
+  {tag:'Status', q:'First-line drug and dose in convulsive SE?', a:'IV lorazepam 0.1 mg/kg (max 4 mg per dose); may repeat once. If no IV: IM midazolam 10 mg (≥ 40 kg).'},
+  {tag:'Status', q:'Three equivalent second-line agents in SE (per ESETT)?', a:'Fosphenytoin 20 PE/kg, valproate 40 mg/kg, levetiracetam 60 mg/kg. Similar efficacy ~47%.'},
+  {tag:'Status', q:'Refractory SE — initial anaesthetic agents?', a:'Continuous infusion of midazolam, propofol, or pentobarbital. Intubate. cEEG mandatory.'},
+  {tag:'Status', q:'Most common error in SE management?', a:'Under-dosing benzodiazepines and delay in escalating to second-line therapy.'},
+  {tag:'Mimics', q:'Eyes forced closed during a "seizure" suggests?', a:'Psychogenic non-epileptic seizure (PNES). Confirm with video-EEG.'},
+  {tag:'Mimics', q:'Postictal Todd paralysis — what is it?', a:'Focal weakness for minutes to hours after a seizure, lateralising to the contralateral motor cortex. Mimics stroke.'},
+  {tag:'Provoked', q:'Non-ketotic hyperglycaemia and seizures — which AED is famously ineffective?', a:'Phenytoin (it can paradoxically worsen). Correct the glucose; AED rarely needed long-term.'},
+  {tag:'Refractory', q:'Definition of drug-resistant epilepsy?', a:'Failure of two appropriately chosen, tolerated, and adequately dosed AEDs (mono or in combination) to achieve sustained seizure freedom.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `
+    <div class="face">
+      <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+      <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+    </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted){ el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 22-year-old has morning jerks of the arms and one GTC. EEG shows generalised 4-Hz polyspike-and-wave. Which first-line AED should be AVOIDED?',
+   choices:['Lamotrigine','Levetiracetam','Carbamazepine','Valproate'],
+   ans:2,
+   why:'Carbamazepine (and other Na-channel blockers like oxcarbazepine and phenytoin) worsen myoclonus and absences in idiopathic generalised epilepsies including JME. Lamotrigine, levetiracetam, and valproate are appropriate first-line options (with valproate avoided in women of childbearing age).'},
+  {q:'A 30-year-old presents in active convulsion that started 10 min ago. What is the correct first-line drug and dose?',
+   choices:['Phenytoin 20 mg/kg IV','Lorazepam 0.1 mg/kg IV (max 4 mg), may repeat','Levetiracetam 60 mg/kg IV','Propofol infusion'],
+   ans:1,
+   why:'Benzodiazepines are first-line for SE. Lorazepam 0.1 mg/kg IV (max 4 mg) is preferred; may repeat once after 5–10 min. Phenytoin/fosphenytoin and levetiracetam are second-line "urgent control" agents, not first-line. Propofol is third-line (anaesthetic) for refractory SE.'},
+  {q:'A 25-year-old woman with epilepsy is planning pregnancy. Which AED change should you strongly consider?',
+   choices:['Continue valproate at lowest effective dose','Switch valproate to lamotrigine or levetiracetam if seizure control allows','Add ethosuximide','Add carbamazepine'],
+   ans:1,
+   why:'Valproate has a 4–9% major malformation rate (neural tube defects) and is associated with reduced child IQ. In women of childbearing age, switch to lamotrigine or levetiracetam where possible. Start folic acid 0.4–5 mg daily pre-conception.'},
+  {q:'A patient is brought in seizing. He has received 2 doses of IV lorazepam (full dose) and full-dose fosphenytoin. He continues to seize at minute 35. What is the next step?',
+   choices:['Repeat lorazepam','Wait and reassess in 30 min','Intubate and start continuous IV midazolam or propofol','Add gabapentin'],
+   ans:2,
+   why:'This is refractory SE. After failure of benzodiazepine plus a second-line agent at full dose, escalate to continuous IV anaesthetic (midazolam, propofol, or pentobarbital), intubate, and start continuous EEG monitoring. Repeating benzodiazepines or waiting risks brain injury.'},
+  {q:'A 60-year-old has a witnessed "seizure" with eyes forced closed, side-to-side head movement, asynchronous limb thrashing for 8 minutes, then recalls the entire event. MRI and AED levels are normal. What is the most appropriate next investigation?',
+   choices:['Repeat CT brain','Lumbar puncture','Inpatient video-EEG monitoring','Tilt-table test'],
+   ans:2,
+   why:'These are classic features of psychogenic non-epileptic seizures (PNES). Video-EEG monitoring during a captured event is the gold standard for diagnosis. Many patients also have epilepsy, so do not withdraw AEDs before confirmation.'},
+  {q:'Which feature most strongly supports starting an AED after a SINGLE unprovoked seizure?',
+   choices:['Female sex','A clearly epileptiform EEG','Mild headache after the event','Normal CT scan'],
+   ans:1,
+   why:'Epileptiform EEG, structural lesion on MRI, focal onset, and nocturnal onset all raise 10-year recurrence risk above 60%, meeting ILAE criteria for epilepsy after a single seizure — start an AED.'},
+  {q:'A 70-year-old with diabetes presents with confusion and focal right-hand twitching. Glucose 800 mg/dL, no ketosis. CT normal. Which AED is famously LEAST effective in this scenario?',
+   choices:['Levetiracetam','Lacosamide','Phenytoin','Lorazepam'],
+   ans:2,
+   why:'Non-ketotic hyperglycaemia classically causes focal motor seizures (epilepsia partialis continua) that are paradoxically resistant to phenytoin. Treatment is correction of the hyperglycaemia; benzodiazepines for acute control if needed.'},
+  {q:'In a young child, which set of findings is a true neurological emergency?',
+   choices:['Brief afebrile staring spells','Cluster of flexor spasms with hypsarrhythmia on EEG and developmental regression','Three episodes of nocturnal hemifacial twitching with normal MRI','A single 30-second simple febrile seizure'],
+   ans:1,
+   why:'This is West syndrome (infantile spasms). It is a neurological emergency — early treatment with ACTH, prednisolone, or vigabatrin improves developmental outcomes. The other scenarios are usually benign (Rolandic epilepsy, absence, simple febrile).'},
+  {q:'Which AED side effect is correctly paired with its drug?',
+   choices:['Lamotrigine — gingival hyperplasia','Phenytoin — Stevens-Johnson rash from rapid titration','Valproate — hyperammonaemia and hepatotoxicity','Topiramate — weight gain'],
+   ans:2,
+   why:'Valproate causes hepatotoxicity, hyperammonaemia, pancreatitis, weight gain, tremor, and teratogenicity. Gingival hyperplasia is phenytoin. Stevens-Johnson with rapid titration is classic for lamotrigine. Topiramate causes weight loss, not gain.'},
+  {q:'A patient with epilepsy stops responding after a 4-minute generalised tonic-clonic seizure. Twenty-five minutes later she remains unresponsive but is no longer convulsing. What should you suspect and do?',
+   choices:['Normal postictal state — observe','Suspect non-convulsive status epilepticus — order continuous EEG','Sedation effect of lorazepam — wait','Hypoglycaemia — give D50 only'],
+   ans:1,
+   why:'If a patient fails to return toward baseline within 20 minutes of a convulsion stopping, suspect non-convulsive SE. Order continuous EEG. Up to half of patients with generalised convulsive SE continue to have electrographic seizures after the convulsions stop.'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== Status Epilepticus Stepper ===== */
+const seSteps = [
+  {time:'0–5 min', title:'Stabilisation', body:`
+    <p>The clock starts at seizure onset, not arrival.</p>
+    <ul>
+      <li>Airway (lateral position, suction); breathing; circulation.</li>
+      <li>Bedside <strong>glucose finger-stick</strong> — give IV thiamine 100 mg + D50W 50 mL if low.</li>
+      <li>IV access; draw labs (CBC, electrolytes, glucose, renal/liver, AED levels, troponin, urine tox, pregnancy test).</li>
+      <li>Continuous cardiac and oxygen-saturation monitoring.</li>
+      <li>Look for obvious precipitants: head injury, fever, focal deficit.</li>
+    </ul>`},
+  {time:'5–20 min', title:'First-line: Benzodiazepine', body:`
+    <p>The single most important step. <strong>Don't underdose.</strong></p>
+    <div class="drug-card">
+      <div class="name">IV Lorazepam (preferred)</div>
+      <div class="dose">0.1 mg/kg IV, max 4 mg per dose. Rate up to 2 mg/min.</div>
+      <div class="notes">May repeat once after 5–10 min if still seizing (total max 8 mg).</div>
+    </div>
+    <div class="drug-card">
+      <div class="name">IM Midazolam (if no IV access)</div>
+      <div class="dose">10 mg IM (≥ 40 kg) — single dose.</div>
+      <div class="notes">Non-inferior to IV lorazepam (RAMPART trial).</div>
+    </div>
+    <div class="drug-card">
+      <div class="name">IV Diazepam (alternative)</div>
+      <div class="dose">0.15 mg/kg IV, max 10 mg per dose.</div>
+      <div class="notes">Rectal 0.2 mg/kg if no IV/IM access.</div>
+    </div>`},
+  {time:'20–40 min', title:'Second-line: Urgent Control', body:`
+    <p>Give <em>concurrently</em> with the benzodiazepine — don't wait for failure. ESETT trial found these three equivalent (~47% efficacy each).</p>
+    <div class="drug-card">
+      <div class="name">Fosphenytoin / Phenytoin</div>
+      <div class="dose">20 mg PE/kg IV. Fosphenytoin up to 150 mg PE/min; phenytoin 50 mg/min with cardiac monitor.</div>
+      <div class="notes">Watch for hypotension and arrhythmia, particularly with phenytoin.</div>
+    </div>
+    <div class="drug-card">
+      <div class="name">Valproate</div>
+      <div class="dose">40 mg/kg IV over 10 min; may add another 20 mg/kg if needed.</div>
+      <div class="notes">Avoid in pregnancy, liver disease, mitochondrial disease (POLG).</div>
+    </div>
+    <div class="drug-card">
+      <div class="name">Levetiracetam</div>
+      <div class="dose">60 mg/kg IV (max 4.5 g), rate 2–5 mg/kg/min.</div>
+      <div class="notes">Clean profile; good choice if pregnant or on multiple drugs.</div>
+    </div>`},
+  {time:'40–60 min', title:'Refractory SE: Anaesthetic Infusion', body:`
+    <p>Failure of benzodiazepine + second-line = refractory SE (~30% of all SE).</p>
+    <ul>
+      <li><strong>Intubate.</strong></li>
+      <li>Start <strong>continuous EEG</strong> within 1 h; titrate to seizure suppression or burst-suppression per protocol.</li>
+      <li>Maintain MAP with fluids and pressors as needed.</li>
+    </ul>
+    <div class="drug-card">
+      <div class="name">Midazolam infusion</div>
+      <div class="dose">0.2 mg/kg bolus → 0.05–2.9 mg/kg/h.</div>
+      <div class="notes">Tachyphylaxis develops; may need escalating doses.</div>
+    </div>
+    <div class="drug-card">
+      <div class="name">Propofol infusion</div>
+      <div class="dose">1–2 mg/kg bolus → 30–100 µg/kg/min.</div>
+      <div class="notes">Watch for propofol infusion syndrome at sustained doses &gt; 80 µg/kg/min or &gt; 48 h.</div>
+    </div>
+    <div class="drug-card">
+      <div class="name">Pentobarbital infusion</div>
+      <div class="dose">5–15 mg/kg bolus (rate ≤ 50 mg/min) → 0.5–10 mg/kg/h.</div>
+      <div class="notes">Higher seizure-control efficacy but longer ventilator days; hypotension and ileus common.</div>
+    </div>`},
+  {time:'> 24 h', title:'Super-refractory SE', body:`
+    <p>Seizures persisting after 24 h of anaesthetic infusion. Transfer to tertiary centre if possible.</p>
+    <ul>
+      <li>Add <strong>ketamine</strong> infusion (NMDA antagonist) — often added to midazolam.</li>
+      <li>Search for autoimmune / paraneoplastic cause — consider <strong>IV steroids, IVIG, plasma exchange, rituximab</strong>.</li>
+      <li>Consider <strong>ketogenic diet</strong> and <strong>therapeutic hypothermia</strong>.</li>
+      <li>Continuous EEG mandatory; consider VNS or neurosurgical evaluation if focal.</li>
+      <li>Maintain background AED at therapeutic dose for taper plan.</li>
+    </ul>
+    <div class="time"><strong>Important reminder:</strong> if convulsions stop but the patient does not wake within 20 minutes, suspect <em>non-convulsive SE</em> — diagnose by cEEG.</div>`},
+];
+
+const seBox = document.getElementById('seStepper');
+let seIdx = 0;
+function renderSE() {
+  const s = seSteps[seIdx];
+  seBox.innerHTML = `
+    <div class="nav">
+      <button class="step-btn" id="se-prev" ${seIdx===0?'disabled':''}>← Previous</button>
+      <div class="step-dots" id="se-dots"></div>
+      <button class="step-btn" id="se-next" ${seIdx===seSteps.length-1?'disabled':''}>Next →</button>
+    </div>
+    <span class="time-badge">${s.time}</span>
+    <h3>${s.title}</h3>
+    <div class="step-body">${s.body}</div>`;
+  const dots = document.getElementById('se-dots');
+  seSteps.forEach((_,i) => {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i === seIdx ? ' active' : (i < seIdx ? ' done' : ''));
+    d.addEventListener('click', () => { seIdx = i; renderSE(); });
+    dots.appendChild(d);
+  });
+  document.getElementById('se-prev').addEventListener('click', () => { if (seIdx > 0){ seIdx--; renderSE(); } });
+  document.getElementById('se-next').addEventListener('click', () => { if (seIdx < seSteps.length-1){ seIdx++; renderSE(); } });
+}
+renderSE();
+
+/* ===== Seizure Classifier ===== */
+const cls = document.getElementById('classTool');
+const clsRest = document.getElementById('cls-rest');
+const clsResult = document.getElementById('cls-result');
+let clsState = {};
+
+function clsAns(step, val) {
+  clsState[step] = val;
+  Object.keys(clsState).forEach(k => { if(+k > step) delete clsState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o=>o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if(t) t.classList.add('sel');
+  renderCls();
+}
+
+function renderCls() {
+  clsRest.innerHTML = '';
+  clsResult.classList.remove('show');
+  const s0 = clsState[0];
+  if (!s0) return;
+
+  if (s0 === 'focal') {
+    addCls(1, '2. Was awareness preserved throughout?',
+      [['aware','Yes — patient aware'],['impaired','No — awareness impaired']]);
+    const s1 = clsState[1];
+    if (!s1) return;
+    addCls(2, '3. Did it evolve to bilateral tonic-clonic activity?',
+      [['no','No'],['yes','Yes — became bilateral tonic-clonic']]);
+    const s2 = clsState[2];
+    if (!s2) return;
+    addCls(3, '4. What was the most prominent feature?',
+      [['motor','Motor — automatisms / clonic / dystonic / hyperkinetic'],['nonmotor','Non-motor — sensory / autonomic / cognitive / behavioral arrest']]);
+    const s3 = clsState[3];
+    if (!s3) return;
+
+    let label = 'Focal ' + (s1==='aware'?'aware':'impaired awareness');
+    if (s3 === 'motor') label += ' motor';
+    else label += ' non-motor';
+    label += ' seizure';
+    if (s2 === 'yes') label += ', focal to bilateral tonic-clonic';
+
+    let dl = ['Mesial temporal (déjà vu / epigastric rising / olfactory aura, automatisms)','Frontal (brief, nocturnal, bizarre motor)','Occipital (visual aura)','Parietal (somatosensory march)'];
+    showCls(label, [`<strong>ILAE classification:</strong> ${label}.`,
+      `<strong>Likely lobe of origin (clinical guess):</strong> ${dl.join(' · ')}.`,
+      `<strong>Workup:</strong> MRI epilepsy protocol + EEG; consider sleep-deprived EEG if first standard EEG normal.`,
+      `<strong>AED considerations:</strong> first-line lamotrigine, levetiracetam, lacosamide, or oxcarbazepine. Mesial temporal lobe epilepsy that fails 2 AEDs is referred for surgical evaluation — up to 80% become seizure-free.`]);
+  }
+
+  if (s0 === 'general') {
+    addCls(1, '2. Predominant feature?',
+      [['tc','Tonic-clonic'],['absence','Absence (brief staring lapse)'],['myo','Myoclonic (brief muscle jerks)'],['atonic','Atonic (sudden drop)']]);
+    const s1 = clsState[1];
+    if (!s1) return;
+    let label, plan;
+    if (s1 === 'tc') {
+      label = 'Generalised tonic-clonic seizure';
+      plan = ['Idiopathic generalised epilepsy if EEG shows generalised spike-wave and MRI normal.','First-line: valproate (avoid in women of childbearing age), lamotrigine, levetiracetam.','If only on awakening → think GTC-alone syndrome.'];
+    } else if (s1 === 'absence') {
+      label = 'Absence seizure';
+      plan = ['EEG: 3-Hz generalised spike-and-wave is classic for childhood absence epilepsy.','First-line: ethosuximide (if absence alone); valproate or lamotrigine if GTC coexists.','<strong>Avoid carbamazepine, oxcarbazepine, phenytoin, gabapentin, vigabatrin</strong> — can worsen absences.'];
+    } else if (s1 === 'myo') {
+      label = 'Myoclonic seizure';
+      plan = ['Especially if morning jerks + family history → suspect juvenile myoclonic epilepsy (JME).','First-line: valproate, levetiracetam, lamotrigine, topiramate.','<strong>Avoid carbamazepine, oxcarbazepine, phenytoin</strong> — worsen myoclonus.'];
+    } else {
+      label = 'Atonic seizure';
+      plan = ['"Drop attacks" — high injury risk; consider protective helmet.','Often part of Lennox-Gastaut or epileptic encephalopathy.','First-line: valproate + lamotrigine; consider cannabidiol, rufinamide, clobazam, felbamate.','Refer to epilepsy specialist.'];
+    }
+    showCls(label, [`<strong>ILAE classification:</strong> ${label} (generalised onset).`, ...plan]);
+  }
+
+  if (s0 === 'unknown') {
+    showCls('Unknown onset seizure',
+      ['<strong>ILAE classification:</strong> Unknown onset, ' + 'usually then sub-classified by predominant feature (motor — tonic-clonic / epileptic spasm; non-motor — behavioural arrest).',
+       '<strong>Practical next steps:</strong> get a witness if possible; review any home video; obtain EEG (preferably sleep-deprived if first study normal) and MRI; consider video-EEG monitoring if recurrent and unclassified.',
+       '<strong>Treatment:</strong> if epilepsy is established, choose a broad-spectrum AED (levetiracetam or lamotrigine) until classification is clearer.']);
+  }
+}
+
+function addCls(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l])=>`<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  clsRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => clsAns(step, b.dataset.val)));
+  if (clsState[step]) {
+    const t = wrap.querySelector(`[data-val="${clsState[step]}"]`); if(t) t.classList.add('sel');
+  }
+}
+
+function showCls(title, items) {
+  clsResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+  clsResult.classList.add('show');
+}
+
+function resetClassifier() {
+  clsState = {};
+  clsRest.innerHTML = '';
+  clsResult.classList.remove('show');
+  document.querySelectorAll('#classTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => clsAns(0, b.dataset.val)));
+</script>
+</body>
+</html>

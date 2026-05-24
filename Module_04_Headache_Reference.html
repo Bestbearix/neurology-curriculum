@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 4 — Headache & Facial Pain (Reference)</title>
+<style>
+  :root{
+    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#0f7c66; --soft:#eef7f4;
+    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
+    --pearl-bg:#e8f5f1; --pearl-bd:#0f7c66; --pearl-ink:#0a4a3d;
+    --refer-bg:#fee5e2; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+    --time-bg:#eef7ff; --time-bd:#3a86b0; --time-ink:#163a6a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Charter','Iowan Old Style','Georgia',serif;
+    color:var(--ink); background:#fff; line-height:1.55;
+    max-width:880px; margin:0 auto; padding:48px 28px 96px;
+  }
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
+  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
+  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
+  h3{font-size:1.18rem; margin-top:1.8em; color:#0a4a3d}
+  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
+  li{margin:.25em 0}
+  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
+  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
+  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+
+  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
+  tbody tr:nth-child(even){background:#fafbfd}
+
+  .pearl,.warn,.refer,.time{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
+  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
+  .time{background:var(--time-bg); border-color:var(--time-bd); color:var(--time-ink)}
+
+  .src{font-size:.8rem; color:var(--muted)}
+  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
+  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+
+<h1>Module 4 — Headache &amp; Facial Pain</h1>
+<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 9) and <em>Merritt's Neurology</em> (14e, Ch. 9, 56, 57)</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Big picture: primary vs secondary headache</a></li>
+  <li><a href="#redflags">Red flags &mdash; SNOOP</a></li>
+  <li><a href="#workup">Initial workup &amp; when to image</a></li>
+  <li><a href="#migraine">Migraine</a></li>
+  <li><a href="#tth">Tension-type headache</a></li>
+  <li><a href="#tac">Trigeminal autonomic cephalalgias (cluster &amp; cousins)</a></li>
+  <li><a href="#secondary">Secondary headaches you must not miss</a></li>
+  <li><a href="#tn">Trigeminal neuralgia &amp; facial pain</a></li>
+  <li><a href="#moh">Medication overuse headache</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#quick">Quick-reference tables</a></li>
+</ol>
+</div>
+
+<h2 id="frame">1 · Big picture: primary vs secondary</h2>
+<p>The very first task with any patient who says "headache" is to decide whether you are dealing with a <strong>primary headache disorder</strong> (the headache <em>is</em> the disease &mdash; migraine, tension, cluster) or a <strong>secondary headache</strong> (the headache is a symptom of something else &mdash; SAH, meningitis, tumor, GCA, dissection, CVST, glaucoma, etc.).</p>
+
+<table>
+<tr><th>Primary</th><th>Lifetime prevalence</th><th>Hallmarks</th></tr>
+<tr><td>Tension-type headache</td><td>70–90%</td><td>Bilateral, pressing/tightening, mild–moderate, no nausea, no aggravation by activity. Self-treated.</td></tr>
+<tr><td>Migraine</td><td>~12–15% (17% women, 6% men)</td><td>Recurrent disabling attacks, lasting 4–72 h, with photo/phonophobia, nausea; often unilateral and throbbing.</td></tr>
+<tr><td>Trigeminal autonomic cephalalgias (TACs)</td><td>&lt; 1%</td><td>Strictly unilateral, severe, with prominent ipsilateral cranial autonomic symptoms (lacrimation, conjunctival injection, ptosis, miosis, rhinorrhoea, eyelid oedema).</td></tr>
+</table>
+
+<p>Most patients with disabling recurrent headache who reach a clinician have <strong>migraine</strong>, regardless of how they label it. Tension-type is more prevalent but rarely brings patients to medical attention.</p>
+
+<div class="pearl"><strong>Foundational rule:</strong> the differential for a <em>new-onset</em> severe headache is very different from that of a chronic, recurrent headache. Always ask: "Is this new, or different from your usual headaches?"</div>
+
+<h2 id="redflags">2 · Red flags &mdash; SNOOP</h2>
+<p>The <strong>SNOOP</strong> mnemonic captures features that raise suspicion of a secondary headache and demand workup.</p>
+
+<table>
+<tr><th>Letter</th><th>Feature</th><th>Diagnoses to think about</th></tr>
+<tr><td><strong>S</strong>ystemic</td><td>Fever, weight loss, night sweats, immunosuppression, malignancy, pregnancy/postpartum</td><td>Meningitis, abscess, tumor metastases, CVST in postpartum, intracranial infection in HIV</td></tr>
+<tr><td><strong>N</strong>eurologic</td><td>Focal deficit, altered mentation, seizure, papilloedema, ataxia, Valsalva-induced</td><td>Mass lesion, raised ICP, stroke, encephalitis, IIH</td></tr>
+<tr><td><strong>O</strong>nset</td><td>Thunderclap (peak &lt; 1 min)</td><td>SAH, RCVS, pituitary apoplexy, cervical artery dissection, CVST</td></tr>
+<tr><td><strong>O</strong>lder</td><td>New headache after age 50</td><td>Giant cell arteritis, tumor</td></tr>
+<tr><td><strong>P</strong>attern change</td><td>New character, increasing frequency, progressive over weeks; positional; nocturnal</td><td>Mass effect, raised or low ICP, CSF leak, MOH</td></tr>
+</table>
+<p class="src">Adapted from Merritt's Ch. 9 (SNOOP, after Silberstein/Lipton/Dodick).</p>
+
+<div class="warn"><strong>Any one SNOOP feature warrants imaging</strong> &mdash; usually MRI brain with and without contrast (or non-contrast CT if SAH is the worry).</div>
+
+<h2 id="workup">3 · Initial workup &amp; when to image</h2>
+
+<h3>History &mdash; the heart of headache medicine</h3>
+<ul>
+  <li><strong>Onset</strong> — abrupt vs gradual; age at first attack; context (trauma, post-partum).</li>
+  <li><strong>Timing</strong> — frequency, duration, time to peak, diurnal pattern (wakening from sleep is a red flag).</li>
+  <li><strong>Quality</strong> — throbbing, pressing, sharp, lancinating, burning.</li>
+  <li><strong>Laterality &amp; location</strong> — unilateral (side-locked vs alternating) vs bilateral; retro-orbital, temporal, occipital.</li>
+  <li><strong>Severity &amp; disability</strong> — VAS, ability to function.</li>
+  <li><strong>Pattern change</strong> &mdash; the single most powerful red flag in a known headache patient.</li>
+  <li><strong>Associated features</strong> — photophobia, phonophobia, nausea, autonomic features, aura, neurologic deficit.</li>
+  <li><strong>Premonitory &amp; postdrome</strong> — yawning, sleepiness, neck stiffness, cognitive sluggishness; typical of migraine.</li>
+  <li><strong>Triggers</strong> — menses, sleep, stress, alcohol, altitude, Valsalva, position.</li>
+  <li><strong>Family history</strong> &mdash; migraine, aneurysm, malignancy.</li>
+  <li><strong>Medications</strong> &mdash; analgesic use frequency (MOH risk), nitrates, vasodilators, oestrogens, OCP/HRT.</li>
+</ul>
+
+<h3>Examination essentials</h3>
+<p>BP, fundoscopy (papilloedema, venous pulsations), temporal artery palpation, neck ROM &amp; bruits, pericranial nerve tenderness, cranial nerves and pupils, full neuro exam.</p>
+
+<h3>Choosing wisely: when to image</h3>
+<p>The American Headache Society advises <strong>not</strong> to image stable migraine without red flags and <strong>not</strong> to use CT when MRI is available (except in the ED).</p>
+
+<table>
+<tr><th>Scenario</th><th>Imaging of choice</th></tr>
+<tr><td>Thunderclap headache</td><td>Non-contrast CT first; if negative within 6 h and suspicion remains → LP for xanthochromia or CTA</td></tr>
+<tr><td>New headache + focal deficit, altered mentation, fever, or papilloedema</td><td>MRI brain &plusmn; contrast; CT if MR not available</td></tr>
+<tr><td>New headache &gt; 50 y with jaw claudication / scalp tenderness</td><td>ESR / CRP + temporal artery biopsy; treat as GCA</td></tr>
+<tr><td>Headache + raised ICP suspicion (positional, Valsalva, nocturnal)</td><td>MRI + MR venography (rule out CVST and lesion)</td></tr>
+<tr><td>Pregnant / postpartum new headache</td><td>MRI / MR venography (no gadolinium if avoidable)</td></tr>
+<tr><td>Stable primary headache pattern, no red flags</td><td><em>No imaging</em> needed</td></tr>
+</table>
+
+<h2 id="migraine">4 · Migraine</h2>
+
+<h3>Diagnosis (ICHD-3 simplified)</h3>
+<p>Repeated attacks of headache lasting 4–72 h with normal examination and no other cause, plus:</p>
+<table>
+<tr><th>At least 2 of:</th><th>Plus at least 1 of:</th></tr>
+<tr><td>Unilateral</td><td>Nausea / vomiting</td></tr>
+<tr><td>Pulsating</td><td>Photophobia <em>and</em> phonophobia</td></tr>
+<tr><td>Moderate or severe intensity</td><td></td></tr>
+<tr><td>Aggravated by routine activity</td><td></td></tr>
+</table>
+
+<p class="src">Adapted from Merritt's Table 56.2 / ICHD-3.</p>
+
+<p><strong>POUND mnemonic</strong> (4 of 5 = migraine highly likely): <em>P</em>ulsatile, <em>O</em>ne-day duration (4–72 h), <em>U</em>nilateral, <em>N</em>ausea/vomiting, <em>D</em>isabling. <strong>ID Migraine / PIN</strong>: photophobia, inability to function, nausea (2 of 3 → migraine likely).</p>
+
+<h3>Migraine aura</h3>
+<p>20–25% have aura: fully reversible neurological symptoms developing over 5–20 min, lasting &lt; 60 min, immediately followed (or accompanied) by headache. Most often <strong>visual</strong> (scintillating zigzag, fortification spectra, scotoma); also sensory (slow tingling march), aphasic, or motor (hemiplegic migraine &mdash; FHM gene mutations in CACNA1A, ATP1A2, SCN1A).</p>
+
+<div class="pearl"><strong>Distinguish aura from TIA:</strong> migraine aura builds slowly with positive symptoms (scintillations, tingling), then resolves over minutes. TIA produces sudden negative symptoms (visual loss, weakness) and usually has no headache progression.</div>
+
+<h3>Chronic migraine</h3>
+<p>≥ 15 headache days/month for &gt; 3 months, of which ≥ 8 have migrainous features. Often coexists with medication overuse and depression. Refer.</p>
+
+<h3>Acute treatment &mdash; choose by severity and access</h3>
+<table>
+<tr><th>Severity</th><th>First-line</th><th>Notes</th></tr>
+<tr><td>Mild</td><td>NSAID (ibuprofen 400–800 mg, naproxen 500 mg, diclofenac 50 mg) &plusmn; metoclopramide 10 mg</td><td>Take <em>early</em>; combine an NSAID with metoclopramide enhances absorption and works for nausea.</td></tr>
+<tr><td>Moderate</td><td>Oral triptan (sumatriptan 50–100 mg, rizatriptan 10 mg, eletriptan 40 mg, zolmitriptan 5 mg, almotriptan 12.5 mg)</td><td>Consider triptan + naproxen for higher initial efficacy and lower recurrence (sumatriptan-naproxen combination).</td></tr>
+<tr><td>Severe / nausea / rapid onset</td><td>Sumatriptan 6 mg SC, zolmitriptan 5 mg nasal spray, intranasal dihydroergotamine, parenteral dopamine antagonist (metoclopramide 10 mg IV, prochlorperazine 10 mg IV)</td><td>SC sumatriptan ≈ 50–80% pain free at 2 h.</td></tr>
+<tr><td>Triptan-contraindicated (vascular disease)</td><td><strong>Gepants</strong> (ubrogepant, rimegepant) — CGRP receptor antagonists. <strong>Ditans</strong> (lasmiditan) — 5-HT₁F agonist, no vasoconstriction.</td><td>Lasmiditan: do not drive for 8 h after dose.</td></tr>
+<tr><td>ED intractable migraine</td><td>IV fluids + metoclopramide 10 mg or prochlorperazine 10 mg (with IV diphenhydramine 25 mg to prevent akathisia) + ketorolac 30–60 mg + IV magnesium 1 g; consider IV valproate 10–15 mg/kg.</td><td>Avoid opioids — promote MOH and increase recurrence.</td></tr>
+</table>
+<p class="src">Synthesized from Merritt's Tables 56.3 / 56.4.</p>
+
+<div class="warn"><strong>Triptan and ergot contraindications:</strong> coronary or cerebrovascular disease, uncontrolled hypertension, pregnancy (relative), Prinzmetal angina, &lt; 24 h after another triptan or ergot. Gepants and ditans are safer in vascular disease.</div>
+
+<h3>Preventive treatment &mdash; when and what</h3>
+<p>Offer prevention when migraine attacks are ≥ 4 per month, prolonged, disabling, refractory to acute treatment, contraindications to acute drugs, or rare disabling subtypes (hemiplegic, migraine with brainstem aura).</p>
+<table>
+<tr><th>Class</th><th>Examples (start low, titrate up)</th><th>Notes</th></tr>
+<tr><td>β-blocker</td><td>Propranolol 80–240 mg/d, metoprolol 100–200 mg/d</td><td>Avoid in asthma, depression, bradyarrhythmia.</td></tr>
+<tr><td>Antiseizure</td><td>Topiramate 50–100 mg/d, valproate 500–1500 mg/d</td><td>Topiramate: cognitive slowing, paraesthesia, weight loss, kidney stones. Valproate: teratogen.</td></tr>
+<tr><td>Tricyclic</td><td>Amitriptyline 10–75 mg nightly</td><td>Good for sleep and coexisting tension headache.</td></tr>
+<tr><td>SNRI</td><td>Venlafaxine 75–150 mg/d</td><td>Good if anxiety/depression coexist.</td></tr>
+<tr><td>CGRP monoclonals</td><td>Erenumab, fremanezumab, galcanezumab, eptinezumab (monthly SC or quarterly IV)</td><td>For episodic and chronic migraine, including refractory; clean side-effect profile.</td></tr>
+<tr><td>Gepants (preventive)</td><td>Atogepant 60 mg/d, rimegepant 75 mg q48h</td><td>Oral CGRP receptor antagonists with prevention indication.</td></tr>
+<tr><td>Botulinum toxin A</td><td>OnabotulinumtoxinA 155 U q12 weeks</td><td><em>Chronic migraine only</em> (PREEMPT protocol).</td></tr>
+<tr><td>Other</td><td>Candesartan, lisinopril, riboflavin 400 mg/d, magnesium 400–600 mg/d, coenzyme Q10 300 mg/d</td><td>Useful in selected patients (pregnancy-safe options).</td></tr>
+</table>
+
+<p>Give each preventive an adequate trial (8–12 weeks at target dose). Switch class if no response. Combine preventive + acute strategy with a headache diary and target attack frequency reduction of ≥ 50%.</p>
+
+<h2 id="tth">5 · Tension-type headache</h2>
+<p>The most prevalent but least disabling primary headache. Bilateral pressing / tightening pain, mild–moderate, no nausea, not aggravated by routine activity, ± mild photo- or phonophobia (not both). Pericranial muscle tenderness common.</p>
+<p><strong>Acute:</strong> simple analgesics (acetaminophen, NSAID). <strong>Prevention</strong> when frequent: tricyclic (amitriptyline 25–75 mg nightly is first-line). Address triggers (stress, sleep, posture, caffeine excess); physical therapy, biofeedback, CBT have evidence.</p>
+
+<h2 id="tac">6 · Trigeminal autonomic cephalalgias</h2>
+<p>All TACs share <em>strictly unilateral</em> head pain with ipsilateral cranial autonomic features. They are classified by attack duration and frequency.</p>
+
+<table>
+<tr><th>Syndrome</th><th>Pain duration</th><th>Frequency</th><th>Distinctive</th></tr>
+<tr><td>Cluster headache</td><td>15–180 min</td><td>1 every other day to 8/day</td><td>Severe peri-orbital pain, restless/pacing patient ("walks the floor"); seasonal "clusters". Male predominance.</td></tr>
+<tr><td>Paroxysmal hemicrania</td><td>2–30 min</td><td>&gt; 5/day, more than half the time</td><td>Absolute response to indomethacin (diagnostic).</td></tr>
+<tr><td>SUNCT / SUNA</td><td>1–600 s</td><td>Dozens to hundreds/day</td><td>Stab-like; SUNCT has conjunctival injection + tearing; SUNA has either alone.</td></tr>
+<tr><td>Hemicrania continua</td><td>Continuous, fluctuating</td><td>—</td><td>Continuous unilateral pain with exacerbations; absolute response to indomethacin.</td></tr>
+</table>
+
+<h3>Cluster headache &mdash; what every clinician should know</h3>
+<p>Periorbital "ice pick / hot poker" pain lasting 15–180 min, often nocturnal, with ipsilateral lacrimation, conjunctival injection, nasal congestion/rhinorrhoea, ptosis, miosis, eyelid oedema, sweating. Attacks group into clusters lasting weeks-months with remission between (episodic) or do not remit (chronic). Patient is restless &mdash; pacing, banging head &mdash; in striking contrast to the migraineur who lies still in a dark room.</p>
+
+<p><strong>Acute treatment:</strong></p>
+<ul>
+  <li><strong>100% oxygen</strong> by non-rebreather mask 12–15 L/min for 15–20 min &mdash; first-line, abortive in &gt; 70%.</li>
+  <li><strong>Sumatriptan 6 mg SC</strong> or <strong>zolmitriptan 5–10 mg nasal spray</strong>.</li>
+  <li>Intranasal lidocaine 4% as adjunct.</li>
+</ul>
+
+<p><strong>Preventive (within a cluster):</strong></p>
+<ul>
+  <li><strong>Verapamil</strong> 240–960 mg/d (titrate with ECG monitoring for PR prolongation) &mdash; first-line.</li>
+  <li><strong>Bridge with prednisone</strong> taper (60 mg → off over 2–3 weeks) or occipital nerve block while verapamil is titrated.</li>
+  <li>Galcanezumab (CGRP mAb) approved for episodic cluster.</li>
+  <li>Lithium for chronic cluster (close monitoring).</li>
+</ul>
+
+<div class="warn"><strong>Indomethacin trial</strong> &mdash; if a TAC seems to have features of paroxysmal hemicrania or hemicrania continua, a brief course of indomethacin (e.g.&nbsp;25–75 mg TID) confirms the diagnosis through complete response. With GI protection (PPI) for the trial.</div>
+
+<h2 id="secondary">7 · Secondary headaches you must not miss</h2>
+
+<table>
+<tr><th>Diagnosis</th><th>Distinctive features</th><th>Diagnostic step</th></tr>
+<tr><td>Subarachnoid haemorrhage</td><td>Thunderclap, peak &lt; 1 min; meningism; transient LOC</td><td>NCCT (&gt; 99% sensitive within 6 h); LP for xanthochromia if CT negative and suspicion high; CTA for aneurysm</td></tr>
+<tr><td>Meningitis</td><td>Fever, neck stiffness, photophobia, altered mentation</td><td>LP after CT if focal signs / immunocompromise; empirical antibiotics first</td></tr>
+<tr><td>Giant cell arteritis</td><td>Age &gt; 50, scalp tenderness, jaw claudication, vision changes, polymyalgia</td><td>ESR, CRP; <em>start prednisone 60 mg/d immediately</em>; temporal artery biopsy within 1–2 weeks</td></tr>
+<tr><td>Cerebral venous sinus thrombosis</td><td>Subacute headache + seizures or focal deficits not respecting arterial territory; pregnancy/OCP; thrombophilia</td><td>CT or MR venography; anticoagulate even if haemorrhagic infarct</td></tr>
+<tr><td>Cervical artery dissection</td><td>Unilateral neck/head pain + Horner syndrome (carotid) or posterior neck pain + brainstem signs (vertebral); often after trauma/manipulation</td><td>CTA or MRA of head &amp; neck; antiplatelet or anticoagulation</td></tr>
+<tr><td>Reversible cerebral vasoconstriction syndrome (RCVS)</td><td>Recurrent thunderclap over days–weeks; postpartum or after vasoactive drugs</td><td>CTA/MRA show "string-of-beads" segmental vasoconstriction; calcium-channel blocker; symptoms self-limit over weeks</td></tr>
+<tr><td>Pituitary apoplexy</td><td>Thunderclap + diplopia (cavernous sinus CNs) + visual loss + endocrine failure</td><td>MRI sella; emergency steroids; neurosurgery</td></tr>
+<tr><td>Acute angle-closure glaucoma</td><td>Severe headache + eye pain + halos around lights + red eye + mid-dilated unreactive pupil + nausea</td><td>Ophthalmology STAT; IOP measurement</td></tr>
+<tr><td>Idiopathic intracranial hypertension (pseudotumour)</td><td>Obese young woman; daily headache, transient visual obscurations, pulsatile tinnitus, papilloedema</td><td>MRI + MRV; LP opening pressure &gt; 25 cm H₂O; acetazolamide; weight loss; refer for vision monitoring</td></tr>
+<tr><td>Spontaneous intracranial hypotension (CSF leak)</td><td><em>Orthostatic</em> headache &mdash; worse upright, better supine; ± neck stiffness, nausea</td><td>MRI brain with gadolinium (diffuse pachymeningeal enhancement, brain sag); CT or MR myelogram for leak; epidural blood patch</td></tr>
+<tr><td>Sinusitis</td><td>Fever, purulent rhinorrhoea, pain over sinus, worse on bending forward; often overdiagnosed</td><td>Clinical; antibiotics for bacterial</td></tr>
+<tr><td>Tumour</td><td>Subacute progressive headache, worse on waking, with Valsalva, with new focal signs or seizure</td><td>MRI with contrast</td></tr>
+<tr><td>Subdural haematoma</td><td>Subacute headache + cognitive change + gait disturbance in the elderly; often no clear trauma</td><td>NCCT</td></tr>
+<tr><td>Carbon monoxide poisoning</td><td>Headache + nausea in multiple household members; winter heating; cherry-red cyanosis</td><td>Carboxyhaemoglobin level; 100% O₂</td></tr>
+</table>
+
+<div class="refer"><strong>Giant cell arteritis is a "treat first, biopsy later" emergency.</strong> Visual loss can be permanent and bilateral within days. Start high-dose prednisone (40–60 mg/d, or IV methylprednisolone if visual symptoms) immediately on suspicion; biopsy can still be diagnostic up to 2 weeks after starting steroids.</div>
+
+<h2 id="tn">8 · Trigeminal neuralgia &amp; facial pain</h2>
+
+<h3>Classical trigeminal neuralgia</h3>
+<p>Brief (&lt; 2 s to 2 min), paroxysmal, lancinating "electric shock" pain in the distribution of one or more trigeminal branches (V2 &gt; V3 &gt;&gt; V1), triggered by light touch, chewing, talking, tooth brushing, or a cold breeze. Pain-free intervals between paroxysms. Examination is normal between attacks. Most commonly from vascular compression of the trigeminal root entry zone (superior cerebellar artery loop). Onset usually &gt; 50 y.</p>
+
+<p><strong>Symptomatic / painful trigeminal neuropathy</strong> = caused by an identifiable lesion (tumour, MS plaque, vascular malformation, post-herpetic). MRI mandatory in patients &lt; 40, those with V1 involvement, sensory deficit, or bilateral pain.</p>
+
+<table>
+<tr><th>Treatment</th><th>Detail</th></tr>
+<tr><td>First-line</td><td><strong>Carbamazepine</strong> 200–1200 mg/d (start 100 mg BID, titrate); response often &gt; 70%. Or <strong>oxcarbazepine</strong> 300–1800 mg/d (better tolerated).</td></tr>
+<tr><td>Add-on / alternative</td><td>Gabapentin, pregabalin, lamotrigine, baclofen.</td></tr>
+<tr><td>Surgical (refractory)</td><td>Microvascular decompression (Jannetta), percutaneous balloon compression or glycerol rhizotomy, radiofrequency thermocoagulation, Gamma Knife stereotactic radiosurgery.</td></tr>
+</table>
+
+<h3>Other facial pain disorders</h3>
+<ul>
+  <li><strong>Postherpetic trigeminal neuropathy</strong> &mdash; after V1 zoster; constant burning + allodynia. Treat with tricyclics, gabapentin/pregabalin, topical lidocaine; consider early antiviral + vaccination to prevent.</li>
+  <li><strong>Glossopharyngeal neuralgia</strong> &mdash; ear/throat pain triggered by swallowing.</li>
+  <li><strong>Persistent idiopathic facial pain</strong> &mdash; constant, dull, poorly localised; previously "atypical facial pain". Treat as neuropathic pain; coordinate care with dentistry/psychiatry.</li>
+  <li><strong>Burning mouth syndrome.</strong></li>
+</ul>
+
+<h2 id="moh">9 · Medication overuse headache</h2>
+<p>Regular intake of acute headache drugs ≥ 10 days/month (triptans, ergots, opioids, combination analgesics) or ≥ 15 days/month for simple analgesics over &gt; 3 months can produce a daily refractory headache &mdash; medication overuse headache (MOH). MOH is the most common cause of "transformation" from episodic to chronic daily headache.</p>
+
+<p>Management: stop the overused drug (cold turkey usually for triptans / simple analgesics; taper for opioids and barbiturates), bridge with a preventive (topiramate, amitriptyline, CGRP mAb) and a short course of bridge therapy (e.g.&nbsp;naproxen 500 mg BID for 1–2 weeks, or a steroid taper), warn the patient that headaches will worsen for 2–6 weeks before improving.</p>
+
+<div class="pearl"><strong>Counsel from day one:</strong> with any acute migraine drug, limit use to &lt; 2 days/week. Frequent acute use predicts MOH and progression to chronic migraine.</div>
+
+<h2 id="refer">10 · When to refer</h2>
+<div class="refer"><strong>Same-day or emergency:</strong>
+<ul>
+  <li>Thunderclap headache.</li>
+  <li>New headache with focal deficit, seizure, altered mentation, or fever.</li>
+  <li>Sudden visual loss + headache (suspect GCA or pituitary apoplexy).</li>
+  <li>Eye pain + halos + red eye + nausea (angle-closure glaucoma).</li>
+  <li>New severe headache in pregnancy/postpartum (CVST, PRES, RCVS).</li>
+  <li>Acute Horner syndrome with neck pain (carotid dissection).</li>
+</ul>
+</div>
+<div class="warn"><strong>Routine neurology / headache clinic:</strong> chronic migraine, refractory cluster, suspected hemicrania continua / paroxysmal hemicrania for indomethacin trial, drug-resistant trigeminal neuralgia, suspected IIH for ophthalmology coordination, medication overuse headache requiring inpatient withdrawal.</div>
+
+<h2 id="quick">11 · Quick-reference tables</h2>
+
+<h3>SNOOP at a glance</h3>
+<table>
+<tr><th>S</th><th>N</th><th>O</th><th>O</th><th>P</th></tr>
+<tr><td>Systemic illness or symptoms</td><td>Neurologic deficit or papilloedema</td><td>Onset thunderclap</td><td>Older &gt; 50 y</td><td>Pattern change / progression / positional</td></tr>
+</table>
+
+<h3>Cluster vs migraine at a glance</h3>
+<table>
+<tr><th></th><th>Cluster</th><th>Migraine</th></tr>
+<tr><td>Duration</td><td>15–180 min</td><td>4–72 h</td></tr>
+<tr><td>Behavior</td><td>Restless, paces</td><td>Lies still in dark</td></tr>
+<tr><td>Pain</td><td>Strictly unilateral peri-orbital</td><td>Usually unilateral; can be bilateral</td></tr>
+<tr><td>Autonomic features</td><td>Prominent (lacrimation, conjunctival injection, ptosis, miosis, rhinorrhoea)</td><td>Mild, often absent</td></tr>
+<tr><td>Sex</td><td>Male predominance</td><td>Female predominance</td></tr>
+<tr><td>Acute treatment</td><td>100% O₂, SC sumatriptan, intranasal zolmitriptan</td><td>Triptans, NSAIDs, gepants, ditans</td></tr>
+<tr><td>Prevention</td><td>Verapamil (with ECG), bridge prednisone; galcanezumab in episodic</td><td>β-blocker, topiramate, amitriptyline, CGRP mAb, botulinum</td></tr>
+</table>
+
+<h3>Quick AED-style "do not use" for headache</h3>
+<table>
+<tr><th>Patient</th><th>Avoid</th></tr>
+<tr><td>Coronary or cerebrovascular disease</td><td>Triptans, ergots (use gepants / ditans instead)</td></tr>
+<tr><td>Pregnancy</td><td>Valproate, topiramate (&gt; 25 mg in T1 — clefts), NSAIDs after 20 wk, ergots, triptans best avoided</td></tr>
+<tr><td>Asthma / depression / bradycardia</td><td>Propranolol (caution)</td></tr>
+<tr><td>Renal stones / glaucoma history</td><td>Topiramate</td></tr>
+<tr><td>Bipolar disorder / weight gain concern</td><td>Valproate</td></tr>
+</table>
+
+<hr>
+<p class="src">Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 9; Merritt's <em>Neurology</em> 14e Ch. 9 (clinical evaluation, SNOOP, POUND), Ch. 56 (primary headache disorders, ICHD-3, migraine treatment tables 56.3 / 56.4), Ch. 57 (facial pain and cranial neuralgias).</p>
+
+</body>
+</html>

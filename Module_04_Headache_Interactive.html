@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 4 — Headache & Facial Pain (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#3ecaa6; --accent-2:#86e5cc;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(62,202,166,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#062a22; font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#bff0e0}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(62,202,166,.10); border-color:var(--accent); color:#bff0e0}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+
+  /* Flashcards */
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+
+  /* Quiz */
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+
+  /* Tools */
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#062a22; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(62,202,166,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+
+  /* SNOOP checker */
+  .snoop-box{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .snoop-item{display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px dashed var(--line)}
+  .snoop-item:last-child{border-bottom:none}
+  .snoop-item input[type=checkbox]{margin-top:4px; transform:scale(1.3); accent-color:var(--accent)}
+  .snoop-item label{flex:1; cursor:pointer}
+  .snoop-item .letter{display:inline-block; width:22px; height:22px; border-radius:50%; background:var(--accent); color:#062a22; font-weight:600; text-align:center; line-height:22px; margin-right:8px; font-size:.85rem}
+  .snoop-item .desc{color:var(--muted); font-size:.85rem; margin-top:3px}
+  .snoop-result{position:sticky; bottom:8px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:12px 18px; margin-top:14px; font-size:.95rem; color:var(--ink)}
+  .snoop-result.green{border-color:var(--good); background:rgba(95,210,138,.10)}
+  .snoop-result.red{border-color:var(--refer); background:rgba(255,138,122,.10)}
+
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+
+  @media (max-width:560px){
+    .wrap{padding:18px 12px 60px}
+    header h1{font-size:1.35rem}
+    nav.tabs{flex-direction:column}
+    nav.tabs button{text-align:left}
+    .deck{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 4</span>
+    <span class="badge">General physician</span>
+    <h1>Headache &amp; Facial Pain — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 9) and Merritt's <em>Neurology</em> (14e, Ch. 9, 56, 57).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="snoop">SNOOP Checker</button>
+    <button data-tab="classifier">Headache Classifier</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Headache is one of the most common reasons patients come to medical attention, and globally the leading neurological cause of disability. Most are primary disorders that respond to good diagnosis and a structured treatment plan. The danger is missing the small fraction that are secondary &mdash; SAH, GCA, dissection, CVST, glaucoma, tumour.</p>
+
+    <h3>After this module you will be able to:</h3>
+    <ul>
+      <li>Run a structured headache history that captures red flags.</li>
+      <li>Apply SNOOP to triage urgency.</li>
+      <li>Diagnose migraine, tension-type, and cluster confidently.</li>
+      <li>Choose a stratified acute and preventive plan in migraine.</li>
+      <li>Recognise cluster and offer first-line treatment (100% O₂, SC sumatriptan, verapamil).</li>
+      <li>Identify and refer the secondary headaches that must not be missed.</li>
+      <li>Diagnose and start treatment for classical trigeminal neuralgia.</li>
+      <li>Recognise medication overuse headache and counsel about it.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single sentence to remember:</strong> in headache, the dangerous diagnoses are usually <em>new, sudden, or pattern-changing</em>. Run SNOOP every time.</div>
+  </section>
+
+  <!-- LESSONS -->
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Primary vs secondary headache</summary>
+      <div class="body">
+        <p><strong>Primary</strong>: migraine, tension-type, TACs (cluster, paroxysmal hemicrania, SUNCT/SUNA, hemicrania continua), other primary types (cough, exertional, sex, thunderclap, cold-stimulus, hypnic, NDPH).</p>
+        <p><strong>Secondary</strong>: vascular (SAH, ICH, CVST, dissection, RCVS, PRES), infection (meningitis, encephalitis, abscess), raised or low ICP (tumour, IIH, CSF leak), inflammation (GCA), ocular (acute angle-closure glaucoma), sinusitis, post-traumatic, MOH.</p>
+        <p>Most patients reaching a clinician with disabling recurrent headache have migraine — even when they don't call it that.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. SNOOP — the red-flag mnemonic</summary>
+      <div class="body">
+        <ul>
+          <li><strong>S</strong>ystemic — fever, weight loss, malignancy, HIV, pregnancy.</li>
+          <li><strong>N</strong>eurologic — focal deficit, altered mentation, seizure, papilloedema, Valsalva-induced.</li>
+          <li><strong>O</strong>nset — thunderclap (peak &lt; 1 min).</li>
+          <li><strong>O</strong>lder — first headache after 50.</li>
+          <li><strong>P</strong>attern change — character/frequency/severity different from usual headaches.</li>
+        </ul>
+        <p>Use the SNOOP Checker tab to walk through any patient encounter.</p>
+        <div class="warn">Any single SNOOP feature warrants imaging — MRI brain (± contrast / MRV) unless thunderclap when NCCT goes first.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Migraine — diagnosis</summary>
+      <div class="body">
+        <p>ICHD-3 criteria (simplified): 4–72 h attacks, normal exam, no other cause, plus ≥ 2 of (unilateral, throbbing, moderate-severe, aggravated by activity) plus ≥ 1 of (nausea/vomiting OR photo+phonophobia).</p>
+        <p><strong>POUND</strong> (4 of 5 = migraine likely): Pulsatile, One-day, Unilateral, Nausea, Disabling.</p>
+        <p><strong>Aura</strong>: in 20–25%. Visual most common — scintillating zigzag spreading over 5–20 min, lasting &lt; 60 min, followed (or accompanied) by headache.</p>
+        <div class="pearl"><strong>Migraine vs TIA:</strong> migraine aura builds slowly with positive symptoms then resolves. TIA is sudden negative symptoms, no headache build-up.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Migraine — acute treatment</summary>
+      <div class="body">
+        <table>
+          <tr><th>Severity</th><th>First-line</th></tr>
+          <tr><td>Mild</td><td>NSAID (ibuprofen, naproxen) ± metoclopramide</td></tr>
+          <tr><td>Moderate</td><td>Oral triptan (sumatriptan 50–100 mg, rizatriptan 10 mg, eletriptan 40 mg) ± naproxen</td></tr>
+          <tr><td>Severe / nausea</td><td>SC sumatriptan 6 mg, intranasal zolmitriptan 5 mg, IV dopamine antagonist + ketorolac</td></tr>
+          <tr><td>Vascular contraindication</td><td>Gepants (rimegepant, ubrogepant) or ditans (lasmiditan)</td></tr>
+        </table>
+        <p>Take acute drugs <em>early</em>. Combine triptan + naproxen for better outcomes and lower recurrence. Limit acute drug days to &lt; 2/week to avoid MOH.</p>
+        <div class="warn"><strong>Avoid opioids and butalbital combinations</strong> for migraine — they cause MOH and worsen migraine progression.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Migraine — preventive treatment</summary>
+      <div class="body">
+        <p>Indications: ≥ 4 attacks/month, disabling, prolonged, refractory, or with hemiplegic / brainstem aura.</p>
+        <table>
+          <tr><th>Drug class</th><th>Examples</th></tr>
+          <tr><td>β-blocker</td><td>Propranolol, metoprolol</td></tr>
+          <tr><td>Antiseizure</td><td>Topiramate, valproate</td></tr>
+          <tr><td>Tricyclic</td><td>Amitriptyline (also helps sleep, tension headache)</td></tr>
+          <tr><td>SNRI</td><td>Venlafaxine</td></tr>
+          <tr><td>CGRP monoclonals</td><td>Erenumab, fremanezumab, galcanezumab, eptinezumab</td></tr>
+          <tr><td>Gepants (preventive)</td><td>Atogepant, rimegepant</td></tr>
+          <tr><td>Botulinum toxin A</td><td>Chronic migraine only (PREEMPT protocol)</td></tr>
+        </table>
+        <p>Adequate trial = 8–12 weeks at target dose. Goal: ≥ 50% reduction in attack frequency.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Cluster headache and other TACs</summary>
+      <div class="body">
+        <p>Strictly unilateral, severe peri-orbital pain with ipsilateral cranial autonomic features. Patient is restless / paces (vs migraine who lies still).</p>
+        <p><strong>Acute:</strong> 100% O₂ via non-rebreather 12–15 L/min for 15–20 min · SC sumatriptan 6 mg · intranasal zolmitriptan 5–10 mg.</p>
+        <p><strong>Prevention:</strong> verapamil 240–960 mg/d (titrate with ECG) · bridge with prednisone taper or occipital nerve block · galcanezumab for episodic cluster · lithium for chronic.</p>
+        <div class="pearl"><strong>Indomethacin trial:</strong> if features suggest paroxysmal hemicrania or hemicrania continua (more frequent attacks, shorter duration), a brief course of indomethacin (with PPI cover) is both diagnostic and therapeutic.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Secondary headaches not to miss</summary>
+      <div class="body">
+        <table>
+          <tr><th>Diagnosis</th><th>Clue</th><th>Test</th></tr>
+          <tr><td>SAH</td><td>Thunderclap, peak &lt; 1 min</td><td>NCCT &gt; 99% in 6 h; LP if negative + suspicion</td></tr>
+          <tr><td>GCA</td><td>&gt; 50 y, scalp tenderness, jaw claudication, vision change</td><td>ESR, CRP; start steroids today; TAB in 1–2 wks</td></tr>
+          <tr><td>CVST</td><td>Subacute + seizure + papilloedema; OCP/pregnancy/thrombophilia</td><td>CT or MR venography; anticoagulate</td></tr>
+          <tr><td>Dissection</td><td>Unilateral neck/head pain + Horner (carotid) or brainstem signs (vertebral)</td><td>CTA/MRA neck</td></tr>
+          <tr><td>RCVS</td><td>Recurrent thunderclap; postpartum, vasoactive drugs</td><td>CTA/MRA — "string-of-beads"</td></tr>
+          <tr><td>Pituitary apoplexy</td><td>Thunderclap + diplopia + vision loss + endocrine collapse</td><td>MRI sella; steroids; neurosurgery</td></tr>
+          <tr><td>Acute angle-closure glaucoma</td><td>Headache + eye pain + halos + red eye + nausea + mid-dilated unreactive pupil</td><td>Tonometry; ophthalmology STAT</td></tr>
+          <tr><td>IIH</td><td>Obese young woman, papilloedema, pulsatile tinnitus</td><td>MRI + MRV; LP opening pressure &gt; 25 cm; acetazolamide</td></tr>
+          <tr><td>SIH (CSF leak)</td><td>Orthostatic headache</td><td>MRI brain (pachymeningeal enhancement, sag); CT/MR myelogram; blood patch</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Trigeminal neuralgia</summary>
+      <div class="body">
+        <p>Brief lancinating "electric" pain in V2 &gt; V3 distribution, triggered by light touch, chewing, cold air. Examination normal between attacks. Most often from vascular loop compression at root entry zone.</p>
+        <p>MRI mandatory in: age &lt; 40, V1 involvement, sensory deficit, bilateral pain — rule out MS plaque or tumour.</p>
+        <p><strong>First-line:</strong> carbamazepine 200–1200 mg/d (or oxcarbazepine 300–1800 mg/d — better tolerated).</p>
+        <p><strong>Add-on:</strong> gabapentin, pregabalin, lamotrigine, baclofen.</p>
+        <p><strong>Refractory:</strong> microvascular decompression (Jannetta), percutaneous procedures, Gamma Knife.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Medication overuse headache (MOH)</summary>
+      <div class="body">
+        <p>Acute drug days &gt; 10/month for triptans, ergots, opioids, combinations; or &gt; 15/month for simple analgesics, over &gt; 3 months → daily refractory headache. The most common cause of "transformation" to chronic daily headache.</p>
+        <p>Management: stop the overused drug (taper opioids/barbiturates), bridge with a preventive (topiramate, amitriptyline, or CGRP mAb) and a short course of bridge therapy (naproxen 500 mg BID × 1–2 weeks, or steroid taper). Warn the patient: headaches will worsen for 2–6 weeks before improving.</p>
+        <div class="pearl"><strong>Counsel from day one:</strong> &lt; 2 acute drug days per week. Frequent acute use predicts MOH.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Red flags &amp; when to refer</summary>
+      <div class="body">
+        <div class="refer"><strong>Same-day / emergency referral:</strong> thunderclap headache · new headache + focal deficit/seizure/fever · sudden vision loss + headache · acute angle-closure glaucoma · acute Horner + neck pain · new headache in pregnancy/postpartum.</div>
+        <div class="warn"><strong>Routine neurology / headache clinic:</strong> chronic migraine, refractory cluster, suspected hemicrania continua/paroxysmal hemicrania for indomethacin trial, refractory TN, IIH for ophthalmology coordination, MOH requiring inpatient withdrawal.</div>
+      </div>
+    </details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <!-- SNOOP CHECKER -->
+  <section class="tab-panel" id="snoop">
+    <h2>SNOOP Red-Flag Checker</h2>
+    <p class="muted">Tick anything that applies. The verdict updates live.</p>
+    <div class="snoop-box" id="snoopBox"></div>
+  </section>
+
+  <!-- CLASSIFIER -->
+  <section class="tab-panel" id="classifier">
+    <h2>Primary Headache Classifier</h2>
+    <p class="muted">Use after SNOOP is negative. Tool builds a working primary-headache diagnosis.</p>
+    <div class="tool" id="hClass">
+      <div class="q">1. Typical attack duration?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="vshort">Seconds (1–600 s)</button>
+        <button class="opt" data-val="short">Minutes (15–180 min)</button>
+        <button class="opt" data-val="med">2 to 30 min</button>
+        <button class="opt" data-val="long">Hours (4–72 h)</button>
+        <button class="opt" data-val="cont">Continuous</button>
+      </div>
+      <div id="hcls-rest"></div>
+      <div class="result" id="hcls-result"></div>
+      <button class="reset" onclick="resetHClass()">Reset</button>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 32-year-old woman with monthly throbbing headaches</summary>
+      <div class="body">
+        <p>For 10 years, ~3 days/month she has right-sided throbbing headache for 12–24 h with nausea, light and sound sensitivity, and disability that keeps her in bed. No aura, no fever, no neurological symptoms.</p>
+        <p><strong>Diagnosis:</strong> migraine without aura.</p>
+        <p><strong>Plan:</strong> education + headache diary; acute treatment: NSAID + metoclopramide OR oral triptan; review pattern in 3 months. Counsel &lt; 2 days/week acute drug use. Preventive not yet needed (3 attacks/month with good response to acute).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 47-year-old man with nightly right peri-orbital pain</summary>
+      <div class="body">
+        <p>For 3 weeks, every night around 1 AM he wakes with 30–90 min of severe right peri-orbital "ice-pick" pain, right eye watery and red, right nostril running, right lid drooping. Paces the room during the attack. Family thinks "he's gone crazy" with the pain.</p>
+        <p><strong>Diagnosis:</strong> episodic cluster headache.</p>
+        <p><strong>Plan:</strong> acute — 100% O₂ via non-rebreather 12 L/min at attack onset; SC sumatriptan 6 mg as backup. Preventive — start verapamil and bridge with a 2-week prednisone taper while titrating. Get baseline ECG. Brain MRI if any atypical features. Counsel about avoiding alcohol during a cluster bout.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 72-year-old woman with new headache and fatigue</summary>
+      <div class="body">
+        <p>Three weeks of right temporal headache, scalp tenderness when combing hair, jaw aching while chewing tough food, weight loss. ESR 88, CRP elevated.</p>
+        <p><strong>Diagnosis:</strong> giant cell arteritis.</p>
+        <p><strong>Plan:</strong> Start prednisone 60 mg PO daily immediately (or IV methylprednisolone if any visual symptoms). Arrange temporal artery biopsy within 1–2 weeks (still diagnostic up to 2 weeks on steroids). PPI cover + bone protection + ophthalmology review.</p>
+        <div class="refer">Visual loss in untreated GCA can be permanent and bilateral within days. <strong>Steroids first, biopsy later.</strong></div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 28-year-old woman, postpartum 2 weeks, with worsening headache and a seizure</summary>
+      <div class="body">
+        <p>Five days of worsening headache, now with confusion and a focal motor seizure. BP 130/80. CT shows parasagittal hyperdensities.</p>
+        <p><strong>Diagnosis:</strong> cerebral venous sinus thrombosis (postpartum).</p>
+        <p><strong>Plan:</strong> CT or MR venography confirms. Start anticoagulation (LMWH then warfarin or DOAC) even with haemorrhagic infarct. Antiseizure drug. Investigate for thrombophilia. Discuss future contraception (avoid combined OCP).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 60-year-old with brief electric-shock right cheek pain</summary>
+      <div class="body">
+        <p>For 6 weeks, 5–30 second bursts of right cheek shooting pain triggered by tooth brushing, chewing, cold wind. Examination normal between attacks.</p>
+        <p><strong>Diagnosis:</strong> classical trigeminal neuralgia (V2 distribution).</p>
+        <p><strong>Plan:</strong> Start carbamazepine 100 mg BID, titrate to effect (monitor sodium, LFTs, CBC; HLA-B*1502 screening for Asian patients). MRI brain to look for vascular loop, MS plaque, tumour (mandatory if age &lt; 40, sensory deficit, V1, bilateral). If refractory or intolerant: oxcarbazepine, gabapentin, baclofen, or surgical options (microvascular decompression best evidence).</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 4 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 9; Merritt's <em>Neurology</em> 14e Ch. 9 (clinical evaluation, SNOOP, POUND), Ch. 56 (ICHD-3, migraine, TACs, treatment), Ch. 57 (facial pain).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Red flag', q:'What does each letter of SNOOP stand for?', a:'Systemic · Neurologic · Onset (thunderclap) · Older (>50) · Pattern change. Any one feature → image.'},
+  {tag:'Thunderclap', q:'Sensitivity of NCCT for SAH within 6 hours?', a:'> 99% on modern scanners. After 24 h drops below 90% — then LP for xanthochromia is required.'},
+  {tag:'Migraine', q:'What is the POUND mnemonic?', a:'Pulsatile · One-day duration (4–72 h) · Unilateral · Nausea · Disabling. 4 of 5 → migraine highly likely.'},
+  {tag:'Migraine', q:'Distinguishing feature of migraine aura vs TIA?', a:'Aura builds slowly (5–20 min) with positive symptoms (scintillations, tingling); TIA is sudden negative symptoms (loss of vision, weakness) without headache build-up.'},
+  {tag:'Acute', q:'First-line acute migraine treatment in primary care?', a:'NSAID (ibuprofen, naproxen) ± metoclopramide for mild; oral triptan ± naproxen for moderate. SC sumatriptan or IV antiemetic for severe/nausea.'},
+  {tag:'Acute', q:'Migraine acute drug if patient has coronary disease?', a:'Gepants (rimegepant, ubrogepant) or ditans (lasmiditan) — no vasoconstriction. Avoid triptans and ergots.'},
+  {tag:'Prevention', q:'When to start a migraine preventive?', a:'≥ 4 attacks/month, disabling or prolonged, refractory to acute treatment, or hemiplegic/brainstem aura. Goal ≥ 50% reduction.'},
+  {tag:'Prevention', q:'Two classes of CGRP-targeted preventive drugs?', a:'Monoclonal antibodies (erenumab, fremanezumab, galcanezumab, eptinezumab) and oral gepants for prevention (atogepant, rimegepant).'},
+  {tag:'Cluster', q:'First-line acute treatment for cluster headache?', a:'100% oxygen via non-rebreather 12–15 L/min for 15–20 minutes; SC sumatriptan 6 mg. Intranasal zolmitriptan is an alternative.'},
+  {tag:'Cluster', q:'Preventive of choice within a cluster bout?', a:'Verapamil 240–960 mg/d (titrate with ECG monitoring for PR prolongation) + bridge with prednisone taper or occipital nerve block. Galcanezumab in episodic cluster; lithium in chronic.'},
+  {tag:'TAC', q:'Indomethacin-responsive headaches?', a:'Paroxysmal hemicrania and hemicrania continua — absolute response is diagnostic.'},
+  {tag:'Cluster vs migraine', q:'Patient behavior during attack — cluster vs migraine?', a:'Cluster patient is restless / paces / bangs head ("walks the floor"). Migraine patient lies still in a dark room.'},
+  {tag:'GCA', q:'When do you start steroids in suspected giant cell arteritis?', a:'Immediately on clinical suspicion — do not wait for biopsy. Visual loss can be permanent and bilateral within days. Biopsy still diagnostic up to 2 weeks on steroids.'},
+  {tag:'CVST', q:'Anticoagulate CVST even if there is haemorrhagic infarct?', a:'Yes. The bleed is venous and responds to anticoagulation. Standard treatment is heparin (LMWH or UFH), then warfarin or DOAC.'},
+  {tag:'RCVS', q:'Imaging finding in reversible cerebral vasoconstriction syndrome?', a:'"String-of-beads" — multifocal segmental vasoconstriction on CTA/MRA. Resolves over weeks. Postpartum or vasoactive drugs commonly trigger.'},
+  {tag:'IIH', q:'Diagnostic LP finding for idiopathic intracranial hypertension?', a:'Opening pressure > 25 cm H₂O with normal CSF composition, plus papilloedema on exam and a non-diagnostic MRI/MRV.'},
+  {tag:'SIH', q:'Orthostatic headache — worse upright, better supine — what to think of?', a:'Spontaneous intracranial hypotension / CSF leak. Diagnose with MRI brain (pachymeningeal enhancement, brain sag); CT or MR myelogram to find leak; treat with blood patch.'},
+  {tag:'TN', q:'First-line drug for classical trigeminal neuralgia?', a:'Carbamazepine 200–1200 mg/d (>70% respond). Oxcarbazepine 300–1800 mg/d is better tolerated and similarly effective.'},
+  {tag:'TN', q:'When is MRI mandatory in suspected trigeminal neuralgia?', a:'Age < 40, V1 involvement, sensory deficit, or bilateral pain — to rule out MS plaque or tumour.'},
+  {tag:'MOH', q:'Threshold for medication overuse headache?', a:'≥ 10 days/month of triptans, ergots, opioids, or combination analgesics; or ≥ 15 days/month of simple analgesics, for > 3 months.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `
+    <div class="face">
+      <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+      <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+    </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted){ el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 45-year-old man presents with sudden "worst headache of his life" peaking in 30 seconds, with neck stiffness. Non-contrast CT 4 hours after onset is normal. Best next step?',
+   choices:['Reassure and discharge — migraine','Outpatient MRI in 1 week','Lumbar puncture for xanthochromia','Triptan trial'],
+   ans:2,
+   why:'A thunderclap headache with a negative early NCCT does not exclude SAH (NCCT > 99% in 6 h, but not 100%). Modern guidelines in many centres accept CT alone within 6 h; in others, LP for xanthochromia is performed (visible after 12 h). Missing SAH risks fatal rebleed.'},
+  {q:'A 65-year-old woman with hypertension and ischaemic heart disease has 12 h of right-sided throbbing headache, photophobia and nausea. NSAID provided no relief. Best acute treatment?',
+   choices:['Sumatriptan 100 mg PO','Ergotamine','Ubrogepant (gepant)','Hydromorphone'],
+   ans:2,
+   why:'Triptans and ergots are contraindicated with vascular disease. Gepants (ubrogepant, rimegepant) and ditans (lasmiditan) act without vasoconstriction and are appropriate in this scenario. Opioids should be avoided for migraine — they promote MOH and worsen migraine progression.'},
+  {q:'A 30-year-old male presents with 3 weeks of nightly attacks of severe right peri-orbital pain lasting 60 min, with ipsilateral tearing and ptosis. He paces during attacks. Best abortive treatment?',
+   choices:['Acetaminophen 1 g PO','100% oxygen via non-rebreather 12–15 L/min','Indomethacin 75 mg','Oral propranolol'],
+   ans:1,
+   why:'This is classic cluster headache. 100% oxygen via non-rebreather mask at 12–15 L/min for 15–20 min aborts > 70% of attacks. SC sumatriptan 6 mg is the other first-line. Indomethacin defines paroxysmal hemicrania/hemicrania continua, not cluster. Propranolol does not work in cluster (it is for migraine).'},
+  {q:'A 70-year-old woman has 3 weeks of new right temporal headache, scalp tenderness when combing hair, and jaw pain while chewing. ESR 95. Best initial step?',
+   choices:['Outpatient temporal artery biopsy next week, then decide','Start oral prednisone 60 mg daily today; arrange biopsy in 1–2 weeks','MRI brain first; treat if abnormal','Topiramate to prevent migraine'],
+   ans:1,
+   why:'Giant cell arteritis is a "treat first, biopsy later" emergency — visual loss can be permanent and bilateral within days. Start prednisone immediately; biopsy remains diagnostic up to 2 weeks on steroids. Add IV methylprednisolone if any visual symptoms.'},
+  {q:'A 28-year-old woman, 10 days postpartum, presents with 4 days of worsening headache and now a focal seizure. CT shows bilateral parasagittal haemorrhagic infarcts. Most likely diagnosis and best treatment?',
+   choices:['Bilateral MCA strokes — aspirin','Cerebral venous sinus thrombosis — anticoagulation','PRES — lower BP only','Postpartum migraine — sumatriptan'],
+   ans:1,
+   why:'Postpartum + headache + seizure + parasagittal haemorrhagic infarcts that cross arterial territories = CVST until proven otherwise. Confirm with CT/MR venography. Treat with anticoagulation (LMWH then DOAC/warfarin) even in the presence of haemorrhagic infarction.'},
+  {q:'A 25-year-old obese woman has 3 months of daily holocranial headache, transient blurry vision when bending over, and pulsatile tinnitus. Examination shows bilateral papilloedema. MRI/MRV normal apart from empty sella. Next step?',
+   choices:['Triptan trial','Lumbar puncture; start acetazolamide if opening pressure > 25 cm H₂O','Microvascular decompression','Carbamazepine'],
+   ans:1,
+   why:'This is idiopathic intracranial hypertension (pseudotumour cerebri). LP confirms opening pressure > 25 cm H₂O with normal CSF composition. Start acetazolamide 250–500 mg BID, titrate. Weight loss and ophthalmology follow-up; refer surgery if vision deteriorates.'},
+  {q:'A 32-year-old man has had 8 weeks of orthostatic headache — minimal when supine, severe within 15 min of standing. MRI shows diffuse pachymeningeal enhancement and tonsillar descent. Best diagnosis?',
+   choices:['Chiari malformation','Spontaneous intracranial hypotension (CSF leak)','Idiopathic intracranial hypertension','Migraine'],
+   ans:1,
+   why:'Orthostatic headache + pachymeningeal enhancement + brain sag = spontaneous intracranial hypotension from a CSF leak. Get a CT or MR myelogram to identify the leak site; treat with bed rest, caffeine, fluids, and an epidural blood patch.'},
+  {q:'A 58-year-old man takes oral triptans 18 days per month for "his usual headache" but now has near-daily holocranial headache for 6 months. Most likely contributing diagnosis?',
+   choices:['New-onset cluster headache','Chronic migraine with medication overuse headache (MOH)','Trigeminal neuralgia','IIH'],
+   ans:1,
+   why:'Triptan use ≥ 10 days/month for > 3 months is sufficient to cause MOH. The combination of chronic migraine with MOH is common; treatment is to stop the overused drug (usually cold turkey for triptans) with a preventive in place (topiramate, amitriptyline, or CGRP mAb) and a bridge (e.g. naproxen).'},
+  {q:'A 65-year-old has 4 months of brief, electric-shock right cheek pain triggered by chewing and cold wind. Exam normal between attacks. MRI shows a vascular loop at the right trigeminal root entry zone. Best first-line treatment?',
+   choices:['Amitriptyline','Carbamazepine','Gabapentin','Microvascular decompression'],
+   ans:1,
+   why:'Classical trigeminal neuralgia — first-line is carbamazepine (response > 70%) or oxcarbazepine. Other options (gabapentin, pregabalin, baclofen, lamotrigine) are second-line. Microvascular decompression is for medically refractory cases.'},
+  {q:'In a 35-year-old woman who is 16 weeks pregnant with severe migraine, which acute treatment is the safest first choice?',
+   choices:['Sumatriptan','Acetaminophen + metoclopramide','High-dose ibuprofen','Valproate'],
+   ans:1,
+   why:'Acetaminophen is the analgesic of choice in pregnancy. Metoclopramide is well-studied and useful for nausea and as an adjunct. NSAIDs are best avoided after 20 weeks (risk of premature ductus closure). Triptans are increasingly considered safe but acetaminophen remains first-line. Valproate is teratogenic and contraindicated.'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== SNOOP Checker ===== */
+const snoopItems = [
+  {letter:'S', label:'Systemic — fever, weight loss, night sweats, malignancy, HIV/immunosuppression, pregnancy or postpartum', diag:'Consider meningitis, abscess, metastases, postpartum CVST'},
+  {letter:'N', label:'Neurologic — focal deficit, altered mentation, seizure, papilloedema, ataxia, Valsalva-induced', diag:'Consider mass lesion, raised ICP, stroke, encephalitis, IIH'},
+  {letter:'O', label:'Onset thunderclap — peak intensity in less than 1 minute', diag:'Consider SAH, RCVS, pituitary apoplexy, dissection, CVST'},
+  {letter:'O', label:'Older — first severe headache after age 50', diag:'Consider GCA (especially with scalp tenderness or jaw claudication), tumour'},
+  {letter:'P', label:'Pattern change — character, frequency or severity different from usual headaches; progressive over weeks; nocturnal; positional', diag:'Consider mass effect, raised or low ICP, CSF leak, MOH'},
+];
+
+const snoopBox = document.getElementById('snoopBox');
+const snoopChecks = [];
+snoopItems.forEach((it, i) => {
+  const div = document.createElement('div');
+  div.className = 'snoop-item';
+  div.innerHTML = `
+    <input type="checkbox" id="snoop-${i}">
+    <label for="snoop-${i}">
+      <span class="letter">${it.letter}</span><strong>${it.label}</strong>
+      <div class="desc">${it.diag}</div>
+    </label>`;
+  snoopBox.appendChild(div);
+  const cb = div.querySelector('input');
+  cb.addEventListener('change', updateSnoop);
+  snoopChecks.push(cb);
+});
+
+const snoopResult = document.createElement('div');
+snoopResult.className = 'snoop-result green';
+snoopResult.innerHTML = '<strong>No red flags ticked.</strong> If history and exam confirm a stable primary headache pattern, no imaging is required. Proceed to primary headache classification.';
+snoopBox.appendChild(snoopResult);
+
+function updateSnoop() {
+  const ticked = snoopChecks.map((c,i) => c.checked ? snoopItems[i] : null).filter(Boolean);
+  if (ticked.length === 0) {
+    snoopResult.className = 'snoop-result green';
+    snoopResult.innerHTML = '<strong>No red flags ticked.</strong> If history and exam confirm a stable primary headache pattern, no imaging is required. Proceed to primary headache classification.';
+  } else {
+    const diagList = ticked.map(t => `<li>${t.letter}: ${t.diag}</li>`).join('');
+    let imagingAdvice = '';
+    if (ticked.some(t => t.letter === 'O' && t.label.includes('thunderclap'))) {
+      imagingAdvice = '<strong>Thunderclap onset → NCCT first.</strong> If negative within 6 h and suspicion remains, LP for xanthochromia or CTA. ';
+    } else {
+      imagingAdvice = '<strong>MRI brain with and without contrast</strong> (consider MRV if CVST suspected, MRA if dissection or RCVS suspected). ';
+    }
+    snoopResult.className = 'snoop-result red';
+    snoopResult.innerHTML = `<strong>${ticked.length} red flag${ticked.length>1?'s':''} present — secondary headache must be excluded.</strong>
+      ${imagingAdvice}<br>Targets to consider:<ul>${diagList}</ul>`;
+  }
+}
+
+/* ===== Primary Headache Classifier ===== */
+const hcls = document.getElementById('hClass');
+const hclsRest = document.getElementById('hcls-rest');
+const hclsResult = document.getElementById('hcls-result');
+let hState = {};
+
+function hAns(step, val) {
+  hState[step] = val;
+  Object.keys(hState).forEach(k => { if(+k > step) delete hState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o=>o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if(t) t.classList.add('sel');
+  renderH();
+}
+
+function renderH() {
+  hclsRest.innerHTML = '';
+  hclsResult.classList.remove('show');
+  const s0 = hState[0];
+  if (!s0) return;
+
+  if (s0 === 'vshort') {
+    addH(1, '2. Is the pain strictly unilateral with prominent ipsilateral autonomic features (lacrimation, conjunctival injection, nasal symptoms, ptosis)?',
+      [['yes_auto','Yes — strictly unilateral + autonomic'],['no_auto','No — no autonomic features']]);
+    if (hState[1]==='yes_auto') return showH('Likely SUNCT or SUNA (TAC)',
+      ['Brief (seconds) unilateral neuralgiform attacks. SUNCT = conjunctival injection + tearing; SUNA = either alone.',
+       'Rule out posterior fossa lesion / pituitary disease with MRI.',
+       'First-line treatment: lamotrigine. Other options: topiramate, gabapentin, IV lidocaine for acute bouts.',
+       'Refer to headache specialist — these are rare and need close follow-up.']);
+    if (hState[1]==='no_auto') return showH('Consider primary stabbing headache or trigeminal neuralgia',
+      ['Brief lancinating pains without autonomic features in the trigeminal distribution → trigeminal neuralgia (carbamazepine first-line; MRI to rule out vascular loop, MS, tumour).',
+       'Generic brief stabs ("ice-pick" headache) anywhere on the head → primary stabbing headache; usually no treatment needed or short indomethacin course.']);
+  }
+
+  if (s0 === 'short') {
+    addH(1, '2. Strictly unilateral with prominent ipsilateral autonomic features (lacrimation, ptosis, miosis, nasal congestion)?',
+      [['yes_auto','Yes — and patient is restless / pacing'],['part_auto','Yes — autonomic features but milder'],['no_auto','No autonomic features']]);
+    if (hState[1]==='yes_auto') return showH('Cluster headache',
+      ['Acute: 100% O₂ via non-rebreather 12–15 L/min for 15–20 min; SC sumatriptan 6 mg.',
+       'Preventive within the bout: verapamil 240–960 mg/d (with ECG for PR prolongation); bridge with prednisone taper.',
+       'Galcanezumab for episodic cluster; lithium for chronic.',
+       'MRI brain (with attention to pituitary) on first episode.']);
+    if (hState[1]==='part_auto') return showH('Consider paroxysmal hemicrania',
+      ['More frequent attacks (often > 5/day) than cluster; absolutely responsive to indomethacin (diagnostic).',
+       'Indomethacin trial: 25 mg TID escalating to 75 mg TID, with PPI cover.',
+       'MRI brain — exclude secondary pathology.']);
+    if (hState[1]==='no_auto') return showH('Possible migraine in evolution or non-TAC syndrome',
+      ['A migraine attack can be at the shorter end of 4–72 h; consider migraine if accompanied by nausea, photo/phonophobia, throbbing.',
+       'Other primary syndromes: cough headache, exercise headache, sexual-activity headache (all need first-time imaging to exclude secondary cause).']);
+  }
+
+  if (s0 === 'med') {
+    return showH('Paroxysmal hemicrania likely',
+      ['Strictly unilateral attacks of 2–30 min, often &gt; 5/day, with ipsilateral autonomic features.',
+       '<strong>Absolute response to indomethacin</strong> is diagnostic (25 mg TID escalating; PPI cover).',
+       'MRI brain to exclude pituitary / posterior fossa lesion (rare).']);
+  }
+
+  if (s0 === 'long') {
+    addH(1, '2. Does the headache meet POUND criteria (Pulsatile, One-day duration, Unilateral, Nausea, Disabling)?',
+      [['gt4','4 or 5 of POUND present'],['lt4','Fewer than 4 of POUND']]);
+    if (hState[1]==='gt4') return showH('Migraine — likely',
+      ['Diagnose by ICHD-3: 4–72 h attacks + ≥ 2 of (unilateral, throbbing, moderate-severe, aggravated by activity) + ≥ 1 of (nausea OR photo+phonophobia).',
+       'Acute: NSAID + metoclopramide → triptan ± naproxen → SC sumatriptan or gepant/ditan for severe or vascular contraindication.',
+       'Counsel &lt; 2 acute drug days/week to avoid MOH.',
+       'Preventive if ≥ 4 attacks/month, disabling, or refractory: β-blocker, topiramate, amitriptyline, CGRP mAb, atogepant, or botulinum (chronic only).']);
+    if (hState[1]==='lt4') return showH('Tension-type headache likely',
+      ['Bilateral, pressing/tightening, mild-moderate, not aggravated by activity, no nausea.',
+       'Acute: simple analgesics (acetaminophen, NSAID).',
+       'Frequent / chronic: amitriptyline 25–75 mg nightly is first-line preventive.',
+       'Address triggers — stress, posture, sleep, caffeine; consider CBT, physical therapy, biofeedback.']);
+  }
+
+  if (s0 === 'cont') {
+    return showH('Hemicrania continua or new daily persistent headache (NDPH)',
+      ['Continuous unilateral with exacerbations + autonomic features → <strong>hemicrania continua</strong>. Absolute response to indomethacin is diagnostic.',
+       'Continuous bilateral from a clearly remembered day → <strong>NDPH</strong>. Often difficult to treat; rule out secondary causes (CVST, SIH, IIH, post-viral).',
+       'Refer to a headache specialist.']);
+  }
+}
+
+function addH(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l])=>`<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  hclsRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => hAns(step, b.dataset.val)));
+  if (hState[step]) {
+    const t = wrap.querySelector(`[data-val="${hState[step]}"]`); if(t) t.classList.add('sel');
+  }
+}
+
+function showH(title, items) {
+  hclsResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+  hclsResult.classList.add('show');
+}
+
+function resetHClass() {
+  hState = {};
+  hclsRest.innerHTML = '';
+  hclsResult.classList.remove('show');
+  document.querySelectorAll('#hClass .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => hAns(0, b.dataset.val)));
+</script>
+</body>
+</html>

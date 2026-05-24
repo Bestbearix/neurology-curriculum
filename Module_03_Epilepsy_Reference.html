@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 3 — Epilepsy & Seizure Disorders (Reference)</title>
+<style>
+  :root{
+    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#6a3aa0; --soft:#f6f0fb;
+    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
+    --pearl-bg:#f1ebfa; --pearl-bd:#6a3aa0; --pearl-ink:#3a1a6a;
+    --refer-bg:#fee5e2; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+    --time-bg:#eef7ff; --time-bd:#3a86b0; --time-ink:#163a6a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Charter','Iowan Old Style','Georgia',serif;
+    color:var(--ink); background:#fff; line-height:1.55;
+    max-width:880px; margin:0 auto; padding:48px 28px 96px;
+  }
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
+  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
+  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
+  h3{font-size:1.18rem; margin-top:1.8em; color:#3a2a55}
+  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
+  li{margin:.25em 0}
+  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
+  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
+  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+
+  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
+  tbody tr:nth-child(even){background:#fafbfd}
+
+  .pearl,.warn,.refer,.time{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
+  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
+  .time{background:var(--time-bg); border-color:var(--time-bd); color:var(--time-ink)}
+
+  .src{font-size:.8rem; color:var(--muted)}
+  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
+  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+
+<h1>Module 3 — Epilepsy &amp; Seizure Disorders</h1>
+<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 15) and <em>Merritt's Neurology</em> (14e, Ch. 7, 60, 61)</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#defs">Definitions and operational diagnosis of epilepsy</a></li>
+  <li><a href="#class">Classifying the seizure &mdash; ILAE 2017</a></li>
+  <li><a href="#syndromes">Epilepsy syndromes to recognise</a></li>
+  <li><a href="#mimics">Differentiating seizures from mimics</a></li>
+  <li><a href="#firstseizure">The first seizure workup</a></li>
+  <li><a href="#provoked">Provoked / acute symptomatic seizures</a></li>
+  <li><a href="#aeds">Antiseizure medications &mdash; choosing wisely</a></li>
+  <li><a href="#se">Status epilepticus &mdash; stepwise protocol</a></li>
+  <li><a href="#special">Special populations</a></li>
+  <li><a href="#refer">Red flags &amp; when to refer</a></li>
+  <li><a href="#quick">Quick-reference tables</a></li>
+</ol>
+</div>
+
+<h2 id="defs">1 · Definitions &mdash; what is a seizure and what is epilepsy?</h2>
+<p>A <strong>seizure</strong> is a transient clinical event caused by abnormally excessive or synchronous neuronal activity in the brain. Not every seizure means epilepsy.</p>
+<p><strong>Epilepsy</strong> (ILAE 2014, operational definition) requires any one of:</p>
+<ol>
+  <li>≥ 2 unprovoked seizures &gt; 24 h apart, <em>or</em></li>
+  <li>1 unprovoked seizure with a recurrence risk &ge; 60% over 10 years (e.g.&nbsp;clear epileptiform EEG, structural lesion on imaging, focal onset, nocturnal onset), <em>or</em></li>
+  <li>Diagnosis of an epilepsy syndrome.</li>
+</ol>
+<p><strong>Acute symptomatic (provoked) seizures</strong> occur in the setting of an immediate brain insult (stroke, head injury, CNS infection, metabolic derangement, drug exposure) and usually do not recur once the cause resolves. Recurrence risk after a single unprovoked seizure is ~21–45% in the first 2 years, with the strongest predictors being an abnormal MRI, an epileptiform EEG, a nocturnal first event, and a prior brain insult.</p>
+<div class="pearl"><strong>Key clinical distinction:</strong> a provoked seizure does <em>not</em> automatically equal epilepsy. Correct the provocation; AEDs are usually not indicated long-term.</div>
+
+<h2 id="class">2 · Classifying the seizure &mdash; ILAE 2017</h2>
+<p>The current scheme classifies seizures by three features in order: <strong>(1) onset, (2) awareness, (3) motor features</strong>. The older terms (simple partial, complex partial, secondarily generalised) have been retired.</p>
+
+<table>
+<tr><th>Onset</th><th>Awareness</th><th>Examples</th></tr>
+<tr><td><strong>Focal</strong></td><td>Focal aware (was "simple partial")</td><td>Jacksonian motor march, déjà vu, epigastric rising sensation, olfactory hallucination.</td></tr>
+<tr><td>Focal</td><td>Focal impaired awareness (was "complex partial")</td><td>Behavioural arrest, lip smacking, manual automatisms, postictal confusion. 70–80% temporal lobe origin.</td></tr>
+<tr><td>Focal</td><td>Either, evolves to bilateral</td><td><em>Focal to bilateral tonic-clonic</em> (was "secondarily generalised").</td></tr>
+<tr><td><strong>Generalised</strong></td><td>Awareness almost always impaired</td><td>Tonic-clonic, absence, myoclonic, tonic, atonic, myoclonic-atonic, epileptic spasms.</td></tr>
+<tr><td><strong>Unknown onset</strong></td><td>Insufficient information</td><td>Often tonic-clonic but no witnessed onset.</td></tr>
+</table>
+
+<h3>Practical features to clarify in the history</h3>
+<ul>
+  <li><strong>Aura</strong> &mdash; the aura <em>is</em> a focal seizure. The character of the aura localises:
+    <ul>
+      <li>Epigastric rising / déjà vu / olfactory → mesial temporal.</li>
+      <li>Fear, rising sensation → temporal/amygdala.</li>
+      <li>Visual (coloured circles, scintillations) → occipital.</li>
+      <li>Somatosensory tingling march → contralateral postcentral gyrus.</li>
+      <li>Forced version of head/eyes → contralateral frontal eye field.</li>
+    </ul>
+  </li>
+  <li><strong>Automatisms</strong> = coordinated repetitive purposeless movements (lip-smacking, fumbling, picking) &mdash; classic of temporal-lobe seizures.</li>
+  <li><strong>Postictal Todd's paralysis</strong> &mdash; focal weakness for minutes–hours after the seizure, lateralising to the contralateral cortex.</li>
+  <li><strong>Tongue biting</strong> on the lateral tongue strongly suggests epileptic GTC; central tongue biting is more often psychogenic.</li>
+  <li><strong>Postictal confusion</strong> distinguishes seizure from syncope (recovery usually under a minute) and from psychogenic non-epileptic events.</li>
+</ul>
+
+<h3>Generalised tonic-clonic seizure &mdash; the classic picture</h3>
+<p>Abrupt LOC + tonic phase (rigid extension, expiratory cry, cyanosis, ~10–30 s) → clonic phase (rhythmic synchronous jerking, ~1–2 min) → postictal lethargy and confusion. Urinary incontinence common, tongue biting lateral. Compare with non-epileptic events below.</p>
+
+<h2 id="syndromes">3 · Epilepsy syndromes to recognise</h2>
+<p>An epilepsy syndrome integrates seizure types, age of onset, EEG pattern, imaging, comorbidities, prognosis, and AED responsiveness. Identifying a syndrome guides drug choice.</p>
+
+<h3>Idiopathic generalised epilepsies (IGE)</h3>
+<table>
+<tr><th>Syndrome</th><th>Age onset</th><th>Seizure types</th><th>EEG / Notes</th></tr>
+<tr><td>Childhood absence epilepsy</td><td>4–12 y</td><td>Absence; ~30–50% develop GTC</td><td>Stereotyped 3-Hz generalised spike-wave. Often remits by adolescence. Ethosuximide or valproate; lamotrigine if GTC.</td></tr>
+<tr><td>Juvenile absence epilepsy</td><td>10–13 y</td><td>Absence + GTC + sometimes myoclonus</td><td>Less likely to remit; needs lifelong AED.</td></tr>
+<tr><td><strong>Juvenile myoclonic epilepsy (JME)</strong></td><td>8 y – mid-20s</td><td>Morning myoclonic jerks, GTC on awakening, rare absences</td><td>4–6 Hz polyspike-and-wave. Lifelong AED. Avoid sodium-channel blockers (carbamazepine, oxcarbazepine, phenytoin) — they worsen myoclonus.</td></tr>
+<tr><td>GTC alone (formerly "on awakening")</td><td>Adolescence</td><td>GTC only</td><td>Triggered by sleep deprivation, alcohol, photic stimulation.</td></tr>
+</table>
+
+<h3>Focal epilepsies</h3>
+<table>
+<tr><th>Syndrome</th><th>Features</th></tr>
+<tr><td><strong>Mesial temporal lobe epilepsy (MTLE)</strong></td><td>The most common adult focal epilepsy. Often history of febrile seizures or hippocampal sclerosis on MRI. Aura of epigastric rising, déjà vu, fear; oral automatisms; postictal confusion. Up to 80% become seizure-free after temporal lobectomy if drug-resistant.</td></tr>
+<tr><td>Frontal lobe epilepsy</td><td>Brief, abrupt, nocturnal cluster seizures with bizarre motor features (bicycling, pelvic thrust, vocalisations). Scalp EEG often non-diagnostic. Easily confused with non-epileptic spells.</td></tr>
+<tr><td>Occipital lobe epilepsy</td><td>Visual aura (coloured circles, lights), can spread to clonic activity.</td></tr>
+<tr><td>Benign Rolandic (centrotemporal spikes)</td><td>Children 4–13 y; nocturnal hemifacial twitching, drooling, speech arrest. Self-limited by adolescence. Often no treatment needed.</td></tr>
+</table>
+
+<h3>Combined / epileptic encephalopathies (recognise to refer)</h3>
+<p><strong>Lennox-Gastaut syndrome:</strong> intellectual disability, multiple seizure types including atonic drops, slow spike-wave on EEG. Often refractory. <strong>Dravet syndrome:</strong> SCN1A mutation, fever-sensitive early-life seizures evolving into intractable epilepsy. <strong>West syndrome (infantile spasms):</strong> clusters of flexor spasms, hypsarrhythmia on EEG, developmental regression — neurological emergency, treat with ACTH or vigabatrin.</p>
+
+<h2 id="mimics">4 · Differentiating seizures from mimics</h2>
+<table>
+<tr><th>Diagnosis</th><th>Distinguishing features</th></tr>
+<tr><td>Syncope</td><td>Brief LOC (seconds), preceded by lightheadedness/visual greying, pallor, rapid recovery. Brief asynchronous myoclonic jerks (convulsive syncope) common and misleading. <em>Postictal confusion absent.</em></td></tr>
+<tr><td>Psychogenic non-epileptic seizures (PNES)</td><td>Eyes closed during event, side-to-side head movement, asynchronous limb thrashing, waxing-and-waning, longer duration (often &gt; 2 min), pelvic thrusting, preserved awareness despite "GTC-like" movements, frequent emotional trigger, recall of event. <em>Diagnosis confirmed by video-EEG.</em></td></tr>
+<tr><td>TIA</td><td>Negative symptoms (loss of function) rather than positive; usually no LOC; rapid maximal deficit. Limb-shaking TIA from severe carotid stenosis is a rare exception.</td></tr>
+<tr><td>Migraine with aura</td><td>Slow spreading positive visual phenomena over minutes (scintillations crossing the field) → followed by headache. Seizure auras are stereotyped, faster, and brief.</td></tr>
+<tr><td>Movement disorder paroxysm</td><td>Dystonia, paroxysmal kinesigenic dyskinesia — preserved awareness, characteristic triggers.</td></tr>
+<tr><td>Sleep events</td><td>RBD, parasomnias, periodic limb movements.</td></tr>
+<tr><td>Transient global amnesia</td><td>Pure anterograde amnesia for hours, no LOC, no automatisms.</td></tr>
+</table>
+<div class="pearl"><strong>Tongue biting and shoulder dislocation</strong> have positive predictive value for GTC. <strong>Eyes closed during the event</strong> has high positive predictive value for PNES.</div>
+
+<h2 id="firstseizure">5 · The first seizure workup</h2>
+<ol>
+  <li><strong>History from patient and witness.</strong> Most diagnostic.</li>
+  <li><strong>Examine</strong> for focal deficits, signs of head injury, meningism, skin stigmata (neurocutaneous syndromes), source of provocation (infection, intoxication).</li>
+  <li><strong>Labs:</strong> CBC, electrolytes (sodium, calcium, magnesium), glucose, renal/liver function, urine toxicology. Pregnancy test in any woman of childbearing age. Consider prolactin within 10–20 min of a tonic-clonic event (markedly elevated supports GTC vs PNES, but cannot rule out either).</li>
+  <li><strong>ECG</strong> &mdash; exclude long-QT, Brugada, AV block as causes of convulsive syncope.</li>
+  <li><strong>Imaging:</strong> non-contrast CT in the ED to exclude acute haemorrhage, tumour, abscess. Outpatient <em>MRI brain with epilepsy protocol</em> is the standard imaging.</li>
+  <li><strong>EEG</strong> within 24–48 h if possible (yield is higher early; sleep-deprived EEG raises sensitivity).</li>
+  <li><strong>Lumbar puncture</strong> if CNS infection or SAH suspected (after CT).</li>
+</ol>
+
+<h3>When to start an AED after a single seizure</h3>
+<p>Start an AED if the recurrence risk is &gt; 60% over 10 years (i.e.&nbsp;ILAE criterion for epilepsy met after a single event). High-risk features:</p>
+<ul>
+  <li>Epileptiform EEG.</li>
+  <li>Structural lesion on MRI (stroke, tumour, hippocampal sclerosis, cortical dysplasia).</li>
+  <li>Nocturnal seizure.</li>
+  <li>Focal seizure.</li>
+  <li>Recognised epilepsy syndrome (e.g.&nbsp;JME morning myoclonus).</li>
+</ul>
+<p>Counsel about <strong>driving restrictions</strong> (jurisdiction-specific), occupational risk, swimming/bathing safety, and seizure first-aid. In most jurisdictions, driving is forbidden for 6–12 months after a seizure with impaired awareness.</p>
+
+<h2 id="provoked">6 · Provoked / acute symptomatic seizures</h2>
+<p>Treat the cause; AEDs short-term or not at all.</p>
+<table>
+<tr><th>Provocation</th><th>Approach</th></tr>
+<tr><td>Hypoglycaemia (&lt; 36 mg/dL)</td><td>IV dextrose with thiamine. No AED needed.</td></tr>
+<tr><td>Hyperglycaemia (&gt; 450 with ketoacidosis) or non-ketotic hyperosmolar</td><td>Correct the metabolic state. Non-ketotic hyperglycaemia famously causes focal seizures resistant to phenytoin.</td></tr>
+<tr><td>Hyponatraemia (&lt; 115)</td><td>Cautious correction.</td></tr>
+<tr><td>Alcohol withdrawal</td><td>Benzodiazepines, thiamine. No long-term AED.</td></tr>
+<tr><td>Eclampsia</td><td>Magnesium sulfate, BP control, delivery.</td></tr>
+<tr><td>Drug-induced</td><td>Stop offender. Common offenders include tramadol, bupropion, clozapine, imipenem, isoniazid (treat with B6), theophylline, cyclosporine, tricyclics.</td></tr>
+<tr><td>Acute stroke, traumatic brain injury, CNS infection, intracranial surgery</td><td>Many centres start a short course of AED (typically levetiracetam) for 1–4 weeks. Long-term need depends on recurrence risk.</td></tr>
+<tr><td>CNS infection</td><td>Empirical antimicrobials before LP if needed; do not delay treatment.</td></tr>
+</table>
+
+<h2 id="aeds">7 · Antiseizure medications &mdash; choosing wisely</h2>
+<p>Choice depends on the <strong>seizure type/syndrome</strong>, the patient's <strong>comorbidities and other drugs</strong>, and <strong>side-effect tolerability</strong>. The goal is monotherapy at the lowest effective dose.</p>
+
+<h3>First-line choices by seizure type</h3>
+<table>
+<tr><th>Seizure / syndrome</th><th>First-line</th><th>Avoid</th></tr>
+<tr><td>Focal seizures (with or without bilateral evolution)</td><td>Lamotrigine, levetiracetam, lacosamide, carbamazepine, oxcarbazepine</td><td>Ethosuximide (no efficacy)</td></tr>
+<tr><td>Generalised tonic-clonic (idiopathic)</td><td>Valproate (men/post-menopausal women), lamotrigine, levetiracetam</td><td>—</td></tr>
+<tr><td>Absence</td><td>Ethosuximide (most efficacious for absence alone), valproate, lamotrigine</td><td>Carbamazepine, oxcarbazepine, phenytoin, gabapentin, tiagabine, vigabatrin — can worsen absences</td></tr>
+<tr><td>Juvenile myoclonic epilepsy</td><td>Valproate (avoid in women of childbearing age), levetiracetam, lamotrigine, topiramate</td><td>Carbamazepine, oxcarbazepine, phenytoin (worsen myoclonus); lamotrigine sometimes exacerbates myoclonus</td></tr>
+<tr><td>Lennox-Gastaut</td><td>Valproate + lamotrigine; add cannabidiol, rufinamide, clobazam, felbamate</td><td>—</td></tr>
+<tr><td>Infantile spasms</td><td>ACTH, prednisolone, vigabatrin</td><td>—</td></tr>
+</table>
+
+<h3>Side effects you must counsel about</h3>
+<table>
+<tr><th>Drug</th><th>Key adverse effects</th></tr>
+<tr><td>Phenytoin</td><td>Gingival hyperplasia, hirsutism, cerebellar dysfunction with chronic use, IV cardiac toxicity (slow infusion); zero-order kinetics; many drug interactions.</td></tr>
+<tr><td>Carbamazepine</td><td>SIADH/hyponatraemia, leucopenia, aplastic anaemia (rare), Stevens-Johnson (HLA-B*1502 in Asian populations &mdash; screen before starting), enzyme inducer.</td></tr>
+<tr><td>Oxcarbazepine</td><td>Less hepatic induction than carbamazepine, more hyponatraemia.</td></tr>
+<tr><td>Valproate</td><td>Weight gain, tremor, hair loss, hepatotoxicity, pancreatitis, thrombocytopenia, hyperammonaemia. <strong>Teratogen — neural-tube defects and reduced IQ; avoid in women of childbearing age unless no alternative.</strong></td></tr>
+<tr><td>Lamotrigine</td><td>Rash (titrate slowly to avoid Stevens-Johnson); titration takes weeks. Excellent in pregnancy.</td></tr>
+<tr><td>Levetiracetam</td><td>Behavioural side effects (irritability, depression) in 10–15%. Best chosen for the patient with renal disease or pregnancy due to clean profile otherwise. Loadable IV.</td></tr>
+<tr><td>Topiramate</td><td>Cognitive slowing, weight loss, paraesthesia, nephrolithiasis, narrow-angle glaucoma, oligohydrosis, teratogen (oral clefts).</td></tr>
+<tr><td>Lacosamide</td><td>PR-interval prolongation; otherwise well tolerated.</td></tr>
+<tr><td>Phenobarbital</td><td>Sedation, cognitive blunting, enzyme induction, dependence; rarely used outside resource-limited settings and the neonatal unit.</td></tr>
+</table>
+
+<div class="warn"><strong>Lamotrigine rash:</strong> rash occurs in ~10% (severe in &lt; 1%). Risk rises with rapid titration or concomitant valproate. Counsel the patient: any rash → stop and contact you.</div>
+
+<h2 id="se">8 · Status epilepticus &mdash; stepwise protocol</h2>
+
+<h3>Definition (modern)</h3>
+<p>Continuous seizure activity &gt; 5 min, or two or more seizures without recovery between, is <strong>status epilepticus (SE)</strong> and is a neurological emergency. The 5-min threshold is operational because isolated seizures rarely last longer and irreversible neuronal injury can begin at 5 min. Non-convulsive SE must be considered if a patient does not return to baseline within 20 min of a convulsion stopping.</p>
+
+<h3>Stepwise pharmacotherapy (Neurocritical Care Society)</h3>
+<ol>
+  <li><strong>0–5 min &mdash; Stabilisation phase.</strong> ABC, position, oxygen, IV access, finger-stick glucose, vital signs, IV thiamine + dextrose if hypoglycaemic.</li>
+  <li><strong>5–20 min &mdash; First-line (benzodiazepine).</strong>
+    <ul>
+      <li><strong>IV lorazepam 0.1 mg/kg</strong> (max 4 mg/dose; may repeat once after 5–10 min).</li>
+      <li>If no IV: <strong>IM midazolam 10 mg</strong> (≥ 40 kg) &mdash; non-inferior to IV lorazepam in the RAMPART trial.</li>
+      <li>Alternatives: IV diazepam 0.15 mg/kg or rectal diazepam 0.2 mg/kg.</li>
+    </ul>
+    Common error: under-dosing. Use the full weight-based dose.
+  </li>
+  <li><strong>20–40 min &mdash; Second-line (urgent control).</strong> Give <em>concurrently</em> with or immediately after the benzodiazepine, do not wait. Choose one:
+    <ul>
+      <li>IV fosphenytoin 20 mg PE/kg (max rate 150 mg PE/min) <em>or</em> phenytoin 20 mg/kg (50 mg/min, with cardiac monitoring).</li>
+      <li>IV valproate 40 mg/kg (rate 3–6 mg/kg/min).</li>
+      <li>IV levetiracetam 60 mg/kg (max 4.5 g, rate 2–5 mg/kg/min).</li>
+    </ul>
+    The ESETT trial showed similar efficacy (≈ 47%) between phenytoin, valproate, and levetiracetam.
+  </li>
+  <li><strong>40–60 min &mdash; Refractory SE.</strong> Failure of benzodiazepine + second-line agent. Intubate. Start continuous IV anaesthetic:
+    <ul>
+      <li>Midazolam 0.2 mg/kg bolus → 0.05–2.9 mg/kg/h infusion.</li>
+      <li>Propofol 1–2 mg/kg bolus → 30–100 µg/kg/min (watch for propofol-infusion syndrome at high dose &gt; 48 h).</li>
+      <li>Pentobarbital 5–15 mg/kg → 0.5–10 mg/kg/h (long half-life, prolonged ventilation).</li>
+    </ul>
+    Continuous EEG mandatory; titrate to seizure suppression or burst-suppression depending on protocol.
+  </li>
+  <li><strong>&gt; 24 h on infusion &mdash; Super-refractory SE.</strong> Add ketamine (NMDA antagonist), ketogenic diet, hypothermia, immunotherapy (steroids, IVIG, rituximab if autoimmune encephalitis suspected). Refer to a specialist tertiary centre.</li>
+</ol>
+
+<div class="time"><strong>Time targets:</strong> Benzodiazepine within 5 min of seizure onset. Second-line agent within 20 min. Anaesthetic within 40–60 min if not controlled. Underdosing and delay are the most common errors.</div>
+
+<h3>Concurrent workup in SE</h3>
+<p>Bedside glucose, CBC, electrolytes (Na, Ca, Mg), renal/liver, AED levels, troponin, ABG, pregnancy test, urine toxicology, lactate. Non-contrast CT. MRI when stable. Lumbar puncture if infection suspected (empirical antimicrobials first if delay). Continuous EEG within 1 h if not waking, maintained ≥ 48 h.</p>
+
+<h2 id="special">9 · Special populations</h2>
+
+<h3>Women with epilepsy</h3>
+<ul>
+  <li><strong>Pre-conception:</strong> review AEDs and switch off teratogens when possible. <em>Avoid valproate</em> in women of childbearing age unless absolutely necessary (4–9% risk of major malformation; impaired IQ). Avoid polytherapy. Lamotrigine and levetiracetam have the best pregnancy safety data.</li>
+  <li><strong>Folic acid 0.4–5 mg daily</strong> from before conception.</li>
+  <li>Lamotrigine levels fall in pregnancy (induced glucuronidation); monitor and titrate up.</li>
+  <li>Oestrogen-containing oral contraceptives reduce lamotrigine levels and are reduced in efficacy by enzyme-inducing AEDs (carbamazepine, phenytoin, phenobarbital, topiramate &gt; 200 mg). Counsel about reliable contraception.</li>
+  <li>Catamenial epilepsy &mdash; seizure clustering around menses; specific treatment options exist.</li>
+</ul>
+
+<h3>Older adults</h3>
+<p>Stroke is the leading cause of new-onset epilepsy after 60. Choose AEDs with minimal interactions and renal dosing in mind. <strong>Lamotrigine</strong> and <strong>levetiracetam</strong> are usually preferred. Avoid phenytoin where possible due to long-term cerebellar toxicity, cognitive effects, and interactions.</p>
+
+<h3>Driving and lifestyle</h3>
+<p>Most jurisdictions require a seizure-free period (often 6–12 months) before resuming driving. Counsel about avoiding ladders, working at heights, swimming alone, unsupervised bathing of infants, and prompt reporting of any breakthrough seizure.</p>
+
+<h3>Drug-resistant epilepsy</h3>
+<p>Failure of two appropriately chosen and dosed AEDs to control seizures = drug-resistant epilepsy. Up to 80% of well-selected drug-resistant temporal lobe epilepsy patients become seizure-free after surgical resection. Refer to an epilepsy centre for evaluation (video-EEG, MRI, neuropsychological testing).</p>
+
+<h2 id="refer">10 · Red flags &amp; when to refer</h2>
+<div class="refer"><strong>Refer urgently / admit:</strong>
+<ul>
+  <li>Status epilepticus.</li>
+  <li>First-ever seizure (most warrant ED evaluation and same-week neurology).</li>
+  <li>New focal deficit, fever, or meningism with seizure.</li>
+  <li>Suspected eclampsia.</li>
+  <li>Pregnant woman with breakthrough seizure on AED.</li>
+  <li>Suspected infantile spasms.</li>
+  <li>Failure to wake within 20 min of a convulsion stopping &rarr; suspect non-convulsive SE.</li>
+</ul>
+</div>
+<div class="warn"><strong>Routine neurology referral:</strong>
+<ul>
+  <li>Established epilepsy with breakthrough seizures despite adherence.</li>
+  <li>Drug-resistant epilepsy (failure of two AEDs).</li>
+  <li>Pre-conception counselling.</li>
+  <li>Suspected non-epileptic events for video-EEG.</li>
+</ul>
+</div>
+
+<h2 id="quick">11 · Quick-reference tables</h2>
+
+<h3>Seizure vs syncope vs PNES</h3>
+<table>
+<tr><th></th><th>Seizure</th><th>Syncope</th><th>PNES</th></tr>
+<tr><td>Onset</td><td>Abrupt with aura possible</td><td>Pre-syncope (light-headed, visual greying)</td><td>Often situational, emotional trigger</td></tr>
+<tr><td>Eyes</td><td>Open and deviated</td><td>Rolled up, then closed</td><td>Often forced closed</td></tr>
+<tr><td>Movements</td><td>Synchronous, sustained</td><td>Brief asynchronous myoclonic jerks</td><td>Asynchronous thrashing, side-to-side head, pelvic thrust</td></tr>
+<tr><td>Duration</td><td>1–3 min</td><td>Seconds</td><td>Often &gt; 2 min, waxing/waning</td></tr>
+<tr><td>Tongue biting</td><td>Lateral</td><td>None usually</td><td>Tip, rare</td></tr>
+<tr><td>Postictal</td><td>Confusion, lethargy minutes-hours</td><td>Rapid recovery, &lt; 1 min</td><td>Often abrupt recovery; preserved memory</td></tr>
+<tr><td>Prolactin (10–20 min)</td><td>Markedly raised after GTC</td><td>Normal</td><td>Normal</td></tr>
+</table>
+
+<h3>Status epilepticus drugs at a glance</h3>
+<table>
+<tr><th>Phase</th><th>Drug</th><th>Dose</th></tr>
+<tr><td>1st line</td><td>Lorazepam IV</td><td>0.1 mg/kg (max 4 mg); may repeat once</td></tr>
+<tr><td>1st line</td><td>Midazolam IM</td><td>10 mg (≥ 40 kg)</td></tr>
+<tr><td>1st line</td><td>Diazepam IV / PR</td><td>0.15 mg/kg IV; 0.2 mg/kg PR</td></tr>
+<tr><td>2nd line</td><td>Fosphenytoin IV</td><td>20 PE/kg, max rate 150 mg PE/min</td></tr>
+<tr><td>2nd line</td><td>Valproate IV</td><td>40 mg/kg</td></tr>
+<tr><td>2nd line</td><td>Levetiracetam IV</td><td>60 mg/kg (max 4.5 g)</td></tr>
+<tr><td>3rd line (anaesthetic)</td><td>Midazolam infusion</td><td>0.2 mg/kg bolus → 0.05–2.9 mg/kg/h</td></tr>
+<tr><td>3rd line</td><td>Propofol infusion</td><td>1–2 mg/kg bolus → 30–100 µg/kg/min</td></tr>
+<tr><td>3rd line</td><td>Pentobarbital infusion</td><td>5–15 mg/kg bolus → 0.5–10 mg/kg/h</td></tr>
+</table>
+
+<h3>Drugs that lower seizure threshold</h3>
+<table>
+<tr><th>Class</th><th>Examples</th></tr>
+<tr><td>Antibiotics</td><td>Penicillins (high dose), imipenem, cephalosporins (4th-gen), isoniazid, metronidazole, fluoroquinolones</td></tr>
+<tr><td>Antidepressants</td><td>Bupropion (especially &gt; 450 mg/d), tricyclics, venlafaxine (overdose)</td></tr>
+<tr><td>Antipsychotics</td><td>Clozapine, low-potency phenothiazines</td></tr>
+<tr><td>Analgesics</td><td>Tramadol, meperidine</td></tr>
+<tr><td>Antihistamines</td><td>Diphenhydramine (overdose)</td></tr>
+<tr><td>Stimulants / drugs of abuse</td><td>Cocaine, amphetamines, MDMA, bath salts</td></tr>
+<tr><td>Withdrawal states</td><td>Alcohol, benzodiazepines, baclofen, barbiturates</td></tr>
+<tr><td>Chemotherapy / immunosuppressants</td><td>Cyclosporine, tacrolimus, ifosfamide, etoposide</td></tr>
+</table>
+
+<hr>
+<p class="src">Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Ch. 15 (Epilepsy and Other Seizure Disorders); Merritt's <em>Neurology</em> 14e, Ch. 7 (Seizures and SE protocol, ESETT, NCS guidelines), Ch. 60 (ILAE 2017 classification, epilepsy syndromes), Ch. 61 (Management of Epilepsy).</p>
+
+</body>
+</html>
