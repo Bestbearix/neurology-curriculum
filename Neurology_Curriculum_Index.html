@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurology Curriculum — Self-Study Modules</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .info-banner {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-banner h2 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-banner p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .source-list {
+            margin: 1rem 0 0 1.5rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .source-list li {
+            margin: 0.25rem 0;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .module-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .module-number {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .module-body {
+            padding: 1.5rem;
+        }
+
+        .module-description {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .module-sources {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+        }
+
+        .module-sources strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #666;
+        }
+
+        .module-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.25rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #667eea;
+            flex: 1;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e8e8e8;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .status-complete {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-planned {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .coming-soon {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            color: #888;
+        }
+
+        .coming-soon h3 {
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Neurology Curriculum</h1>
+            <p>Self-Study Modules for General Physicians</p>
+        </header>
+
+        <div class="info-banner">
+            <h2>About This Curriculum</h2>
+            <p>A clinical-reasoning-focused self-study series built from two authoritative texts:</p>
+            <ul class="source-list">
+                <li><strong>Adams & Victor's Principles of Neurology</strong> (12th Edition)</li>
+                <li><strong>Merritt's Neurology</strong> (14th Edition)</li>
+            </ul>
+            <p style="margin-top: 0.75rem;">Designed for general physicians seeking refresher material, recognition of key presentations, red flags, and when-to-refer guidance. Not intended as neurology residency preparation.</p>
+        </div>
+
+        <div class="modules-grid">
+            <!-- Module 1 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">Module 1</div>
+                    <div class="module-title">Neurologic Exam & Localization</div>
+                </div>
+                <div class="module-body">
+                    <span class="status-badge status-complete">Complete</span>
+                    <p class="module-description">Master the core neurologic examination and learn systematic anatomic localization from bedside findings.</p>
+                    <div class="module-sources">
+                        <strong>Sources:</strong>
+                        Adams & Victor Ch 1 | Merritt's Ch 3, 4
+                    </div>
+                    <div class="module-links">
+                        <a href="Module_01_Exam_Localization_Reference.html" class="btn btn-primary">📖 Reference</a>
+                        <a href="Module_01_Exam_Localization_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">Module 2</div>
+                    <div class="module-title">Stroke & Cerebrovascular Disease</div>
+                </div>
+                <div class="module-body">
+                    <span class="status-badge status-complete">Complete</span>
+                    <p class="module-description">Recognition of acute stroke, classification, management pathways, and decision tools for acute reperfusion therapy.</p>
+                    <div class="module-sources">
+                        <strong>Sources:</strong>
+                        Adams & Victor Ch 33 | Merritt's Ch 16, 36–41, 45
+                    </div>
+                    <div class="module-links">
+                        <a href="Module_02_Stroke_Reference.html" class="btn btn-primary">📖 Reference</a>
+                        <a href="Module_02_Stroke_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">Module 3</div>
+                    <div class="module-title">Epilepsy & Seizures</div>
+                </div>
+                <div class="module-body">
+                    <span class="status-badge status-complete">Complete</span>
+                    <p class="module-description">Seizure types, classification, red flags, management principles, and when to refer to neurology.</p>
+                    <div class="module-sources">
+                        <strong>Sources:</strong>
+                        Adams & Victor Ch 15 | Merritt's Ch 8–11
+                    </div>
+                    <div class="module-links">
+                        <a href="Module_03_Epilepsy_Reference.html" class="btn btn-primary">📖 Reference</a>
+                        <a href="Module_03_Epilepsy_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">Module 4</div>
+                    <div class="module-title">Headache & Facial Pain</div>
+                </div>
+                <div class="module-body">
+                    <span class="status-badge status-complete">Complete</span>
+                    <p class="module-description">Differential diagnosis of headache, red flags for secondary causes, and initial management strategies.</p>
+                    <div class="module-sources">
+                        <strong>Sources:</strong>
+                        Adams & Victor Ch 10 | Merritt's Ch 4–6
+                    </div>
+                    <div class="module-links">
+                        <a href="Module_04_Headache_Reference.html" class="btn btn-primary">📖 Reference</a>
+                        <a href="Module_04_Headache_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">Module 5</div>
+                    <div class="module-title">Coma & Altered Mental Status</div>
+                </div>
+                <div class="module-body">
+                    <span class="status-badge status-complete">Complete</span>
+                    <p class="module-description">Approach to the comatose patient, differential diagnosis, localizing signs, and prognosis.</p>
+                    <div class="module-sources">
+                        <strong>Sources:</strong>
+                        Adams & Victor Ch 17 | Merritt's Ch 7
+                    </div>
+                    <div class="module-links">
+                        <a href="Module_05_Coma_Reference.html" class="btn btn-primary">📖 Reference</a>
+                        <a href="Module_05_Coma_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 6 Planned -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">Module 6</div>
+                    <div class="module-title">Movement Disorders</div>
+                </div>
+                <div class="module-body">
+                    <span class="status-badge status-planned">Planned</span>
+                    <p class="module-description">Recognition of tremor, rigidity, bradykinesia, and movement disorders; Parkinson's disease and other common presentations.</p>
+                    <div class="module-sources">
+                        <strong>Sources:</strong>
+                        Adams & Victor Ch 6, 39 | Merritt's Ch 27–31
+                    </div>
+                    <div class="module-links">
+                        <a href="#" class="btn btn-secondary" disabled>Coming Soon</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 7 Planned -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">Module 7</div>
+                    <div class="module-title">Dementia & Cognitive Decline</div>
+                </div>
+                <div class="module-body">
+                    <span class="status-badge status-planned">Planned</span>
+                    <p class="module-description">Dementia types, cognitive assessment, red flags for treatable causes, and mild cognitive impairment.</p>
+                    <div class="module-sources">
+                        <strong>Sources:</strong>
+                        Adams & Victor Ch 21 | Merritt's Ch 34–35
+                    </div>
+                    <div class="module-links">
+                        <a href="#" class="btn btn-secondary" disabled>Coming Soon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Last updated: May 27, 2026</p>
+            <p>Built from Adams & Victor's Principles of Neurology (12e) and Merritt's Neurology (14e)</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 5 — Coma & Altered Mental Status (Reference)</title>
+<style>
+  :root{
+    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#5a4099; --soft:#f3eefc;
+    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
+    --pearl-bg:#efe7fb; --pearl-bd:#5a4099; --pearl-ink:#2e1a5a;
+    --refer-bg:#fee5e2; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+    --time-bg:#eef7ff; --time-bd:#3a86b0; --time-ink:#163a6a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif; color:var(--ink); background:#fff; line-height:1.55; max-width:880px; margin:0 auto; padding:48px 28px 96px}
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
+  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
+  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
+  h3{font-size:1.18rem; margin-top:1.8em; color:#3a2055}
+  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
+  li{margin:.25em 0}
+  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
+  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
+  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
+  tbody tr:nth-child(even){background:#fafbfd}
+  .pearl,.warn,.refer,.time{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
+  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
+  .time{background:var(--time-bg); border-color:var(--time-bd); color:var(--time-ink)}
+  .src{font-size:.8rem; color:var(--muted)}
+  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
+  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+
+<h1>Module 5 — Coma &amp; Altered Mental Status</h1>
+<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 16) and <em>Merritt's Neurology</em> (14e, Ch. 11 Delirium, Ch. 19 Stupor &amp; Coma, Ch. 20 Brain Death)</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Big picture: defining disorders of consciousness</a></li>
+  <li><a href="#approach">Initial approach to the unresponsive patient</a></li>
+  <li><a href="#exam">The focused coma exam &mdash; four pillars</a></li>
+  <li><a href="#scores">GCS, FOUR score, and RASS</a></li>
+  <li><a href="#localize">Localization &mdash; supratentorial, infratentorial, metabolic</a></li>
+  <li><a href="#herniation">Herniation syndromes</a></li>
+  <li><a href="#causes">Differential by category</a></li>
+  <li><a href="#delirium">Delirium &mdash; the common AMS the GP sees</a></li>
+  <li><a href="#chronic">Chronic disorders of consciousness</a></li>
+  <li><a href="#braindeath">Brain death determination</a></li>
+  <li><a href="#refer">Red flags &amp; when to refer</a></li>
+  <li><a href="#quick">Quick-reference tables</a></li>
+</ol>
+</div>
+
+<h2 id="frame">1 · Big picture: defining disorders of consciousness</h2>
+<p>Consciousness has two components &mdash; <strong>arousal</strong> (wakefulness, mediated by the ascending reticular activating system) and <strong>awareness</strong> (cognitive content, mediated by cerebral cortex with thalamic input). Disorders of consciousness involve one, the other, or both.</p>
+
+<table>
+<tr><th>State</th><th>Arousal</th><th>Awareness</th><th>Key feature</th></tr>
+<tr><td>Normal</td><td>Yes</td><td>Yes</td><td>—</td></tr>
+<tr><td>Lethargy / drowsy</td><td>Mildly reduced</td><td>Mostly preserved</td><td>Easily aroused by voice; quickly drifts.</td></tr>
+<tr><td>Obtundation</td><td>Reduced</td><td>Reduced</td><td>Arouses to vigorous stimulation; slow responses.</td></tr>
+<tr><td>Stupor</td><td>Markedly reduced</td><td>Markedly reduced</td><td>Arousable only by repeated noxious stimuli.</td></tr>
+<tr><td>Coma</td><td>Absent</td><td>Absent</td><td>Unarousable; no purposeful response. Eyes closed.</td></tr>
+<tr><td>Vegetative state / unresponsive wakefulness syndrome</td><td>Yes (eyes open)</td><td>Absent</td><td>Sleep-wake cycles; no command following.</td></tr>
+<tr><td>Minimally conscious state</td><td>Yes</td><td>Low-level</td><td>Inconsistent purposeful behaviour (visual pursuit, occasional command following).</td></tr>
+<tr><td>Locked-in syndrome</td><td>Yes</td><td>Yes (intact)</td><td>Quadriplegia + lower CN palsies; <em>vertical eye movement and blinking preserved</em>. Often pontine infarction.</td></tr>
+<tr><td>Brain death</td><td>Absent</td><td>Absent</td><td>Loss of all brainstem reflexes + apnoea + irreversible cause.</td></tr>
+<tr><td>Delirium / acute confusional state</td><td>Variable</td><td>Disordered, fluctuating</td><td>Inattention, disorganised thinking, often hyperactive or hypoactive.</td></tr>
+</table>
+
+<p>Use precise, descriptive language ("opens eyes to firm sternal pressure" rather than "stupor") &mdash; the labels above are loose and clinicians use them inconsistently.</p>
+
+<div class="pearl"><strong>Pearl:</strong> <em>If the patient seems unresponsive but can blink to command, look up to command, or move the eyes vertically &mdash; suspect locked-in syndrome.</em> Always ask: "blink twice if you can hear me" and "look up." This may be the only voluntary response possible.</div>
+
+<h2 id="approach">2 · Initial approach to the unresponsive patient</h2>
+<p>Treat coma like trauma resuscitation &mdash; ABCs first, history and exam in parallel, then targeted workup.</p>
+
+<h3>The first 5 minutes</h3>
+<ol>
+  <li><strong>Airway, breathing, circulation.</strong> Intubate if GCS ≤ 8, vomiting risk, hypoxia, or to control PCO₂ for raised ICP.</li>
+  <li><strong>Vital signs:</strong> BP, HR, RR, SpO₂, temperature. Hypotension &rarr; resuscitate. Hypertension + bradycardia + irregular respiration = <strong>Cushing's response</strong> &rarr; raised ICP.</li>
+  <li><strong>Glucose finger-stick</strong> &mdash; hypoglycaemia is reversible coma; give D50W 50 mL IV with <strong>thiamine 100 mg IV first</strong> (glucose alone in thiamine-deficient patient precipitates Wernicke encephalopathy).</li>
+  <li><strong>Naloxone 0.4 mg IV</strong> if opioid overdose possible (pinpoint pupils, hypoventilation).</li>
+  <li><strong>Flumazenil 0.2 mg IV</strong> may reverse benzodiazepine overdose but is rarely used &mdash; risk of seizures in mixed overdoses or chronic BZD users.</li>
+  <li><strong>Empirical broad-spectrum antibiotics ± aciclovir</strong> if meningoencephalitis suspected (fever, neck stiffness, rash, immunocompromised).</li>
+  <li><strong>Cervical-spine precautions</strong> in any unwitnessed collapse or trauma until imaging clears.</li>
+</ol>
+
+<div class="time"><strong>The "coma cocktail" (selective, not all four):</strong> O₂ · thiamine 100 mg IV → glucose · naloxone 0.4 mg IV if opioid suspected · cervical immobilisation if trauma possible. The reflexive flumazenil push has fallen out of favour.</div>
+
+<h3>Quick history from witnesses / EMS</h3>
+<ul>
+  <li>Tempo: sudden (vascular, seizure) vs gradual (metabolic, infective, mass).</li>
+  <li>Trauma, last meal, medications, alcohol, illicit drugs.</li>
+  <li>Past medical history: diabetes, liver/renal failure, malignancy, psychiatric, anticoagulation.</li>
+  <li>Recent illness or fever.</li>
+  <li>Suicidal ideation, access to medications.</li>
+</ul>
+
+<h2 id="exam">3 · The focused coma exam &mdash; four pillars</h2>
+<p>Plum &amp; Posner's four-pillar framework distinguishes <strong>supratentorial</strong>, <strong>infratentorial</strong>, and <strong>metabolic/diffuse</strong> coma. Examine these four in every comatose patient:</p>
+
+<h3>Pillar 1 &mdash; Motor responses</h3>
+<table>
+<tr><th>Response</th><th>Meaning</th></tr>
+<tr><td>Follows commands</td><td>Cortex relatively intact &mdash; not truly comatose.</td></tr>
+<tr><td>Localises to noxious stimulus (reaches above clavicle)</td><td>Cortical pathways largely preserved.</td></tr>
+<tr><td>Withdraws from noxious stimulus</td><td>Cortex partially functional.</td></tr>
+<tr><td><strong>Decorticate (flexor) posturing</strong> &mdash; arms flexed/adducted, legs extended</td><td>Lesion above red nucleus (cerebral hemispheres / internal capsule).</td></tr>
+<tr><td><strong>Decerebrate (extensor) posturing</strong> &mdash; arms and legs extended, pronated</td><td>Lesion at midbrain / upper pons (below red nucleus).</td></tr>
+<tr><td>No response (flaccid)</td><td>Lower brainstem dysfunction OR spinal injury OR profound metabolic/sedative effect.</td></tr>
+<tr><td>Asymmetric responses</td><td>Suggests structural lesion (hemispheric or brainstem).</td></tr>
+</table>
+<p>Spontaneous myoclonus, seizures, fasciculations, and posturing should all be noted. <em>Lack of motor response can also reflect locked-in syndrome, Guillain-Barré, severe neuromuscular blockade, or cervical-cord injury</em>.</p>
+
+<h3>Pillar 2 &mdash; Respiratory pattern</h3>
+<table>
+<tr><th>Pattern</th><th>Localization</th></tr>
+<tr><td>Cheyne–Stokes (crescendo-decrescendo + apnoea)</td><td>Bilateral cerebral disease or metabolic. Usually not imminently dangerous; short-cycle CSR is more ominous (posterior fossa or raised ICP).</td></tr>
+<tr><td>Sustained hyperventilation</td><td>Metabolic acidosis, hepatic encephalopathy, pulmonary congestion, sepsis. Rarely rostral brainstem (central neurogenic).</td></tr>
+<tr><td>Apneustic (long inspiratory pause)</td><td>Pontine lesion (especially infarction).</td></tr>
+<tr><td>Ataxic / Biot's (irregular rate &amp; depth)</td><td>Medullary damage &mdash; may progress to apnoea.</td></tr>
+<tr><td>Ondine's curse (loss of automatic breathing, voluntary preserved)</td><td>Medullary lesion.</td></tr>
+</table>
+
+<h3>Pillar 3 &mdash; Pupils</h3>
+<p>Pupils are the single most useful sign because the pathways for pupillary control travel near, but are anatomically distinct from, those for consciousness. <em>Metabolic coma almost always spares pupillary reactivity</em> (key exceptions: anticholinergics, severe anoxia, severe barbiturate intoxication, hypothermia).</p>
+
+<table>
+<tr><th>Pupil pattern</th><th>Site / cause</th></tr>
+<tr><td>Small (1–2 mm), reactive, bilateral</td><td>Pontine lesion (pontine haemorrhage), opioids. Reactivity preserved despite size.</td></tr>
+<tr><td>Mid-position (4–6 mm), fixed</td><td>Midbrain lesion (loss of both sympathetic and parasympathetic input).</td></tr>
+<tr><td>Unilateral fixed and dilated ("blown pupil")</td><td><strong>Uncal herniation</strong> compressing CN III — neurosurgical emergency. Also PCom aneurysm.</td></tr>
+<tr><td>Bilateral fixed and dilated</td><td>Brainstem catastrophe, severe anoxia, severe barbiturate intoxication, anticholinergic toxicity. <em>Recall: hypothermia and severe barbiturate intoxication can mimic brain death &mdash; reversible.</em></td></tr>
+<tr><td>Pinpoint, reactive only on bright light + magnifier</td><td>Opioid overdose.</td></tr>
+<tr><td>Bilateral mid-dilated, equal, reactive</td><td>Metabolic encephalopathy (usually).</td></tr>
+</table>
+
+<h3>Pillar 4 &mdash; Eye movements</h3>
+<ul>
+  <li><strong>Resting eye position:</strong> conjugate gaze deviation <em>toward</em> a destructive cortical lesion (away from hemiparesis); <em>away</em> from the lesion suggests a pontine destructive lesion or a thalamic "wrong-way" haemorrhage.</li>
+  <li><strong>Roving conjugate eye movements</strong> &mdash; intact brainstem, metabolic or diffuse cortical coma. Disappear with brainstem injury.</li>
+  <li><strong>Ocular bobbing</strong> (brisk downward jerks, slow return) &mdash; pontine destruction.</li>
+  <li><strong>Skew deviation</strong> &mdash; brainstem or cerebellar lesion.</li>
+  <li><strong>Oculocephalic reflex ("doll's eyes")</strong> &mdash; passive head rotation. <em>Intact</em>: eyes move opposite to head turn (brainstem intact). <em>Absent</em>: eyes stay fixed with the head (brainstem dysfunction or deep metabolic coma). Do <em>not</em> perform if cervical injury possible.</li>
+  <li><strong>Cold caloric (oculovestibular) reflex</strong> &mdash; head at 30°, irrigate ear canal with 30–60 mL ice water. <em>Awake patient</em>: nystagmus with fast phase <strong>away</strong> from cold ear (COWS &mdash; cold opposite, warm same). <em>Comatose patient with intact brainstem</em>: tonic conjugate deviation <strong>toward</strong> the cold ear, no fast phase. <em>No response</em>: brainstem dysfunction.</li>
+</ul>
+
+<div class="pearl"><strong>Mnemonic:</strong> "COWS" describes the fast-phase nystagmus of an awake person. In coma there is no cortical fast phase &mdash; you see only the tonic deviation toward the cold ear.</div>
+
+<h2 id="scores">4 · GCS, FOUR score, and RASS</h2>
+
+<h3>Glasgow Coma Scale (GCS)</h3>
+<table>
+<tr><th>Eye (E)</th><th>Verbal (V)</th><th>Motor (M)</th></tr>
+<tr><td>4 spontaneous · 3 to voice · 2 to pain · 1 none</td>
+    <td>5 oriented · 4 confused · 3 inappropriate · 2 incomprehensible · 1 none</td>
+    <td>6 obeys · 5 localises · 4 withdraws · 3 flexor (decorticate) · 2 extensor (decerebrate) · 1 none</td></tr>
+</table>
+<p>Total 3–15. Always report components (e.g.&nbsp;<strong>E3 V4 M6 = GCS 13</strong>) — total alone hides important detail. <strong>GCS ≤ 8 = consider intubation</strong>.</p>
+
+<h3>FOUR score (Full Outline of UnResponsiveness)</h3>
+<p>Designed to work in intubated patients (no verbal component). Four domains, each 0–4 (total 0–16):</p>
+<table>
+<tr><th>Domain</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr>
+<tr><td><strong>Eye</strong></td><td>Tracking/blinking to command</td><td>Open, not tracking</td><td>Open to loud voice</td><td>Open to pain</td><td>Closed to pain</td></tr>
+<tr><td><strong>Motor</strong></td><td>Thumbs-up/fist/peace sign</td><td>Localising to pain</td><td>Flexion to pain</td><td>Extension to pain</td><td>No response / myoclonus status</td></tr>
+<tr><td><strong>Brainstem</strong></td><td>Pupil + corneal both present</td><td>One pupil wide &amp; fixed</td><td>Pupil OR corneal absent</td><td>Pupil AND corneal absent</td><td>Pupil + corneal + cough all absent</td></tr>
+<tr><td><strong>Respiration</strong></td><td>Not intubated, regular</td><td>Not intubated, Cheyne–Stokes</td><td>Not intubated, irregular</td><td>Breathes above ventilator rate</td><td>Apnoea or breathes at ventilator rate</td></tr>
+</table>
+<p>FOUR score advantages: includes brainstem reflexes, identifies locked-in syndrome (E4 with high score), works for intubated patients. Score 0 with absent brainstem reflexes prompts brain-death evaluation.</p>
+
+<h3>Richmond Agitation-Sedation Scale (RASS)</h3>
+<table>
+<tr><th>Score</th><th>Term</th><th>Description</th></tr>
+<tr><td>+4</td><td>Combative</td><td>Immediate danger to staff</td></tr>
+<tr><td>+3</td><td>Very agitated</td><td>Pulls tubes / aggressive</td></tr>
+<tr><td>+2</td><td>Agitated</td><td>Frequent non-purposeful movement; fights ventilator</td></tr>
+<tr><td>+1</td><td>Restless</td><td>Anxious; movements not aggressive</td></tr>
+<tr><td>0</td><td>Alert &amp; calm</td><td></td></tr>
+<tr><td>−1</td><td>Drowsy</td><td>Eye contact to voice &gt; 10 s</td></tr>
+<tr><td>−2</td><td>Light sedation</td><td>Eye contact to voice &lt; 10 s</td></tr>
+<tr><td>−3</td><td>Moderate sedation</td><td>Movement or eye opening to voice (no contact)</td></tr>
+<tr><td>−4</td><td>Deep sedation</td><td>Movement / eye opening to physical stimulation only</td></tr>
+<tr><td>−5</td><td>Unarousable</td><td>No response</td></tr>
+</table>
+<p>Use RASS for sedation titration in the ICU; combine with the CAM-ICU to screen for delirium.</p>
+
+<h2 id="localize">5 · Localization &mdash; the three-bucket sort</h2>
+
+<h3>Supratentorial lesion</h3>
+<p>Hemispheric lesion (stroke, haemorrhage, tumour, abscess) typically causes coma <em>only after</em> it has produced contralateral hemiparesis and then progressed to compress the diencephalon (rostro-caudal deterioration). Signs progress in order: drowsy → small reactive pupils → bilateral spasticity → flexor posturing → extensor posturing → midbrain pupils → loss of pontine reflexes → loss of medullary reflexes (Plum &amp; Posner sequence).</p>
+
+<h3>Infratentorial lesion</h3>
+<p>Pontine or midbrain lesion: <em>sudden</em> coma with focal brainstem signs from the start &mdash; cranial-nerve palsies, abnormal pupils (pinpoint reactive = pons; mid-fixed = midbrain), bobbing, gaze palsy, "crossed" findings. Rostro-caudal sequence is absent. Typical causes: brainstem haemorrhage or infarction, basilar artery occlusion, cerebellar haemorrhage with brainstem compression.</p>
+
+<h3>Diffuse / metabolic / toxic coma</h3>
+<p>The single most useful clue: <strong>pupillary reactivity is preserved</strong>, and findings are symmetric. Other clues: <em>asterixis</em>, <em>myoclonus</em>, <em>tremor</em>, <em>generalised seizures</em>, <em>roving eye movements</em>. Reflexes may be normal or reduced; tone diffusely reduced. Causes: hypoglycaemia, hypoxia, uraemia, hepatic, hypo/hyperthyroidism, hypo/hypernatraemia, hypercapnia, sepsis, drug overdose, alcohol.</p>
+
+<table>
+<tr><th>Feature</th><th>Supratentorial</th><th>Infratentorial</th><th>Metabolic/Toxic</th></tr>
+<tr><td>Onset</td><td>Gradual rostro-caudal progression</td><td>Sudden</td><td>Gradual</td></tr>
+<tr><td>Focal signs</td><td>Yes (early hemiparesis)</td><td>Yes (cranial nerves, "crossed")</td><td>No</td></tr>
+<tr><td>Pupils</td><td>Asymmetric (uncal) or sequenced</td><td>Pinpoint or mid-fixed depending on level</td><td><em>Reactive</em> (usually) and symmetric</td></tr>
+<tr><td>Asterixis / myoclonus</td><td>Uncommon</td><td>Uncommon</td><td>Common</td></tr>
+<tr><td>Eye movements</td><td>Conjugate gaze deviation</td><td>Loss of horizontal &amp;/or vertical gaze, bobbing</td><td>Roving, intact</td></tr>
+<tr><td>Respiration</td><td>Cheyne–Stokes early</td><td>Apneustic, ataxic</td><td>Hyperventilation (acidosis) or hypoventilation (sedative)</td></tr>
+</table>
+
+<h2 id="herniation">6 · Herniation syndromes</h2>
+<table>
+<tr><th>Type</th><th>Mechanism</th><th>Imaging</th><th>Clinical</th></tr>
+<tr><td><strong>Subfalcine (cingulate)</strong></td><td>Cingulate gyrus pushed under falx by hemispheric mass at the level of ventricles</td><td>Midline shift; ipsilateral lateral ventricle compressed</td><td>Contralateral leg weakness (ACA territory infarction from compression against the falx)</td></tr>
+<tr><td><strong>Uncal (lateral transtentorial)</strong></td><td>Medial temporal lobe (uncus) over tentorial edge by temporal mass</td><td>Uncus displaced medially into tentorial notch</td><td><em>Ipsilateral</em> blown pupil (CN III stretch) → hemiparesis (may be ipsilateral due to Kernohan's notch = false localising sign) → coma → decerebrate posturing → bilateral fixed pupils</td></tr>
+<tr><td><strong>Central transtentorial</strong></td><td>Symmetric downward push from bilateral cerebral mass / oedema / diencephalic mass</td><td>Loss of perimesencephalic cisterns, downward tectal displacement</td><td>Early diencephalic stage (small reactive pupils, Cheyne–Stokes) → midbrain (mid-fixed pupils, decerebrate) → pontine (pinpoint, loss of corneal/oculocephalic) → medullary (gasping, apnoea)</td></tr>
+<tr><td><strong>Tonsillar (foramen magnum)</strong></td><td>Cerebellar tonsils into foramen magnum; usually from posterior fossa mass or cerebellar haemorrhage</td><td>Tonsils below foramen magnum</td><td>Sudden coma, apnoea, cardiovascular collapse; sometimes preceded by neck stiffness and head tilt</td></tr>
+<tr><td>Upward transtentorial</td><td>Posterior fossa mass pushing midbrain upward through tentorial notch</td><td>Effacement of quadrigeminal cistern</td><td>Vertical gaze palsy (Parinaud), midbrain syndrome</td></tr>
+</table>
+
+<div class="warn"><strong>Kernohan's notch phenomenon:</strong> in uncal herniation, the contralateral cerebral peduncle is pressed against the rigid tentorial edge → <em>ipsilateral</em> hemiparesis (false localising sign). The pupillary finding (ipsilateral blown pupil) is the more reliable lateraliser.</div>
+
+<h2 id="causes">7 · Differential diagnosis by category</h2>
+<table>
+<tr><th>Category</th><th>Examples</th></tr>
+<tr><td><strong>Vascular</strong></td><td>Bilateral thalamic infarct (top-of-basilar), basilar artery occlusion (locked-in vs coma), pontine haemorrhage, cerebellar haemorrhage with brainstem compression, large hemispheric stroke with mass effect, SAH, ICH, hypoxic-ischaemic encephalopathy after cardiac arrest, posterior reversible encephalopathy (PRES), CVST</td></tr>
+<tr><td><strong>Trauma</strong></td><td>Diffuse axonal injury, epidural/subdural haematoma, contusion, cerebral oedema</td></tr>
+<tr><td><strong>Infection</strong></td><td>Bacterial / viral meningitis, encephalitis (HSV), abscess, sepsis-associated encephalopathy</td></tr>
+<tr><td><strong>Metabolic</strong></td><td>Hypoglycaemia, hyperglycaemia (DKA, HHS), hepatic, uraemic, hyponatraemia, hypernatraemia, hypercapnia, hypoxia, thyroid storm/myxoedema coma, adrenal crisis, severe hyper/hypocalcaemia</td></tr>
+<tr><td><strong>Toxic</strong></td><td>Alcohol, opioids, benzodiazepines, barbiturates, antidepressants (tricyclics), antipsychotics, lithium, carbon monoxide, anticholinergics, salicylates, methanol/ethylene glycol</td></tr>
+<tr><td><strong>Seizure</strong></td><td>Postictal coma, non-convulsive status epilepticus (a common missed diagnosis &mdash; cEEG needed)</td></tr>
+<tr><td><strong>Mass lesion</strong></td><td>Tumour (primary or metastatic), abscess, AVM, granuloma</td></tr>
+<tr><td><strong>Endocrine</strong></td><td>Myxoedema coma, adrenal crisis, pituitary apoplexy</td></tr>
+<tr><td><strong>Autoimmune</strong></td><td>Autoimmune encephalitis (anti-NMDA-R, LGI1, GAD), Hashimoto encephalopathy, CNS lupus</td></tr>
+<tr><td><strong>Psychiatric mimic</strong></td><td>Catatonia, conversion disorder &mdash; <em>diagnosis of exclusion only after structural and metabolic causes ruled out</em></td></tr>
+</table>
+
+<div class="pearl"><strong>Practical pearls (Merritt's):</strong> fever (sepsis, heatstroke, infection) · hypothermia (sepsis, exposure, hypothyroid, hypoglycaemia) · cherry-red skin (carbon monoxide) · uraemic frost · jaundice · myxoedema · acetone breath (DKA) · fetor hepaticus · Battle sign (basilar skull fracture) · subhyaloid haemorrhages (SAH) · Roth spots (endocarditis) · papilloedema (raised ICP) · resistance to neck flexion only (meningitis, SAH, foramen magnum herniation) · urinary/faecal incontinence (suggests unwitnessed seizure).</div>
+
+<h3>Investigations to order in unexplained coma</h3>
+<ul>
+  <li>Stat finger-stick glucose, ABG, electrolytes (Na, K, Ca, Mg, PO₄), urea, creatinine, LFTs, ammonia, TSH, cortisol, CK, troponin, lactate.</li>
+  <li>CBC, coagulation, blood cultures.</li>
+  <li>Urine toxicology + serum alcohol, acetaminophen, salicylate, specific drug levels (lithium, phenytoin, valproate, AEDs).</li>
+  <li><strong>Non-contrast CT head</strong> &mdash; first imaging. If normal, get contrast or MRI as appropriate.</li>
+  <li><strong>Lumbar puncture</strong> if meningitis/encephalitis/SAH suspected (after CT excludes mass effect; do not delay empirical antibiotics).</li>
+  <li><strong>EEG</strong> &mdash; if coma is unexplained or any subtle twitching is seen, <em>non-convulsive status epilepticus</em> must be excluded. Continuous EEG (cEEG) for at least 24–48 h if comatose.</li>
+  <li>Specific autoimmune panels and MRI for suspected autoimmune encephalitis (anti-NMDA-R etc.).</li>
+</ul>
+
+<h2 id="delirium">8 · Delirium &mdash; the most common AMS the general physician sees</h2>
+<p>Up to <strong>50% of stroke patients</strong> and <strong>80% of ICU patients</strong> develop delirium. Hypoactive delirium is more common than hyperactive and far more often missed. Each day of delirium increases mortality risk ~10%.</p>
+
+<h3>DSM-5 / CAM core features</h3>
+<ol>
+  <li><strong>Acute onset &amp; fluctuating course</strong>.</li>
+  <li><strong>Inattention</strong> (can't sustain or shift attention; can't count backward from 20, name days of week in reverse).</li>
+  <li><strong>Disorganised thinking</strong> (rambling, illogical, switching subjects) OR <strong>altered level of consciousness</strong>.</li>
+</ol>
+<p>The <strong>Confusion Assessment Method (CAM)</strong> requires features 1 + 2 + (3 OR 4) for diagnosis. The <strong>CAM-ICU</strong> adapts it for ventilated patients.</p>
+
+<h3>Risk factors</h3>
+<table>
+<tr><th>Patient</th><th>Acute illness</th><th>Iatrogenic</th></tr>
+<tr><td>Age &gt; 65, frailty, baseline cognitive impairment, prior stroke, depression, alcohol/drug abuse</td><td>Severity of illness, hypoxia, electrolytes, sepsis, poor pain control, atrial fibrillation, anaemia</td><td>Deep sedation, sleep disruption, anticholinergics, opioids (meperidine, morphine), mechanical ventilation, steroids, benzodiazepines</td></tr>
+</table>
+
+<h3>Causes (use mnemonic <em>I WATCH DEATH</em>)</h3>
+<p><strong>I</strong>nfection · <strong>W</strong>ithdrawal (alcohol, BZD, opioid) · <strong>A</strong>cute metabolic (electrolytes, acid-base, hypoglycaemia) · <strong>T</strong>rauma · <strong>C</strong>NS pathology (stroke, seizure, ICH, tumour, meningitis, encephalitis) · <strong>H</strong>ypoxia · <strong>D</strong>eficiencies (thiamine, B12, niacin) · <strong>E</strong>ndocrinopathies (thyroid, adrenal, glucose) · <strong>A</strong>cute vascular · <strong>T</strong>oxins / drugs · <strong>H</strong>eavy metals.</p>
+
+<h3>Management</h3>
+<ul>
+  <li><strong>Treat the cause</strong> &mdash; the rest is supportive.</li>
+  <li><strong>Non-pharmacological first:</strong> orient (clock, calendar, family at bedside), restore glasses/hearing aids, promote sleep-wake cycle (lights, daytime mobilisation, minimise nighttime disruption), early mobilisation, avoid restraints.</li>
+  <li><strong>Pain control</strong> &mdash; uncontrolled pain is a delirium driver, but minimise opioid load.</li>
+  <li><strong>Withdraw the offending drug</strong> if possible (anticholinergics, BZDs, sedatives).</li>
+  <li><strong>Pharmacological</strong> &mdash; only for severe agitation that risks harm. Low-dose haloperidol 0.5–1 mg PO/IV or olanzapine / quetiapine. Avoid BZDs unless alcohol or BZD withdrawal (when they are first-line). Avoid in elderly with dementia (mortality signal).</li>
+  <li><strong>Prevention</strong> is paramount &mdash; the <em>ABCDEF bundle</em> (Awakening trials, Breathing trials, Choice of sedation, Delirium monitoring, Early mobilisation, Family engagement) reduces ICU delirium and improves outcomes.</li>
+</ul>
+
+<div class="warn"><strong>Don't miss:</strong> non-convulsive status epilepticus, Wernicke encephalopathy (give thiamine 200–500 mg IV TID for 3 days then daily before glucose loads in any malnourished/alcohol-use patient), HSV encephalitis (fever + altered mentation + temporal-lobe signs &rarr; treat with aciclovir + LP + MRI), serotonin syndrome / NMS / anticholinergic toxidrome.</div>
+
+<h2 id="chronic">9 · Chronic disorders of consciousness</h2>
+<table>
+<tr><th>State</th><th>Eyes</th><th>Awareness</th><th>Sleep-wake</th><th>Notes</th></tr>
+<tr><td>Vegetative / UWS</td><td>Open</td><td>None</td><td>Preserved</td><td>No reproducible voluntary behaviour. Often follows severe TBI or hypoxic injury. Diagnosis after 1 month of unawareness.</td></tr>
+<tr><td>Minimally conscious state (MCS)</td><td>Open</td><td>Inconsistent but reproducible (visual pursuit, command following)</td><td>Preserved</td><td>MCS+ has language; MCS− does not. Better prognosis than VS.</td></tr>
+<tr><td>Cognitive motor dissociation</td><td>Open / closed</td><td>Detectable on fMRI / EEG but no behavioural response</td><td>Preserved</td><td>Important emerging entity &mdash; some "vegetative" patients may have covert awareness.</td></tr>
+<tr><td>Locked-in syndrome</td><td>Open</td><td>Intact</td><td>Preserved</td><td>Communication possible through eye movements / blinks. Often ventral pontine infarction (basilar artery).</td></tr>
+</table>
+<p>Diagnosis carries enormous prognostic weight; multidisciplinary repeat assessment is essential. The <strong>Coma Recovery Scale-Revised (CRS-R)</strong> is the gold-standard tool.</p>
+
+<h2 id="braindeath">10 · Brain death determination</h2>
+<p>Brain death = <strong>irreversible loss of all brain function, including brainstem</strong>, with apnoea, demonstrated when confounders have been excluded. It is a <em>clinical</em> diagnosis. Once declared, time of death is the time of completion of apnoea test or ancillary test. Brain death is legally equivalent to death.</p>
+
+<h3>Prerequisites (all must be met)</h3>
+<ul>
+  <li>Irreversible coma with a known cause; CT/MRI explains the coma (e.g.&nbsp;massive haemorrhage, severe diffuse oedema).</li>
+  <li>No sedative drug effect &mdash; allow 5–7 × elimination half-life. Long-acting drugs to consider: phenobarbital (100 h), diazepam (40 h), amitriptyline (24 h), primidone (20 h), lorazepam (15 h). Midazolam can persist ~3 h. Therapeutic hypothermia slows clearance.</li>
+  <li>No residual neuromuscular blockade (4 twitches on train-of-four).</li>
+  <li>No severe acid-base, electrolyte, or endocrine derangement.</li>
+  <li>Core temperature ≥ 36 °C.</li>
+  <li>Systolic BP ≥ 100 mmHg.</li>
+  <li>No spontaneous respirations.</li>
+</ul>
+
+<h3>Clinical examination (all must be absent)</h3>
+<ol>
+  <li><strong>Pupils:</strong> mid-position (4–6 mm), non-reactive to bright light.</li>
+  <li><strong>Corneal reflexes:</strong> absent.</li>
+  <li><strong>Oculocephalic ("doll's eyes")</strong>: absent &mdash; only after cervical spine is cleared.</li>
+  <li><strong>Oculovestibular (cold caloric):</strong> absent &mdash; 50 mL ice water in each ear, observe 2 min.</li>
+  <li><strong>Facial movement</strong> to supraorbital pressure or TMJ compression: absent.</li>
+  <li><strong>Gag reflex:</strong> absent (gloved finger to posterior pharynx).</li>
+  <li><strong>Cough reflex:</strong> absent (deep tracheal suction × 2 passes).</li>
+  <li><strong>Motor response</strong> to noxious stimuli in all 4 limbs: absent (spinal reflexes such as triple flexion may persist and do not invalidate brain death).</li>
+</ol>
+
+<h3>Apnoea test</h3>
+<ol>
+  <li>Patient hemodynamically stable, SBP ≥ 100 mmHg.</li>
+  <li>Pre-oxygenate with 100% O₂ for 10 min (target PaO₂ ≥ 200 mmHg).</li>
+  <li>Adjust ventilator to normocapnia (PaCO₂ 35–45 mmHg) and draw baseline ABG.</li>
+  <li>Disconnect ventilator; provide O₂ via insufflation catheter at level of carina (6 L/min) or T-piece with CPAP.</li>
+  <li>Observe for spontaneous respirations for 8–10 min.</li>
+  <li>Repeat ABG at 8–10 min, reconnect ventilator.</li>
+  <li><strong>Positive apnoea test:</strong> PaCO₂ ≥ 60 mmHg <em>or</em> rise of ≥ 20 mmHg above baseline, with no observed breathing → confirms apnoea.</li>
+  <li>If unstable (drop in SBP, severe desaturation, arrhythmia) → abort and proceed to an ancillary test.</li>
+</ol>
+
+<h3>Ancillary tests (only if apnoea cannot be performed)</h3>
+<ul>
+  <li><strong>EEG</strong> &mdash; ≥ 30 min of electrocerebral silence with increased gain.</li>
+  <li><strong>Digital subtraction or CT angiography</strong> &mdash; absence of intracranial flow above proximal ICA.</li>
+  <li>Transcranial Doppler, nuclear cerebral blood flow study.</li>
+</ul>
+<p>Ancillary tests are used in &lt; 5% of brain-death determinations and should not replace clinical assessment.</p>
+
+<div class="pearl"><strong>Once brain death is declared</strong> &mdash; document time of final ABG or ancillary test as time of death. Notify family. Notify the organ procurement organisation <em>before</em> withdrawal discussions (in most jurisdictions). Organ donation occurs in ~70% of declared brain-death cases.</div>
+
+<h2 id="refer">11 · Red flags &amp; when to refer</h2>
+<div class="refer"><strong>Always emergency referral:</strong>
+<ul>
+  <li>Coma of unknown cause &mdash; admit to ICU/HDU.</li>
+  <li>Any acute unilateral fixed dilated pupil (uncal herniation).</li>
+  <li>Cushing's triad (hypertension + bradycardia + irregular respiration) &mdash; impending herniation.</li>
+  <li>Cerebellar haemorrhage or infarct with any clinical change &mdash; neurosurgery now.</li>
+  <li>Suspected meningoencephalitis &mdash; antibiotics + aciclovir empirically before LP.</li>
+  <li>Non-convulsive status epilepticus suspected (subtle twitching, unexplained obtundation) &mdash; cEEG.</li>
+  <li>Possible autoimmune encephalitis in a young patient with rapid neuropsychiatric decline.</li>
+</ul>
+</div>
+
+<h2 id="quick">12 · Quick-reference tables</h2>
+
+<h3>Coma cocktail (selective)</h3>
+<table>
+<tr><th>Step</th><th>Detail</th></tr>
+<tr><td>Airway, O₂</td><td>Intubate if GCS ≤ 8 or airway at risk</td></tr>
+<tr><td>Glucose finger-stick</td><td>If &lt; 60 → thiamine 100 mg IV first, then D50W 50 mL IV</td></tr>
+<tr><td>Naloxone</td><td>0.4 mg IV if opioid overdose possible</td></tr>
+<tr><td>Empirical antimicrobials</td><td>If meningoencephalitis suspected: ceftriaxone + vancomycin + aciclovir (and dexamethasone for bacterial meningitis) — before LP if delay anticipated</td></tr>
+</table>
+
+<h3>Pupillary findings cheat sheet</h3>
+<table>
+<tr><th>Pupil</th><th>Localizes to</th></tr>
+<tr><td>Pinpoint reactive</td><td>Pons (or opioid overdose)</td></tr>
+<tr><td>Mid-position fixed</td><td>Midbrain</td></tr>
+<tr><td>Unilateral fixed dilated</td><td>Uncal herniation (CN III) or PCom aneurysm</td></tr>
+<tr><td>Bilateral fixed dilated</td><td>Brainstem catastrophe / severe anoxia / anticholinergic / severe barbiturate / hypothermia</td></tr>
+<tr><td>Bilateral reactive (regardless of size)</td><td>Likely metabolic / toxic</td></tr>
+</table>
+
+<h3>Coma in three buckets</h3>
+<table>
+<tr><th>Bucket</th><th>Hallmark</th></tr>
+<tr><td>Supratentorial structural</td><td>Hemiparesis early; rostro-caudal sequence; uncal or central herniation pattern</td></tr>
+<tr><td>Infratentorial structural</td><td>Sudden coma with brainstem signs (pupils, gaze palsy, cranial-nerve, bobbing)</td></tr>
+<tr><td>Metabolic / toxic / diffuse</td><td><em>Pupils reactive</em>; asterixis / myoclonus / tremor; symmetric exam; abnormal labs</td></tr>
+</table>
+
+<h3>GCS at a glance</h3>
+<table>
+<tr><th>Score range</th><th>Interpretation</th></tr>
+<tr><td>13–15</td><td>Mild &mdash; usually concussion or mild metabolic disturbance</td></tr>
+<tr><td>9–12</td><td>Moderate</td></tr>
+<tr><td>≤ 8</td><td>Severe &mdash; <strong>intubate</strong></td></tr>
+<tr><td>3</td><td>Deep coma / brain death pattern</td></tr>
+</table>
+
+<h3>Brain death core checklist (Merritt's Table 20.1)</h3>
+<p>Prerequisites met → coma with known cause + imaging consistent + no sedatives + no NMB + normal electrolytes + temp ≥ 36 °C + SBP ≥ 100. <strong>Clinical:</strong> pupils, corneal, oculocephalic, oculovestibular, facial, gag, cough, motor &mdash; all absent. <strong>Apnoea test:</strong> PaCO₂ rise to ≥ 60 mmHg with no breaths. <strong>Ancillary</strong> only if apnoea test cannot be done.</p>
+
+<hr>
+<p class="src">Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Ch. 16 (Coma and Related Disorders of Consciousness); Merritt's <em>Neurology</em> 14e, Ch. 11 (Delirium &mdash; CAM, RASS, ABCDEF bundle), Ch. 19 (Stupor and Coma — Plum &amp; Posner framework, four-pillar exam, herniation syndromes, FOUR score, GCS), Ch. 20 (Brain Death — Wijdicks checklist, apnoea test, ancillary tests).</p>
+
+</body>
+</html>

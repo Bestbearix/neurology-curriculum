@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 5 — Coma & Altered Mental Status (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#9b7dff; --accent-2:#c4b3ff;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(155,125,255,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#1a0f33; font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#d8c8ff}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(155,125,255,.10); border-color:var(--accent); color:#d8c8ff}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+
+  /* Calculators */
+  .calc{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .calc .item{padding:10px 0; border-bottom:1px dashed var(--line)}
+  .calc .item:last-child{border-bottom:none}
+  .calc .label{color:var(--accent-2); font-weight:600; margin-bottom:6px}
+  .calc .desc{color:var(--muted); font-size:.85rem; margin-bottom:6px}
+  .calc select{background:var(--panel-2); color:var(--ink); border:1px solid var(--line); padding:6px 10px; border-radius:6px; font:inherit; font-size:.92rem; width:100%; max-width:520px}
+  .calc-total{position:sticky; bottom:8px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:12px 18px; font-size:1.1rem; font-weight:600; color:var(--accent-2); text-align:center; margin-top:14px}
+  .calc-total .severity{display:block; font-size:.85rem; color:var(--muted); font-weight:400; margin-top:4px}
+
+  /* Brainstem interpreter (chip-based) */
+  .bsi{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .bsi .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .bsi .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .bsi .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .bsi .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .bsi .opt.sel{background:var(--accent); color:#1a0f33; border-color:var(--accent); font-weight:600}
+  .bsi .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(155,125,255,.08); border:1px solid var(--accent); display:none}
+  .bsi .result.show{display:block}
+  .bsi .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .bsi .result ul{margin:.4em 0 .4em 1.2em}
+  .bsi button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .bsi button.reset:hover{color:var(--ink); border-color:var(--accent)}
+
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+
+  @media (max-width:560px){
+    .wrap{padding:18px 12px 60px}
+    header h1{font-size:1.35rem}
+    nav.tabs{flex-direction:column}
+    nav.tabs button{text-align:left}
+    .deck{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 5</span>
+    <span class="badge">General physician</span>
+    <h1>Coma &amp; Altered Mental Status — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 16) and Merritt's <em>Neurology</em> (14e, Ch. 11 Delirium, Ch. 19 Stupor &amp; Coma, Ch. 20 Brain Death).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="gcs">GCS &amp; FOUR</button>
+    <button data-tab="bsi">Brainstem Interpreter</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>The unresponsive patient is one of the most stressful presentations in general medicine. Many causes are reversible, but the diagnostic time pressure is high &mdash; brainstem catastrophe, herniation, non-convulsive status epilepticus, hypoglycaemia, and meningoencephalitis all have minute-counting consequences. This module gives you a fast structured approach.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Run the first 5 min of a coma resuscitation including the modern "coma cocktail".</li>
+      <li>Perform Plum &amp; Posner's four-pillar exam: motor, respiration, pupils, eye movements.</li>
+      <li>Sort coma into supratentorial / infratentorial / metabolic.</li>
+      <li>Recognise the herniation syndromes and Cushing's response.</li>
+      <li>Use GCS and the FOUR score correctly (and know when each is preferred).</li>
+      <li>Diagnose and manage delirium with the CAM, RASS, and ABCDEF bundle.</li>
+      <li>Know prerequisites and the clinical checklist for brain-death declaration.</li>
+    </ul>
+
+    <div class="pearl"><strong>The one principle to anchor everything:</strong> in coma, <em>pupillary reactivity is preserved in metabolic coma and lost (asymmetrically or symmetrically) in structural coma</em>. Make the pupils your first localising sign.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+    <p class="muted">One panel per sitting.</p>
+
+    <details class="acc">
+      <summary>1. Defining the disorders of consciousness</summary>
+      <div class="body">
+        <p>Consciousness has two components: <strong>arousal</strong> (wakefulness, ARAS) and <strong>awareness</strong> (cortex + thalamus). Disorders affect one, the other, or both.</p>
+        <ul>
+          <li><strong>Coma</strong> — no arousal, no awareness. Eyes closed.</li>
+          <li><strong>Vegetative / UWS</strong> — arousal preserved (eyes open), no awareness.</li>
+          <li><strong>Minimally conscious</strong> — reproducible low-level purposeful behaviour.</li>
+          <li><strong>Locked-in</strong> — full awareness, only vertical eye movement and blinking preserved.</li>
+          <li><strong>Delirium</strong> — fluctuating disordered cognition with inattention.</li>
+          <li><strong>Brain death</strong> — irreversible loss of all brain &amp; brainstem function + apnoea.</li>
+        </ul>
+        <div class="pearl"><strong>Always ask:</strong> "blink twice if you hear me," "look up." This may be the only voluntary response a locked-in patient has.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. The first 5 minutes — ABC + coma cocktail</summary>
+      <div class="body">
+        <ol>
+          <li>Airway / breathing / circulation. Intubate if GCS ≤ 8 or airway at risk.</li>
+          <li>BP, HR, temperature. Cushing's response (HTN + bradycardia + irregular respiration) → impending herniation.</li>
+          <li>Stat glucose finger-stick. Hypoglycaemia → <strong>thiamine 100 mg IV first</strong>, then D50W 50 mL IV.</li>
+          <li>Naloxone 0.4 mg IV if opioid overdose possible.</li>
+          <li>Empirical antibiotics + aciclovir if meningoencephalitis suspected.</li>
+          <li>Cervical-spine precautions if trauma not excluded.</li>
+        </ol>
+        <div class="warn"><strong>Always thiamine before glucose</strong> in malnourished or alcohol-use patients — glucose alone precipitates Wernicke encephalopathy.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. The four-pillar coma exam (Plum &amp; Posner)</summary>
+      <div class="body">
+        <ol>
+          <li><strong>Motor responses:</strong> follows commands &gt; localises &gt; withdraws &gt; decorticate flexion &gt; decerebrate extension &gt; none.</li>
+          <li><strong>Respiratory pattern:</strong> Cheyne–Stokes (cortical/metabolic) · hyperventilation (acidosis, brainstem) · apneustic (pons) · ataxic/Biot (medulla).</li>
+          <li><strong>Pupils:</strong> pinpoint reactive (pons/opioid) · mid-position fixed (midbrain) · unilateral blown (uncal/CN III) · bilateral fixed dilated (severe brainstem, anoxia, anticholinergic, severe barbiturate, hypothermia).</li>
+          <li><strong>Eye movements:</strong> roving (intact brainstem) · gaze deviation toward destructive lesion · ocular bobbing (pons) · skew (brainstem/cerebellum) · doll's eyes / cold caloric to test brainstem.</li>
+        </ol>
+        <div class="pearl"><strong>Caloric in the awake patient:</strong> COWS (Cold-Opposite, Warm-Same) describes the fast-phase nystagmus. <em>In coma there's no fast phase</em> — you see only tonic deviation toward the cold ear if brainstem is intact.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Three-bucket localisation</summary>
+      <div class="body">
+        <table>
+          <tr><th>Feature</th><th>Supratentorial</th><th>Infratentorial</th><th>Metabolic/Toxic</th></tr>
+          <tr><td>Onset</td><td>Gradual rostro-caudal</td><td>Sudden</td><td>Gradual</td></tr>
+          <tr><td>Focal signs</td><td>Yes (hemiparesis early)</td><td>Yes (cranial nerves, crossed)</td><td>No</td></tr>
+          <tr><td>Pupils</td><td>Asymmetric / sequenced</td><td>Pinpoint or mid-fixed</td><td><em>Reactive</em>, symmetric</td></tr>
+          <tr><td>Asterixis / myoclonus / tremor</td><td>Uncommon</td><td>Uncommon</td><td>Common</td></tr>
+          <tr><td>Eye movements</td><td>Gaze deviation</td><td>Bobbing, gaze palsy</td><td>Roving, intact</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Herniation syndromes</summary>
+      <div class="body">
+        <table>
+          <tr><th>Type</th><th>Pattern</th></tr>
+          <tr><td>Subfalcine</td><td>Cingulate under falx → contralateral leg weakness (ACA infarct from compression)</td></tr>
+          <tr><td>Uncal (lateral transtentorial)</td><td><em>Ipsilateral</em> blown pupil (CN III) → hemiparesis (sometimes ipsilateral = Kernohan's notch) → coma → bilateral fixed dilated pupils</td></tr>
+          <tr><td>Central transtentorial</td><td>Diencephalic (small reactive pupils, Cheyne–Stokes) → midbrain (mid-fixed pupils, decerebrate) → pontine → medullary apnoea</td></tr>
+          <tr><td>Tonsillar (foramen magnum)</td><td>Sudden apnoea + cardiovascular collapse from posterior fossa mass; cerebellar haemorrhage is the classic emergency</td></tr>
+          <tr><td>Upward transtentorial</td><td>Posterior fossa mass pushing midbrain up → Parinaud syndrome</td></tr>
+        </table>
+        <div class="warn"><strong>Kernohan's notch:</strong> uncal herniation can cause <em>ipsilateral</em> hemiparesis (false localising sign). Trust the pupil.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. GCS and FOUR score</summary>
+      <div class="body">
+        <p><strong>GCS</strong> 3–15. Eye (4) + Verbal (5) + Motor (6). Always document each component. GCS ≤ 8 → intubate.</p>
+        <p><strong>FOUR score</strong> 0–16. Eye + Motor + Brainstem reflexes + Respiration. Works for intubated patients; includes brainstem function. Detects locked-in syndrome (high E score).</p>
+        <div class="pearl">Use the calculator tab to score patients live.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Differential by category</summary>
+      <div class="body">
+        <p>Categories: vascular, trauma, infection, metabolic, toxic, seizure, mass, endocrine, autoimmune, psychiatric mimic.</p>
+        <p><strong>Practical clues from the bedside:</strong> fever (sepsis, infection, heatstroke) · hypothermia (sepsis, exposure, hypothyroid, hypoglycaemia) · cherry-red skin (CO) · jaundice/hepatic fetor (hepatic) · acetone breath (DKA) · uraemic frost · Battle sign (basilar skull fracture) · papilloedema (raised ICP) · neck stiffness only on flexion (meningitis, SAH, foramen magnum herniation) · incontinence (unwitnessed seizure).</p>
+        <div class="warn"><strong>Two missed diagnoses to remember:</strong> non-convulsive status epilepticus (subtle twitching, unexplained obtundation — get cEEG) and HSV encephalitis (fever + altered mentation + temporal-lobe MRI changes — treat with aciclovir).</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Delirium</summary>
+      <div class="body">
+        <p>Most common AMS the general physician sees. 50% post-stroke, 80% in ICU. Hypoactive form is more common and more often missed.</p>
+        <p><strong>CAM criteria</strong> (need 1 + 2 + (3 OR 4)):</p>
+        <ol>
+          <li>Acute onset &amp; fluctuating course</li>
+          <li>Inattention</li>
+          <li>Disorganised thinking</li>
+          <li>Altered level of consciousness</li>
+        </ol>
+        <p><strong>Causes — I WATCH DEATH:</strong> Infection · Withdrawal · Acute metabolic · Trauma · CNS pathology · Hypoxia · Deficiencies (thiamine, B12) · Endocrine · Acute vascular · Toxins · Heavy metals.</p>
+        <p><strong>Management:</strong> Treat cause. Non-pharm first (orient, glasses/hearing, mobilise, sleep hygiene). Avoid restraints, BZDs, anticholinergics. Low-dose haloperidol only for severe agitation. <strong>ABCDEF bundle</strong> in ICU.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Brain death determination</summary>
+      <div class="body">
+        <p>Brain death = irreversible loss of all brain &amp; brainstem function + apnoea, with all confounders excluded. <em>Clinical diagnosis</em>; ancillary tests only when apnoea cannot be done.</p>
+        <ol>
+          <li><strong>Prerequisites:</strong> known catastrophic cause + imaging consistent + no sedatives (wait 5–7 half-lives) + no NMB + normal electrolytes/endocrine + temp ≥ 36 °C + SBP ≥ 100 + no spontaneous breaths.</li>
+          <li><strong>Clinical exam (all absent):</strong> pupils (mid-position, non-reactive), corneal, oculocephalic, oculovestibular (50 mL ice water × 2 min each), facial movement to supraorbital pressure, gag, cough, motor to noxious in all 4 limbs.</li>
+          <li><strong>Apnoea test:</strong> pre-oxygenate, normocapnia baseline, disconnect ventilator with O₂ insufflation 6 L/min, observe 8–10 min. <em>Positive:</em> PaCO₂ ≥ 60 mmHg or rise ≥ 20 mmHg with no breaths.</li>
+          <li><strong>Ancillary if apnoea not done:</strong> EEG (≥ 30 min electrocerebral silence), CTA / 4-vessel angiography (no flow above proximal ICA), nuclear flow study.</li>
+        </ol>
+        <p>Spinal reflexes (e.g.&nbsp;triple flexion) can persist after brain death and don't invalidate the diagnosis. Notify the organ procurement organisation before withdrawal discussion.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Red flags &amp; when to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li>Coma of unknown cause — admit ICU/HDU.</li>
+            <li>Unilateral fixed dilated pupil — uncal herniation, neurosurgery NOW.</li>
+            <li>Cushing's triad (HTN + bradycardia + irregular respiration) — herniation imminent.</li>
+            <li>Cerebellar haemorrhage or infarct of any size — neurosurgery NOW (delayed swelling kills).</li>
+            <li>Subtle twitching + unexplained obtundation — suspect non-convulsive SE, get cEEG.</li>
+            <li>Fever + altered mentation — start empirical antimicrobials + aciclovir, then LP.</li>
+            <li>Young patient with rapid neuropsychiatric decline — consider autoimmune encephalitis.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="gcs">
+    <h2>GCS &amp; FOUR Score Calculators</h2>
+    <p class="muted">For educational purposes only.</p>
+    <h3>Glasgow Coma Scale</h3>
+    <div class="calc" id="gcsBox"></div>
+    <h3 style="margin-top:30px">FOUR Score</h3>
+    <div class="calc" id="fourBox"></div>
+  </section>
+
+  <section class="tab-panel" id="bsi">
+    <h2>Brainstem Exam Interpreter</h2>
+    <p class="muted">Answer the questions; the tool interprets the localisation.</p>
+    <div class="bsi" id="bsiTool">
+      <div class="q">1. Pupillary findings?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="reactive">Both reactive, equal, normal size</button>
+        <button class="opt" data-val="pinpoint">Pinpoint, reactive only with magnifier</button>
+        <button class="opt" data-val="midfixed">Mid-position (4–6 mm), unreactive</button>
+        <button class="opt" data-val="unilateral">Unilateral fixed and dilated</button>
+        <button class="opt" data-val="biltdfixed">Bilateral fixed and dilated</button>
+      </div>
+      <div id="bsi-rest"></div>
+      <div class="result" id="bsi-result"></div>
+      <button class="reset" onclick="resetBSI()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 28-year-old found unresponsive at home</summary>
+      <div class="body">
+        <p>BP 110/70, HR 60, RR 6, SpO₂ 88% on room air. Pupils 2 mm bilaterally, sluggish reactivity (visible only with magnifier). GCS E1 V1 M2. Track marks in antecubital fossae.</p>
+        <p><strong>Diagnosis:</strong> opioid overdose.</p>
+        <p><strong>Plan:</strong> Bag-mask ventilate; naloxone 0.4 mg IV (repeat as needed). Watch for re-narcotisation. Check glucose. Coma cocktail (thiamine + glucose if low). Investigate co-ingestants. Withdrawal precautions.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 65-year-old with sudden left hemiparesis, then decreased consciousness</summary>
+      <div class="body">
+        <p>Hour 2 after onset: GCS E2 V2 M4. Right pupil 6 mm, unreactive; left pupil 3 mm, reactive. Right gaze deviation. Decorticate posturing on the left side. BP 200/110, HR 50, irregular respiration.</p>
+        <p><strong>Localization:</strong> right hemispheric mass effect (large MCA stroke or haemorrhage) with <strong>uncal herniation</strong> (right blown pupil). Cushing's triad present → imminent further herniation.</p>
+        <p><strong>Plan:</strong> Intubate (GCS ≤ 8 + airway). Head-up 30°. Hyperventilate to PaCO₂ ~30 as a bridge. Mannitol 1–1.5 g/kg or 23.4% hypertonic saline 30 mL via central line. <em>Stat</em> non-contrast CT. Neurosurgery and neuro-ICU now. If haemorrhagic: BP 130–150. If ischaemic with malignant MCA: hemicraniectomy candidate.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 22-year-old with 5 days of fever, headache, then coma</summary>
+      <div class="body">
+        <p>Temp 39.4 °C. Neck stiff. GCS E2 V2 M4. Generalised tonic-clonic seizure witnessed in ED. CT normal. MRI shows bilateral temporal-lobe hyperintensity.</p>
+        <p><strong>Diagnosis:</strong> HSV encephalitis until proven otherwise.</p>
+        <p><strong>Plan:</strong> Start IV aciclovir 10 mg/kg q8h immediately — do not wait for LP. Empirical antibiotics (ceftriaxone + vancomycin) and dexamethasone in case bacterial. LP after CT (CSF: lymphocytic, RBCs common in HSV; send HSV PCR). EEG to exclude status. Antiseizure therapy (levetiracetam or fosphenytoin loading). ICU admission.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 75-year-old four days post-hip surgery with fluctuating confusion</summary>
+      <div class="body">
+        <p>Episodes of agitation alternating with drowsiness. Inattentive — cannot count backwards from 20. Disorganised speech. No fever. Multiple medications including opioids and a long-acting benzodiazepine for "sleep". Daughter says he is normally sharp and lives independently.</p>
+        <p><strong>Diagnosis:</strong> postoperative delirium (mixed type). CAM positive.</p>
+        <p><strong>Plan:</strong> Treat the cause(s) — stop the BZD, minimise opioid load with multimodal analgesia, screen for infection (urine, chest), check electrolytes/glucose, check for constipation and urinary retention. Restore glasses/hearing aids, family at bedside, daylight, mobilise. Avoid restraints. Low-dose haloperidol only if severely agitated and at risk of harm. Document and reassess daily; if no improvement, image and consider EEG (rule out NCSE).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 50-year-old comatose after cardiac arrest with absent brainstem reflexes</summary>
+      <div class="body">
+        <p>Day 4 post-arrest. Off sedation &gt; 72 h. CT: diffuse cerebral oedema, loss of grey-white differentiation, obliterated basal cisterns. Pupils mid-position, fixed. No corneal, oculocephalic, oculovestibular, gag, or cough. No motor to noxious in 4 limbs (a triple-flexion spinal reflex on lower limb pinch). Temp 36.4 °C, BP 110/65 on low-dose noradrenaline, SpO₂ 99% on FiO₂ 0.4.</p>
+        <p><strong>Next step:</strong> brain-death determination per checklist. Confirm no residual sedatives (5–7 half-lives), no NMB (train-of-four). All clinical findings absent → proceed to <strong>apnoea test</strong>: pre-oxygenate to PaO₂ ≥ 200, normocapnia baseline, disconnect with O₂ insufflation 6 L/min, observe 8–10 min, repeat ABG. PaCO₂ ≥ 60 or rise ≥ 20 with no breaths = positive. Document time of second ABG as time of death. Notify organ procurement organisation.</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 5 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 16; Merritt's <em>Neurology</em> 14e Ch. 11 (Delirium), Ch. 19 (Stupor and Coma), Ch. 20 (Brain Death). Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Definition', q:'Two components of consciousness?', a:'Arousal (wakefulness — ARAS in brainstem/diencephalon) and awareness (cognitive content — cortex with thalamic input).'},
+  {tag:'Cocktail', q:'Why give thiamine before glucose?', a:'In thiamine-deficient (especially alcoholic or malnourished) patients, glucose alone can precipitate Wernicke encephalopathy. Give 100 mg IV thiamine first, then D50W.'},
+  {tag:'Cocktail', q:'Naloxone dose in suspected opioid coma?', a:'0.4 mg IV (or IM/intranasal); repeat as needed. Watch for re-narcotisation — naloxone half-life is shorter than most opioids.'},
+  {tag:'Cushing', q:'Cushing\'s triad and what it means?', a:'Hypertension + bradycardia + irregular respiration. Sign of impending herniation / brainstem compression from raised ICP — neurosurgical emergency.'},
+  {tag:'Pupils', q:'Pinpoint, reactive bilateral pupils — localisation?', a:'Pons (e.g. pontine haemorrhage) or opioid overdose. Reactivity preserved despite small size.'},
+  {tag:'Pupils', q:'Mid-position (4–6 mm), fixed bilateral pupils?', a:'Midbrain lesion — loss of both sympathetic and parasympathetic input.'},
+  {tag:'Pupils', q:'Unilateral blown pupil — what to do?', a:'Suspect uncal herniation compressing ipsilateral CN III — neurosurgical emergency. Also consider posterior communicating artery aneurysm if painful.'},
+  {tag:'Locked-in', q:'Hallmark of locked-in syndrome?', a:'Quadriplegia + lower cranial nerve palsies + preserved vertical eye movement, blinking, and consciousness. Lesion: ventral pons (basilar artery occlusion).'},
+  {tag:'Reflex', q:'Cold caloric in comatose patient with intact brainstem — what do you see?', a:'Tonic conjugate deviation TOWARD the cold ear (no fast phase because cortex is suppressed). COWS describes the awake response.'},
+  {tag:'Posture', q:'Decorticate vs decerebrate — what does each tell you?', a:'Decorticate (flexor): lesion above the red nucleus (cortex/internal capsule). Decerebrate (extensor): lesion in midbrain/upper pons (below red nucleus). Extensor has worse prognosis.'},
+  {tag:'Three buckets', q:'How does metabolic coma usually distinguish itself on exam?', a:'Pupillary reactivity preserved; findings symmetric; asterixis/myoclonus/tremor often present. No focal signs.'},
+  {tag:'GCS', q:'GCS threshold to consider intubation?', a:'≤ 8. Always document E, V, M components separately.'},
+  {tag:'GCS', q:'GCS components and max scores?', a:'Eye 4 + Verbal 5 + Motor 6 = total 3–15.'},
+  {tag:'FOUR', q:'Domains of the FOUR score?', a:'Eye, Motor, Brainstem reflexes, Respiration. Each 0–4; total 0–16. Designed to work in intubated patients; can detect locked-in syndrome (high Eye score).'},
+  {tag:'Herniation', q:'Earliest sign of uncal herniation?', a:'Ipsilateral pupillary dilation (CN III stretch by the displaced uncus).'},
+  {tag:'Herniation', q:'Kernohan\'s notch phenomenon?', a:'In uncal herniation, the contralateral cerebral peduncle is compressed against the tentorial edge → ipsilateral hemiparesis (false localising sign). Trust the pupil, not the motor side.'},
+  {tag:'Herniation', q:'Cerebellar bleed — why is it urgent even if patient looks well?', a:'Risk of delayed swelling within 24–72 h with brainstem compression and sudden death. Surgical decompression saves lives.'},
+  {tag:'Delirium', q:'CAM criteria for delirium?', a:'1 + 2 + (3 OR 4): (1) acute onset/fluctuating course; (2) inattention; (3) disorganised thinking; (4) altered level of consciousness.'},
+  {tag:'Delirium', q:'Which form of delirium is more common AND more often missed?', a:'Hypoactive delirium. Quiet patients are easy to overlook.'},
+  {tag:'Delirium', q:'I WATCH DEATH — what is it?', a:'Mnemonic for delirium causes: Infection · Withdrawal · Acute metabolic · Trauma · CNS pathology · Hypoxia · Deficiencies · Endocrine · Acute vascular · Toxins · Heavy metals.'},
+  {tag:'NCSE', q:'When should you suspect non-convulsive status epilepticus?', a:'Unexplained obtundation, subtle facial or limb twitching, eye flutter, or failure to wake. Order continuous EEG within 1 hour.'},
+  {tag:'Wernicke', q:'Wernicke encephalopathy triad and treatment?', a:'Encephalopathy + ophthalmoplegia + ataxia. Treat with high-dose IV thiamine (200–500 mg IV TID for 2–3 days, then 100 mg daily) — give BEFORE any glucose load in at-risk patients.'},
+  {tag:'BD prereq', q:'Brain death prerequisites?', a:'Coma with known catastrophic cause + imaging consistent + no sedatives (wait 5–7 half-lives) + no NMB + normal electrolytes + temp ≥ 36 °C + SBP ≥ 100 + no spontaneous breaths.'},
+  {tag:'BD exam', q:'Brainstem reflexes to test for brain death?', a:'Pupils, corneal, oculocephalic, oculovestibular (cold caloric), facial response to noxious, gag, cough. All must be absent.'},
+  {tag:'BD apnoea', q:'Positive apnoea test for brain death?', a:'PaCO₂ ≥ 60 mmHg, or rise ≥ 20 mmHg above baseline, after 8–10 min disconnection — with no observed respirations.'},
+  {tag:'BD spinal', q:'Spinal reflexes (e.g. triple flexion) after brain death — invalidate the diagnosis?', a:'No. Spinal reflexes can persist; explain to family. They do not represent any brain activity.'},
+  {tag:'Vegetative', q:'Vegetative state vs minimally conscious state?', a:'Both have arousal (eyes open, sleep-wake cycles). Vegetative has NO reproducible awareness. Minimally conscious has inconsistent but reproducible purposeful behaviour (visual pursuit, command following). MCS+ has language; MCS− does not.'},
+  {tag:'HSV', q:'Fever + altered mentation + temporal-lobe MRI changes — diagnosis and immediate action?', a:'HSV encephalitis until proven otherwise. Start IV aciclovir 10 mg/kg q8h immediately — do not wait for LP/PCR.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 65-year-old comatose man has small pinpoint pupils that react only with a magnifier. He has fever, neck stiffness, and decorticate posturing. Which finding most strongly suggests a STRUCTURAL rather than metabolic cause?',
+   choices:['Small reactive pupils','Decorticate posturing','Fever and neck stiffness','None — these all suggest metabolic causes'],
+   ans:1,
+   why:'Decorticate (or decerebrate) posturing in response to noxious stimuli is a structural finding (above or below the red nucleus). Small reactive pupils are pontine OR opioid (could be metabolic). Fever and neck stiffness suggest meningitis (also infectious, not purely metabolic).'},
+  {q:'Which immediate intervention is correct in an unresponsive alcoholic patient with capillary glucose of 38 mg/dL?',
+   choices:['D50W 50 mL IV first; thiamine later','Thiamine 100 mg IV first, then D50W 50 mL','Naloxone 0.4 mg IV','Flumazenil 0.2 mg IV'],
+   ans:1,
+   why:'Always give thiamine BEFORE glucose in malnourished or alcoholic patients to prevent precipitating Wernicke encephalopathy. The reverse order risks a permanent amnestic syndrome.'},
+  {q:'A 70-year-old has a large right hemispheric haemorrhage. After 6 hours, the right pupil becomes dilated and unreactive. The ipsilateral (right) side then becomes weaker. What explains the ipsilateral hemiparesis?',
+   choices:['Stroke extension to the right hemisphere','Kernohan\'s notch phenomenon','Brainstem haemorrhage','Spinal cord compression'],
+   ans:1,
+   why:'In uncal herniation, the contralateral (left) cerebral peduncle is compressed against the rigid tentorial edge — producing ipsilateral hemiparesis. This is the classic "false localising sign." The pupillary finding (ipsilateral blown pupil) is the more reliable lateraliser.'},
+  {q:'A patient is comatose. Cold caloric testing produces no eye movement bilaterally. What does this tell you?',
+   choices:['The patient is in deep metabolic coma','The brainstem (vestibular nuclei → CN III/VI) is dysfunctional or destroyed','It is normal in coma','It indicates locked-in syndrome'],
+   ans:1,
+   why:'Absent oculovestibular response in coma implies brainstem dysfunction (or deep sedative effect). In metabolic coma reflexes are usually preserved early; complete loss suggests a structural brainstem lesion, profound sedation/barbiturate, or brain death.'},
+  {q:'A patient in the ICU has GCS E1, V (intubated), M3. Per the Glasgow Coma Scale, how should this be documented?',
+   choices:['"GCS 5T"','"E1 V-tube M3" — never assign a verbal score for intubated patients without designating it (GCS components 1+1+3 = 5T conventionally)','"GCS 4"','GCS cannot be used in intubated patients — use APACHE II'],
+   ans:1,
+   why:'In intubated patients, verbal cannot be scored; document as "E1 V tube/T M3" or use the FOUR score, which was specifically designed for this scenario and includes brainstem reflexes.'},
+  {q:'A 40-year-old presents with sudden coma, pinpoint pupils, complete ophthalmoplegia, and quadriplegia. He blinks to command and looks up when asked. What is the diagnosis?',
+   choices:['Brainstem haemorrhage with brain death','Locked-in syndrome','Pontine hemorrhage with deep coma','Catatonia'],
+   ans:1,
+   why:'Locked-in syndrome — ventral pontine lesion (often basilar artery infarction) destroys descending motor pathways but spares the reticular formation and the dorsal pons supplying vertical eye movement and blinking. The patient is fully aware. Always ask comatose-appearing patients to blink and look up.'},
+  {q:'Which is NOT a prerequisite for brain death determination?',
+   choices:['Core temperature ≥ 36 °C','Systolic BP ≥ 100 mmHg','Confirmation of no sedative drug effect (5–7 half-lives)','Normal serum osmolality'],
+   ans:3,
+   why:'Brain death prerequisites require known catastrophic cause + imaging consistent + no sedatives (5–7 half-lives) + no NMB + temp ≥ 36 °C + SBP ≥ 100 + no spontaneous breaths + correction of severe electrolyte/acid-base/endocrine disturbances. Specific normal serum osmolality is not on the list.'},
+  {q:'An 84-year-old woman 3 days after admission for pneumonia has fluctuating confusion: inattentive, occasionally agitated, occasionally drowsy, with reversal of day–night cycle. Which is FIRST-line management?',
+   choices:['Haloperidol 5 mg IV every 4 hours','Lorazepam 2 mg IV q6h','Identify and treat underlying causes; non-pharmacological orientation, glasses/hearing aids, mobilisation, sleep hygiene','Restrain to prevent line removal'],
+   ans:2,
+   why:'Delirium management begins with treating the cause (infection, hypoxia, drugs, pain, electrolytes) and non-pharmacological measures (reorient, sensory aids, sleep, mobility, family at bedside). Restraints worsen delirium. BZDs are first-line ONLY for alcohol/BZD withdrawal — otherwise they cause and worsen delirium. Haloperidol is reserved for severe agitation that risks harm.'},
+  {q:'A patient develops nystagmus with fast phase to the LEFT when 30 mL of ice water is instilled into the RIGHT ear canal. He is alert. What does this indicate?',
+   choices:['Normal vestibular and cortical function (COWS: cold opposite, warm same)','Right brainstem lesion','Cerebellar lesion','Functional / psychiatric coma'],
+   ans:0,
+   why:'COWS: in the awake patient, COLD water in an ear produces fast-phase nystagmus to the OPPOSITE side. This is the expected finding when both vestibular and cortical pathways are intact.'},
+  {q:'A patient is being evaluated for brain death and during noxious stimulation of the foot, the leg suddenly flexes at the hip, knee, and ankle. The family is alarmed. What is the correct interpretation?',
+   choices:['The patient is not brain dead; abort evaluation','This is a spinal triple-flexion reflex; it does not invalidate brain death — explain to family','Try again with a stronger stimulus','Order an EEG'],
+   ans:1,
+   why:'Triple flexion (a spinal reflex) and other spinal-mediated movements can persist after brain death. They originate at the spinal cord and do not represent brain activity. Document and explain to family; brain death is not invalidated.'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== Generic Calculator builder ===== */
+function buildCalc(boxId, items, ranges, prefix) {
+  const box = document.getElementById(boxId);
+  const values = new Array(items.length).fill(0);
+  items.forEach((it, i) => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `<div class="label">${it.label}</div>
+      <div class="desc">${it.desc}</div>
+      <select data-i="${i}">${it.opts.map(o => `<option value="${o.v}">${o.v} — ${o.l}</option>`).join('')}</select>`;
+    box.appendChild(div);
+  });
+  // initialise values to first option (or 0)
+  items.forEach((it, i) => { values[i] = it.opts[0].v; });
+  const total = document.createElement('div');
+  total.className = 'calc-total';
+  total.innerHTML = `${prefix} Total: <span class="ntotal">0</span> <span class="severity"></span>`;
+  box.appendChild(total);
+
+  function recalc() {
+    const t = values.reduce((a,b)=>a+b,0);
+    total.querySelector('.ntotal').textContent = t;
+    let sev = '';
+    for (const r of ranges) { if (t >= r.min && t <= r.max) { sev = r.label; break; } }
+    total.querySelector('.severity').textContent = sev;
+  }
+  box.querySelectorAll('select').forEach(sel => {
+    sel.addEventListener('change', e => {
+      values[+e.target.dataset.i] = +e.target.value;
+      recalc();
+    });
+  });
+  recalc();
+}
+
+/* ===== GCS ===== */
+const gcsItems = [
+  {label:'Eye opening (E)', desc:'4 spontaneous · 3 to voice · 2 to pain · 1 none', opts:[
+    {v:4, l:'Spontaneous'},{v:3, l:'To voice'},{v:2, l:'To pain'},{v:1, l:'None'}]},
+  {label:'Verbal response (V)', desc:'5 oriented · 4 confused · 3 inappropriate · 2 incomprehensible · 1 none', opts:[
+    {v:5, l:'Oriented'},{v:4, l:'Confused'},{v:3, l:'Inappropriate words'},{v:2, l:'Incomprehensible sounds'},{v:1, l:'None / intubated'}]},
+  {label:'Motor response (M)', desc:'6 obeys · 5 localises · 4 withdraws · 3 flexor · 2 extensor · 1 none', opts:[
+    {v:6, l:'Obeys commands'},{v:5, l:'Localises to pain'},{v:4, l:'Withdraws from pain'},{v:3, l:'Flexor (decorticate)'},{v:2, l:'Extensor (decerebrate)'},{v:1, l:'None'}]},
+];
+const gcsRanges = [
+  {min:3, max:3, label:'Deep coma'},
+  {min:4, max:8, label:'Severe — consider intubation (≤ 8)'},
+  {min:9, max:12, label:'Moderate'},
+  {min:13, max:15, label:'Mild'},
+];
+buildCalc('gcsBox', gcsItems, gcsRanges, 'GCS');
+
+/* ===== FOUR ===== */
+const fourItems = [
+  {label:'Eye (E)', desc:'4 tracking/blinks to command · 3 open not tracking · 2 open to loud voice · 1 open to pain · 0 closed to pain', opts:[
+    {v:4, l:'Tracks/blinks to command'},{v:3, l:'Open, not tracking'},{v:2, l:'Open to loud voice'},{v:1, l:'Open to pain'},{v:0, l:'Closed to pain'}]},
+  {label:'Motor (M)', desc:'4 thumbs-up/fist/peace · 3 localises · 2 flexor · 1 extensor · 0 none or myoclonus status', opts:[
+    {v:4, l:'Thumbs-up / fist / peace'},{v:3, l:'Localises to pain'},{v:2, l:'Flexor response'},{v:1, l:'Extensor response'},{v:0, l:'No response / myoclonus status'}]},
+  {label:'Brainstem reflexes (B)', desc:'4 pupil + corneal present · 3 one pupil wide fixed · 2 pupil OR corneal absent · 1 both absent · 0 + cough also absent', opts:[
+    {v:4, l:'Pupil + corneal present'},{v:3, l:'One pupil wide & fixed'},{v:2, l:'Pupil OR corneal absent'},{v:1, l:'Pupil AND corneal absent'},{v:0, l:'Pupil, corneal AND cough absent'}]},
+  {label:'Respiration (R)', desc:'4 not intubated, regular · 3 Cheyne-Stokes · 2 irregular · 1 breathes above vent rate · 0 apnoeic or vent rate only', opts:[
+    {v:4, l:'Not intubated, regular'},{v:3, l:'Not intubated, Cheyne–Stokes'},{v:2, l:'Not intubated, irregular'},{v:1, l:'Breathes above ventilator'},{v:0, l:'Apnoea or breathes at ventilator rate'}]},
+];
+const fourRanges = [
+  {min:0, max:0, label:'Brain-death candidate — review checklist'},
+  {min:1, max:4, label:'Very severe'},
+  {min:5, max:8, label:'Severe'},
+  {min:9, max:12, label:'Moderate'},
+  {min:13, max:16, label:'Mild / near-normal'},
+];
+buildCalc('fourBox', fourItems, fourRanges, 'FOUR');
+
+/* ===== Brainstem Interpreter ===== */
+const bsi = document.getElementById('bsiTool');
+const bsiRest = document.getElementById('bsi-rest');
+const bsiResult = document.getElementById('bsi-result');
+let bsiState = {};
+
+function bsiAns(step, val) {
+  bsiState[step] = val;
+  Object.keys(bsiState).forEach(k => { if (+k > step) delete bsiState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderBSI();
+}
+
+function renderBSI() {
+  bsiRest.innerHTML = '';
+  bsiResult.classList.remove('show');
+  const s0 = bsiState[0];
+  if (!s0) return;
+
+  addBSI(1, '2. Motor response to noxious stimulus?',
+    [['follow','Follows commands / localises'],['withdraw','Withdraws'],['decort','Decorticate (flexor) posturing'],['decer','Decerebrate (extensor) posturing'],['none','None / flaccid']]);
+  const s1 = bsiState[1];
+  if (!s1) return;
+
+  addBSI(2, '3. Oculocephalic / cold caloric response?',
+    [['intact','Intact (eyes move opposite head turn; tonic deviation toward cold ear)'],['absent','Absent (no eye movement)'],['notdone','Not done / unsafe']]);
+  const s2 = bsiState[2];
+  if (!s2) return;
+
+  addBSI(3, '4. Respiratory pattern?',
+    [['regular','Regular / on ventilator without distress'],['cheyne','Cheyne–Stokes'],['hypervent','Sustained hyperventilation'],['apneustic','Apneustic / ataxic / Biot'],['apnoea','Apnoea']]);
+  const s3 = bsiState[3];
+  if (!s3) return;
+
+  // Synthesize an interpretation
+  const lines = [];
+  // Pupillary anchor
+  if (s0 === 'reactive') {
+    lines.push('<strong>Pupils reactive bilaterally</strong> — strongly suggests a <em>metabolic, toxic, or diffuse</em> cause of coma rather than a structural brainstem lesion. Common: hypoglycaemia, sepsis, drug intoxication, post-ictal, hepatic/uraemic encephalopathy.');
+  } else if (s0 === 'pinpoint') {
+    lines.push('<strong>Pinpoint reactive pupils</strong> — think pontine lesion (e.g. pontine haemorrhage) OR opioid intoxication. Trial of naloxone is reasonable and diagnostic-therapeutic.');
+  } else if (s0 === 'midfixed') {
+    lines.push('<strong>Mid-position fixed pupils</strong> — midbrain dysfunction (combined sympathetic + parasympathetic loss). Consider midbrain lesion or transtentorial central herniation in progress.');
+  } else if (s0 === 'unilateral') {
+    lines.push('<strong>Unilateral fixed dilated pupil</strong> — likely <em>uncal herniation</em> compressing the ipsilateral CN III, or PCom aneurysm. <strong>Neurosurgical emergency.</strong> Get urgent CT, raise the head of bed, consider mannitol or hypertonic saline, hyperventilate transiently.');
+  } else if (s0 === 'biltdfixed') {
+    lines.push('<strong>Bilateral fixed and dilated pupils</strong> — brainstem catastrophe, severe anoxic injury, anticholinergic toxidrome, severe barbiturate intoxication, or hypothermia. Exclude reversible causes (toxicology, temperature, anoxia history) before assuming irreversible.');
+  }
+
+  // Motor
+  if (s1 === 'follow') lines.push('<strong>Follows commands / localises</strong> — relatively preserved cortical function; the patient may not be truly comatose. Re-assess level of consciousness.');
+  if (s1 === 'withdraw') lines.push('<strong>Withdraws</strong> — cortex partially functional; metabolic or moderate structural.');
+  if (s1 === 'decort') lines.push('<strong>Decorticate (flexor) posturing</strong> — lesion above the red nucleus (hemispheres / internal capsule).');
+  if (s1 === 'decer') lines.push('<strong>Decerebrate (extensor) posturing</strong> — lesion at midbrain / upper pons (below red nucleus); worse prognosis than decorticate.');
+  if (s1 === 'none') lines.push('<strong>No motor response</strong> — lower brainstem dysfunction OR locked-in syndrome OR neuromuscular cause (Guillain-Barré, NMB) OR cervical-cord injury. Ask the patient to blink / look up before concluding it is coma.');
+
+  // Reflex
+  if (s2 === 'intact') lines.push('<strong>Brainstem oculovestibular reflexes intact</strong> — supports metabolic / diffuse cortical cause, or limited structural lesion sparing the brainstem.');
+  if (s2 === 'absent') lines.push('<strong>Absent oculocephalic and cold caloric responses</strong> — significant brainstem dysfunction. Consider structural brainstem lesion, deep sedative/barbiturate effect, or progression toward brain death.');
+  if (s2 === 'notdone') lines.push('Brainstem reflex testing not done — perform once cervical spine has been cleared. Do not test oculocephalic in suspected cervical injury.');
+
+  // Respiration
+  if (s3 === 'cheyne') lines.push('<strong>Cheyne–Stokes</strong> — bilateral cerebral disease or metabolic encephalopathy; usually not imminently dangerous.');
+  if (s3 === 'hypervent') lines.push('<strong>Sustained hyperventilation</strong> — metabolic acidosis (DKA, sepsis, lactic), hepatic encephalopathy, pulmonary congestion, salicylate poisoning; rarely rostral brainstem lesion.');
+  if (s3 === 'apneustic') lines.push('<strong>Apneustic / ataxic / Biot</strong> — pontine (apneustic) or medullary (ataxic) damage. Ominous; ataxic breathing may herald apnoea.');
+  if (s3 === 'apnoea') lines.push('<strong>Apnoea</strong> — medullary failure or terminal brainstem injury. Mechanical ventilation needed; consider brain death evaluation if irreversible structural cause confirmed.');
+  if (s3 === 'regular') lines.push('Regular respiration — favours metabolic or limited cerebral cause; brainstem respiratory centres intact.');
+
+  // Composite verdict
+  let verdict = '';
+  if (s0 === 'reactive' && s2 === 'intact' && (s1 === 'follow' || s1 === 'withdraw')) {
+    verdict = 'Composite picture: <strong>metabolic / toxic / diffuse cortical coma most likely</strong>. Pursue metabolic / toxicology workup; consider non-convulsive status epilepticus → cEEG if unexplained.';
+  } else if (s0 === 'unilateral' || (s1 === 'decer' && s2 === 'absent')) {
+    verdict = 'Composite picture: <strong>structural lesion with brainstem dysfunction or herniation</strong>. Stat CT, neurosurgery, ICP measures (head-up 30°, osmotherapy, transient hyperventilation).';
+  } else if (s0 === 'biltdfixed' && s2 === 'absent' && s3 === 'apnoea') {
+    verdict = 'Composite picture suspicious for <strong>brain death</strong> — proceed to formal evaluation per the checklist (prerequisites, full clinical exam, apnoea test). Exclude reversible confounders first (sedatives, hypothermia, severe acid-base or electrolyte derangement).';
+  } else if (s0 === 'pinpoint' && s1 !== 'follow' && s3 !== 'apnoea') {
+    verdict = 'Composite picture: consider <strong>pontine lesion vs opioid overdose</strong> — trial naloxone, urgent CT. If structural confirmed, neurosurgery and supportive ICU care.';
+  } else {
+    verdict = 'Mixed pattern — combine the findings above. Always look for reversible causes (glucose, opioids, electrolytes, thiamine), exclude non-convulsive status epilepticus, and image the brain.';
+  }
+
+  showBSI('Interpretation', [verdict, ...lines]);
+}
+
+function addBSI(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  bsiRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => bsiAns(step, b.dataset.val)));
+  if (bsiState[step]) {
+    const t = wrap.querySelector(`[data-val="${bsiState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showBSI(title, items) {
+  bsiResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  bsiResult.classList.add('show');
+}
+
+function resetBSI() {
+  bsiState = {};
+  bsiRest.innerHTML = '';
+  bsiResult.classList.remove('show');
+  document.querySelectorAll('#bsiTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => bsiAns(0, b.dataset.val)));
+</script>
+</body>
+</html>
