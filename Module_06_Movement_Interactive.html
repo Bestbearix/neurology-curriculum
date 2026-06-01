@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 6 — Movement Disorders (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#3ecaa6; --accent-2:#9be4ce;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(62,202,166,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#073126; font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#c2efde}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+
+  .pearl,.warn,.refer{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(62,202,166,.10); border-color:var(--accent); color:#c2efde}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+
+  /* Classifier */
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#073126; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(62,202,166,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+
+  /* PD vs Atypical comparator */
+  .cmp-grid{display:grid; grid-template-columns:1fr; gap:14px; margin:16px 0}
+  .cmp-card{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px}
+  .cmp-card h3{margin:.2em 0 .4em; color:var(--accent-2); font-size:1.05rem}
+  .cmp-card .red{color:#ffd0c8; font-size:.88rem; font-style:italic; margin-top:4px}
+  .cmp-toggle{display:flex; gap:6px; margin:10px 0}
+  .cmp-toggle button{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:7px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem}
+  .cmp-toggle button.active{background:var(--accent); color:#073126; border-color:var(--accent); font-weight:600}
+
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+
+  @media (max-width:560px){
+    .wrap{padding:18px 12px 60px}
+    header h1{font-size:1.35rem}
+    nav.tabs{flex-direction:column}
+    nav.tabs button{text-align:left}
+    .deck{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 6</span>
+    <span class="badge">General physician</span>
+    <h1>Movement Disorders — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 4) and Merritt's <em>Neurology</em> (14e, Ch. 13, 76, 77, 79, 81, 83, 84, 86, 87).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="classifier">Movement Classifier</button>
+    <button data-tab="comparator">PD vs Atypical</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Movement disorders are common in general practice — essential tremor is the most prevalent adult movement disorder, Parkinson disease the second most common neurodegenerative disease after Alzheimer, and drug-induced movement disorders are everywhere antipsychotics and antiemetics are prescribed. The trap is conflating phenomenologies: not every tremor is PD, not every twitch is a tic, not every "spasm" is dystonia.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Describe the phenomenology before naming the disease.</li>
+      <li>Distinguish ET, PD tremor, intention tremor, and functional tremor.</li>
+      <li>Apply MDS-style PD diagnostic criteria and recognise red flags for Parkinson-plus.</li>
+      <li>Choose initial therapy for PD and know which antiemetics and antipsychotics are safe.</li>
+      <li>Recognise hemiballism, chorea, focal dystonia, and the tic spectrum.</li>
+      <li>Recognise the drug-induced emergencies (acute dystonia, NMS, serotonin syndrome) and treat them.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle to anchor everything:</strong> <em>phenomenology first, diagnosis second.</em> "This is asymmetric rest tremor with bradykinesia and rigidity" → then think PD. "This is symmetric postural tremor that improves with alcohol" → then think ET.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Phenomenology first — the vocabulary you must speak fluently</summary>
+      <div class="body">
+        <p>Decide hypokinetic (parkinsonism) vs hyperkinetic first. Then if hyperkinetic, name it:</p>
+        <ul>
+          <li><strong>Tremor</strong> — rhythmic oscillation.</li>
+          <li><strong>Dystonia</strong> — sustained twisting / abnormal posture; often action-induced; sensory tricks may help.</li>
+          <li><strong>Chorea</strong> — brief, irregular, unpredictable, flowing.</li>
+          <li><strong>Ballism</strong> — large-amplitude proximal flinging.</li>
+          <li><strong>Athetosis</strong> — slow distal writhing.</li>
+          <li><strong>Myoclonus</strong> — quick shock-like jerk.</li>
+          <li><strong>Tic</strong> — stereotyped, semi-voluntary, with premonitory urge and brief suppressibility.</li>
+          <li><strong>Akathisia</strong> — subjective inner restlessness with urge to move.</li>
+        </ul>
+        <div class="pearl">Mislabelling the phenomenology is the single most common error in this field. Take time to <em>observe</em> before reaching for a diagnosis.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Approach: history + examination essentials</summary>
+      <div class="body">
+        <p><strong>History:</strong> location, periodicity, triggers/relievers, sensory tricks, rest vs action, urge to move, family history, medications (current and historical dopamine-blocker exposure), nonmotor symptoms (anosmia, RBD, constipation, depression — PD prodrome).</p>
+        <p><strong>Examination:</strong> watch first; activation manoeuvres (writing, spirals, arms outstretched, finger taps, walking); tone (cogwheel = parkinsonism); postural reflexes (pull test); oculomotor (slow saccades, downgaze palsy = PSP); cognition/mood; KF rings (Wilson).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Tremor classification — get this right</summary>
+      <div class="body">
+        <table>
+          <tr><th>Type</th><th>Context</th><th>Frequency</th><th>Classic cause</th></tr>
+          <tr><td>Rest</td><td>At rest, "pill-rolling"</td><td>4–6 Hz</td><td>PD (asymmetric)</td></tr>
+          <tr><td>Postural / action</td><td>Arms outstretched, drinking, writing</td><td>6–12 Hz</td><td>Essential tremor (symmetric, alcohol-responsive)</td></tr>
+          <tr><td>Intention</td><td>Worsens approaching target</td><td>3–5 Hz</td><td>Cerebellar lesion</td></tr>
+          <tr><td>Task-specific</td><td>Only during a task</td><td>Variable</td><td>Primary writing tremor</td></tr>
+          <tr><td>Holmes (rubral)</td><td>Rest + postural + intention</td><td>2–5 Hz</td><td>Midbrain / thalamic lesion</td></tr>
+          <tr><td>Orthostatic</td><td>On standing; felt not seen</td><td>13–18 Hz</td><td>Primary orthostatic tremor</td></tr>
+          <tr><td>Functional</td><td>Distractible, entrainable</td><td>Variable</td><td>Functional</td></tr>
+        </table>
+        <div class="pearl"><strong>ET vs PD tremor</strong> at the bedside: ET is bilateral postural &amp; symmetric, sometimes head/voice, often alcohol-responsive, AD family history. PD is unilateral rest &amp; asymmetric, with bradykinesia and rigidity.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Essential tremor — treatment</summary>
+      <div class="body">
+        <p>First-line: <strong>propranolol</strong> 60–320 mg/d <em>or</em> <strong>primidone</strong> 25–250 mg/d. Add-on: topiramate, gabapentin, intermittent benzodiazepines. <strong>Botulinum toxin</strong> for focal head/voice tremor. Refractory: <strong>MRI-guided focused ultrasound thalamotomy</strong> or <strong>DBS</strong> (VIM thalamic nucleus).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Parkinson disease — diagnosis</summary>
+      <div class="body">
+        <p>Clinical diagnosis. Cardinal motor features (<strong>TRAP</strong>): tremor at rest, rigidity, akinesia/bradykinesia, postural instability (late).</p>
+        <p>Diagnosis: bradykinesia + rest tremor and/or rigidity; supportive features: asymmetric onset, clear levodopa response, levodopa-induced dyskinesia. Exclude red flags for Parkinson-plus.</p>
+        <p>Nonmotor prodrome often years before motor: <strong>anosmia, REM sleep behaviour disorder, constipation, depression, orthostatic hypotension</strong>.</p>
+        <p>Imaging: MRI usually normal in PD. <strong>DaT scan</strong> shows reduced striatal uptake in PD/Parkinson-plus; normal in ET, drug-induced parkinsonism, and SWEDD.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Parkinson disease — treatment</summary>
+      <div class="body">
+        <table>
+          <tr><th>Class</th><th>Examples</th><th>Notes</th></tr>
+          <tr><td>Levodopa + DCI</td><td>Carbidopa/levodopa</td><td>Gold standard. No reason to delay starting. Take 30 min before or 1 h after meals.</td></tr>
+          <tr><td>Dopamine agonists</td><td>Pramipexole, ropinirole, rotigotine</td><td>Watch for impulse-control disorders, oedema, somnolence, hallucinations. Avoid in elderly.</td></tr>
+          <tr><td>MAO-B inhibitors</td><td>Selegiline, rasagiline, safinamide</td><td>Modest benefit; adjunct or early monotherapy.</td></tr>
+          <tr><td>COMT inhibitors</td><td>Entacapone, opicapone, tolcapone</td><td>Extend levodopa action. Tolcapone needs LFT monitoring.</td></tr>
+          <tr><td>Amantadine</td><td>100 mg BID-TID</td><td>Mild benefit + reduces dyskinesia.</td></tr>
+          <tr><td>Anticholinergics</td><td>Trihexyphenidyl, benztropine</td><td>Tremor-predominant young patients only; avoid in elderly.</td></tr>
+          <tr><td>Surgical / device</td><td>DBS (STN / GPi), MR-FUS, levodopa intestinal gel, apomorphine pump</td><td>For refractory motor fluctuations / dyskinesia.</td></tr>
+        </table>
+        <div class="warn"><strong>Avoid in PD:</strong> metoclopramide, prochlorperazine, haloperidol (and most typical antipsychotics). Safer alternatives: ondansetron / domperidone for nausea; quetiapine, clozapine, pimavanserin for psychosis.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Levodopa complications — fluctuations &amp; dyskinesia</summary>
+      <div class="body">
+        <p>After 2+ years of therapy, ~30%+ develop motor fluctuations and dyskinesia from loss of the long-duration response.</p>
+        <ul>
+          <li><strong>Peak-dose dyskinesia</strong> — choreiform at maximum benefit; lower dose, add amantadine.</li>
+          <li><strong>Diphasic dyskinesia</strong> — at onset/offset; smoother delivery (intestinal gel, longer-acting agonists).</li>
+          <li><strong>Off dystonia</strong> — painful early-morning foot cramps; overnight dopamine agonist or extended-release levodopa.</li>
+          <li><strong>Wearing off</strong> — shorten interval, add COMT or MAO-B, consider device-based therapy.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Atypical parkinsonism / Parkinson-plus</summary>
+      <div class="body">
+        <p>Red flags: symmetric onset, poor levodopa response, early falls (&lt; 3 years), early dementia or hallucinations, early autonomic failure, vertical gaze palsy, cerebellar signs, apraxia/alien-limb, rapid progression.</p>
+        <table>
+          <tr><th>Syndrome</th><th>Hallmark</th><th>Imaging clue</th></tr>
+          <tr><td>PSP</td><td>Early backwards falls + vertical (down)gaze palsy + axial rigidity</td><td>Hummingbird sign (midbrain atrophy)</td></tr>
+          <tr><td>MSA</td><td>Early autonomic failure + cerebellar or parkinsonian + stridor</td><td>Hot-cross-bun pons, putaminal T2 hypointensity</td></tr>
+          <tr><td>CBS</td><td>Asymmetric rigidity + apraxia + alien limb + cortical sensory loss</td><td>Asymmetric perirolandic atrophy</td></tr>
+          <tr><td>DLB</td><td>Fluctuating cognition + visual hallucinations + parkinsonism + RBD</td><td>Reduced DAT; reduced occipital metabolism</td></tr>
+          <tr><td>Vascular</td><td>Lower-body parkinsonism, stepwise, vascular risk</td><td>Multiple lacunes / extensive WM disease</td></tr>
+          <tr><td>NPH</td><td>Magnetic gait + incontinence + cognitive decline</td><td>Enlarged ventricles disproportionate to atrophy</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Dystonia, chorea, tics, myoclonus — fast recap</summary>
+      <div class="body">
+        <p><strong>Dystonia:</strong> focal forms most common — cervical dystonia, blepharospasm, spasmodic dysphonia, writer's cramp. Treat with botulinum toxin q12 weeks. <em>Trial levodopa in any childhood-onset dystonia</em> (dopa-responsive dystonia).</p>
+        <p><strong>Chorea:</strong> first-line cause to remember is Huntington (AD, CAG repeat). Hemichorea/hemiballism → contralateral subthalamic nucleus lesion; always check glucose (non-ketotic hyperglycaemia). Treat with VMAT2 inhibitors (tetrabenazine, deutetrabenazine, valbenazine).</p>
+        <p><strong>Tics &amp; Tourette:</strong> CBIT (habit reversal therapy) first-line; alpha-2 agonists, VMAT2 inhibitors, atypical antipsychotics for impairing tics.</p>
+        <p><strong>Myoclonus:</strong> classify by origin (cortical, subcortical, spinal, peripheral). Valproate, clonazepam, levetiracetam, piracetam.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Drug-induced movement disorders &amp; emergencies</summary>
+      <div class="body">
+        <table>
+          <tr><th>Disorder</th><th>Onset</th><th>Treatment</th></tr>
+          <tr><td>Acute dystonic reaction</td><td>Hours to days</td><td>Benztropine 1–2 mg IV/IM or diphenhydramine 25–50 mg IV/IM</td></tr>
+          <tr><td>Akathisia</td><td>Days to weeks</td><td>Reduce drug; propranolol, benzodiazepine, mirtazapine</td></tr>
+          <tr><td>Drug-induced parkinsonism</td><td>Weeks to months</td><td>Withdraw drug; anticholinergic; switch to low-D2 antipsychotic</td></tr>
+          <tr><td>Tardive dyskinesia / dystonia</td><td>Months to years</td><td>Minimise drug; VMAT2 inhibitors (valbenazine, deutetrabenazine); clozapine</td></tr>
+          <tr><td>Neuroleptic malignant syndrome</td><td>Days to weeks</td><td>Stop drug; ICU; dantrolene, bromocriptine, amantadine</td></tr>
+          <tr><td>Serotonin syndrome</td><td>&lt; 24 h of dose change</td><td>Stop drug; supportive; benzodiazepines; cyproheptadine</td></tr>
+        </table>
+        <div class="warn"><strong>NMS vs serotonin syndrome:</strong> NMS — lead-pipe rigidity, hyporeflexia, dry skin (after antipsychotic). Serotonin — clonus, hyperreflexia, diaphoresis, mydriasis (after serotonergic).</div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="classifier">
+    <h2>Movement Classifier</h2>
+    <p class="muted">Answer the questions; the tool names the phenomenology and suggests next steps.</p>
+    <div class="tool" id="mcTool">
+      <div class="q">1. Is the movement rhythmic or arrhythmic?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="rhythmic">Rhythmic, oscillatory (back and forth at regular frequency)</button>
+        <button class="opt" data-val="sustained">Sustained, twisting, or holding an abnormal posture</button>
+        <button class="opt" data-val="brief">Brief, jerky, lightning-like</button>
+        <button class="opt" data-val="flowing">Random, flowing, unpredictable; jumps from limb to limb</button>
+        <button class="opt" data-val="large">Large-amplitude flinging of an entire limb</button>
+        <button class="opt" data-val="stereo">Stereotyped, repetitive, with urge or feeling of relief</button>
+        <button class="opt" data-val="slow">Slow, paucity of movement, masked face, micrographia</button>
+      </div>
+      <div id="mc-rest"></div>
+      <div class="result" id="mc-result"></div>
+      <button class="reset" onclick="resetMC()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="comparator">
+    <h2>Parkinson Disease vs Parkinson-Plus Comparator</h2>
+    <p class="muted">Pick a feature; the tool highlights which syndromes it suggests.</p>
+
+    <div class="cmp-toggle" id="cmpToggle">
+      <button class="active" data-feat="all">Show all</button>
+      <button data-feat="asymmetric">Asymmetric onset</button>
+      <button data-feat="resttremor">Rest tremor present</button>
+      <button data-feat="ldopa">Good levodopa response</button>
+      <button data-feat="earlyfall">Early falls (&lt; 3 y)</button>
+      <button data-feat="downgaze">Vertical gaze palsy</button>
+      <button data-feat="autonomic">Early severe autonomic</button>
+      <button data-feat="cerebellar">Cerebellar signs</button>
+      <button data-feat="cortical">Cortical signs (apraxia / alien limb)</button>
+      <button data-feat="hallucination">Early visual hallucinations</button>
+      <button data-feat="vascular">Lower-body, stepwise, vascular risk</button>
+      <button data-feat="magnetic">Magnetic gait + incontinence + cognition</button>
+    </div>
+
+    <div class="cmp-grid" id="cmpGrid"></div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 68-year-old with a slowly progressive right-hand tremor</summary>
+      <div class="body">
+        <p>3 years of right-hand pill-rolling tremor at rest. Wife says he is slower, expressionless, and his handwriting has shrunk. Exam: right cogwheel rigidity, bradykinesia, reduced right arm swing, micrographia. Pull test borderline. No autonomic symptoms. MRI normal.</p>
+        <p><strong>Diagnosis:</strong> Parkinson disease (asymmetric rest tremor + bradykinesia + rigidity, no Parkinson-plus red flags).</p>
+        <p><strong>Plan:</strong> start <strong>carbidopa/levodopa</strong> (e.g.&nbsp;25/100 mg ½ tab TID, titrate to 1 tab TID over 2 weeks). Counsel about expected response, side effects, no need to delay treatment. Avoid metoclopramide, prochlorperazine, typical antipsychotics. Address constipation, sleep, depression. Movement-disorder referral.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 72-year-old with symmetric parkinsonism, multiple falls, and downward gaze problems</summary>
+      <div class="body">
+        <p>1 year of slowness with backwards falls (4 in last 6 months). Symmetric rigidity, hypomimia, axial rigidity, very slow saccades, impaired downgaze on examination. Levodopa 600 mg/d for 6 weeks — no meaningful improvement. MRI: midbrain atrophy ("humming bird" sign).</p>
+        <p><strong>Diagnosis:</strong> Progressive supranuclear palsy (Richardson syndrome).</p>
+        <p><strong>Plan:</strong> Continue levodopa trial up to ~1000 mg/d. Refer to specialist. Falls prevention. Physiotherapy. Anticipate dysphagia and pseudobulbar affect.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 45-year-old woman with sudden left-sided flinging movements</summary>
+      <div class="body">
+        <p>One-day history of large-amplitude wild flinging of the left arm and leg. T2DM, HbA1c 13%, random glucose 520 mg/dL, no ketones. MRI: T1 hyperintensity in right putamen.</p>
+        <p><strong>Diagnosis:</strong> non-ketotic hyperglycaemic hemichorea/hemiballism.</p>
+        <p><strong>Plan:</strong> Aggressively correct hyperglycaemia (movements typically resolve over days to weeks). Symptomatic VMAT2 inhibitor (tetrabenazine) or low-dose haloperidol if severe and disabling. Educate about diabetes; long-term glycaemic control prevents recurrence.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 19-year-old with new dystonic posture and a strange voice</summary>
+      <div class="body">
+        <p>3 months of progressive limb stiffness, dystonic posturing of the right arm, dysarthric speech, behaviour change, school decline. Labs: AST/ALT elevated. Eye exam: Kayser–Fleischer rings present.</p>
+        <p><strong>Diagnosis:</strong> Wilson disease (neurological presentation).</p>
+        <p><strong>Plan:</strong> Confirm with serum ceruloplasmin (low), 24-h urinary copper (elevated), MRI brain (basal ganglia + brainstem signal change, often a "face of giant panda" in midbrain). Treat with copper chelation (penicillamine or trientine) and zinc; refer to specialist. Screen siblings (autosomal recessive). Lifelong therapy. <em>Always exclude Wilson disease in any movement disorder presenting before age ~50</em>.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 30-year-old man brought to ED with severe neck arching and oculogyric crisis after one dose of an antiemetic</summary>
+      <div class="body">
+        <p>Received metoclopramide 10 mg IV for nausea 90 minutes ago in the ED. Now has forced upward eye deviation, severe retrocollis, distress, normal mental status.</p>
+        <p><strong>Diagnosis:</strong> acute dystonic reaction.</p>
+        <p><strong>Plan:</strong> Give <strong>benztropine 1–2 mg IV/IM</strong> (or diphenhydramine 25–50 mg IV/IM). Dramatic relief within minutes. Document the reaction; oral benztropine for 24–48 h to prevent recurrence. Patient should avoid metoclopramide and prochlorperazine in future; alert on chart. Use ondansetron for future antiemesis.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 45-year-old woman 2 weeks after starting an SSRI plus tramadol presents with confusion, fever, and shaking</summary>
+      <div class="body">
+        <p>Temp 39.5 °C, tachycardia, BP 170/100, agitated, sweating with hyperactive bowel sounds. Exam: dilated pupils, generalized rigidity worse in legs, sustained ankle clonus, hyperreflexia, intermittent myoclonus.</p>
+        <p><strong>Diagnosis:</strong> serotonin syndrome (SSRI + tramadol — both serotonergic). Distinguishes from NMS by <em>clonus and hyperreflexia</em>.</p>
+        <p><strong>Plan:</strong> Stop all serotonergic drugs; IV fluids and cooling; benzodiazepines for agitation and rigidity; <strong>cyproheptadine</strong> 12 mg PO/NG load then 2 mg q2h up to 32 mg/d if severe. ICU monitoring. Improves within 24–72 h. Counsel about serotonergic drug stacking.</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 6 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 4; Merritt's <em>Neurology</em> 14e Ch. 13, 76, 77, 79, 81, 83, 84, 86, 87. Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Phenomenology', q:'Most common error in evaluating an involuntary movement?', a:'Misnaming the phenomenology. Always describe (rhythmic? sustained? brief? flowing?) before naming a disease.'},
+  {tag:'Tremor', q:'PD tremor — frequency and setting?', a:'4–6 Hz, at rest, asymmetric, pill-rolling. Re-emerges after a few seconds when posture is held.'},
+  {tag:'Tremor', q:'Essential tremor — three classic clues?', a:'Bilateral symmetric postural/action tremor; often head or voice tremor; transient improvement with alcohol. Family history common.'},
+  {tag:'Tremor', q:'Intention tremor — what does it tell you?', a:'Cerebellar lesion (or its connections). Worsens as target is approached. Common in MS, stroke, alcohol-related cerebellar disease.'},
+  {tag:'PD', q:'TRAP — the cardinal motor features of PD?', a:'Tremor at rest, Rigidity, Akinesia/bradykinesia, Postural instability (late). Bradykinesia is essential for diagnosis.'},
+  {tag:'PD', q:'Three classic PD prodromal nonmotor features?', a:'Anosmia, REM sleep behaviour disorder, constipation. Also: depression, orthostasis. May precede motor by years.'},
+  {tag:'PD imaging', q:'Role of DaT scan?', a:'Reduced striatal uptake supports PD or Parkinson-plus; normal in essential tremor, drug-induced parkinsonism, and SWEDD. Useful when diagnosis uncertain.'},
+  {tag:'PD treatment', q:'Gold-standard first-line PD therapy?', a:'Carbidopa/levodopa. No reason to delay starting once symptoms impair function. The "levodopa runs out after 5 years" idea is a myth.'},
+  {tag:'PD danger', q:'Three drugs that must be AVOIDED in PD patients?', a:'Metoclopramide, prochlorperazine, haloperidol (and most typical antipsychotics). All worsen PD by blocking D2 receptors.'},
+  {tag:'PD safe alt', q:'Safer antiemetic and antipsychotic in PD?', a:'Antiemetic: ondansetron (and domperidone — peripheral, watch QT). Antipsychotic: quetiapine, clozapine, or pimavanserin.'},
+  {tag:'PD complication', q:'Peak-dose dyskinesia management?', a:'Lower individual levodopa dose; add amantadine; consider DBS if refractory.'},
+  {tag:'PSP', q:'PSP — three distinctive features?', a:'Early backwards falls + vertical (down)gaze palsy + axial rigidity. Imaging: midbrain atrophy ("humming bird" sign).'},
+  {tag:'MSA', q:'MSA — defining features?', a:'Parkinsonism (MSA-P) or cerebellar (MSA-C) + early severe autonomic dysfunction (orthostasis, urinary incontinence) ± stridor. Hot-cross-bun pons on MRI.'},
+  {tag:'DLB', q:'DLB — defining features?', a:'Fluctuating cognition + early well-formed visual hallucinations + parkinsonism + REM sleep behaviour disorder. Severe sensitivity to antipsychotics. Dementia precedes or coincides with motor (in PD, motor precedes dementia by years).'},
+  {tag:'Dystonia', q:'First-line treatment for focal dystonia (cervical, blepharospasm, etc)?', a:'Botulinum toxin injections every 12 weeks. Anticholinergics, benzodiazepines as adjuncts.'},
+  {tag:'Dystonia', q:'Drug to always trial in childhood-onset dystonia?', a:'Levodopa — dopa-responsive dystonia (Segawa / GTP cyclohydrolase deficiency) has a dramatic, sustained response to low doses (50–100 mg/day).'},
+  {tag:'Chorea', q:'Hemiballism — classic localisation and one must-not-miss treatable cause?', a:'Contralateral subthalamic nucleus lesion (lacunar stroke). Must-not-miss treatable: non-ketotic hyperglycaemia (T1 striatal hyperintensity on MRI).'},
+  {tag:'Chorea', q:'Huntington disease — inheritance and triad?', a:'Autosomal dominant, CAG trinucleotide repeat in HTT. Triad: chorea + cognitive decline + psychiatric. MRI: caudate atrophy.'},
+  {tag:'Chorea Rx', q:'Class of drug for chorea (Huntington, tardive)?', a:'VMAT2 inhibitors: tetrabenazine, deutetrabenazine, valbenazine. Watch for depression and parkinsonism.'},
+  {tag:'Wilson', q:'Wilson disease — when to suspect and how to test?', a:'Any movement disorder under age ~50, especially with hepatic or behaviour change. Test: serum ceruloplasmin (low), 24-h urinary copper (high), slit-lamp for Kayser–Fleischer rings, MRI brain.'},
+  {tag:'Tics', q:'Tourette syndrome — diagnostic criteria?', a:'≥ 2 motor tics AND ≥ 1 vocal tic, present > 1 year, onset before age 18. Frequently comorbid ADHD and OCD.'},
+  {tag:'Tics Rx', q:'First-line treatment for tics in Tourette?', a:'Comprehensive behavioural intervention for tics (CBIT — habit reversal therapy). Pharmacotherapy only if functional impairment: alpha-2 agonists, VMAT2 inhibitors, atypical antipsychotics.'},
+  {tag:'Myoclonus', q:'Asterixis — what is it and what does it suggest?', a:'Negative myoclonus — brief loss of postural tone, manifesting as a flap when wrists are extended. Suggests metabolic encephalopathy (hepatic, uraemic, hypercapnic).'},
+  {tag:'Myoclonus Rx', q:'First-line drugs for myoclonus?', a:'Valproate, clonazepam, levetiracetam, piracetam.'},
+  {tag:'Emergency', q:'Acute dystonic reaction — treatment?', a:'IV/IM benztropine 1–2 mg or diphenhydramine 25–50 mg. Dramatic relief in minutes. Common with metoclopramide and antipsychotics.'},
+  {tag:'Emergency', q:'NMS triad and treatment?', a:'Fever + lead-pipe rigidity + altered mental status + autonomic instability + elevated CK. Treatment: stop drug, ICU, dantrolene, bromocriptine, amantadine. Mortality ~10%.'},
+  {tag:'Emergency', q:'Serotonin syndrome — the sign that distinguishes it from NMS?', a:'Clonus (especially inducible at ankles) with hyperreflexia. NMS has lead-pipe rigidity with hyporeflexia. Drug history clinches: serotonergic vs antipsychotic.'},
+  {tag:'Tardive', q:'FDA-approved drugs for tardive dyskinesia?', a:'Valbenazine and deutetrabenazine (VMAT2 inhibitors). Also: minimise offending drug; clozapine if antipsychotic still needed.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 68-year-old man has a 2-year history of asymmetric pill-rolling right-hand tremor at rest, with cogwheel rigidity and bradykinesia. MRI is normal. What is the most appropriate first-line treatment?',
+   choices:['Pramipexole','Carbidopa/levodopa','Trihexyphenidyl','Selegiline'],
+   ans:1,
+   why:'Carbidopa/levodopa is the gold-standard, most effective first-line therapy for PD. The old "delay levodopa as long as possible" approach is now considered a myth — there is no compelling reason to defer it once symptoms cause functional impairment. Dopamine agonists are reasonable in younger patients but have a worse side-effect profile (impulse-control disorders, sleepiness, hallucinations) and should be avoided in older patients.'},
+  {q:'A 55-year-old woman has bilateral postural and action hand tremor for 10 years, transient improvement with alcohol, and a father who had the same problem. There is no bradykinesia or rigidity. Best initial treatment?',
+   choices:['Carbidopa/levodopa','Propranolol','Botulinum toxin','Pramipexole'],
+   ans:1,
+   why:'This is classic essential tremor — bilateral symmetric postural/action tremor, often alcohol-responsive, family history. First-line treatment is propranolol or primidone. Levodopa is for PD (rest tremor). Botulinum toxin is reserved for focal head/voice tremor or refractory limb tremor.'},
+  {q:'A 70-year-old presents with 1 year of symmetric parkinsonism, recurrent backwards falls, and impaired downward gaze. Levodopa 800 mg/d for 6 weeks gives no benefit. Most likely diagnosis?',
+   choices:['Parkinson disease','Progressive supranuclear palsy','Essential tremor','Dementia with Lewy bodies'],
+   ans:1,
+   why:'Symmetric parkinsonism + early backwards falls + vertical supranuclear gaze palsy (downgaze first) + poor levodopa response is the classic PSP-Richardson syndrome. MRI often shows midbrain atrophy ("humming bird" sign).'},
+  {q:'A 55-year-old patient with diabetes presents with sudden onset of large-amplitude left-sided flinging movements. Glucose 540 mg/dL, no ketones. What is the most likely cause and the most important treatment?',
+   choices:['Stroke — give aspirin','Non-ketotic hyperglycaemia with hemiballism — aggressively correct glucose','Essential tremor flare — propranolol','Hemichorea of Huntington disease — VMAT2 inhibitor'],
+   ans:1,
+   why:'Non-ketotic hyperglycaemia is a classic, treatable cause of acute hemichorea/hemiballism with characteristic T1 striatal hyperintensity. Movements typically resolve over days to weeks with glucose correction. Always check glucose in any sudden movement disorder. (Stroke is the other major cause of hemiballism, but the metabolic picture and imaging clinch this case.)'},
+  {q:'A 30-year-old man receives metoclopramide 10 mg IV for nausea. 90 minutes later he develops forced upward eye deviation and torticollis. What is the immediate treatment?',
+   choices:['Benztropine 1–2 mg IV/IM','Haloperidol 5 mg IV','Diazepam 10 mg IV','Levodopa 100 mg PO'],
+   ans:0,
+   why:'Acute dystonic reaction. Treat with IV/IM benztropine 1–2 mg (or diphenhydramine 25–50 mg) — dramatic relief within minutes. Haloperidol would worsen it; benzodiazepines are not first-line; levodopa is irrelevant. Continue oral anticholinergic for 24–48 h to prevent recurrence and document the drug allergy.'},
+  {q:'Which feature on examination most reliably distinguishes serotonin syndrome from neuroleptic malignant syndrome?',
+   choices:['Fever','Rigidity','Clonus and hyperreflexia','Altered mental status'],
+   ans:2,
+   why:'Both syndromes have fever, rigidity, altered mental status, and autonomic instability. The discriminator is neuromuscular: serotonin syndrome has clonus (especially inducible at ankles), hyperreflexia, mydriasis, hyperactive bowel sounds, and diaphoresis. NMS has lead-pipe rigidity, hyporeflexia, hypoactive bowel sounds, and dry skin. Drug history then clinches the diagnosis (serotonergic agents vs antipsychotic/D2 blocker).'},
+  {q:'A 25-year-old woman presents with limb stiffness, dystonic posturing, dysarthria, and behavioural change. AST and ALT are mildly elevated. What single investigation is most likely to clinch the diagnosis?',
+   choices:['Genetic test for Huntington disease','Serum ceruloplasmin and 24-h urinary copper','Brain MRI','Levodopa challenge'],
+   ans:1,
+   why:'Wilson disease — always test for it in any movement disorder under age ~50, especially with hepatic or behaviour change. Low ceruloplasmin and high urinary copper, plus Kayser–Fleischer rings on slit-lamp, support the diagnosis. Brain MRI may show characteristic basal ganglia / midbrain changes ("face of giant panda"). Genetic testing for ATP7B confirms. Treatment is chelation (penicillamine, trientine) plus zinc — disease is fatal if untreated.'},
+  {q:'A 45-year-old patient on chronic haloperidol for schizophrenia develops orobuccolingual stereotypies (lip smacking, tongue protrusion) and choreoathetoid limb movements that persist despite drug cessation. What is the FDA-approved class of treatment?',
+   choices:['Anticholinergics (benztropine)','Dopamine agonists (pramipexole)','VMAT2 inhibitors (valbenazine, deutetrabenazine)','Botulinum toxin'],
+   ans:2,
+   why:'Tardive dyskinesia. VMAT2 inhibitors (valbenazine, deutetrabenazine) are FDA-approved. Anticholinergics can worsen tardive dyskinesia. If antipsychotic must continue, switch to clozapine. Withdraw the offending agent when possible, but TD may persist or be irreversible.'},
+  {q:'A 65-year-old PD patient has 6 months of vivid visual hallucinations (small animals in the corner of the room), no distressing delusions, and otherwise well-managed motor symptoms on levodopa monotherapy. Initial management?',
+   choices:['Add haloperidol','Reduce or discontinue any anticholinergic, amantadine, or dopamine agonist first; address triggers (infection, dehydration, sleep, medications); then consider pimavanserin, quetiapine, or clozapine','Increase levodopa','Start risperidone'],
+   ans:1,
+   why:'For PD psychosis, the standard escalation is: (1) identify and treat triggers (UTI, dehydration, sleep deprivation, new drugs); (2) withdraw or reduce PD drugs in reverse order of efficacy/tolerability: anticholinergic → amantadine → MAO-B → dopamine agonist → finally reduce levodopa; (3) if antipsychotic needed, use pimavanserin (FDA-approved for PD psychosis), quetiapine, or clozapine. Avoid haloperidol and risperidone (worsen parkinsonism) and olanzapine (relative).'},
+  {q:'A 6-year-old has progressive abnormal gait and limb posturing diagnosed by an outside clinician as cerebral palsy, but symptoms worsen through the day and improve overnight. Which therapeutic trial should be undertaken before accepting the diagnosis?',
+   choices:['High-dose corticosteroids','Carbidopa/levodopa','Carbamazepine','Botulinum toxin'],
+   ans:1,
+   why:'Diurnal fluctuation is the hallmark of dopa-responsive dystonia (Segawa syndrome, DYT5, GTP cyclohydrolase 1 deficiency) — symptoms worsen through the day and improve with sleep. Low-dose levodopa (50–100 mg/day) gives a dramatic, sustained response. Always trial levodopa in childhood-onset dystonia before settling for "cerebral palsy."'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `<h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== Movement Classifier ===== */
+const mc = document.getElementById('mcTool');
+const mcRest = document.getElementById('mc-rest');
+const mcResult = document.getElementById('mc-result');
+let mcState = {};
+
+function mcAns(step, val) {
+  mcState[step] = val;
+  Object.keys(mcState).forEach(k => { if (+k > step) delete mcState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderMC();
+}
+
+function renderMC() {
+  mcRest.innerHTML = '';
+  mcResult.classList.remove('show');
+  const s0 = mcState[0];
+  if (!s0) return;
+
+  if (s0 === 'rhythmic') {
+    addMC(1, '2. When does the tremor appear?',
+      [['rest','At rest, reduces with action; "pill-rolling"'],['postural','With arms outstretched / during action'],['intention','Worsens approaching a target (finger-to-nose)'],['task','Only during a specific task (writing)'],['mixed','Mixed: rest + posture + intention']]);
+    const s1 = mcState[1];
+    if (s1 === 'rest') return showMC('Rest tremor → Parkinson disease', [
+      'Asymmetric onset, 4–6 Hz, pill-rolling, "re-emergent" on sustained posture.',
+      'Look for bradykinesia, rigidity, hypomimia, decreased arm swing to confirm parkinsonism.',
+      'Consider drug-induced parkinsonism (recent metoclopramide, antipsychotics).',
+      'First-line therapy: carbidopa/levodopa once functionally impairing.']);
+    if (s1 === 'postural') return showMC('Postural / action tremor → essential tremor', [
+      'Bilateral, symmetric, 6–12 Hz; often head or voice; alcohol-responsive; family history.',
+      'Rule out enhanced physiological tremor (caffeine, anxiety, thyrotoxicosis, drugs).',
+      'First-line: propranolol or primidone.']);
+    if (s1 === 'intention') return showMC('Intention tremor → cerebellar', [
+      'Worsens approaching the target; usually with dysmetria.',
+      'Causes: MS, stroke, cerebellar tumour, alcohol-related, hereditary ataxia.',
+      'Image the posterior fossa; work up cause.']);
+    if (s1 === 'task') return showMC('Task-specific tremor', [
+      'Primary writing tremor; overlap with focal dystonia possible.',
+      'Treat: switch implement, botulinum toxin, anticholinergics.']);
+    if (s1 === 'mixed') return showMC('Holmes (rubral) tremor', [
+      'Mixed rest + postural + intention; midbrain / thalamic lesion (red nucleus area).',
+      'Often follows stroke / MS / trauma by weeks–months.',
+      'Treatment unsatisfying; trial levodopa, clonazepam, anticholinergics; DBS in selected cases.']);
+  }
+
+  if (s0 === 'sustained') {
+    addMC(1, '2. What is the body distribution?',
+      [['focal','Focal (one region: neck, eyelids, voice, hand)'],['generalised','Generalised'],['hemi','Hemidystonia (one side of body)']]);
+    const s1 = mcState[1];
+    if (s1 === 'focal') return showMC('Focal dystonia', [
+      'Cervical, blepharospasm, spasmodic dysphonia, writer\'s cramp, oromandibular.',
+      'Sensory tricks may help (geste antagoniste).',
+      'First-line: botulinum toxin every 12 weeks. Adjuncts: anticholinergics, benzodiazepines.']);
+    if (s1 === 'generalised') return showMC('Generalised dystonia', [
+      'Often genetic (DYT1, others) or acquired (perinatal injury, drugs, encephalitis).',
+      '<strong>Always trial levodopa</strong> — dopa-responsive dystonia (Segawa) responds dramatically.',
+      'Other options: anticholinergics (trihexyphenidyl), baclofen, tetrabenazine, DBS (GPi).',
+      'Movement-disorder referral.']);
+    if (s1 === 'hemi') return showMC('Hemidystonia → structural lesion', [
+      'Contralateral basal ganglia lesion (stroke, tumour, AVM, demyelination).',
+      'MRI of basal ganglia mandatory.',
+      'Treat the underlying lesion + symptomatic (botulinum toxin, anticholinergics).']);
+  }
+
+  if (s0 === 'brief') return showMC('Myoclonus', [
+    'Sudden brief shock-like jerks. Positive (contraction) or negative (asterixis — loss of tone).',
+    'Asterixis suggests metabolic encephalopathy (hepatic, uraemic, hypercapnic).',
+    'Classify by origin: cortical (epileptic), subcortical (opsoclonus-myoclonus = paraneoplastic), spinal, peripheral, post-anoxic (Lance-Adams).',
+    'Treat cause if known; symptomatic: valproate, clonazepam, levetiracetam, piracetam.']);
+
+  if (s0 === 'flowing') return showMC('Chorea', [
+    'Brief, irregular, unpredictable, flowing movements; flit from limb to limb.',
+    'Causes to consider: Huntington (AD, CAG repeat — chorea + cognitive decline + psychiatric); Sydenham (post-streptococcal); chorea gravidarum; SLE / APS; autoimmune encephalitis (anti-NMDA-R); drug-induced (levodopa, OCP, phenytoin, stimulants); tardive; structural; hyperthyroidism; non-ketotic hyperglycaemia; HIV-related.',
+    'Always exclude Wilson disease under age ~50.',
+    'Symptomatic: VMAT2 inhibitors (tetrabenazine, deutetrabenazine, valbenazine); atypical antipsychotics; treat cause.']);
+
+  if (s0 === 'large') return showMC('Ballism — usually hemiballism', [
+    'Large-amplitude proximal flinging, usually one side.',
+    'Classic localisation: <strong>contralateral subthalamic nucleus lesion</strong> (lacunar stroke most common).',
+    '<strong>Always check glucose</strong> — non-ketotic hyperglycaemia is a treatable cause with characteristic T1 striatal hyperintensity.',
+    'Many improve spontaneously over weeks–months.',
+    'Symptomatic: dopamine-blocking agents or tetrabenazine.']);
+
+  if (s0 === 'stereo') return showMC('Tic', [
+    'Stereotyped, brief or sustained, semi-voluntary with premonitory urge and brief suppressibility.',
+    'Motor tics (eye blinking, head jerking) + vocal tics (sniffing, throat clearing, complex utterances).',
+    'Tourette syndrome: ≥ 2 motor + ≥ 1 vocal tic > 1 year, onset before 18.',
+    'Comorbid ADHD (~50%) and OCD (~30%).',
+    'First-line: comprehensive behavioural intervention for tics (CBIT). Pharmacotherapy if impairing: alpha-2 agonists (clonidine, guanfacine), VMAT2 inhibitors, atypical antipsychotics (risperidone, aripiprazole).']);
+
+  if (s0 === 'slow') return showMC('Parkinsonism (hypokinetic)', [
+    'Bradykinesia + at least one of: rest tremor, rigidity, postural instability.',
+    'Most likely Parkinson disease — especially with asymmetric onset and good levodopa response.',
+    'Always exclude: drug-induced parkinsonism (recent metoclopramide / antipsychotics — usually symmetric, reversible); Parkinson-plus syndromes (PSP, MSA, CBS, DLB); vascular parkinsonism; NPH.',
+    'Use the PD vs Atypical Comparator tab to step through red flags.',
+    'Treatment: carbidopa/levodopa first-line; adjuncts as needed (MAO-B, COMT, amantadine, dopamine agonist).']);
+}
+
+function addMC(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  mcRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => mcAns(step, b.dataset.val)));
+  if (mcState[step]) {
+    const t = wrap.querySelector(`[data-val="${mcState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showMC(title, items) {
+  mcResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  mcResult.classList.add('show');
+}
+
+function resetMC() {
+  mcState = {};
+  mcRest.innerHTML = '';
+  mcResult.classList.remove('show');
+  document.querySelectorAll('#mcTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => mcAns(0, b.dataset.val)));
+
+/* ===== PD vs Atypical Comparator ===== */
+const syndromes = [
+  {key:'pd', name:'Parkinson disease (PD)', features:['asymmetric','resttremor','ldopa'], red:'Asymmetric onset + rest tremor + good levodopa response. No early autonomic, falls, gaze palsy, or cognitive collapse.'},
+  {key:'psp', name:'Progressive supranuclear palsy (PSP)', features:['earlyfall','downgaze'], red:'Early backwards falls within 3 years + vertical (down)gaze palsy + axial rigidity. Hummingbird sign on MRI.'},
+  {key:'msa', name:'Multiple system atrophy (MSA)', features:['autonomic','cerebellar'], red:'Early severe orthostatic hypotension / urinary incontinence / erectile dysfunction (MSA-P) or cerebellar predominance (MSA-C). Stridor. Hot-cross-bun pons on MRI.'},
+  {key:'cbs', name:'Corticobasal syndrome (CBS)', features:['asymmetric','cortical'], red:'Strikingly asymmetric rigidity + apraxia + cortical sensory loss + alien-limb phenomenon + dystonia / myoclonus. Asymmetric perirolandic atrophy.'},
+  {key:'dlb', name:'Dementia with Lewy bodies (DLB)', features:['hallucination'], red:'Early visual hallucinations + fluctuating cognition + parkinsonism + REM sleep behaviour disorder. Severe sensitivity to antipsychotics. Reduced DAT.'},
+  {key:'vascular', name:'Vascular parkinsonism', features:['vascular'], red:'Lower-body parkinsonism (shuffling gait, freezing) with preserved upper-limb arm swing; stepwise; vascular risk factors. Multiple lacunes / white-matter disease on MRI.'},
+  {key:'nph', name:'Normal-pressure hydrocephalus (NPH)', features:['magnetic'], red:'Triad of magnetic gait + urinary incontinence + cognitive decline. Enlarged ventricles disproportionate to atrophy. Improves with high-volume LP / shunt.'},
+];
+
+function renderCmp(feat) {
+  const grid = document.getElementById('cmpGrid');
+  grid.innerHTML = '';
+  let list = syndromes;
+  if (feat && feat !== 'all') {
+    list = syndromes.filter(s => s.features.indexOf(feat) > -1);
+    if (list.length === 0) {
+      grid.innerHTML = '<div class="cmp-card"><h3>No close match</h3><p class="muted">This feature alone is not strongly suggestive — combine with other clues.</p></div>';
+      return;
+    }
+  }
+  list.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'cmp-card';
+    div.innerHTML = `<h3>${s.name}</h3><div class="red">${s.red}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+document.querySelectorAll('#cmpToggle button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('#cmpToggle button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    renderCmp(b.dataset.feat);
+  });
+});
+renderCmp('all');
+</script>
+</body>
+</html>

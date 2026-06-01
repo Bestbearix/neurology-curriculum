@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 8 — MS, NMOSD & MOGAD (Reference)</title>
+<style>
+  :root{
+    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#1a6a8a; --soft:#ecf6fb;
+    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
+    --pearl-bg:#dceff5; --pearl-bd:#1a6a8a; --pearl-ink:#0a3a4a;
+    --refer-bg:#fee5e2; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif; color:var(--ink); background:#fff; line-height:1.55; max-width:880px; margin:0 auto; padding:48px 28px 96px}
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
+  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
+  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
+  h3{font-size:1.18rem; margin-top:1.8em; color:#0a3a4a}
+  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
+  li{margin:.25em 0}
+  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
+  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
+  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
+  tbody tr:nth-child(even){background:#fafbfd}
+  .pearl,.warn,.refer{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
+  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
+  .src{font-size:.8rem; color:var(--muted)}
+  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
+  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+
+<h1>Module 8 — Multiple Sclerosis, NMOSD &amp; MOGAD</h1>
+<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 35 Multiple Sclerosis and Other Neuroimmunologic Disorders) and <em>Merritt's Neurology</em> (14e, Ch. 71 MS &amp; Related CNS Neuroimmune Diseases, Ch. 72 Transverse Myelitis, Ch. 73 NMOSD)</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Big picture: a family of inflammatory demyelinating disorders</a></li>
+  <li><a href="#ms">Multiple sclerosis &mdash; epidemiology &amp; course</a></li>
+  <li><a href="#presentation">Common clinical presentations of MS</a></li>
+  <li><a href="#mcdonald">Diagnosis: 2017 McDonald criteria &amp; differential</a></li>
+  <li><a href="#mri">Imaging &amp; CSF in MS</a></li>
+  <li><a href="#relapse">Relapse management</a></li>
+  <li><a href="#dmt">Disease-modifying therapy (DMT) &mdash; the ladder</a></li>
+  <li><a href="#progressive">Progressive MS</a></li>
+  <li><a href="#symptoms">Symptomatic management</a></li>
+  <li><a href="#nmosd">Neuromyelitis optica spectrum disorder (NMOSD)</a></li>
+  <li><a href="#mogad">MOG antibody-associated disease (MOGAD)</a></li>
+  <li><a href="#adem">ADEM, transverse myelitis &amp; other related entities</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#quick">Quick-reference tables</a></li>
+</ol>
+</div>
+
+<h2 id="frame">1 · Big picture: a family of inflammatory demyelinating disorders</h2>
+<p>For decades clinicians lumped almost all CNS inflammatory demyelination as "MS or a variant." The discovery of the <strong>AQP4 (aquaporin-4) IgG</strong> antibody (defining NMOSD) and the <strong>MOG IgG</strong> antibody (defining MOGAD) has split the field into three distinct diseases plus several related entities. The treatments diverge sharply, so getting the diagnosis right is critical.</p>
+
+<table>
+<tr><th>Disease</th><th>Antibody</th><th>Pathology</th><th>Typical attacks</th></tr>
+<tr><td><strong>Multiple sclerosis (MS)</strong></td><td>None (oligoclonal bands in CSF in 95%)</td><td>T-cell + B-cell-mediated demyelination, axon loss</td><td>Optic neuritis (typically unilateral, mild), short transverse myelitis (&lt; 3 vertebral segments), brainstem/cerebellar syndromes; relapsing-remitting course in 85%</td></tr>
+<tr><td><strong>NMOSD</strong></td><td>AQP4-IgG (75%)</td><td>Antibody + complement-mediated astrocyte injury</td><td>Severe bilateral / sequential optic neuritis; <em>longitudinally extensive transverse myelitis</em> (LETM, ≥ 3 vertebral segments); area postrema syndrome (intractable nausea/vomiting/hiccup); brainstem syndromes</td></tr>
+<tr><td><strong>MOGAD</strong></td><td>MOG-IgG</td><td>Antibody-mediated demyelination (less destructive than NMOSD)</td><td>Optic neuritis (often bilateral, more reversible than NMOSD); transverse myelitis; ADEM-like in children; cerebral cortical encephalitis with seizures; can be monophasic or relapsing</td></tr>
+<tr><td>ADEM (acute disseminated encephalomyelitis)</td><td>MOG-IgG positive in ~50% of paediatric cases</td><td>Post-infectious monophasic demyelination</td><td>Multifocal symptoms + encephalopathy within days–weeks of infection / vaccination; usually monophasic in adults</td></tr>
+</table>
+
+<div class="pearl"><strong>The single most important triage habit:</strong> in any patient presenting with a first inflammatory demyelinating event &mdash; optic neuritis, transverse myelitis, brainstem syndrome &mdash; <em>send AQP4-IgG and MOG-IgG (serum, cell-based assay)</em> before assuming MS. The treatment differs dramatically.</div>
+
+<h2 id="ms">2 · Multiple sclerosis &mdash; epidemiology &amp; course</h2>
+
+<h3>Epidemiology</h3>
+<ul>
+  <li>Leading cause of non-traumatic neurological disability in young adults.</li>
+  <li>US prevalence ~309 / 100,000. Latitude gradient: higher prevalence further from the equator (vitamin D and other factors).</li>
+  <li>Median age of onset 23–24 y; rare before 10 or after 60.</li>
+  <li>Female:male ratio ~2:1 (equal in primary progressive MS).</li>
+  <li>Strongest genetic risk: <em>HLA-DRB1*1501</em>; sibling concordance ~3%; monozygotic twin concordance ~30%.</li>
+  <li>Strongest environmental risk: <strong>Epstein-Barr virus</strong> infection (essentially required &mdash; 99% of MS patients seropositive). Other contributors: low vitamin D, smoking, childhood obesity.</li>
+</ul>
+
+<h3>Disease course phenotypes (Lublin 2013)</h3>
+<table>
+<tr><th>Phenotype</th><th>Description</th><th>% at diagnosis</th></tr>
+<tr><td><strong>Relapsing-remitting MS (RRMS)</strong></td><td>Discrete relapses with full or partial recovery; stable between attacks</td><td>85–90%</td></tr>
+<tr><td><strong>Secondary progressive MS (SPMS)</strong></td><td>RRMS that has transitioned to gradual neurological worsening between (or without) relapses</td><td>(Many RRMS evolve to SPMS within 10–25 years if untreated)</td></tr>
+<tr><td><strong>Primary progressive MS (PPMS)</strong></td><td>Gradual neurological worsening from onset, without distinct relapses</td><td>10–15%</td></tr>
+<tr><td>Clinically isolated syndrome (CIS)</td><td>First demyelinating event, before McDonald criteria met</td><td>—</td></tr>
+<tr><td>Radiologically isolated syndrome (RIS)</td><td>MRI lesions typical for MS, no clinical event</td><td>—</td></tr>
+</table>
+
+<p>Each phenotype is further modified by <strong>"active"</strong> (new clinical relapses or MRI lesions) and <strong>"progressing"</strong> (gradual accumulation of disability independent of relapses) descriptors.</p>
+
+<h2 id="presentation">3 · Common clinical presentations of MS</h2>
+
+<table>
+<tr><th>Syndrome</th><th>Features</th></tr>
+<tr><td><strong>Optic neuritis</strong></td><td>Unilateral painful vision loss over hours-days; pain worse with eye movement; central scotoma; RAPD; reduced colour vision (especially red); usually peaks at 1–2 weeks and recovers over 4–6 weeks. Recovery is usually good in MS (vs. severe in NMOSD).</td></tr>
+<tr><td><strong>Transverse myelitis (TM)</strong></td><td>Sub-acute weakness, sensory level, bowel/bladder dysfunction. In MS, lesions typically &lt; 2 vertebral segments and partial cord involvement. <em>Longitudinally extensive TM (LETM, ≥ 3 segments)</em> suggests NMOSD or MOGAD.</td></tr>
+<tr><td><strong>Brainstem / cerebellar syndromes</strong></td><td>Internuclear ophthalmoplegia (INO &mdash; failure of adduction with abducting eye nystagmus; bilateral INO in a young person is MS until proven otherwise), 6th nerve palsy, facial sensory loss, vertigo, ataxia, dysarthria.</td></tr>
+<tr><td>Sensory syndromes</td><td>Numbness, tingling, dysesthesia; often multi-territorial; useless-hand of Oppenheim (proprioceptive loss).</td></tr>
+<tr><td>L'hermitte sign</td><td>Electric shock-like sensation down spine on neck flexion &mdash; cervical cord demyelination.</td></tr>
+<tr><td>Uhthoff phenomenon</td><td>Transient worsening of existing neurological symptoms with heat (exercise, hot bath, fever) &mdash; not a true relapse.</td></tr>
+<tr><td>Paroxysmal symptoms</td><td>Trigeminal neuralgia, tonic spasms, brief sensory phenomena.</td></tr>
+<tr><td>Fatigue</td><td>Most common symptom; often disabling.</td></tr>
+<tr><td>Cognitive impairment</td><td>Slow processing speed, attention, memory; subcortical pattern; present early.</td></tr>
+<tr><td>Mood disorders</td><td>Depression in ~50% lifetime; pseudobulbar affect.</td></tr>
+<tr><td>Bladder / bowel / sexual</td><td>Urgency, retention, incontinence; constipation; sexual dysfunction.</td></tr>
+</table>
+
+<div class="pearl"><strong>Red flags for the diagnosis "MS":</strong> bilateral severe optic neuritis with poor recovery (think NMOSD/MOGAD) · LETM ≥ 3 vertebral segments (NMOSD/MOGAD) · intractable nausea/vomiting/hiccup (NMOSD area postrema) · encephalopathy (think ADEM, MOGAD cerebral cortical encephalitis, autoimmune encephalitis) · constitutional features or systemic disease (sarcoid, lupus, Behçet, Sjögren) · age &lt; 10 or &gt; 50 at first attack · normal MRI brain &amp; cord.</div>
+
+<h2 id="mcdonald">4 · Diagnosis: 2017 McDonald criteria</h2>
+
+<p>The 2017 McDonald criteria allow MS to be diagnosed at the first clinical attack in many patients, by demonstrating <strong>dissemination in space (DIS)</strong> and <strong>dissemination in time (DIT)</strong>. <em>The criteria apply only to patients with a typical demyelinating presentation and after exclusion of alternative diagnoses.</em></p>
+
+<h3>2017 McDonald criteria simplified</h3>
+<table>
+<tr><th>Clinical presentation</th><th>Additional data required for MS diagnosis</th></tr>
+<tr><td>≥ 2 attacks, objective evidence of ≥ 2 lesions</td><td>None</td></tr>
+<tr><td>≥ 2 attacks, objective evidence of 1 lesion (plus history of prior attack at another site)</td><td>None</td></tr>
+<tr><td>≥ 2 attacks, objective evidence of 1 lesion</td><td>DIS by MRI <em>or</em> a second clinical attack at a different site</td></tr>
+<tr><td>1 attack, objective evidence of ≥ 2 lesions</td><td>DIT by MRI, a second clinical attack, <em>or</em> CSF-specific oligoclonal bands</td></tr>
+<tr><td>1 attack, objective evidence of 1 lesion (CIS)</td><td>DIS by MRI <em>or</em> a second clinical attack at a different site <strong>plus</strong> DIT by MRI, second attack, or CSF-specific OCBs</td></tr>
+<tr><td>Insidious progressive (PPMS suspected)</td><td>1 year of clinical progression + 2 of: (a) ≥ 1 T2 brain lesion in MS-typical region; (b) ≥ 2 T2 cord lesions; (c) CSF-specific OCBs</td></tr>
+</table>
+
+<h3>MRI DIS criteria (≥ 1 T2 lesion in ≥ 2 of):</h3>
+<ul>
+  <li>Periventricular</li>
+  <li>Juxtacortical / cortical</li>
+  <li>Infratentorial (brainstem, cerebellum)</li>
+  <li>Spinal cord</li>
+</ul>
+
+<h3>MRI DIT criteria (≥ 1 of):</h3>
+<ul>
+  <li>Simultaneous gadolinium-enhancing AND non-enhancing lesions on a single scan</li>
+  <li>New T2 or gadolinium-enhancing lesion on follow-up MRI</li>
+</ul>
+
+<div class="pearl"><strong>Key change in 2017:</strong> CSF-specific oligoclonal bands (present in ~95% of MS) can substitute for DIT in patients with CIS. This allows earlier diagnosis (and earlier treatment) at the first clinical attack.</div>
+
+<h3>Differential diagnosis &mdash; "red flag" mimics</h3>
+<ul>
+  <li><strong>NMOSD &amp; MOGAD</strong> (see below)</li>
+  <li>Neurosarcoidosis &mdash; meningeal enhancement, hilar adenopathy, ACE/calcium</li>
+  <li>SLE, Sjögren, Behçet, antiphospholipid syndrome, vasculitis</li>
+  <li>CNS lymphoma</li>
+  <li>Susac syndrome (encephalopathy + retinal artery occlusions + sensorineural hearing loss; corpus callosum "snowballs")</li>
+  <li>CADASIL (anterior temporal pole white matter)</li>
+  <li>Vitamin B12 / copper deficiency myelopathy</li>
+  <li>HTLV-1 myelopathy (tropical spastic paraparesis)</li>
+  <li>Neuro-Lyme, neurosyphilis, HIV</li>
+  <li>PML</li>
+  <li>Vascular: cerebral small vessel disease, migraine WMHs (much more common than MS)</li>
+  <li>Leukodystrophies (adrenoleukodystrophy in adults &mdash; men with spastic paraparesis and adrenal insufficiency)</li>
+</ul>
+
+<h2 id="mri">5 · Imaging &amp; CSF in MS</h2>
+
+<h3>MRI &mdash; the workhorse</h3>
+<ul>
+  <li>Brain MRI with and without gadolinium: typical lesions are <strong>ovoid</strong>, <strong>periventricular</strong> (perpendicular to ventricles = "Dawson fingers"), <strong>juxtacortical</strong>, <strong>infratentorial</strong>, <strong>callosal</strong>.</li>
+  <li>Gadolinium-enhancing lesions reflect active inflammation (enhancement typically lasts 2–8 weeks).</li>
+  <li>"Black holes" (T1 hypointense lesions) indicate axonal loss.</li>
+  <li>Spinal cord MRI: lesions usually short (&lt; 2 vertebral segments), peripheral, often cervical; centrally located cord lesions ≥ 3 segments suggest NMOSD or other.</li>
+  <li>3T preferred; standardised MS-MRI protocol per CMSC/MAGNIMS guidelines.</li>
+</ul>
+
+<h3>CSF in MS</h3>
+<ul>
+  <li><strong>Oligoclonal bands (OCBs)</strong> present in CSF but not serum: ~95% of MS patients. <em>Now formally part of McDonald 2017 criteria.</em></li>
+  <li>Mildly elevated IgG index.</li>
+  <li>Mild lymphocytic pleocytosis (&lt; 50 cells/µL); higher counts suggest NMOSD, MOGAD, or infection.</li>
+  <li>Normal protein and glucose.</li>
+</ul>
+
+<h3>Optical coherence tomography (OCT)</h3>
+<p>Quantifies retinal nerve fibre layer thickness; useful for monitoring optic nerve damage and differentiating subclinical disease.</p>
+
+<h3>Evoked potentials</h3>
+<p>Visual, somatosensory, and brainstem evoked potentials can demonstrate clinically silent demyelination; less commonly used now with MRI dominance.</p>
+
+<h2 id="relapse">6 · Relapse management</h2>
+
+<p>A <strong>relapse</strong> is new or worsening neurological symptoms lasting ≥ 24 hours, in the absence of fever or infection, separated from a previous attack by at least 30 days. Heat-related (Uhthoff) and infection-related transient worsening (pseudo-relapse) are NOT relapses.</p>
+
+<h3>Acute treatment</h3>
+<table>
+<tr><th>Therapy</th><th>Detail</th></tr>
+<tr><td><strong>High-dose corticosteroids</strong></td><td>IV methylprednisolone 1 g daily × 3–5 days (or oral methylprednisolone equivalent dose, equally effective per OCTOPUS, COPOUSEP). Hastens recovery but doesn't change long-term disability. PPI cover; monitor BP, glucose, mood.</td></tr>
+<tr><td>Plasma exchange (PLEX)</td><td>For severe attacks (especially involving optic nerve, spinal cord, or brainstem) refractory to steroids. 5–7 exchanges over 10–14 days. Especially useful in NMOSD and steroid-refractory severe MS attacks.</td></tr>
+<tr><td>IVIG</td><td>Less evidence in MS; an alternative for steroid-intolerant patients or in pregnancy.</td></tr>
+</table>
+
+<div class="warn"><strong>Always rule out pseudo-relapse first:</strong> check temperature, urine, full septic screen if febrile. Treating an "MS attack" that is actually a UTI with steroids is harmful.</div>
+
+<h2 id="dmt">7 · Disease-modifying therapy (DMT) &mdash; the ladder</h2>
+
+<p>The DMT landscape has expanded enormously. Modern MS care often uses an <strong>early high-efficacy treatment</strong> approach in young patients with active disease, rather than the older "escalation" model that started with platform agents. Two-thirds of patients with severely active disease on platform therapy will switch within 2 years; outcomes are best with early effective immunotherapy.</p>
+
+<h3>DMTs grouped by efficacy</h3>
+<table>
+<tr><th>Tier</th><th>Drug</th><th>Route &amp; dose</th><th>Key risks / monitoring</th></tr>
+<tr><th colspan="4" style="background:var(--soft); text-align:center">HIGH efficacy</th></tr>
+<tr><td>Anti-CD20</td><td><strong>Ocrelizumab</strong></td><td>600 mg IV q6 mo</td><td>Infusion reactions, hypogammaglobulinaemia, infections (especially URTIs), screen for HBV, HCV, TB at baseline. Approved for RRMS <em>and PPMS</em>.</td></tr>
+<tr><td>Anti-CD20</td><td><strong>Ofatumumab</strong></td><td>20 mg SC monthly</td><td>Similar to ocrelizumab. Convenient self-administered.</td></tr>
+<tr><td>Anti-CD20</td><td>Ublituximab</td><td>IV q6 mo (newer; 2022 FDA approval)</td><td>Similar to ocrelizumab.</td></tr>
+<tr><td>Anti-CD20 (off-label)</td><td>Rituximab</td><td>1 g IV × 2 doses 2 weeks apart, then q6 mo</td><td>Widely used internationally; cheaper than ocrelizumab.</td></tr>
+<tr><td>Anti-α4-integrin</td><td><strong>Natalizumab</strong></td><td>300 mg IV q4 wk</td><td>Highly effective. <em>Major risk: progressive multifocal leukoencephalopathy (PML) from JCV reactivation.</em> Stratify by JCV antibody status, prior immunosuppression, treatment duration. JCV+ patients with high titres and &gt; 2 years on natalizumab: PML risk up to ~1% per year.</td></tr>
+<tr><td>Anti-CD52</td><td>Alemtuzumab</td><td>12 mg IV daily × 5 days, then × 3 days at 12 months</td><td>~30% develop secondary autoimmunity (especially Graves, ITP, anti-GBM); stroke / haemorrhage / dissection during infusion; rare progressive AHS. Now reserved for highly active disease.</td></tr>
+<tr><td>Selective immunosuppressant</td><td>Cladribine</td><td>Oral, 2 short courses over 2 years</td><td>Lymphopenia; rare malignancy; no maintenance dosing &mdash; "induction" therapy.</td></tr>
+<tr><th colspan="4" style="background:var(--soft); text-align:center">MODERATE efficacy</th></tr>
+<tr><td>S1P modulator</td><td>Fingolimod</td><td>0.5 mg PO daily</td><td>First-dose bradycardia (6-h cardiac monitoring); macular oedema (ophthalmology baseline + 3–4 months); lymphopenia; rare PML, cryptococcus, disseminated VZV; rebound MS activity after stopping.</td></tr>
+<tr><td>S1P modulator (more selective)</td><td>Siponimod</td><td>1–2 mg PO daily (CYP2C9 genotype-dependent)</td><td>Approved for active SPMS. No first-dose cardiac monitoring unless cardiac history. Macular oedema risk.</td></tr>
+<tr><td>S1P modulator</td><td>Ozanimod</td><td>0.92 mg PO daily</td><td>Newer; similar profile.</td></tr>
+<tr><td>S1P modulator</td><td>Ponesimod</td><td>20 mg PO daily</td><td>Newer; similar profile.</td></tr>
+<tr><td>Nrf2 / immune modulator</td><td>Dimethyl fumarate</td><td>240 mg PO BID</td><td>GI side effects, flushing, lymphopenia (check ALC quarterly), rare PML.</td></tr>
+<tr><td>Nrf2 / immune modulator</td><td>Diroximel fumarate</td><td>462 mg PO BID</td><td>Better GI tolerability than DMF.</td></tr>
+<tr><th colspan="4" style="background:var(--soft); text-align:center">LOWER (platform) efficacy</th></tr>
+<tr><td>Pyrimidine synthesis inhibitor</td><td>Teriflunomide</td><td>7 or 14 mg PO daily</td><td>Hair thinning, LFT (black box: hepatic failure), teratogenic; long elimination half-life (needs accelerated washout with cholestyramine).</td></tr>
+<tr><td>Interferon-β</td><td>IFNβ-1a/1b, pegIFNβ-1a</td><td>SC or IM</td><td>Flu-like symptoms, injection-site reactions, mild LFT/CBC abnormalities. Largely supplanted by oral therapies; glatiramer or IFN is the only DMT with reasonable safety data in pregnancy.</td></tr>
+<tr><td>Synthetic copolymer</td><td>Glatiramer acetate</td><td>20 mg SC daily or 40 mg SC × 3/wk</td><td>Lipoatrophy, transient post-injection systemic reaction. Preferred DMT in pregnancy if treatment is essential.</td></tr>
+</table>
+
+<h3>Choosing a DMT &mdash; modern paradigm</h3>
+<ul>
+  <li><strong>Highly active disease</strong> (multiple gadolinium-enhancing lesions, frequent relapses, severe attacks, rapid disability accumulation): start <em>high-efficacy</em> from the outset &mdash; ocrelizumab, ofatumumab, natalizumab (if JCV negative), cladribine, or alemtuzumab.</li>
+  <li><strong>Less active early RRMS</strong>: many neurologists now still favour high-efficacy first; alternatives include S1P modulators or fumarates.</li>
+  <li><strong>Pregnancy considerations</strong>: glatiramer acetate has the best safety data; interferons acceptable. Anti-CD20 (especially ocrelizumab) increasingly used &mdash; B-cell-depleting effect persists, and re-dosing typically deferred until after breastfeeding. <em>Avoid teriflunomide, fingolimod, cladribine, alemtuzumab in pregnancy.</em></li>
+  <li><strong>Adherence-limited</strong>: oral or infusion preferred over injectables.</li>
+  <li><strong>JCV-positive with high titre</strong>: avoid natalizumab if alternatives exist.</li>
+  <li><strong>Treatment goal</strong>: NEDA-3 ("no evidence of disease activity") &mdash; no relapses, no new MRI lesions, no disability progression. NEDA-4 adds brain atrophy. Reassess MRI at 6–12 months on DMT; if breakthrough disease, escalate.</li>
+</ul>
+
+<div class="warn"><strong>Critical safety notes:</strong>
+  <ul>
+    <li><strong>Natalizumab → PML</strong>: stratify with JCV antibody index. JCV-negative: low risk. JCV-positive: increasing risk with treatment duration (especially &gt; 2 years) and prior immunosuppressant exposure.</li>
+    <li><strong>Anti-CD20 + hypogammaglobulinaemia</strong>: check IgG levels; risk increases with cumulative exposure. Consider IVIG if recurrent infections.</li>
+    <li><strong>Fingolimod stopping → rebound</strong>: severe MS reactivation can occur within weeks of discontinuation; transition carefully.</li>
+    <li><strong>Pre-DMT screen</strong>: HBV, HCV, HIV, TB (QuantiFERON), VZV immunity, JCV (natalizumab), MRI baseline, malignancy screening, pregnancy counselling.</li>
+  </ul>
+</div>
+
+<h2 id="progressive">8 · Progressive MS</h2>
+
+<table>
+<tr><th>Form</th><th>Approved DMT</th></tr>
+<tr><td>Primary progressive MS (PPMS)</td><td><strong>Ocrelizumab</strong> (the only DMT with PPMS approval; modest slowing of progression; greatest effect in younger patients with active MRI disease)</td></tr>
+<tr><td>Secondary progressive MS (active form)</td><td>Siponimod (EXPAND); also anti-CD20 agents and cladribine often used</td></tr>
+<tr><td>SPMS without active inflammation</td><td>Limited DMT benefit; focus on rehabilitation and symptom management</td></tr>
+</table>
+
+<p>Progressive MS reflects ongoing neurodegeneration that DMTs only modestly affect. <strong>Rehabilitation, exercise, vascular risk-factor management, treatment of comorbidities, and symptom-targeted therapy</strong> drive quality of life. Early aggressive RRMS treatment is the best strategy to <em>prevent</em> transition to SPMS.</p>
+
+<h2 id="symptoms">9 · Symptomatic management</h2>
+
+<table>
+<tr><th>Symptom</th><th>Approaches</th></tr>
+<tr><td>Spasticity</td><td>Baclofen (titrate; never stop abruptly &mdash; seizure risk), tizanidine (drowsiness), botulinum toxin for focal, intrathecal baclofen for severe. Stretching, PT.</td></tr>
+<tr><td>Gait / walking speed</td><td>Dalfampridine 10 mg BID (potassium channel blocker; contraindicated in renal impairment or seizure history). PT/OT.</td></tr>
+<tr><td>Fatigue</td><td>Sleep hygiene, exercise. Amantadine, modafinil, methylphenidate as trial. Treat depression, OSA.</td></tr>
+<tr><td>Cognitive impairment</td><td>No proven pharmacological treatment. Treat sleep, mood, fatigue; cognitive rehabilitation.</td></tr>
+<tr><td>Mood</td><td>SSRIs; CBT. Pseudobulbar affect: dextromethorphan/quinidine or amitriptyline.</td></tr>
+<tr><td>Bladder</td><td>Urodynamics; antimuscarinics for urgency; α-blockers + clean intermittent catheterisation for dyssynergia; β3 agonist (mirabegron) avoids anticholinergic burden.</td></tr>
+<tr><td>Bowel</td><td>Fibre, fluid, regular routine; laxatives; biofeedback.</td></tr>
+<tr><td>Sexual dysfunction</td><td>PDE5 inhibitors for ED; lubricants; counselling.</td></tr>
+<tr><td>Neuropathic pain / paroxysmal symptoms / TN</td><td>Gabapentin, pregabalin, carbamazepine, amitriptyline, duloxetine; carbamazepine especially for trigeminal neuralgia.</td></tr>
+<tr><td>Heat sensitivity (Uhthoff)</td><td>Cooling vests, fans, air conditioning, avoid hot baths.</td></tr>
+</table>
+
+<h2 id="nmosd">10 · Neuromyelitis optica spectrum disorder (NMOSD)</h2>
+
+<p>An astrocytopathy driven by AQP4-IgG antibodies attacking aquaporin-4 water channels on astrocyte foot processes, causing complement-mediated injury. The 2015 IPND criteria collapsed Devic disease and related entities into NMOSD.</p>
+
+<h3>Six core clinical syndromes (any one + AQP4-IgG = NMOSD)</h3>
+<ol>
+  <li>Optic neuritis &mdash; often severe, frequently bilateral or sequential, poor recovery</li>
+  <li>Acute myelitis &mdash; usually longitudinally extensive (LETM, ≥ 3 vertebral segments)</li>
+  <li>Area postrema syndrome &mdash; intractable nausea, vomiting, or hiccups for &gt; 48 hours</li>
+  <li>Acute brainstem syndrome</li>
+  <li>Symptomatic narcolepsy / acute diencephalic syndrome with NMOSD-typical MRI</li>
+  <li>Symptomatic cerebral syndrome with NMOSD-typical brain lesions</li>
+</ol>
+
+<h3>AQP4-IgG-negative NMOSD</h3>
+<p>~25% of patients with classic NMOSD phenotype are AQP4-negative; criteria require 2 core syndromes (one of which is optic neuritis, acute myelitis, or area postrema syndrome) and additional MRI features.</p>
+
+<h3>Why NMOSD vs MS matters &mdash; treatment diverges</h3>
+<ul>
+  <li><strong>MS DMTs are ineffective or harmful</strong> in NMOSD: interferon-β, natalizumab, and fingolimod can worsen NMOSD.</li>
+  <li><strong>NMOSD-specific monoclonal antibodies (2019–2020 FDA approvals):</strong></li>
+</ul>
+
+<table>
+<tr><th>Drug</th><th>Mechanism</th><th>Notes</th></tr>
+<tr><td><strong>Eculizumab</strong> / <strong>Ravulizumab</strong></td><td>Complement C5 inhibitor</td><td>Highly effective in AQP4+. Meningococcal vaccination required.</td></tr>
+<tr><td><strong>Inebilizumab</strong></td><td>Anti-CD19 (broader B-cell depletion than anti-CD20)</td><td>Highly effective in AQP4+.</td></tr>
+<tr><td><strong>Satralizumab</strong></td><td>Anti-IL-6 receptor</td><td>SC; effective in AQP4+. Both as monotherapy and add-on.</td></tr>
+<tr><td>Rituximab (off-label)</td><td>Anti-CD20</td><td>Widely used worldwide; effective in AQP4+.</td></tr>
+<tr><td>Azathioprine, mycophenolate mofetil</td><td>General immunosuppressants</td><td>Older approach; still used internationally.</td></tr>
+</table>
+
+<h3>Acute NMOSD relapses</h3>
+<ul>
+  <li>High-dose IV methylprednisolone 1 g daily × 5 days.</li>
+  <li><strong>Early plasma exchange (PLEX)</strong>: especially for severe attacks &mdash; better recovery if started early (within days). Threshold lower than for MS.</li>
+</ul>
+
+<div class="warn"><strong>NMOSD attacks are stepwise and disabling</strong> &mdash; unlike MS where disability accumulates partly via gradual progression, NMOSD damage is almost entirely from individual relapses. Aggressive relapse prevention with monoclonal antibodies is essential.</div>
+
+<h2 id="mogad">11 · MOG antibody-associated disease (MOGAD)</h2>
+
+<p>An increasingly recognised demyelinating disorder driven by IgG against myelin oligodendrocyte glycoprotein. Distinct from MS and NMOSD; criteria published in 2023 (Banwell et al., Lancet Neurology).</p>
+
+<h3>Clinical phenotypes</h3>
+<ul>
+  <li><strong>Optic neuritis</strong> (most common) &mdash; often bilateral, more recovery-prone than NMOSD; optic disc swelling common.</li>
+  <li><strong>Transverse myelitis</strong> &mdash; conus involvement common; LETM possible.</li>
+  <li><strong>ADEM</strong>-like presentation, especially in children.</li>
+  <li><strong>Cerebral cortical encephalitis</strong> with seizures (FLAMES &mdash; FLAIR-hyperintense lesions in anti-MOG-associated encephalitis with seizures).</li>
+  <li>Brainstem syndromes.</li>
+</ul>
+
+<h3>Distinguishing features</h3>
+<table>
+<tr><th>Feature</th><th>MS</th><th>NMOSD</th><th>MOGAD</th></tr>
+<tr><td>Antibody</td><td>None (OCBs)</td><td>AQP4-IgG (75%)</td><td>MOG-IgG</td></tr>
+<tr><td>Optic neuritis</td><td>Usually unilateral, good recovery</td><td>Severe, often bilateral, poor recovery</td><td>Often bilateral, more recovery-prone, disc swelling common</td></tr>
+<tr><td>TM extent</td><td>Short (&lt; 2 segments), peripheral</td><td>LETM (≥ 3 segments), central</td><td>Conus often involved; LETM possible</td></tr>
+<tr><td>Course</td><td>Almost always relapsing; progressive forms</td><td>Almost always relapsing</td><td>~50% monophasic, ~50% relapsing</td></tr>
+<tr><td>CSF OCBs</td><td>~95%</td><td>~25%</td><td>~10–20%</td></tr>
+<tr><td>Brain MRI</td><td>Periventricular, juxtacortical, callosal, infratentorial</td><td>Diencephalic, brainstem (area postrema), peri-ependymal</td><td>Variable; cortical lesions in FLAMES; often resolves between attacks</td></tr>
+<tr><td>Treatment</td><td>DMT (anti-CD20 etc.)</td><td>Eculizumab/inebilizumab/satralizumab/rituximab</td><td>Acute steroids; for relapsing disease: rituximab, MMF, azathioprine, IVIG, tocilizumab. <em>NMOSD-specific mAbs not approved.</em></td></tr>
+</table>
+
+<h2 id="adem">12 · ADEM, transverse myelitis &amp; other related entities</h2>
+
+<h3>Acute disseminated encephalomyelitis (ADEM)</h3>
+<ul>
+  <li>Monophasic post-infectious / post-vaccination demyelination; predominantly children but occurs in adults.</li>
+  <li><strong>Encephalopathy is required for diagnosis</strong> (distinguishes from MS).</li>
+  <li>MRI: multiple T2 hyperintensities, often subcortical, basal ganglia, thalamus, brainstem; often confluent.</li>
+  <li>MOG-IgG positive in ~50% of paediatric cases.</li>
+  <li>Treatment: high-dose IV methylprednisolone followed by oral taper; PLEX or IVIG if steroid-refractory.</li>
+  <li>Most adults recover well; relapsing ADEM should prompt re-evaluation (MOGAD, multiphasic ADEM, MS).</li>
+</ul>
+
+<h3>Transverse myelitis (TM)</h3>
+<ul>
+  <li>Generic syndrome of cord inflammation; differential is broad.</li>
+  <li>Causes: MS (short, partial), NMOSD (LETM), MOGAD, post-infectious, idiopathic, autoimmune (lupus, Sjögren, sarcoid), paraneoplastic, viral, neurosyphilis.</li>
+  <li>Always image the whole cord; serum AQP4 and MOG; CSF; consider PLEX early in severe cases.</li>
+</ul>
+
+<h3>Other related entities</h3>
+<ul>
+  <li><strong>Marburg variant</strong> &mdash; fulminant, monophasic, often fatal MS variant; tumefactive lesions with marked oedema.</li>
+  <li><strong>Tumefactive MS</strong> &mdash; single or few large lesions (&gt; 2 cm) with mass effect, sometimes confused with tumour; ring enhancement (often "open ring" facing white matter), perilesional oedema; biopsy occasionally needed.</li>
+  <li><strong>Balo concentric sclerosis</strong> &mdash; concentric demyelinated and preserved bands; rare.</li>
+  <li><strong>CIS / RIS</strong> &mdash; see earlier.</li>
+</ul>
+
+<h2 id="refer">13 · When to refer</h2>
+<div class="refer"><strong>Refer urgently:</strong>
+<ul>
+  <li>First clinical demyelinating event &mdash; for full workup, diagnosis, and DMT initiation.</li>
+  <li>Severe acute attack (especially LETM, severe optic neuritis, brainstem with deficit) &mdash; for consideration of PLEX, NMOSD/MOGAD evaluation.</li>
+  <li>Suspected NMOSD / MOGAD &mdash; specialist diagnosis and antibody-targeted therapy.</li>
+  <li>Suspected ADEM with encephalopathy &mdash; for IV steroids and ICU as needed.</li>
+  <li>Breakthrough disease on current DMT &mdash; for escalation.</li>
+  <li>Pregnancy planning in MS or NMOSD.</li>
+  <li>Atypical features suggesting mimic (encephalopathy, systemic disease, etc.).</li>
+</ul>
+</div>
+<div class="warn"><strong>Refer routinely:</strong> all confirmed MS, NMOSD, MOGAD patients should have ongoing neurology/MS clinic follow-up; primary care manages co-morbidities, vaccinations, vascular risk, symptomatic issues between visits.</div>
+
+<h2 id="quick">14 · Quick-reference tables</h2>
+
+<h3>MS vs NMOSD vs MOGAD &mdash; one-line summary</h3>
+<table>
+<tr><th></th><th>MS</th><th>NMOSD</th><th>MOGAD</th></tr>
+<tr><td>Sex</td><td>F:M 2:1</td><td>F:M ~9:1 (AQP4+)</td><td>F:M ~1:1</td></tr>
+<tr><td>Age</td><td>20–40</td><td>30–50</td><td>All ages (peak childhood and 30s)</td></tr>
+<tr><td>Optic neuritis</td><td>Unilateral, good recovery</td><td>Severe, often bilateral, poor recovery</td><td>Bilateral, better recovery, disc swelling common</td></tr>
+<tr><td>TM</td><td>Short, partial</td><td>LETM</td><td>Conus / LETM</td></tr>
+<tr><td>OCBs</td><td>95%</td><td>25%</td><td>10–20%</td></tr>
+<tr><td>Course</td><td>Relapsing → progressive</td><td>Relapsing (stepwise damage)</td><td>~50% monophasic</td></tr>
+<tr><td>Long-term DMT</td><td>Many options; high-efficacy preferred</td><td>Eculizumab, inebilizumab, satralizumab, rituximab</td><td>Rituximab, MMF, IVIG, tocilizumab (off-label)</td></tr>
+</table>
+
+<h3>High-efficacy MS DMTs at a glance</h3>
+<table>
+<tr><th>Drug</th><th>Mechanism</th><th>Key risk</th></tr>
+<tr><td>Ocrelizumab / Ofatumumab / Ublituximab / Rituximab</td><td>Anti-CD20 B-cell depletion</td><td>Infections, hypogammaglobulinaemia</td></tr>
+<tr><td>Natalizumab</td><td>Anti-α4β1-integrin</td><td><strong>PML</strong> (JCV-positive)</td></tr>
+<tr><td>Alemtuzumab</td><td>Anti-CD52</td><td>Secondary autoimmunity (~30%), stroke</td></tr>
+<tr><td>Cladribine</td><td>Lymphocyte cytotoxicity</td><td>Lymphopenia, malignancy</td></tr>
+</table>
+
+<h3>Workup for first inflammatory demyelinating event</h3>
+<ul>
+  <li>MRI brain &amp; whole spine with and without gadolinium</li>
+  <li>Serum <strong>AQP4-IgG</strong> and <strong>MOG-IgG</strong> (cell-based assays)</li>
+  <li>LP: cell count, protein, glucose, oligoclonal bands (paired serum), IgG index</li>
+  <li>Exclude mimics: vitamin B12 (and copper), TSH, ANA, ENA, anti-Ro/La, ACE, syphilis, HIV, HTLV-1 (if exposure), Lyme (endemic areas)</li>
+  <li>Optic neuritis: OCT, visual evoked potentials</li>
+  <li>Chest X-ray ± CT for sarcoid; consider PET-CT if neoplastic mimic suspected</li>
+  <li>Pre-DMT: HBV, HCV, HIV, TB (QuantiFERON), VZV titre, JCV antibody (if natalizumab considered), pregnancy test, baseline CBC, CMP</li>
+</ul>
+
+<hr>
+<p class="src">Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Ch. 35 (Multiple Sclerosis and Other Neuroimmunologic Disorders); Merritt's <em>Neurology</em> 14e, Ch. 71 (Multiple Sclerosis and Related CNS Neuroimmune Diseases &mdash; McDonald 2017 criteria, DMT tables 71.6 and 71.7), Ch. 72 (Transverse Myelitis), Ch. 73 (Neuromyelitis Optica Spectrum Disorder). 2017 McDonald criteria: Thompson AJ, Banwell BL, Barkhof F, et al. <em>Lancet Neurol.</em> 2018;17(2):162-173. 2015 IPND criteria for NMOSD: Wingerchuk DM, et al. <em>Neurology.</em> 2015;85(2):177-189. 2023 MOGAD international criteria: Banwell BL, et al. <em>Lancet Neurol.</em> 2023;22(3):268-282.</p>
+
+</body>
+</html>

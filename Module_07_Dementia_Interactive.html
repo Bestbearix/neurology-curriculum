@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 7 — Dementia & Cognitive Disorders (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#e0a96d; --accent-2:#f0c89c;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(224,169,109,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#2a1a05; font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#f5dcc0}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(224,169,109,.10); border-color:var(--accent); color:#f5dcc0}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#2a1a05; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(224,169,109,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+
+  /* Screen tab */
+  .screen{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .screen h3{color:var(--accent-2); margin-top:0}
+  .screen table th{background:var(--soft)}
+
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+
+  @media (max-width:560px){
+    .wrap{padding:18px 12px 60px}
+    header h1{font-size:1.35rem}
+    nav.tabs{flex-direction:column}
+    nav.tabs button{text-align:left}
+    .deck{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 7</span>
+    <span class="badge">General physician</span>
+    <span class="badge">Updated 2024 mAbs</span>
+    <h1>Dementia &amp; Cognitive Disorders — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 20) and Merritt's <em>Neurology</em> (14e, Ch. 12, 50, 51, 52, 53, 54), with 2023–2024 update on anti-amyloid monoclonal antibodies (lecanemab, donanemab).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="classifier">Dementia Classifier</button>
+    <button data-tab="screen">Cognitive Screens</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Dementia is the most common chronic neurological diagnosis in primary care, and the workup is one of the most under-done. Most patients have Alzheimer disease, but a meaningful minority have a reversible contributor or a non-AD diagnosis with very different management (e.g.&nbsp;DLB &mdash; <em>never</em> give haloperidol; FTD &mdash; cholinesterase inhibitors don't help; NPH &mdash; a shunt may transform life). This module covers the structured approach plus the 2023–2024 anti-amyloid antibody update.</p>
+
+    <h3>After this module you will be able to:</h3>
+    <ul>
+      <li>Distinguish normal aging, MCI, dementia, depression-related cognitive decline, and delirium.</li>
+      <li>Run the standard dementia workup including the reversible-cause panel.</li>
+      <li>Recognise the cognitive profile that points to AD, FTD (with its variants), DLB, vascular, NPH.</li>
+      <li>Identify the four core features of DLB and avoid catastrophic neuroleptic prescriptions.</li>
+      <li>Prescribe cholinesterase inhibitors and memantine appropriately.</li>
+      <li>Discuss the 2023–2024 anti-amyloid mAb landscape (lecanemab, donanemab) and ARIA.</li>
+      <li>Manage BPSD non-pharmacologically first; deploy antipsychotics judiciously when needed.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single most important question</strong> at every dementia visit: <em>"Can the patient still independently do their usual activities of daily living?"</em> If yes &mdash; MCI. If no &mdash; dementia. The functional decline is what makes the diagnosis.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Normal aging → SCD → MCI → dementia</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Normal cognitive aging</strong> &mdash; mild slowing, word-finding pauses; tests within age-norms.</li>
+          <li><strong>Subjective cognitive decline (SCD)</strong> &mdash; the patient feels something is off; testing normal. Slightly elevated future risk.</li>
+          <li><strong>MCI</strong> &mdash; objective deficit in ≥ 1 domain; ADLs preserved; complex IADLs may be slowed. Annual progression to dementia ~10–15%.</li>
+          <li><strong>Dementia</strong> &mdash; significant deficit + impaired ADLs. (DSM-5: <em>major neurocognitive disorder</em>.)</li>
+        </ul>
+        <p>The six cognitive domains: complex attention · executive function · learning &amp; memory · language · visuospatial · social cognition.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Approach to memory complaints</summary>
+      <div class="body">
+        <p><strong>History</strong> from patient + informant: tempo, pattern, domain of onset, functional decline, behavioural/psychiatric features, sleep (RBD!), motor symptoms, vascular risks, medications (anticholinergics!), mood, family history.</p>
+        <p><strong>Bedside screen</strong>: MoCA preferred over MMSE for MCI and executive dysfunction; AD8 or IQCODE if patient lacks insight.</p>
+        <p><strong>Examination</strong>: parkinsonism, apraxia, alien limb, myoclonus, focal weakness, ataxia, downgaze palsy, gait.</p>
+        <p><strong>Lab</strong>: CBC, electrolytes, calcium, glucose, U&amp;E, LFT, TSH, B12, syphilis (where prevalent), HIV (if risk).</p>
+        <p><strong>Imaging</strong>: MRI preferred. Look for medial temporal atrophy (AD), frontal/anterior temporal (FTD), occipital deficits (DLB), big ventricles (NPH), white-matter disease (vascular).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Reversible causes — never miss</summary>
+      <div class="body">
+        <ul>
+          <li>Depression (pseudodementia)</li>
+          <li>Delirium &mdash; acute, fluctuating, inattentive (always look for trigger)</li>
+          <li>Medications &mdash; anticholinergics, BZDs, opioids, lithium</li>
+          <li>B12, thiamine, thyroid disease, metabolic derangement</li>
+          <li>NPH &mdash; magnetic gait + incontinence + cognition; <em>shuntable</em></li>
+          <li>Subdural haematoma (especially elderly anticoagulated)</li>
+          <li>Obstructive sleep apnoea (CPAP can reverse)</li>
+          <li>Neurosyphilis, HIV-associated, autoimmune encephalitis</li>
+        </ul>
+        <div class="warn"><strong>Rapidly progressive (&lt;1 year)</strong> demands urgent workup: CJD (DWI ribboning + RT-QuIC), autoimmune/limbic encephalitis (subacute + temporal MRI changes + Ab panel), CNS vasculitis, paraneoplastic.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Alzheimer disease</summary>
+      <div class="body">
+        <p>Most common dementia. Pathology: β-amyloid plaques + tau neurofibrillary tangles. APOE ε4 is the strongest sporadic risk factor.</p>
+        <p><strong>Clinical:</strong> insidious onset; episodic memory first (cueing doesn't help &mdash; storage failure); language and visuospatial decline; BPSD; gait apraxia and incontinence late. Course 8–10 years average.</p>
+        <p><strong>Atypical presentations:</strong> posterior cortical atrophy (visual), logopenic PPA, frontal/dysexecutive variant.</p>
+        <p><strong>Diagnosis</strong> by clinical + MRI medial temporal atrophy; biomarkers (amyloid PET, CSF Aβ42/p-tau, emerging plasma p-tau217) confirm biology &mdash; required for anti-amyloid mAb therapy.</p>
+        <p><strong>Symptomatic treatment:</strong> donepezil, rivastigmine, galantamine (cholinesterase inhibitors) for mild–severe AD; memantine for moderate–severe AD. Modest benefit; don't slow disease.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Dementia with Lewy bodies (DLB)</summary>
+      <div class="body">
+        <p><strong>Four core features</strong> (Lewy Body Consortium 4th criteria, 2017):</p>
+        <ol>
+          <li>Fluctuating cognition with marked variation in attention/alertness</li>
+          <li>Recurrent well-formed visual hallucinations</li>
+          <li>REM sleep behaviour disorder</li>
+          <li>Parkinsonism (symmetric, less tremor-predominant than PD)</li>
+        </ol>
+        <p><em>1-year rule:</em> if cognitive impairment within 1 year of (or before) parkinsonism → DLB; if &gt; 1 year after established PD → PDD.</p>
+        <p><strong>Supportive</strong>: severe neuroleptic sensitivity (catastrophic — never give haloperidol blindly), repeated falls, autonomic dysfunction, hyposmia, depression, paranoid delusions.</p>
+        <p><strong>Biomarker:</strong> DaT-SPECT reduced.</p>
+        <p><strong>Treatment:</strong> cholinesterase inhibitor (rivastigmine or donepezil) first-line &mdash; often dramatic for hallucinations and cognition; low-dose levodopa for parkinsonism; melatonin for RBD; quetiapine / clozapine / pimavanserin (NOT haloperidol or risperidone) for refractory psychosis.</p>
+        <div class="warn"><strong>Neuroleptic sensitivity</strong> in DLB can precipitate severe parkinsonism, autonomic instability, NMS-like syndrome, or death. Always ask about hallucinations / fluctuations / RBD before prescribing any antipsychotic to an older adult.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Frontotemporal dementia (FTD)</summary>
+      <div class="body">
+        <p>Most common dementia under 60. Three main phenotypes:</p>
+        <table>
+          <tr><th>Variant</th><th>Hallmark</th></tr>
+          <tr><td>bvFTD (behavioural variant)</td><td>Disinhibition, apathy, loss of empathy, perseverative behaviours, dietary changes; executive dysfunction</td></tr>
+          <tr><td>nfvPPA (non-fluent / agrammatic)</td><td>Effortful agrammatic speech, apraxia of speech; left inferior frontal atrophy</td></tr>
+          <tr><td>svPPA (semantic variant)</td><td>Loss of word meaning, fluent empty speech; bilateral anterior temporal atrophy</td></tr>
+        </table>
+        <p>lvPPA (logopenic) is <em>usually AD</em>, not FTD. ~40% of FTD is familial; <em>C9orf72</em> is the most common gene (also causes ALS — FTD-ALS overlap).</p>
+        <p><strong>Treatment:</strong> no disease-modifying therapy. Cholinesterase inhibitors do NOT help (and may worsen behaviour). SSRIs may reduce disinhibition / dietary excess. Speech therapy for PPA. Caregiver support is critical &mdash; bvFTD is exceptionally hard on families.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Vascular cognitive impairment</summary>
+      <div class="body">
+        <p>Spectrum from multi-infarct dementia (stepwise) to subcortical ischaemic dementia (Binswanger — executive dysfunction, gait apraxia, urgency, pseudobulbar affect).</p>
+        <p><strong>Best evidence intervention</strong>: aggressive vascular risk-factor control (BP &lt; 130/80, statin, antiplatelet, DM control, smoking cessation, exercise). Cholinesterase inhibitors + memantine offer modest benefit, less than in AD.</p>
+        <p><strong>CADASIL</strong> &mdash; young patient with migraine with aura → recurrent lacunar strokes → vascular dementia; striking white matter disease with anterior temporal pole involvement; NOTCH3 mutation.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. BPSD &mdash; treat causes first, drugs last</summary>
+      <div class="body">
+        <p>Always look for triggers: pain (constipation, UTI, dental, fracture), infection, drug-related (anticholinergics, opioids, BZD withdrawal), hunger/thirst/elimination, environmental, sensory impairment.</p>
+        <p><strong>Non-pharmacological first:</strong> routine, orientation aids, structured activity, music, environmental modifications, sleep hygiene, treat sensory impairment, address pain proactively.</p>
+        <p><strong>Pharmacological (when there is risk of harm):</strong> SSRI for depression / anxiety / agitation; trazodone; quetiapine or risperidone at lowest dose for psychosis; <strong>brexpiprazole</strong> (FDA-approved 2023 for agitation in AD). Avoid haloperidol, benzodiazepines, Z-drugs.</p>
+        <div class="warn">All antipsychotics carry an FDA black-box mortality warning in dementia (~1.5–1.7×). Use lowest dose, shortest duration, with clear target and regular review for de-prescribing.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. 2023–2024 anti-amyloid monoclonal antibodies</summary>
+      <div class="body">
+        <p><strong>Lecanemab</strong> (Leqembi) &mdash; full FDA approval July 2023. <strong>Donanemab</strong> (Kisunla) &mdash; full FDA approval July 2024. Both approved for <em>early symptomatic AD</em> (MCI due to AD or mild AD dementia) with amyloid confirmation.</p>
+        <p><strong>Magnitude of benefit</strong>: ~27% slowing of cognitive decline on CDR-SB at 18 months (CLARITY-AD); similar with donanemab (TRAILBLAZER-ALZ 2). Modest — slowing, not stopping.</p>
+        <p><strong>ARIA</strong> (amyloid-related imaging abnormalities) is the major safety issue:</p>
+        <ul>
+          <li>ARIA-E (oedema) &mdash; ~12% lecanemab, ~24% donanemab</li>
+          <li>ARIA-H (haemorrhage) &mdash; ~17% lecanemab, ~31% donanemab</li>
+          <li>Symptomatic ARIA ~3% &mdash; rare deaths reported, especially with concomitant anticoagulation or thrombolysis</li>
+          <li>APOE ε4 homozygotes have much higher rates (up to 30% ARIA-E with lecanemab)</li>
+        </ul>
+        <p>Pre-treatment MRI required for microbleeds and siderosis; serial MRI monitoring required during therapy.</p>
+        <p><strong>Aducanumab</strong> (Aduhelm) was withdrawn in 2024.</p>
+        <div class="warn"><strong>Stop anti-amyloid mAb before IV thrombolysis for stroke</strong> &mdash; ICH risk is dramatically increased. Patients with AIS on lecanemab/donanemab may need to be excluded from tPA.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. When to refer</summary>
+      <div class="body">
+        <div class="refer"><strong>Refer to neurology / memory clinic:</strong> diagnostic uncertainty · atypical presentation · age &lt; 65 · rapid progression · prominent psychiatric or motor features · suspected reversible cause needing specialist workup (NPH, autoimmune encephalitis, CJD) · family history of early-onset dementia · for anti-amyloid mAb consideration · BPSD refractory to first-line measures · driving fitness assessment.</div>
+        <div class="warn"><strong>Refer to old-age psychiatry:</strong> severe behavioural disturbance, suicidal ideation, need for inpatient assessment, complex pharmacology.</div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="classifier">
+    <h2>Dementia Classifier</h2>
+    <p class="muted">Answer about the cognitive profile and associated features; the tool offers a working differential.</p>
+    <div class="tool" id="demTool">
+      <div class="q">1. Tempo of onset?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="rapid">Rapid &mdash; weeks to months (&lt; 1 year)</button>
+        <button class="opt" data-val="subacute">Subacute &mdash; over months</button>
+        <button class="opt" data-val="insidious">Insidious &mdash; years</button>
+        <button class="opt" data-val="stepwise">Stepwise &mdash; sudden drops then plateau</button>
+      </div>
+      <div id="dem-rest"></div>
+      <div class="result" id="dem-result"></div>
+      <button class="reset" onclick="resetDem()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="screen">
+    <h2>Cognitive Screens Cheat Sheet</h2>
+    <div class="screen">
+      <h3>MoCA (Montreal Cognitive Assessment)</h3>
+      <p>Total /30. Add 1 point if education ≤ 12 years. Sensitive for MCI and executive dysfunction.</p>
+      <table>
+        <tr><th>Domain</th><th>Items</th><th>Points</th></tr>
+        <tr><td>Visuospatial / executive</td><td>Trail-making B, cube copy, clock draw</td><td>5</td></tr>
+        <tr><td>Naming</td><td>Lion, rhinoceros, camel</td><td>3</td></tr>
+        <tr><td>Memory (registration)</td><td>5 words × 2 trials (not scored)</td><td>—</td></tr>
+        <tr><td>Attention</td><td>Digits forward/backward, vigilance (tap at letter A), serial 7s</td><td>6</td></tr>
+        <tr><td>Language</td><td>Repeat sentence (× 2), verbal fluency (F-words ≥ 11 in 60 s)</td><td>3</td></tr>
+        <tr><td>Abstraction</td><td>Train-bicycle similarity, watch-ruler</td><td>2</td></tr>
+        <tr><td>Delayed recall</td><td>5 words (no cue first; categorical and multiple-choice cues if needed for clinical interpretation)</td><td>5</td></tr>
+        <tr><td>Orientation</td><td>Date, month, year, day, place, city</td><td>6</td></tr>
+      </table>
+      <p><strong>Cut-offs (broad):</strong> ≥ 26 normal · 18–25 MCI · &lt; 18 dementia.</p>
+      <div class="pearl"><strong>Cued recall</strong> matters! If the patient cannot freely recall but improves dramatically with category cueing or multiple choice → <em>retrieval</em> problem (frontal/subcortical/depression). If they don't improve with cues → <em>storage</em> problem (AD pattern).</div>
+    </div>
+
+    <div class="screen">
+      <h3>MMSE (Mini-Mental State Examination)</h3>
+      <p>Total /30. Less sensitive than MoCA; weighted toward orientation, memory, language; weak for executive.</p>
+      <table>
+        <tr><th>Component</th><th>Points</th></tr>
+        <tr><td>Orientation to time (year, season, date, day, month)</td><td>5</td></tr>
+        <tr><td>Orientation to place (country, state/region, city, hospital, floor)</td><td>5</td></tr>
+        <tr><td>Registration (3 words)</td><td>3</td></tr>
+        <tr><td>Attention &amp; calculation (serial 7s or spell WORLD backward)</td><td>5</td></tr>
+        <tr><td>Recall (same 3 words)</td><td>3</td></tr>
+        <tr><td>Naming (pen, watch)</td><td>2</td></tr>
+        <tr><td>Repetition ("No ifs, ands, or buts")</td><td>1</td></tr>
+        <tr><td>3-stage command ("Take this paper, fold it in half, place on floor")</td><td>3</td></tr>
+        <tr><td>Read &amp; obey ("Close your eyes")</td><td>1</td></tr>
+        <tr><td>Write a sentence</td><td>1</td></tr>
+        <tr><td>Copy intersecting pentagons</td><td>1</td></tr>
+      </table>
+      <p><strong>Cut-off:</strong> &lt; 24 suggests dementia. Adjust for age and education.</p>
+    </div>
+
+    <div class="screen">
+      <h3>Mini-Cog (2-minute primary care screen)</h3>
+      <ol>
+        <li>Register 3 unrelated words.</li>
+        <li>Draw a clock showing 11:10.</li>
+        <li>Recall the 3 words.</li>
+      </ol>
+      <p><strong>Positive screen:</strong> 0 words recalled (regardless of clock) OR 1–2 words recalled with abnormal clock.</p>
+    </div>
+
+    <div class="screen">
+      <h3>AD8 informant questionnaire (≥ 2 = positive)</h3>
+      <ol>
+        <li>Problems with judgment</li>
+        <li>Reduced interest in hobbies / activities</li>
+        <li>Repeats questions, stories, or statements</li>
+        <li>Trouble learning to use a tool, appliance, or gadget</li>
+        <li>Forgets correct month or year</li>
+        <li>Difficulty handling complicated financial affairs</li>
+        <li>Difficulty remembering appointments</li>
+        <li>Daily problems with thinking and memory</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 &mdash; A 72-year-old retired teacher with 2 years of memory complaints</summary>
+      <div class="body">
+        <p>Her daughter brings her in. She forgets recent conversations, misplaces items, repeats questions. She still cooks and drives short familiar routes, manages medications with a pill organiser. MoCA 23/30: lost points on delayed recall (0/5, cueing didn't help), orientation, abstraction. MRI shows medial temporal atrophy. Labs normal including TSH, B12. No depression on screening.</p>
+        <p><strong>Diagnosis:</strong> Probable Alzheimer disease, mild stage (still independent enough that some may classify as MCI due to AD; functional decline tips it toward dementia).</p>
+        <p><strong>Plan:</strong> Start donepezil 5 mg/d, increase to 10 mg after 4–6 weeks if tolerated. Counsel patient and family. Driving evaluation. Advance care planning. Discuss anti-amyloid mAb option at memory clinic if accessible (amyloid PET / CSF confirmation needed; check eligibility incl. anticoagulation, microbleeds).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 &mdash; A 76-year-old with 1 year of fluctuating confusion and "seeing children in the house"</summary>
+      <div class="body">
+        <p>Wife reports good days and bad days. He sees small children, dogs, and "shadow people" several times a week; usually not frightened. Acts out his dreams (kicking, shouting; she sleeps in another room). Slow walking with reduced arm swing. Recent fall. Prescribed haloperidol 1 mg for "agitation" — within hours he became rigid, drooling, mute, with fever.</p>
+        <p><strong>Diagnosis:</strong> Dementia with Lewy bodies with <em>neuroleptic hypersensitivity reaction</em>.</p>
+        <p><strong>Plan:</strong> STOP haloperidol immediately; supportive care (hydration, monitor for NMS). Start rivastigmine patch or donepezil &mdash; often dramatic improvement in hallucinations and cognition. Melatonin for RBD; clonazepam if refractory and falls risk is low. Low-dose carbidopa-levodopa for parkinsonism. If psychosis refractory: quetiapine, clozapine, or pimavanserin &mdash; <em>never</em> haloperidol, risperidone, or olanzapine. Consider DaT-SPECT if diagnosis uncertain.</p>
+        <div class="warn">Always ask about visual hallucinations, fluctuations, RBD, and parkinsonism before prescribing any antipsychotic to an older patient.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 &mdash; A 58-year-old executive with 18 months of personality change</summary>
+      <div class="body">
+        <p>Family report he has become "rude and selfish": tells colleagues uncomfortable truths, stopped showering, lost interest in his children, eats large amounts of sweets (5 cans of soda a day), repeatedly counts the cars in the parking lot. No memory complaints; MMSE 28/30. MoCA 22/30 (lost executive points). MRI: prominent bilateral frontal and anterior temporal atrophy.</p>
+        <p><strong>Diagnosis:</strong> Behavioural variant frontotemporal dementia (bvFTD).</p>
+        <p><strong>Plan:</strong> Refer to memory clinic / behavioural neurology. Counsel family extensively &mdash; caregiver burden is enormous in bvFTD; legal/financial protection (power of attorney). Trial SSRI (sertraline, citalopram, trazodone) for disinhibition and dietary excess. <em>Avoid</em> cholinesterase inhibitors (don't help; may worsen behaviour). Test for <em>C9orf72</em> expansion (most common genetic cause; also screen for ALS features &mdash; FTD-ALS overlap). Driving must be assessed. Workplace and family safety discussion.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 &mdash; A 78-year-old with 6 months of progressive shuffling gait, urinary urgency, and forgetfulness</summary>
+      <div class="body">
+        <p>Gait: short steps, wide base, "feet glued to floor", difficulty initiating; arm swing preserved. Urinary urgency and occasional incontinence. MoCA 21/30 (lost executive and processing speed points; memory relatively preserved). MRI: enlarged ventricles out of proportion to cortical atrophy; preserved hippocampi.</p>
+        <p><strong>Diagnosis:</strong> normal-pressure hydrocephalus (NPH) — classic triad of magnetic gait + cognitive decline + urinary symptoms.</p>
+        <p><strong>Plan:</strong> Refer for neurosurgical evaluation. Diagnostic LP "tap test" with 30–50 mL CSF removal and pre/post gait assessment (timed walk and turns). If gait improves &gt; 10% → ventriculoperitoneal shunt may help; cognition and incontinence improve less reliably.</p>
+        <div class="pearl">NPH is one of the few "treatable dementias" &mdash; never miss it. Gait improvement is the most reliable post-tap-test predictor of shunt response.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 &mdash; A 65-year-old with 6 weeks of rapidly progressive cognitive decline</summary>
+      <div class="body">
+        <p>Initially noticed by family as "spacing out". Now barely able to converse, with jerky involuntary movements of limbs (myoclonus) precipitated by sudden noise. Ataxic gait. MRI DWI: cortical "ribboning" in the right parietal cortex and bilateral basal ganglia hyperintensity. EEG: periodic sharp wave complexes.</p>
+        <p><strong>Diagnosis:</strong> sporadic Creutzfeldt-Jakob disease (CJD).</p>
+        <p><strong>Plan:</strong> Confirm with CSF RT-QuIC (highly sensitive and specific). 14-3-3 and total tau supportive. No specific treatment; supportive and palliative care; engage hospice. Counsel family. Disease is universally fatal within 1 year (usually 6 months). Public-health notification per local protocol; standard precautions for surgical instruments in any prior procedures.</p>
+        <div class="warn">Rapidly progressive dementia (&lt; 1 year) demands an urgent extended workup: CJD, autoimmune/limbic encephalitis, paraneoplastic, CNS vasculitis, neurosyphilis, lymphoma, NPH. Don't accept "Alzheimer disease" as the explanation when the tempo doesn't fit.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 &mdash; A 70-year-old man with "memory problems" since a new heart failure regimen</summary>
+      <div class="body">
+        <p>Over 3 months, getting confused, sleeping more, occasional visual hallucinations, hand tremor when reaching. Medications: amiodarone, furosemide, lisinopril, atorvastatin, oxybutynin (new — for urinary urgency), zolpidem nightly, diphenhydramine for "allergies".</p>
+        <p><strong>Diagnosis:</strong> drug-related cognitive impairment, with high anticholinergic burden (oxybutynin + diphenhydramine) and sedative burden (zolpidem) — possibly superimposed on incipient neurodegenerative disease.</p>
+        <p><strong>Plan:</strong> Deprescribe stepwise: stop diphenhydramine; switch oxybutynin to mirabegron (β3 agonist, no anticholinergic effect); taper zolpidem with sleep hygiene support. Reassess cognition in 6–12 weeks. If improved → drug-related (often called "anticholinergic dementia"). If persisting deficits → continue dementia workup (MRI, B12, TSH, MoCA). Many older patients improve dramatically when polypharmacy is reduced.</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 7 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 20; Merritt's <em>Neurology</em> 14e Ch. 12, 50, 51, 52, 53, 54. Anti-amyloid mAb section from CLARITY-AD (lecanemab, NEJM 2023), TRAILBLAZER-ALZ 2 (donanemab, JAMA 2023), and FDA labelling 2023–2024.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Definition', q:'What distinguishes dementia from MCI?', a:'Functional impairment of activities of daily living. Cognitive deficit alone, even objective, with preserved function = MCI.'},
+  {tag:'Annual risk', q:'Annual rate of MCI progressing to dementia?', a:'~10–15% per year (compared with ~1–2% in age-matched cognitively normal).'},
+  {tag:'Memory pattern', q:'How does the memory deficit in AD differ from "frontal" memory problems?', a:'AD = storage failure → cueing does NOT improve recall. Frontal/subcortical/depression = retrieval failure → cueing DOES improve recall.'},
+  {tag:'Screen', q:'Which bedside test is more sensitive for early MCI and executive dysfunction?', a:'MoCA (more sensitive than MMSE; takes ~10 min; MMSE under-detects executive and visuospatial deficits).'},
+  {tag:'AD criterion', q:'Strongest sporadic genetic risk factor for AD?', a:'APOE ε4 allele (one copy ~3× risk, two copies ~12–15× risk). APOE ε2 is protective.'},
+  {tag:'AD treatment', q:'Two classes of symptomatic AD drugs and which one is for moderate-severe disease only?', a:'Cholinesterase inhibitors (donepezil, rivastigmine, galantamine — all stages) and NMDA antagonist (memantine — moderate-severe only).'},
+  {tag:'Anti-amyloid', q:'Two FDA-approved anti-amyloid monoclonal antibodies (2023–2024) for early symptomatic AD?', a:'Lecanemab (Leqembi, 2023) and donanemab (Kisunla, 2024). Both for MCI due to AD or mild AD dementia with amyloid confirmation. Aducanumab was withdrawn in 2024.'},
+  {tag:'ARIA', q:'What does ARIA stand for and what are the two types?', a:'Amyloid-related imaging abnormalities. ARIA-E (oedema/effusion) and ARIA-H (haemorrhage/microbleeds). Higher rates in APOE ε4 homozygotes. Requires MRI monitoring.'},
+  {tag:'DLB core', q:'Four core features of dementia with Lewy bodies?', a:'(1) Fluctuating cognition; (2) Recurrent well-formed visual hallucinations; (3) REM sleep behaviour disorder; (4) Parkinsonism. Need 2 for probable diagnosis (or 1 + indicative biomarker like DaT-SPECT).'},
+  {tag:'DLB rule', q:'What is the "1-year rule" in Lewy body disorders?', a:'Cognitive impairment within 1 year of (or before) parkinsonism → DLB. Dementia appearing > 1 year after established PD → Parkinson disease dementia (PDD). Same biology; different presentation.'},
+  {tag:'DLB drugs', q:'Three antipsychotics that should be AVOIDED in DLB?', a:'Haloperidol, risperidone, olanzapine — neuroleptic hypersensitivity reaction. Use quetiapine, clozapine, or pimavanserin instead. Cholinesterase inhibitors often help hallucinations.'},
+  {tag:'FTD variants', q:'Three primary FTD phenotypes?', a:'(1) Behavioural variant (bvFTD); (2) Non-fluent / agrammatic PPA (nfvPPA); (3) Semantic variant PPA (svPPA). Logopenic PPA is usually AD pathology, not FTD.'},
+  {tag:'FTD gene', q:'Most common genetic cause of familial FTD (and ALS)?', a:'C9orf72 hexanucleotide repeat expansion. ~25% of familial FTD, ~35–40% of familial ALS, up to 88% of familial FTD-ALS overlap.'},
+  {tag:'FTD treatment', q:'Why are cholinesterase inhibitors NOT first-line in FTD?', a:'They do not help cognition in FTD and may worsen behavioural symptoms. SSRIs may reduce disinhibition and dietary excess; no disease-modifying therapy exists.'},
+  {tag:'Vascular', q:'Best evidence intervention for vascular cognitive impairment?', a:'Aggressive vascular risk-factor control: BP < 130/80, statin, antiplatelet, DM/HbA1c control, smoking cessation, exercise. Cholinesterase inhibitors/memantine offer modest benefit.'},
+  {tag:'NPH', q:'Classic triad of normal-pressure hydrocephalus?', a:'Magnetic gait + urinary urgency/incontinence + cognitive decline. MRI shows ventricular enlargement out of proportion to atrophy. Test with LP tap test (gait response is most predictive of shunt success).'},
+  {tag:'Rapidly progressive', q:'What workup must a "rapidly progressive dementia" (<1 year) trigger?', a:'CJD (MRI DWI, RT-QuIC, 14-3-3), autoimmune/limbic encephalitis (Ab panel, CSF, MRI, look for tumour), paraneoplastic, CNS vasculitis, neurosyphilis, HIV, NPH. Do not accept AD as the explanation when tempo does not fit.'},
+  {tag:'Reversible', q:'Eight categories of "reversible" or treatable contributors to cognitive decline?', a:'Depression · delirium · medications (anticholinergics, BZDs, opioids) · B12/thiamine · thyroid/metabolic · NPH · subdural/structural · OSA · neurosyphilis/HIV · autoimmune encephalitis.'},
+  {tag:'BPSD', q:'Why is haloperidol problematic in dementia (especially DLB)?', a:'FDA black-box warning of increased mortality in all dementia patients (~1.5–1.7× hazard). In DLB specifically, neuroleptic hypersensitivity can precipitate severe parkinsonism, autonomic instability, NMS, or death.'},
+  {tag:'Anticholinergic', q:'Common drugs with high anticholinergic burden that should be deprescribed in older patients?', a:'Diphenhydramine (sleeping aid), oxybutynin (bladder), tricyclics (amitriptyline), paroxetine, scopolamine, hyoscine. Cumulative burden raises dementia risk over years.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 74-year-old has subjective memory complaints. On MoCA, free recall of 5 words is 0/5, but with multiple-choice cueing he correctly identifies 4/5. Which pattern does this suggest?',
+   choices:['Storage failure (Alzheimer disease pattern)','Retrieval failure (frontal/subcortical/depression pattern)','Normal cognitive aging','Aphasic encoding problem'],
+   ans:1,
+   why:'AD produces a STORAGE failure: cueing does not help because the information was never consolidated. Improvement with cueing implies the information was stored but retrieval is impaired — this points to frontal-executive, subcortical, or depression-related cognitive impairment.'},
+  {q:'A 70-year-old woman has insidious 18-month decline. Her primary problem is that she repeats questions and forgets recent conversations. Her family takes over her medications and finances. MoCA 19/30. MRI shows medial temporal atrophy. Most likely diagnosis?',
+   choices:['Mild cognitive impairment','Behavioural variant FTD','Alzheimer disease','Vascular dementia'],
+   ans:2,
+   why:'Insidious onset, predominant episodic memory deficit, progression to functional impairment (others taking over IADLs), MRI medial temporal atrophy — all consistent with Alzheimer disease at the mild dementia stage (not MCI because of functional impairment).'},
+  {q:'A 73-year-old man with new dementia is prescribed haloperidol for hallucinations. Within hours he becomes rigid, mute, and febrile. Which is the most likely underlying diagnosis?',
+   choices:['Alzheimer disease','Vascular dementia','Dementia with Lewy bodies','Frontotemporal dementia'],
+   ans:2,
+   why:'Severe neuroleptic hypersensitivity reaction in an older patient with hallucinations and dementia is the hallmark of DLB. Always ask about visual hallucinations, fluctuations, RBD, and parkinsonism before any antipsychotic in an older adult. Use quetiapine, clozapine, or pimavanserin instead; a cholinesterase inhibitor is first-line for the hallucinations themselves.'},
+  {q:'A 58-year-old businessman has 2 years of personality change — disinhibition, lack of empathy, dietary excess (sweets), and apathy. Memory and visuospatial are normal. MRI shows bilateral frontal and anterior temporal atrophy. Best first-line drug?',
+   choices:['Donepezil','Memantine','SSRI (e.g. sertraline)','Risperidone'],
+   ans:2,
+   why:'Behavioural variant FTD does not respond to cholinesterase inhibitors (and they may worsen behaviour). Memantine has no role. SSRIs (sertraline, citalopram, trazodone) are first-line and may reduce disinhibition, repetitive behaviours, and dietary excess. Antipsychotics last resort due to extrapyramidal sensitivity.'},
+  {q:'A 78-year-old presents with magnetic gait, urinary incontinence, and cognitive decline over 6 months. MRI shows ventricles enlarged out of proportion to cortical atrophy. What is the most appropriate next step?',
+   choices:['Start donepezil','MRI venogram','Lumbar puncture "tap test" (30–50 mL drainage with pre/post gait assessment)','Schedule shunt surgery immediately'],
+   ans:2,
+   why:'Classic NPH triad. The diagnostic high-volume LP (tap test) with gait reassessment is the standard next step. If gait improves, ventriculoperitoneal shunt is more likely to help. Cognition and continence respond less reliably than gait.'},
+  {q:'A 65-year-old has 6 weeks of rapidly progressive dementia, myoclonic jerks triggered by noise, and ataxia. MRI DWI shows cortical "ribboning." Most likely diagnosis and confirmatory test?',
+   choices:['Alzheimer disease — CSF Aβ42/p-tau','Creutzfeldt-Jakob disease — CSF RT-QuIC','Limbic encephalitis — anti-LGI1 antibodies','Vascular dementia — MR angiography'],
+   ans:1,
+   why:'Rapidly progressive dementia + myoclonus (often startle-induced) + cerebellar features + DWI cortical ribboning is classic for sporadic CJD. CSF RT-QuIC is highly sensitive and specific (positive in >90%). EEG may show periodic sharp wave complexes. Universally fatal within ~1 year.'},
+  {q:'Which patient is the best candidate for anti-amyloid mAb therapy (lecanemab or donanemab) per 2023–2024 criteria?',
+   choices:['82-year-old, severe AD dementia (MMSE 12), on warfarin for AF','68-year-old, MCI due to AD with amyloid PET positive, MMSE 27, off anticoagulation, no microbleeds','75-year-old, dementia with Lewy bodies, MMSE 22','62-year-old, behavioural variant FTD, MMSE 28'],
+   ans:1,
+   why:'Anti-amyloid mAbs are approved for early symptomatic AD (MCI due to AD or mild AD dementia, typically MMSE ≥ 22) with amyloid confirmation, in patients who are not on full-dose anticoagulation and without significant microbleeds. They are not indicated in moderate/severe AD, DLB, or FTD. APOE ε4 homozygotes need extra ARIA counselling.'},
+  {q:'Which medication should be deprescribed FIRST in a 78-year-old with cognitive decline and polypharmacy?',
+   choices:['Donepezil','Diphenhydramine (taken nightly for sleep)','Atorvastatin','Lisinopril'],
+   ans:1,
+   why:'Diphenhydramine is a potent anticholinergic and a strong contributor to cognitive impairment, sedation, and falls in older patients. Cumulative anticholinergic burden is associated with increased dementia risk. Substitute with sleep hygiene, melatonin, or trazodone if treatment is needed. Statins and ACE inhibitors are generally cognition-neutral or beneficial.'},
+  {q:'A 76-year-old DLB patient has severe daytime hallucinations and is becoming agitated. Cholinesterase inhibitor at maximum dose has not been enough. Which is the SAFEST pharmacological option?',
+   choices:['Haloperidol 1 mg','Risperidone 0.5 mg','Quetiapine 12.5–50 mg or pimavanserin','Diphenhydramine'],
+   ans:2,
+   why:'Quetiapine (low-dose) or pimavanserin (5-HT2A inverse agonist, no dopamine blockade; FDA-approved for PD psychosis) are safer in DLB. Clozapine is another option (requires WBC monitoring). Haloperidol and risperidone risk catastrophic neuroleptic hypersensitivity. Diphenhydramine worsens cognition.'},
+  {q:'A 60-year-old man on lecanemab develops sudden left hemiparesis with NIHSS 12. CT shows no haemorrhage. Time from onset: 2 hours. Best management consideration?',
+   choices:['Give IV alteplase as usual','IV alteplase is associated with substantially increased ICH risk — escalate to neurology / stroke team to consider thrombectomy alone or carefully informed-consent decision','Just give aspirin and observe','Continue lecanemab; manage as standard stroke'],
+   ans:1,
+   why:'Patients on anti-amyloid mAbs (lecanemab, donanemab) who develop AIS have an increased ICH risk with IV thrombolysis. Several deaths have been reported. Specialist input is needed; thrombectomy alone may be safer if LVO present. Stop the mAb. This is a key practical 2024 issue at the intersection of Modules 2 and 7.'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== Dementia Classifier ===== */
+const tool = document.getElementById('demTool');
+const toolRest = document.getElementById('dem-rest');
+const toolResult = document.getElementById('dem-result');
+let demState = {};
+
+function demAns(step, val) {
+  demState[step] = val;
+  Object.keys(demState).forEach(k => { if (+k > step) delete demState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderDem();
+}
+
+function renderDem() {
+  toolRest.innerHTML = '';
+  toolResult.classList.remove('show');
+  const s0 = demState[0];
+  if (!s0) return;
+
+  // Rapidly progressive arm — escalate immediately
+  if (s0 === 'rapid') {
+    return showDem('Rapidly progressive dementia (&lt; 1 year)',
+      ['<strong>Urgent extended workup required.</strong>',
+       'Top differentials: Creutzfeldt-Jakob disease · autoimmune / limbic encephalitis (anti-NMDA-R, LGI1, CASPR2) · paraneoplastic encephalitis · CNS vasculitis · neurosyphilis · HIV-associated · NPH (don\'t miss) · Hashimoto encephalopathy · CNS lymphoma · drug/metabolic.',
+       '<strong>Investigations:</strong> MRI brain with DWI (CJD ribboning, limbic/temporal changes), CSF (cell count, protein, RT-QuIC, AD biomarkers, autoantibody panel), EEG (periodic sharp wave complexes in CJD; NCSE), full autoimmune/paraneoplastic panel, body imaging for occult malignancy.',
+       'Refer to neurology / memory clinic urgently. Empirical aciclovir if HSV encephalitis suspected; empirical steroids ± IVIG if autoimmune encephalitis strongly suspected (after appropriate workup).']);
+  }
+
+  if (s0 === 'stepwise') {
+    return showDem('Stepwise cognitive decline — vascular pattern',
+      ['<strong>Multi-infarct (vascular) dementia</strong> is the leading consideration when there are discrete declines following vascular events.',
+       'Confirm: MRI showing multiple infarcts (lacunar or cortical), strategic infarct (thalamus, angular gyrus, caudate), or extensive small-vessel disease.',
+       'Address vascular risks aggressively: BP &lt; 130/80, statin, antiplatelet, DM/HbA1c control, smoking cessation, exercise (Module 2 secondary prevention applies).',
+       'Cholinesterase inhibitor / memantine offer modest benefit in vascular dementia.',
+       'Don\'t forget mixed vascular + AD: very common at autopsy.']);
+  }
+
+  if (s0 === 'subacute') {
+    addDem(1, '2. Predominant domain affected?',
+      [['behav','Behaviour / personality / executive'],['psych','Psychosis with parkinsonism / fluctuation'],['lang','Language'],['amnesia','Memory (especially profound subacute amnesia)']]);
+    const s1 = demState[1];
+    if (s1 === 'behav') return showDem('Subacute behavioural change &mdash; broad differential',
+      ['Subacute behavioural change can be: bvFTD (usually more insidious — years rather than months), <strong>autoimmune encephalitis</strong> (especially anti-NMDA-R in younger patients), <strong>CJD prodrome</strong>, frontal lobe tumour, NPH, depression with cognitive features, drug-related.',
+       'Workup: MRI with contrast, CSF (incl. autoantibodies), full lab panel, body imaging for occult malignancy, possibly EEG.']);
+    if (s1 === 'psych') return showDem('Psychosis + parkinsonism + fluctuation &mdash; consider DLB or autoimmune',
+      ['Hallucinations + parkinsonism + fluctuating cognition + RBD = <strong>DLB</strong>. Confirm with DaT-SPECT.',
+       'Subacute course (weeks-months) with psychiatric features ± movement disorder ± seizures in a younger patient: think <strong>autoimmune encephalitis</strong> (anti-NMDA-R), especially with associated ovarian teratoma.',
+       'Treatment differs dramatically &mdash; cholinesterase inhibitor for DLB; immunotherapy + tumour removal for autoimmune encephalitis.']);
+    if (s1 === 'lang') return showDem('Subacute language decline (PPA)',
+      ['Subacute / progressive language decline = <strong>primary progressive aphasia (PPA)</strong>. Three variants:',
+       '<strong>Non-fluent / agrammatic (nfvPPA)</strong>: effortful agrammatic speech, apraxia of speech → FTLD-tau pathology usually.',
+       '<strong>Semantic (svPPA)</strong>: loss of word meaning, fluent empty speech → FTLD-TDP pathology usually.',
+       '<strong>Logopenic (lvPPA)</strong>: word-finding pauses, impaired sentence repetition → usually <em>AD pathology</em>.',
+       'MRI, speech and language therapy, refer to memory clinic; consider AD biomarkers (lvPPA may benefit from anti-amyloid mAb if criteria met).']);
+    if (s1 === 'amnesia') return showDem('Subacute profound amnesia &mdash; think limbic encephalitis',
+      ['Subacute (weeks-months) amnesia with temporal-lobe MRI changes points to <strong>limbic encephalitis</strong>: autoimmune (LGI1 — often with faciobrachial dystonic seizures and hyponatraemia; CASPR2; GABAB; AMPA), paraneoplastic (anti-Hu, Ma2), or HSV.',
+       'Workup: MRI (temporal-lobe T2/FLAIR hyperintensity), CSF (cell count, HSV PCR, antibody panel), EEG, body imaging for malignancy.',
+       'Treatment: empirical aciclovir + immunotherapy (high-dose steroids ± IVIG ± rituximab); tumour removal if found.']);
+  }
+
+  if (s0 === 'insidious') {
+    addDem(1, '2. Predominant feature at presentation?',
+      [['amnesic','Memory (storage failure: cueing doesn\'t help)'],['behav','Behaviour / personality / disinhibition'],['lang','Language (effortful or fluent empty)'],['vshvis','Visual hallucinations / fluctuations / parkinsonism / RBD'],['gait','Gait + urinary + cognition']]);
+    const s1 = demState[1];
+
+    if (s1 === 'amnesic') {
+      addDem(2, '3. Atypical features (very young, prominent visual or behavioural deficits, language-only)?',
+        [['none','No — classic late-onset amnestic'],['young','Yes — onset &lt; 60 / family history'],['visual','Yes — visuospatial > memory'],['language','Yes — language-only']]);
+      const s2 = demState[2];
+      if (s2 === 'none') return showDem('Alzheimer disease (typical amnestic)',
+        ['Bedside diagnosis often sufficient: insidious progressive amnesia + medial temporal atrophy + no alternative cause.',
+         'Workup: MRI, B12/TSH/Ca/syphilis/HIV, neuropsychology if uncertain. Biomarkers (CSF, amyloid PET, plasma p-tau217) if anti-amyloid mAb being considered.',
+         'Symptomatic: donepezil/rivastigmine/galantamine for mild–severe; add memantine for moderate–severe.',
+         'Discuss <strong>lecanemab or donanemab</strong> (2023–2024) if MCI due to AD or mild AD dementia with amyloid confirmation and no significant microbleeds / anticoagulation.',
+         'Treat vascular risk factors. Counsel patient and family; driving assessment; advance care planning.']);
+      if (s2 === 'young') return showDem('Early-onset AD &mdash; refer for genetic counselling',
+        ['Onset &lt; 60–65 with family history → consider autosomal dominant AD (APP, PSEN1, PSEN2) or non-AD genetic dementia.',
+         'Refer to memory clinic for biomarker workup and genetic counselling.',
+         'Don\'t forget Wilson disease, Huntington disease, CADASIL, FTD genes (C9orf72, MAPT, GRN) in the young-onset differential.']);
+      if (s2 === 'visual') return showDem('Posterior cortical atrophy (visual variant AD)',
+        ['Predominant visuospatial / visual perception deficits (Bálint syndrome, simultanagnosia, optic ataxia, oculomotor apraxia, dressing apraxia) with relatively preserved memory early.',
+         'Usually <em>AD pathology</em>; rarely DLB or CBD.',
+         'Refer to memory clinic; ophthalmology to exclude primary eye disease; biomarkers.']);
+      if (s2 === 'language') return showDem('Primary progressive aphasia',
+        ['Three variants (see subacute branch).',
+         'lvPPA is usually AD pathology and may qualify for anti-amyloid mAb if biomarkers and criteria met.',
+         'Speech and language therapy is the mainstay; refer to memory / behavioural neurology clinic.']);
+    }
+
+    if (s1 === 'behav') return showDem('Behavioural variant FTD (bvFTD)',
+      ['Insidious personality and behavioural change in middle-aged adult: disinhibition, apathy, loss of empathy, perseverative behaviours, dietary changes (carbohydrate craving, hyperorality), executive dysfunction. Memory and visuospatial relatively preserved early.',
+       'Investigate: MRI (frontal/anterior temporal atrophy, often asymmetric), FDG-PET if available (frontal/temporal hypometabolism), CSF AD biomarkers (negative helps confirm).',
+       'Genetic testing: C9orf72 first; consider MAPT, GRN if family history.',
+       'Treatment: SSRI (sertraline, citalopram, trazodone) for behavioural symptoms; AVOID cholinesterase inhibitors; antipsychotics last resort.',
+       'Refer to memory clinic; intense caregiver support; legal/financial protection.']);
+
+    if (s1 === 'lang') return showDem('Primary progressive aphasia &mdash; classify into nfvPPA, svPPA, or lvPPA',
+      ['Effortful, agrammatic speech + apraxia → nfvPPA (FTLD-tau).',
+       'Fluent empty speech + loss of word meaning + object recognition deficit → svPPA (FTLD-TDP).',
+       'Word-finding pauses + impaired sentence repetition → lvPPA (usually AD pathology).',
+       'Speech and language therapy mainstay. Memory clinic referral. If lvPPA, consider AD biomarkers and mAb candidacy.']);
+
+    if (s1 === 'vshvis') return showDem('Dementia with Lewy bodies (DLB)',
+      ['Four core features: <strong>fluctuating cognition</strong>, <strong>visual hallucinations</strong>, <strong>RBD</strong>, <strong>parkinsonism</strong>. Two suffices for probable DLB; one + DaT-SPECT (positive) also probable.',
+       'Cognitive profile: early executive, visuospatial, attentional deficits; memory relatively preserved early; MoCA more sensitive than MMSE.',
+       'Treatment: <strong>cholinesterase inhibitor first-line</strong> (rivastigmine or donepezil) — often dramatic. Levodopa low-dose for parkinsonism (may worsen psychosis). Melatonin for RBD. Quetiapine / clozapine / pimavanserin for refractory psychosis — NEVER haloperidol or risperidone.',
+       'Counsel about neuroleptic hypersensitivity; alert future prescribers.']);
+
+    if (s1 === 'gait') return showDem('Normal-pressure hydrocephalus (NPH)',
+      ['Triad: magnetic gait + urinary incontinence + cognitive decline (most often executive-predominant).',
+       'MRI: ventriculomegaly out of proportion to cortical atrophy (Evans index &gt; 0.30, callosal angle &lt; 90°, DESH sign).',
+       'Diagnostic LP "tap test": drain 30–50 mL, assess gait before/after (timed up-and-go, 10-m walk). Gait improvement &gt; 10% predicts shunt response best.',
+       'Refer to neurosurgery for shunt evaluation. Cognition and continence respond less reliably than gait.',
+       'Always consider subcortical vascular and DLB in the same patient — overlap common.']);
+  }
+}
+
+function addDem(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  toolRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => demAns(step, b.dataset.val)));
+  if (demState[step]) {
+    const t = wrap.querySelector(`[data-val="${demState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showDem(title, items) {
+  toolResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  toolResult.classList.add('show');
+}
+
+function resetDem() {
+  demState = {};
+  toolRest.innerHTML = '';
+  toolResult.classList.remove('show');
+  document.querySelectorAll('#demTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => demAns(0, b.dataset.val)));
+</script>
+</body>
+</html>

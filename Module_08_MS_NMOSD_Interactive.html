@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 8 — MS, NMOSD & MOGAD (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#5dc7d6; --accent-2:#9fe3ed;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(93,199,214,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#08222a; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#c8eef3}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(93,199,214,.10); border-color:var(--accent); color:#c8eef3}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#08222a; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(93,199,214,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* McDonald checker */
+  .mcd{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .mcd-row{display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px dashed var(--line)}
+  .mcd-row:last-child{border-bottom:none}
+  .mcd-row input[type=checkbox]{margin-top:4px; transform:scale(1.3); accent-color:var(--accent)}
+  .mcd-row label{flex:1; cursor:pointer; color:var(--ink)}
+  .mcd-row label .sub{display:block; color:var(--muted); font-size:.85rem; margin-top:3px}
+  .mcd-result{position:sticky; bottom:8px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:12px 18px; margin-top:14px; font-size:.95rem; color:var(--ink)}
+  .mcd-result.good{border-color:var(--good); background:rgba(95,210,138,.10)}
+  .mcd-result.partial{border-color:var(--warn); background:rgba(255,185,92,.10)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 8</span>
+    <span class="badge">General physician</span>
+    <h1>Multiple Sclerosis, NMOSD &amp; MOGAD — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 35) and Merritt's <em>Neurology</em> (14e, Ch. 71–73). Includes 2017 McDonald criteria, 2015 IPND NMOSD criteria, and 2023 MOGAD international criteria.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="classifier">Demyelinating Classifier</button>
+    <button data-tab="mcdonald">McDonald 2017 Checker</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>MS is the most common non-traumatic cause of disability in young adults; ~95% of patients reach a neurologist via a primary-care referral with vague symptoms (visual blur, numbness, fatigue, weakness). The diagnostic and therapeutic landscape has shifted dramatically:</p>
+    <ul>
+      <li>The 2017 McDonald criteria allow many patients to be diagnosed at the first attack.</li>
+      <li>NMOSD (AQP4-IgG) and MOGAD (MOG-IgG) have split from "MS" into distinct diseases with different treatments &mdash; sometimes the same MS drugs <em>worsen</em> these conditions.</li>
+      <li>High-efficacy DMTs (anti-CD20, natalizumab) are increasingly used early for active disease.</li>
+      <li>For NMOSD, three monoclonal antibodies (eculizumab/ravulizumab, inebilizumab, satralizumab) gained FDA approval 2019–2020.</li>
+    </ul>
+
+    <h3>After this module you will be able to:</h3>
+    <ul>
+      <li>Recognise classic MS presentations: optic neuritis, transverse myelitis, INO, brainstem/cerebellar syndromes, Uhthoff, L'hermitte.</li>
+      <li>Apply the 2017 McDonald criteria for DIS and DIT.</li>
+      <li>Distinguish MS from NMOSD and MOGAD by clinical and laboratory features.</li>
+      <li>Manage an acute relapse (steroids; PLEX for severe).</li>
+      <li>Counsel about the DMT ladder &mdash; including the safety profiles of natalizumab (PML), anti-CD20 (hypogammaglobulinaemia), alemtuzumab (secondary autoimmunity).</li>
+      <li>Identify when to escalate therapy (breakthrough disease, NEDA-3 failure).</li>
+      <li>Recognise NMOSD red flags (LETM, area postrema syndrome, severe ON) and refer for AQP4/MOG-targeted treatment.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single most important habit:</strong> in any first inflammatory demyelinating event, <em>send serum AQP4-IgG and MOG-IgG before assuming MS</em>. NMOSD and MOGAD treatments differ from MS dramatically &mdash; interferon-β, natalizumab, and fingolimod can <em>worsen</em> NMOSD.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. The three diseases &mdash; MS vs NMOSD vs MOGAD</summary>
+      <div class="body">
+        <p>What used to be "MS and its variants" is now three distinct autoimmune CNS diseases.</p>
+        <table>
+          <tr><th></th><th>MS</th><th>NMOSD</th><th>MOGAD</th></tr>
+          <tr><td>Antibody</td><td>None (OCBs)</td><td>AQP4-IgG (75%)</td><td>MOG-IgG</td></tr>
+          <tr><td>Target</td><td>Myelin</td><td>Astrocyte aquaporin-4</td><td>Oligodendrocyte myelin protein</td></tr>
+          <tr><td>Sex</td><td>F:M 2:1</td><td>F:M 9:1 (AQP4+)</td><td>F:M 1:1</td></tr>
+          <tr><td>ON</td><td>Unilateral, mild</td><td>Severe, often bilateral</td><td>Often bilateral, disc swelling</td></tr>
+          <tr><td>TM</td><td>Short &lt; 2 segments</td><td>LETM ≥ 3 segments</td><td>Conus often involved; LETM possible</td></tr>
+          <tr><td>Course</td><td>Relapsing → progressive</td><td>Relapsing (stepwise damage)</td><td>~50% monophasic</td></tr>
+        </table>
+        <div class="warn">In any first inflammatory demyelinating event send <strong>AQP4-IgG</strong> AND <strong>MOG-IgG</strong> (serum cell-based assays) before starting MS DMTs.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Classic MS clinical presentations</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Optic neuritis</strong> &mdash; unilateral painful vision loss; pain worse with eye movement; RAPD; reduced colour vision; recovers over weeks.</li>
+          <li><strong>Transverse myelitis</strong> &mdash; subacute weakness + sensory level + bladder; usually short and partial in MS.</li>
+          <li><strong>INO</strong> &mdash; failure of adduction with abducting eye nystagmus. <em>Bilateral INO in a young person is MS until proven otherwise.</em></li>
+          <li><strong>L'hermitte sign</strong> &mdash; electric shock down spine on neck flexion (cervical cord lesion).</li>
+          <li><strong>Uhthoff phenomenon</strong> &mdash; transient symptom worsening with heat. <em>Not a relapse.</em></li>
+          <li>Sensory: numbness, tingling, dysesthesia. Fatigue, cognitive slowing, depression.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. The 2017 McDonald criteria &mdash; DIS and DIT</summary>
+      <div class="body">
+        <p>Diagnose MS by showing <strong>dissemination in space (DIS)</strong> and <strong>dissemination in time (DIT)</strong>, after excluding alternatives.</p>
+        <p><strong>MRI DIS</strong>: ≥ 1 T2 lesion in ≥ 2 of: periventricular, juxtacortical/cortical, infratentorial, spinal cord.</p>
+        <p><strong>MRI DIT</strong>: simultaneous gadolinium-enhancing AND non-enhancing lesions, OR new T2/gad lesion on follow-up MRI.</p>
+        <p><strong>Big 2017 change</strong>: in CIS patients, CSF-specific oligoclonal bands can substitute for DIT, enabling earlier MS diagnosis at first attack.</p>
+        <div class="pearl">Use the McDonald 2017 Checker tab to test a specific patient against the criteria.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Imaging &amp; CSF</summary>
+      <div class="body">
+        <p>MRI brain + whole spine with and without gadolinium. Typical MS lesions: ovoid, periventricular ("Dawson fingers"), juxtacortical, infratentorial, callosal. Spinal lesions in MS are usually short (&lt; 2 vertebral segments) and peripheral. Gadolinium enhancement = active inflammation (lasts 2–8 weeks).</p>
+        <p>CSF in MS: oligoclonal bands present (95%), mild lymphocytic pleocytosis (&lt; 50), normal glucose. Higher counts suggest NMOSD/MOGAD/infection.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Relapse management</summary>
+      <div class="body">
+        <p>Relapse = new or worsening neurological symptoms ≥ 24 h, without fever/infection, &gt; 30 days from prior attack.</p>
+        <ul>
+          <li>Always exclude <strong>pseudo-relapse</strong> first (fever, UTI, dehydration, sleep deprivation).</li>
+          <li>IV methylprednisolone 1 g daily × 3–5 days (oral equivalent works equally well). Hastens recovery; no long-term disability change.</li>
+          <li>Plasma exchange (PLEX) 5–7 cycles for severe steroid-refractory attacks (especially ON, TM, brainstem); lower threshold in NMOSD.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. The DMT ladder</summary>
+      <div class="body">
+        <p><strong>High efficacy:</strong> anti-CD20 (ocrelizumab, ofatumumab, rituximab off-label), natalizumab (PML risk; stratify by JCV), alemtuzumab (secondary autoimmunity), cladribine.</p>
+        <p><strong>Moderate efficacy:</strong> S1P modulators (fingolimod, siponimod, ozanimod, ponesimod), fumarates (dimethyl, diroximel).</p>
+        <p><strong>Lower (platform):</strong> teriflunomide, interferons (IFNβ), glatiramer acetate.</p>
+        <p>Modern paradigm: start high-efficacy for active disease, especially in young patients. Reassess MRI at 6–12 months for "NEDA-3" (no relapses, no new MRI lesions, no disability progression); escalate if breakthrough.</p>
+        <div class="warn"><strong>Critical safety notes:</strong>
+          <ul>
+            <li>Natalizumab + JCV-positive + long duration → <strong>PML</strong> risk. Stratify with JCV antibody index.</li>
+            <li>Anti-CD20 → hypogammaglobulinaemia with repeated dosing; check IgG.</li>
+            <li>Stopping fingolimod can trigger MS rebound; never just stop.</li>
+            <li>Pre-DMT screen: HBV, HCV, HIV, TB, VZV titre, JCV (if natalizumab).</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. NMOSD &mdash; what every clinician must know</summary>
+      <div class="body">
+        <p>An astrocytopathy driven by AQP4-IgG. Six core syndromes (2015 IPND criteria):</p>
+        <ol>
+          <li>Optic neuritis (often bilateral, severe, poor recovery)</li>
+          <li>LETM</li>
+          <li><strong>Area postrema syndrome</strong> &mdash; intractable nausea/vomiting/hiccups &gt; 48 h</li>
+          <li>Acute brainstem syndrome</li>
+          <li>Symptomatic narcolepsy / acute diencephalic syndrome with NMOSD MRI</li>
+          <li>Symptomatic cerebral syndrome with NMOSD brain lesions</li>
+        </ol>
+        <p>Diagnosis: 1 core syndrome + AQP4-IgG positive = NMOSD. AQP4-IgG-negative cases require 2 core syndromes and additional MRI features.</p>
+        <p><strong>Treatment</strong>: acute &mdash; high-dose steroids + early PLEX. Long-term: <strong>eculizumab/ravulizumab</strong> (C5 inhibitor), <strong>inebilizumab</strong> (anti-CD19), <strong>satralizumab</strong> (anti-IL-6R), or rituximab (off-label). All FDA approved 2019–2020 for AQP4+ NMOSD.</p>
+        <div class="warn">MS DMTs interferon-β, natalizumab, and fingolimod can <em>worsen</em> NMOSD &mdash; never start them without checking AQP4-IgG.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. MOGAD &mdash; the newer entity</summary>
+      <div class="body">
+        <p>MOG-IgG-associated disease. Distinct from MS and NMOSD. International criteria 2023 (Banwell et al.).</p>
+        <ul>
+          <li><strong>Optic neuritis</strong> (most common; often bilateral; disc swelling; better recovery than NMOSD)</li>
+          <li>Transverse myelitis (conus often involved)</li>
+          <li><strong>ADEM-like</strong> presentation (especially in children)</li>
+          <li><strong>Cerebral cortical encephalitis</strong> with seizures (FLAMES &mdash; cortical FLAIR hyperintensity)</li>
+        </ul>
+        <p>~50% monophasic; ~50% relapsing. CSF OCBs in only ~10–20% (vs ~95% in MS).</p>
+        <p>Treatment: acute high-dose steroids. For relapsing disease: <strong>rituximab, MMF, IVIG, tocilizumab</strong> (off-label). NMOSD-specific mAbs (eculizumab, inebilizumab, satralizumab) NOT approved for MOGAD.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. ADEM and tumefactive demyelination</summary>
+      <div class="body">
+        <p><strong>ADEM:</strong> monophasic post-infectious demyelination, predominantly in children. <em>Encephalopathy required for diagnosis.</em> ~50% paediatric ADEM is MOG-IgG positive. Treat with high-dose IV methylprednisolone, then taper; PLEX or IVIG if refractory. Most adults recover well; relapse should prompt reassessment.</p>
+        <p><strong>Tumefactive MS:</strong> single or few large (&gt; 2 cm) demyelinating lesions with mass effect, ring enhancement (often "open ring" facing white matter), perilesional oedema. Can mimic tumour; biopsy occasionally needed.</p>
+        <p><strong>Marburg variant:</strong> fulminant, often monophasic and fatal within a year.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. When to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li>First clinical demyelinating event for full workup and DMT initiation.</li>
+            <li>Severe acute attack (LETM, severe ON, brainstem) &mdash; for consideration of PLEX, NMOSD/MOGAD workup.</li>
+            <li>Suspected NMOSD/MOGAD &mdash; for antibody-targeted treatment.</li>
+            <li>Breakthrough disease on DMT &mdash; escalate.</li>
+            <li>Pregnancy planning.</li>
+            <li>Atypical features suggesting mimic.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="classifier">
+    <h2>Demyelinating Classifier</h2>
+    <p class="muted">Answer about the clinical and lab features; the tool offers a working differential.</p>
+    <div class="tool" id="demyTool">
+      <div class="q">1. Predominant clinical presentation?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="on">Optic neuritis</button>
+        <button class="opt" data-val="tm">Transverse myelitis</button>
+        <button class="opt" data-val="encep">Encephalopathy / multifocal with altered consciousness</button>
+        <button class="opt" data-val="postrema">Intractable nausea / vomiting / hiccups</button>
+        <button class="opt" data-val="ino">Brainstem / cerebellar (INO, dysarthria, ataxia)</button>
+        <button class="opt" data-val="sensory">Sensory or fatigue or cognitive without focal acute event</button>
+      </div>
+      <div id="demy-rest"></div>
+      <div class="result" id="demy-result"></div>
+      <button class="reset" onclick="resetDemy()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="mcdonald">
+    <h2>McDonald 2017 Criteria Checker</h2>
+    <p class="muted">Tick what applies to your patient. The verdict updates live.</p>
+    <div class="mcd" id="mcdBox"></div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 &mdash; A 28-year-old woman with painful left vision loss over 3 days</summary>
+      <div class="body">
+        <p>She reports retro-orbital pain worse with eye movement. Exam: LE visual acuity 20/200, RAPD, reduced red colour saturation, swollen disc on fundoscopy. MRI brain shows 3 ovoid periventricular T2 lesions and 1 gadolinium-enhancing juxtacortical lesion. CSF: 6 WBC/µL, 2 oligoclonal bands not in serum. AQP4-IgG and MOG-IgG negative.</p>
+        <p><strong>Diagnosis:</strong> Clinically isolated syndrome (left optic neuritis) meeting 2017 McDonald criteria for MS (DIS: lesions in 2 typical regions; DIT: simultaneous enhancing + non-enhancing lesions; OCBs supportive).</p>
+        <p><strong>Plan:</strong> Acute: IV methylprednisolone 1 g daily × 3–5 days for the optic neuritis. Long-term: start <em>high-efficacy DMT</em> (anti-CD20 ocrelizumab or ofatumumab) given young age and confirmed MS. Pre-DMT: HBV/HCV/HIV/TB/VZV screening; baseline labs. MRI at 6 months to assess for NEDA-3. Counsel about vitamin D, smoking cessation, exercise, mood, pregnancy planning.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 &mdash; A 42-year-old woman with bilateral severe vision loss and paraplegia</summary>
+      <div class="body">
+        <p>One week ago she developed bilateral painful vision loss to hand motion. Now: paraplegia, T8 sensory level, urinary retention. MRI: bilateral optic nerve enhancement; cord lesion extending from T2 to T10 (LETM). Brain MRI shows a lesion near area postrema. AQP4-IgG positive at high titre.</p>
+        <p><strong>Diagnosis:</strong> Neuromyelitis optica spectrum disorder, AQP4-IgG positive.</p>
+        <p><strong>Plan:</strong> IV methylprednisolone 1 g daily × 5 days <strong>plus early PLEX</strong> (5 cycles) &mdash; lower threshold for PLEX in NMOSD because attacks are stepwise and disabling. Start long-term immunotherapy: <strong>eculizumab</strong>, <strong>inebilizumab</strong>, or <strong>satralizumab</strong> (all FDA-approved 2019–2020 for AQP4+ NMOSD), or rituximab off-label if access limited. Meningococcal vaccination before eculizumab. Avoid interferon-β, natalizumab, fingolimod &mdash; these MS drugs <em>worsen</em> NMOSD. Long-term monitoring; family planning counselling.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 &mdash; A 9-year-old boy with confusion, hemiparesis, and seizures 2 weeks after viral illness</summary>
+      <div class="body">
+        <p>Acute encephalopathy, fever, multifocal neurological signs including left hemiparesis and a focal seizure. MRI: multiple large, confluent T2 hyperintensities in deep grey matter (thalami, basal ganglia), brainstem, and subcortical white matter. CSF: 50 WBC/µL lymphocytic, mild protein elevation, no OCBs. <strong>MOG-IgG positive.</strong></p>
+        <p><strong>Diagnosis:</strong> ADEM phenotype of MOGAD.</p>
+        <p><strong>Plan:</strong> IV methylprednisolone 30 mg/kg/day (max 1 g) × 3–5 days, followed by oral taper over 4–6 weeks (steroid taper may reduce relapse risk in MOGAD). PLEX or IVIG if steroid-refractory or severe. ICU monitoring as needed. Antiseizure medication. Most children recover well. Long-term monitoring &mdash; if relapsing course emerges, consider maintenance immunotherapy (rituximab, MMF, monthly IVIG, or tocilizumab off-label).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 &mdash; A 35-year-old established MS patient on natalizumab presents with new cognitive change and right-sided weakness</summary>
+      <div class="body">
+        <p>On natalizumab for 3 years. JCV antibody index 2.4 (high). Recent labs unremarkable. New MRI shows asymmetric, subcortical, non-enhancing white-matter lesions in the right frontal lobe, sparing the cortex but extending into U-fibres &mdash; different pattern from her usual MS lesions.</p>
+        <p><strong>Diagnosis:</strong> Progressive multifocal leukoencephalopathy (PML) suspected.</p>
+        <p><strong>Plan:</strong> <em>STOP natalizumab immediately.</em> Confirm with CSF JCV DNA PCR (highly sensitive at experienced labs). MRI follow-up. PLEX to remove natalizumab and accelerate immune reconstitution. Manage immune reconstitution inflammatory syndrome (IRIS) &mdash; may need steroids. Transition to a different DMT (anti-CD20 if she stabilises). Mortality from PML is significant; early recognition essential.</p>
+        <div class="warn">JCV-positive patients with high index, particularly &gt; 2 years on natalizumab, have PML risk approaching 1% per year. Stratify before continuing.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 &mdash; A 50-year-old woman with 18 months of insidious right leg weakness and stiffness</summary>
+      <div class="body">
+        <p>No discrete relapses. Progressive spastic monoparesis of the right leg with hyperreflexia and an upgoing right plantar response. MRI brain: multiple periventricular T2 lesions in a typical MS distribution; cord MRI: 2 short cervical T2 lesions. CSF: 4 OCBs, IgG index elevated. AQP4-IgG and MOG-IgG negative. Excluded: B12, copper, HTLV-1, vasculitis screen, syphilis, HIV.</p>
+        <p><strong>Diagnosis:</strong> Primary progressive MS (PPMS) by 2017 McDonald criteria &mdash; 1 year of progression + DIS in brain (typical lesions) + spinal cord lesions + CSF-specific OCBs.</p>
+        <p><strong>Plan:</strong> Start <strong>ocrelizumab</strong> &mdash; the only DMT with PPMS approval (most benefit in younger patients with active MRI disease). Pre-DMT screening. Aggressive rehabilitation, PT/OT, fall prevention. Symptom management: baclofen for spasticity, treat depression and fatigue. Vitamin D, vascular risk factor control, smoking cessation. MRI follow-up to assess for "active" disease.</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 8 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 35; Merritt's <em>Neurology</em> 14e Ch. 71–73. McDonald 2017 criteria (Thompson et al., Lancet Neurol. 2018); NMOSD 2015 IPND criteria (Wingerchuk et al., Neurology 2015); MOGAD 2023 international criteria (Banwell et al., Lancet Neurol. 2023). NMOSD mAb approvals: eculizumab/ravulizumab, inebilizumab, satralizumab (2019–2020).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Epidemiology', q:'Median age of MS onset?', a:'23–24 years. Female:male 2:1 (equal in PPMS).'},
+  {tag:'Triage', q:'What two antibodies must be sent before assuming "MS" in a first demyelinating event?', a:'AQP4-IgG (NMOSD) and MOG-IgG (MOGAD), both serum cell-based assays. Their treatments diverge from MS dramatically.'},
+  {tag:'McDonald 2017', q:'What can substitute for DIT in CIS under 2017 McDonald criteria?', a:'CSF-specific oligoclonal bands. This allowed earlier diagnosis at first attack.'},
+  {tag:'McDonald 2017', q:'MRI DIS requires ≥ 1 T2 lesion in how many of which four locations?', a:'≥ 1 T2 lesion in ≥ 2 of: periventricular, juxtacortical/cortical, infratentorial, spinal cord.'},
+  {tag:'McDonald 2017', q:'MRI DIT criteria?', a:'Simultaneous gadolinium-enhancing AND non-enhancing lesions on a single scan, OR a new T2/gadolinium-enhancing lesion on follow-up MRI.'},
+  {tag:'CSF', q:'CSF oligoclonal bands in MS?', a:'Present in ~95% of MS patients (and not in serum). Now part of McDonald 2017 criteria.'},
+  {tag:'Optic neuritis', q:'Typical MS optic neuritis vs NMOSD optic neuritis?', a:'MS: unilateral, painful, RAPD, good recovery. NMOSD: severe, often bilateral or sequential, poor recovery. MOGAD: often bilateral, disc swelling, better recovery than NMOSD.'},
+  {tag:'INO', q:'What is INO and what causes it in a young person?', a:'Internuclear ophthalmoplegia: failure of adduction with abducting eye nystagmus (lesion in MLF). Bilateral INO in a young person = MS until proven otherwise.'},
+  {tag:'Phenomena', q:'L\'hermitte sign vs Uhthoff phenomenon?', a:'L\'hermitte: electric shock down spine on neck flexion (cervical cord lesion). Uhthoff: transient symptom worsening with heat or exercise. Neither is a true relapse.'},
+  {tag:'Relapse', q:'How is a relapse defined and treated?', a:'New/worsening symptoms ≥ 24 h, no fever or infection, ≥ 30 days from prior attack. Treat with IV methylprednisolone 1 g/day × 3–5 days (oral equivalent equally effective). PLEX for severe steroid-refractory attacks.'},
+  {tag:'DMT', q:'Drug of choice for primary progressive MS?', a:'Ocrelizumab — the only DMT with PPMS approval. Greatest effect in younger patients with active MRI disease.'},
+  {tag:'DMT safety', q:'Major safety concern with natalizumab?', a:'Progressive multifocal leukoencephalopathy (PML) from JCV reactivation. Stratify by JCV antibody index, treatment duration, prior immunosuppression. JCV+ with high index + >2 years: risk approaches 1% per year.'},
+  {tag:'DMT safety', q:'Major safety concern with alemtuzumab?', a:'~30% develop secondary autoimmunity (Graves, ITP, anti-GBM); rare stroke/dissection during infusion. Reserved for highly active disease.'},
+  {tag:'DMT safety', q:'Why can\'t you just stop fingolimod?', a:'Rebound MS activity within weeks — sometimes severe. Transition carefully and bridge if needed.'},
+  {tag:'NMOSD core', q:'Six core syndromes of NMOSD (2015 IPND)?', a:'(1) Optic neuritis; (2) acute myelitis (often LETM); (3) area postrema syndrome; (4) acute brainstem syndrome; (5) symptomatic narcolepsy/diencephalic syndrome; (6) symptomatic cerebral syndrome with typical lesions.'},
+  {tag:'NMOSD treat', q:'Three FDA-approved NMOSD-specific monoclonal antibodies (2019–2020)?', a:'Eculizumab (and ravulizumab) — C5 inhibitor (meningococcal vaccination required); inebilizumab — anti-CD19; satralizumab — anti-IL-6R. All for AQP4-IgG+ NMOSD.'},
+  {tag:'NMOSD warning', q:'Which MS DMTs can WORSEN NMOSD?', a:'Interferon-β, natalizumab, and fingolimod. Always exclude NMOSD with AQP4-IgG before starting these in someone with demyelinating disease.'},
+  {tag:'MOGAD', q:'Four classic MOGAD phenotypes?', a:'(1) Optic neuritis (often bilateral, disc swelling); (2) transverse myelitis (conus involvement common); (3) ADEM-like (especially children); (4) cerebral cortical encephalitis with seizures (FLAMES).'},
+  {tag:'ADEM', q:'Required clinical feature for ADEM diagnosis (distinguishing from MS)?', a:'Encephalopathy. Multifocal demyelination without altered consciousness is not ADEM.'},
+  {tag:'PML', q:'Approximate PML risk in a JCV-positive patient on natalizumab > 2 years with prior immunosuppression?', a:'Approaching 1% per year. Risk stratification with JCV antibody index, treatment duration, and prior immunosuppressant exposure is mandatory before continuing therapy.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 30-year-old woman with painful unilateral vision loss has 3 periventricular and 2 juxtacortical T2 brain lesions on MRI, one of which enhances with gadolinium. CSF shows 2 OCBs not in serum. Does she meet 2017 McDonald criteria for MS?',
+   choices:['No — she needs a second clinical attack','Yes — DIS satisfied (lesions in 2 typical regions), DIT satisfied (enhancing + non-enhancing on single scan), OCBs supportive','Maybe — needs spinal MRI first','No — needs longer follow-up'],
+   ans:1,
+   why:'2017 McDonald criteria allow diagnosis at first attack when DIS and DIT are both met on MRI. Periventricular + juxtacortical = DIS in 2 regions. Simultaneous enhancing + non-enhancing lesions = DIT. CSF OCBs are confirmatory. Spinal MRI strongly recommended but not strictly required if criteria already met.'},
+  {q:'A 45-year-old woman has bilateral severe vision loss progressing to no light perception over a week, plus paraplegia. Cord MRI shows a contiguous T2 lesion from T3 to T10. AQP4-IgG positive. Best long-term treatment?',
+   choices:['Ocrelizumab','Eculizumab, inebilizumab, or satralizumab','Interferon-β','Glatiramer acetate'],
+   ans:1,
+   why:'AQP4-IgG-positive NMOSD with severe LETM. The three FDA-approved (2019–2020) NMOSD-specific monoclonal antibodies — eculizumab/ravulizumab, inebilizumab, satralizumab — are highly effective. Rituximab is widely used off-label. Interferon-β, natalizumab, and fingolimod can worsen NMOSD and are contraindicated.'},
+  {q:'Which feature most strongly distinguishes typical MS transverse myelitis from NMOSD myelitis?',
+   choices:['Pain at onset','Female sex','Lesion length: < 2 vertebral segments and peripheral location (MS) vs ≥ 3 segments and central (NMOSD)','Presence of urinary symptoms'],
+   ans:2,
+   why:'MS cord lesions are typically short (< 2 vertebral segments), peripheral, and partial. Longitudinally extensive transverse myelitis (LETM, ≥ 3 vertebral segments, often centrally located) is a hallmark of NMOSD (or MOGAD), and is unusual in MS.'},
+  {q:'A 28-year-old woman with established RRMS develops fever, dysuria, and her right leg becomes weaker than baseline. Best initial step?',
+   choices:['Start IV methylprednisolone for relapse','Treat the UTI; reassess after the fever resolves','Switch DMT','Order MRI brain and spine'],
+   ans:1,
+   why:'This is likely a pseudo-relapse — transient symptom worsening from fever/infection (Uhthoff phenomenon at the systemic level). Always rule out infection before treating an "MS attack". Treating with steroids in active infection can be harmful. Symptoms typically improve once fever resolves; only investigate as a true relapse if not.'},
+  {q:'A 33-year-old man with RRMS on natalizumab for 3 years (JCV antibody index 2.5, prior fingolimod use) presents with new behavioural change and right hemiparesis. MRI shows new non-enhancing subcortical white matter lesions in the left frontal lobe with U-fibre involvement. Best next step?',
+   choices:['Treat as MS relapse with steroids','Stop natalizumab and send CSF for JCV DNA PCR','Switch to ocrelizumab','Add cladribine'],
+   ans:1,
+   why:'High JCV index + > 2 years on natalizumab + prior immunosuppression = high PML risk. New non-enhancing subcortical lesions extending into U-fibres are characteristic of PML, not MS relapse. Stop natalizumab immediately and confirm with CSF JCV DNA PCR. Consider PLEX to accelerate natalizumab clearance.'},
+  {q:'A 10-year-old presents with confusion, fever, seizures, and multifocal neurological signs 2 weeks after a viral illness. MRI shows large, confluent T2 lesions in deep grey matter and brainstem. MOG-IgG positive. Diagnosis?',
+   choices:['Multiple sclerosis','NMOSD','ADEM phenotype of MOGAD','Anti-NMDA receptor encephalitis'],
+   ans:2,
+   why:'Encephalopathy + multifocal demyelination after viral illness in a child = ADEM phenotype. MOG-IgG positive in ~50% of paediatric ADEM, supporting MOGAD diagnosis. MS rarely presents with encephalopathy. NMOSD is rare in children and usually with optic neuritis/myelitis. Anti-NMDA-R encephalitis presents with psychiatric, seizures, dyskinesias but MRI often normal or limbic; would need anti-NMDA-R antibody.'},
+  {q:'Which MS DMT is the only one specifically approved for primary progressive MS?',
+   choices:['Natalizumab','Ocrelizumab','Fingolimod','Glatiramer acetate'],
+   ans:1,
+   why:'Ocrelizumab (anti-CD20) is the only DMT with FDA approval for PPMS. Benefit is modest and greatest in younger patients with active inflammatory MRI activity.'},
+  {q:'Pre-DMT screening for natalizumab specifically should include which of the following?',
+   choices:['Echocardiogram','JCV antibody index','Bone marrow biopsy','Cardiac MRI'],
+   ans:1,
+   why:'JCV antibody index is critical for natalizumab. JCV-negative patients have low PML risk; JCV-positive with high index and longer treatment duration have rapidly increasing risk. All DMTs require baseline HBV/HCV/HIV/TB screening and VZV titre; JCV is specifically for natalizumab.'},
+  {q:'A 25-year-old woman with recently diagnosed RRMS asks about pregnancy. Which DMT has the most established safety data for use during pregnancy?',
+   choices:['Teriflunomide','Glatiramer acetate','Fingolimod','Cladribine'],
+   ans:1,
+   why:'Glatiramer acetate has the most data and is generally considered acceptable in pregnancy. Interferons are also acceptable. Teriflunomide is teratogenic (long half-life, requires accelerated washout with cholestyramine). Fingolimod, cladribine, alemtuzumab — avoid in pregnancy. Ocrelizumab is increasingly used with planned re-dosing after delivery/breastfeeding.'},
+  {q:'A 38-year-old woman presents with intractable nausea, vomiting, and hiccups for 4 days, then develops paraplegia and a sensory level. MRI shows a lesion at the area postrema and a longitudinally extensive cord lesion. What is the most likely diagnosis?',
+   choices:['Multiple sclerosis','Neuromyelitis optica spectrum disorder (likely AQP4-IgG positive)','MOGAD','Gastroenteritis with coincidental neurological symptoms'],
+   ans:1,
+   why:'Area postrema syndrome (intractable nausea/vomiting/hiccups > 48 h with corresponding MRI lesion) is highly specific for NMOSD. Combined with LETM, this is NMOSD until proven otherwise. Send AQP4-IgG (positive in 75%) and MOG-IgG (smaller subset can have similar). Treat as NMOSD with steroids + PLEX and start long-term immunotherapy.'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== Demyelinating Classifier ===== */
+const demyTool = document.getElementById('demyTool');
+const demyRest = document.getElementById('demy-rest');
+const demyResult = document.getElementById('demy-result');
+let demyState = {};
+
+function demyAns(step, val) {
+  demyState[step] = val;
+  Object.keys(demyState).forEach(k => { if (+k > step) delete demyState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderDemy();
+}
+
+function renderDemy() {
+  demyRest.innerHTML = '';
+  demyResult.classList.remove('show');
+  const s0 = demyState[0];
+  if (!s0) return;
+
+  if (s0 === 'on') {
+    addDemy(1, '2. Optic neuritis features?',
+      [['unilat','Unilateral, painful, partial vision loss, good recovery'],['bil_severe','Bilateral / sequential, severe (to hand motion or NLP), poor recovery'],['bil_swell','Often bilateral, optic disc swelling, recovery better than NMOSD'],['atypical','Painless / no RAPD / very young or very old']]);
+    const s1 = demyState[1];
+    if (s1 === 'unilat') return showDemy('Likely MS-type optic neuritis',
+      ['Typical MS optic neuritis: unilateral, painful (worse with eye movement), RAPD, central scotoma, recovery over 4–6 weeks usually good.',
+       'Workup: MRI brain + cord with gadolinium, CSF (OCBs), AQP4-IgG, MOG-IgG, OCT.',
+       'Acute treatment: IV methylprednisolone 1 g daily × 3–5 days hastens recovery.',
+       'If meets McDonald 2017 criteria — start DMT (high-efficacy preferred).']);
+    if (s1 === 'bil_severe') return showDemy('NMOSD suspected — urgent workup',
+      ['Bilateral or sequential severe optic neuritis with poor recovery is the NMOSD signature.',
+       '<strong>Send AQP4-IgG and MOG-IgG urgently.</strong>',
+       'MRI brain (look for area postrema lesions) + cord (LETM).',
+       'Acute treatment: IV methylprednisolone 1 g daily × 5 days <strong>plus early PLEX</strong> (lower threshold in NMOSD; better recovery if started early).',
+       'Long-term: eculizumab/ravulizumab, inebilizumab, or satralizumab if AQP4+ (or rituximab off-label).',
+       'AVOID interferon-β, natalizumab, fingolimod.']);
+    if (s1 === 'bil_swell') return showDemy('MOGAD suspected',
+      ['Bilateral optic neuritis with disc swelling and better recovery favours MOGAD.',
+       'Send MOG-IgG (cell-based assay) and AQP4-IgG.',
+       'Acute: high-dose steroids; consider longer oral steroid taper (4–6 weeks) to reduce relapse risk.',
+       'For relapsing MOGAD: rituximab, MMF, IVIG, tocilizumab (off-label); NMOSD-specific mAbs NOT approved for MOGAD.']);
+    if (s1 === 'atypical') return showDemy('Consider non-demyelinating optic neuropathy',
+      ['Painless or no RAPD in suspected optic neuritis broadens the differential: anterior ischaemic optic neuropathy (AION), Leber hereditary optic neuropathy, toxic/nutritional (B12, methanol), compressive (pituitary, meningioma, sphenoidal sinusitis), infiltrative (sarcoid, lymphoma).',
+       'Workup: MRI orbits, sphenoid, brain; serum AQP4/MOG; B12; ESR/CRP (giant cell arteritis if &gt;50); LHON genetic testing if young.',
+       'Ophthalmology referral.']);
+  }
+
+  if (s0 === 'tm') {
+    addDemy(1, '2. Cord lesion length?',
+      [['short','< 2 vertebral segments, peripheral'],['letm','≥ 3 segments (LETM), often central'],['conus','Conus / lower cord involvement']]);
+    const s1 = demyState[1];
+    if (s1 === 'short') return showDemy('Likely MS myelitis',
+      ['Short, partial, peripheral cord lesions are typical for MS.',
+       'Workup: MRI brain + whole spine, AQP4, MOG, CSF OCBs, full demyelinating panel.',
+       'Acute: IV methylprednisolone 1 g daily × 3–5 days. PLEX if severe and steroid-refractory.',
+       'If meets McDonald criteria → start DMT.']);
+    if (s1 === 'letm') return showDemy('LETM &mdash; think NMOSD first',
+      ['<strong>LETM is uncommon in MS; AQP4-IgG positive in most NMOSD cases.</strong> MOG-IgG also possible.',
+       'Workup: serum AQP4-IgG and MOG-IgG, MRI brain (area postrema?), CSF, full mimic workup (viral, post-infectious, neurosarcoidosis, paraneoplastic, lupus, B12, copper).',
+       'Acute: IV methylprednisolone 1 g daily × 5 days <strong>plus early PLEX</strong>.',
+       'Long-term: if AQP4+ → eculizumab/inebilizumab/satralizumab or rituximab. If MOG+ → consider rituximab, MMF, IVIG.']);
+    if (s1 === 'conus') return showDemy('Conus involvement favours MOGAD',
+      ['Conus medullaris involvement is a feature seen in MOGAD; less common in MS or AQP4+ NMOSD.',
+       'Send MOG-IgG urgently; also AQP4-IgG.',
+       'Acute: high-dose steroids with longer oral taper. PLEX if severe.',
+       'For relapsing course: rituximab, MMF, IVIG, tocilizumab off-label.']);
+  }
+
+  if (s0 === 'encep') {
+    addDemy(1, '2. Age / context?',
+      [['child','Child, post-infectious / post-vaccination'],['adult','Adult, no clear trigger'],['cortical','Adult with cortical seizures and FLAIR hyperintensity']]);
+    const s1 = demyState[1];
+    if (s1 === 'child') return showDemy('ADEM, likely MOGAD subtype',
+      ['Encephalopathy + multifocal demyelination + post-infectious context in a child = ADEM. ~50% are MOG-IgG positive.',
+       'Workup: MRI brain + spine, CSF (mild lymphocytic pleocytosis, no OCBs typically), MOG-IgG, AQP4-IgG, viral PCR.',
+       'Treatment: IV methylprednisolone 30 mg/kg/day (max 1 g) × 3–5 days, then oral taper over 4–6 weeks. PLEX/IVIG if refractory. ICU as needed. Antiseizure medication.',
+       'Most children recover well. Relapse → consider maintenance immunotherapy (rituximab, IVIG, MMF).']);
+    if (s1 === 'adult') return showDemy('Broad differential &mdash; not just MS',
+      ['Adult encephalopathy + demyelination: ADEM (rarer in adults), MOGAD, autoimmune encephalitis (anti-NMDA-R, LGI1, etc.), CNS lupus, neurosarcoidosis, CNS vasculitis, infectious (HSV, VZV), PML, paraneoplastic.',
+       'Workup: MRI brain + cord, CSF (cell-based assay for AQP4 &amp; MOG), full autoimmune encephalitis antibody panel, paraneoplastic panel, HSV PCR, body imaging for occult malignancy, EEG.',
+       'Empirical aciclovir if HSV cannot be ruled out; high-dose steroids ± IVIG/PLEX based on most likely diagnosis.']);
+    if (s1 === 'cortical') return showDemy('FLAMES &mdash; MOGAD cerebral cortical encephalitis',
+      ['Cortical seizures with unilateral cortical FLAIR hyperintensity = FLAMES (FLAIR-hyperintense lesions in anti-MOG-associated encephalitis with seizures).',
+       'Workup: MOG-IgG, AQP4-IgG, CSF, EEG, video-EEG if status, full autoimmune panel to exclude alternatives.',
+       'Treatment: high-dose IV steroids with longer taper, antiseizure medication.']);
+  }
+
+  if (s0 === 'postrema') return showDemy('Area postrema syndrome &mdash; NMOSD until proven otherwise',
+    ['Intractable nausea / vomiting / hiccups &gt; 48 hours, especially with corresponding dorsal medullary lesion on MRI, is highly specific for NMOSD.',
+     'Send AQP4-IgG (and MOG-IgG) urgently.',
+     'Workup: MRI brain (area postrema) + cord (often LETM).',
+     'Acute: IV methylprednisolone 1 g daily × 5 days. PLEX threshold low if severe or attack-typical.',
+     'Long-term: if AQP4+ → eculizumab/inebilizumab/satralizumab or rituximab.']);
+
+  if (s0 === 'ino') {
+    addDemy(1, '2. Patient age?',
+      [['young','Young adult (&lt; 50)'],['older','Older adult (&gt; 50)']]);
+    const s1 = demyState[1];
+    if (s1 === 'young') return showDemy('Likely MS &mdash; especially if INO is bilateral',
+      ['Bilateral INO in a young person is MS until proven otherwise (also consider MOGAD, NMOSD if other features).',
+       'Workup: MRI brain (look for MLF lesion) + cord, CSF (OCBs), AQP4-IgG, MOG-IgG.',
+       'Acute attack: IV methylprednisolone. Long-term DMT per McDonald criteria.']);
+    if (s1 === 'older') return showDemy('Differential broadens in older adults',
+      ['INO in older adults: think brainstem stroke (especially lacunar) first; tumour; less commonly MS (late-onset MS exists).',
+       'Workup: MRI brain with diffusion, CTA/MRA for stroke workup, demyelinating panel if MRI shows inflammatory lesions.']);
+  }
+
+  if (s0 === 'sensory') return showDemy('Sensory / fatigue / cognitive without focal event &mdash; investigate but think broadly',
+    ['Non-specific symptoms without a focal demyelinating event have a wide differential: fibromyalgia, depression, OSA, B12/iron deficiency, thyroid disease, drug effect.',
+     'Have a low threshold for MRI if there are focal neurological signs, family history, or persistent symptoms; serum AQP4/MOG, B12, TSH.',
+     '<strong>Avoid overdiagnosing MS based on non-specific symptoms + non-specific MRI white matter changes</strong> &mdash; small white matter hyperintensities are very common (migraine, vascular) and do not equal MS.',
+     'Consider RIS if MRI is suggestive of MS in an asymptomatic patient &mdash; specialist referral and follow-up.']);
+}
+
+function addDemy(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  demyRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => demyAns(step, b.dataset.val)));
+  if (demyState[step]) {
+    const t = wrap.querySelector(`[data-val="${demyState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showDemy(title, items) {
+  demyResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  demyResult.classList.add('show');
+}
+
+function resetDemy() {
+  demyState = {};
+  demyRest.innerHTML = '';
+  demyResult.classList.remove('show');
+  document.querySelectorAll('#demyTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => demyAns(0, b.dataset.val)));
+
+/* ===== McDonald 2017 Checker ===== */
+const mcdItems = [
+  // DIS items
+  {id:'periv', cat:'dis', label:'T2 lesion in periventricular region (≥ 1)', sub:'McDonald 2017 DIS region #1'},
+  {id:'juxt', cat:'dis', label:'T2 lesion juxtacortical or cortical (≥ 1)', sub:'McDonald 2017 DIS region #2'},
+  {id:'infra', cat:'dis', label:'T2 lesion infratentorial (≥ 1)', sub:'McDonald 2017 DIS region #3 (brainstem, cerebellum)'},
+  {id:'cord', cat:'dis', label:'T2 lesion in spinal cord (≥ 1)', sub:'McDonald 2017 DIS region #4'},
+  // DIT items
+  {id:'simult', cat:'dit', label:'Simultaneous gadolinium-enhancing AND non-enhancing lesions on a single scan', sub:'Satisfies DIT on a single MRI'},
+  {id:'new', cat:'dit', label:'New T2 or gadolinium-enhancing lesion on follow-up MRI', sub:'Satisfies DIT on follow-up'},
+  // Clinical
+  {id:'attacks2', cat:'clin', label:'≥ 2 attacks with objective evidence of ≥ 2 lesions', sub:'No additional data needed for diagnosis'},
+  {id:'attacks2_1', cat:'clin', label:'≥ 2 attacks with objective evidence of 1 lesion (and reasonable historical evidence of prior attack at different site)', sub:'No additional data needed'},
+  {id:'attack1', cat:'clin', label:'1 attack with objective evidence of 1 or more lesions (CIS)', sub:'Need DIS and DIT to make MS diagnosis'},
+  // CSF
+  {id:'ocbs', cat:'csf', label:'CSF-specific oligoclonal bands present (≥ 2, not in serum)', sub:'2017 change: substitutes for DIT in CIS'},
+  // PPMS-specific
+  {id:'ppms_prog', cat:'ppms', label:'≥ 1 year of insidious neurological progression', sub:'Required for PPMS pathway'},
+  {id:'ppms_brain', cat:'ppms', label:'≥ 1 typical T2 brain lesion in periventricular, juxtacortical/cortical, or infratentorial region', sub:'PPMS criterion (a)'},
+  {id:'ppms_cord', cat:'ppms', label:'≥ 2 T2 lesions in spinal cord', sub:'PPMS criterion (b)'},
+];
+
+const mcdBox = document.getElementById('mcdBox');
+const mcdChecks = {};
+mcdItems.forEach((it, i) => {
+  const div = document.createElement('div');
+  div.className = 'mcd-row';
+  div.innerHTML = `
+    <input type="checkbox" id="mcd-${it.id}">
+    <label for="mcd-${it.id}"><strong>${it.label}</strong><span class="sub">${it.sub}</span></label>`;
+  mcdBox.appendChild(div);
+  const cb = div.querySelector('input');
+  cb.addEventListener('change', updateMcd);
+  mcdChecks[it.id] = cb;
+});
+
+const mcdResult = document.createElement('div');
+mcdResult.className = 'mcd-result';
+mcdResult.innerHTML = 'Tick items to assess against the 2017 McDonald criteria.';
+mcdBox.appendChild(mcdResult);
+
+function updateMcd() {
+  // Count DIS regions
+  const disCount = ['periv','juxt','infra','cord'].filter(k => mcdChecks[k].checked).length;
+  const dis = disCount >= 2;
+  const dit = mcdChecks['simult'].checked || mcdChecks['new'].checked;
+  const ocbs = mcdChecks['ocbs'].checked;
+  const attacks2 = mcdChecks['attacks2'].checked;
+  const attacks2_1 = mcdChecks['attacks2_1'].checked;
+  const attack1 = mcdChecks['attack1'].checked;
+  // PPMS pathway
+  const ppmsProg = mcdChecks['ppms_prog'].checked;
+  const ppmsBrain = mcdChecks['ppms_brain'].checked;
+  const ppmsCord = mcdChecks['ppms_cord'].checked;
+  const ppmsSecondary = [ppmsBrain, ppmsCord, ocbs].filter(Boolean).length;
+
+  let verdict = '';
+  let cls = 'mcd-result';
+
+  if (attacks2) {
+    verdict = '<strong>MS diagnosis met (≥ 2 attacks + ≥ 2 lesions).</strong> No additional data required.';
+    cls += ' good';
+  } else if (attacks2_1) {
+    verdict = '<strong>MS diagnosis met (≥ 2 attacks + 1 lesion with historical prior attack at different site).</strong> No additional data required.';
+    cls += ' good';
+  } else if (attack1) {
+    // CIS pathway needs DIS AND DIT
+    const ditEffective = dit || ocbs;
+    if (dis && ditEffective) {
+      verdict = '<strong>MS diagnosis met (CIS pathway).</strong> DIS satisfied (' + disCount + ' regions ≥ 2). DIT satisfied (' + (dit ? 'MRI' : 'CSF OCBs substituting for DIT per 2017 update') + ').';
+      cls += ' good';
+    } else if (!dis && !ditEffective) {
+      verdict = 'CIS — neither DIS nor DIT yet established. Need ≥ 2 typical regions on MRI AND DIT (MRI dynamics or OCBs).';
+      cls += ' partial';
+    } else if (!dis) {
+      verdict = 'CIS — DIT satisfied but DIS not (need lesions in ≥ 2 of: periventricular, juxtacortical, infratentorial, cord; currently ' + disCount + ').';
+      cls += ' partial';
+    } else {
+      verdict = 'CIS — DIS satisfied (' + disCount + ' regions) but DIT not. Add follow-up MRI showing new T2/gad lesion OR CSF-specific OCBs.';
+      cls += ' partial';
+    }
+  } else if (ppmsProg) {
+    if (ppmsSecondary >= 2) {
+      verdict = '<strong>PPMS diagnosis met</strong> (≥ 1 year progression + ' + ppmsSecondary + ' supporting criteria: ' + [ppmsBrain && 'brain lesion', ppmsCord && '≥ 2 cord lesions', ocbs && 'CSF OCBs'].filter(Boolean).join(', ') + ').';
+      cls += ' good';
+    } else {
+      verdict = 'PPMS pathway — 1 year of progression present, but need 2 of: typical brain lesion, ≥ 2 cord lesions, CSF OCBs (currently ' + ppmsSecondary + ').';
+      cls += ' partial';
+    }
+  } else {
+    verdict = 'Select a clinical scenario (attacks or progressive course) plus relevant DIS, DIT, and CSF features.';
+  }
+
+  mcdResult.className = cls;
+  mcdResult.innerHTML = verdict;
+}
+updateMcd();
+</script>
+</body>
+</html>
