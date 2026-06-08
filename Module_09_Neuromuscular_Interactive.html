@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 9 — Neuromuscular Disorders (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#5ad490; --accent-2:#a0eec0;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(90,212,144,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#082817; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#bff5d4}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(90,212,144,.10); border-color:var(--accent); color:#bff5d4}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#082817; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(90,212,144,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* GBS calculator */
+  .gbs{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .gbs .row{padding:10px 0; border-bottom:1px dashed var(--line)}
+  .gbs .row:last-child{border-bottom:none}
+  .gbs .row label{display:flex; gap:10px; align-items:flex-start; cursor:pointer; color:var(--ink)}
+  .gbs .row input[type=checkbox]{margin-top:4px; transform:scale(1.2); accent-color:var(--accent)}
+  .gbs .row label .sub{display:block; font-size:.85rem; color:var(--muted); margin-top:3px}
+  .gbs-result{position:sticky; bottom:8px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:12px 18px; margin-top:14px; font-size:.95rem; color:var(--ink)}
+  .gbs-result.danger{border-color:var(--refer); background:rgba(255,138,122,.10)}
+  .gbs-result.caution{border-color:var(--warn); background:rgba(255,185,92,.10)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 9</span>
+    <span class="badge">General physician</span>
+    <span class="badge">2024 MG biologics</span>
+    <h1>Neuromuscular Disorders — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 38, 43, 45) and Merritt's <em>Neurology</em> (14e, Ch. 14, 88, 90–99). Includes 2017–2024 FDA-approved MG biologics (eculizumab, ravulizumab, efgartigimod, rozanolixizumab, zilucoplan), 2023 tofersen for SOD1-ALS, and hATTR amyloidosis therapies.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="localizer">Weakness Localizer</button>
+    <button data-tab="gbsTool">GBS Respiratory Risk</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>"Weakness" is one of the most common complaints in primary care, and the differential ranges from benign deconditioning to fatal GBS. The five emergencies in this module — Guillain-Barr&eacute; syndrome, myasthenic crisis, botulism, rhabdomyolysis with AKI, periodic paralysis — share one thing: they kill within hours to days if missed, and they recover well if recognised early.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Localise weakness in seconds to one of seven anatomical sites: UMN, cord, motor neuron, root, plexus, nerve, NMJ, muscle.</li>
+      <li>Pick GBS, MG crisis, and botulism out of the differential and act before respiratory failure.</li>
+      <li>Run the first-tier polyneuropathy workup (glucose, B12, SPEP) before referring.</li>
+      <li>Prescribe pyridostigmine, steroids, and steroid-sparing agents in MG; know when to escalate to IVIG/PLEX or new biologics.</li>
+      <li>Recognise ALS, refer to multidisciplinary clinic, and counsel about riluzole/edaravone/tofersen.</li>
+      <li>Distinguish statin myalgia, statin myopathy, statin-rhabdomyolysis, and statin-IMNM (the persistent anti-HMGCR one).</li>
+    </ul>
+
+    <div class="pearl"><strong>The single most useful bedside habit:</strong> if a patient has progressive weakness AND <em>any</em> bulbar / respiratory / autonomic / red-flag feature → measure <strong>FVC and negative inspiratory force (NIF)</strong>, send to ED, and start serial monitoring. "20/30/40 rule": consider intubation when FVC &lt; 20 mL/kg, MIP less negative than −30, or MEP &lt; 40.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Localising weakness — UMN, LMN, NMJ, muscle</summary>
+      <div class="body">
+        <table>
+          <tr><th>Site</th><th>Reflexes</th><th>Sensation</th><th>Pattern</th></tr>
+          <tr><td>Cortex / UMN tract</td><td>↑</td><td>Cortical loss possible</td><td>Pyramidal / hemiparetic</td></tr>
+          <tr><td>Cord</td><td>↑ below level</td><td>Sensory level</td><td>Para/quadri</td></tr>
+          <tr><td>Anterior horn / MND</td><td>↓ (mixed with UMN in ALS)</td><td>Normal</td><td>Atrophy + fasciculations</td></tr>
+          <tr><td>Root</td><td>↓ specific reflex</td><td>Dermatomal</td><td>Myotomal + pain</td></tr>
+          <tr><td>Plexus</td><td>↓</td><td>Multi-dermatomal</td><td>Multi-nerve in one limb + pain</td></tr>
+          <tr><td>Nerve</td><td>↓ in territory</td><td>Specific nerve area</td><td>Mononeuropathy or polyneuropathy</td></tr>
+          <tr><td>NMJ</td><td>Normal</td><td>Normal</td><td>Fatigable; ocular/bulbar; proximal</td></tr>
+          <tr><td>Muscle</td><td>Normal until late</td><td>Normal</td><td>Proximal symmetric</td></tr>
+        </table>
+        <div class="pearl">The two most discriminating bedside features: <strong>reflexes</strong> and <strong>sensory exam</strong>.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Neuromuscular emergencies</summary>
+      <div class="body">
+        <p>Five to remember:</p>
+        <ol>
+          <li><strong>GBS</strong> — admit; serial FVC/NIF; IVIG or PLEX. ICU if 20/30/40 rule breached or autonomic instability.</li>
+          <li><strong>Myasthenic crisis</strong> — IVIG or PLEX; ICU; remove precipitating drug/infection.</li>
+          <li><strong>Botulism</strong> — antitoxin; ICU; public-health reporting.</li>
+          <li><strong>Rhabdomyolysis</strong> — IV fluids, electrolytes, monitor renal function.</li>
+          <li><strong>Periodic paralysis</strong> — correct K+; cardiac monitoring.</li>
+        </ol>
+        <p><strong>Red flags</strong>: rapid progression, dyspnoea, can't hold head up, bulbar, autonomic instability, new bowel/bladder.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Approach to the polyneuropathy</summary>
+      <div class="body">
+        <p>For distal symmetric polyneuropathy, the AAN first-tier workup identifies a cause in &gt; 80% of treatable cases: <strong>fasting glucose / OGTT · vitamin B12 (with MMA if borderline) · SPEP / IFE / serum free light chains.</strong> Add TSH, CBC, renal/liver, HbA1c, HIV/HepB/HepC.</p>
+        <p>EMG/NCS: <em>demyelinating</em> (slow conduction velocity, conduction block, prolonged distal latency) vs <em>axonal</em> (low amplitudes, normal conduction velocity).</p>
+        <p>Most common causes worldwide: <strong>diabetes</strong> &gt; idiopathic &gt; alcohol/B12 &gt; chemotherapy &gt; hereditary &gt; autoimmune.</p>
+        <p>~20% remain idiopathic after a thorough workup.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Guillain-Barr&eacute; syndrome</summary>
+      <div class="body">
+        <p>Ascending symmetric flaccid weakness + areflexia, often after recent infection (Campylobacter, CMV, EBV, Mycoplasma, Zika, COVID).</p>
+        <p><strong>Diagnosis:</strong> CSF albuminocytologic dissociation (high protein, normal cells; sensitivity rises after week 1); EMG/NCS shows demyelinating (AIDP) or axonal (AMAN, AMSAN) pattern; anti-GQ1b in Miller-Fisher.</p>
+        <p><strong>Treatment:</strong> IVIG 0.4 g/kg/day × 5 days <em>OR</em> PLEX 5 sessions over 1–2 weeks. <em>Steroids alone don't work.</em> ICU monitoring with serial FVC, NIF; ICU admission if 20/30/40 rule breached.</p>
+        <div class="warn">Variants: AMAN (pure motor axonal, post-Campylobacter, East Asia); Miller-Fisher (ophthalmoplegia + ataxia + areflexia, anti-GQ1b); Bickerstaff brainstem encephalitis; pharyngeal-cervical-brachial; pure sensory; acute pandysautonomia.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. CIDP and multifocal motor neuropathy</summary>
+      <div class="body">
+        <p><strong>CIDP</strong>: chronic GBS-like illness; progressive or relapsing &gt; 8 weeks; symmetric proximal AND distal weakness + sensory + areflexia + demyelinating NCS + CSF dissociation. Treat with IVIG, PLEX, or <strong>steroids</strong> (steroids work in CIDP, unlike GBS). Maintenance often needed for years.</p>
+        <p><strong>MMN</strong>: slowly progressive, asymmetric, pure motor weakness; distal arms first; conduction block at non-entrapment sites; anti-GM1 in ~50%. <em>No UMN signs</em> — that's the key differentiator from ALS. Treat with IVIG; steroids and PLEX can worsen.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Myasthenia gravis</summary>
+      <div class="body">
+        <p>Fluctuating fatigable weakness, no sensory loss, reflexes preserved. Ocular onset in 50%; half generalise within 2 years.</p>
+        <p><strong>Antibodies</strong>: AChR (80%), MuSK (5–10% — often prominent bulbar/respiratory + atrophy), LRP4 (1–3%), seronegative (5–10%).</p>
+        <p><strong>Diagnosis</strong>: serology + RNS (decrement &gt;10% at 2–3 Hz) + single-fibre EMG (most sensitive). Ice-pack test for ocular ptosis. CT chest for thymoma.</p>
+        <p><strong>Treatment ladder:</strong></p>
+        <ol>
+          <li>Symptomatic: pyridostigmine.</li>
+          <li>Chronic: prednisone + steroid-sparing (azathioprine, MMF, methotrexate, ciclosporin).</li>
+          <li>Thymectomy: always for thymoma; for non-thymomatous AChR+ generalised MG age 18–65.</li>
+          <li>Acute / crisis: IVIG or PLEX.</li>
+          <li>Refractory (new biologics 2017–2024): eculizumab, ravulizumab (C5 inhibitors); efgartigimod, rozanolixizumab (FcRn antagonists); zilucoplan (C5 SC daily). Rozanolixizumab first agent approved for both AChR+ AND MuSK+ MG (2023).</li>
+        </ol>
+        <div class="warn"><strong>Drugs to avoid in MG</strong>: aminoglycosides, fluoroquinolones, macrolides (telithromycin contraindicated), β-blockers, high-dose CCBs, IV magnesium (eclampsia!), quinolones, quinine/quinidine/procainamide, neuromuscular blocking agents, checkpoint inhibitors (can induce MG).</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Lambert-Eaton, botulism, and other NMJ disorders</summary>
+      <div class="body">
+        <p><strong>LEMS</strong>: anti-VGCC antibodies; 60% paraneoplastic (especially SCLC). Proximal weakness with <em>post-exercise facilitation</em> (opposite of MG fatigue). Autonomic dysfunction (dry mouth, ED). RNS: incrementing response at high frequency. Treat the cancer; amifampridine (3,4-DAP), pyridostigmine, immunotherapy.</p>
+        <p><strong>Botulism</strong>: pre-synaptic; toxin blocks ACh release. Descending paralysis starting with bulbar features; prominent autonomic (mydriasis, dry mouth, ileus). Sources: home-canned food, infant honey, wound (IV drug use), iatrogenic. Treat with equine antitoxin (BabyBIG for infants); supportive ICU; report to public health.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. ALS and motor neuron diseases</summary>
+      <div class="body">
+        <p>Combined UMN + LMN signs in the same region, asymmetric onset, sparing of sensory and oculomotor function. Median survival 3–5 years from onset; 10% &gt; 10 years.</p>
+        <p><strong>Variants:</strong> PLS (pure UMN), PMA (pure LMN), progressive bulbar palsy, Kennedy (X-linked), SMA (childhood, now treatable: nusinersen, risdiplam, onasemnogene abeparvovec).</p>
+        <p><strong>Don't miss the treatable mimics:</strong> MMN (IVIG-responsive), cervical spondylotic myelopathy with radiculopathy, IBM, lead toxicity, HIV-MND.</p>
+        <p><strong>Treatment:</strong> riluzole (3-month survival benefit); edaravone (modest functional benefit); <strong>tofersen</strong> for SOD1-ALS (accelerated FDA approval 2023); multidisciplinary clinic care extends survival ~7 months; NIV when FVC &lt; 50% or symptomatic; PEG before FVC &lt; 50% (procedure-risk threshold).</p>
+        <div class="warn">AMX0035 (sodium phenylbutyrate / taurursodiol) was approved 2022 but <em>withdrawn from market in 2024</em> after failed phase 3 confirmatory trial.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Myopathies</summary>
+      <div class="body">
+        <p>Proximal symmetric weakness, normal reflexes/sensation, often elevated CK. Gowers sign for proximal weakness.</p>
+        <p><strong>Inflammatory:</strong> dermatomyositis (heliotrope rash, Gottron papules, paraneoplastic; MDA5 with ILD), polymyositis (over-diagnosed historically), <strong>IMNM</strong> (anti-HMGCR — often statin-associated and persistent; anti-SRP), <strong>IBM</strong> (older adults, finger flexors + quadriceps, no immunotherapy works), antisynthetase syndrome (anti-Jo-1 + myositis + ILD + mechanic's hands).</p>
+        <p><strong>Dystrophies:</strong> Duchenne (now treatable: exon-skipping ASOs, gene therapy delandistrogene moxeparvovec 2023), myotonic, FSHD, LGMD, oculopharyngeal.</p>
+        <p><strong>Treatable metabolic myopathies:</strong> Pompe (enzyme replacement), McArdle (exercise + diet).</p>
+        <p><strong>Channelopathies:</strong> hyper/hypokalaemic periodic paralysis; paramyotonia congenita.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Statin myopathy and drug-induced myopathies</summary>
+      <div class="body">
+        <p>Statin-associated muscle symptoms (SAMS) range from mild myalgia (5–10%) through myopathy (CK 10× ULN, resolves on stopping) to rhabdomyolysis to the rarer <strong>statin-associated immune-mediated necrotising myopathy (IMNM)</strong> — anti-HMGCR antibody + persistent weakness despite stopping the statin; requires immunotherapy (steroids + IVIG ± rituximab).</p>
+        <p>Steroid myopathy: chronic high-dose steroids; <em>normal CK</em>; proximal atrophy.</p>
+        <p>Other drug myopathies: colchicine (especially renal impairment), amiodarone (also neuropathy), hydroxychloroquine (vacuolar), older NRTIs (mitochondrial), checkpoint inhibitors ("3M syndrome" of myositis + myocarditis + MG).</p>
+        <p><strong>Critical illness myopathy/neuropathy</strong>: develops in ICU especially with sepsis; failure to wean. Recovery slow but largely complete.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. When to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li>Emergency: acute progressive weakness with dyspnoea, bulbar, or autonomic instability.</li>
+            <li>Myasthenic crisis or impending crisis.</li>
+            <li>Rhabdomyolysis with AKI risk.</li>
+            <li>Acute foot drop in young patient (peroneal, L5, demyelinating).</li>
+          </ul>
+        </div>
+        <div class="warn">
+          <strong>Routine:</strong> suspected ALS, suspected MG, suspected inflammatory myopathy, CIDP suspected, distal symmetric polyneuropathy with no cause after first-tier workup, suspected hereditary disease, refractory carpal tunnel, plexopathy.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="localizer">
+    <h2>Weakness Localizer</h2>
+    <p class="muted">Answer the questions; the tool suggests the most likely anatomical level.</p>
+    <div class="tool" id="locTool">
+      <div class="q">1. Reflex pattern?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="hyper">Hyperreflexia, Babinski, spastic tone</button>
+        <button class="opt" data-val="hypo">Hyporeflexia or areflexia, flaccid tone</button>
+        <button class="opt" data-val="mixed">Mixed UMN + LMN (hyperreflexia AND atrophy/fasciculations)</button>
+        <button class="opt" data-val="normal">Normal reflexes</button>
+      </div>
+      <div id="loc-rest"></div>
+      <div class="result" id="loc-result"></div>
+      <button class="reset" onclick="resetLoc()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="gbsTool">
+    <h2>GBS Respiratory Risk Assessor</h2>
+    <p class="muted">For educational use. Tick features present in your suspected GBS patient. Verdict updates live.</p>
+    <div class="gbs" id="gbsBox"></div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 35-year-old with 5 days of ascending leg weakness after diarrhoea</summary>
+      <div class="body">
+        <p>Two weeks ago he had Campylobacter gastroenteritis. Now: bilateral leg weakness progressing to hip flexors; weak hand grip; areflexia. No sensory level. FVC 45% predicted (declining). HR variable; orthostatic. CSF: protein 95 mg/dL, 3 WBC/µL (albuminocytologic dissociation).</p>
+        <p><strong>Diagnosis:</strong> Guillain-Barr&eacute; syndrome, likely AMAN (post-Campylobacter).</p>
+        <p><strong>Plan:</strong> Admit ICU (declining FVC, autonomic instability). Start <strong>IVIG 0.4 g/kg/day × 5 days</strong> (or PLEX × 5). Serial FVC/NIF/MIP/MEP. Intubate semi-electively if FVC &lt; 20 mL/kg or MIP less negative than −30. Cardiac telemetry for autonomic arrhythmias. DVT prophylaxis. Early PT/OT. <em>Do not use steroids alone.</em></p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 28-year-old woman with double vision and droopy lids worse by evening</summary>
+      <div class="body">
+        <p>For 3 months. Initially intermittent ptosis; now constant by mid-afternoon. Diplopia variable. Last week began choking on water and her voice has become nasal. Exam: bilateral ptosis worse on sustained upgaze; ice-pack test: ptosis improves &gt; 2 mm in 2 min. Limb power normal. Reflexes normal. No sensory loss.</p>
+        <p><strong>Diagnosis:</strong> Myasthenia gravis, generalised, evolving from ocular onset.</p>
+        <p><strong>Plan:</strong> AChR antibody, MuSK if AChR negative. RNS / single-fibre EMG. CT chest (thymoma). Start <strong>pyridostigmine</strong> 30–60 mg q4–6h. Add prednisone 1 mg/kg/day with slow titration (start low and titrate, or admit during initial rise to watch for transient worsening). PCP prophylaxis, bone protection. Steroid-sparing agent (azathioprine or MMF) for chronic management. <strong>Avoid</strong> aminoglycosides, fluoroquinolones, IV magnesium, β-blockers. Discuss thymectomy if no thymoma but age 18–65 with AChR+ generalised disease. If refractory: efgartigimod / rozanolixizumab / eculizumab / ravulizumab / zilucoplan are now options.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 65-year-old man with 18 months of progressive weakness and twitching</summary>
+      <div class="body">
+        <p>Initially weakness in his right hand (couldn't button shirts), then atrophy of the first dorsal interosseous. Now weakness of both hands, mild dysarthria. Exam: tongue fasciculations and atrophy; brisk jaw jerk; bilateral hand wasting with fasciculations; biceps and triceps reflexes hyperactive; Babinski equivocal. Normal sensation. Normal cognition.</p>
+        <p><strong>Diagnosis:</strong> Amyotrophic lateral sclerosis (combined UMN + LMN, asymmetric, sensory spared, no oculomotor or sphincter involvement).</p>
+        <p><strong>Plan:</strong> EMG showing widespread denervation in multiple regions, fasciculations. MRI brain &amp; cervical spine (rule out compressive cervical myelopathy with radiculopathy). Send C9orf72 testing if FTD features or family history. Start <strong>riluzole 50 mg BID</strong>; consider edaravone. Refer to multidisciplinary ALS clinic. Discuss SOD1 testing — if positive, <strong>tofersen</strong> available. Counsel on advance care planning, PEG and NIV timing. Test FVC for baseline; start NIV when FVC &lt; 50% or symptomatic. <em>Do not delay PEG until FVC &lt; 50% (placement is safer above that threshold).</em></p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 60-year-old diabetic woman with 4 months of tingling and burning in both feet</summary>
+      <div class="body">
+        <p>Type 2 diabetes for 12 years, HbA1c 8.7%. Burning soles, numbness extending up to mid-shin. Loss of ankle jerks; reduced vibration and pinprick at toes; touch preserved in trunk. No weakness. EMG/NCS: distal axonal sensorimotor polyneuropathy.</p>
+        <p><strong>Diagnosis:</strong> Distal symmetric diabetic polyneuropathy (most common cause of polyneuropathy worldwide).</p>
+        <p><strong>Plan:</strong> Optimise glycaemic control (target HbA1c ~7%). First-tier polyneuropathy workup: <strong>B12 + MMA, SPEP/IFE, TSH</strong>. Symptomatic: duloxetine 30–60 mg/day or pregabalin 75–300 mg BID or gabapentin 300–1200 mg TID. Foot care education. Address vascular risk. Consider tapentadol or topical capsaicin/lidocaine if first-line fails. Acupuncture or PT may help.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 70-year-old man with bilateral foot drop and weak hand grip after weeks of weight loss</summary>
+      <div class="body">
+        <p>Lost 8 kg unintentionally. Now bilateral foot drop, weak hand grip, severe shin and forearm pain. Asymmetric. EMG: multifocal axonal neuropathy involving sural, peroneal, ulnar, median nerves. ANCA negative; cryoglobulins negative; hepatitis serologies negative; ANA modestly positive; rheumatoid factor positive. ESR 80.</p>
+        <p><strong>Diagnosis:</strong> Mononeuritis multiplex, likely vasculitic neuropathy. Need to identify systemic vs nonsystemic; classic causes include polyarteritis nodosa, ANCA-associated vasculitis, cryoglobulinaemia, RA-associated.</p>
+        <p><strong>Plan:</strong> Nerve biopsy (sural) to confirm vasculitis. Pulse IV methylprednisolone + cyclophosphamide or rituximab. Search for systemic involvement (renal, ENT, skin, lung). Pain management. Long-term follow-up.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 55-year-old man on rosuvastatin 40 mg presents with proximal weakness, CK 8,000</summary>
+      <div class="body">
+        <p>Difficulty arising from chair and climbing stairs for 6 weeks. No exercise, no fever. Statin started 4 months ago for ASCVD. Weakness persists 8 weeks after stopping statin. CK still 6,200. EMG: myopathic; MRI muscle: oedema and atrophy. Anti-HMGCR antibody positive.</p>
+        <p><strong>Diagnosis:</strong> Statin-associated immune-mediated necrotising myopathy (IMNM).</p>
+        <p><strong>Plan:</strong> This is <em>not</em> typical statin myopathy &mdash; it does not resolve with statin withdrawal. Treat with high-dose steroids (prednisone 1 mg/kg/day) plus IVIG 2 g/kg in divided doses; add rituximab or methotrexate if not responding. May need years of immunotherapy. Counsel: cannot rechallenge any statin. Alternative lipid-lowering: ezetimibe, PCSK9 inhibitor.</p>
+        <div class="warn">Anti-HMGCR myopathy is a key clinical pearl: persistent weakness with elevated CK <em>after</em> stopping statin is not just bad luck — it's an autoimmune myopathy that needs immunotherapy.</div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 9 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 38, 43, 45; Merritt's <em>Neurology</em> 14e Ch. 14, 88, 90–99. FDA approvals 2017–2024 integrated: MG biologics (eculizumab, ravulizumab, efgartigimod, rozanolixizumab, zilucoplan), tofersen for SOD1-ALS (2023), Duchenne gene therapy delandistrogene moxeparvovec (2023), hATTR amyloidosis therapies (tafamidis, patisiran, vutrisiran, inotersen, eplontersen).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Localizing', q:'Two bedside features that best discriminate UMN/LMN/NMJ/muscle?', a:'Reflexes (↑ UMN; ↓ LMN; normal NMJ/muscle) and sensory exam (normal in NMJ/muscle/MND; affected in peripheral nerve/root/cord/cortex).'},
+  {tag:'Localizing', q:'Pattern of NMJ disease?', a:'Fluctuating fatigable weakness; prominent ocular/bulbar; proximal > distal; NO sensory loss; reflexes normal.'},
+  {tag:'GBS', q:'CSF hallmark in GBS?', a:'Albuminocytologic dissociation — elevated protein with normal cell count (< 10/µL). Often normal in first few days; sensitivity rises by week 2.'},
+  {tag:'GBS', q:'Treatment options for GBS — and which one to AVOID?', a:'IVIG 0.4 g/kg/day × 5 days OR PLEX 5 sessions. Equal efficacy. NOT additive. AVOID steroids alone — they do not work in GBS.'},
+  {tag:'GBS', q:'20/30/40 rule for intubation in GBS?', a:'Consider intubation when FVC < 20 mL/kg OR MIP less negative than −30 cmH₂O OR MEP < 40 cmH₂O. Don\'t wait for hypercapnia.'},
+  {tag:'GBS variant', q:'Miller-Fisher syndrome triad and antibody?', a:'Ophthalmoplegia + ataxia + areflexia. Anti-GQ1b antibody in > 90%.'},
+  {tag:'CIDP', q:'How does CIDP treatment differ from GBS?', a:'Steroids work in CIDP (unlike GBS). First-line options: IVIG, PLEX, or steroids — all equally effective. Maintenance often needed for years.'},
+  {tag:'MMN', q:'Multifocal motor neuropathy — key distinguishing feature from ALS?', a:'NO upper motor neuron signs. Slowly progressive, asymmetric, distal arm weakness; conduction block at non-entrapment sites; anti-GM1 in ~50%. Treat with IVIG; steroids and PLEX can WORSEN.'},
+  {tag:'MG', q:'Most sensitive electrodiagnostic test for myasthenia gravis?', a:'Single-fibre EMG (90–95% sensitive in generalised MG). RNS decrement at 2–3 Hz is supportive. Bedside ice-pack test improves ptosis > 2 mm in ~80% of myasthenic ptosis.'},
+  {tag:'MG', q:'New MG biologics 2017–2024 — name the five classes/drugs?', a:'(1) Complement C5: eculizumab, ravulizumab, zilucoplan. (2) FcRn antagonist: efgartigimod, rozanolixizumab. Rozanolixizumab (2023) is the first to be approved for both AChR+ AND MuSK+ MG.'},
+  {tag:'MG drugs', q:'Five drugs that must be avoided in MG?', a:'Aminoglycosides, fluoroquinolones, IV magnesium (eclampsia regimen!), β-blockers, telithromycin. Also avoid neuromuscular blocking agents, checkpoint inhibitors (can induce MG).'},
+  {tag:'LEMS', q:'Key examination feature that distinguishes LEMS from MG?', a:'Post-exercise facilitation — strength briefly improves after brief exercise (opposite of MG fatigability). RNS shows incrementing response at high-frequency stimulation. Anti-VGCC antibodies. 60% paraneoplastic (small-cell lung cancer).'},
+  {tag:'Botulism', q:'Classic clinical picture of botulism?', a:'Descending paralysis starting with bulbar (diplopia, ptosis, dysarthria, dysphagia) + prominent autonomic (mydriasis, dry mouth, ileus, urinary retention). Treat with antitoxin; report to public health.'},
+  {tag:'ALS', q:'Diagnostic principle for ALS?', a:'Combined UMN + LMN signs in the same body region (Awaji / El Escorial criteria), with normal sensation and oculomotor function, sphincters preserved until late, no alternative explanation.'},
+  {tag:'ALS treat', q:'Disease-modifying drugs approved for ALS?', a:'Riluzole (50 mg BID, ~3-month survival benefit); edaravone (modest functional benefit, IV or oral); tofersen (accelerated FDA 2023, for SOD1-mutation ALS only). AMX0035 (sodium phenylbutyrate/taurursodiol) was withdrawn 2024.'},
+  {tag:'ALS care', q:'What extends ALS survival more than any single drug?', a:'Multidisciplinary clinic care (~7 months) + non-invasive ventilation (NIV) when FVC < 50% or symptomatic. Place PEG before FVC drops < 50% (procedure becomes higher risk below that).'},
+  {tag:'Polyneuropathy', q:'AAN first-tier workup for distal symmetric polyneuropathy?', a:'Fasting glucose / OGTT, vitamin B12 (with MMA), SPEP/IFE / serum free light chains. Add TSH, CBC, renal/liver, HbA1c. Identifies cause in > 80% of treatable cases.'},
+  {tag:'Polyneuropathy', q:'Most common cause of polyneuropathy worldwide?', a:'Diabetes mellitus.'},
+  {tag:'Statin', q:'Anti-HMGCR myopathy — what is it and how does it differ from statin myalgia?', a:'Statin-associated immune-mediated necrotising myopathy. CK very high (often > 10,000); weakness PERSISTS after stopping the statin. Needs immunotherapy (steroids + IVIG ± rituximab). Cannot rechallenge any statin.'},
+  {tag:'IBM', q:'Inclusion body myositis hallmark pattern of weakness?', a:'Older adult (often male > 50); ASYMMETRIC weakness of finger flexors and quadriceps; CK mildly elevated; rimmed vacuoles on biopsy; NO effective immunotherapy.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 32-year-old presents with 4 days of ascending leg weakness following a recent diarrhoeal illness. He has bilateral facial weakness, areflexia, and FVC of 35% predicted and falling. Best initial treatment?',
+   choices:['High-dose IV methylprednisolone alone','IV immunoglobulin 0.4 g/kg/day × 5 days OR plasma exchange × 5 sessions','Pyridostigmine','Rituximab'],
+   ans:1,
+   why:'GBS — clinical features, recent infection, CSF findings (likely will show albuminocytologic dissociation). IVIG or PLEX are first-line and equally effective. Steroids alone DO NOT work in GBS. Pyridostigmine is for MG. ICU admission given the declining FVC.'},
+  {q:'A 70-year-old man has 12 months of asymmetric hand weakness, tongue fasciculations, brisk reflexes, and bilateral Babinski signs. Sensation normal. EMG shows widespread denervation. Most likely diagnosis?',
+   choices:['Cervical spondylotic myelopathy','Multifocal motor neuropathy','Amyotrophic lateral sclerosis','Inclusion body myositis'],
+   ans:2,
+   why:'Combined UMN + LMN signs (brisk reflexes + Babinski + tongue fasciculations + denervation on EMG) with sensory sparing = ALS. MMN has NO UMN signs. Cervical myelopathy is possible mimic — get MRI cervical spine to exclude. IBM has weak finger flexors + quadriceps but preserved reflexes.'},
+  {q:'A 45-year-old woman with newly diagnosed AChR+ generalised MG is admitted with respiratory distress. FVC 28% predicted. Best immediate therapy?',
+   choices:['Pyridostigmine PO','Prednisone 60 mg/day','IVIG or plasma exchange','Eculizumab'],
+   ans:2,
+   why:'Myasthenic crisis — needs IVIG or PLEX (equally effective, fast-acting). Steroids can transiently worsen weakness in first 1–2 weeks (don\'t use as sole acute therapy). Pyridostigmine is symptomatic, not crisis treatment. Eculizumab is for refractory chronic disease. After stabilisation: add steroids slowly + steroid-sparing agent.'},
+  {q:'Which drug is a known precipitant of myasthenic crisis and should be avoided in patients with MG?',
+   choices:['Acetaminophen','Levothyroxine','Ciprofloxacin','Aspirin'],
+   ans:2,
+   why:'Fluoroquinolones (especially ciprofloxacin, moxifloxacin), aminoglycosides, macrolides (telithromycin contraindicated), β-blockers, IV magnesium, and certain muscle relaxants are all known MG precipitants. Always check medication list in MG patients.'},
+  {q:'A 60-year-old woman has bilateral painful tingling and burning in her feet for 6 months. HbA1c 8.5%, B12 normal, SPEP normal. EMG shows distal axonal sensorimotor polyneuropathy. Most appropriate first-line symptomatic treatment for the neuropathic pain?',
+   choices:['Hydrocodone','Duloxetine, pregabalin, gabapentin, or amitriptyline','Carbamazepine','Methadone'],
+   ans:1,
+   why:'First-line agents for painful diabetic neuropathy: SNRIs (duloxetine), gabapentinoids (gabapentin, pregabalin), or tricyclics (amitriptyline). Avoid opioids long-term. Carbamazepine is for trigeminal neuralgia. Always optimise glycaemic control first.'},
+  {q:'A 28-year-old develops bilateral painful shoulder weakness with severe pain at onset, then patchy upper-limb weakness 1 week after a viral illness. Diagnosis?',
+   choices:['Cervical disc herniation','Parsonage-Turner syndrome (neuralgic amyotrophy)','Multiple sclerosis','Brachial plexus tumour'],
+   ans:1,
+   why:'Parsonage-Turner syndrome (idiopathic brachial neuritis / neuralgic amyotrophy) — typically severe pain at onset followed by patchy weakness; often post-infectious. Usually self-limited but recovery slow (months to years). Often misdiagnosed initially. MRI plexus may show enhancement; nerve biopsy not usually needed.'},
+  {q:'A 55-year-old man on rosuvastatin develops proximal weakness with CK 9,000 IU/L. Statin is stopped, but 8 weeks later he is still weak with CK 6,500. Anti-HMGCR antibody is positive. Best management?',
+   choices:['Wait longer for statin to wash out','Restart a different statin','Immunotherapy with high-dose prednisone and IVIG','Reassurance — this will resolve on its own'],
+   ans:2,
+   why:'Anti-HMGCR statin-associated immune-mediated necrotising myopathy (IMNM) is autoimmune; it does NOT resolve with stopping the statin alone. Requires immunotherapy (high-dose steroids + IVIG ± rituximab or methotrexate). Patient cannot be rechallenged with any statin. Use ezetimibe or PCSK9 inhibitor for cholesterol management.'},
+  {q:'Which finding on examination most suggests Lambert-Eaton myasthenic syndrome rather than myasthenia gravis?',
+   choices:['Ptosis worse by end of day','Proximal weakness that improves transiently after brief exercise','Bulbar dysphagia','Ocular symptoms at presentation'],
+   ans:1,
+   why:'Post-exercise facilitation (incrementing strength with brief exercise) is characteristic of LEMS — the opposite of MG\'s fatigability. RNS shows incrementing response at high-frequency (20–50 Hz) stimulation. Anti-VGCC antibodies positive. 60% paraneoplastic (especially small-cell lung cancer) — always image the chest.'},
+  {q:'A 24-year-old man develops sudden-onset descending bilateral ptosis, diplopia, dysphagia, and dry mouth 24 hours after eating canned mushrooms at a family gathering. Best next step?',
+   choices:['Pyridostigmine and observe','IVIG','Equine heptavalent botulism antitoxin and ICU admission; report to public health','High-dose steroids'],
+   ans:2,
+   why:'Foodborne botulism — descending paralysis starting with bulbar features + prominent autonomic dysfunction (mydriasis, dry mouth, ileus). Equine antitoxin (heptavalent) is the specific treatment. ICU for respiratory support. Notify public health (reportable disease). Other family members at risk should be evaluated.'},
+  {q:'A 70-year-old man has 2 years of slowly progressive weakness of finger flexors (cannot open jars) and quadriceps (falls and difficulty rising). Reflexes preserved. CK mildly elevated (800). Biopsy: rimmed vacuoles. Diagnosis and prognosis?',
+   choices:['Polymyositis — responds to steroids','Inclusion body myositis — does not respond to immunotherapy','Limb-girdle muscular dystrophy','Myasthenia gravis'],
+   ans:1,
+   why:'Classic IBM: older adult, asymmetric, distal (finger flexors) + proximal (quadriceps), rimmed vacuoles on biopsy. Unlike other inflammatory myopathies, IBM does NOT respond meaningfully to steroids, IVIG, or immunosuppression. Slowly progressive; supportive care only (PT/OT, swallowing assessment, fall prevention).'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== Weakness Localizer ===== */
+const locTool = document.getElementById('locTool');
+const locRest = document.getElementById('loc-rest');
+const locResult = document.getElementById('loc-result');
+let locState = {};
+
+function locAns(step, val) {
+  locState[step] = val;
+  Object.keys(locState).forEach(k => { if (+k > step) delete locState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderLoc();
+}
+
+function renderLoc() {
+  locRest.innerHTML = '';
+  locResult.classList.remove('show');
+  const s0 = locState[0];
+  if (!s0) return;
+
+  if (s0 === 'hyper') {
+    addLoc(1, '2. Distribution?',
+      [['hemi','Hemiparetic (one side)'],['para','Both legs (paraparesis)'],['quadri','All four limbs (quadriparesis)']]);
+    const s1 = locState[1];
+    if (s1 === 'hemi') return showLoc('UMN lesion — likely cortex or capsule',
+      ['Hemiparetic + UMN signs → stroke (acute), tumour, demyelination, abscess.',
+       'Workup: MRI brain ± contrast, vascular imaging if acute (Module 2 stroke).',
+       'Look for cortical signs (aphasia, neglect, visual-field cut).']);
+    if (s1 === 'para' || s1 === 'quadri') return showLoc('Spinal cord lesion (UMN below level)',
+      ['Spastic para/quadriparesis = cord lesion above the affected level.',
+       'Look for sensory level, sphincter involvement, dorsal column signs.',
+       'Workup: urgent MRI whole spine; consider compressive lesion, transverse myelitis, demyelination, B12, syphilis, HTLV-1.']);
+  }
+
+  if (s0 === 'mixed') {
+    return showLoc('Motor neuron disease (ALS spectrum)',
+      ['Combined UMN + LMN signs in same body region + normal sensation + no oculomotor or sphincter involvement = ALS until proven otherwise.',
+       'Order: EMG (widespread denervation), MRI brain &amp; cervical spine to exclude mimics (cervical spondylotic myelopathy with radiculopathy).',
+       'Consider C9orf72, SOD1 genetic testing if appropriate (SOD1 → tofersen).',
+       'Refer to multidisciplinary ALS clinic.',
+       '<strong>Mimics to exclude:</strong> cervical myelopathy with radiculopathy, multifocal motor neuropathy (no UMN signs; treatable with IVIG), inclusion body myositis, Kennedy disease (X-linked, sensory involvement, CAG repeat).']);
+  }
+
+  if (s0 === 'hypo') {
+    addLoc(1, '2. Sensory exam?',
+      [['intact','Normal (no sensory loss)'],['distal','Distal symmetric "stocking-glove" loss'],['derm','Dermatomal pattern'],['mono','Single nerve territory'],['mux','Multiple individual nerves (mononeuritis multiplex)']]);
+    const s1 = locState[1];
+    if (s1 === 'intact') {
+      addLoc(2, '3. Other features?',
+        [['atrophy','Atrophy + fasciculations'],['no_atr','No atrophy, no fasciculations']]);
+      if (locState[2] === 'atrophy') return showLoc('Anterior horn / motor neuron (LMN)',
+        ['Pure LMN signs with sensory sparing → MND variant: progressive muscular atrophy (PMA), spinal muscular atrophy (SMA), Kennedy disease, post-polio syndrome.',
+         'Workup: EMG, genetic testing (SMN1 for SMA, AR for Kennedy), creatine kinase.',
+         '<strong>Don\'t miss treatable mimics:</strong> multifocal motor neuropathy (MMN) — also pure LMN, asymmetric distal arms, conduction block on NCS, treat with IVIG.']);
+      if (locState[2] === 'no_atr') return showLoc('Consider non-neuromuscular cause',
+        ['Hyporeflexia without atrophy or fasciculations is unusual. Could be early in a process, severe deconditioning, or non-neurological cause.',
+         'Reassess for upper motor neuron signs masked by acute flaccidity (spinal shock, acute UMN lesion).']);
+    }
+    if (s1 === 'distal') return showLoc('Distal symmetric polyneuropathy',
+      ['"Stocking-glove" pattern. Most commonly length-dependent axonal neuropathy.',
+       '<strong>AAN first-tier workup:</strong> fasting glucose/OGTT · vitamin B12 + MMA · SPEP/IFE/free light chains. Add TSH, CBC, renal/liver, HbA1c, HIV/HepB/HepC.',
+       'EMG/NCS: demyelinating vs axonal; symmetric vs multifocal.',
+       'Top causes: diabetes (most common worldwide), idiopathic (~20%), alcohol/B12, chemotherapy, hereditary (CMT), paraprotein-associated.',
+       'Symptomatic painful neuropathy: duloxetine, pregabalin, gabapentin, amitriptyline.']);
+    if (s1 === 'derm') return showLoc('Radiculopathy',
+      ['Myotomal weakness + dermatomal sensory loss + pain in dermatome → root.',
+       'Common: cervical (C5-C8), lumbar (L4-S1).',
+       'Workup: MRI of affected spine level; EMG if motor weakness or progressive symptoms.',
+       'Most resolve with conservative management; surgery for refractory radicular pain or progressive motor deficit.']);
+    if (s1 === 'mono') return showLoc('Mononeuropathy',
+      ['Identify the nerve from the muscle weakness and sensory pattern.',
+       'Common: median (CTS at wrist), ulnar (cubital tunnel at elbow), radial (spiral groove — Saturday night palsy), peroneal (fibular head — foot drop), lateral femoral cutaneous (meralgia paresthetica), femoral.',
+       'EMG/NCS confirms localisation.',
+       'Conservative management first (splint, ergonomics, steroid injection); surgical decompression if progressive motor deficit or refractory to conservative care.']);
+    if (s1 === 'mux') return showLoc('Mononeuritis multiplex',
+      ['Asymmetric, painful involvement of multiple individual nerves.',
+       '<strong>Always think vasculitis</strong> until proven otherwise: PAN, ANCA-associated, cryoglobulinaemic, RA-associated.',
+       'Also: diabetes, leprosy, HIV, Lyme, sarcoidosis, Sj&ouml;gren, lymphoma, HNPP.',
+       'Workup: ANCA, ANA/ENA, cryoglobulins, hepatitis B/C, HIV, complement, ESR; nerve biopsy may be diagnostic.',
+       'Treat the underlying disease (steroids + cyclophosphamide or rituximab for vasculitis).']);
+  }
+
+  if (s0 === 'normal') {
+    addLoc(1, '2. Distribution &amp; fluctuation?',
+      [['fatigable','Fatigable; ocular/bulbar; proximal; no sensory loss'],['prox_steady','Proximal symmetric, steady, no sensory loss, ± high CK'],['prox_lems','Proximal weakness improves transiently with brief exercise']]);
+    const s1 = locState[1];
+    if (s1 === 'fatigable') return showLoc('Neuromuscular junction — myasthenia gravis',
+      ['Fluctuating fatigable weakness, ocular/bulbar prominent, no sensory loss, reflexes preserved = MG.',
+       'Workup: AChR antibody (80%); MuSK if AChR negative (5–10%); LRP4 (1–3%). RNS at 2–3 Hz showing decrement > 10%. Single-fibre EMG (most sensitive). Bedside ice-pack test for ocular ptosis. CT chest for thymoma.',
+       'Treatment: pyridostigmine + prednisone + steroid-sparing (azathioprine, MMF) → thymectomy if eligible → IVIG/PLEX for crisis → new biologics for refractory disease.',
+       '<strong>Avoid:</strong> aminoglycosides, fluoroquinolones, IV magnesium, β-blockers, telithromycin, NMBAs, checkpoint inhibitors.']);
+    if (s1 === 'prox_lems') return showLoc('Lambert-Eaton myasthenic syndrome',
+      ['Proximal weakness with post-exercise facilitation (the opposite of MG fatigue) + autonomic features (dry mouth, ED, constipation) + diminished reflexes that augment after exercise.',
+       'Workup: anti-VGCC antibodies; RNS with incrementing response at 20–50 Hz. <strong>CT chest mandatory</strong> — 60% paraneoplastic (small-cell lung cancer).',
+       'Treatment: amifampridine (3,4-DAP), pyridostigmine, immunotherapy; treat the cancer if present.']);
+    if (s1 === 'prox_steady') return showLoc('Myopathy',
+      ['Proximal symmetric weakness, normal sensation, reflexes preserved until late, often elevated CK.',
+       'Categories: inflammatory (dermatomyositis, IMNM, IBM); dystrophy; metabolic/mitochondrial; channelopathy; drug-induced (statin, steroid).',
+       '<strong>Tests:</strong> CK, aldolase, myositis-specific antibodies, EMG (myopathic units), muscle biopsy, MRI muscle, genetic testing if indicated.',
+       '<strong>Look for clues:</strong> rash → dermatomyositis; statin → anti-HMGCR IMNM if persists after stopping; older man, finger flexors + quads → IBM; chronic high-dose steroid → steroid myopathy (normal CK).']);
+  }
+}
+
+function addLoc(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  locRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => locAns(step, b.dataset.val)));
+  if (locState[step]) {
+    const t = wrap.querySelector(`[data-val="${locState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showLoc(title, items) {
+  locResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  locResult.classList.add('show');
+}
+
+function resetLoc() {
+  locState = {};
+  locRest.innerHTML = '';
+  locResult.classList.remove('show');
+  document.querySelectorAll('#locTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => locAns(0, b.dataset.val)));
+
+/* ===== GBS Respiratory Risk Assessor ===== */
+const gbsItems = [
+  {id:'fvc20', label:'FVC < 20 mL/kg (or < 1 L)', sub:'Component of the 20/30/40 rule'},
+  {id:'mip30', label:'MIP / NIF less negative than −30 cmH₂O', sub:'Component of the 20/30/40 rule'},
+  {id:'mep40', label:'MEP < 40 cmH₂O', sub:'Component of the 20/30/40 rule'},
+  {id:'fvc30', label:'FVC declining > 30% from baseline', sub:'Trajectory matters as much as absolute value'},
+  {id:'bulbar', label:'Bulbar weakness (dysphagia, dysarthria, weak cough, secretions)', sub:'Risk of aspiration'},
+  {id:'rapidProg', label:'Rapid progression (worsening from one shift to the next)', sub:'Predicts respiratory failure'},
+  {id:'autonomic', label:'Autonomic instability (BP swings, arrhythmias, ileus)', sub:'Independent risk for ICU admission and mortality'},
+  {id:'neck', label:'Cannot raise head against gravity (neck flexor weakness)', sub:'Predicts diaphragmatic weakness; "head-drop" sign'},
+  {id:'fhSign', label:'Single breath count < 15 (counting in a single exhalation)', sub:'Surrogate for FVC; useful bedside test'},
+  {id:'hypoxia', label:'Hypoxia (SpO₂ < 92% on room air) or hypercapnia (PaCO₂ > 45)', sub:'Late sign — should NOT wait for this before intubating'},
+];
+
+const gbsBox = document.getElementById('gbsBox');
+const gbsChecks = {};
+gbsItems.forEach(it => {
+  const div = document.createElement('div');
+  div.className = 'row';
+  div.innerHTML = `<label for="gbs-${it.id}"><input type="checkbox" id="gbs-${it.id}"><span><strong>${it.label}</strong><span class="sub">${it.sub}</span></span></label>`;
+  gbsBox.appendChild(div);
+  const cb = div.querySelector('input');
+  cb.addEventListener('change', updateGbs);
+  gbsChecks[it.id] = cb;
+});
+
+const gbsResult = document.createElement('div');
+gbsResult.className = 'gbs-result';
+gbsResult.innerHTML = '<strong>No risk features ticked.</strong> Continue serial monitoring (every 4–6 h initially) — FVC, NIF, single breath count, swallow assessment, vital signs including telemetry. Recheck more often if any feature emerges.';
+gbsBox.appendChild(gbsResult);
+
+function updateGbs() {
+  const ticked = Object.keys(gbsChecks).filter(k => gbsChecks[k].checked);
+  const danger = ['fvc20','mip30','mep40','bulbar','autonomic','hypoxia'];
+  const cautions = ['fvc30','rapidProg','neck','fhSign'];
+  const isDanger = ticked.some(k => danger.includes(k));
+  const isCaution = ticked.some(k => cautions.includes(k));
+
+  if (isDanger) {
+    gbsResult.className = 'gbs-result danger';
+    gbsResult.innerHTML = '<strong>HIGH RISK — proceed to ICU and prepare for elective intubation.</strong>' +
+      '<ul style="margin:.5em 0 0 1.2em">' +
+      '<li><strong>20/30/40 rule</strong>: FVC &lt; 20 mL/kg, MIP less negative than −30, MEP &lt; 40 — strong indication for intubation.</li>' +
+      '<li>Bulbar weakness or aspiration risk: lowers threshold for intubation regardless of FVC.</li>' +
+      '<li>Autonomic instability needs continuous cardiac and BP monitoring; can cause sudden death.</li>' +
+      '<li>Don\'t wait for hypoxia or hypercapnia — by then, the patient may decompensate suddenly.</li>' +
+      '<li>Maintain or initiate IVIG / PLEX in parallel.</li>' +
+      '</ul>';
+  } else if (isCaution) {
+    gbsResult.className = 'gbs-result caution';
+    gbsResult.innerHTML = '<strong>CAUTION — high-dependency monitoring; intubation may be needed soon.</strong>' +
+      '<ul style="margin:.5em 0 0 1.2em">' +
+      '<li>Move to HDU or step-down unit with rapid-access airway.</li>' +
+      '<li>Check FVC/NIF every 2–4 hours; bedside swallow assessment; SBC; neck-flexion strength.</li>' +
+      '<li>Trajectory matters: a falling FVC even if absolute value is "ok" needs ICU triage.</li>' +
+      '<li>Continue IVIG / PLEX.</li>' +
+      '</ul>';
+  } else {
+    gbsResult.className = 'gbs-result';
+    gbsResult.innerHTML = '<strong>No risk features ticked.</strong> Continue serial monitoring (every 4–6 h initially) — FVC, NIF, single breath count, swallow assessment, vital signs including telemetry. Recheck more often if any feature emerges.';
+  }
+}
+</script>
+</body>
+</html>

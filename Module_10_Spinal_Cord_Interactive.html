@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 10 — Spinal Cord Disorders (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#7d7dff; --accent-2:#b3b3ff;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(125,125,255,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#10103a; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#d3d3ff}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(125,125,255,.10); border-color:var(--accent); color:#d3d3ff}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#10103a; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(125,125,255,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* ASIA calculator */
+  .asia{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .asia .row{padding:10px 0; border-bottom:1px dashed var(--line)}
+  .asia .row:last-child{border-bottom:none}
+  .asia .label{color:var(--accent-2); font-weight:600; margin-bottom:6px}
+  .asia .desc{color:var(--muted); font-size:.85rem; margin-bottom:6px}
+  .asia select{background:var(--panel-2); color:var(--ink); border:1px solid var(--line); padding:6px 10px; border-radius:6px; font:inherit; font-size:.92rem; width:100%; max-width:520px}
+  .asia-result{position:sticky; bottom:8px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:12px 18px; margin-top:14px; font-size:1.05rem; font-weight:600; color:var(--accent-2); text-align:center}
+  .asia-result .severity{display:block; font-size:.85rem; color:var(--muted); font-weight:400; margin-top:4px}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 10</span>
+    <span class="badge">General physician</span>
+    <h1>Spinal Cord Disorders — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 42) and Merritt's <em>Neurology</em> (14e, Ch. 17, 48, 72, 107, 113, 114, 115).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="classifier">Cord Syndrome Classifier</button>
+    <button data-tab="asia">ASIA Calculator</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Spinal cord disorders include some of the most time-critical emergencies in neurology. Metastatic epidural cord compression, cauda equina syndrome, traumatic SCI, and epidural abscess all have a window measured in hours during which neurological function can still be salvaged. After that, the deficit is permanent. The cord has minimal redundancy.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Recognise a cord lesion at the bedside — sensory level, bilateral long-tract signs, sphincter dysfunction.</li>
+      <li>Distinguish the classic cord syndromes by exam pattern alone.</li>
+      <li>Run the emergency workup for suspected compressive myelopathy.</li>
+      <li>Distinguish conus medullaris from cauda equina syndrome.</li>
+      <li>Recognise and treat autonomic dysreflexia in chronic SCI.</li>
+      <li>Apply the ASIA Impairment Scale.</li>
+      <li>Diagnose and treat reversible causes — B12, copper, dural AVF, abscess, infectious myelopathies.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle that drives every clinical decision in this module:</strong> in a suspected acute compressive cord lesion, get the MRI <em>and</em> give dexamethasone <em>and</em> page spine surgery — <em>in parallel, not sequence</em>. Outcome is determined by neurological state at decompression. Hours matter.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Recognising a cord lesion</summary>
+      <div class="body">
+        <p>Three clues nail it:</p>
+        <ol>
+          <li><strong>Sensory level</strong> on the trunk (T4 nipple, T6 xiphoid, T10 umbilicus, L1 groin).</li>
+          <li><strong>Bilateral long-tract signs</strong> below the level (motor, dorsal columns, spinothalamic).</li>
+          <li><strong>Sphincter dysfunction</strong> — urinary retention or incontinence; loss of anal tone; saddle anaesthesia.</li>
+        </ol>
+        <p>Then ask: at what level (one-level rule: image at least one level above the suspected level)? Is it compressive (the emergency)? What is the tempo?</p>
+        <div class="warn">A vertebral level is NOT the cord segment level. The cord ends at L1–L2; below that is the cauda equina. A T12 vertebral fracture damages the conus, not the thoracic cord.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Classic cord syndromes</summary>
+      <div class="body">
+        <table>
+          <tr><th>Syndrome</th><th>Hallmark</th></tr>
+          <tr><td>Complete transection</td><td>All modalities lost below; spinal shock initially</td></tr>
+          <tr><td>Brown-S&eacute;quard</td><td>Ipsilateral UMN + dorsal column loss + contralateral pain/temp loss</td></tr>
+          <tr><td>Central cord</td><td>Arms &gt; legs; cape sensory loss; classic in elderly hyperextension</td></tr>
+          <tr><td>Anterior cord</td><td>Bilateral UMN + pain/temp loss; <em>dorsal columns spared</em></td></tr>
+          <tr><td>Posterior cord</td><td>Dorsal column loss; sensory ataxia; motor preserved</td></tr>
+          <tr><td>Conus</td><td>Symmetric saddle + early bowel/bladder + mixed UMN/LMN</td></tr>
+          <tr><td>Cauda equina</td><td>Asymmetric leg weakness + severe radicular pain + areflexia</td></tr>
+          <tr><td>Subacute combined</td><td>Vibration/proprioception + spasticity; B12 or copper deficiency</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Tempo-based differential</summary>
+      <div class="body">
+        <table>
+          <tr><th>Time to nadir</th><th>Think</th></tr>
+          <tr><td>Seconds-minutes</td><td>Vascular (cord stroke, dural AVF rupture)</td></tr>
+          <tr><td>Hours-days</td><td>Compressive (haematoma, abscess, tumour decompensation, disc); severe TM</td></tr>
+          <tr><td>Days-4 weeks</td><td>Transverse myelitis, MS, NMOSD, MOGAD, sarcoid, infection</td></tr>
+          <tr><td>Weeks-months</td><td>Tumour, spondylotic, B12/copper deficiency, syringomyelia, HTLV-1</td></tr>
+          <tr><td>Years</td><td>Spondylotic, hereditary spastic paraparesis, slow tumour</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Compressive myelopathy — the emergencies</summary>
+      <div class="body">
+        <p><strong>MESCC (metastatic epidural cord compression)</strong>: 5–10% of cancer patients; thoracic cord most common; progressive back pain usually precedes weakness by weeks. <em>Pain worse with recumbency</em> is the clue distinguishing from mechanical back pain.</p>
+        <p><strong>Six-hour checklist for compressive myelopathy:</strong></p>
+        <ol>
+          <li>Stat MRI <strong>whole spine</strong> (multiple-level disease in 30–50% of MESCC) with gadolinium.</li>
+          <li>Dexamethasone IV (10 mg loading, then 4 mg q6h) if MESCC plausible.</li>
+          <li>Neurosurgery / spine surgery referral within hours.</li>
+          <li>Antibiotics (vancomycin + ceftriaxone) if epidural abscess suspected.</li>
+          <li>Reverse anticoagulation if epidural haematoma suspected.</li>
+          <li>Treat underlying cause (cancer, infection, autoimmune).</li>
+        </ol>
+        <p>Patchell trial (2005): <em>surgical decompression + RT</em> beats RT alone for ambulation outcomes when life expectancy &gt; 3 months and tumour not radiosensitive.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Vascular cord syndromes</summary>
+      <div class="body">
+        <p><strong>Anterior spinal artery infarct</strong>: sudden bilateral motor + pain/temp loss, sphincter dysfunction, dorsal columns SPARED. Causes: aortic dissection or aortic repair, severe hypotension, atherosclerosis, fibrocartilaginous embolism, vasculitis. MRI may be normal early; DWI helps; pencil T2 hyperintensity over multiple segments; "owl eyes" on axial.</p>
+        <p><strong>Dural arteriovenous fistula</strong>: middle-aged-to-older man with progressive paraparesis, urinary symptoms, exercise-induced worsening. MRI shows dilated vessels on cord surface + central T2 hyperintensity. <em>A treatable cause of progressive myelopathy frequently missed.</em></p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Transverse myelitis</summary>
+      <div class="body">
+        <p>A syndrome — not a diagnosis. Subacute (days–weeks) inflammation of the cord. After workup, ~70% have a defined cause; ~30% remain idiopathic.</p>
+        <p>Top categories: MS (short partial lesions), NMOSD (LETM ≥ 3 segments, AQP4-IgG), MOGAD (conus, MOG-IgG), sarcoidosis (longitudinally extensive with dorsal subpial "trident" enhancement), connective tissue disease, paraneoplastic, parainfectious.</p>
+        <p>Workup: MRI whole spine + brain + LP (cells, OCB, AQP4-IgG, MOG-IgG, viral PCR) + serum (AQP4, MOG, ACE, ANA, ENA, ANCA, antiphospholipid, paraneoplastic) + chest CT.</p>
+        <p>Treatment: IV methylprednisolone 1 g daily × 5 days; PLEX for severe / refractory (lower threshold in NMOSD); maintenance therapy depends on aetiology.</p>
+        <p>Cross-reference Module 8 for MS / NMOSD / MOGAD detail.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Infectious myelopathies</summary>
+      <div class="body">
+        <ul>
+          <li><strong>HSV / VZV</strong> — acute / necrotising; treat with IV aciclovir.</li>
+          <li><strong>Enterovirus / West Nile</strong> — acute flaccid paralysis (anterior horn).</li>
+          <li><strong>HIV vacuolar myelopathy</strong> — mimics B12 SCD; ART improves.</li>
+          <li><strong>HTLV-1 (tropical spastic paraparesis)</strong> — slow spastic paraparesis + bladder; Caribbean, Japan, equatorial Africa.</li>
+          <li><strong>Neurosyphilis (tabes dorsalis)</strong> — lancinating pains, ataxia, Argyll Robertson pupils.</li>
+          <li><strong>Tuberculosis (Pott)</strong> — vertebral collapse, gibbus, anterior compression.</li>
+          <li>Schistosomiasis, Lyme, brucellosis, fungal infections — pathogen-specific.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Metabolic, toxic &amp; nutritional myelopathies</summary>
+      <div class="body">
+        <p><strong>B12 deficiency (subacute combined degeneration)</strong>: dorsal columns + lateral corticospinal tracts; symmetric vibration/proprioception loss + spasticity; macrocytosis often absent. Check B12, MMA, homocysteine. Treat IM or oral high-dose. Watch for <strong>nitrous oxide abuse</strong> (whippets) — inactivates B12 within hours and can cause myelopathy in a young person with normal serum B12.</p>
+        <p><strong>Copper deficiency</strong>: mimics B12 SCD; bariatric surgery and zinc excess (denture cream!) are common causes. Check copper, ceruloplasmin, zinc.</p>
+        <p>Other: heroin, intrathecal chemotherapy, decompression sickness, radiation myelopathy (early transient vs late delayed).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Degenerative &amp; hereditary myelopathies</summary>
+      <div class="body">
+        <p><strong>Spondylotic myelopathy</strong> — most common cause of myelopathy in adults &gt; 55. Cervical &gt; thoracic. Mixed UMN (cord compromise) + LMN (root compromise) — "myeloradiculopathy." Hand clumsiness, gait stiffness, Hoffman, Lhermitte. MRI: stenosis + cord T2 hyperintensity (myelomalacia). Treat with decompressive surgery if moderate-to-severe or progressive.</p>
+        <p><strong>Hereditary spastic paraparesis (HSP)</strong> — pure or complicated; SPAST (SPG4) most common. Family history; genetic testing.</p>
+        <p><strong>Adrenomyeloneuropathy (X-linked)</strong> — ABCD1; young men with spastic paraparesis + adrenal insufficiency + peripheral neuropathy; elevated VLCFAs.</p>
+        <p><strong>Friedreich ataxia</strong> — GAA expansion in FXN; childhood/adolescent; areflexia + dorsal column loss + cerebellar ataxia + cardiomyopathy. <strong>Omaveloxolone</strong> (SKYCLARYS) is the first FDA-approved (2023) DMT.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Syringomyelia</summary>
+      <div class="body">
+        <p>Fluid-filled cavity, usually central cervical cord. Classic: dissociated sensory loss in a "cape" distribution (pain/temp lost, touch and proprioception preserved); LMN weakness in arms; UMN signs in legs later.</p>
+        <p>Often associated with Chiari I malformation. Post-traumatic, post-myelitic, or tumour-associated.</p>
+        <p>MRI confirms. Treat: suboccipital decompression for Chiari-associated; shunt for refractory.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Traumatic SCI &amp; ASIA scale</summary>
+      <div class="body">
+        <p><strong>Acute care:</strong> ABCDE, C-spine immobilisation, MAP ≥ 85 for 5–7 days, imaging, early decompression (&lt; 24 h) for incomplete cervical SCI with persistent compression.</p>
+        <p><strong>Methylprednisolone</strong>: controversial; AANS/CNS does NOT recommend routine use; AOSpine 2017 allows it as an option within 8 h of blunt SCI; many centres no longer use it (NASCIS trials' marginal benefit at considerable infection / GI / mortality cost).</p>
+        <p><strong>ASIA Impairment Scale:</strong> A (complete) → E (normal). The calculator tab takes you through grading.</p>
+        <p><strong>Spinal shock vs neurogenic shock</strong>: spinal shock = transient flaccid/areflexic phase; neurogenic shock = hypotension + bradycardia from loss of sympathetic outflow (lesion above T6).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. Autonomic dysreflexia</summary>
+      <div class="body">
+        <p>Chronic SCI <strong>above T6</strong> + noxious stimulus below the lesion → unregulated sympathetic outflow → paroxysmal severe hypertension + pounding headache + flushing above level + pallor and pilo-erection below + reflex bradycardia.</p>
+        <p>Common triggers: <em>blocked urinary catheter</em>, faecal impaction, pressure sore, ingrown toenail, UTI.</p>
+        <p><strong>Management</strong>:</p>
+        <ol>
+          <li>Sit the patient up (orthostatic drop helps).</li>
+          <li>Loosen tight clothing.</li>
+          <li>Find and remove the trigger immediately (unblock catheter, manual disimpaction).</li>
+          <li>Antihypertensive (nifedipine bite-and-swallow, nitroglycerin, captopril) only if BP severely elevated and trigger not quickly removed.</li>
+        </ol>
+        <div class="warn">A true neurological emergency. Untreated → stroke, seizure, MI, death. Don't give long-acting antihypertensives reflexively — fix the trigger first.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>13. Conus vs cauda equina</summary>
+      <div class="body">
+        <table>
+          <tr><th>Feature</th><th>Conus</th><th>Cauda</th></tr>
+          <tr><td>Onset</td><td>Sudden, symmetric</td><td>Gradual, asymmetric</td></tr>
+          <tr><td>Pain</td><td>Less</td><td>Severe radicular</td></tr>
+          <tr><td>Saddle</td><td>Symmetric, early</td><td>Asymmetric</td></tr>
+          <tr><td>Bowel/bladder</td><td>Early, severe</td><td>Late</td></tr>
+          <tr><td>Reflexes</td><td>Knee often preserved; ankle absent</td><td>Both absent</td></tr>
+          <tr><td>Cause</td><td>Tumour, infarct, MS, ependymoma</td><td>Large central disc, tumour, abscess</td></tr>
+        </table>
+        <p>Both are surgical emergencies when compressive. Time to surgery within 24–48 h of bowel/bladder symptoms is the key prognostic factor.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>14. Neurogenic bladder &amp; bowel</summary>
+      <div class="body">
+        <p><strong>Suprasacral cord lesion</strong>: spastic / UMN bladder — detrusor hyperreflexia ± dyssynergia, urgency, incontinence, incomplete emptying.</p>
+        <p><strong>Conus/cauda lesion</strong>: flaccid / LMN bladder — detrusor areflexia, overflow incontinence, retention.</p>
+        <p>Management: clean intermittent self-catheterisation (preferred), antimuscarinics or mirabegron (β3) for overactive detrusor, intradetrusor botulinum toxin for refractory, α-blocker for sphincter dyssynergia, urologic follow-up.</p>
+        <p>Bowel: regular routine, fibre, suppositories, manual evacuation; faecal impaction is a major autonomic dysreflexia trigger.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>15. When to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <strong>Same-day emergency referral:</strong>
+          <ul>
+            <li>Suspected compressive cord lesion (MESCC, abscess, haematoma).</li>
+            <li>Cauda equina syndrome.</li>
+            <li>Conus medullaris syndrome.</li>
+            <li>Traumatic SCI.</li>
+            <li>Autonomic dysreflexia in chronic high-cord SCI.</li>
+          </ul>
+        </div>
+        <div class="warn">
+          <strong>Urgent neurology referral:</strong> transverse myelitis (start steroids + workup); spinal cord stroke; progressive spondylotic myelopathy; B12/copper deficiency that does not improve with replacement; suspected hereditary myelopathy for genetic testing.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="classifier">
+    <h2>Cord Syndrome Classifier</h2>
+    <p class="muted">Answer about the exam pattern; the tool names the cord syndrome and suggests management.</p>
+    <div class="tool" id="cordTool">
+      <div class="q">1. Pattern of motor &amp; sensory deficit?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="complete">Bilateral loss of ALL modalities below a level (motor + all sensation + sphincter)</button>
+        <button class="opt" data-val="hemi">Ipsilateral motor weakness + ipsilateral dorsal column loss + contralateral pain/temp loss</button>
+        <button class="opt" data-val="ant">Bilateral motor weakness + bilateral pain/temp loss, but dorsal columns SPARED</button>
+        <button class="opt" data-val="post">Loss of vibration / proprioception with preserved motor and pain/temp</button>
+        <button class="opt" data-val="central">Upper-extremity &gt; lower-extremity weakness, cape sensory loss</button>
+        <button class="opt" data-val="conuscauda">Lower-extremity weakness + saddle anaesthesia + bowel/bladder</button>
+        <button class="opt" data-val="scd">Dorsal column loss + spastic legs, no clear sensory level, gradual onset</button>
+      </div>
+      <div id="cord-rest"></div>
+      <div class="result" id="cord-result"></div>
+      <button class="reset" onclick="resetCord()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="asia">
+    <h2>ASIA Impairment Scale Calculator</h2>
+    <p class="muted">For educational purposes — use the official ISNCSCI worksheet for clinical scoring.</p>
+    <div class="asia" id="asiaBox"></div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 64-year-old man with breast-cancer history and 2 weeks of mid-thoracic back pain, now bilateral leg weakness over 6 hours</summary>
+      <div class="body">
+        <p>Pain was constant, worse at night (woke him up). Now power 3/5 bilaterally, T8 sensory level on the trunk, urinary retention. Reflexes initially flaccid (spinal shock); plantars equivocal.</p>
+        <p><strong>Diagnosis:</strong> Metastatic epidural spinal cord compression (MESCC) at thoracic level. Time-critical.</p>
+        <p><strong>Plan:</strong> Stat <strong>MRI whole spine</strong> with gadolinium (not just the thoracic level — multiple-level disease in 30–50%). <strong>Dexamethasone 10 mg IV loading, then 4 mg q6h</strong>. Neurosurgery / spine surgery referral within the hour. Workup primary site. If life expectancy &gt; 3 months and tumour not radiosensitive → surgical decompression + post-op RT (Patchell trial). Otherwise → RT alone. Treat the underlying cancer. Catheterise bladder. DVT prophylaxis.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 28-year-old IV drug user with 4 days of fever, severe back pain, and progressive paraparesis</summary>
+      <div class="body">
+        <p>Temp 38.7. T10 sensory level. Paraparesis 2/5. Reflexes initially absent (spinal shock). New urinary retention. WBC 18,000; CRP 240. Recent dental abscess treated with oral antibiotics.</p>
+        <p><strong>Diagnosis:</strong> Spinal epidural abscess.</p>
+        <p><strong>Plan:</strong> Blood cultures × 2. <strong>Empirical IV vancomycin + ceftriaxone</strong> immediately (do not wait for cultures). Stat MRI whole spine with gadolinium. Neurosurgical / spine surgery consultation for emergent drainage. Echocardiogram to look for endocarditis. Notify ID. Cord salvage rate is far better with surgical drainage + antibiotics started within 24 h of neurological deficit than antibiotics alone.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 35-year-old vegan with 6 months of progressive gait unsteadiness and tingling in feet</summary>
+      <div class="body">
+        <p>Wide-based unsteady gait; positive Romberg (worse with eyes closed); reduced vibration and proprioception to the knees; mildly brisk reflexes; upgoing plantars. Macrocytic anaemia mild. Serum B12 low; methylmalonic acid markedly elevated. Also occasionally uses recreational nitrous oxide (whippets) for the past 8 months.</p>
+        <p><strong>Diagnosis:</strong> Subacute combined degeneration from B12 deficiency, amplified by chronic N₂O exposure.</p>
+        <p><strong>Plan:</strong> <strong>Stop N₂O immediately and counsel about it</strong>. IM hydroxocobalamin 1 mg daily × 1 week, then weekly × 4 weeks, then monthly. Folate supplementation. Dietary advice / supplements (vegan diet). Reassess at 4–6 weeks; ataxia and proprioceptive loss may improve partially but may not fully resolve if treatment is delayed.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 68-year-old man with chronic neck pain and 12 months of hand clumsiness and stiff gait</summary>
+      <div class="body">
+        <p>Difficulty buttoning shirts; recent falls; urinary urgency. Exam: spastic gait, Hoffman positive bilaterally, hyperreflexia in arms and legs, clonus at ankles, positive Babinski. Cervical spine MRI: multi-level spinal stenosis worst at C4-C6 with cord T2 hyperintensity.</p>
+        <p><strong>Diagnosis:</strong> Cervical spondylotic myelopathy.</p>
+        <p><strong>Plan:</strong> Refer to spine surgery for decompression (cervical laminoplasty or laminectomy with fusion, or anterior cervical discectomy and fusion depending on pathology). Conservative measures for mild disease (PT, activity modification, soft collar in select cases). Surgical decompression improves outcomes for moderate-to-severe myelopathy.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 56-year-old paraplegic from chronic T4 SCI is brought in with pounding headache, BP 220/130, sweating above the chest</summary>
+      <div class="body">
+        <p>Indwelling Foley catheter. Has not had a bowel movement for 5 days. Skin flushed above the chest, pale below; pilo-erection on legs. HR 50.</p>
+        <p><strong>Diagnosis:</strong> Autonomic dysreflexia, trigger likely blocked catheter and/or faecal impaction.</p>
+        <p><strong>Plan:</strong>
+        <ol>
+          <li>Sit the patient up.</li>
+          <li>Loosen clothing.</li>
+          <li>Examine the urinary catheter — flush, change, or place new one. Manual disimpaction if rectal exam confirms impaction.</li>
+          <li>If BP remains severely elevated and trigger not yet removed: nifedipine immediate-release 10 mg or nitroglycerin sublingual.</li>
+        </ol>
+        BP usually normalises within minutes once trigger is removed. Educate patient and family about recognition and prevention.</p>
+        <div class="warn">Don't reach for IV labetalol first. The fix is mechanical — find and remove the trigger.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 45-year-old man with 2 days of severe lumbar back pain, now numb perineum and unable to urinate</summary>
+      <div class="body">
+        <p>Picked up his child; sudden severe lumbar pain radiating down the right leg, then progressive numbness across both buttocks and inner thighs. Tried to urinate — could not. Bladder scan: 800 mL residual. Exam: absent ankle jerks, weak ankle dorsiflexion bilaterally R &gt; L, sensory loss in saddle and L5/S1 dermatomes, anal tone reduced.</p>
+        <p><strong>Diagnosis:</strong> Cauda equina syndrome from large central lumbar disc herniation until proven otherwise.</p>
+        <p><strong>Plan:</strong> <strong>Stat MRI lumbosacral spine.</strong> Urinary catheter. Stat spine surgery referral. <strong>Emergency decompression within 24–48 h</strong> of bowel/bladder onset — the strongest predictor of recovery. Document neurological exam precisely (the legal threshold for "complete CES" vs "incomplete CES" influences urgency and outcome assessment).</p>
+        <div class="refer">Cauda equina syndrome is a surgical emergency. Don't wait for the elective spine clinic — the patient needs an MRI today and an operation tomorrow at the latest.</div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 10 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 42; Merritt's <em>Neurology</em> 14e Ch. 17, 48, 72, 107, 113, 114, 115. MESCC management: Patchell RA et al. Lancet 2005. AOSpine SCI 2017 guidelines. Friedreich ataxia: omaveloxolone (SKYCLARYS, FDA 2023).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Anatomy', q:'Where does the spinal cord end in an adult?', a:'Around L1–L2. Below that level is the cauda equina (nerve roots only). A "T12 fracture" damages the conus, not the thoracic cord.'},
+  {tag:'Anatomy', q:'Which spinal artery supplies the anterior two-thirds of the cord?', a:'A single anterior spinal artery. Fed segmentally by radicular arteries; the largest, the artery of Adamkiewicz, usually arises from a left intercostal between T9–T12 and supplies the lower two-thirds of the anterior cord. Vulnerable to aortic dissection / surgery.'},
+  {tag:'Localising', q:'Three bedside clues that a lesion is in the spinal cord?', a:'(1) Sensory level on the trunk; (2) bilateral long-tract signs; (3) sphincter dysfunction. Add a vertebral-segment mismatch reminder when documenting.'},
+  {tag:'Sensory level', q:'Dermatomes: T4, T6, T10, L1?', a:'T4 nipple line; T6 xiphoid; T10 umbilicus; L1 inguinal ligament. S2–S4 = perineum (saddle).'},
+  {tag:'Brown-Séquard', q:'Hemicord lesion pattern?', a:'Ipsilateral UMN weakness + ipsilateral dorsal column loss (vibration/proprioception) + contralateral pain/temp loss starting 1–2 levels below.'},
+  {tag:'Central cord', q:'Pattern of central cord syndrome?', a:'Upper-extremity > lower-extremity weakness; "cape" or "shawl" dissociated sensory loss (pain/temp lost, touch preserved); bladder urgency. Classic in elderly hyperextension injury with pre-existing cervical stenosis.'},
+  {tag:'Anterior cord', q:'Key clinical feature distinguishing anterior cord syndrome from complete transection?', a:'Dorsal columns are SPARED — vibration and proprioception preserved. Pain/temp and motor are lost bilaterally. Cause is usually anterior spinal artery infarct (aortic dissection/surgery, severe hypotension).'},
+  {tag:'B12', q:'Subacute combined degeneration — which tracts?', a:'Dorsal columns (vibration/proprioception loss, sensory ataxia, positive Romberg) + lateral corticospinal tracts (spastic paraparesis). Caused by vitamin B12 deficiency (also copper deficiency or N₂O abuse).'},
+  {tag:'B12 lab', q:'Most sensitive lab marker for B12 deficiency?', a:'Methylmalonic acid (MMA) — elevated even when serum B12 is borderline. Also elevated homocysteine. Don\'t rely on macrocytosis — often absent.'},
+  {tag:'N2O', q:'How can a young person with normal serum B12 develop subacute combined degeneration?', a:'Recreational nitrous oxide (whippets) abuse — N₂O inactivates B12 by oxidising cobalt. Check MMA / homocysteine even with "normal" B12 in this scenario.'},
+  {tag:'MESCC', q:'When is back pain in a cancer patient an emergency?', a:'Back pain worse at night / recumbent + any neurological symptoms (weakness, sphincter changes, sensory level). Get stat MRI whole spine + dexamethasone + spine surgery referral. The Patchell trial showed surgery + RT beats RT alone for ambulation when feasible.'},
+  {tag:'Compression', q:'Three things to do in parallel within 6 hours of suspected compressive cord lesion?', a:'(1) MRI whole spine with gadolinium; (2) IV dexamethasone if MESCC plausible; (3) Spine surgery referral. Add antibiotics if abscess suspected; reverse anticoagulation if haematoma.'},
+  {tag:'Cauda', q:'Cauda equina vs conus medullaris — which has more severe radicular pain and asymmetric weakness?', a:'Cauda equina. Conus is symmetric, with EARLIER and more severe bowel/bladder/sexual dysfunction, and mixed UMN/LMN. Cauda has more pain but later bowel/bladder.'},
+  {tag:'Cauda', q:'How urgent is cauda equina syndrome surgery?', a:'Within 24–48 h of bowel/bladder symptom onset — the strongest predictor of recovery. Stat MRI, urinary catheter, document exam, page spine surgery.'},
+  {tag:'Spinal shock', q:'Spinal shock vs neurogenic shock?', a:'Spinal shock: transient flaccid/areflexic state below the SCI level (days–weeks). Neurogenic shock: hypotension + bradycardia from loss of sympathetic outflow (lesion above T6); needs fluids ± vasopressors. Distinguish from haemorrhagic shock in trauma.'},
+  {tag:'Autonomic dysreflexia', q:'Trigger and first step in autonomic dysreflexia?', a:'Trigger almost always a noxious stimulus below the lesion (blocked Foley most common; faecal impaction next). First step: sit the patient up. Then loosen clothing. Then find and remove the trigger. Antihypertensive only if severely high BP and trigger not removable.'},
+  {tag:'Cord level', q:'Above which cord level is autonomic dysreflexia a risk?', a:'T6 (and above). Below T6, the splanchnic sympathetic outflow is not interrupted and dysreflexia rarely occurs.'},
+  {tag:'Vascular', q:'Dural arteriovenous fistula — clinical clue and imaging?', a:'Middle-aged-to-older man with progressive paraparesis, urinary symptoms, exercise-induced worsening (venous hypertension steals from cord). MRI shows dilated tortuous serpentine vessels on the dorsal cord surface + central T2 hyperintensity. Treatable with embolisation or surgery — often missed!'},
+  {tag:'Transverse myelitis', q:'How does NMOSD-related myelitis differ from MS-related myelitis on MRI?', a:'NMOSD = longitudinally extensive transverse myelitis (LETM ≥ 3 vertebral segments), often central; MS = short (< 2 segments), peripheral, partial. Send AQP4-IgG and MOG-IgG. (Cross-reference Module 8.)'},
+  {tag:'ASIA', q:'ASIA grade A vs B?', a:'A = complete: no motor or sensory function preserved in sacral segments S4–S5. B = sensory incomplete: sensory (including S4–S5) preserved but no motor below the level. C = motor incomplete with most key muscles < 3/5. D = motor incomplete with most key muscles ≥ 3/5. E = normal.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 70-year-old woman with metastatic breast cancer presents with 2 weeks of progressive thoracic back pain (worse at night) and now bilateral leg weakness over 8 hours. Most appropriate next step (in parallel)?',
+   choices:['Outpatient MRI within 1 week','Stat MRI whole spine + IV dexamethasone + neurosurgery referral','Plain X-rays of the thoracic spine + symptomatic management','High-dose IV methylprednisolone'],
+   ans:1,
+   why:'MESCC is a time-critical emergency. Image the WHOLE spine (multi-level disease in 30–50%) with gadolinium. Give dexamethasone 10 mg IV loading then 4 mg q6h. Refer spine surgery the same hour. Outcome depends on the neurological state at the time of decompression, not the time of presentation.'},
+  {q:'Which feature on examination best distinguishes anterior spinal artery syndrome from a complete cord transection?',
+   choices:['Sphincter dysfunction','Bilateral pain and temperature loss','Preserved vibration and proprioception (dorsal column sparing)','Sensory level on the trunk'],
+   ans:2,
+   why:'The anterior spinal artery supplies the anterior two-thirds of the cord — the corticospinal tracts (motor) and spinothalamic tracts (pain/temp), not the dorsal columns. So anterior cord syndrome has bilateral motor + pain/temp loss with preserved dorsal column function. Complete transection loses all modalities.'},
+  {q:'A 30-year-old vegan with 6 months of unsteady gait, positive Romberg, hyperreflexia, and upgoing plantars. Serum B12 is borderline-low (180 pg/mL), MMA markedly elevated, homocysteine elevated. Which other exposure should you specifically ask about?',
+   choices:['Mercury exposure','Recreational nitrous oxide (whippets)','Heavy alcohol use','Chronic acetaminophen use'],
+   ans:1,
+   why:'Nitrous oxide inactivates vitamin B12 by oxidising cobalt. Recreational N₂O abuse (whippets) is an increasingly recognised cause of subacute combined degeneration in young patients, sometimes with apparently normal serum B12 — MMA and homocysteine are more sensitive. Stop N₂O immediately and replace B12 IM.'},
+  {q:'A 45-year-old man presents with 2 days of severe lumbar pain, then numb perineum and inability to urinate. Bladder scan shows 800 mL residual. Examination: bilateral foot drop (R > L), absent ankle reflexes, saddle anaesthesia, reduced anal tone. Best next step?',
+   choices:['Outpatient physiotherapy referral','Stat MRI lumbosacral spine and stat spine surgery referral','Catheterise and discharge with NSAIDs','Lumbar epidural steroid injection'],
+   ans:1,
+   why:'Cauda equina syndrome — a surgical emergency. Stat MRI lumbosacral spine, catheter, and emergency spine surgery referral. Decompression within 24–48 h of bowel/bladder symptom onset is the strongest predictor of recovery.'},
+  {q:'A 56-year-old paraplegic with chronic T4 SCI presents with pounding headache, BP 230/120, profuse sweating above the chest, and HR 50. Best initial management?',
+   choices:['IV labetalol','Sit patient up, loosen clothing, examine and unblock the urinary catheter','IV magnesium','IV nicardipine infusion'],
+   ans:1,
+   why:'Autonomic dysreflexia in a high-cord SCI patient. The fix is mechanical — find and remove the trigger (blocked Foley most common; faecal impaction next). Sit the patient up (orthostatic drop helps); loosen clothing; address the trigger. Antihypertensives only if BP remains severely elevated after the trigger is removed.'},
+  {q:'A 32-year-old IV drug user with 4 days of fever, severe back pain, and progressive lower-limb weakness. Best initial empirical antibiotic regimen pending MRI and cultures?',
+   choices:['Oral cephalexin','IV vancomycin + ceftriaxone','IV penicillin G','IV metronidazole'],
+   ans:1,
+   why:'Spinal epidural abscess most often involves Staphylococcus aureus (including MRSA), with gram-negative coverage important in IV drug users. Empirical vancomycin + ceftriaxone is the standard while awaiting cultures. Stat MRI + neurosurgery referral; surgical drainage of significant compressive abscesses dramatically improves outcomes.'},
+  {q:'A 60-year-old man with progressive lower-limb spasticity, urinary urgency, and exercise-induced worsening of his symptoms over 18 months. MRI cord shows central T2 hyperintensity and dilated tortuous vessels on the dorsal cord surface. Diagnosis?',
+   choices:['Primary progressive multiple sclerosis','Spinal dural arteriovenous fistula','HTLV-1-associated myelopathy','Hereditary spastic paraparesis'],
+   ans:1,
+   why:'Classic spinal dural AVF: middle-aged-to-older man with progressive paraparesis, exercise- or recumbency-related worsening, MRI showing dorsal serpentine vessels and central cord T2 hyperintensity. Confirm with spinal angiography. Treatable with endovascular embolisation or surgical interruption — a treatable cause of myelopathy that is often missed.'},
+  {q:'A 68-year-old falls forward and lands on his face. He has paraparesis in the upper extremities worse than the lower, with dissociated sensory loss to pain/temperature in a cape distribution and preserved vibration. What is the diagnosis?',
+   choices:['Brown-S&eacute;quard syndrome','Central cord syndrome','Anterior cord syndrome','Posterior cord syndrome'],
+   ans:1,
+   why:'Central cord syndrome — classic in elderly patients with pre-existing cervical spondylosis suffering hyperextension injuries. Due to cord lamination (cervical fibres medial), the central injury affects the upper extremities more than the lower. Cape-distribution dissociated sensory loss reflects the central spinothalamic decussation.'},
+  {q:'In a patient with traumatic cervical SCI who has no motor or sensory function below the lesion AND no preserved sacral sensation in S4–S5, what is the ASIA grade?',
+   choices:['ASIA A (complete)','ASIA B (sensory incomplete)','ASIA C (motor incomplete < 3/5)','ASIA D (motor incomplete ≥ 3/5)'],
+   ans:0,
+   why:'ASIA A = complete: no motor or sensory function preserved in S4–S5. If ANY sensation is preserved in S4–S5 (including light touch, pinprick, or deep anal pressure) → ASIA B. ASIA C and D are motor incomplete based on the strength of key muscles below the level.'},
+  {q:'High-dose methylprednisolone is recommended for which of the following acute spinal cord conditions?',
+   choices:['Routine traumatic SCI','Acute non-traumatic transverse myelitis','Acute spinal cord infarction','Cauda equina syndrome from a herniated disc'],
+   ans:1,
+   why:'Methylprednisolone (1 g IV daily × 5 days) is standard for acute transverse myelitis. For traumatic SCI, AANS/CNS does NOT recommend routine high-dose methylprednisolone; AOSpine 2017 allows it as an option within 8 h of blunt SCI but evidence quality is low and many centres no longer use it (NASCIS marginal benefit at considerable risk). Spinal cord infarction does not have evidence supporting steroids. Cauda equina is a surgical emergency — steroids are not the answer.'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== Cord Syndrome Classifier ===== */
+const cordTool = document.getElementById('cordTool');
+const cordRest = document.getElementById('cord-rest');
+const cordResult = document.getElementById('cord-result');
+let cordState = {};
+
+function cordAns(step, val) {
+  cordState[step] = val;
+  Object.keys(cordState).forEach(k => { if (+k > step) delete cordState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderCord();
+}
+
+function renderCord() {
+  cordRest.innerHTML = '';
+  cordResult.classList.remove('show');
+  const s0 = cordState[0];
+  if (!s0) return;
+
+  if (s0 === 'complete') return showCord('Complete cord transection',
+    ['All motor and sensory modalities lost below the level + sphincter dysfunction. Initial spinal shock (flaccid, areflexic) lasting days–weeks; then UMN signs emerge below the level.',
+     'Common causes: severe trauma; advanced compressive lesion; severe transverse myelitis.',
+     '<strong>Workup:</strong> stat MRI whole spine with gadolinium, neurosurgery / spine surgery consult.',
+     'If traumatic: ATLS, C-spine immobilisation, MAP ≥ 85 for 5–7 days, AOSpine guidelines for early decompression (&lt; 24 h) for incomplete cervical SCI.',
+     'ASIA grade A by definition.']);
+
+  if (s0 === 'hemi') return showCord('Brown-S&eacute;quard (hemicord) syndrome',
+    ['Lateral half of the cord. Ipsilateral motor + dorsal column loss + contralateral pain/temp loss starting 1–2 levels below.',
+     'Common causes: penetrating trauma, MS plaque, tumour, lateral disc herniation.',
+     '<strong>Workup:</strong> MRI cord with gadolinium; demyelinating workup (CSF, AQP4-IgG, MOG-IgG) if no structural cause.',
+     'Treatment depends on cause: surgical decompression if compressive; methylprednisolone if inflammatory.']);
+
+  if (s0 === 'ant') return showCord('Anterior cord syndrome',
+    ['Anterior two-thirds of the cord. Bilateral motor + pain/temp loss; dorsal columns SPARED (vibration, proprioception preserved).',
+     'Most common cause: anterior spinal artery infarct — aortic dissection, aortic surgery (Adamkiewicz interruption), severe hypotension. Less commonly: fibrocartilaginous embolism, vasculitis.',
+     '<strong>Workup:</strong> MRI cord with DWI (may be normal early; pencil-shaped T2 hyperintensity over multiple segments; "owl eyes" on axial). Investigate aortic disease (CT angiogram).',
+     'Treatment: permissive hypertension, CSF drainage in post-aortic-surgery cases, treat underlying cause. Outcomes generally poor.']);
+
+  if (s0 === 'post') return showCord('Posterior cord syndrome',
+    ['Posterior third of the cord (dorsal columns). Loss of vibration / proprioception / two-point discrimination; sensory ataxia with positive Romberg; motor and pain/temp preserved.',
+     'Causes: posterior spinal artery occlusion (rare); <strong>vitamin B12 or copper deficiency (subacute combined degeneration)</strong>; tabes dorsalis (neurosyphilis); HIV; chronic AIDP variant.',
+     '<strong>Workup:</strong> B12, methylmalonic acid, homocysteine, copper, ceruloplasmin, zinc; HIV, VDRL/RPR; MRI cord.',
+     'Treatment: replace deficient nutrient; treat infection. Stop nitrous oxide if relevant. Recovery often partial if treatment delayed.']);
+
+  if (s0 === 'central') return showCord('Central cord syndrome',
+    ['Upper extremity > lower extremity weakness; cape / shawl dissociated sensory loss (pain/temp lost, touch and proprioception preserved); bladder urgency.',
+     'Classic in elderly hyperextension injury with pre-existing cervical stenosis. Also: syringomyelia, intramedullary tumour.',
+     '<strong>Workup:</strong> MRI cervical spine ± brain; if syrinx present, search for Chiari I or other underlying cause.',
+     'Treatment: surgical decompression for trauma + spondylosis; suboccipital decompression for Chiari-associated syrinx; shunt for refractory syrinx; tumour-specific therapy.']);
+
+  if (s0 === 'conuscauda') {
+    addCord(1, '2. Distinguishing feature?',
+      [['conus','Symmetric saddle anaesthesia + EARLY severe bowel/bladder + mild motor + mixed UMN/LMN'],['cauda','Asymmetric leg weakness + SEVERE radicular pain + areflexia + LATE bowel/bladder']]);
+    const s1 = cordState[1];
+    if (s1 === 'conus') return showCord('Conus medullaris syndrome',
+      ['Lesion at the conus (S1–S5 cord segments) at the L1–L2 vertebral level.',
+       'Causes: tumour, infarct, MS plaque at conus, ependymoma.',
+       '<strong>Workup:</strong> stat MRI lumbosacral spine with gadolinium; treatment depends on cause.',
+       'Surgical emergency if compressive.']);
+    if (s1 === 'cauda') return showCord('Cauda equina syndrome',
+      ['Compression of lumbosacral nerve roots below L1.',
+       'Most common cause: large central lumbar disc herniation (L4-5 or L5-S1). Also: tumour, abscess, haematoma.',
+       '<strong>Workup:</strong> stat MRI lumbosacral spine; catheterise bladder; stat spine surgery referral.',
+       '<strong>Emergency decompression within 24–48 h</strong> of bowel/bladder symptom onset — strongest predictor of recovery.',
+       'Document exam precisely (complete vs incomplete CES affects prognosis).']);
+  }
+
+  if (s0 === 'scd') return showCord('Subacute combined degeneration (B12 or copper)',
+    ['Dorsal columns (sensory ataxia, vibration/proprioception loss, positive Romberg) + lateral corticospinal tracts (spasticity, hyperreflexia, upgoing plantars).',
+     '<strong>Workup:</strong> serum B12, methylmalonic acid, homocysteine; copper, ceruloplasmin, zinc; CBC (macrocytosis often absent); HIV / VDRL if relevant; MRI cord (T2 hyperintensity in dorsal columns — "inverted V" sign).',
+     'Ask about <strong>recreational nitrous oxide use</strong> ("whippets") — inactivates B12 within hours and can cause SCD in young patients with apparently normal serum B12.',
+     'Also ask about: gastric bypass, vegan diet, pernicious anaemia, ileal disease (B12); zinc excess (denture cream), bariatric surgery (copper).',
+     'Treat: IM cyanocobalamin / hydroxocobalamin 1 mg daily × 7 days then weekly × 4 then monthly; or high-dose oral 1–2 mg daily. Copper: replace orally or IV; remove zinc source.',
+     'Recovery often incomplete if treatment delayed &gt; 1 year.']);
+}
+
+function addCord(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  cordRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => cordAns(step, b.dataset.val)));
+  if (cordState[step]) {
+    const t = wrap.querySelector(`[data-val="${cordState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showCord(title, items) {
+  cordResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  cordResult.classList.add('show');
+}
+
+function resetCord() {
+  cordState = {};
+  cordRest.innerHTML = '';
+  cordResult.classList.remove('show');
+  document.querySelectorAll('#cordTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => cordAns(0, b.dataset.val)));
+
+/* ===== ASIA Calculator ===== */
+const asiaItems = [
+  {label:'Light touch / pinprick preserved in S4–S5 (or deep anal pressure)', desc:'Sacral sparing — determines complete vs incomplete', opts:[
+    {v:0, l:'Absent'},
+    {v:1, l:'Present (any sensation including DAP)'},
+  ]},
+  {label:'Voluntary anal contraction (VAC)', desc:'Motor function in sacral segments', opts:[
+    {v:0, l:'Absent'},
+    {v:1, l:'Present'},
+  ]},
+  {label:'Motor function preserved below the neurological level?', desc:'In key muscles below the level of injury', opts:[
+    {v:0, l:'No motor function below level'},
+    {v:1, l:'Some motor function below level'},
+  ]},
+  {label:'If motor preserved below level: most key muscles below level have grade ≥ 3/5?', desc:'Half or more of muscles at MRC ≥ 3', opts:[
+    {v:0, l:'Most key muscles < 3/5 (or no motor below)'},
+    {v:1, l:'Half or more of key muscles ≥ 3/5'},
+  ]},
+  {label:'Any motor or sensory deficit at all?', desc:'For ASIA E (normal)', opts:[
+    {v:0, l:'Some deficit exists'},
+    {v:1, l:'Completely normal motor and sensory'},
+  ]},
+];
+
+const asiaBox = document.getElementById('asiaBox');
+const asiaSel = {};
+asiaItems.forEach((it, i) => {
+  const div = document.createElement('div');
+  div.className = 'row';
+  div.innerHTML = `<div class="label">${it.label}</div>
+    <div class="desc">${it.desc}</div>
+    <select data-i="${i}">${it.opts.map(o => `<option value="${o.v}">${o.l}</option>`).join('')}</select>`;
+  asiaBox.appendChild(div);
+  asiaSel[i] = div.querySelector('select');
+  asiaSel[i].addEventListener('change', updateAsia);
+});
+
+const asiaResult = document.createElement('div');
+asiaResult.className = 'asia-result';
+asiaResult.innerHTML = 'ASIA grade: <span id="aGrade">—</span><span class="severity" id="aDesc">Set answers above</span>';
+asiaBox.appendChild(asiaResult);
+
+function updateAsia() {
+  const sacralSensory = +asiaSel[0].value;
+  const vac = +asiaSel[1].value;
+  const motorBelow = +asiaSel[2].value;
+  const mostThreePlus = +asiaSel[3].value;
+  const fullyNormal = +asiaSel[4].value;
+
+  let grade = '', desc = '';
+
+  if (fullyNormal) {
+    grade = 'E';
+    desc = 'Normal motor and sensory function in all segments. (Patient had a documented SCI in the past; recovery to normal.)';
+  } else if (!sacralSensory && !vac) {
+    grade = 'A';
+    desc = 'Complete — no motor or sensory function preserved in S4–S5.';
+  } else if ((sacralSensory || vac) && !motorBelow && !vac) {
+    grade = 'B';
+    desc = 'Sensory incomplete — sensation preserved (including S4–S5) but no motor below the neurological level. Voluntary anal contraction absent.';
+  } else if (motorBelow || vac) {
+    if (mostThreePlus) {
+      grade = 'D';
+      desc = 'Motor incomplete — motor function preserved below the neurological level, and at least half of key muscles below have MRC ≥ 3.';
+    } else {
+      grade = 'C';
+      desc = 'Motor incomplete — motor function preserved below the neurological level, but more than half of key muscles below have MRC < 3.';
+    }
+  } else {
+    grade = '?';
+    desc = 'Inconsistent inputs — review answers.';
+  }
+
+  document.getElementById('aGrade').textContent = grade;
+  document.getElementById('aDesc').textContent = desc;
+}
+updateAsia();
+</script>
+</body>
+</html>

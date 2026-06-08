@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 10 — Spinal Cord Disorders (Reference)</title>
+<style>
+  :root{
+    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#3a3a8a; --soft:#eeeefc;
+    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
+    --pearl-bg:#e4e4f5; --pearl-bd:#3a3a8a; --pearl-ink:#1a1a4a;
+    --refer-bg:#fee5e2; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+    --time-bg:#eef7ff; --time-bd:#3a86b0; --time-ink:#163a6a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif; color:var(--ink); background:#fff; line-height:1.55; max-width:880px; margin:0 auto; padding:48px 28px 96px}
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
+  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
+  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
+  h3{font-size:1.18rem; margin-top:1.8em; color:#1a1a4a}
+  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
+  li{margin:.25em 0}
+  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
+  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
+  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
+  tbody tr:nth-child(even){background:#fafbfd}
+  .pearl,.warn,.refer,.time{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
+  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
+  .time{background:var(--time-bg); border-color:var(--time-bd); color:var(--time-ink)}
+  .src{font-size:.8rem; color:var(--muted)}
+  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
+  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+
+<h1>Module 10 — Spinal Cord Disorders</h1>
+<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 42 Diseases of the Spinal Cord) and <em>Merritt's Neurology</em> (14e, Ch. 17 Acute Spinal Cord Syndromes, Ch. 48 Traumatic SCI, Ch. 72 Transverse Myelitis, Ch. 107 Spinal Tumors, Ch. 113 Disk Disease &amp; Radiculopathy, Ch. 114 Spinal Stenosis, Ch. 115 Acquired and Hereditary Myelopathies)</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Big picture: time is cord</a></li>
+  <li><a href="#anatomy">Functional anatomy &amp; vertebral mismatch</a></li>
+  <li><a href="#syndromes">Classic cord syndromes</a></li>
+  <li><a href="#approach">Approach to the suspected myelopathy</a></li>
+  <li><a href="#compressive">Compressive myelopathies</a></li>
+  <li><a href="#vascular">Vascular cord syndromes</a></li>
+  <li><a href="#tm">Transverse myelitis (inflammatory / autoimmune)</a></li>
+  <li><a href="#infection">Infectious myelopathies</a></li>
+  <li><a href="#metabolic">Metabolic, toxic &amp; nutritional myelopathies</a></li>
+  <li><a href="#degenerative">Degenerative &amp; hereditary myelopathies</a></li>
+  <li><a href="#syrinx">Syringomyelia</a></li>
+  <li><a href="#sci">Traumatic spinal cord injury</a></li>
+  <li><a href="#conus">Conus medullaris vs cauda equina</a></li>
+  <li><a href="#bladder">Neurogenic bladder &amp; bowel</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#quick">Quick-reference tables</a></li>
+</ol>
+</div>
+
+<h2 id="frame">1 · Big picture: time is cord</h2>
+<p>The spinal cord has minimal redundancy. An acute compressive or vascular myelopathy that is left untreated for hours can convert an ambulatory patient into a permanently paraplegic one. The single most important principle in this module is: <strong>treat the patient before completing the workup</strong> when compression is suspected.</p>
+
+<p>The diagnostic task is to answer three questions in rapid sequence:</p>
+<ol>
+  <li><strong>Is this a cord lesion?</strong> A sensory level on the trunk, bilateral long-tract signs, and sphincter dysfunction give it away. UMN signs below the level (often after a brief flaccid "spinal shock" phase) seal it.</li>
+  <li><strong>At what level?</strong> Sensory level on the trunk, motor level, and reflex pattern localise the segmental level. <em>Image at least one level above</em> the suspected level.</li>
+  <li><strong>What is the mechanism &mdash; compressive or not?</strong> Compression is the emergency. MRI with and without gadolinium of the whole spine is the answer in almost every case.</li>
+</ol>
+
+<div class="warn"><strong>Three things must happen within 6 hours of a suspected acute compressive myelopathy:</strong> (1) urgent MRI &mdash; do not delay for sequential imaging or other tests; (2) IV dexamethasone if metastatic compression is plausible; (3) neurosurgical / spine surgery referral. Outcome is dictated by the neurological state at the time of decompression, not the time of presentation.</div>
+
+<h2 id="anatomy">2 · Functional anatomy &amp; vertebral mismatch</h2>
+
+<h3>Length-axis &mdash; the vertebra is NOT the cord segment</h3>
+<p>The vertebral column is longer than the cord. Cord ends at roughly <strong>L1–L2</strong> in adults; below that is the cauda equina. A patient with a "T12 fracture" actually has injury to the lumbosacral cord (conus); an "L2 fracture" damages the cauda equina. <em>Always document both vertebral level (the bone) and neurological level (the cord segment).</em></p>
+
+<table>
+<tr><th>Bony spine level</th><th>Cord segment level (approx.)</th></tr>
+<tr><td>C1–C7</td><td>C1–C8 (cord is roughly 1 segment above the vertebra)</td></tr>
+<tr><td>T1–T6</td><td>2 segments above (T6 vertebra ≈ T8 cord)</td></tr>
+<tr><td>T7–T9</td><td>3 segments above (T9 vertebra ≈ T12 cord)</td></tr>
+<tr><td>T10</td><td>L1–L2 cord segments</td></tr>
+<tr><td>T11</td><td>L3–L4 cord segments</td></tr>
+<tr><td>T12</td><td>L5 cord segment / conus</td></tr>
+<tr><td>L1</td><td>Sacral segments / conus</td></tr>
+<tr><td>L1–L2 and below</td><td>Cauda equina (nerve roots only)</td></tr>
+</table>
+
+<h3>Cross-section anatomy &mdash; the four tracts the GP must know</h3>
+<ul>
+  <li><strong>Lateral corticospinal tract</strong> (descending motor) &mdash; crosses in the medulla; ipsilateral weakness below the cord lesion.</li>
+  <li><strong>Dorsal columns</strong> (vibration, proprioception, fine touch) &mdash; ascend uncrossed; cross in the medulla; <em>ipsilateral</em> loss below a cord lesion.</li>
+  <li><strong>Lateral spinothalamic tract</strong> (pain, temperature) &mdash; crosses within 1–2 cord segments after entry; <em>contralateral</em> loss below the lesion (and 1–2 levels below the lesion on the side opposite the cord lesion).</li>
+  <li><strong>Autonomic outflow</strong> &mdash; sympathetic (T1–L2 lateral horn) and parasympathetic (S2–S4 sacral). Above T6 → risk of autonomic dysreflexia.</li>
+</ul>
+
+<p>Lamination matters: in the corticospinal and spinothalamic tracts, <em>cervical fibres are medial and sacral fibres are lateral</em>. Extrinsic (extramedullary) compression hits sacral fibres first → "sacral sparing" suggests an intramedullary lesion.</p>
+
+<h3>Vascular supply</h3>
+<ul>
+  <li><strong>Anterior spinal artery</strong> (single, midline) &mdash; supplies the anterior two-thirds of the cord (corticospinal, spinothalamic, autonomic, anterior grey matter). One artery, no redundancy → anterior cord ischaemia is common and devastating.</li>
+  <li><strong>Posterior spinal arteries</strong> (paired) &mdash; supply the posterior third (dorsal columns).</li>
+  <li>The cord is fed segmentally by <strong>radicular arteries</strong>. The largest, the <strong>artery of Adamkiewicz</strong>, usually arises from a left intercostal artery between T9 and T12 and supplies the lower two-thirds of the anterior cord. Highly susceptible to occlusion by aortic dissection, aortic surgery, and severe hypotension.</li>
+  <li>The mid-thoracic watershed zone (around T4–T6) is the most vulnerable to hypotensive ischaemia.</li>
+</ul>
+
+<h2 id="syndromes">3 · Classic cord syndromes</h2>
+
+<table>
+<tr><th>Syndrome</th><th>Lesion location</th><th>Pattern</th><th>Common causes</th></tr>
+<tr><td><strong>Complete transection</strong></td><td>Whole cord at the level</td><td>Initial spinal shock (flaccid, areflexic) → UMN signs days–weeks later. Sensory level. Bilateral loss of all modalities below. Sphincter dysfunction.</td><td>Trauma; advanced compression; severe transverse myelitis</td></tr>
+<tr><td><strong>Brown-S&eacute;quard (hemicord)</strong></td><td>Lateral half of cord</td><td>Ipsilateral UMN weakness + ipsilateral dorsal-column loss (vibration, proprioception) + contralateral pain/temp loss starting 1–2 levels below.</td><td>Penetrating trauma, MS plaque, tumour, lateral disc herniation</td></tr>
+<tr><td><strong>Central cord syndrome</strong></td><td>Central cord, expanding outward</td><td>Upper-extremity &gt; lower-extremity weakness (lamination), "cape" or "shawl" loss of pain/temp with preservation of dorsal column, bladder dysfunction late. Classic in hyperextension neck injury in older patients with cervical spondylosis.</td><td>Hyperextension cord contusion in cervical stenosis; syringomyelia; intramedullary tumour</td></tr>
+<tr><td><strong>Anterior cord syndrome</strong></td><td>Anterior two-thirds</td><td>Bilateral UMN weakness + bilateral pain/temp loss; <em>dorsal columns spared</em> (preserved vibration and proprioception); sphincter dysfunction.</td><td>Anterior spinal artery occlusion (aortic dissection, surgery, hypotension), severe burst fracture, anterior cord compression</td></tr>
+<tr><td><strong>Posterior cord syndrome</strong></td><td>Posterior third</td><td>Loss of vibration, proprioception, two-point discrimination; sensory ataxia; preserved pain/temp and motor.</td><td>Posterior spinal artery occlusion (rare); B12, copper, nitrous oxide; tabes dorsalis; HIV; AIDP variant</td></tr>
+<tr><td><strong>Conus medullaris syndrome</strong></td><td>S1–S5 cord</td><td>Symmetric saddle anaesthesia; early prominent bowel/bladder/sexual dysfunction; mild leg weakness; mixed UMN + LMN (cord and root); back pain typically mild; often bilateral, often symmetric.</td><td>Tumour, disc, infarct at conus</td></tr>
+<tr><td><strong>Cauda equina syndrome</strong></td><td>Lumbosacral roots below L1</td><td>Asymmetric leg weakness; severe radicular pain; saddle anaesthesia; late bowel/bladder dysfunction; LMN signs only (areflexia, atrophy). Pure root involvement.</td><td>Large central disc herniation (often L4-5 or L5-S1), tumour, abscess, haematoma</td></tr>
+<tr><td><strong>Subacute combined degeneration</strong></td><td>Dorsal columns + lateral corticospinal tracts (B12 deficiency)</td><td>Symmetric loss of vibration and proprioception (sensory ataxia) + spasticity; may have superimposed peripheral neuropathy; megaloblastic features.</td><td>Vitamin B12 deficiency; nitrous oxide abuse; copper deficiency (post-bariatric, zinc excess)</td></tr>
+<tr><td>Tabes dorsalis</td><td>Dorsal roots and columns</td><td>Lancinating pains, sensory ataxia, Argyll Robertson pupils, areflexia.</td><td>Late neurosyphilis (rare in antibiotic era)</td></tr>
+</table>
+
+<div class="pearl"><strong>Key distinguishing pearls:</strong> "Sacral sparing" of pain/temperature in a partial cord lesion → intramedullary lesion (extrinsic spares the sacral fibres, which sit laterally). Severe bowel/bladder + symmetric saddle anaesthesia → <em>conus</em>. Asymmetric leg weakness + areflexia + severe radicular pain → <em>cauda equina</em>. Dorsal-column loss WITH UMN signs but normal pain/temp → think <em>B12 or copper deficiency</em> (subacute combined degeneration).</div>
+
+<h2 id="approach">4 · Approach to the suspected myelopathy</h2>
+
+<h3>History &mdash; tempo first</h3>
+<table>
+<tr><th>Time to nadir</th><th>Likely category</th></tr>
+<tr><td>Seconds → minutes</td><td>Vascular (spinal cord stroke, dural AVF rupture); rarely cord haemorrhage; rarely trauma without obvious context</td></tr>
+<tr><td>Hours → days</td><td>Compressive (haematoma, abscess, tumour with sudden decompensation, disc), severe transverse myelitis</td></tr>
+<tr><td>Days → 4 weeks</td><td>Transverse myelitis (most common 4–21 days to nadir), MS, NMOSD, MOGAD, sarcoid, infectious, paraneoplastic</td></tr>
+<tr><td>Weeks → months</td><td>Tumour (metastatic or primary), spondylotic myelopathy, B12/copper deficiency, syringomyelia, HTLV-1, hereditary spastic paraparesis</td></tr>
+<tr><td>Years</td><td>Spondylotic, hereditary spastic paraparesis, slow-growing tumour, MS progressive form</td></tr>
+</table>
+
+<h3>Key questions</h3>
+<ul>
+  <li>Sensory level on the trunk? At what dermatome (T4 = nipple line; T10 = umbilicus; L1 = inguinal ligament; S2–4 = perineum)?</li>
+  <li>Bilateral leg weakness with spasticity or flaccidity (think tempo)?</li>
+  <li>Bowel/bladder/sexual dysfunction? <em>New-onset urinary retention in someone with leg symptoms is a red flag.</em></li>
+  <li>Back pain at the level (compressive)?</li>
+  <li>Recent trauma? Anticoagulation? Coagulopathy?</li>
+  <li>Recent infection or vaccination (parainfectious myelitis)?</li>
+  <li>Cancer history? Weight loss? Night sweats?</li>
+  <li>Optic neuritis or bilateral severe ON in past? (NMOSD)</li>
+  <li>IV drug use, dental work, immunosuppression? (Abscess)</li>
+  <li>Aortic surgery, aortic dissection, hypotension? (Spinal cord stroke)</li>
+  <li>Diet (B12 from vegan diet, gastric bypass), nitrous oxide exposure?</li>
+  <li>Family history (HSP)?</li>
+  <li>Lhermitte sign / Uhthoff phenomenon (MS, B12)?</li>
+</ul>
+
+<h3>Examination</h3>
+<ul>
+  <li><strong>Motor:</strong> tone (flaccid early, then spastic), pyramidal weakness pattern, atrophy/fasciculations (LMN at the level of the lesion if grey matter involved).</li>
+  <li><strong>Reflexes:</strong> brisk below the level (after spinal shock); absent at and below for acute SCI initially.</li>
+  <li><strong>Sensory:</strong> test pinprick (spinothalamic), vibration and proprioception (dorsal columns), light touch &mdash; mapping the sensory level. <em>Examine on the back as well as the front; the sensory level on the back is often clearer.</em></li>
+  <li><strong>Sphincter:</strong> anal tone, bulbocavernosus reflex, post-void residual (catheter or bladder scan), saddle sensation (S2–S4).</li>
+  <li>Babinski; clonus; Hoffman sign (for cervical UMN).</li>
+  <li>Look for stigmata of the cause: dysraphism, neurofibromatosis, kyphoscoliosis, skin signs of vasculitis, abdominal aortic aneurysm.</li>
+</ul>
+
+<h3>Investigations</h3>
+<ul>
+  <li><strong>MRI of the whole spine</strong> with and without gadolinium &mdash; the single most important investigation. Image at least one level above the suspected sensory level.</li>
+  <li>CT myelogram if MRI contraindicated (pacemaker, metallic implant in cord region).</li>
+  <li>Plain films and CT of vertebrae for fracture or destructive lesion.</li>
+  <li>Lumbar puncture (after MRI rules out mass effect): cell count, protein, glucose, oligoclonal bands, IgG index, AQP4-IgG, MOG-IgG, viral PCR (HSV, VZV, enterovirus, EBV, CMV, JCV, HIV, West Nile if relevant), VDRL, cytology.</li>
+  <li>Serum: vitamin B12 (+ methylmalonic acid &amp; homocysteine), copper, zinc, HIV, HTLV-1 if exposure, VDRL/RPR, FTA-ABS, ANA, ANCA, anti-Ro/La, ESR, ACE, AQP4-IgG, MOG-IgG, paraneoplastic panel (anti-CRMP5, anti-Hu, anti-amphiphysin, anti-GFAP).</li>
+  <li>Imaging for systemic disease if needed: chest CT for sarcoidosis or metastasis; PET-CT if paraneoplastic suspected.</li>
+</ul>
+
+<h2 id="compressive">5 · Compressive myelopathies</h2>
+
+<h3>Metastatic epidural cord compression (MESCC) &mdash; the most common neurosurgical emergency in cancer</h3>
+<ul>
+  <li>5–10% of cancer patients; first presentation of unknown cancer in ~20%.</li>
+  <li>Top primary sources: breast, lung, prostate, kidney, multiple myeloma, lymphoma, colon.</li>
+  <li>Thoracic spine in 70%; lumbosacral 20%; cervical 10%.</li>
+  <li><strong>Progressive back pain</strong> (weeks-months) preceding neurological symptoms in 90%; pain often worse with recumbency (a key clue distinguishing it from mechanical back pain).</li>
+  <li>Once weakness or bowel/bladder symptoms develop, deterioration to non-ambulatory status can occur within hours-days.</li>
+</ul>
+
+<h4>Acute management of suspected MESCC</h4>
+<ol>
+  <li><strong>Stat MRI whole spine</strong> with gadolinium (not just the symptomatic level &mdash; multiple-level disease in 30–50%).</li>
+  <li><strong>Dexamethasone</strong> &mdash; 10 mg IV loading then 4 mg PO/IV every 6 hours (a higher 100 mg loading then 24 mg q6h regimen has been used but the standard moderate dose has equal efficacy and fewer complications).</li>
+  <li>Neurosurgery / spine surgery referral &mdash; surgical decompression within 24 hours, followed by post-op radiotherapy, gives better ambulation outcomes than RT alone (Patchell trial 2005). Reserved for ambulatory or recently non-ambulatory patients with reasonable life expectancy &gt; 3 months.</li>
+  <li>Radiotherapy alone for patients who are not surgical candidates, radiosensitive tumours (lymphoma, myeloma, germ cell, small-cell), or multilevel disease.</li>
+  <li>Treat underlying cancer (hormonal, chemotherapy, targeted therapy, bisphosphonates / denosumab).</li>
+  <li>Stereotactic body radiotherapy (SBRT) increasingly used.</li>
+</ol>
+
+<h3>Spondylotic myelopathy</h3>
+<ul>
+  <li>Most common cause of myelopathy in adults &gt; 55.</li>
+  <li>Slowly progressive cord compression from degenerative cervical (most common) or thoracic spinal stenosis: osteophytes, disc protrusion, ligamentum flavum hypertrophy.</li>
+  <li>Mixed UMN (corticospinal compromise) + LMN (root compromise at the level) signs &mdash; classic "myeloradiculopathy."</li>
+  <li>Hand clumsiness, gait stiffness, urinary urgency, Lhermitte sign, hyperreflexia, Hoffman sign, brisk jaw jerk preserved (clinches cervical not brainstem).</li>
+  <li>MRI shows multi-level stenosis with cord T2 hyperintensity at the worst level (myelomalacia).</li>
+  <li><strong>Treatment:</strong> conservative (PT, activity modification, neck collar in selective cases) for mild disease; surgical decompression (anterior cervical discectomy and fusion, posterior laminoplasty or laminectomy ± fusion) for moderate-to-severe or progressive deficit.</li>
+</ul>
+
+<h3>Disc herniation, abscess, haematoma</h3>
+<ul>
+  <li><strong>Acute disc herniation</strong> &mdash; severe radicular pain at root level; cauda equina syndrome with large central lumbar disc.</li>
+  <li><strong>Epidural abscess</strong> &mdash; back pain, fever, focal tenderness; risk factors include IV drug use, diabetes, dental procedures, recent spinal procedure, mechanical heart valve. Staph aureus most common. <em>Stat MRI</em> + blood cultures + emergency neurosurgical drainage + IV antibiotics covering S. aureus (vancomycin + ceftriaxone, adjust to culture).</li>
+  <li><strong>Epidural haematoma</strong> &mdash; spontaneous in patients on anticoagulants; or after spinal procedure (LP, epidural). Sudden severe back pain followed by progressive neurological deficit. Stat MRI; reverse anticoagulation; emergent surgical evacuation.</li>
+</ul>
+
+<div class="refer"><strong>Compressive cord lesion checklist (each must happen in the first 6 h):</strong>
+<ul>
+  <li>Whole-spine MRI with gadolinium.</li>
+  <li>Dexamethasone if cancer plausible (no contraindication).</li>
+  <li>Neurosurgery / spine surgery referral.</li>
+  <li>Antibiotic if abscess suspected (vancomycin + ceftriaxone).</li>
+  <li>Reverse anticoagulation if haematoma suspected.</li>
+</ul>
+</div>
+
+<h2 id="vascular">6 · Vascular cord syndromes</h2>
+
+<h3>Spinal cord infarction (anterior spinal artery syndrome most common)</h3>
+<ul>
+  <li>Sudden onset (often with pain at the level) → bilateral leg weakness + pain/temperature loss + sphincter dysfunction; <em>dorsal columns preserved</em>.</li>
+  <li>Causes: aortic dissection or aortic aneurysm repair (Adamkiewicz interruption), severe hypotension (cardiac arrest, sepsis), atherosclerosis, fibrocartilaginous embolism (Valsalva or trauma-induced), vasculitis, decompression sickness, cocaine use.</li>
+  <li>MRI may be normal in the first hours; DWI sequence helpful; pencil-shaped T2 hyperintensity over multiple segments on sagittal; "owl eyes" or "snake eyes" on axial (anterior horn cells).</li>
+  <li><strong>Management:</strong> permissive hypertension (CSF drainage and MAP elevation are used post-aortic surgery); search for and treat the underlying cause. No proven role for thrombolysis. Outcomes generally poor &mdash; ~30% remain non-ambulatory.</li>
+</ul>
+
+<h3>Spinal dural arteriovenous fistula (DAVF)</h3>
+<ul>
+  <li>Most common vascular malformation of the spinal cord.</li>
+  <li>Typically older men; slowly progressive lower-limb spastic-flaccid weakness with sphincter dysfunction; symptoms exacerbated by exercise (venous hypertension steals from cord).</li>
+  <li>MRI: <em>dilated tortuous serpentine vessels on dorsal cord surface</em>; central cord T2 hyperintensity.</li>
+  <li>Diagnosis confirmed with spinal angiography.</li>
+  <li>Treatment: endovascular embolisation or surgical interruption. <em>A treatable cause of progressive myelopathy that is often missed.</em></li>
+</ul>
+
+<h2 id="tm">7 · Transverse myelitis (inflammatory / autoimmune)</h2>
+
+<p>Transverse myelitis is a syndrome label, not a diagnosis. After thorough workup, ~70% have an identifiable cause; ~30% remain "idiopathic". Cross-reference with Module 8 for MS / NMOSD / MOGAD.</p>
+
+<h3>Causes</h3>
+<ul>
+  <li><strong>MS</strong>: usually short (&lt; 2 vertebral segments), peripheral cord lesion; partial; recovery often good.</li>
+  <li><strong>NMOSD</strong>: <em>longitudinally extensive transverse myelitis (LETM, ≥ 3 vertebral segments)</em>, often central; severe; AQP4-IgG positive in 75%.</li>
+  <li><strong>MOGAD</strong>: conus often involved; LETM possible; MOG-IgG positive.</li>
+  <li><strong>Sarcoid myelopathy</strong>: longitudinally extensive enhancing lesion, often with dorsal subpial enhancement ("trident sign"); elevated ACE; CT chest may show lymphadenopathy.</li>
+  <li><strong>Connective tissue disease</strong>: lupus, Sj&ouml;gren, antiphospholipid, mixed CTD.</li>
+  <li><strong>Behçet</strong>: brainstem and cord; oral and genital ulcers.</li>
+  <li><strong>Paraneoplastic</strong>: anti-CRMP5 (small-cell lung cancer), anti-amphiphysin, anti-GFAP.</li>
+  <li><strong>Parainfectious / post-vaccinal</strong>: most common after a viral illness or vaccine; usually monophasic.</li>
+  <li><strong>Idiopathic transverse myelitis</strong>: after exhaustive workup negative.</li>
+</ul>
+
+<h3>Diagnostic workup</h3>
+<ul>
+  <li>MRI whole spine ± brain with gadolinium.</li>
+  <li>LP: cells, protein, oligoclonal bands, IgG index, AQP4-IgG, MOG-IgG, viral PCR.</li>
+  <li>Serum: AQP4-IgG, MOG-IgG (cell-based assays); ACE; ANA/ENA; anti-Ro/La; ANCA; cardiolipin/β2GP1; HIV, syphilis, HTLV-1 if exposure; B12, copper; paraneoplastic panel.</li>
+  <li>Chest CT for sarcoidosis or occult malignancy; whole-body PET-CT if paraneoplastic strongly suspected.</li>
+</ul>
+
+<h3>Treatment</h3>
+<ul>
+  <li>IV methylprednisolone 1 g daily × 5 days.</li>
+  <li>Plasma exchange for severe / steroid-refractory disease (especially in NMOSD &mdash; lower threshold; better outcomes if started early).</li>
+  <li>Long-term immunotherapy depends on aetiology: NMOSD-specific mAbs (eculizumab/inebilizumab/satralizumab), MOGAD off-label rituximab/IVIG, sarcoid steroids + steroid-sparing, MS DMTs for MS.</li>
+</ul>
+
+<h2 id="infection">8 · Infectious myelopathies</h2>
+
+<table>
+<tr><th>Pathogen</th><th>Pattern</th><th>Notes</th></tr>
+<tr><td><strong>Herpes simplex virus, varicella-zoster</strong></td><td>Acute / subacute transverse myelitis; ascending necrotic myelitis in immunocompromised</td><td>CSF PCR; aciclovir IV 10 mg/kg q8h × 14–21 days. VZV myelopathy can occur weeks-months after zoster rash.</td></tr>
+<tr><td><strong>Enterovirus, polio, West Nile, EV-D68</strong></td><td>Anterior horn predominantly &mdash; <em>acute flaccid paralysis</em></td><td>Polio: historical in vaccine era. AFM in children (EV-D68); West Nile in adults. Supportive care.</td></tr>
+<tr><td><strong>HIV</strong></td><td>Vacuolar myelopathy (subacute, dorsal columns + corticospinal &mdash; mimics B12)</td><td>ART improves; late stage now uncommon</td></tr>
+<tr><td><strong>HTLV-1 (tropical spastic paraparesis)</strong></td><td>Slowly progressive spastic paraparesis + bladder dysfunction; common in Caribbean, Japan, equatorial Africa</td><td>Serology; no curative treatment; supportive care</td></tr>
+<tr><td><strong>Neurosyphilis (tabes dorsalis)</strong></td><td>Lancinating pains + sensory ataxia + Argyll Robertson pupils + areflexia</td><td>VDRL/RPR + FTA-ABS; CSF VDRL. IV penicillin G 18–24 MU/day × 10–14 days</td></tr>
+<tr><td><strong>Mycobacterium tuberculosis (Pott disease)</strong></td><td>Vertebral collapse with anterior compression; gibbus deformity; thoracic spine common</td><td>Image, biopsy, anti-TB therapy 9–12 months + surgical decompression if needed</td></tr>
+<tr><td>Schistosomiasis</td><td>Conus / cauda; granulomatous; eosinophilia</td><td>Praziquantel + steroids</td></tr>
+<tr><td>Lyme</td><td>Radiculitis / myelitis; geographic exposure</td><td>Serology + CSF; IV ceftriaxone 14–28 days</td></tr>
+<tr><td>Brucellosis, fungal infections</td><td>Granulomatous; meningitis features</td><td>Pathogen-targeted treatment</td></tr>
+</table>
+
+<h2 id="metabolic">9 · Metabolic, toxic &amp; nutritional myelopathies</h2>
+
+<h3>Vitamin B12 deficiency &mdash; subacute combined degeneration (SCD)</h3>
+<ul>
+  <li>Symmetric loss of vibration and proprioception (sensory ataxia, positive Romberg) + spastic paraparesis + sometimes peripheral neuropathy + sometimes cognitive change.</li>
+  <li>Macrocytosis often absent &mdash; never rely on MCV to rule out B12.</li>
+  <li>Confirm: low B12 + elevated methylmalonic acid + elevated homocysteine.</li>
+  <li>Causes: pernicious anaemia, gastric bypass, ileal resection, vegan diet, metformin (mild), <strong>nitrous oxide abuse</strong> (recreational, dentists, healthcare workers using whippets) &mdash; inactivates B12 within hours.</li>
+  <li>Treat: cyanocobalamin or hydroxocobalamin 1 mg IM daily × 1 week, weekly × 4 weeks, then monthly; or high-dose oral 1–2 mg daily. Recovery often partial if treatment delayed &gt; 1 year.</li>
+</ul>
+
+<h3>Copper deficiency myelopathy</h3>
+<ul>
+  <li>Mimics B12 SCD &mdash; sensory ataxia + spastic paraparesis.</li>
+  <li>Causes: bariatric surgery, zinc excess (denture cream, supplements), malabsorption.</li>
+  <li>Confirm: low serum copper, low ceruloplasmin; elevated zinc if exogenous.</li>
+  <li>Treat: oral or IV copper replacement; remove zinc source. Recovery may be incomplete.</li>
+</ul>
+
+<h3>Folate deficiency</h3>
+<p>Rarely causes myelopathy alone; mainly neuropsychiatric and peripheral.</p>
+
+<h3>Heroin and other toxins</h3>
+<p>Heroin myelopathy (rare); chemotherapy intrathecal toxicity (methotrexate, cytarabine); decompression sickness ("caisson disease"); arsenic, lead; konzo (cyanide from cassava — tropical spastic paraparesis in malnourished children).</p>
+
+<h3>Radiation myelopathy</h3>
+<p>Two forms: early transient (1–6 months after RT, Lhermitte sign, resolves) and late delayed (6–18 months, progressive). MRI may show cord swelling acutely, then atrophy. Reduce risk by limiting cord dose. Treatment is supportive; case reports of bevacizumab for delayed form.</p>
+
+<h2 id="degenerative">10 · Degenerative &amp; hereditary myelopathies</h2>
+
+<h3>Hereditary spastic paraparesis (HSP)</h3>
+<ul>
+  <li>Group of genetic disorders with pure or complicated spastic paraparesis. Most common autosomal dominant gene: <em>SPAST</em> (SPG4).</li>
+  <li>Insidious progressive lower-extremity spasticity, gait stiffness, urinary urgency. Sensation relatively spared.</li>
+  <li>Complicated forms: + ataxia, neuropathy, cognitive impairment, retinopathy, etc.</li>
+  <li>Diagnosis: family history, genetic testing. Differentiate from MS (no MRI lesions), B12 deficiency (normal labs), HTLV-1 (negative serology), dopa-responsive dystonia.</li>
+  <li>Treat: baclofen, tizanidine, botulinum toxin, intrathecal baclofen; PT/OT.</li>
+</ul>
+
+<h3>Adrenoleukodystrophy / adrenomyeloneuropathy (X-linked)</h3>
+<ul>
+  <li>ABCD1 gene mutation; very-long-chain fatty acid (VLCFA) accumulation.</li>
+  <li>Adrenomyeloneuropathy (AMN) in young men: progressive spastic paraparesis + adrenal insufficiency + peripheral neuropathy; cognitive features later.</li>
+  <li>Serum VLCFAs elevated.</li>
+  <li>Treat: adrenal hormone replacement; HSCT in early childhood cerebral form (not effective for AMN).</li>
+</ul>
+
+<h3>Spinocerebellar ataxias and Friedreich ataxia</h3>
+<p>Combined cord + cerebellar involvement; covered in cerebellar disorders typically. Friedreich: GAA expansion in <em>FXN</em>; childhood/adolescent onset; areflexia + dorsal column loss + cerebellar ataxia + cardiomyopathy + diabetes; <strong>omaveloxolone</strong> (FDA-approved 2023) is the first DMT.</p>
+
+<h2 id="syrinx">11 · Syringomyelia</h2>
+
+<ul>
+  <li>Fluid-filled cavity within the spinal cord, usually central / cervical.</li>
+  <li><strong>Classic presentation</strong>: dissociated sensory loss in a "cape" or "shawl" distribution (loss of pain/temperature, preserved touch and proprioception) over the shoulders and upper arms; followed by LMN weakness in arms (anterior horn involvement at expanding cord level); UMN signs in legs (corticospinal involvement) develop later.</li>
+  <li>Often associated with Chiari I malformation; also post-traumatic, post-myelitic, or with spinal cord tumour.</li>
+  <li>MRI confirms the syrinx and identifies underlying cause.</li>
+  <li>Treat: suboccipital decompression for Chiari-associated syrinx; syringosubarachnoid shunt for refractory cases.</li>
+</ul>
+
+<h2 id="sci">12 · Traumatic spinal cord injury (SCI)</h2>
+
+<h3>Epidemiology</h3>
+<p>~17,000 new cases per year in the US; motor vehicle accidents and falls leading causes. Median age has shifted upward over recent decades (elderly falls with pre-existing cervical stenosis).</p>
+
+<h3>Acute care</h3>
+<ol>
+  <li>ABCDE per ATLS; <strong>cervical-spine immobilisation</strong> until cleared clinically (NEXUS / Canadian C-spine rule) and radiographically.</li>
+  <li>Maintain mean arterial pressure (MAP) <strong>≥ 85 mmHg for 5–7 days</strong> to optimise cord perfusion (consensus guideline; weak evidence). Use vasopressors as needed.</li>
+  <li>Stat CT cervical / thoracic / lumbar spine for fracture detail; MRI for cord assessment, ligamentous injury, and disc herniation.</li>
+  <li>Surgical decompression: timing remains debated, but most evidence favours <strong>early decompression (&lt; 24 h)</strong> for incomplete cervical SCI with persistent cord compression (STASCIS, AOSpine guidelines).</li>
+  <li><strong>High-dose methylprednisolone for SCI is controversial.</strong> The NASCIS protocols showed marginal benefit at considerable cost (infection, GI bleed, mortality). Current AANS/CNS guidelines do <em>not</em> recommend routine high-dose methylprednisolone; AOSpine 2017 guideline allows it as an option in patients within 8 h of blunt SCI but acknowledges low quality of evidence. Many centres no longer use it.</li>
+  <li>DVT prophylaxis (mechanical immediately, pharmacological after 24–72 h if no haemorrhagic concern).</li>
+  <li>Pressure-area care; bladder management (intermittent catheterisation).</li>
+</ol>
+
+<h3>ASIA Impairment Scale</h3>
+<table>
+<tr><th>Grade</th><th>Description</th></tr>
+<tr><td>A</td><td>Complete &mdash; no motor or sensory function preserved in S4–S5</td></tr>
+<tr><td>B</td><td>Sensory incomplete &mdash; sensation preserved (including S4–S5) but no motor below neurological level</td></tr>
+<tr><td>C</td><td>Motor incomplete &mdash; motor preserved below level, &gt; half of key muscles below have grade &lt; 3</td></tr>
+<tr><td>D</td><td>Motor incomplete &mdash; motor preserved below level, ≥ half of key muscles below have grade ≥ 3</td></tr>
+<tr><td>E</td><td>Normal motor and sensory function</td></tr>
+</table>
+
+<h3>Spinal shock vs neurogenic shock</h3>
+<ul>
+  <li><strong>Spinal shock</strong> &mdash; transient flaccid areflexic state below the SCI level lasting days to weeks; bulbocavernosus reflex returns first; defined neurologically.</li>
+  <li><strong>Neurogenic shock</strong> &mdash; hypotension + bradycardia due to loss of sympathetic outflow (lesions above T6); requires careful fluid + vasopressor (norepinephrine) management. <em>Distinguish from haemorrhagic shock</em>; trauma patients often have both.</li>
+</ul>
+
+<h3>Autonomic dysreflexia</h3>
+<ul>
+  <li>Occurs in chronic SCI <strong>above T6</strong> level when a noxious stimulus below the lesion triggers unregulated sympathetic outflow.</li>
+  <li>Trigger: bladder distension (most common &mdash; blocked catheter), bowel impaction, pressure ulcer, ingrown toenail, urinary tract infection, sexual activity, labour.</li>
+  <li>Symptoms: pounding headache, severe paroxysmal hypertension (systolic often &gt; 200), flushing/sweating above the level, pallor and pilo-erection below, bradycardia (reflex).</li>
+  <li><strong>Management</strong>: sit the patient up; loosen clothing; <strong>find and remove the trigger immediately</strong> (catheter for distended bladder, manual disimpaction for stool). Antihypertensive (nifedipine bite-and-swallow, nitroglycerin, captopril) only if BP severely elevated and trigger not quickly removable. Untreated → stroke, seizure, MI, death.</li>
+</ul>
+
+<div class="warn"><strong>Autonomic dysreflexia is a true neurological emergency.</strong> If a chronic SCI patient with a high lesion presents with severe headache and hypertension, do not give labetalol or other long-acting agents reflexively &mdash; check for blocked catheter or impacted bowel first; remove the trigger; the BP will often normalise within minutes.</div>
+
+<h2 id="conus">13 · Conus medullaris vs cauda equina</h2>
+
+<table>
+<tr><th>Feature</th><th>Conus medullaris</th><th>Cauda equina</th></tr>
+<tr><td>Onset</td><td>Sudden, bilateral, symmetric</td><td>Gradual, asymmetric, unilateral often</td></tr>
+<tr><td>Pain</td><td>Less prominent</td><td>Severe radicular leg pain</td></tr>
+<tr><td>Saddle anaesthesia</td><td>Symmetric, prominent, early</td><td>Asymmetric, less prominent</td></tr>
+<tr><td>Motor weakness</td><td>Mild, symmetric (cord + roots overlap)</td><td>More severe, asymmetric, follows root pattern</td></tr>
+<tr><td>Reflexes</td><td>Ankle absent; knee may be preserved or hyperactive (mixed UMN + LMN)</td><td>Both ankle and knee absent (pure LMN)</td></tr>
+<tr><td>Bowel/bladder</td><td>Early, prominent, severe</td><td>Late, less severe</td></tr>
+<tr><td>Bulbocavernosus reflex</td><td>Often absent</td><td>Variable</td></tr>
+<tr><td>Sexual dysfunction</td><td>Common, early</td><td>Less prominent</td></tr>
+<tr><td>Typical lesions</td><td>Tumour, infarct, MS plaque at conus, ependymoma</td><td>Large central disc, tumour, abscess, haematoma</td></tr>
+</table>
+
+<p>Both are <strong>surgical emergencies</strong> when due to compression. Time to surgery within 24–48 hours from onset of bowel/bladder dysfunction is the strongest predictor of recovery.</p>
+
+<h2 id="bladder">14 · Neurogenic bladder &amp; bowel</h2>
+
+<h3>Bladder patterns</h3>
+<table>
+<tr><th>Lesion site</th><th>Pattern</th></tr>
+<tr><td>Cord above sacral level (suprasacral)</td><td>Upper-motor-neuron / "spastic" bladder &mdash; detrusor hyperreflexia, often with detrusor-sphincter dyssynergia; urgency, incontinence, incomplete emptying.</td></tr>
+<tr><td>Conus or cauda</td><td>Lower-motor-neuron / "flaccid" bladder &mdash; detrusor areflexia, overflow incontinence, retention.</td></tr>
+</table>
+
+<h3>Management principles</h3>
+<ul>
+  <li>Urodynamic assessment.</li>
+  <li>Clean intermittent self-catheterisation (preferred) over indwelling Foley.</li>
+  <li>Antimuscarinics (oxybutynin, solifenacin, tolterodine) or β3 agonist (mirabegron — avoids anticholinergic burden) for overactive detrusor.</li>
+  <li>Onabotulinum toxin A into detrusor for refractory neurogenic detrusor overactivity.</li>
+  <li>α-blockers (tamsulosin) for sphincter dyssynergia.</li>
+  <li>Cathetersed bladder &mdash; high-risk for UTI, bladder cancer (long-term); urological follow-up essential.</li>
+  <li>Bowel: routine bowel programme, fibre, suppositories, enemas, manual evacuation; surveillance for impaction (autonomic dysreflexia trigger).</li>
+</ul>
+
+<h2 id="refer">15 · When to refer</h2>
+<div class="refer"><strong>Emergency &mdash; same-day spine surgery / neurosurgery:</strong>
+<ul>
+  <li>Suspected compressive cord lesion (MESCC, epidural abscess, epidural haematoma).</li>
+  <li>Cauda equina syndrome (bilateral leg pain + saddle anaesthesia + new bowel/bladder dysfunction).</li>
+  <li>Conus medullaris syndrome.</li>
+  <li>Traumatic SCI.</li>
+  <li>Autonomic dysreflexia in chronic SCI patient with high cord lesion.</li>
+</ul>
+</div>
+<div class="warn"><strong>Urgent neurology referral:</strong> transverse myelitis (start steroids; refer for full demyelinating workup); spinal cord stroke; suspected spondylotic myelopathy with progressive symptoms or significant disability; B12 / copper deficiency myelopathy that does not improve with replacement; suspected hereditary myelopathy for genetic testing.</div>
+
+<h2 id="quick">16 · Quick-reference tables</h2>
+
+<h3>Sensory dermatomes for quick localisation</h3>
+<table>
+<tr><th>Dermatome</th><th>Surface landmark</th></tr>
+<tr><td>C2</td><td>Posterior scalp / mastoid</td></tr>
+<tr><td>C4</td><td>Top of shoulder (just above clavicle)</td></tr>
+<tr><td>C5</td><td>Lateral upper arm (deltoid badge)</td></tr>
+<tr><td>C6</td><td>Lateral forearm, thumb</td></tr>
+<tr><td>C7</td><td>Middle finger</td></tr>
+<tr><td>C8</td><td>Little finger, medial forearm</td></tr>
+<tr><td>T4</td><td>Nipple line</td></tr>
+<tr><td>T6</td><td>Xiphoid</td></tr>
+<tr><td>T10</td><td>Umbilicus</td></tr>
+<tr><td>L1</td><td>Inguinal ligament</td></tr>
+<tr><td>L4</td><td>Medial knee, medial calf, medial big toe</td></tr>
+<tr><td>L5</td><td>Lateral calf, dorsum of foot, big toe dorsum</td></tr>
+<tr><td>S1</td><td>Lateral foot, little toe, sole</td></tr>
+<tr><td>S2–S4</td><td>Perineum, saddle area</td></tr>
+</table>
+
+<h3>Cord syndrome cheat-sheet</h3>
+<table>
+<tr><th>Syndrome</th><th>One-line</th></tr>
+<tr><td>Complete</td><td>All modalities lost below; spinal shock initially</td></tr>
+<tr><td>Brown-S&eacute;quard</td><td>Ipsilateral UMN + dorsal column loss + contralateral pain/temp loss</td></tr>
+<tr><td>Central cord</td><td>Arms &gt; legs; cape sensory loss; classic in elderly hyperextension</td></tr>
+<tr><td>Anterior cord</td><td>Bilateral UMN + pain/temp loss; <em>dorsal columns spared</em></td></tr>
+<tr><td>Posterior cord</td><td>Dorsal column loss; sensory ataxia; motor spared</td></tr>
+<tr><td>Conus</td><td>Symmetric saddle + bowel/bladder + mixed UMN/LMN</td></tr>
+<tr><td>Cauda</td><td>Asymmetric leg weakness + severe radicular pain + areflexia</td></tr>
+<tr><td>Subacute combined</td><td>Vibration/proprioception + spasticity; B12 or copper</td></tr>
+</table>
+
+<h3>"When the patient says 'I'm losing feeling in my legs'…"</h3>
+<table>
+<tr><th>Step</th><th>Action</th></tr>
+<tr><td>1</td><td>Vital signs, then sensory level (front AND back), motor, reflexes, sphincter exam</td></tr>
+<tr><td>2</td><td>If cord lesion suspected → admit, get IV access, NPO</td></tr>
+<tr><td>3</td><td>Stat MRI whole spine with gadolinium</td></tr>
+<tr><td>4</td><td>If MESCC plausible &mdash; dexamethasone IV before MRI</td></tr>
+<tr><td>5</td><td>Spine surgery + neurosurgery referral while imaging is in motion</td></tr>
+<tr><td>6</td><td>Bladder scan or catheter; saddle exam documented</td></tr>
+<tr><td>7</td><td>Once MRI returns &mdash; treat by mechanism (decompression, antibiotics, evacuation, steroids, PLEX)</td></tr>
+</table>
+
+<hr>
+<p class="src">Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Ch. 42 (Diseases of the Spinal Cord); Merritt's <em>Neurology</em> 14e, Ch. 17 (Acute Spinal Cord Syndromes), Ch. 48 (Traumatic Spinal Cord Injury), Ch. 72 (Transverse Myelitis), Ch. 107 (Spinal Tumors), Ch. 113 (Disk Disease &amp; Radiculopathy), Ch. 114 (Cervical and Lumbar Spinal Stenosis), Ch. 115 (Acquired and Hereditary Myelopathies). MESCC management: Patchell RA et al. <em>Lancet</em> 2005;366:643-648 (surgery + RT vs RT alone). AOSpine SCI 2017 guidelines (timing of decompression and methylprednisolone). Friedreich ataxia: omaveloxolone FDA approval 2023 (SKYCLARYS).</p>
+
+</body>
+</html>
