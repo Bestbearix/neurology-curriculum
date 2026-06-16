@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 21 — Functional Neurological Disorders (Interactive)</title>
+<style>
+  :root{
+    --bg:#04201f; --panel:#0a3232; --panel-2:#0e3f3f; --line:#1a5a5a;
+    --ink:#e0f3f3; --muted:#8db5b5; --accent:#22d3d3; --accent-2:#5ce8e8;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#124848; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#021616,#04201f 35%,#04201f); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(34,211,211,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#02201f; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#bdf0f0}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(34,211,211,.10); border-color:var(--accent); color:#bdf0f0}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#02201f; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(34,211,211,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* Tickable rule-in signs */
+  .ti-grid{display:grid; grid-template-columns:1fr; gap:8px; margin:14px 0}
+  .ti-row{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
+  .ti-row .label{flex:1; font-size:.92rem}
+  .ti-row .opts{display:flex; gap:6px}
+  .ti-row .opt{background:var(--panel); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.82rem; color:var(--ink)}
+  .ti-row .opt.sel{background:var(--accent); color:#02201f; border-color:var(--accent); font-weight:600}
+  .ti-summary{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .ti-summary h4{margin:0 0 6px; color:var(--accent-2)}
+  .ti-summary .big{font-size:1.6rem; font-weight:700; color:var(--accent-2)}
+  .ti-summary .interp{margin-top:8px; font-size:.92rem; color:var(--ink)}
+  /* PNES vs ES rows */
+  .pn-grid{display:grid; grid-template-columns:1fr; gap:8px; margin:14px 0}
+  .pn-row{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
+  .pn-row .label{flex:1; font-size:.92rem}
+  .pn-row .opts{display:flex; gap:6px}
+  .pn-row .opts button{background:var(--panel); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.82rem; color:var(--ink)}
+  .pn-row .opts button.sel{background:var(--accent); color:#02201f; border-color:var(--accent); font-weight:600}
+  .pn-bar{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .pn-bar h4{margin:0 0 6px; color:var(--accent-2)}
+  .pn-bar .verdict{font-size:1.2rem; font-weight:700; margin:6px 0}
+  .pn-bar.pnes .verdict{color:#5fd28a}
+  .pn-bar.es .verdict{color:#ff6b6b}
+  .pn-bar.mix .verdict{color:#ffb95c}
+  .pn-bar .detail{margin-top:8px; font-size:.92rem}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 21</span>
+    <span class="badge">General physician</span>
+    <h1>Functional Neurological Disorders — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 47) and Merritt's <em>Neurology</em> (14e). DSM-5 / ICD-11. Stone-Edwards predictive processing model. CONSORT FND physio (Nielsen JNNP 2015). CODES PNES trial (Goldstein Lancet Psychiatry 2020). ILAE PNES diagnostic levels (LaFrance Epilepsia 2013). neurosymptoms.org patient resource.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="ruleIn">Rule-In Sign Checker</button>
+    <button data-tab="pnes">PNES vs Epileptic Seizure</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>FND is one of the commonest reasons for neurology consultation — ~16% of new outpatient referrals — and one of the most poorly handled in routine practice. The shift from "diagnosis of exclusion" to "rule-in diagnosis based on positive bedside signs" has transformed the field. Done well, the consultation itself is the start of treatment. Done badly, it's the start of years of disability and iatrogenic harm.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Make a positive rule-in diagnosis of FND from bedside signs — not by exclusion.</li>
+      <li>Perform and interpret Hoover's sign, tremor entrainment, and the supine vs sitting leg-lift test.</li>
+      <li>Differentiate PNES from epileptic seizures using semiology and know when video EEG is needed.</li>
+      <li>Communicate the diagnosis using the Stone framework (name it + explain it + show the sign + treatment plan with hope).</li>
+      <li>Route patients into FND-specific physiotherapy and CBT (CODES trial).</li>
+      <li>Recognise when FND coexists with other neurological disease (~10–15% of PNES patients have epilepsy too; functional movements coexist with PD).</li>
+      <li>Avoid the dismissive phrases ("non-organic", "psychogenic", "medically unexplained") and the diagnostic traps (over-investigation, splints, opioid escalation).</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> diagnose FND by what you <em>see</em> on examination, not by what you <em>cannot see</em> on imaging. Look for inconsistency, incongruity, and reversibility with distraction. Then communicate the diagnosis with confidence, demonstrating the positive sign to the patient.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Paradigm shift — rule-in diagnosis</summary>
+      <div class="body">
+        <p>FND was historically diagnosed by exclusion. The modern approach (DSM-5 2013; ICD-11 2022) makes it a <strong>rule-in diagnosis</strong> based on positive bedside features that are inconsistent and incongruent with neurological disease.</p>
+        <ul>
+          <li>Hoover's sign, tremor entrainment, ictal eye closure — more specific than imaging or EEG for many FND subtypes.</li>
+          <li>FND is not a diagnosis of psychological cause; the requirement of an identified psychological stressor was removed in DSM-5.</li>
+          <li>FND coexists with neurological disease (~10–15% of PNES have coexisting epileptic seizures; functional movements with PD; FND post-stroke).</li>
+          <li>FND is treatable with FND-specific physiotherapy + CBT + multidisciplinary care.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. DSM-5 / ICD-11 criteria</summary>
+      <div class="body">
+        <p><strong>DSM-5 Functional Neurological Symptom Disorder (Conversion Disorder)</strong>:</p>
+        <ol>
+          <li>One or more symptoms of altered voluntary motor or sensory function.</li>
+          <li>Clinical findings provide evidence of incompatibility between the symptom and recognised neurological or medical conditions.</li>
+          <li>Not better explained by another condition.</li>
+          <li>Clinically significant distress or impairment.</li>
+        </ol>
+        <p>ICD-11: "Dissociative neurological symptom disorder" with sub-types (motor weakness, movement disorder, non-epileptic seizures, sensory, speech, vision, cognitive, mixed). Criteria align with DSM-5.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Predictive processing model (Edwards-Stone)</summary>
+      <div class="body">
+        <ul>
+          <li>The brain generates predictions about expected sensory and motor signals.</li>
+          <li>In FND, a strongly held prior ("my leg will not move") is weighted more than incoming sensory evidence (the actual fact that the limb can move).</li>
+          <li>Attention focused on the symptom amplifies the aberrant prediction; distraction weakens it — explains why distraction reverses functional signs.</li>
+          <li>Predisposing + precipitating + perpetuating factors shape the picture.</li>
+          <li>Imaging shows real abnormalities in functional connectivity. FND has neurobiological correlates — it is NOT imaginary nor feigned.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. The 3 P's biopsychosocial formulation</summary>
+      <div class="body">
+        <table>
+          <tr><th>Factor</th><th>Examples</th></tr>
+          <tr><td>Predisposing</td><td>Genetic temperament; childhood adversity (variable); prior physical injury; somatic vigilance; perfectionism</td></tr>
+          <tr><td>Precipitating</td><td>Acute physical injury (limb injury → functional weakness; whiplash → functional movement); illness; panic; trauma (variable); migraine; vestibular event</td></tr>
+          <tr><td>Perpetuating</td><td>Avoidance + deconditioning; attentional focus; learned non-use; system reinforcement; comorbid mood / anxiety; iatrogenic harm (inconsistent diagnoses); prolonged bed rest</td></tr>
+        </table>
+        <p>Treatment usually targets perpetuating factors — that is where the leverage is.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Functional limb weakness — rule-in signs</summary>
+      <div class="body">
+        <p><strong>Hoover's sign (the workhorse)</strong>:</p>
+        <ol>
+          <li>Patient supine. Place hand under the weak leg's heel; ask them to push down — note effort.</li>
+          <li>Place hand under the unaffected leg's heel; ask them to lift the unaffected leg.</li>
+          <li>Feel the involuntary downward pressure of the weak heel into your hand (reflex hip extension during contralateral hip flexion).</li>
+        </ol>
+        <p>True pyramidal weakness: weak heel does not push down. Functional weakness: weak heel pushes down strongly during contralateral flexion. <strong>Sensitivity ~63%, specificity ~100%</strong> (Stone JNNP 2010).</p>
+        <p>Other signs: hip abductor (Sonoo); drag (monoplegic) gait without circumduction; give-way weakness; inconsistent power; trunk-thigh sign; Spinal Injuries Center sign (supine leg won't lift; sitting up it lifts effortlessly).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Functional movement disorders</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Functional tremor</strong>: variable frequency / amplitude; tremor entrainment with the unaffected hand (tap 1 Hz then 3 Hz — tremor entrains, becomes disorganised, or stops); ballistic movement task pauses tremor; whack-a-mole sign (migrates when suppressed).</li>
+          <li><strong>Functional dystonia</strong>: fixed posture from onset (genuine dystonia is mobile and task-specific); fixed flexion fingers or plantar flexion+inversion foot; onset after minor injury / surgery; pain common.</li>
+          <li><strong>Functional jerks / myoclonus</strong>: variable; entrainable; distractible; stimulus-precipitated; Bereitschaftspotential pre-jerk on back-averaged EEG (specialist centres).</li>
+          <li><strong>Functional gait</strong>: astasia-abasia (dramatic veering, near-falls almost always caught); knee buckling without falls; scissors with crossing legs; skating / sliding without foot lift; slow exaggerated steps with effort signs.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. PNES vs epileptic seizure (semiological table)</summary>
+      <div class="body">
+        <table>
+          <tr><th>Feature</th><th>PNES</th><th>Epileptic</th></tr>
+          <tr><td>Eyes</td><td><strong>Closed</strong>; resistance to opening</td><td>Open; deviated</td></tr>
+          <tr><td>Motor</td><td>Asynchronous; pelvic thrust; side-to-side head shake; opisthotonic arching; flailing</td><td>Synchronous tonic-clonic; stereotyped</td></tr>
+          <tr><td>Duration</td><td>Often &gt; 2 min; waxing-waning</td><td>30 s – 2 min</td></tr>
+          <tr><td>Ictal weeping / talking</td><td>Common</td><td>Rare</td></tr>
+          <tr><td>Vocalisation</td><td>Mid-event vocal / talking</td><td>Initial cry then silence</td></tr>
+          <tr><td>Memory</td><td>Often preserved</td><td>Amnesia</td></tr>
+          <tr><td>Postictal</td><td>Minimal confusion</td><td>10–30 min confusion</td></tr>
+          <tr><td>Tongue bite</td><td>Tip (if at all)</td><td>Lateral characteristic</td></tr>
+          <tr><td>Incontinence</td><td>Less common</td><td>Common</td></tr>
+          <tr><td>Prolactin</td><td>Not elevated</td><td>Elevated 10–20 min after GTC (variable)</td></tr>
+          <tr><td>Postictal stertor</td><td>Absent</td><td>Present after GTC</td></tr>
+        </table>
+        <div class="pearl">Gold standard diagnosis: <strong>video EEG during a typical event</strong>. ILAE criteria (LaFrance Epilepsia 2013): possible / probable / clinically established / documented. <strong>Ictal eye closure</strong> is the most specific single bedside feature (PPV &gt; 95%). Coexisting epilepsy in 10–15% — comorbidity does not exclude either diagnosis.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Communicating the diagnosis (Stone style)</summary>
+      <div class="body">
+        <ol>
+          <li><strong>Name it</strong>: "You have a functional neurological disorder. We call it FND. It's a recognised medical condition."</li>
+          <li><strong>Explain mechanism</strong>: "Your hardware (nerves and muscles) is intact. The software (how the brain runs the movement) is stuck in a faulty pattern. We see this often and can help."</li>
+          <li><strong>Show the rule-in sign</strong>: demonstrate Hoover's sign or tremor entrainment.</li>
+          <li><strong>Differentiate from feigning</strong>: "I'm not saying you're making this up. It's not under your conscious control."</li>
+          <li><strong>Explain normal investigations</strong>: "MRI is normal because the problem is in how the brain uses normal hardware, not damage to the hardware."</li>
+          <li><strong>Treatment plan with hope</strong>: "FND-specific physiotherapy and CBT can substantially improve symptoms in most people."</li>
+          <li><strong>Resource</strong>: "Many people find <em>neurosymptoms.org</em> helpful."</li>
+        </ol>
+        <div class="warn">Avoid: "non-organic", "psychogenic", "hysterical", "medically unexplained", "all in your head", "it's stress". Use: "functional", "real", "treatable", "brain software not hardware".</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Treatment — physio, CBT, multidisciplinary</summary>
+      <div class="body">
+        <p><strong>FND-specific physiotherapy (Nielsen et al. JNNP 2015 consensus)</strong>:</p>
+        <ul>
+          <li>Education using the predictive-processing model.</li>
+          <li>Distract-attention movement strategies (reciprocal limb movements, rhythmic activities).</li>
+          <li>Encourage automatic over effortful movement.</li>
+          <li>Graded return to normal activity; reduce avoidance.</li>
+          <li>Avoid splints, wheelchairs, walking aids beyond minimum needed for safety.</li>
+        </ul>
+        <p><strong>CBT for PNES (CODES trial Lancet Psychiatry 2020)</strong>: 12-session CBT did not reduce seizure frequency vs standardised medical care but improved quality of life, somatic symptoms, and overall functioning. Many programmes still use CBT for wider benefits.</p>
+        <p><strong>Multidisciplinary FND clinics</strong> (UK, US, Netherlands, Australia) show better outcomes than fragmented care. Coordinate neurology + physiotherapy + OT + SLT + psychology + psychiatry + GP.</p>
+        <p>Treat coexisting depression / anxiety / PTSD with SSRI/SNRI; sleep with CBT-I (Module 14); pain with standard chronic-pain approaches avoiding opioids and benzos (Module 17). Avoid AEDs for PNES; avoid dopaminergics for functional dystonia.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Prognosis, red flags, FND vs malingering</summary>
+      <div class="body">
+        <ul>
+          <li>Outcomes: third improve / third stable / third worsen — depends on duration + comorbidity + treatment quality.</li>
+          <li>Better prognosis: short duration, early correct diagnosis, fewer comorbidities, engagement with treatment, agreement with diagnosis.</li>
+          <li>Worse prognosis: long duration, multiple conflicting opinions, ongoing litigation / benefits, severe psychiatric comorbidity, lack of buy-in.</li>
+        </ul>
+        <div class="warn">Red flags to re-evaluate FND diagnosis: new focal signs; findings following recognisable neurological patterns; coexistence with progressive symptoms; weight loss / fever / autonomic features inconsistent with picture. FND can coexist with neurological disease — re-evaluate if clinical picture evolves.</div>
+        <p><strong>FND vs malingering vs factitious</strong>:</p>
+        <table>
+          <tr><th></th><th>FND</th><th>Malingering</th><th>Factitious</th></tr>
+          <tr><td>Symptom production</td><td>Involuntary</td><td>Voluntary deliberate</td><td>Voluntary deliberate</td></tr>
+          <tr><td>Goal</td><td>Disability is unwanted</td><td>External gain (compensation, drugs)</td><td>Sick role (no external gain)</td></tr>
+          <tr><td>Inconsistency</td><td>Inconsistent with neurology, consistent across visits</td><td>Inconsistent in different contexts</td><td>Often inconsistent</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. When to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li><strong>Same day</strong>: presentations that overlap with stroke / status epilepticus / spinal cord emergency — never diagnose FND until those are excluded; the emergency workup proceeds.</li>
+            <li><strong>Within 1–2 weeks</strong>: new FND diagnosis for FND-specific physiotherapy and / or CBT; PNES for video EEG monitoring confirmation if uncertain; complex cases for multidisciplinary FND clinic.</li>
+            <li><strong>Routine</strong>: established FND with stable symptoms; comorbidity management.</li>
+            <li><strong>Always involve</strong>: neurology + FND-specific physiotherapy + psychology / CBT + GP + (where relevant) psychiatry, OT, speech therapy.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="ruleIn">
+    <h2>Rule-In Sign Checker</h2>
+    <p class="muted">Tick the rule-in signs you have positively demonstrated at the bedside. The tool tallies them and gives a phenotype-weighted interpretation.</p>
+    <div class="ti-grid" id="ti-grid"></div>
+    <div class="ti-summary" id="ti-summary">
+      <h4>Rule-in signs present</h4>
+      <div class="big" id="ti-count">0</div>
+      <div class="interp" id="ti-interp">No signs ticked yet.</div>
+    </div>
+    <button class="reset" onclick="resetTi()" style="margin-top:10px">Reset</button>
+  </section>
+
+  <section class="tab-panel" id="pnes">
+    <h2>PNES vs Epileptic Seizure Differentiator</h2>
+    <p class="muted">For each feature, indicate whether the event was PNES-like, epileptic-like, or absent / unknown. The tool tallies a weighted verdict.</p>
+    <div class="pn-grid" id="pn-grid"></div>
+    <div class="pn-bar" id="pn-bar">
+      <h4>Verdict</h4>
+      <div class="verdict" id="pn-verdict">Select features to see the interpretation.</div>
+      <div class="detail" id="pn-detail"></div>
+    </div>
+    <button class="reset" onclick="resetPn()" style="margin-top:10px">Reset</button>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 34-year-old woman has 3 months of left leg weakness after a minor twisting injury, with give-way weakness and a "dragging" gait. MRI brain and spine normal. NCS normal</summary>
+      <div class="body">
+        <p>Bedside: Hoover's sign positive — the "weak" left heel pushes down strongly when she lifts her right leg against resistance. Drag gait without circumduction. Power varies with attention.</p>
+        <p><strong>Diagnosis:</strong> Functional limb weakness (left leg).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Communicate the diagnosis</strong> using the Stone framework: name it ("This is FND, a recognised medical condition"); explain the mechanism ("Your hardware is intact — your brain's software is stuck"); <strong>show the positive Hoover's sign</strong> to her; differentiate from feigning ("This is not under your conscious control"); explain why investigations were normal ("MRI is normal because the problem is in how the brain uses normal hardware"); offer treatment with hope.</li>
+          <li>Refer to <strong>FND-specific physiotherapy</strong> (not standard rehab) — distract-attention strategies, encouraging automatic over effortful movement, graded return to normal activity, avoiding splints / aids beyond minimum safety needs.</li>
+          <li>Address perpetuating factors: avoidance, deconditioning, learned non-use, fear of movement, sleep, mood.</li>
+          <li>Patient resource: <em>neurosymptoms.org</em>.</li>
+          <li>Follow-up at 3 months to reinforce the diagnosis and assess progress.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 28-year-old presents with frequent "seizures" lasting 5–10 minutes with side-to-side head shaking, asynchronous limb thrashing, eyes tightly closed with resistance to opening, mid-event vocalisation, and no postictal confusion. Multiple AEDs have been tried with no benefit</summary>
+      <div class="body">
+        <p>Video EEG during a captured event: normal background, no epileptiform activity during the event.</p>
+        <p><strong>Diagnosis:</strong> Psychogenic non-epileptic seizures (PNES / functional seizures). ILAE criteria: <em>documented</em> level (video EEG captures the typical event without ictal EEG abnormality).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Communicate the diagnosis sensitively — name it, explain mechanism, show the video to the patient with the EEG demonstrating no electrical seizure (this is therapeutic). Differentiate from epilepsy and from feigning.</li>
+          <li><strong>Gradual taper of anticonvulsants</strong> over weeks to months (after confirming PNES does not coexist with epilepsy — 10–15% of PNES patients have both).</li>
+          <li>Refer to <strong>CBT for PNES</strong> (12 sessions per CODES trial — may not reduce seizure frequency directly but improves quality of life, somatic symptoms, and overall functioning).</li>
+          <li>Address comorbid anxiety, depression, PTSD, trauma (very common in PNES).</li>
+          <li>Educate family / carer about the diagnosis to reduce reinforcement of the sick role; avoid emergency calls and ED attendance for typical events; safety planning for genuine emergencies.</li>
+          <li>Treat coexisting epilepsy if confirmed (some patients have both).</li>
+          <li>Multidisciplinary FND clinic if available.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 42-year-old man has had a 2-year right hand tremor that is "always there" — at rest, posture, and action, with variable amplitude and frequency. Worse when he focuses on it</summary>
+      <div class="body">
+        <p>Bedside: tremor frequency 4–6 Hz with marked variability. When asked to tap a 3 Hz rhythm with the left hand, the right-hand tremor entrains to 3 Hz. When asked to perform a ballistic movement with the left hand, the right tremor pauses. When the right hand is held still, the tremor migrates to the right shoulder.</p>
+        <p><strong>Diagnosis:</strong> Functional tremor.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Communicate the diagnosis using the Stone framework and <strong>demonstrate tremor entrainment and the whack-a-mole sign</strong> to the patient.</li>
+          <li>Reassure about normal investigations and explain why brain imaging will be normal.</li>
+          <li>Refer to <strong>FND-specific physiotherapy</strong> — distract-attention strategies (rhythmic activities with the unaffected hand, dual tasking).</li>
+          <li>Avoid anti-tremor medication trials (propranolol, primidone, gabapentin) — they will not help and add side effects + reinforce the wrong illness model.</li>
+          <li>Discuss perpetuating factors: somatic attention, deconditioning, anxiety about the tremor.</li>
+          <li>Patient resource: <em>neurosymptoms.org</em>.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 55-year-old woman with Parkinson disease (Hoehn-Yahr 2, on levodopa) has developed a 6-month history of fixed left arm flexion at the wrist and fingers, with pain, that started after a minor wrist sprain. The dystonia is not seen on action and does not respond to levodopa adjustment</summary>
+      <div class="body">
+        <p>Bedside: fixed dystonic posture from onset (not action-induced; no geste antagoniste); painful; precipitated by minor injury; inconsistent with the slowly progressive PD-related dystonia she might have developed.</p>
+        <p><strong>Diagnosis:</strong> Functional dystonia coexisting with Parkinson disease.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Acknowledge BOTH conditions — PD does not exclude FND; FND coexists with neurological disease commonly.</li>
+          <li>Communicate the functional dystonia diagnosis sensitively (this is often harder when the patient has a known neurological diagnosis); explain that the wrist dystonia has features that are inconsistent with typical PD dystonia.</li>
+          <li>Refer to <strong>FND-specific physiotherapy + occupational therapy</strong>; avoid splints which reinforce the disorder.</li>
+          <li>Continue PD-specific care (Module 6); do not adjust dopaminergic dose for the dystonia — it will not respond.</li>
+          <li>Consider botulinum toxin trial only after FND physiotherapy + multidisciplinary input have been adequate.</li>
+          <li>Address pain (often co-existing) with standard chronic-pain approaches (Module 17); avoid opioids.</li>
+          <li>Multidisciplinary FND clinic ideally.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 38-year-old has 6 months of "complete blindness" in the right eye and tubular fields in the left. Pupils react normally to light; full optokinetic response when a striped drum is rotated in front of him</summary>
+      <div class="body">
+        <p>Examination: normal pupillary light reflexes bilaterally including the right eye despite reported "no light perception". OKN drum response present. Visual fields show tubular fields that do not expand with distance — biologically implausible (true tunnel vision expands with viewing distance because of the cone of the visual axis). Fundoscopy normal. OCT normal.</p>
+        <p><strong>Diagnosis:</strong> Functional visual loss.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Sensitive communication of the diagnosis using the FND framework; emphasise the rule-in features (preserved pupil reactions despite reported "no light perception" + intact OKN response + tubular fields).</li>
+          <li>Refer to ophthalmology + FND-specific physiotherapy / OT / vision rehabilitation.</li>
+          <li>Address comorbid depression, anxiety, trauma where present.</li>
+          <li>Avoid further imaging unless new features emerge.</li>
+          <li>Reassure that recovery is possible with appropriate treatment.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 45-year-old man presents with 3 weeks of profound subjective memory complaint ("I can't remember anything") + concentration loss + "brain fog" but he gives a meticulously detailed history of the complaint over 45 minutes. MoCA 28/30. He works full-time as a project manager</summary>
+      <div class="body">
+        <p>No objective cognitive impairment on bedside testing; rich history-giving; high functioning. Co-existing severe anxiety (GAD-7 = 16), insomnia, and post-acute COVID-19 syndrome.</p>
+        <p><strong>Diagnosis:</strong> Functional cognitive symptoms (with coexisting anxiety, insomnia, post-acute COVID).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Reassure that no objective dementia or progressive neurodegeneration is present (and explain why — preserved MoCA, intact history-giving, rich detail).</li>
+          <li>Communicate the diagnosis sensitively — functional cognitive symptoms are real and treatable.</li>
+          <li>Treat coexisting <strong>anxiety</strong> (SSRI; CBT) and <strong>insomnia</strong> (CBT-I — Module 14).</li>
+          <li>Address post-acute COVID-19 — overlap with nociplastic syndromes (Module 17).</li>
+          <li>Sleep hygiene; reduce caffeine; exercise as tolerated.</li>
+          <li>Educate about how anxiety + sleep loss + somatic attention create "brain fog" without underlying brain damage.</li>
+          <li>Surveillance for progressive cognitive decline if the picture evolves (Module 7 dementia workup).</li>
+          <li>Patient resource: <em>neurosymptoms.org</em>.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 21 of an ongoing neurology curriculum. Sources: Adams &amp; Victor 12e Ch 47; Merritt's 14e; DSM-5 (2013) + DSM-5-TR (2022); ICD-11 (2022); Stone Practical Neurology 2009 + 2016; Edwards-Friston Brain 2012 (predictive coding); Nielsen JNNP 2015 (FND physio); Goldstein Lancet Psychiatry 2020 (CODES); LaFrance Epilepsia 2013 (ILAE PNES); Aybek &amp; Perez BMJ 2022. Patient + clinician resource: neurosymptoms.org.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Paradigm', q:'How has the diagnostic approach to FND changed in DSM-5 / ICD-11?', a:'Moved from "diagnosis of exclusion" (when tests are negative) to RULE-IN diagnosis based on positive bedside features that are inconsistent and incongruent with neurological disease. DSM-5 (2013) removed the requirement of an identified psychological stressor. ICD-11 (2022) "dissociative neurological symptom disorder" aligns with these criteria.'},
+  {tag:'Prevalence', q:'How common is FND in neurology outpatient practice?', a:'~16% of new outpatient neurology referrals — one of the commonest reasons for consultation. Subtypes include functional weakness, PNES, functional movement disorders, functional sensory / visual / cognitive symptoms.'},
+  {tag:'Hoover', q:'How to perform and interpret Hoover\'s sign?', a:'(1) Patient supine. Hand under weak heel; ask to push down — note effort. (2) Hand under unaffected heel; ask to lift unaffected leg. (3) Feel involuntary downward pressure of weak heel into your hand. Functional weakness: weak heel pushes down strongly during contralateral hip flexion (motor pathway intact). True pyramidal weakness: weak heel does not push down. Sensitivity ~63%, specificity ~100%.'},
+  {tag:'Tremor entrainment', q:'How to demonstrate tremor entrainment in functional tremor?', a:'Ask the patient to tap a rhythm (1 Hz, then 3 Hz) with the UNAFFECTED hand. Functional tremor in the affected hand will entrain to the tapped frequency, become disorganised, or stop. Tremors of neurological disease (essential, parkinsonian) maintain their own frequency.'},
+  {tag:'PNES eyes', q:'Single most specific bedside feature for PNES?', a:'ICTAL EYE CLOSURE (often with resistance to passive eye opening). Positive predictive value > 95%. Epileptic seizures typically have open eyes, often deviated. Always use video EEG as the gold standard.'},
+  {tag:'PNES vs ES', q:'Five semiological features favouring PNES over epileptic seizure?', a:'(1) Closed eyes with resistance to opening; (2) asynchronous limb movements + pelvic thrust + side-to-side head shake + opisthotonic arching; (3) duration > 2 min with waxing-waning; (4) preserved memory of event; (5) minimal postictal confusion + no postictal stertor. Note: 10–15% of PNES patients also have epilepsy (coexistence does not exclude either diagnosis).'},
+  {tag:'CODES', q:'CODES trial — what did it show about CBT for PNES?', a:'12 sessions of CBT did NOT reduce seizure frequency compared with standardised medical care, but IMPROVED quality of life, somatic symptoms, and overall functioning (Goldstein Lancet Psychiatry 2020). Many programmes still use CBT for these wider benefits and as part of a multidisciplinary plan.'},
+  {tag:'Stone script', q:'Stone framework for communicating the FND diagnosis?', a:'(1) NAME IT ("functional neurological disorder, FND, a recognised medical condition"); (2) explain MECHANISM ("hardware intact, software stuck in a faulty pattern"); (3) SHOW the rule-in sign (Hoover, tremor entrainment); (4) differentiate from feigning ("not under your conscious control"); (5) explain NORMAL investigations ("MRI is normal because the problem is in how the brain uses normal hardware"); (6) treatment plan with HOPE (physiotherapy + CBT); (7) RESOURCE neurosymptoms.org.'},
+  {tag:'Avoid', q:'Which phrases should you avoid when communicating an FND diagnosis?', a:'"Non-organic" (sounds like dismissal), "psychogenic" (patient hears "you\'re psychologically broken"), "hysterical", "medically unexplained" (sounds like diagnostic giving-up), "all in your head" (sounds like "imaginary"), "it\'s stress" (often inaccurate and dismissive). USE: "functional", "real", "treatable", "brain software not hardware".'},
+  {tag:'Physio', q:'How does FND-specific physiotherapy differ from standard neuro-rehab?', a:'Education using the predictive-processing model; distract-attention movement strategies (reciprocal limb movements, rhythmic / counted activities); encouraging AUTOMATIC over EFFORTFUL movement; graded return to normal activity; reducing avoidance; AVOIDING splints, wheelchairs, walking aids beyond minimum safety needs (they reinforce the disorder). Nielsen JNNP 2015 consensus.'},
+  {tag:'Predictive', q:'Modern mechanistic model of FND?', a:'Edwards-Stone predictive processing / Bayesian model (Brain 2012). The brain generates predictions; in FND, an aberrant prior ("my leg will not move") is weighted more than incoming sensory evidence. Attention amplifies the prediction; distraction weakens it — explains why distraction reverses signs. Imaging shows real functional connectivity changes. FND is NOT imaginary nor feigned.'},
+  {tag:'3 P\'s', q:'Biopsychosocial 3 P\'s framework for FND?', a:'PREDISPOSING (genetic temperament, childhood adversity — variable; prior physical illness, somatic vigilance, perfectionism). PRECIPITATING (acute physical injury — limb injury preceding functional weakness; whiplash preceding functional movement; illness; panic; trauma; vestibular event). PERPETUATING (avoidance, deconditioning, attentional focus, learned non-use, system reinforcement, mood comorbidity, iatrogenic harm). Treatment usually targets PERPETUATING factors — that is where the leverage is.'},
+  {tag:'Distraction', q:'Why does distraction reverse functional movement signs?', a:'Predictive processing model: focused attention amplifies the aberrant prior (e.g., "my arm tremors"); distraction (cognitive load on a different task) reduces attention to the symptom, weakens the prior, and allows normal motor execution. This is the basis of tremor entrainment, ballistic movement task, dual-task gait improvement, and the whack-a-mole sign in functional jerks.'},
+  {tag:'Functional gait', q:'Examples of functional gait disorders?', a:'Astasia-abasia (dramatic veering + near-falls almost always caught); knee buckling without consistent fall; scissors with crossing legs that fit no organic disorder; skating / sliding gait without foot lift; slow exaggerated steps with high effort signs but rare actual falls; "monoplegic drag" without circumduction.'},
+  {tag:'Coexistence', q:'How often do PNES coexist with epileptic seizures?', a:'10–15% of PNES patients also have coexisting epileptic seizures. Coexistence does not exclude either diagnosis. Use video EEG; treat each appropriately. Also: ~16% of FND outpatient referrals overall; functional movements can coexist with PD; FND post-stroke is recognised.'},
+  {tag:'Functional dystonia', q:'Features that suggest functional dystonia over organic?', a:'Fixed posture from onset (organic dystonia is mobile and task-specific, often with geste antagoniste evolving slowly); onset after minor injury / surgery (often the same limb); fixed flexion of fingers or plantar flexion + inversion of foot; rapid disability; pain common; inconsistency with examination distraction.'},
+  {tag:'Functional jerks', q:'Bereitschaftspotential — what is it and what does it tell you in functional jerks?', a:'A pre-movement readiness potential (slow negative EEG shift over the contralateral motor cortex starting ~1–2 seconds before a voluntary movement). Back-averaged EEG can detect a Bereitschaftspotential before functional jerks (consistent with their generation through voluntary motor pathways, even though not consciously feigned). Organic myoclonus does not show a Bereitschaftspotential. Used in specialised centres.'},
+  {tag:'Visual', q:'Tubular vision fields — why are they implausible in true tunnel vision?', a:'True tunnel vision (e.g., retinitis pigmentosa, advanced glaucoma) EXPANDS with viewing distance (a cone of the visual axis). Tubular fields that remain the same size regardless of test distance are physically incompatible with the optics of the visual system — a rule-in sign for functional visual loss.'},
+  {tag:'Functional cognitive', q:'Features that suggest functional cognitive symptoms over neurodegenerative dementia?', a:'Subjective cognitive complaint without objective deficit on testing; rich history-giving over long consultations; performance preserved on demanding tasks; coexistence with anxiety, depression, sleep disturbance, fibromyalgia (Module 17), PPPD (Module 18), post-acute COVID-19, post-concussion. Treat coexistent mood / sleep disorders; reassure; CBT.'},
+  {tag:'FND vs malinger', q:'How does FND differ from malingering?', a:'FND: symptom production is INVOLUNTARY; disability is UNWANTED; positive bedside signs are consistent across visits; patient is usually distressed and seeks help. Malingering: voluntary deliberate symptom production for concrete EXTERNAL gain (compensation, drugs, escape from duty); inconsistent in different contexts. Suspecting malingering rarely changes bedside management and damages therapeutic alliance.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 34-year-old has unilateral leg weakness with give-way weakness. Hoover\'s sign is positive — the "weak" heel pushes down strongly when the unaffected leg is lifted. MRI brain + spine normal. NCS normal. Best next step?',
+   choices:['Further investigations until you find an abnormality','Communicate the FND diagnosis using the Stone framework, demonstrate the positive Hoover\'s sign to the patient, refer to FND-specific physiotherapy + provide neurosymptoms.org resource','Long-term opioid','Repeat MRI in 3 months'],
+   ans:1,
+   why:'FND is a RULE-IN diagnosis based on positive bedside signs (DSM-5 / ICD-11). Hoover\'s sign sensitivity ~63%, specificity ~100% (Stone JNNP 2010). Communicate the diagnosis using the Stone framework: name it, explain mechanism ("hardware intact, software stuck"), show the sign to the patient, differentiate from feigning, explain normal investigations, treatment plan with hope. Refer to FND-specific physiotherapy (Nielsen JNNP 2015 consensus). Patient resource: neurosymptoms.org. Further unnecessary investigations cause iatrogenic harm.'},
+  {q:'A 28-year-old has frequent "seizures" with closed eyes + asynchronous movements + side-to-side head shake + mid-event vocalisation + duration > 2 min with no postictal confusion. Multiple AEDs ineffective. Best confirmatory test?',
+   choices:['Brain MRI','Video EEG during a typical event — gold standard; ictal eye closure is most specific single bedside feature (PPV > 95%)','High-dose IV ASMs','Serum prolactin alone'],
+   ans:1,
+   why:'Video EEG capture of a typical event is the gold standard for PNES diagnosis (ILAE LaFrance Epilepsia 2013 "documented" level). Multiple semiological features favour PNES: closed eyes with resistance, asynchronous limb movements, side-to-side head, ictal vocalisation, > 2 min duration, no postictal confusion. Coexisting epilepsy in 10–15% — comorbidity does not exclude either diagnosis. Manage with sensitive communication + taper AEDs if PNES alone + CBT (CODES trial improved QOL and functioning even when seizure frequency unchanged) + address comorbid anxiety / depression / trauma.'},
+  {q:'A 42-year-old man has a 2-year right hand tremor that varies in frequency. On bedside testing, the right-hand tremor entrains to a 3-Hz rhythm tapped with the left hand and pauses when he performs a ballistic movement with the left hand. Best diagnosis and management?',
+   choices:['Essential tremor; trial propranolol','Functional tremor; communicate diagnosis with Stone framework + demonstrate entrainment + whack-a-mole sign to the patient; refer to FND-specific physiotherapy; avoid anti-tremor medication trials','Parkinson disease; trial levodopa','Cerebellar tremor; brain MRI'],
+   ans:1,
+   why:'Tremor entrainment, ballistic movement task pausing the tremor, and whack-a-mole migration when suppressed are positive bedside signs of functional tremor. Demonstrating these to the patient is therapeutic. Refer to FND-specific physiotherapy (distract-attention strategies). Avoid anti-tremor medications (propranolol, primidone, gabapentin) — they will not help, add side effects, and reinforce the wrong illness model.'},
+  {q:'Which phrase should you avoid when communicating an FND diagnosis?',
+   choices:['"FND is a recognised medical condition"','"All in your head"','"The hardware is intact, but the software is stuck in a faulty pattern"','"There is effective treatment with physiotherapy and CBT"'],
+   ans:1,
+   why:'Avoid: "non-organic", "psychogenic", "hysterical", "medically unexplained", "all in your head", "it\'s stress" — patients hear these as dismissive or blaming. Use: "functional", "real", "treatable", "brain software not hardware". The Stone framework (name it, explain mechanism, show the sign, differentiate from feigning, explain normal investigations, treatment with hope, resource) maximises therapeutic alliance.'},
+  {q:'What was the main finding of the CODES trial (Goldstein Lancet Psychiatry 2020) on CBT for PNES?',
+   choices:['CBT abolished PNES seizures','CBT did NOT reduce PNES frequency compared with standardised medical care but did improve quality of life, somatic symptoms, and overall functioning','CBT was harmful in PNES','CBT was equivalent to AEDs'],
+   ans:1,
+   why:'The CODES trial (12 sessions of CBT vs standardised medical care for 368 adults with dissociative seizures) showed that CBT did not reduce seizure frequency but improved secondary outcomes including quality of life, somatic symptoms, depression / anxiety, and overall functioning. Many programmes still use CBT for these wider benefits and as part of a multidisciplinary plan.'},
+  {q:'A 55-year-old with Parkinson disease (on levodopa) has a new 6-month fixed left wrist flexion dystonia that started after a minor wrist sprain and does not respond to dopaminergic adjustment. Best management?',
+   choices:['Add a dopamine agonist','Acknowledge both conditions (PD + FND coexistence is common); communicate the functional dystonia diagnosis sensitively; refer to FND-specific physiotherapy + OT; avoid splints; continue PD-specific care','Long-term opioid','High-dose anticholinergic'],
+   ans:1,
+   why:'FND coexists with neurological disease commonly (PD, MS, stroke, epilepsy). A new fixed posture from onset after minor injury that does not respond to dopaminergic adjustment is suspicious for functional dystonia even in a patient with PD. Communicate the diagnosis sensitively; refer to FND-specific physiotherapy + OT (avoid splints — they reinforce the disorder). Continue PD-specific care. Avoid opioids and dopaminergic adjustments for the dystonia.'},
+  {q:'A patient with reported "total blindness" has normal pupil reactions to light, full optokinetic response when a striped drum is rotated, and tubular fields that do not expand with distance. Most likely diagnosis?',
+   choices:['Optic neuritis','Functional visual loss — preserved pupil reactions, intact OKN, biologically implausible tubular fields are rule-in signs','Idiopathic intracranial hypertension','Pituitary apoplexy'],
+   ans:1,
+   why:'Preserved pupillary light reflexes despite reported "no light perception", an intact OKN response, and tubular fields that do not expand with distance are positive bedside signs of functional visual loss. Tubular fields are biologically implausible because the optics of the visual system make true tunnel vision expand with viewing distance. Refer to ophthalmology + FND-specific physiotherapy + vision rehab.'},
+  {q:'A 45-year-old has 3 weeks of profound subjective memory complaint, "brain fog", and concentration problems, but gives a detailed 45-minute history with rich detail and scores MoCA 28/30. He has severe anxiety (GAD-7 = 16), insomnia, and post-acute COVID-19. Most likely diagnosis and best management?',
+   choices:['Early Alzheimer disease','Functional cognitive symptoms with coexisting anxiety + insomnia + post-acute COVID — treat anxiety (SSRI / CBT) + insomnia (CBT-I) + post-acute COVID supportive; reassure; surveillance if picture evolves','FTD','Frontotemporal stroke'],
+   ans:1,
+   why:'Subjective cognitive complaint with preserved objective performance (MoCA 28/30), rich history-giving, and coexisting anxiety / insomnia / post-acute COVID is characteristic of functional cognitive symptoms. Reassure; explain that anxiety + sleep loss + somatic attention create "brain fog" without underlying brain damage. Treat coexisting anxiety (SSRI, CBT) and insomnia (CBT-I — Module 14). Surveillance for progressive cognitive decline if the picture evolves. Patient resource: neurosymptoms.org.'},
+  {q:'How does FND differ from malingering?',
+   choices:['They are the same condition','FND: involuntary symptoms, unwanted disability, consistent positive signs, distress at diagnosis and seeking of help. Malingering: voluntary deliberate symptom production for external gain (compensation, drugs, escape from duty), inconsistency in different contexts','FND patients always have psychiatric comorbidity','Malingering is more responsive to physiotherapy'],
+   ans:1,
+   why:'FND: involuntary; disability unwanted; signs consistent across visits; distress and help-seeking are usual. Malingering: voluntary deliberate symptom production for concrete external gain; inconsistency in different contexts. Factitious disorder sits between (intentional production for the sick role, no external gain — rare). The vast majority of patients with positive bedside FND signs have FND, not malingering or factitious disorder. Suspecting malingering rarely changes bedside management and damages therapeutic alliance.'},
+  {q:'Best long-term outcome predictor for FND?',
+   choices:['Long duration of symptoms','Short duration before diagnosis, fewer somatic comorbidities, early correct diagnosis, engagement with multidisciplinary treatment, agreement with the diagnosis','Severe psychiatric comorbidity','Ongoing litigation and benefits'],
+   ans:1,
+   why:'Better prognostic factors: short duration, early correct diagnosis, fewer comorbidities, engagement with FND-specific physiotherapy + CBT, agreement with the diagnosis, absence of severe psychiatric or personality comorbidity. Worse: long duration, multiple conflicting opinions before diagnosis, ongoing litigation / benefits, severe psychiatric comorbidity, lack of buy-in. FND can cause major disability comparable to MS or PD when poorly managed.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Rule-In Sign Checker */
+const tiSigns = [
+  ['hoover','Hoover\'s sign — weak heel pushes down strongly during contralateral hip flexion (sensitivity ~63%, specificity ~100%)','weak'],
+  ['hip_abd','Hip abductor sign (Sonoo) — preserved abduction on the "weak" side during bilateral testing','weak'],
+  ['drag','Drag/monoplegic gait — leg dragged behind without circumduction or compensatory mechanisms','weak'],
+  ['give_way','Give-way weakness — sudden loss of resistance on testing','weak'],
+  ['inconsistent_power','Inconsistent power — strong on automatic tasks, weak on formal testing','weak'],
+  ['trunk_thigh','Trunk-thigh sign — trunk and thigh of "paralysed" leg lift together on sit-up','weak'],
+  ['spinal_injuries','Spinal Injuries Center sign — supine leg won\'t lift but lifts when sitting','weak'],
+  ['tremor_entrain','Tremor entrainment — affected tremor matches frequency tapped by unaffected hand','tremor'],
+  ['ballistic','Ballistic movement task — tremor pauses during ballistic action of unaffected hand','tremor'],
+  ['whack','Whack-a-mole sign — tremor migrates to a new site when suppressed at one site','tremor'],
+  ['fixed_dystonia','Fixed dystonic posture from onset (not action-induced)','dystonia'],
+  ['post_injury','Onset after minor injury / surgery (same limb)','dystonia'],
+  ['painful_dystonia','Painful fixed dystonia (genuine dystonia usually not painful early)','dystonia'],
+  ['eye_closure','Ictal eye closure with resistance to passive opening (PPV > 95%)','pnes'],
+  ['asynchronous','Asynchronous movements / pelvic thrust / side-to-side head shake / opisthotonic arching','pnes'],
+  ['ictal_weep','Ictal weeping / talking / vocalisation','pnes'],
+  ['mem_preserved','Preserved memory of the event','pnes'],
+  ['no_post','Minimal or no postictal confusion / no postictal stertor','pnes'],
+  ['mid_split','Midline split of sensory loss (touch / pinprick / vibration splits exactly at midline — incompatible with bilateral midline innervation)','sensory'],
+  ['vib_split','"Splitting of vibration" sign — vibration over sternum felt differently on two sides','sensory'],
+  ['tubular','Tubular visual fields that do not expand with viewing distance','visual'],
+  ['pupil_ok','Preserved pupillary light reflex in claimed "no light perception"','visual'],
+  ['okn','Positive optokinetic response in claimed "total blindness"','visual'],
+  ['cognitive_inc','Subjective cognitive complaint with rich preserved history-giving and normal MoCA','cognitive'],
+];
+const tiBox = document.getElementById('ti-grid');
+let tiState = {};
+tiSigns.forEach(([id,label]) => {
+  tiState[id] = false;
+  const row = document.createElement('div');
+  row.className = 'ti-row';
+  row.innerHTML = `<div class="label">${label}</div>
+    <div class="opts">
+      <button class="sel" data-id="${id}" data-val="0">Absent</button>
+      <button data-id="${id}" data-val="1">Present</button>
+    </div>`;
+  tiBox.appendChild(row);
+});
+tiBox.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = +b.dataset.val;
+  tiState[id] = !!val;
+  tiBox.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreTi();
+}));
+
+function scoreTi() {
+  const flagged = tiSigns.filter(([id]) => tiState[id]);
+  const total = flagged.length;
+  document.getElementById('ti-count').textContent = total;
+  let interp = '';
+  if (total === 0) {
+    interp = 'Tick the positive rule-in signs you have demonstrated at the bedside.';
+  } else {
+    // Phenotype breakdown
+    const phenos = {weak:[], tremor:[], dystonia:[], pnes:[], sensory:[], visual:[], cognitive:[]};
+    flagged.forEach(([id,label,pheno]) => phenos[pheno].push(label));
+    const present = Object.keys(phenos).filter(k => phenos[k].length > 0);
+    let phenoText = present.map(p => {
+      const names = {weak:'functional weakness', tremor:'functional tremor', dystonia:'functional dystonia', pnes:'PNES (functional seizures)', sensory:'functional sensory', visual:'functional visual', cognitive:'functional cognitive'};
+      return `<strong>${names[p]}</strong> (${phenos[p].length} sign${phenos[p].length>1?'s':''})`;
+    }).join('; ');
+    let strength = '';
+    if (total === 1) strength = '<strong>One rule-in sign present</strong> — supports the diagnosis but consider re-examining for additional signs and confirming on follow-up.';
+    else if (total <= 3) strength = '<strong>Multiple rule-in signs present</strong> — high confidence in FND diagnosis for these phenotypes.';
+    else strength = '<strong>Many rule-in signs present</strong> — very high confidence; ensure clear documentation and confident communication using the Stone framework.';
+    interp = `<p>Phenotypes flagged: ${phenoText}.</p>
+      <p>${strength}</p>
+      <p>Next steps:</p>
+      <ul>
+        <li>Document specific positive signs and the bedside demonstration.</li>
+        <li>Communicate the diagnosis with the Stone framework: name it, explain mechanism, show the sign to the patient, differentiate from feigning, explain normal investigations, plan with hope, neurosymptoms.org.</li>
+        <li>Refer to FND-specific physiotherapy (Nielsen 2015 consensus) for motor and movement subtypes; CBT for PNES (CODES wider benefits) and functional cognitive symptoms.</li>
+        <li>Address comorbid mood / anxiety / sleep / pain with standard evidence-based treatment; avoid opioids and benzos.</li>
+        <li>Avoid unnecessary further investigations once the rule-in diagnosis is secure.</li>
+        <li>FND can coexist with other neurological disease (~10–15% of PNES have coexisting epilepsy; functional movements with PD; FND post-stroke) — diagnosis of FND does not exclude these.</li>
+        <li>Reassess if new focal signs, progressive features, or red flags emerge.</li>
+      </ul>`;
+  }
+  document.getElementById('ti-interp').innerHTML = interp;
+}
+scoreTi();
+
+function resetTi() {
+  tiSigns.forEach(([id]) => { tiState[id] = false; });
+  tiBox.querySelectorAll('.opts button').forEach(o => {
+    o.classList.toggle('sel', o.dataset.val === '0');
+  });
+  scoreTi();
+}
+
+/* PNES vs ES Differentiator */
+const pnFeats = [
+  ['eyes','Eyes during event — closed with resistance (PNES) vs open / deviated (ES)'],
+  ['motor','Motor pattern — asynchronous + pelvic thrust + side-to-side head (PNES) vs synchronous tonic-clonic (ES)'],
+  ['duration','Duration — > 2 min with waxing-waning (PNES) vs 30 s – 2 min (ES)'],
+  ['talk','Ictal vocalisation / weeping / talking (PNES) vs initial cry then silence (ES)'],
+  ['mem','Memory of event preserved (PNES) vs amnesic (ES)'],
+  ['post','Postictal confusion — minimal (PNES) vs 10–30 min (ES)'],
+  ['stertor','Postictal stertor — absent (PNES) vs present after GTC (ES)'],
+  ['tongue','Tongue bite — tip if any (PNES) vs lateral characteristic (ES)'],
+  ['incont','Incontinence — less common (PNES) vs common (ES)'],
+  ['eeg','Video EEG during typical event — no ictal EEG change (PNES) vs ictal epileptiform discharge (ES)']
+];
+const pnBox = document.getElementById('pn-grid');
+let pnState = {};
+pnFeats.forEach(([id,label]) => {
+  pnState[id] = 'na';
+  const row = document.createElement('div');
+  row.className = 'pn-row';
+  row.innerHTML = `<div class="label">${label}</div>
+    <div class="opts">
+      <button class="sel" data-id="${id}" data-val="na">N/A</button>
+      <button data-id="${id}" data-val="pnes">PNES-like</button>
+      <button data-id="${id}" data-val="es">ES-like</button>
+    </div>`;
+  pnBox.appendChild(row);
+});
+pnBox.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = b.dataset.val;
+  pnState[id] = val;
+  pnBox.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scorePn();
+}));
+
+function scorePn() {
+  const weights = { eyes:3, motor:2, duration:2, talk:2, mem:2, post:2, stertor:3, tongue:2, incont:1, eeg:5 };
+  let pnesScore = 0, esScore = 0;
+  Object.keys(pnState).forEach(k => {
+    if (pnState[k] === 'pnes') pnesScore += weights[k];
+    if (pnState[k] === 'es') esScore += weights[k];
+  });
+  const bar = document.getElementById('pn-bar');
+  bar.classList.remove('pnes','es','mix');
+  const verdict = document.getElementById('pn-verdict');
+  const detail = document.getElementById('pn-detail');
+  if (pnesScore === 0 && esScore === 0) {
+    verdict.textContent = 'Select features to see the interpretation.';
+    detail.innerHTML = '';
+    return;
+  }
+  if (pnesScore > esScore * 2 && pnesScore >= 5) {
+    bar.classList.add('pnes');
+    verdict.textContent = 'Likely PNES (functional seizures)';
+    detail.innerHTML = `<p>PNES score ${pnesScore} vs ES score ${esScore}.</p>
+      <ul>
+        <li><strong>Gold standard</strong>: video EEG capture of a typical event (ILAE LaFrance Epilepsia 2013 "documented" level).</li>
+        <li><strong>Communicate</strong> the diagnosis sensitively using the Stone framework — name it, explain mechanism, differentiate from epilepsy and feigning, show the video / EEG to the patient (therapeutic).</li>
+        <li><strong>Gradually taper anticonvulsants</strong> over weeks–months IF PNES alone (after confirming no coexisting epilepsy — 10–15% have both).</li>
+        <li><strong>Refer for CBT</strong> (CODES trial Lancet Psychiatry 2020 — improved QOL, somatic symptoms, overall functioning even when seizure frequency unchanged) + multidisciplinary FND clinic.</li>
+        <li>Address comorbid anxiety / depression / PTSD / trauma (very common).</li>
+        <li>Educate family / carer; reduce reinforcement of sick role; safety plan; avoid unnecessary ED visits for typical events.</li>
+      </ul>`;
+  } else if (esScore > pnesScore * 2 && esScore >= 5) {
+    bar.classList.add('es');
+    verdict.textContent = 'Likely epileptic seizure';
+    detail.innerHTML = `<p>ES score ${esScore} vs PNES score ${pnesScore}.</p>
+      <ul>
+        <li>Manage per epilepsy pathway (Module 3): MRI brain, EEG, EEG-CCTV monitoring if needed, ASM choice per syndrome and ILAE 2017.</li>
+        <li>Address triggers, sleep, alcohol; SUDEP counselling; driving regulations.</li>
+        <li>Status epilepticus management per local protocol if applicable.</li>
+        <li>Note 10–15% of PNES patients also have epilepsy — coexistence is common; consider PNES if events are atypical or refractory to ASMs.</li>
+      </ul>`;
+  } else {
+    bar.classList.add('mix');
+    verdict.textContent = 'Mixed / uncertain — pursue video EEG';
+    detail.innerHTML = `<p>PNES score ${pnesScore} vs ES score ${esScore}.</p>
+      <ul>
+        <li>Features are mixed; arrange <strong>video EEG monitoring</strong> to capture a typical event.</li>
+        <li>Coexisting epilepsy in 10–15% of PNES patients — do not exclude either possibility.</li>
+        <li>Cautious medication review while diagnosis is clarified; safety plan; close clinical follow-up.</li>
+        <li>Multidisciplinary epilepsy + FND clinic discussion.</li>
+      </ul>`;
+  }
+}
+
+function resetPn() {
+  Object.keys(pnState).forEach(k => pnState[k] = 'na');
+  pnBox.querySelectorAll('.opts button').forEach(o => {
+    o.classList.toggle('sel', o.dataset.val === 'na');
+  });
+  scorePn();
+}
+scorePn();
+</script>
+</body>
+</html>

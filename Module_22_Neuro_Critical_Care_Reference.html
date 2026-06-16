@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 22 — Neuro-Critical Care &amp; Emergencies (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#a01a3c; --accent-2:#c14868; --soft:#fbeaee;
+    --line:#f1d0d8; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#fbeaee; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#fdf8fa; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(160,26,60,0.06)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#7a132d; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#8e1633}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#f3d4dc; color:#7a132d; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#f7dfe5; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#f4dae1; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 22 — Neuro-Critical Care &amp; Emergencies</h1>
+  <div class="sub">ICP &amp; CPP physiology · raised-ICP tiered management · herniation · status epilepticus · malignant MCA + decompressive craniectomy · SAH + vasospasm · ICH · post-cardiac-arrest care &amp; TTM2 · brain death</div>
+  <div class="meta">For the general physician · Reference · 2026 · Built from Adams &amp; Victor 12e (Ch 16) and Merritt's 14e (Ch 19, 20, 34, 121) · WBDP/BDDD 2023, AAN 2010, ETSP/ESETT 2019, ATACH-2/INTERACT-3, TTM2 (NEJM 2021), Hemicraniectomy trials (DESTINY/HAMLET/DECIMAL)</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — neuro-critical care in one principle</a></li>
+  <li><a href="#abc">ABCs and secondary injury prevention</a></li>
+  <li><a href="#icp">ICP / CPP physiology — Monro-Kellie</a></li>
+  <li><a href="#tier">Tiered management of raised ICP</a></li>
+  <li><a href="#hern">Herniation syndromes</a></li>
+  <li><a href="#se">Status epilepticus (cross-ref Module 3)</a></li>
+  <li><a href="#mca">Malignant MCA infarct &amp; decompressive craniectomy</a></li>
+  <li><a href="#cere">Cerebellar emergencies — haemorrhage and infarct</a></li>
+  <li><a href="#sah">Subarachnoid haemorrhage</a></li>
+  <li><a href="#ich">Intracerebral haemorrhage</a></li>
+  <li><a href="#hie">Post-cardiac-arrest care and neuroprognostication</a></li>
+  <li><a href="#brain">Brain death determination (WBDP/BDDD 2023; AAN 2010)</a></li>
+  <li><a href="#mon">Multimodal neuromonitoring</a></li>
+  <li><a href="#nm">Neuromuscular crises in the ICU (GBS, MG, myelitis)</a></li>
+  <li><a href="#sed">Sedation, analgesia and ICU-acquired weakness</a></li>
+  <li><a href="#refer">When to refer / escalate</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — neuro-critical care in one principle</h2>
+<p>The injured brain is a fragile organ in a fixed box. Every neurological emergency is, at heart, a struggle to keep <strong>cerebral perfusion and oxygen delivery adequate</strong> while the primary injury heals. Whether the diagnosis is traumatic brain injury, large stroke, intracerebral haemorrhage, subarachnoid haemorrhage, status epilepticus, post-cardiac-arrest brain injury, or fulminant neuromuscular disease, the central job is the <strong>prevention of secondary brain injury</strong>: hypoxia, hypotension, hypoglycaemia and hyperglycaemia, hypercapnia, hyperthermia, hyponatraemia, and seizures.</p>
+
+<div class="pearl"><strong>The single principle:</strong> nothing the neurosurgeon, neurologist, or intensivist does inside the skull rescues a brain that has not been kept oxygenated, perfused, normoglycaemic, normocapnic, normothermic, normonatraemic, and seizure-free. <em>Treat the body to save the brain.</em></div>
+
+<h2 id="abc">2. ABCs and secondary injury prevention</h2>
+<table>
+<tr><th>System</th><th>Target</th></tr>
+<tr><td>Airway</td><td>Secure airway if GCS ≤ 8 or any of: unable to protect, profound encephalopathy, brainstem dysfunction, status epilepticus, refractory hypoxia / hypercapnia, expected rapid neurological decline.</td></tr>
+<tr><td>Breathing</td><td>SpO₂ ≥ 94% (avoid hyperoxia in stroke / post-arrest), PaCO₂ 35–40 mmHg (normocapnia; brief hyperventilation only for impending herniation), avoid Ppeak / PEEP that raise ICP needlessly (but PEEP rarely a problem to ICP if &lt; 12 cm H₂O).</td></tr>
+<tr><td>Circulation</td><td>MAP usually 80–90 mmHg target (varies by indication); avoid SBP &lt; 90 mmHg even briefly in TBI; high-target BP in delayed cerebral ischaemia from SAH (induced hypertension).</td></tr>
+<tr><td>Disability (D)</td><td>GCS / FOUR score / pupils every 1 h; signs of herniation (Cushing triad — hypertension + bradycardia + irregular respiration).</td></tr>
+<tr><td>Exposure / Electrolytes</td><td>Glucose 6–10 mmol/L (110–180 mg/dL — avoid hypoglycaemia AND hyperglycaemia); sodium per indication (targets below); temperature &lt; 37.5 °C (no benefit from prophylactic deep hypothermia in TBI/SAH/ICH per recent trials; <strong>target normothermia, avoid fever</strong>).</td></tr>
+</table>
+
+<h2 id="icp">3. ICP / CPP physiology — Monro-Kellie</h2>
+<ul>
+  <li>The skull is a fixed box containing three compartments: <strong>brain (~80%), blood (~10%), CSF (~10%)</strong>.</li>
+  <li>An increase in one compartment must be matched by reductions in the others, or ICP rises.</li>
+  <li><strong>Normal ICP</strong>: 7–15 mmHg in adults supine.</li>
+  <li><strong>Cerebral perfusion pressure (CPP) = MAP − ICP</strong>. Normal CPP &gt; 60 mmHg; many neuro-ICU protocols target CPP 60–70 mmHg in TBI and SAH (Brain Trauma Foundation 4th edition: avoid CPP &lt; 60).</li>
+  <li>Cerebral blood flow is autoregulated between MAP ~50 and ~150 in healthy people; <strong>autoregulation is often impaired</strong> after injury, making the brain pressure-passive — small drops in MAP cause significant ischaemia, and small surges cause vasogenic oedema.</li>
+  <li>PaCO₂ is the strongest physiological modulator of CBF — hyperventilation reduces CBF acutely (vasoconstriction) and is used only as a brief rescue for impending herniation; sustained hyperventilation worsens ischaemia.</li>
+</ul>
+
+<div class="warn"><strong>Cushing's triad</strong> — hypertension + bradycardia + irregular respiration — is a late sign of brainstem compression. Do not wait for it to act on raised ICP. Earlier warning signs: pupil asymmetry / dilation, deteriorating GCS, posturing.</div>
+
+<h2 id="tier">4. Tiered management of raised ICP</h2>
+<p>Modern protocols use a tiered approach (Seattle International Severe TBI Consensus 2019; BTF 4th edition). Move sequentially through tiers if ICP remains &gt; 22 mmHg (TBI target) or per indication.</p>
+
+<h3>Tier 0 — basic measures (all patients)</h3>
+<ul>
+  <li>Head of bed up 30°; head midline (no jugular kinking).</li>
+  <li>Loosen cervical collars and ETT ties.</li>
+  <li>Adequate sedation + analgesia (propofol + opioid first-line); avoid coughing / agitation; lidocaine before suctioning.</li>
+  <li>Avoid hypoxia (SpO₂ ≥ 94%), maintain PaCO₂ 35–40 mmHg, MAP target.</li>
+  <li>Normothermia (acetaminophen, cooling); fever raises ICP and worsens outcome.</li>
+  <li>Glucose 6–10 mmol/L; sodium 140–145 (TBI / mass effect); seizure surveillance + treatment.</li>
+  <li>Treat hyponatraemia cautiously (avoid CPM — Module 13); &gt; 10 mmol/L/24 h is the wrong direction, &lt; 8 the safer limit.</li>
+</ul>
+
+<h3>Tier 1 — initial measures for ICP &gt; 22 mmHg</h3>
+<ul>
+  <li><strong>Bolus sedation / analgesia</strong>.</li>
+  <li><strong>External ventricular drain</strong> (EVD) — both monitors ICP and drains CSF.</li>
+  <li><strong>Hyperosmolar therapy</strong>:
+    <ul>
+      <li><strong>3% hypertonic saline</strong> 250 mL over 15 min (or 23.4% 30 mL over 10 min via central line for emergency); target serum sodium 145–155, osmolality 300–320 mOsm/kg.</li>
+      <li><strong>Mannitol</strong> 0.5–1 g/kg IV over 15 min; monitor osmolar gap and renal function; avoid in hypovolaemia.</li>
+      <li>Hypertonic saline is generally preferred in haemodynamically labile patients (mannitol causes diuresis).</li>
+    </ul>
+  </li>
+  <li>Treat seizures (Module 3); consider continuous EEG.</li>
+</ul>
+
+<h3>Tier 2 — additional measures</h3>
+<ul>
+  <li>Deeper sedation; neuromuscular blockade (cisatracurium infusion) — minimises cough, shivering, ventilator dyssynchrony.</li>
+  <li>Mild hyperventilation to PaCO₂ 32–35 mmHg — short-term only; monitor jugular venous saturation or PbtO₂ if available.</li>
+  <li>Re-bolus hyperosmolar.</li>
+  <li>Surgical decompression discussion (decompressive craniectomy for refractory TBI ICP — RESCUEicp trial 2016: NNT meaningful, but high rate of severe disability in survivors; preserves life at the cost of disability).</li>
+</ul>
+
+<h3>Tier 3 — refractory ICP</h3>
+<ul>
+  <li><strong>Decompressive craniectomy</strong> — bifrontal or hemicraniectomy.</li>
+  <li><strong>Barbiturate coma</strong> (pentobarbital or thiopental) — burst-suppression on EEG; cardiovascular instability and immunosuppression are major risks.</li>
+  <li><strong>Therapeutic hypothermia (32–34 °C)</strong> — not recommended as prophylaxis (Eurotherm 2015: no benefit and possibly harm in TBI); rarely used as rescue for refractory ICP.</li>
+</ul>
+
+<div class="time"><strong>Brief hyperventilation</strong> (PaCO₂ ~30 mmHg) is reserved for impending herniation as a bridge to definitive treatment. Never use it as a sustained strategy — vasoconstriction reduces CBF and worsens ischaemia.</div>
+
+<h2 id="hern">5. Herniation syndromes</h2>
+<table>
+<tr><th>Syndrome</th><th>Anatomy</th><th>Clinical</th></tr>
+<tr><td><strong>Uncal (transtentorial)</strong></td><td>Uncus of temporal lobe through tentorium → compresses CN III &amp; midbrain</td><td>Ipsilateral pupil dilatation (CN III parasympathetic — "blown pupil") → contralateral hemiparesis (cerebral peduncle compression) → Kernohan's notch (contralateral peduncle compression on falx → false-localising ipsilateral hemiparesis) → decerebrate posturing → coma → respiratory arrest</td></tr>
+<tr><td><strong>Central (downward) transtentorial</strong></td><td>Diencephalon → midbrain → pons → medulla progression</td><td>Stepwise rostro-caudal deterioration: small reactive pupils → Cheyne-Stokes respiration → decerebrate posturing → apnoea</td></tr>
+<tr><td><strong>Subfalcine</strong></td><td>Cingulate gyrus under the falx</td><td>Often clinically silent until ACA territory ischaemia (contralateral leg weakness)</td></tr>
+<tr><td><strong>Tonsillar (downward through foramen magnum)</strong></td><td>Cerebellar tonsils into foramen magnum → medullary compression</td><td>Hypertension, bradycardia, apnoea, decerebrate posturing, sudden cardiorespiratory arrest. <strong>Avoid LP if posterior-fossa mass — risk of fatal tonsillar herniation.</strong></td></tr>
+<tr><td><strong>Upward (transtentorial)</strong></td><td>Posterior fossa contents up through tentorium (after sudden CSF drainage from EVD in a patient with posterior fossa mass)</td><td>Sudden compression of midbrain → reduced consciousness, midposition fixed pupils, oculomotor signs</td></tr>
+</table>
+
+<h2 id="se">6. Status epilepticus</h2>
+<p>Time matters: each minute of seizure activity increases neuronal injury and resistance to treatment.</p>
+
+<table>
+<tr><th>Phase</th><th>Time</th><th>Treatment</th></tr>
+<tr><td>0–5 min (early)</td><td>Stabilise; ABCs; glucose; thiamine before glucose if at risk (Module 13)</td><td>—</td></tr>
+<tr><td>5–20 min (established)</td><td><strong>First-line benzodiazepine</strong>: lorazepam 0.1 mg/kg IV (max 4 mg) or midazolam 10 mg IM (or 0.2 mg/kg IV) — repeat once if no response</td><td>RAMPART trial (NEJM 2012): IM midazolam non-inferior to IV lorazepam pre-hospital</td></tr>
+<tr><td>20–40 min (refractory)</td><td><strong>Second-line non-benzodiazepine ASM</strong> (ESETT trial NEJM 2019: levetiracetam, fosphenytoin, and valproate equally effective ~50% efficacy each):
+  <ul>
+    <li><strong>Levetiracetam 60 mg/kg IV</strong> (max 4500 mg) over 10 min — usually preferred (fewer side effects, no interactions, safe in pregnancy and most comorbidities)</li>
+    <li>Fosphenytoin 20 mg PE/kg IV over 10 min (max 1500 mg PE) — caution in arrhythmia, hypotension</li>
+    <li>Valproate 40 mg/kg IV over 10 min — avoid in mitochondrial disease, hepatic dysfunction, pregnancy (cross-ref Module 20)</li>
+  </ul>
+</td></tr>
+<tr><td>&gt; 40 min (super-refractory)</td><td>ICU; intubation; <strong>anaesthetic infusion</strong>: midazolam 0.05–0.5 mg/kg/h, propofol 30–250 µg/kg/min, or pentobarbital — titrate to seizure suppression or burst-suppression on continuous EEG; phenobarbital alternative; ketamine emerging. Treat the underlying cause; rule out NCSE; consider auto-immune encephalitis (Module 11) with empirical IV methylprednisolone + IVIG / PLEX</td><td>—</td></tr>
+</table>
+
+<div class="warn">Always check glucose, electrolytes (Na, Ca, Mg), ABG, ammonia (valproate), drug levels, toxicology, pyridoxine deficiency (especially infants — Module 16). For prolonged refractory status, continuous EEG is essential to detect non-convulsive status epilepticus. Cross-ref Module 3.</div>
+
+<h2 id="mca">7. Malignant MCA infarct &amp; decompressive craniectomy</h2>
+<ul>
+  <li>Large MCA territory infarct → cytotoxic oedema → mass effect → midline shift → uncal herniation. Mortality up to 80% without surgery.</li>
+  <li>Pooled meta-analysis of <strong>DESTINY, DECIMAL, and HAMLET trials</strong> (Vahedi Lancet Neurol 2007): <strong>decompressive hemicraniectomy within 48 hours</strong> in patients &lt; 60 years reduces mortality by ~50% and increases the proportion of patients with mRS ≤ 3 (independent or mild disability).</li>
+  <li><strong>DESTINY II trial</strong> (Jüttler NEJM 2014): in patients &gt; 60, hemicraniectomy reduces mortality but the proportion with severe disability is higher; mRS 4 (moderately severe disability) is the most common outcome. Shared decision-making with family is critical.</li>
+  <li>Indications: NIHSS &gt; 15 (right) or &gt; 20 (left), large MCA territory on imaging, decreased GCS, midline shift, &lt; 48 h from onset.</li>
+  <li>Post-op: ICP / CPP management; meticulous fluid balance; avoid hypertonic saline volume overload; manage post-op CSF leak; planned cranioplasty at ~3 months.</li>
+  <li>Cross-ref Module 2.</li>
+</ul>
+
+<h2 id="cere">8. Cerebellar emergencies</h2>
+<ul>
+  <li><strong>Cerebellar haemorrhage / large infarct</strong>: tight posterior fossa → rapid brainstem compression, fourth ventricle obstruction, obstructive hydrocephalus.</li>
+  <li>Clinical: occipital headache, vomiting, ataxia, declining GCS; <em>can deteriorate within hours</em> — high index of suspicion.</li>
+  <li>Image: CT brain ± MRI for infarct.</li>
+  <li>Management:
+    <ul>
+      <li><strong>External ventricular drain</strong> for hydrocephalus (life-saving).</li>
+      <li><strong>Suboccipital decompressive craniectomy</strong> for cerebellar haemorrhage &gt; 3 cm or with brainstem compression or hydrocephalus (Surgical guidelines per AHA/ASA ICH 2022).</li>
+      <li>For large cerebellar infarct with mass effect, decompressive surgery is recommended within 48 hours.</li>
+    </ul>
+  </li>
+  <li>Avoid LP if posterior-fossa mass — risk of tonsillar herniation.</li>
+</ul>
+
+<h2 id="sah">9. Subarachnoid haemorrhage (cross-ref Module 4)</h2>
+<ul>
+  <li>Thunderclap headache + meningism. Non-contrast CT &gt; 99% sensitive in first 6 hours; LP for xanthochromia after 12 hours if CT normal and suspicion remains.</li>
+  <li>CT angiography or DSA to identify aneurysm; secure with coil or clip within 72 hours.</li>
+</ul>
+
+<h3>Acute critical care for aSAH</h3>
+<ul>
+  <li><strong>Strict BP control</strong> pre-securing: SBP &lt; 140–160 (typically &lt; 140 if pre-secure); avoid hypotension.</li>
+  <li><strong>Nimodipine 60 mg po q4h × 21 days</strong> — reduces poor outcomes from delayed cerebral ischaemia (DCI). Magnesium has not shown benefit (MASH II).</li>
+  <li>Bed rest, stool softeners, analgesia, anti-emetic.</li>
+  <li><strong>External ventricular drain</strong> for hydrocephalus (~30% develop acute hydrocephalus).</li>
+  <li>Seizure prophylaxis only short-term peri-procedurally (no evidence to support routine long-term).</li>
+  <li><strong>Delayed cerebral ischaemia (DCI)</strong> typically days 4–14 post-bleed:
+    <ul>
+      <li>Daily clinical assessment + transcranial Doppler / CTA / CTP for surveillance.</li>
+      <li>If new neurological deficit: <strong>induced hypertension</strong> (SBP target 160–200; use vasopressors to maintain), euvolaemia, optimise haematocrit. The "triple H" therapy (hypertension + hypervolaemia + haemodilution) is now reduced to induced hypertension + euvolaemia (hypervolaemia harmful).</li>
+      <li>Endovascular angioplasty / intra-arterial vasodilators in selected refractory cases.</li>
+    </ul>
+  </li>
+  <li>Cardiac complications: Takotsubo cardiomyopathy, neurogenic pulmonary oedema, troponin elevation.</li>
+  <li>Hyponatraemia (cerebral salt wasting vs SIADH): fluid + salt replacement; CSW shows volume depletion (treat with isotonic / hypertonic saline + fludrocortisone); SIADH shows euvolaemia (fluid restriction).</li>
+</ul>
+
+<h2 id="ich">10. Intracerebral haemorrhage</h2>
+<ul>
+  <li>ICH score (Hemphill 2001) — GCS + age + ICH volume + IVH + infratentorial — for risk stratification.</li>
+  <li><strong>BP control</strong>: <strong>INTERACT2 / ATACH-II / INTERACT-3 (2023)</strong> support early intensive lowering — <strong>target SBP &lt; 140 mmHg within 1 hour of presentation in spontaneous ICH</strong>; INTERACT-3 also bundled glucose, temperature, anticoagulation reversal — favourable outcome benefit.</li>
+  <li>Reverse anticoagulation:
+    <ul>
+      <li>Warfarin → 4F-PCC 25–50 IU/kg + vitamin K 10 mg IV.</li>
+      <li>Dabigatran → idarucizumab 5 g IV.</li>
+      <li>Apixaban / rivaroxaban → andexanet alfa (FDA 2018 — controversial cost/efficacy; ANNEXA-I trial 2024 NEJM showed benefit) or 4F-PCC if andexanet unavailable.</li>
+      <li>LMWH → protamine 1 mg per 1 mg LMWH (partial reversal); FFP for fibrinogen issues.</li>
+    </ul>
+  </li>
+  <li>Spot sign (active contrast extravasation on CTA) → high risk of haematoma expansion.</li>
+  <li>Indications for surgery:
+    <ul>
+      <li>Cerebellar haemorrhage &gt; 3 cm or with brainstem compression / hydrocephalus.</li>
+      <li>Lobar haematoma with deterioration — controversial; ENRICH (2024 NEJM): minimally invasive endoscopic surgery improved functional outcome in selected lobar ICH.</li>
+      <li>Decompressive craniectomy for refractory mass effect.</li>
+    </ul>
+  </li>
+  <li>Seizure prophylaxis not routinely recommended; treat clinical or EEG-confirmed seizures.</li>
+  <li>VTE prophylaxis: mechanical from admission; pharmacological after 24–48 h if bleeding stable.</li>
+</ul>
+
+<h2 id="hie">11. Post-cardiac-arrest care and neuroprognostication</h2>
+<ul>
+  <li>Out-of-hospital cardiac arrest with ROSC → multiorgan dysfunction + brain injury from global ischaemia-reperfusion.</li>
+  <li><strong>Targeted temperature management (TTM)</strong>:
+    <ul>
+      <li>TTM 1 trial (Nielsen NEJM 2013): 33 °C equivalent to 36 °C × 24 h.</li>
+      <li><strong>TTM2 trial (Dankiewicz NEJM 2021)</strong>: targeted normothermia (avoid fever ≤ 37.7 °C) was equivalent to 33 °C in OHCA. Many guidelines now recommend <strong>aggressive fever avoidance ≤ 37.5 °C</strong> for at least 72 h; controlled hypothermia 32–36 °C remains an option for selected patients.</li>
+    </ul>
+  </li>
+  <li>Targeted oxygenation (SpO₂ 94–98%, avoid hyperoxia), CO₂ 35–40 mmHg, MAP &gt; 65 (often 80–90), glucose 7.8–10 mmol/L, avoid hyperthermia and shivering, treat seizures and myoclonic status, continuous EEG.</li>
+</ul>
+
+<h3>Multimodal neuroprognostication (≥ 72 hours after rewarming and sedation off)</h3>
+<ul>
+  <li><strong>Clinical</strong>: bilateral absent pupillary + corneal reflexes; status myoclonus on day 1.</li>
+  <li><strong>SSEPs</strong>: bilateral absent N20 cortical responses.</li>
+  <li><strong>EEG</strong>: burst-suppression with identical bursts; suppressed background; generalised periodic discharges &gt; 50% of recording; status epilepticus on flat background.</li>
+  <li><strong>Biomarker</strong>: NSE &gt; 60 µg/L at 48–72 h.</li>
+  <li><strong>Imaging</strong>: diffuse cortical / basal ganglia / cerebellar cytotoxic oedema on MRI DWI; loss of grey-white differentiation on CT.</li>
+  <li><strong>No single feature</strong> is sufficient — combine ≥ 2 robust features (ERC/ESICM 2021).</li>
+</ul>
+
+<div class="warn"><strong>Time and combination</strong>: do not prognosticate too early. Sedation, hypothermia, and metabolic confounders interfere with the exam. Multimodal assessment ≥ 72 hours after rewarming and after sedation withdrawal protects from premature withdrawal of life-sustaining treatment. Lance-Adams (post-anoxic action myoclonus) is a recovery state, not a poor prognostic sign.</div>
+
+<h2 id="brain">12. Brain death determination — WBDP/BDDD 2023 + AAN 2010</h2>
+<p>The <strong>2023 World Brain Death Project (WBDP) consensus / Brain Death/Death by Neurologic Criteria (BDDD)</strong> updated the diagnostic framework. The AAN 2010 adult guideline remains widely used in the US and many countries.</p>
+
+<h3>Prerequisites (all must be met)</h3>
+<ol>
+  <li><strong>Established irreversible catastrophic brain injury</strong> of known cause.</li>
+  <li><strong>Exclude confounders</strong>:
+    <ul>
+      <li>Hypothermia — core temperature ≥ 36 °C.</li>
+      <li>Hypotension — SBP ≥ 100 mmHg (off vasoactive drugs as feasible) or MAP ≥ 75.</li>
+      <li>Severe metabolic disturbance — Na, glucose, urea, ammonia, ABG.</li>
+      <li>CNS-depressant drugs and neuromuscular blockers cleared (allow 5 half-lives; consider drug levels; train-of-four monitoring).</li>
+      <li>No condition mimicking brain death (Guillain-Barré, locked-in, fulminant Wernicke, toxin).</li>
+    </ul>
+  </li>
+  <li>Observation period: typically 6–24 hours after the inciting event (longer for HIE).</li>
+</ol>
+
+<h3>Clinical examination — coma + absent brainstem reflexes + apnoea</h3>
+<ol>
+  <li><strong>Unresponsive coma</strong> (no eye opening, motor response, or vocalisation to noxious stimuli — supraorbital, nailbed).</li>
+  <li><strong>Absent brainstem reflexes</strong>:
+    <ul>
+      <li>Pupillary light reflex (round, fixed, 4–9 mm).</li>
+      <li>Corneal reflex (cotton swab to lateral cornea).</li>
+      <li>Oculocephalic (doll's eyes) — only if cervical spine cleared.</li>
+      <li>Oculovestibular (50 mL ice-cold water in each ear with head 30°; observe 1 min after).</li>
+      <li>Gag reflex (suction or tongue depressor on posterior pharynx).</li>
+      <li>Cough reflex (deep ETT suction).</li>
+      <li>No facial movement to noxious stimulus.</li>
+    </ul>
+  </li>
+  <li><strong>Apnoea test</strong> — if all prerequisites and brainstem reflexes confirm:
+    <ol>
+      <li>Pre-oxygenate with 100% O₂ for 10 min; PaCO₂ should be ~35–45 mmHg.</li>
+      <li>Disconnect ventilator; provide passive O₂ via T-piece or insufflation catheter at 6 L/min through ETT.</li>
+      <li>Observe for 8–10 minutes for any spontaneous respiration.</li>
+      <li>Draw ABG.</li>
+      <li>Test positive (consistent with brain death) if: PaCO₂ rises to ≥ 60 mmHg (or rises ≥ 20 mmHg above baseline) AND no respiratory effort observed.</li>
+      <li>Abort if hypotension, severe hypoxia, or arrhythmia develops; consider ancillary testing.</li>
+    </ol>
+  </li>
+</ol>
+
+<h3>Ancillary testing — when apnoea test cannot be done or examination confounded</h3>
+<ul>
+  <li><strong>Cerebral angiography</strong> (4-vessel) — no intracranial flow at the level of the carotid bifurcation / circle of Willis.</li>
+  <li><strong>EEG</strong> — electrocerebral silence ≥ 30 min.</li>
+  <li><strong>Transcranial Doppler</strong> — oscillating / reverberating flow patterns indicating no net forward flow.</li>
+  <li><strong>Nuclear medicine</strong> (Tc-99m HMPAO) — no intracranial perfusion ("hollow skull" sign).</li>
+</ul>
+
+<div class="pearl"><strong>Spinal reflexes can persist</strong> — triple flexion, Lazarus sign (brief arm movement on disconnection), deep tendon reflexes, sweating, and BP variability do <em>not</em> exclude brain death because they originate in the spinal cord.</div>
+
+<div class="refer">Brain death = death by neurological criteria. Once declared and documented per institutional protocol, life-sustaining treatment is discontinued; if organ donation is considered, organ procurement organisation is notified before withdrawal of support. Family communication is paramount. WBDP 2023 emphasises consistency, transparency, and a single declaration is sufficient for adults (some jurisdictions require two independent examinations).</div>
+
+<h2 id="mon">13. Multimodal neuromonitoring</h2>
+<ul>
+  <li><strong>ICP monitor</strong>: EVD (also therapeutic — CSF drainage) or intraparenchymal (Camino bolt).</li>
+  <li><strong>Brain tissue oxygen (PbtO₂)</strong>: target &gt; 20 mmHg; <strong>BOOST-3 trial (NEJM 2024)</strong>: PbtO₂-guided care in severe TBI showed improved functional outcomes vs ICP-only.</li>
+  <li><strong>Continuous EEG</strong>: detect NCSE (10–30% of comatose ICU patients); guide titration of anaesthetic infusions in super-refractory status.</li>
+  <li><strong>Cerebral microdialysis</strong>: lactate / pyruvate ratio, glucose, glutamate — research / specialist centres.</li>
+  <li><strong>Transcranial Doppler</strong>: vasospasm screening after SAH.</li>
+  <li><strong>NIRS (near-infrared spectroscopy)</strong>: regional cerebral oxygen saturation — increasing use; particularly in cardiac surgery and selected neuro-ICU.</li>
+  <li><strong>Pupillometer</strong>: quantitative pupillary reactivity (NPi) — early warning of neurological decline / herniation.</li>
+</ul>
+
+<h2 id="nm">14. Neuromuscular crises in the ICU</h2>
+<ul>
+  <li><strong>GBS with respiratory failure</strong> (Module 9): FVC &lt; 20 mL/kg or NIF less negative than −30 cm H₂O, or 20/30/40 rule (FVC &lt; 20, NIF &lt; 30, MEP &lt; 40) — intubate. Avoid succinylcholine (hyperkalaemia from upregulated AChRs). IVIG 0.4 g/kg/day × 5 days or plasma exchange 5 sessions. Autonomic dysfunction is a major mortality driver — telemetry, avoid pushed cardioactive drug boluses (Module 15).</li>
+  <li><strong>Myasthenic crisis</strong> (Module 9): bulbar / respiratory failure. Avoid known crisis-precipitating drugs (aminoglycosides, fluoroquinolones, β-blockers, magnesium — Module 20). Plasma exchange or IVIG; pyridostigmine reduced or held in crisis to reduce secretions; steroids carefully (may worsen initially). Watch for cholinergic crisis from pyridostigmine overuse.</li>
+  <li><strong>Transverse myelitis / spinal cord emergencies</strong> (Module 10): high-cervical lesions can cause respiratory failure; monitor and intubate as needed.</li>
+  <li><strong>Botulism, tetanus, ALS, periodic paralysis</strong> — Module 9.</li>
+</ul>
+
+<h2 id="sed">15. Sedation, analgesia, and ICU-acquired weakness</h2>
+<ul>
+  <li>Use lighter sedation where possible (daily sedation holds; analgesia-first approach with fentanyl / morphine for pain). For neuro-ICU patients on ICP monitoring or with status epilepticus, deeper sedation is appropriate.</li>
+  <li><strong>Propofol</strong>: rapid on-off; titratable; watch for propofol-related infusion syndrome (PRIS) at &gt; 4 mg/kg/h or &gt; 48 h (metabolic acidosis, rhabdomyolysis, cardiac failure).</li>
+  <li><strong>Midazolam</strong>: useful in status; benzo-tolerance.</li>
+  <li><strong>Dexmedetomidine</strong>: α2 agonist, useful for delirium and ventilator weaning; no respiratory depression but watch bradycardia and hypotension.</li>
+  <li><strong>Ketamine</strong>: emerging role in super-refractory status; raises BP (useful in hypotensive patients); old concerns about ICP largely refuted.</li>
+  <li><strong>Neuromuscular blockade</strong> (cisatracurium): reserve for refractory ICP, severe ARDS, shivering during TTM, ventilator dyssynchrony.</li>
+  <li><strong>ICU-acquired weakness</strong>: critical illness polyneuropathy + myopathy → flaccid quadriparesis after sepsis / multiorgan failure; reduces ventilator weaning; early mobilisation + nutrition + glycaemic control mitigate. Cross-ref Module 9.</li>
+</ul>
+
+<h2 id="refer">16. When to refer / escalate</h2>
+<ul>
+  <li><strong>Same minute</strong>: suspected impending herniation (Cushing triad, deteriorating GCS, unilateral pupillary dilation) — emergency airway, hyperosmolar bolus, head up, neurosurgery on speed dial.</li>
+  <li><strong>Same hour</strong>: status epilepticus → 1st-line benzodiazepine + 2nd-line ASM + ICU if persisting; suspected SAH → CT + neurosurgery / interventional neuroradiology for aneurysm securing.</li>
+  <li><strong>Same shift</strong>: malignant MCA infarct candidate &lt; 60 → decompressive hemicraniectomy discussion within 48 h; cerebellar mass &gt; 3 cm or with hydrocephalus → suboccipital decompression + EVD.</li>
+  <li><strong>Always involve</strong>: intensive care + neurology + neurosurgery + interventional neuroradiology + neurorehabilitation + clinical pharmacy + palliative care for futility discussions + organ procurement organisation if brain death suspected.</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources</h3>
+<p>Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Chapter 16 (Coma and Related Disorders of Consciousness).</p>
+<p>Merritt's <em>Neurology</em> 14e, Chapter 19 (Stupor and Coma), Chapter 20 (Brain Death), Chapter 34 (Intracranial Pressure and Neurocritical Care Monitoring), Chapter 121 (Respiratory Support for Neurologic Diseases).</p>
+<p>Brain Trauma Foundation. Guidelines for the management of severe TBI, 4th edition. <em>Neurosurgery</em> 2017.</p>
+<p>Hawryluk GWJ et al. A management algorithm for adult patients with both brain oxygen and intracranial pressure monitoring: the Seattle International Severe Traumatic Brain Injury Consensus Conference (SIBICC). <em>Intensive Care Med</em> 2019; 45: 1783–1794.</p>
+<p>Hutchinson PJ et al. (RESCUEicp) Trial of decompressive craniectomy for traumatic intracranial hypertension. <em>NEJM</em> 2016; 375: 1119–1130.</p>
+<p>Andrews PJD et al. (Eurotherm3235) Hypothermia for intracranial hypertension after traumatic brain injury. <em>NEJM</em> 2015; 373: 2403–2412.</p>
+<p>Vahedi K et al. Early decompressive surgery in malignant infarction of the middle cerebral artery: a pooled analysis of three randomised controlled trials. <em>Lancet Neurology</em> 2007; 6: 215–222 (DESTINY, DECIMAL, HAMLET).</p>
+<p>Jüttler E et al. (DESTINY II) Hemicraniectomy in older patients with extensive middle-cerebral-artery stroke. <em>NEJM</em> 2014; 370: 1091–1100.</p>
+<p>Glauser T et al. Evidence-based guideline: treatment of convulsive status epilepticus in children and adults — AES guideline. <em>Epilepsy Currents</em> 2016; 16: 48–61. Kapur J et al. (ESETT) Randomized trial of three anticonvulsant medications for status epilepticus. <em>NEJM</em> 2019; 381: 2103–2113.</p>
+<p>Anderson CS et al. (INTERACT2) Rapid blood-pressure lowering in patients with acute intracerebral hemorrhage. <em>NEJM</em> 2013; 368: 2355–2365. Qureshi AI et al. (ATACH-2) Intensive blood-pressure lowering in patients with acute cerebral hemorrhage. <em>NEJM</em> 2016; 375: 1033–1043. Anderson CS et al. (INTERACT-3) Care bundle in acute intracerebral haemorrhage. <em>Lancet</em> 2023; 402: 27–40. Pradilla G et al. (ENRICH) Trial of early minimally invasive removal of intracerebral hemorrhage. <em>NEJM</em> 2024.</p>
+<p>Dankiewicz J et al. (TTM2) Hypothermia versus normothermia after out-of-hospital cardiac arrest. <em>NEJM</em> 2021; 384: 2283–2294. Nolan JP et al. ERC/ESICM guidelines on post-resuscitation care 2021.</p>
+<p>Greer DM et al. Determination of brain death/death by neurologic criteria: the World Brain Death Project. <em>JAMA</em> 2020; 324: 1078–1097 (updated 2023). Wijdicks EFM et al. Evidence-based guideline update: determining brain death in adults — AAN. <em>Neurology</em> 2010; 74: 1911–1918.</p>
+<p>Connolly ES et al. Guidelines for the management of aneurysmal subarachnoid hemorrhage. <em>Stroke</em> 2012; updates 2023. Greenberg SM et al. 2022 Guideline for the management of patients with spontaneous intracerebral hemorrhage. <em>Stroke</em> 2022; 53: e282–e361.</p>
+<p>Okonkwo DO et al. (BOOST-3) PbtO₂-guided care in severe TBI. <em>NEJM</em> 2024 (or relevant primary publication).</p>
+</div>
+
+<footer>Module 22 — Neuro-Critical Care &amp; Emergencies · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>

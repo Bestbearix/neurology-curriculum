@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 20 — Neurology of Pregnancy (Interactive)</title>
+<style>
+  :root{
+    --bg:#14082b; --panel:#221141; --panel-2:#2c1750; --line:#3d2570;
+    --ink:#f0e8fc; --muted:#b8a5d8; --accent:#c285ff; --accent-2:#dab2ff;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#321e58; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0f061f,#14082b 35%,#14082b); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(194,133,255,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#1a0a35; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#e8d3ff}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(194,133,255,.10); border-color:var(--accent); color:#e8d3ff}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#1a0a35; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(194,133,255,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 20</span>
+    <span class="badge">General physician</span>
+    <h1>Neurology of Pregnancy — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e) and Merritt's <em>Neurology</em> (14e, Ch. 129). EURAP register; AAN/AES epilepsy in pregnancy; PRIMS for MS (Confavreux NEJM 1998); Krysko Lancet Neurol 2023; ACOG hypertensive disorders + eclampsia magnesium; ISCVT for CVST; postpartum angiopathy (Singhal); Wernicke from hyperemesis.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="aed">AED Selector</button>
+    <button data-tab="emerg">Emergency Differentiator</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Pregnancy reshapes neurology. The pro-thrombotic state drives CVST and stroke; the hypertensive disorders cause eclampsia and PRES; hormonal change can flare migraine and MS; the postpartum window concentrates a disproportionate share of disasters. At the same time, many women with chronic neurological disease — epilepsy, MS, MG, Wilson — need careful pre-conception planning, drug review, and multidisciplinary coordination. The general physician's job is to recognise the emergencies and to plan ahead with the chronic conditions.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Recognise and triage eclampsia, PRES, CVST, RCVS, stroke, SAH, and pituitary apoplexy in pregnancy / postpartum.</li>
+      <li>Initiate magnesium sulphate for eclampsia and know its contraindication in MG.</li>
+      <li>Plan an antiseizure regimen in pregnancy using EURAP teratogenicity data, switching off valproate and topiramate where feasible.</li>
+      <li>Use 4–5 mg folic acid in women on AEDs from pre-conception through (at least) first trimester.</li>
+      <li>Plan MS DMT around pregnancy, recognising postpartum rebound risk.</li>
+      <li>Recognise and treat hyperemesis-induced Wernicke encephalopathy (thiamine BEFORE glucose).</li>
+      <li>Manage MG in pregnancy and recognise transient neonatal MG.</li>
+      <li>Counsel about safe imaging (MRI without gadolinium preferred; CT acceptable when needed) and breastfeeding compatibility.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> uncontrolled maternal seizure, stroke, or eclampsia is more dangerous to mother and fetus than any antiseizure medication or antihypertensive. Treat the mother — the fetus benefits. Withholding effective therapy from fear of teratogenicity often causes worse outcomes than careful selection.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Physiological changes that matter for neurology</summary>
+      <div class="body">
+        <ul>
+          <li>Plasma volume ↑ ~50% → dilutional anaemia; serum drug levels fall (free fraction may not).</li>
+          <li>Oestrogen → hypercoagulable: VTE, CVST, stroke, RCVS, PRES, antiphospholipid flare.</li>
+          <li>Renal clearance ↑ ~50% — lamotrigine, LEV, OXC clearance rises markedly → need dose increases.</li>
+          <li>CYP3A4 / UGT shifts — lamotrigine PK changes.</li>
+          <li>Pituitary doubles in size — apoplexy + Sheehan risk.</li>
+          <li>BP falls early, rises late — eclampsia/PRES, RCVS, stroke peak peripartum + postpartum.</li>
+          <li>Pelvic + lower-limb compression — CTS, meralgia paresthetica, lumbosacral plexopathy postpartum.</li>
+          <li>Th2-skewed immunity — MS improves in pregnancy + postpartum rebound.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Eclampsia, PRES, magnesium sulfate</summary>
+      <div class="body">
+        <div class="refer"><strong>Eclampsia emergency</strong>:
+          <ul>
+            <li><strong>Magnesium sulfate</strong>: 4–6 g IV bolus over 15–20 min → 1–2 g/h infusion × 24 h. Watch for toxicity: loss of patellar reflex → resp depression → cardiac arrest. Antidote: <strong>calcium gluconate 1 g IV</strong>.</li>
+            <li><strong>Antihypertensive</strong>: labetalol IV (10–20 mg q10 min, max 220), hydralazine IV (5–10 mg q20–30 min), nifedipine IR po (10 mg q20–30). Target SBP 140–155 / DBP 90–105 — avoid abrupt drops (placental perfusion).</li>
+            <li><strong>Definitive Rx is delivery</strong> — coordinate obstetrics + anaesthesia + neonatology + ICU.</li>
+            <li>Refractory seizures: benzodiazepine then conventional second-line ASMs per status epilepticus algorithm.</li>
+            <li>Continue Mg 24 h postpartum; monitor for further seizures up to 6 weeks postpartum.</li>
+          </ul>
+        </div>
+        <p><strong>PRES</strong> (Module 13): headache + cortical visual disturbance (cortical blindness) + seizures + encephalopathy + bilateral posterior parieto-occipital T2/FLAIR hyperintensity. Control BP gently (25% reduction in 1–2 h; 160/110 over 24 h); correct triggers; ASMs for seizures.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. CVST, RCVS, postpartum angiopathy</summary>
+      <div class="body">
+        <ul>
+          <li><strong>CVST</strong>: peripartum / first 12 weeks postpartum especially. Headache &gt; 90%, focal deficits, seizures, raised ICP. <strong>MRI + MRV</strong> diagnostic. Treat: <strong>therapeutic LMWH</strong> antepartum + postpartum (does not cross placenta); transition to warfarin postpartum if not BF (warfarin BF-compatible). Cross-ref Module 2.</li>
+          <li><strong>RCVS / postpartum angiopathy (Call-Fleming)</strong>: recurrent thunderclap headache + segmental vasoconstriction reversing in 1–3 months. Postpartum + vasoactive drugs (cannabis, sympathomimetics, SSRIs/SNRIs, triptans, ergots). Complications: cortical SAH, ischaemic stroke, ICH, PRES overlap. Stop precipitants; nimodipine 30–60 mg q4h often used; analgesia; BP control.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Pituitary apoplexy and Sheehan</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Pituitary apoplexy</strong> (Modules 12 / 19) — peripartum risk in macroadenoma; thunderclap + ophthalmoplegia + bitemporal hemianopia + acute panhypopituitarism. <strong>Hydrocortisone 100 mg IV STAT</strong>, urgent MRI, neurosurgery if visual / oculomotor compromise.</li>
+          <li><strong>Sheehan syndrome</strong> — postpartum pituitary necrosis from haemorrhagic hypotension. Failure to lactate, amenorrhoea, fatigue, panhypopituitarism. Lifelong hormone replacement.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Headache in pregnancy</summary>
+      <div class="body">
+        <p>Migraine without aura often improves (60–70%, especially 2nd–3rd trimester); migraine with aura less so. Postpartum rebound common.</p>
+        <ul>
+          <li>Acute: paracetamol first-line; avoid NSAIDs 1st trimester (cardiac defects) and after 30 weeks (ductus closure, oligohydramnios). Triptans — sumatriptan most data; modest risk consensus favourable; case-by-case.</li>
+          <li>Preventive: AVOID valproate (teratogen), topiramate (cleft lip/palate); propranolol + amitriptyline (low dose) + lifestyle commonly used. Module 4.</li>
+        </ul>
+        <p>Secondary headache differential — high suspicion in pregnancy: eclampsia/PRES, CVST, RCVS, SAH, pituitary apoplexy, dissection, stroke, IIH (Modules 4, 19), PDPH.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Epilepsy — pre-conception &amp; AED selection</summary>
+      <div class="body">
+        <p>~95% have an uncomplicated pregnancy with optimised care. Plan in advance — discuss intentions at <strong>every</strong> visit.</p>
+        <p><strong>Folic acid</strong>: 0.4 mg/day low-risk; <strong>4–5 mg/day for women on AEDs or prior NTD</strong>, from ≥ 3 months pre-conception through first trimester (many continue throughout).</p>
+        <table>
+          <tr><th>AED</th><th>MCM rate</th><th>Notes</th></tr>
+          <tr><td>Valproate</td><td>~10% (dose-dependent &gt; 1000 mg/day)</td><td><strong>Avoid in women of childbearing potential</strong>; NTDs + cardiac + facial + urogenital; ~30–40% neurodevelopmental impairment; pregnancy-prevention programme</td></tr>
+          <tr><td>Topiramate</td><td>~4%</td><td>Cleft lip/palate; lower birth weight; SGA</td></tr>
+          <tr><td>Carbamazepine</td><td>~5%</td><td>NTDs; folate dependence</td></tr>
+          <tr><td>Phenobarbital</td><td>~7%</td><td>Cardiac defects; cognitive impact</td></tr>
+          <tr><td>Phenytoin</td><td>~6%</td><td>Fetal hydantoin syndrome</td></tr>
+          <tr><td>Lamotrigine</td><td>~2.5%</td><td>Safer; clearance ↑↑ → often 2–3× dose by 3rd trimester; monitor levels</td></tr>
+          <tr><td>Levetiracetam</td><td>~2.5%</td><td>Preferred first-line if effective; monitor levels</td></tr>
+          <tr><td>Oxcarbazepine</td><td>~3%</td><td>Reasonable alternative; monitor Na</td></tr>
+          <tr><td>Brivaracetam / lacosamide / perampanel</td><td>Limited data</td><td>Usually not first-line in pregnancy</td></tr>
+        </table>
+        <div class="pearl"><strong>Practical algorithm</strong>: switch valproate / topiramate / phenobarbital pre-conception where feasible. Continue lamotrigine / LEV / OXC with frequent level monitoring (every 4–8 weeks). Lamotrigine often needs 2–3× dose by 3rd trimester. <strong>Folic acid 4–5 mg/day</strong>. Vitamin K 10 mg/day to mother in last month if on enzyme-inducing AEDs (CBZ, phenytoin, phenobarbital); IM vitamin K to newborn. Postpartum: ASM levels rise → consider dose reduction. Register pregnancy with EURAP / local registry.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. MS and DMT planning</summary>
+      <div class="body">
+        <p>PRIMS (Confavreux NEJM 1998): pregnancy reduces relapse rate, especially 2nd–3rd trimester; postpartum rebound at ~3 months. Long-term disability trajectory unchanged. NMOSD (Module 8) can flare ante- and postpartum.</p>
+        <table>
+          <tr><th>DMT</th><th>Plan</th></tr>
+          <tr><td>Interferon-β, glatiramer acetate</td><td>Often continued; glatiramer most data</td></tr>
+          <tr><td>DMF</td><td>Stop pre-conception</td></tr>
+          <tr><td>Fingolimod / siponimod / ozanimod</td><td>Stop + washout 2–3 months pre-conception; rebound risk → bridge therapy may be needed</td></tr>
+          <tr><td>Teriflunomide</td><td>Contraindicated; cholestyramine accelerated elimination if conception planned</td></tr>
+          <tr><td>Cladribine</td><td>Plan pregnancy 6 months after last dose</td></tr>
+          <tr><td>Natalizumab</td><td>High rebound on stopping; some continue extended-interval dosing through pregnancy</td></tr>
+          <tr><td>Anti-CD20 (ocrelizumab, ofatumumab, rituximab)</td><td>Long half-life; washout 6 months pre-conception ideal; effect persists ("permission to be pregnant")</td></tr>
+          <tr><td>Alemtuzumab</td><td>Plan pregnancy 4 months after last infusion</td></tr>
+        </table>
+        <p>Relapse Rx with IV methylprednisolone compatible. Avoid live vaccines. Optimise vitamin D. Encourage breastfeeding; recent data favour reduced postpartum relapse with exclusive BF.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Myasthenia gravis &amp; transient neonatal MG</summary>
+      <div class="body">
+        <ul>
+          <li>MG course variable: 1/3 improve, 1/3 stable, 1/3 worsen; postpartum exacerbation common.</li>
+          <li>Pyridostigmine compatible. Steroids + azathioprine continued. <strong>Mycophenolate teratogenic — switch pre-conception</strong>. Rituximab limited data. IVIG + PLEX safe for crises.</li>
+          <li><strong>Magnesium sulphate is CONTRAINDICATED in MG</strong> — precipitates myasthenic crisis (impairs ACh release). Use benzodiazepines for eclampsia in MG; close collaboration.</li>
+          <li>Avoid aminoglycosides, fluoroquinolones, β-blockers if possible, certain antipsychotics — all can worsen MG.</li>
+          <li>Vaginal delivery preferred; second stage may be prolonged; regional anaesthesia preferred; avoid NMBs if GA.</li>
+          <li><strong>Transient neonatal MG</strong>: 10–20% of newborns of mothers with AChR-positive MG; transplacental antibodies; poor feeding, hypotonia, weak cry, respiratory weakness in first days; supportive + pyridostigmine; resolves over weeks.</li>
+          <li>Cross-ref Module 9.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Stroke and ICH</summary>
+      <div class="body">
+        <ul>
+          <li>Pregnancy + early postpartum: stroke risk ~3–10× baseline.</li>
+          <li>Major contributors: pre-eclampsia / eclampsia, CVST, peripartum cardiomyopathy, paradoxical embolus via PFO, dissection, RCVS, antiphospholipid, sickle cell.</li>
+          <li>Acute imaging: MRI ± MRV/MRA preferred; CT acceptable when MRI unavailable. <strong>Do not withhold CT for needed stroke workup</strong> — &lt; 0.005 Gy fetal dose, well below teratogenic threshold.</li>
+          <li>IV thrombolysis (alteplase / tenecteplase) and mechanical thrombectomy increasingly used; case-by-case decisions with stroke team.</li>
+          <li>Anticoagulation: <strong>LMWH antepartum (no placental transfer)</strong>; warfarin teratogenic in 1st trimester and contraindicated near term (fetal ICH); DOACs not established.</li>
+          <li>SAH: thunderclap headache + meningism; non-contrast CT &gt; 99% sensitive within 6 h; LP for xanthochromia after 12 h if CT normal; coil / clip; secured aneurysm allows vaginal delivery in most.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Hyperemesis-Wernicke and other metabolic</summary>
+      <div class="body">
+        <div class="refer"><strong>Hyperemesis + IV dextrose without thiamine = Wernicke encephalopathy</strong> (Module 13). Caine criteria (≥ 2 of 4): nutritional deficit, oculomotor abnormalities, cerebellar signs, altered mental status. <strong>Thiamine 500 mg IV TID × 2–3 days BEFORE glucose</strong>, then 250 mg/day, then high-dose oral. Korsakoff in 80% of untreated survivors — largely irreversible.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Peripheral / cranial nerve disorders in pregnancy</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Bell palsy</strong>: incidence triples in 3rd trimester / postpartum. Prednisolone within 72 h; eye care; aciclovir if Ramsay Hunt suspected.</li>
+          <li><strong>Carpal tunnel</strong>: very common; splinting first; steroid injection severe; most resolve postpartum.</li>
+          <li><strong>Meralgia paresthetica</strong>: lateral femoral cutaneous nerve at inguinal ligament; reassurance, weight management, avoid tight clothing.</li>
+          <li><strong>Postpartum lumbosacral plexopathy</strong>: instrumental delivery, prolonged second stage; most recover.</li>
+          <li><strong>Post-dural-puncture headache</strong>: postural after epidural / spinal; conservative first (hydration, caffeine, analgesia); <strong>epidural blood patch</strong> for refractory.</li>
+          <li><strong>Restless legs (Module 14)</strong>: ferritin &lt; 75 / TSAT &lt; 20% → iron replacement; low-dose clonazepam or opioids in severe cases; defer dopamine agonists / gabapentinoids until postpartum.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. Imaging, breastfeeding, when to refer</summary>
+      <div class="body">
+        <ul>
+          <li>MRI without gadolinium preferred. CT acceptable when needed (&lt; 0.005 Gy single head CT — well below 0.1 Gy teratogenic threshold).</li>
+          <li>Breastfeeding generally compatible: lamotrigine, LEV, CBZ, OXC, VPA, phenytoin, LMWH, warfarin, low-dose aspirin, most MS DMTs (recent data favour). Caution: phenobarbital, primidone (infant sedation); avoid methotrexate; DOACs limited data.</li>
+          <li>Always involve: obstetrics + maternal-fetal medicine + neurology + clinical pharmacy + (where relevant) MS / epilepsy / neuromuscular / stroke teams + neuroanaesthesia + neonatology.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="aed">
+    <h2>AED Selector for Pregnancy</h2>
+    <p class="muted">Answer about epilepsy type and current drug; the tool suggests the safer choice, folate dose, monitoring schedule, and vitamin K considerations. <em>Always confer with the patient's epilepsy team and pharmacist.</em></p>
+    <div class="tool" id="aedTool">
+      <div class="q">1. Epilepsy type?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="focal">Focal epilepsy</button>
+        <button class="opt" data-val="gge">Genetic generalised epilepsy (JME, absence, GTC)</button>
+        <button class="opt" data-val="newdx">Newly diagnosed in pregnancy</button>
+        <button class="opt" data-val="status">Status epilepticus in pregnancy</button>
+      </div>
+      <div id="aed-rest"></div>
+      <div class="result" id="aed-result"></div>
+      <button class="reset" onclick="resetAed()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="emerg">
+    <h2>Pregnancy Headache/Seizure Emergency Differentiator</h2>
+    <p class="muted">Choose the dominant clinical pattern. The tool returns the leading emergency diagnosis, imaging plan, and treatment.</p>
+    <div class="tool" id="emTool">
+      <div class="q">Dominant features?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="ec">≥ 20 wk pregnant or ≤ 6 wk postpartum + BP ≥ 140/90 + headache + visual disturbance ± seizure</button>
+        <button class="opt" data-val="rcvs">Recurrent thunderclap headache (postpartum or with vasoactive drug exposure)</button>
+        <button class="opt" data-val="cvst">Persistent / progressive headache + focal deficits + seizures + raised ICP signs (peripartum or postpartum)</button>
+        <button class="opt" data-val="sah">Single thunderclap headache + meningism / neck stiffness ± LOC</button>
+        <button class="opt" data-val="apop">Thunderclap headache + ophthalmoplegia + visual loss + hypotension / panhypopituitarism</button>
+        <button class="opt" data-val="stroke">Sudden focal neurological deficit ± headache</button>
+        <button class="opt" data-val="wern">Persistent vomiting (hyperemesis) + confusion + nystagmus / ophthalmoplegia / ataxia</button>
+      </div>
+      <div class="result" id="em-result"></div>
+      <button class="reset" onclick="resetEm()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A primigravida at 34 weeks presents with severe headache, blurred vision, and a witnessed generalised tonic-clonic seizure. BP 180/115, proteinuria 4+, hyperreflexia, brisk clonus</summary>
+      <div class="body">
+        <p>MRI brain (after stabilisation): bilateral posterior parieto-occipital T2/FLAIR hyperintensity consistent with PRES.</p>
+        <p><strong>Diagnosis:</strong> Eclampsia with PRES.</p>
+        <p><strong>Plan within minutes to hour</strong>:</p>
+        <ol>
+          <li><strong>Magnesium sulfate</strong>: 4–6 g IV bolus over 15–20 minutes, then 1–2 g/hour infusion for 24 hours after delivery or last seizure. Watch for toxicity (loss of patellar reflex → resp depression → cardiac arrest); antidote calcium gluconate 1 g IV.</li>
+          <li><strong>Antihypertensive</strong>: labetalol 20 mg IV q10 min (max 220 mg) OR hydralazine 5–10 mg IV q20–30 min OR nifedipine immediate-release 10 mg po q20–30 min. Target SBP 140–155 / DBP 90–105 — avoid abrupt large drops.</li>
+          <li><strong>Definitive treatment is delivery</strong> — urgent obstetrics + neonatology + anaesthesia consultation; mode depends on fetal/maternal status.</li>
+          <li>If recurrent seizures despite magnesium: benzodiazepine (lorazepam), then conventional second-line ASMs (levetiracetam IV, phenytoin) per status epilepticus algorithm.</li>
+          <li>ICU monitoring; continue magnesium 24 h after delivery; monitor for further seizures up to 6 weeks postpartum.</li>
+          <li>Counsel about future pregnancy risk (~15% recurrence pre-eclampsia, 1–2% eclampsia); low-dose aspirin from 12 weeks in next pregnancy.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 32-year-old woman 3 weeks postpartum (vaginal delivery) presents with progressive holocephalic headache for 5 days + 2 focal seizures + bilateral papilloedema. No hypertension</summary>
+      <div class="body">
+        <p>MRI + MRV: filling defect and absent flow in superior sagittal sinus consistent with cerebral venous sinus thrombosis.</p>
+        <p><strong>Diagnosis:</strong> Postpartum cerebral venous sinus thrombosis (CVST).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Therapeutic anticoagulation</strong> with LMWH (e.g., enoxaparin 1 mg/kg SC BD) or unfractionated heparin in acute settings; transition to warfarin once stable (warfarin is compatible with breastfeeding); duration 3–12 months depending on cause and recanalisation.</li>
+          <li>Antiseizure medication (levetiracetam preferred for breastfeeding; lamotrigine alternative).</li>
+          <li>Manage raised ICP (head elevation; consider acetazolamide if papilloedema threatening vision; ONSF or CSF shunt rarely required).</li>
+          <li>Identify provoking factors: pregnancy + postpartum + hypercoagulable workup (factor V Leiden, protein C/S, antithrombin, antiphospholipid).</li>
+          <li>Counsel about future pregnancy + contraception; oestrogen-containing contraceptives generally avoided.</li>
+          <li>Cross-ref Module 2.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 28-year-old with epilepsy (focal seizures), seizure-free on lamotrigine 200 mg BD, wishes to conceive</summary>
+      <div class="body">
+        <p>She has been on lamotrigine for 4 years. Last seizure 2 years ago. Normal physical exam.</p>
+        <p><strong>Plan — pre-conception counselling:</strong></p>
+        <ol>
+          <li>Confirm seizure freedom and that lamotrigine is the optimal drug; otherwise continue and avoid switches close to conception.</li>
+          <li><strong>Folic acid 4–5 mg/day</strong> from ≥ 3 months pre-conception through (at least) first trimester (many guidelines through pregnancy).</li>
+          <li>Document baseline lamotrigine level pre-pregnancy.</li>
+          <li>Plan for frequent lamotrigine level monitoring (every 4–8 weeks) — clearance rises markedly in pregnancy, often requiring 2–3× the pre-pregnancy dose by 3rd trimester to maintain therapeutic concentration and seizure freedom.</li>
+          <li>Counsel about pregnancy registry enrolment (EURAP / NAAED / local).</li>
+          <li>Discuss the small (~2.5%) major congenital malformation risk on lamotrigine — emphasise that uncontrolled seizures are more dangerous to mother and fetus than the drug.</li>
+          <li>Postpartum: reduce dose back to pre-pregnancy dose over 1–4 weeks (clearance returns to baseline); breastfeeding compatible with monitoring of infant for sedation / rash.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 25-year-old with juvenile myoclonic epilepsy is on valproate 800 mg BD with good seizure control. She has just discovered she is 6 weeks pregnant</summary>
+      <div class="body">
+        <p>This is an unplanned pregnancy. She wants to continue the pregnancy.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Do NOT abruptly stop valproate — abrupt cessation risks status epilepticus and breakthrough seizures, which are more dangerous than continuing valproate.</li>
+          <li>Urgent epilepsy / neurology referral within days.</li>
+          <li>Discuss the substantial teratogenic risk: ~10% major congenital malformation rate (dose-dependent; especially at &gt; 1000 mg/day) — NTDs, cardiac, facial, urogenital — and 30–40% neurodevelopmental impact (lower IQ).</li>
+          <li>If a switch is considered: gradual cross-titration to <strong>lamotrigine</strong> or <strong>levetiracetam</strong> over several weeks; verify seizure freedom before further taper of valproate; document risk discussion. Sometimes the decision is to remain on valproate at the lowest effective dose (&lt; 700 mg/day) given JME seizure control.</li>
+          <li><strong>Folic acid 4–5 mg/day</strong> immediately.</li>
+          <li>Fetal medicine referral: detailed anomaly scan at 18–20 weeks; cardiac scan; alpha-fetoprotein.</li>
+          <li>Multidisciplinary plan (obstetrics + neurology + clinical pharmacy + maternal-fetal medicine + neonatology).</li>
+          <li>Document everything; pregnancy registry enrolment.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 33-year-old with relapsing-remitting MS (EDSS 2.0) on natalizumab wishes to conceive. Last natalizumab infusion 8 weeks ago. EBV antibody-positive</summary>
+      <div class="body">
+        <p>Strong relapse history before natalizumab; concern about rebound on stopping.</p>
+        <p><strong>Plan — pre-conception planning:</strong></p>
+        <ol>
+          <li>Multidisciplinary MS clinic consultation.</li>
+          <li>Discuss the natalizumab-rebound risk on cessation; some centres continue extended-interval natalizumab dosing through pregnancy (with neonatal observation for transient haematological effects), particularly when prior disease was highly active.</li>
+          <li>Anti-CD20 (ocrelizumab, ofatumumab, rituximab) is an alternative — long half-life means a single course can provide ongoing effect; washout 6 months pre-conception is ideal.</li>
+          <li>If switching DMT: plan the transition with adequate washout and bridging therapy if needed.</li>
+          <li>Optimise vitamin D pre-conception; folate.</li>
+          <li>Avoid live vaccines; ensure routine vaccinations up to date.</li>
+          <li>Counsel about likely reduced relapse rate during pregnancy (PRIMS Confavreux NEJM 1998) but postpartum rebound risk at ~3 months → plan post-delivery DMT resumption (recent data support breastfeeding; exclusive breastfeeding may reduce postpartum relapse rate).</li>
+          <li>Cross-ref Module 8.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 22-year-old at 12 weeks with severe hyperemesis gravidarum has been admitted for IV fluids with dextrose. She develops nystagmus and confusion 2 days later</summary>
+      <div class="body">
+        <p>Exam: horizontal nystagmus, bilateral lateral rectus weakness, ataxia, encephalopathic.</p>
+        <p><strong>Diagnosis:</strong> Wernicke encephalopathy precipitated by IV dextrose without thiamine in hyperemesis (Caine criteria met).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Thiamine 500 mg IV TID × 2–3 days BEFORE further glucose</strong>; then 250 mg IM/IV daily × 3–5 days; then high-dose oral.</li>
+          <li>Multivitamins (folate), magnesium replacement, correct electrolytes.</li>
+          <li>Antiemetic (ondansetron is widely used but has some data concerns; pyridoxine + doxylamine combination is safer first-line for pregnancy nausea).</li>
+          <li>MRI brain (if clinically possible): mammillary bodies, periaqueductal grey, dorsomedial thalami T2/FLAIR — supports diagnosis but treatment should not wait.</li>
+          <li>Multidisciplinary: obstetrics + nutrition + neurology + maternal-fetal medicine.</li>
+          <li>Counsel about Korsakoff risk (80% of untreated survivors) — largely irreversible.</li>
+          <li>Prevention takeaway: any pregnancy with prolonged vomiting or IV fluids should receive thiamine routinely (Module 13).</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 20 of an ongoing neurology curriculum. Sources: Adams &amp; Victor 12e relevant chapters; Merritt's 14e Ch 129; EURAP register (Tomson Lancet Neurol 2018); AAN/AES epilepsy in pregnancy practice parameter; PRIMS (Confavreux NEJM 1998); Krysko Lancet Neurol 2023; ACOG hypertensive disorders + eclampsia + magnesium; ISCVT for CVST; Singhal postpartum angiopathy; Wernicke from hyperemesis (Module 13 cross-ref).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Eclampsia', q:'Magnesium sulfate regimen for eclampsia and antidote for toxicity?', a:'Loading: 4–6 g IV over 15–20 min. Maintenance: 1–2 g/hour infusion for 24 hours after seizure or delivery. Toxicity (loss of patellar reflex → respiratory depression → cardiac arrest) treated with calcium gluconate 1 g IV. Watch reflexes, respiratory rate, urine output, magnesium level.'},
+  {tag:'Eclampsia Rx', q:'Antihypertensives in severe pre-eclampsia / eclampsia?', a:'Labetalol IV (10–20 mg q10 min, max 220 mg), hydralazine IV (5–10 mg q20–30 min), or nifedipine immediate-release po (10 mg q20–30 min). Target SBP 140–155 / DBP 90–105. AVOID abrupt large drops in BP — placental perfusion. Definitive treatment is delivery.'},
+  {tag:'PRES', q:'PRES — neuroimaging hallmark and triggers in pregnancy?', a:'Bilateral posterior parieto-occipital T2/FLAIR cortical/subcortical hyperintensity (sometimes other locations); no enhancement; usually no restricted diffusion. Triggers in pregnancy: eclampsia (commonest), hypertensive crisis, calcineurin inhibitors, sepsis, RCVS overlap. Control BP gently; treat triggers; ASMs for seizures (Module 13).'},
+  {tag:'CVST', q:'Treatment of postpartum CVST?', a:'Therapeutic LMWH (does not cross placenta) antepartum and postpartum; transition to warfarin postpartum if not breastfeeding (warfarin is BF-compatible). DOACs not yet established in pregnancy. Duration 3–12 months depending on cause + recanalisation. Manage raised ICP and seizures. Cross-ref Module 2.'},
+  {tag:'RCVS', q:'RCVS / postpartum angiopathy — clinical features and triggers?', a:'Recurrent thunderclap headache + segmental cerebral artery vasoconstriction reversing within 1–3 months. Postpartum is a classic precipitant (Call-Fleming syndrome). Other triggers: cannabis, sympathomimetics, SSRIs/SNRIs, triptans, ergots. Complications: cortical SAH, ischaemic stroke, ICH, PRES overlap. Stop precipitants; nimodipine 30–60 mg po q4h often used; analgesia; BP control.'},
+  {tag:'Apoplexy', q:'Pituitary apoplexy in pregnancy — first move?', a:'Hydrocortisone 100 mg IV STAT (50 mg q6h thereafter) for adrenal crisis; urgent pituitary MRI; full pituitary hormone panel; formal visual fields; urgent neurosurgical decompression if visual or oculomotor compromise. Triad: thunderclap headache + ophthalmoplegia + bitemporal hemianopia. Cross-ref Modules 12, 19.'},
+  {tag:'Sheehan', q:'Sheehan syndrome — typical presentation?', a:'Postpartum pituitary necrosis from severe haemorrhagic hypotension. Failure to lactate (prolactin deficiency), amenorrhoea, fatigue, cold intolerance, hypoglycaemia, panhypopituitarism. Lifelong hormone replacement (hydrocortisone, levothyroxine, oestrogen-progesterone, sometimes GH).'},
+  {tag:'Folate', q:'Folic acid dose in women with epilepsy planning pregnancy?', a:'4–5 mg/day (high dose) from at least 3 months pre-conception through the first trimester (many guidelines continue through pregnancy). Low-risk women: 0.4 mg/day. Higher dose for women on AEDs, prior NTD, BMI > 35, diabetes, or family history.'},
+  {tag:'Valproate', q:'Why is valproate avoided in women of childbearing potential?', a:'~10% major congenital malformation rate (dose-dependent; especially > 1000 mg/day): NTDs, cardiac, facial, urogenital. Plus ~30–40% neurodevelopmental impact (lower IQ; higher autism risk). Avoid in any woman of childbearing potential unless no alternative; pregnancy-prevention programme (regular pregnancy tests, effective contraception, signed acknowledgement).'},
+  {tag:'Lamotrigine', q:'Why does lamotrigine often need dose increases in pregnancy?', a:'UGT-mediated glucuronidation activity rises in pregnancy → lamotrigine clearance increases markedly. Plasma levels can fall 50–60% by third trimester, risking breakthrough seizures. Many women need 2–3× their pre-pregnancy dose to maintain therapeutic concentration. Monitor levels every 4–8 weeks. Postpartum: reduce dose back to pre-pregnancy dose over 1–4 weeks.'},
+  {tag:'Safer AED', q:'Two safest first-line AEDs for new diagnosis or switch in pregnancy?', a:'Lamotrigine and levetiracetam — both with ~2.5% major congenital malformation rate. Oxcarbazepine ~3% is a reasonable alternative. Carbamazepine ~5% acceptable if effective and well tolerated. Avoid valproate, topiramate, phenobarbital where feasible.'},
+  {tag:'Vitamin K', q:'Vitamin K in pregnancy on enzyme-inducing AEDs?', a:'Some guidelines recommend vitamin K 10 mg/day to the mother in the last month of pregnancy if on enzyme-inducing AEDs (CBZ, phenytoin, phenobarbital). IM vitamin K to the newborn is routine in most jurisdictions and is essential for AED-exposed infants.'},
+  {tag:'MS pregnancy', q:'PRIMS study — main finding about MS in pregnancy?', a:'Confavreux NEJM 1998: relapse rate falls during pregnancy (especially 2nd–3rd trimester) and rebounds at ~3 months postpartum. Long-term disability trajectory is unchanged. Plan DMT continuation or restart accordingly; recent data favour breastfeeding (may further reduce postpartum relapse with exclusive BF).'},
+  {tag:'MS DMT', q:'Pre-conception planning for fingolimod / siponimod / ozanimod (S1P modulators)?', a:'Stop with 2–3-month washout pre-conception. Rebound disease activity on cessation can be severe — plan bridge therapy if needed. Cladribine: plan pregnancy 6 months after last dose. Teriflunomide: contraindicated; cholestyramine accelerated elimination if planning pregnancy. Anti-CD20: 6-month washout ideal but protective effect persists.'},
+  {tag:'MG Mg', q:'Why is magnesium sulphate contraindicated in pregnant women with myasthenia gravis?', a:'Magnesium impairs acetylcholine release at the neuromuscular junction → precipitates myasthenic crisis. Eclampsia in MG requires careful collaboration — use benzodiazepines for seizure control + careful BP management; close obstetric / neuromuscular / anaesthetic / neonatology coordination.'},
+  {tag:'Neonatal MG', q:'Transient neonatal myasthenia gravis — features and outcome?', a:'10–20% of newborns of mothers with AChR-positive MG. Transplacental antibodies cause poor feeding, hypotonia, weak cry, respiratory weakness in first days of life. Supportive care + pyridostigmine; resolves over weeks as maternal antibody is cleared. Neonatology must be involved at delivery for AChR-positive MG mothers.'},
+  {tag:'Stroke', q:'Anticoagulation for VTE / stroke in pregnancy — drug of choice?', a:'LMWH (e.g., enoxaparin) antepartum AND postpartum (does not cross placenta). Warfarin teratogenic in 1st trimester (warfarin embryopathy: nasal hypoplasia, stippled epiphyses) and contraindicated near term (fetal intracranial haemorrhage risk). Switch warfarin to LMWH by ~6 weeks before delivery if used post-1st-trimester. DOACs not yet established in pregnancy.'},
+  {tag:'Bell', q:'Bell palsy in pregnancy — incidence and treatment?', a:'Incidence triples in the third trimester and early postpartum period. Prednisolone within 72 hours of onset (AAN guideline); add aciclovir if Ramsay Hunt suspected (geniculate ganglion VZV reactivation — facial palsy + auricular vesicles + hearing/balance symptoms — Module 1). Eye care (lubrication, taping at night, ophthalmology if exposure keratopathy).'},
+  {tag:'Wernicke', q:'Hyperemesis gravidarum — why and how to prevent Wernicke encephalopathy?', a:'Prolonged vomiting + IV dextrose without thiamine in a thiamine-deficient mother can precipitate Wernicke encephalopathy (Caine criteria: ≥ 2 of nutritional deficit, oculomotor abnormalities, cerebellar signs, altered mental status). ALWAYS give thiamine 500 mg IV TID × 2–3 days BEFORE glucose in any pregnant woman with persistent vomiting or requiring IV fluids. Module 13.'},
+  {tag:'Imaging', q:'CT and MRI in pregnancy — general principles?', a:'MRI without gadolinium preferred; no proven teratogenic effect; gadolinium crosses placenta and is avoided where possible. CT: single head CT delivers < 0.005 Gy to fetus — well below 0.1 Gy teratogenic threshold; do not withhold CT for stroke / haemorrhage workup when needed. Iodinated contrast may affect fetal thyroid — check neonatal TSH after birth.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 34-weeks primigravida has severe headache, blurred vision, BP 180/115, proteinuria, hyperreflexia, and a witnessed generalised tonic-clonic seizure. Best immediate management?',
+   choices:['Phenytoin alone','Magnesium sulfate 4–6 g IV bolus then 1–2 g/h infusion for 24 h after delivery or last seizure + antihypertensive (labetalol/hydralazine/nifedipine IR) targeting SBP 140–155 / DBP 90–105; plan urgent delivery; calcium gluconate antidote ready','Long-term valproate','Watchful waiting'],
+   ans:1,
+   why:'Eclampsia. Magnesium sulfate is the standard of care (NNT ~50 to prevent recurrent seizure). Watch for toxicity (loss of patellar reflex → respiratory depression → cardiac arrest); antidote calcium gluconate 1 g IV. Antihypertensive to target SBP 140–155 / DBP 90–105 — avoid abrupt drops (placental perfusion). Definitive treatment is delivery. Continue magnesium 24 h after delivery; monitor for further seizures up to 6 weeks postpartum.'},
+  {q:'A 32-year-old woman 3 weeks postpartum has progressive headache for 5 days, two focal seizures, and bilateral papilloedema. MRI + MRV: superior sagittal sinus thrombosis. Best treatment plan?',
+   choices:['Aspirin alone','Therapeutic LMWH antepartum and postpartum (no placental transfer); transition to warfarin postpartum if not breastfeeding (compatible); ASMs; manage raised ICP; hypercoagulable workup; 3–12 months total anticoagulation','Long-term steroid','Triptan as preventive'],
+   ans:1,
+   why:'Postpartum CVST. Therapeutic LMWH does not cross the placenta and is the anticoagulant of choice in pregnancy. Warfarin is compatible with breastfeeding postpartum. DOACs are not yet established in pregnancy. Manage seizures with breastfeeding-compatible ASMs (LEV preferred). Hypercoagulable workup (factor V Leiden, protein C/S, antithrombin, antiphospholipid). Counsel about future pregnancy and avoiding oestrogen-containing contraceptives. Cross-ref Module 2.'},
+  {q:'A 28-year-old with focal epilepsy is seizure-free on lamotrigine 200 mg BD and wishes to conceive. Best pre-conception plan?',
+   choices:['Switch to valproate','Continue lamotrigine; start folic acid 4–5 mg/day at least 3 months pre-conception; baseline LTG level; plan frequent level monitoring (every 4–8 weeks) and dose increases (often 2–3× pre-pregnancy dose by 3rd trimester); register pregnancy with EURAP / NAAED / local registry; postpartum dose reduction over 1–4 weeks','Stop lamotrigine','Add topiramate'],
+   ans:1,
+   why:'Lamotrigine has ~2.5% major congenital malformation rate — one of the safest AEDs. Clearance rises markedly in pregnancy (UGT activity ↑); plasma levels can fall 50–60% by 3rd trimester. Monitor levels every 4–8 weeks and increase dose to maintain seizure freedom. Folic acid 4–5 mg/day from ≥ 3 months pre-conception through (at least) first trimester. Register pregnancy. Postpartum reduce dose back over 1–4 weeks as clearance returns to baseline; breastfeeding compatible with infant monitoring for sedation / rash.'},
+  {q:'A 25-year-old with JME is on valproate 800 mg BD with good control and has just discovered she is 6 weeks pregnant. Best plan?',
+   choices:['Abruptly stop valproate today','Do NOT stop abruptly (status epilepticus risk); urgent epilepsy/neurology referral; discuss substantial teratogenic risk (~10% MCMs + ~30–40% neurodevelopmental impact); consider gradual cross-titration to lamotrigine or levetiracetam if practical; start folic acid 4–5 mg/day immediately; fetal medicine referral for anomaly scan + cardiac scan + AFP; document risk discussion; register pregnancy','Continue valproate with no change','Switch to topiramate'],
+   ans:1,
+   why:'Sudden valproate cessation risks status epilepticus and breakthrough seizures (more dangerous than continuing). Discuss the substantial teratogenic risk and consider gradual cross-titration to lamotrigine or levetiracetam — both safer (~2.5% MCM rate). Sometimes the decision is to stay on valproate at the lowest effective dose (< 700 mg/day) given JME control. Folic acid 4–5 mg/day immediately. Fetal medicine: detailed anomaly + cardiac scans + AFP. Multidisciplinary plan. Register pregnancy. Topiramate is not safer (cleft lip/palate, SGA).'},
+  {q:'A 38-year-old with myasthenia gravis (AChR-positive, well controlled on pyridostigmine + low-dose prednisolone) develops severe pre-eclampsia with seizures. Should you give magnesium sulfate?',
+   choices:['Yes, full dose magnesium','No — magnesium sulfate is CONTRAINDICATED in MG (precipitates crisis); use benzodiazepines for seizure control; close obstetric/neurology/anaesthetic/neonatology collaboration; deliver as soon as feasible','Use IV antibiotics','Increase pyridostigmine to high dose'],
+   ans:1,
+   why:'Magnesium impairs acetylcholine release at the neuromuscular junction and precipitates myasthenic crisis. Use benzodiazepines for seizure control; carefully control BP with labetalol or hydralazine; coordinate with neuromuscular team and anaesthesia. Delivery is the definitive treatment for eclampsia. Neonatology must be present at delivery (10–20% risk of transient neonatal MG in newborns of AChR-positive mothers). Avoid aminoglycosides, fluoroquinolones, β-blockers if possible, certain antipsychotics — all worsen MG.'},
+  {q:'A 22-year-old at 12 weeks gestation with severe hyperemesis is admitted for IV fluids with dextrose. Two days later she develops nystagmus, ophthalmoplegia, and confusion. What is the diagnosis and the critical management lesson?',
+   choices:['Eclampsia; magnesium sulfate','Wernicke encephalopathy precipitated by IV dextrose without thiamine in a thiamine-deficient pregnant patient — thiamine 500 mg IV TID × 2–3 days BEFORE further glucose, then 250 mg IM/IV daily × 3–5 days, then high-dose oral; PREVENTION: always give thiamine to any pregnant woman with prolonged vomiting or requiring IV fluids','Pituitary apoplexy; hydrocortisone','PRES; control BP'],
+   ans:1,
+   why:'Wernicke encephalopathy (Caine criteria: ≥ 2 of nutritional deficit, oculomotor abnormalities, cerebellar signs, altered mental status). Hyperemesis is a classic non-alcohol setting. Thiamine BEFORE glucose. Korsakoff in 80% of untreated survivors — largely irreversible. PREVENTION: routine thiamine in any pregnant woman with prolonged vomiting or IV fluids. Cross-ref Module 13.'},
+  {q:'A 30-year-old in 1st trimester is on warfarin for a mechanical mitral valve. What is the best anticoagulation plan?',
+   choices:['Continue warfarin throughout','Switch to LMWH for the entire 1st trimester (warfarin embryopathy risk); some centres restart warfarin in 2nd trimester then switch back to LMWH at ~36 weeks for delivery; mechanical valve management is complex and requires shared decision-making with cardiology + maternal-fetal medicine','Stop all anticoagulation','DOAC throughout'],
+   ans:1,
+   why:'Warfarin causes embryopathy in the 1st trimester (nasal hypoplasia, stippled epiphyses) and risks fetal intracranial haemorrhage near term. LMWH is the safest for the fetus but raises maternal thrombosis risk in a mechanical valve (especially mitral). Strategies vary: LMWH throughout vs LMWH in 1st trimester then warfarin then back to LMWH at ~36 weeks; shared decision-making with cardiology + MFM is essential. DOACs are not established. Aspirin is often added.'},
+  {q:'A 36-year-old with relapsing-remitting MS on ocrelizumab wishes to conceive. Best pre-conception plan?',
+   choices:['Continue ocrelizumab throughout pregnancy','Multidisciplinary planning: 6-month washout pre-conception ideal for anti-CD20 (long half-life means a single course often provides ongoing effect — "permission to be pregnant" approach in stable disease); optimise vitamin D; folate; avoid live vaccines; plan postpartum DMT resumption (rebound at ~3 months postpartum); breastfeed where possible (recent data favour breastfeeding)','Switch to teriflunomide','Stop DMT permanently'],
+   ans:1,
+   why:'Anti-CD20 monoclonal antibodies (ocrelizumab, ofatumumab, rituximab) have long half-lives; protective effect persists after stopping. 6-month washout pre-conception is ideal but not always achievable; multidisciplinary planning balances rebound risk vs fetal exposure. Optimise vitamin D, folate, avoid live vaccines. Postpartum rebound at ~3 months (PRIMS Confavreux NEJM 1998) — plan DMT resumption. Recent data favour exclusive breastfeeding which may reduce postpartum relapse. Teriflunomide is contraindicated. Cross-ref Module 8.'},
+  {q:'A 24-year-old at 36 weeks develops sudden thunderclap headache + meningism + photophobia. Best initial imaging and workup?',
+   choices:['Outpatient MRI in 1 week','Urgent non-contrast CT (≥ 99% sensitivity within 6 hours of onset for SAH); if negative and clinical suspicion remains, LP for xanthochromia after 12 hours (or earlier); CT angiography or DSA for aneurysm; coil/clip with neurosurgery; mode of delivery individualised — secured aneurysm allows vaginal delivery in most','Treat as migraine','Wait until after delivery to investigate'],
+   ans:1,
+   why:'Thunderclap headache in pregnancy demands urgent workup — SAH, RCVS, CVST, pituitary apoplexy, eclampsia, dissection are all on the differential. Non-contrast CT first; LP for xanthochromia after 12 h if CT negative and suspicion persists. CT angiography or DSA for aneurysm characterisation. CT delivers < 0.005 Gy fetal dose — do not withhold for needed diagnosis. Coil or clip; mode of delivery individualised — secured aneurysm allows vaginal delivery in most cases. Cross-ref Module 4.'},
+  {q:'A 32-year-old in 3rd trimester needs antiseizure prophylaxis after a new SAH. Best AED choice for breastfeeding compatibility planning?',
+   choices:['Valproate','Levetiracetam — preferred for breastfeeding compatibility (limited infant transfer; no significant adverse effects in monitoring); lamotrigine is another good choice; check infant for sedation/rash if on lamotrigine; topiramate generally compatible with monitoring','Phenobarbital','Mycophenolate'],
+   ans:1,
+   why:'Levetiracetam is preferred for breastfeeding due to limited infant transfer and good safety profile. Lamotrigine is also a good choice. Carbamazepine, oxcarbazepine, valproate, phenytoin, and topiramate are generally compatible with breastfeeding with monitoring. Phenobarbital and primidone carry more risk of infant sedation. Mycophenolate is contraindicated (teratogenic — switch pre-conception in any chronic condition).'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* AED Selector */
+const aedRest = document.getElementById('aed-rest');
+const aedResult = document.getElementById('aed-result');
+let aedState = {};
+
+function aedAns(step, val) {
+  aedState[step] = val;
+  Object.keys(aedState).forEach(k => { if (+k > step) delete aedState[k]; });
+  document.querySelectorAll(`#aedTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#aedTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderAed();
+}
+
+function renderAed() {
+  aedRest.innerHTML = '';
+  aedResult.classList.remove('show');
+  const s0 = aedState[0];
+  if (!s0) return;
+
+  if (s0 === 'focal') {
+    addAed(1, '2. Current drug?',
+      [['lamotrigine','Lamotrigine'],['levetiracetam','Levetiracetam'],['oxcarbazepine','Oxcarbazepine / carbamazepine'],['valproate','Valproate'],['topiramate','Topiramate'],['phenytoin','Phenytoin / phenobarbital'],['none','Not yet on a drug — newly diagnosed pregnancy']]);
+    const s1 = aedState[1];
+    if (s1 === 'lamotrigine') return showAed('Continue lamotrigine — one of the safest', [
+      '~2.5% major congenital malformation rate (EURAP).',
+      '<strong>Clearance rises markedly in pregnancy</strong> (UGT activity ↑) — plasma levels can fall 50–60% by 3rd trimester. Monitor levels every 4–8 weeks and increase dose, often 2–3× pre-pregnancy dose by 3rd trimester.',
+      '<strong>Folic acid 4–5 mg/day</strong> from ≥ 3 months pre-conception through (at least) first trimester (many guidelines continue throughout).',
+      'Vitamin K: routine IM to newborn (no special mother-vitamin-K recommendation for LTG — non-enzyme inducer).',
+      'Register pregnancy with EURAP / NAAED / local registry.',
+      'Postpartum: reduce dose back to pre-pregnancy dose over 1–4 weeks as clearance returns to baseline.',
+      'Breastfeeding compatible; monitor infant for sedation / rash.'
+    ]);
+    if (s1 === 'levetiracetam') return showAed('Continue levetiracetam', [
+      '~2.5% major congenital malformation rate (EURAP).',
+      'Clearance rises in pregnancy — monitor levels every 4–8 weeks and adjust.',
+      '<strong>Folic acid 4–5 mg/day</strong> from ≥ 3 months pre-conception.',
+      'No special vitamin K for mother (non-enzyme inducer).',
+      'Register pregnancy with EURAP / NAAED / local registry.',
+      'Breastfeeding very compatible.'
+    ]);
+    if (s1 === 'oxcarbazepine') return showAed('Continue oxcarbazepine / carbamazepine — monitor sodium and folate', [
+      'Oxcarbazepine ~3%, carbamazepine ~5% major congenital malformation rate.',
+      'Carbamazepine is associated with NTDs — folate dependence.',
+      '<strong>Folic acid 4–5 mg/day</strong> from ≥ 3 months pre-conception.',
+      'Monitor sodium (hyponatraemia, especially OXC).',
+      '<strong>Vitamin K 10 mg/day to mother in last month</strong> (CBZ is an enzyme inducer); IM vitamin K to newborn.',
+      'Register pregnancy.',
+      'Breastfeeding compatible.'
+    ]);
+    if (s1 === 'valproate') return showAed('Switch valproate before conception if possible — highest teratogenic risk', [
+      '<strong>~10% major congenital malformation rate</strong> (dose-dependent; especially > 1000 mg/day): NTDs, cardiac, facial, urogenital.',
+      '<strong>~30–40% neurodevelopmental impairment</strong> (lower IQ, higher autism risk).',
+      'Switch BEFORE conception to lamotrigine or levetiracetam (gradual cross-titration over weeks); verify seizure freedom before tapering valproate.',
+      'If already pregnant on valproate: do NOT abruptly stop (status epilepticus risk). Urgent epilepsy referral; consider gradual cross-titration; sometimes the decision is to remain on lowest effective dose (< 700 mg/day) given seizure control.',
+      'Document risk discussion; fetal medicine: anomaly + cardiac scan + AFP.',
+      '<strong>Folic acid 4–5 mg/day</strong> immediately.',
+      'Pregnancy-prevention programme for any woman of childbearing potential on valproate (regular pregnancy tests, effective contraception).'
+    ]);
+    if (s1 === 'topiramate') return showAed('Switch topiramate before conception if possible', [
+      '~4% major congenital malformation rate — cleft lip/palate.',
+      'Lower birth weight; small-for-gestational-age.',
+      'Switch BEFORE conception to lamotrigine or levetiracetam where possible.',
+      'If already pregnant: discuss risk; many will continue topiramate at lowest effective dose if seizure control is otherwise impossible.',
+      '<strong>Folic acid 4–5 mg/day</strong>.',
+      'Fetal medicine: anomaly scan including detailed face / cleft assessment.'
+    ]);
+    if (s1 === 'phenytoin') return showAed('Switch phenytoin / phenobarbital before conception where possible', [
+      'Phenytoin ~6% (fetal hydantoin syndrome); phenobarbital ~7% (cardiac defects, cognitive impact).',
+      'Switch BEFORE conception to lamotrigine or levetiracetam where possible.',
+      '<strong>Folic acid 4–5 mg/day</strong>.',
+      '<strong>Vitamin K 10 mg/day to mother in last month</strong> (enzyme inducers); IM vitamin K to newborn.',
+      'Document risk discussion; fetal medicine: anomaly scan + cardiac scan.'
+    ]);
+    if (s1 === 'none') return showAed('Newly diagnosed focal epilepsy in pregnancy — pick a safe first-line', [
+      '<strong>Levetiracetam</strong> or <strong>lamotrigine</strong> are preferred first-line in pregnancy for focal epilepsy (~2.5% MCM rate each).',
+      'Oxcarbazepine reasonable alternative (~3% MCM rate).',
+      '<strong>Folic acid 4–5 mg/day</strong>.',
+      'Monitor levels every 4–8 weeks; adjust dose.',
+      'Register pregnancy with EURAP / NAAED / local registry.',
+      'Multidisciplinary management.'
+    ]);
+  }
+
+  if (s0 === 'gge') {
+    addAed(1, '2. Current drug for JME / generalised epilepsy?',
+      [['lamotrigine','Lamotrigine'],['levetiracetam','Levetiracetam'],['valproate','Valproate'],['none','Not yet on a drug']]);
+    const s1 = aedState[1];
+    if (s1 === 'lamotrigine') return showAed('Continue lamotrigine but be aware it may worsen myoclonus in JME', [
+      'Lamotrigine ~2.5% MCM rate but may worsen myoclonic seizures in some patients with JME — if myoclonus uncontrolled, levetiracetam often preferred.',
+      'Clearance rises in pregnancy — monitor levels every 4–8 weeks; often 2–3× pre-pregnancy dose by 3rd trimester.',
+      '<strong>Folic acid 4–5 mg/day</strong>.',
+      'Register pregnancy.',
+      'Postpartum dose reduction over 1–4 weeks.'
+    ]);
+    if (s1 === 'levetiracetam') return showAed('Continue levetiracetam — preferred for JME in pregnancy', [
+      'LEV is often the preferred AED for JME in women of childbearing age (~2.5% MCM rate).',
+      'Monitor levels every 4–8 weeks; adjust dose.',
+      '<strong>Folic acid 4–5 mg/day</strong>.',
+      'Register pregnancy.',
+      'Breastfeeding very compatible.'
+    ]);
+    if (s1 === 'valproate') return showAed('Valproate is the most effective drug for JME but the most teratogenic — SWITCH before conception if possible', [
+      '<strong>~10% MCM rate + ~30–40% neurodevelopmental impact</strong>.',
+      'Switch to levetiracetam (first-line alternative for JME) before conception; lamotrigine may worsen myoclonus in some.',
+      'If already pregnant: do NOT abruptly stop; consider gradual cross-titration; document risk discussion; sometimes valproate is continued at lowest effective dose (< 700 mg/day) given JME seizure risk.',
+      '<strong>Folic acid 4–5 mg/day</strong>.',
+      'Pregnancy-prevention programme for valproate in women of childbearing potential.',
+      'Fetal medicine: anomaly + cardiac scan + AFP.'
+    ]);
+    if (s1 === 'none') return showAed('Newly diagnosed JME / generalised epilepsy in pregnancy', [
+      '<strong>Levetiracetam</strong> is the preferred first-line drug for JME / generalised epilepsy in women of childbearing age.',
+      'Lamotrigine is an alternative but may worsen myoclonus in some.',
+      'Avoid valproate; avoid topiramate.',
+      '<strong>Folic acid 4–5 mg/day</strong>.',
+      'Multidisciplinary management.'
+    ]);
+  }
+
+  if (s0 === 'newdx') return showAed('Newly diagnosed epilepsy in pregnancy', [
+    'Confirm diagnosis (EEG, MRI without gadolinium); rule out PRES / eclampsia / CVST as cause.',
+    'Choose <strong>levetiracetam</strong> or <strong>lamotrigine</strong> for focal or generalised epilepsy (~2.5% MCM each).',
+    'Oxcarbazepine reasonable for focal (~3%).',
+    'AVOID valproate and topiramate.',
+    '<strong>Folic acid 4–5 mg/day</strong>.',
+    'Monitor levels every 4–8 weeks.',
+    'Register pregnancy with EURAP / NAAED / local registry.',
+    'Multidisciplinary care: obstetrics + neurology + maternal-fetal medicine + clinical pharmacy + neonatology.'
+  ]);
+
+  if (s0 === 'status') return showAed('Status epilepticus in pregnancy', [
+    'Treat as status epilepticus per standard protocol; uncontrolled seizures are more dangerous to mother and fetus than ASMs (cross-ref Module 3).',
+    'First-line: <strong>lorazepam 0.1 mg/kg IV</strong> (up to 4 mg) — pregnancy is not a contraindication; or IM midazolam 10 mg if no IV access.',
+    'Second-line: <strong>levetiracetam 60 mg/kg IV</strong> (max 4500 mg) — preferred over valproate in pregnancy; or fosphenytoin 20 mg PE/kg IV.',
+    'Third-line: refractory status → ICU + general anaesthetic (midazolam or propofol infusion); continuous EEG monitoring.',
+    'Concurrent obstetrics: monitor fetus; deliver if maternal or fetal condition warrants.',
+    'Treat underlying cause; if eclampsia: <strong>magnesium sulfate</strong> (not for primary epilepsy SE; use Mg if eclampsia is present or possible).',
+    'Multidisciplinary: neurology + obstetrics + anaesthesia + neonatology + ICU.'
+  ]);
+}
+
+function addAed(step, q, opts) {
+  if (document.querySelector(`#aed-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  aedRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => aedAns(step, b.dataset.val)));
+  if (aedState[step]) {
+    const t = wrap.querySelector(`[data-val="${aedState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showAed(title, items) {
+  aedResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  aedResult.classList.add('show');
+}
+
+function resetAed() {
+  aedState = {};
+  aedRest.innerHTML = '';
+  aedResult.classList.remove('show');
+  document.querySelectorAll('#aedTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#aedTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => aedAns(0, b.dataset.val)));
+
+/* Emergency Differentiator */
+const emResult = document.getElementById('em-result');
+const emMap = {
+  ec:{title:'Eclampsia / pre-eclampsia with severe features ± PRES', items:[
+    'Imaging: MRI brain (FLAIR) often shows bilateral posterior parieto-occipital hyperintensity (PRES); CT acceptable if MRI unavailable. Do not delay treatment for imaging if classic clinical picture.',
+    '<strong>Magnesium sulfate 4–6 g IV bolus over 15–20 min → 1–2 g/h infusion × 24 h after seizure or delivery</strong>; calcium gluconate 1 g IV as antidote for toxicity.',
+    '<strong>Antihypertensive</strong>: labetalol IV (10–20 mg q10 min, max 220 mg), hydralazine IV (5–10 mg q20–30 min), or nifedipine IR po (10 mg q20–30 min). Target SBP 140–155 / DBP 90–105 — avoid abrupt drops.',
+    '<strong>Definitive treatment is delivery</strong> — urgent obstetrics + neonatology + anaesthesia.',
+    'ICU monitoring; continue magnesium 24 h postpartum; monitor for further seizures up to 6 weeks postpartum.',
+    'Future pregnancy counselling: ~15% recurrence pre-eclampsia, 1–2% eclampsia; low-dose aspirin from 12 weeks in next pregnancy.'
+  ]},
+  rcvs:{title:'Reversible cerebral vasoconstriction syndrome (RCVS / postpartum angiopathy)', items:[
+    'Recurrent thunderclap headache with segmental cerebral vasoconstriction reversing in 1–3 months. Postpartum is a classic precipitant (Call-Fleming syndrome).',
+    'Imaging: CT angiography or MR angiography — segmental "string of beads" vasoconstriction; can mimic vasculitis but reverses.',
+    'Complications: cortical SAH, ischaemic stroke, ICH, PRES overlap.',
+    'Treatment: stop precipitants (cannabis, sympathomimetics, SSRIs/SNRIs, triptans, ergots); <strong>nimodipine 30–60 mg po q4h</strong> often used (evidence weak); analgesia; BP control; supportive.',
+    'Repeat angiography at 6–12 weeks to demonstrate resolution.',
+    'Counsel about future trigger avoidance.'
+  ]},
+  cvst:{title:'Cerebral venous sinus thrombosis', items:[
+    'Peripartum / first 12 weeks postpartum risk substantially elevated.',
+    'Imaging: <strong>MRI + MR venography</strong> diagnostic; CT venogram if MRI unavailable.',
+    'Treatment: <strong>therapeutic LMWH</strong> antepartum and postpartum (no placental transfer); transition to warfarin postpartum if not breastfeeding (warfarin BF-compatible); DOACs not yet established. Duration 3–12 months depending on cause + recanalisation.',
+    'ASMs for seizures (LEV preferred for BF compatibility).',
+    'Manage raised ICP: head elevation, acetazolamide if papilloedema threatening vision; ONSF or CSF shunt rarely required.',
+    'Hypercoagulable workup (factor V Leiden, protein C/S, antithrombin, antiphospholipid).',
+    'Counsel about future pregnancy + contraception (avoid oestrogen).',
+    'Cross-ref Module 2.'
+  ]},
+  sah:{title:'Subarachnoid haemorrhage', items:[
+    'Imaging: <strong>non-contrast CT within 6 hours of onset &gt; 99% sensitive</strong>; if CT negative and clinical suspicion remains, LP for xanthochromia after 12 hours (or earlier).',
+    'CT angiography or DSA for aneurysm characterisation; secure with coiling or clipping with neurosurgery.',
+    'Manage rebleed risk (BP control, nimodipine for vasospasm prophylaxis Module 4).',
+    'Mode of delivery individualised — secured aneurysm allows vaginal delivery in most cases; unsecured may require caesarean section.',
+    'Counsel and screen family members if familial aneurysm.',
+    'Cross-ref Modules 4, 2.'
+  ]},
+  apop:{title:'Pituitary apoplexy', items:[
+    'Peripartum risk in macroadenoma; thunderclap headache + ophthalmoplegia (CN III then IV/VI from cavernous sinus) + bitemporal hemianopia + acute panhypopituitarism.',
+    '<strong>Hydrocortisone 100 mg IV STAT</strong> (then 50 mg IV q6h) for adrenal crisis.',
+    'Urgent dedicated pituitary MRI.',
+    'Full pituitary hormone panel; formal visual fields.',
+    'Urgent neurosurgical referral for transsphenoidal decompression if visual or oculomotor compromise; conservative management possible only in mild presentations with stable vision.',
+    'Long-term hormone replacement; counsel patient and family.',
+    'Sheehan syndrome (postpartum pituitary necrosis from severe haemorrhagic hypotension): failure to lactate, amenorrhoea, fatigue, panhypopituitarism — lifelong hormone replacement.',
+    'Cross-ref Modules 12, 19.'
+  ]},
+  stroke:{title:'Acute ischaemic stroke or intracerebral haemorrhage', items:[
+    'Imaging: MRI ± MRA preferred; CT acceptable when MRI unavailable. <strong>Do not withhold CT for needed stroke workup</strong> (&lt; 0.005 Gy fetal dose).',
+    'IV thrombolysis (alteplase or tenecteplase) is not absolutely contraindicated in pregnancy; benefits often outweigh risks for disabling stroke; case-by-case with stroke team.',
+    'Mechanical thrombectomy for large-vessel occlusion is increasingly used in pregnancy.',
+    'Anticoagulation: LMWH antepartum (no placental transfer); warfarin teratogenic 1st trimester and contraindicated near term; DOACs not established.',
+    'Identify causes: pre-eclampsia / eclampsia, CVST, peripartum cardiomyopathy, paradoxical embolus via PFO, dissection, RCVS, antiphospholipid, sickle cell.',
+    'Cross-ref Module 2.'
+  ]},
+  wern:{title:'Hyperemesis-induced Wernicke encephalopathy', items:[
+    '<strong>Caine criteria (≥ 2 of 4)</strong>: nutritional deficit, oculomotor abnormalities, cerebellar signs, altered mental status.',
+    '<strong>Thiamine 500 mg IV TID × 2–3 days BEFORE further glucose</strong>, then 250 mg IM/IV daily × 3–5 days, then high-dose oral.',
+    'Multivitamins (folate), magnesium replacement, correct electrolytes.',
+    'Antiemetic (pyridoxine + doxylamine combination is first-line for pregnancy nausea; ondansetron widely used but with some data concerns).',
+    'MRI brain (if clinically possible): mammillary bodies, periaqueductal grey, dorsomedial thalami T2/FLAIR — supports diagnosis but treatment should not wait.',
+    'Korsakoff syndrome (residual anterograde amnesia + confabulation) in 80% of untreated survivors — largely irreversible.',
+    '<strong>Prevention takeaway</strong>: any pregnancy with prolonged vomiting or IV fluids should receive thiamine routinely.',
+    'Cross-ref Module 13.'
+  ]}
+};
+document.querySelectorAll('#emTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#emTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = emMap[b.dataset.val];
+  if (m) {
+    emResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    emResult.classList.add('show');
+  }
+}));
+
+function resetEm() {
+  document.querySelectorAll('#emTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  emResult.classList.remove('show');
+}
+</script>
+</body>
+</html>

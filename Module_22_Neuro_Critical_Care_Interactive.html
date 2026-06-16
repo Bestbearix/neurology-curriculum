@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 22 — Neuro-Critical Care &amp; Emergencies (Interactive)</title>
+<style>
+  :root{
+    --bg:#1a0612; --panel:#2a0d1f; --panel-2:#3a1330; --line:#5a2348;
+    --ink:#fce0e8; --muted:#d49bb0; --accent:#ff5078; --accent-2:#ff85a0;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#421835; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#13040d,#1a0612 35%,#1a0612); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(255,80,120,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#1a0512; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#fcd0dc}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(255,80,120,.10); border-color:var(--accent); color:#fcd0dc}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#1a0512; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(255,80,120,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* Tier walkthrough */
+  .tier-step{background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:14px 18px; margin:12px 0}
+  .tier-step.active{border-color:var(--accent); background:rgba(255,80,120,.08)}
+  .tier-step h4{margin:0 0 8px; color:var(--accent-2)}
+  .tier-step .next{display:inline-block; margin-top:8px; background:var(--accent); color:#1a0512; padding:6px 14px; border-radius:6px; cursor:pointer; font:inherit; font-weight:600; border:none}
+  .tier-step .next:hover{filter:brightness(1.1)}
+  /* SE timeline */
+  .se-phase{background:var(--panel-2); border-left:4px solid var(--line); padding:12px 16px; margin:10px 0; border-radius:0 8px 8px 0}
+  .se-phase.active{border-color:var(--accent); background:rgba(255,80,120,.10)}
+  .se-phase .time{display:inline-block; padding:2px 10px; background:var(--soft); color:var(--accent-2); border-radius:6px; font-size:.78rem; margin-bottom:6px}
+  /* Brain death checklist */
+  .bd-section{background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:14px 18px; margin:12px 0}
+  .bd-section h4{margin:0 0 10px; color:var(--accent-2)}
+  .bd-item{padding:8px 0; border-bottom:1px dashed var(--line); display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
+  .bd-item:last-child{border-bottom:none}
+  .bd-item .lbl{flex:1; font-size:.92rem}
+  .bd-item .opts{display:flex; gap:6px}
+  .bd-item .opts button{background:var(--panel); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.82rem; color:var(--ink)}
+  .bd-item .opts button.sel{background:var(--accent); color:#1a0512; border-color:var(--accent); font-weight:600}
+  .bd-summary{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .bd-summary h4{margin:0 0 6px; color:var(--accent-2)}
+  .bd-summary .verdict{font-size:1.1rem; font-weight:700; margin:6px 0}
+  .bd-summary.complete .verdict{color:var(--good)}
+  .bd-summary.incomplete .verdict{color:var(--warn)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 22</span>
+    <span class="badge">General physician</span>
+    <h1>Neuro-Critical Care &amp; Emergencies — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 16) and Merritt's <em>Neurology</em> (14e, Ch. 19, 20, 34, 121). BTF 4e + SIBICC 2019 (tiered ICP). ETSP/ESETT (Kapur NEJM 2019). Hemicraniectomy DESTINY/HAMLET/DECIMAL + DESTINY II. ATACH-2/INTERACT-3 BP control. TTM2 (Dankiewicz NEJM 2021). WBDP/BDDD 2023 (Greer JAMA 2020).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="icpTier">Raised ICP Walkthrough</button>
+    <button data-tab="seTl">Status Epilepticus Pathway</button>
+    <button data-tab="brainDeath">Brain Death Checklist</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Neuro-critical care is where high-stakes neurology and intensive-care medicine meet. The general physician's job is to recognise the time-critical emergencies, take the first protective actions, and route the patient through tiered management or escalate to neurosurgery and neuro-ICU. Every minute matters in raised ICP, status epilepticus, malignant MCA infarct, cerebellar herniation, SAH vasospasm, and brain death determination.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Recognise impending herniation and initiate the first protective steps within minutes.</li>
+      <li>Apply the modern tiered raised-ICP algorithm (SIBICC 2019).</li>
+      <li>Manage status epilepticus through phases per ESETT 2019 evidence (LEV / fosphenytoin / VPA all ~50% efficacy).</li>
+      <li>Identify candidates for decompressive hemicraniectomy (DESTINY/HAMLET/DECIMAL pooled meta-analysis; DESTINY II for &gt; 60).</li>
+      <li>Apply early intensive BP control (SBP &lt; 140) for spontaneous ICH (INTERACT2/ATACH-2/INTERACT-3).</li>
+      <li>Run post-cardiac-arrest care with targeted normothermia (TTM2) and multimodal neuroprognostication ≥ 72 h.</li>
+      <li>Conduct brain death determination per WBDP/BDDD 2023 / AAN 2010, including prerequisites + clinical exam + apnoea test + ancillary if needed.</li>
+      <li>Triage neuromuscular crises (GBS, MG) and recognise ICU-acquired weakness.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> nothing inside the skull rescues a brain that has not been kept oxygenated, perfused, normoglycaemic, normocapnic, normothermic, normonatraemic, and seizure-free. <em>Treat the body to save the brain.</em></div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. ABCs and secondary injury prevention</summary>
+      <div class="body">
+        <table>
+          <tr><th>System</th><th>Target</th></tr>
+          <tr><td>Airway</td><td>Secure if GCS ≤ 8, unable to protect, profound encephalopathy, status epilepticus, refractory hypoxia / hypercapnia</td></tr>
+          <tr><td>Breathing</td><td>SpO₂ ≥ 94% (avoid hyperoxia post-arrest); PaCO₂ 35–40 mmHg; brief hyperventilation only for impending herniation</td></tr>
+          <tr><td>Circulation</td><td>MAP target 80–90 (varies); avoid SBP &lt; 90 in TBI even briefly; induced HTN for DCI in SAH</td></tr>
+          <tr><td>Disability</td><td>GCS / FOUR / pupils q1h; Cushing triad (HTN + bradycardia + irregular RR) = late herniation</td></tr>
+          <tr><td>Glucose/Temp/Na</td><td>Glucose 6–10 mmol/L; temp ≤ 37.5 °C (treat fever); Na per indication (140–145 if mass effect)</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Monro-Kellie + CPP physiology</summary>
+      <div class="body">
+        <ul>
+          <li>Fixed box: brain (80%) + blood (10%) + CSF (10%). Any one ↑ → others must ↓ or ICP rises.</li>
+          <li><strong>Normal ICP</strong> 7–15 mmHg. <strong>CPP = MAP − ICP</strong>; target 60–70 mmHg.</li>
+          <li>Autoregulation often impaired after injury → pressure-passive brain. Small drops in MAP cause ischaemia; surges cause oedema.</li>
+          <li>PaCO₂ is the strongest CBF modulator; hyperventilation only as brief rescue for impending herniation.</li>
+        </ul>
+        <div class="warn">Cushing's triad is a LATE sign. Act earlier on pupil asymmetry, deteriorating GCS, posturing.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Tiered raised-ICP management (SIBICC 2019 / BTF 4e)</summary>
+      <div class="body">
+        <p><strong>Tier 0 (all)</strong>: HOB 30°, head midline, loosen collar; sedation + analgesia; SpO₂ 94%+, PaCO₂ 35–40; normothermia; glucose 6–10; Na 140–145; treat seizures.</p>
+        <p><strong>Tier 1 (ICP &gt; 22)</strong>: bolus sedation; EVD insertion (monitors + drains CSF); hyperosmolar — 3% saline 250 mL over 15 min OR mannitol 0.5–1 g/kg over 15 min; HTS preferred if haemodynamically labile.</p>
+        <p><strong>Tier 2</strong>: deeper sedation; neuromuscular blockade (cisatracurium); mild hyperventilation PaCO₂ 32–35 (with PbtO₂ monitoring if available); re-bolus hyperosmolar; consider decompressive craniectomy.</p>
+        <p><strong>Tier 3</strong>: decompressive craniectomy; barbiturate coma (pentobarbital → burst-suppression on EEG); therapeutic hypothermia rarely used (Eurotherm 2015 no benefit and possibly harm in TBI).</p>
+        <div class="time">Brief hyperventilation to PaCO₂ ~30 is a bridge to definitive treatment for impending herniation. Never sustained — vasoconstriction worsens ischaemia.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Herniation syndromes</summary>
+      <div class="body">
+        <table>
+          <tr><th>Type</th><th>Clinical</th></tr>
+          <tr><td>Uncal (transtentorial)</td><td>Ipsilateral blown pupil → contralateral hemiparesis → Kernohan's notch (false-localising ipsilateral) → decerebrate → coma → resp arrest</td></tr>
+          <tr><td>Central (downward)</td><td>Stepwise rostro-caudal: small reactive pupils → Cheyne-Stokes → decerebrate → apnoea</td></tr>
+          <tr><td>Subfalcine</td><td>Often silent; ACA territory ischaemia (contralateral leg weakness)</td></tr>
+          <tr><td>Tonsillar</td><td>HTN, bradycardia, apnoea, decerebrate, sudden cardiorespiratory arrest. AVOID LP if posterior-fossa mass.</td></tr>
+          <tr><td>Upward transtentorial</td><td>After sudden CSF drainage from EVD in posterior fossa mass → sudden midbrain compression</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Status epilepticus pathway (ETSP/ESETT)</summary>
+      <div class="body">
+        <table>
+          <tr><th>Phase / time</th><th>Treatment</th></tr>
+          <tr><td>0–5 min</td><td>ABCs; glucose; thiamine before glucose if at risk (Module 13)</td></tr>
+          <tr><td>5–20 min (established)</td><td><strong>Lorazepam 0.1 mg/kg IV (max 4 mg)</strong> or midazolam 10 mg IM (RAMPART NEJM 2012); repeat once if no response</td></tr>
+          <tr><td>20–40 min (refractory)</td><td><strong>ESETT NEJM 2019</strong>: LEV/fosphenytoin/VPA equally effective ~50%; <strong>Levetiracetam 60 mg/kg IV (max 4500 mg) over 10 min</strong> usually preferred; fosphenytoin 20 mg PE/kg over 10 min; VPA 40 mg/kg over 10 min</td></tr>
+          <tr><td>&gt; 40 min (super-refractory)</td><td>ICU; intubate; midazolam infusion / propofol / pentobarbital → burst-suppression on cEEG; phenobarbital or ketamine alternative; treat underlying cause; rule out NCSE; consider autoimmune encephalitis empirical methylpred + IVIG/PLEX (Module 11)</td></tr>
+        </table>
+        <p>Always check glucose, Na, Ca, Mg, ABG, ammonia (VPA), drug levels, toxicology, pyridoxine deficiency (infants). Continuous EEG essential for prolonged refractory status. Cross-ref Module 3.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Malignant MCA infarct + decompressive craniectomy</summary>
+      <div class="body">
+        <ul>
+          <li>Mortality up to 80% without surgery.</li>
+          <li><strong>DESTINY/DECIMAL/HAMLET pooled (Vahedi Lancet Neurol 2007)</strong>: <strong>hemicraniectomy within 48 h</strong> in patients &lt; 60 reduces mortality by ~50% and increases mRS ≤ 3.</li>
+          <li><strong>DESTINY II (Jüttler NEJM 2014)</strong>: &gt; 60 → reduces mortality but more severe disability; mRS 4 most common outcome — shared decision-making.</li>
+          <li>Indications: NIHSS &gt; 15 (R) or &gt; 20 (L), large MCA territory, declining GCS, midline shift, &lt; 48 h.</li>
+          <li>Cerebellar emergencies: EVD for hydrocephalus + suboccipital decompression for cerebellar haemorrhage &gt; 3 cm or with brainstem compression/hydrocephalus (AHA/ASA ICH 2022).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. SAH + vasospasm + DCI</summary>
+      <div class="body">
+        <ul>
+          <li>Thunderclap headache + meningism. CT &gt; 99% sensitive &lt; 6 h; LP for xanthochromia after 12 h if CT normal.</li>
+          <li>Secure aneurysm (coil or clip) within 72 h.</li>
+          <li>Pre-securing: <strong>SBP &lt; 140</strong>; avoid hypotension.</li>
+          <li><strong>Nimodipine 60 mg po q4h × 21 days</strong> — reduces DCI poor outcomes. Magnesium has not shown benefit (MASH II).</li>
+          <li>EVD for hydrocephalus (~30%).</li>
+          <li><strong>DCI days 4–14</strong>: clinical assessment + TCD/CTA/CTP surveillance.</li>
+          <li>Treatment of new deficit: <strong>induced hypertension</strong> (SBP 160–200) + euvolaemia (NOT hypervolaemia — harmful); endovascular angioplasty / vasodilators in refractory cases.</li>
+          <li>Hyponatraemia: CSW (volume depleted → saline + fludrocortisone) vs SIADH (euvolaemic → fluid restriction).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Spontaneous ICH — BP, reversal, surgery</summary>
+      <div class="body">
+        <ul>
+          <li><strong>BP target SBP &lt; 140 within 1 h</strong> (INTERACT2 / ATACH-2 / <strong>INTERACT-3 2023 care bundle</strong> — favourable outcome benefit).</li>
+          <li>ICH score (Hemphill 2001) for risk stratification.</li>
+          <li>Reverse anticoagulation:
+            <ul>
+              <li>Warfarin: 4F-PCC 25–50 IU/kg + vitamin K 10 mg IV.</li>
+              <li>Dabigatran: idarucizumab 5 g IV.</li>
+              <li>Apixaban/rivaroxaban: andexanet alfa (ANNEXA-I NEJM 2024) or 4F-PCC.</li>
+              <li>LMWH: protamine partial.</li>
+            </ul>
+          </li>
+          <li>Surgery:
+            <ul>
+              <li>Cerebellar &gt; 3 cm or with brainstem compression / hydrocephalus.</li>
+              <li>Selected lobar — <strong>ENRICH NEJM 2024</strong>: minimally invasive endoscopic surgery improved functional outcome.</li>
+              <li>Decompressive craniectomy for refractory mass effect.</li>
+            </ul>
+          </li>
+          <li>Seizure prophylaxis not routine. VTE prophylaxis: mechanical from admission; pharmacological after 24–48 h if stable.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Post-cardiac-arrest care + neuroprognostication</summary>
+      <div class="body">
+        <p><strong>TTM2 (Dankiewicz NEJM 2021)</strong>: targeted normothermia (avoid fever ≤ 37.7 °C) equivalent to 33 °C in OHCA. Many guidelines now recommend aggressive fever avoidance ≤ 37.5 °C for ≥ 72 h; controlled hypothermia 32–36 °C remains an option.</p>
+        <p>SpO₂ 94–98% (avoid hyperoxia); PaCO₂ 35–40; MAP &gt; 65 often 80–90; glucose 7.8–10; treat seizures and status myoclonus; continuous EEG.</p>
+        <h4>Multimodal neuroprognostication ≥ 72 h after rewarming + sedation off (ERC/ESICM 2021)</h4>
+        <ul>
+          <li>Clinical: bilateral absent pupillary + corneal reflexes; status myoclonus day 1</li>
+          <li>SSEPs: bilateral absent N20</li>
+          <li>EEG: burst-suppression with identical bursts; suppressed background; GPDs &gt; 50%; status epilepticus on flat background</li>
+          <li>Biomarker: NSE &gt; 60 µg/L at 48–72 h</li>
+          <li>Imaging: diffuse cortical / BG / cerebellar cytotoxic oedema on MRI DWI; loss of grey-white differentiation on CT</li>
+        </ul>
+        <div class="warn"><strong>Combine ≥ 2 robust features</strong>; do not prognosticate too early; sedation/hypothermia confound the exam. Lance-Adams (post-anoxic action myoclonus) is a RECOVERY state, not poor prognosis.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Brain death determination (WBDP/BDDD 2023; AAN 2010)</summary>
+      <div class="body">
+        <p><strong>Prerequisites</strong> (all must be met):</p>
+        <ol>
+          <li>Established irreversible catastrophic brain injury of known cause.</li>
+          <li>Exclude confounders: core temp ≥ 36 °C; SBP ≥ 100 (off vasoactive as feasible); normal metabolic state; CNS depressants + NMBs cleared (5 half-lives, levels, train-of-four); no mimicker (GBS, locked-in, fulminant Wernicke, toxin).</li>
+          <li>Observation typically 6–24 h after the inciting event (longer for HIE).</li>
+        </ol>
+        <p><strong>Clinical examination</strong> — coma + absent brainstem reflexes + apnoea:</p>
+        <ol>
+          <li>Unresponsive coma (no eye opening, motor response, or vocalisation to noxious — supraorbital, nailbed).</li>
+          <li>Absent brainstem reflexes: pupillary (4–9 mm fixed); corneal; oculocephalic (only if C-spine cleared); oculovestibular (50 mL ice-cold water bilateral with head 30°); gag; cough; no facial movement to noxious.</li>
+          <li><strong>Apnoea test</strong>: pre-oxygenate 100% O₂ × 10 min; disconnect ventilator + insufflate O₂ 6 L/min; observe 8–10 min for respiration; ABG; positive if PaCO₂ ≥ 60 mmHg (or rises ≥ 20 above baseline) AND no respiratory effort. Abort for hypotension / hypoxia / arrhythmia.</li>
+        </ol>
+        <p><strong>Ancillary testing</strong> when apnoea test cannot be done or exam confounded: cerebral angiography (no intracranial flow at carotid bifurcation), EEG (electrocerebral silence ≥ 30 min), TCD (oscillating / reverberating flow), nuclear medicine HMPAO (hollow skull).</p>
+        <div class="pearl">Spinal reflexes can PERSIST — triple flexion, Lazarus sign, DTRs, sweating, BP variability do NOT exclude brain death (spinal origin).</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Multimodal monitoring + ICU practicalities</summary>
+      <div class="body">
+        <ul>
+          <li>ICP monitor: EVD (drains + monitors) or intraparenchymal (Camino bolt).</li>
+          <li><strong>PbtO₂ &gt; 20 mmHg</strong>: BOOST-3 NEJM 2024 — PbtO₂-guided care in severe TBI improved functional outcomes vs ICP-only.</li>
+          <li>Continuous EEG: detect NCSE (10–30% of comatose ICU); titrate anaesthetic in super-refractory status.</li>
+          <li>TCD for SAH vasospasm; NIRS; pupillometer (NPi).</li>
+          <li>Sedation: propofol (PRIS risk &gt; 4 mg/kg/h or &gt; 48 h — metabolic acidosis, rhabdo, cardiac failure); midazolam (status); dexmedetomidine (delirium / weaning, watch bradycardia); ketamine (super-refractory status, raises BP).</li>
+          <li>NMB (cisatracurium): refractory ICP, shivering during TTM, severe dyssynchrony.</li>
+          <li>ICU-acquired weakness: critical illness PN + myopathy after sepsis/MOF; mitigate with early mobilisation + nutrition + glycaemic control (Module 9).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. Neuromuscular crises in the ICU</summary>
+      <div class="body">
+        <ul>
+          <li><strong>GBS respiratory failure</strong> (Module 9): 20/30/40 rule (FVC &lt; 20, NIF less negative than −30, MEP &lt; 40); intubate. <strong>Avoid succinylcholine</strong> (hyperkalaemia from upregulated AChRs). IVIG 0.4 g/kg/day × 5 d or PLEX 5 sessions. Autonomic instability is major mortality driver; telemetry; avoid pushed boluses.</li>
+          <li><strong>Myasthenic crisis</strong> (Module 9): avoid aminoglycosides, fluoroquinolones, β-blockers, magnesium (Module 20). PLEX or IVIG; steroids carefully; pyridostigmine held in severe crisis. Watch cholinergic crisis from pyridostigmine overuse.</li>
+          <li><strong>High-cervical transverse myelitis</strong> (Module 10): respiratory failure possible.</li>
+          <li>Botulism, tetanus, ALS, periodic paralysis — Module 9.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="icpTier">
+    <h2>Raised ICP Management Walkthrough</h2>
+    <p class="muted">Click through the tiered algorithm (SIBICC 2019 / BTF 4e). Sequential management when ICP &gt; 22 mmHg.</p>
+    <div id="tierBox"></div>
+    <button class="reset" onclick="resetTier()" style="margin-top:10px">Reset</button>
+  </section>
+
+  <section class="tab-panel" id="seTl">
+    <h2>Status Epilepticus Stepwise Pathway</h2>
+    <p class="muted">Click through phases per ETSP/ESETT framework. Time stamps approximate.</p>
+    <div id="seBox"></div>
+    <button class="reset" onclick="resetSe()" style="margin-top:10px">Reset</button>
+  </section>
+
+  <section class="tab-panel" id="brainDeath">
+    <h2>Brain Death Determination Checklist</h2>
+    <p class="muted">Tick each item completed per WBDP/BDDD 2023 / AAN 2010. The summary updates live.</p>
+    <div id="bdBox"></div>
+    <div class="bd-summary" id="bd-summary">
+      <h4>Status</h4>
+      <div class="verdict" id="bd-verdict">Tick items to see progress.</div>
+      <div id="bd-detail"></div>
+    </div>
+    <button class="reset" onclick="resetBd()" style="margin-top:10px">Reset</button>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 28-year-old man with severe TBI (GCS 5, fixed dilated right pupil) is intubated and has ICP 35 mmHg on initial monitor</summary>
+      <div class="body">
+        <p>CT: large right hemispheric contusion with midline shift; basal cisterns effaced.</p>
+        <p><strong>Diagnosis:</strong> Severe TBI with impending uncal herniation and refractory ICP.</p>
+        <p><strong>Plan within minutes:</strong></p>
+        <ol>
+          <li><strong>Tier 0</strong>: head of bed 30°, head midline, loosen ETT ties / collar, propofol + fentanyl sedation, SpO₂ ≥ 94%, PaCO₂ 35–40, normothermia, glucose 6–10, Na 140–145.</li>
+          <li><strong>Tier 1</strong>: bolus sedation; <strong>3% hypertonic saline 250 mL over 15 min</strong>; insert <strong>EVD</strong> for ICP monitoring + CSF drainage.</li>
+          <li><strong>Tier 2</strong>: deeper sedation + neuromuscular blockade (cisatracurium); brief mild hyperventilation to PaCO₂ 32–35 with PbtO₂ monitoring if available.</li>
+          <li><strong>Tier 3</strong>: <strong>decompressive craniectomy</strong> if refractory (RESCUEicp NEJM 2016: improves mortality with high disability rate in survivors); barbiturate coma to burst-suppression as alternative.</li>
+          <li>Brief hyperventilation to PaCO₂ ~30 mmHg as bridge to definitive treatment for impending herniation (do not sustain).</li>
+          <li>Multimodal monitoring: ICP + PbtO₂ + continuous EEG.</li>
+          <li>Family meeting + palliative care consultation early for shared decision-making about decompressive craniectomy (high mortality and disability without intervention; survives at cost of disability).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 24-year-old has a generalised tonic-clonic seizure that has lasted 8 minutes. IV access obtained</summary>
+      <div class="body">
+        <p>Glucose 5.6 mmol/L. No history of epilepsy.</p>
+        <p><strong>Diagnosis:</strong> Established convulsive status epilepticus.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>ABCs</strong>; oxygen; check glucose (already done); thiamine before glucose if at risk (Module 13).</li>
+          <li><strong>First-line: lorazepam 0.1 mg/kg IV (max 4 mg) — typically 4 mg IV stat</strong>; repeat once if no response after 5 min.</li>
+          <li>If IV unavailable: <strong>midazolam 10 mg IM</strong> (RAMPART NEJM 2012).</li>
+          <li>If still in status after 2 doses → refractory status (20–40 min): <strong>levetiracetam 60 mg/kg IV (max 4500 mg) over 10 min</strong> (ESETT preferred for safety and pregnancy compatibility); fosphenytoin 20 mg PE/kg IV over 10 min and valproate 40 mg/kg IV over 10 min are equally effective per ESETT NEJM 2019.</li>
+          <li>If still in status → super-refractory: ICU; intubate; midazolam infusion 0.05–0.5 mg/kg/h or propofol 30–250 µg/kg/min or pentobarbital; <strong>continuous EEG to titrate</strong>.</li>
+          <li>Send: electrolytes (Na, Ca, Mg), ABG, ammonia, drug levels, toxicology, anti-NMDA-R + LGI1 + paraneoplastic panel if autoimmune encephalitis suspected (Module 11).</li>
+          <li>Identify and treat underlying cause; rule out NCSE on EEG; consider pyridoxine 100 mg IV trial under EEG for refractory unexplained status (especially infants).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 55-year-old man with a large left MCA infarct (NIHSS 22) is admitted at 12 hours from onset. He is becoming drowsier; midline shift 6 mm on follow-up CT at 24 h</summary>
+      <div class="body">
+        <p>No haemorrhagic transformation. Right hemiplegia + global aphasia.</p>
+        <p><strong>Diagnosis:</strong> Malignant left MCA infarct — high mortality without surgery.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Urgent neurosurgical consultation for <strong>decompressive hemicraniectomy</strong> within 48 hours (DESTINY/DECIMAL/HAMLET pooled analysis: &lt; 60 years → reduces mortality by ~50% and increases proportion with mRS ≤ 3).</li>
+          <li>Counsel family about aphasia outcome — left-sided infarct in dominant hemisphere has more severe communication / vocational impact even with successful surgery.</li>
+          <li>Pre-op: HOB 30°; mannitol or hypertonic saline if ICP signs; manage BP; monitor neurologically.</li>
+          <li>Post-op: ICP / CPP management; meticulous fluid balance; planned cranioplasty at ~3 months.</li>
+          <li>If &gt; 60 years: <strong>DESTINY II</strong> (Jüttler NEJM 2014) — hemicraniectomy reduces mortality but most survivors have mRS 4 (moderately severe disability) — emphasise shared decision-making.</li>
+          <li>Cross-ref Module 2.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 60-year-old presents 1 hour after thunderclap headache with neck stiffness. Non-contrast CT shows diffuse SAH</summary>
+      <div class="body">
+        <p>CT angiography: 7 mm anterior communicating artery aneurysm. GCS 14. BP 175/95.</p>
+        <p><strong>Diagnosis:</strong> Aneurysmal SAH (Hunt-Hess 2; Fisher 3 — high vasospasm risk).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Strict BP: <strong>SBP &lt; 140</strong> pre-securing (labetalol, nicardipine titration).</li>
+          <li>Bed rest; stool softeners; analgesia; antiemetic.</li>
+          <li>Urgent neurosurgery / interventional neuroradiology consultation: <strong>secure aneurysm within 72 hours</strong> (endovascular coiling or surgical clipping).</li>
+          <li><strong>Nimodipine 60 mg po q4h × 21 days</strong> from admission — reduces DCI poor outcomes.</li>
+          <li>EVD if hydrocephalus develops (~30%).</li>
+          <li>Post-securing: monitor for delayed cerebral ischaemia days 4–14 — daily clinical assessment + TCD / CTA / CTP.</li>
+          <li>If new deficit / vasospasm: <strong>induced hypertension</strong> SBP 160–200 + euvolaemia (not hypervolaemia — harmful); endovascular angioplasty / vasodilators if refractory.</li>
+          <li>Hyponatraemia surveillance: CSW vs SIADH.</li>
+          <li>Cardiac complications: Takotsubo, neurogenic pulmonary oedema, troponin rise.</li>
+          <li>Cross-ref Modules 4 + 19.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 68-year-old on apixaban presents with a 25 mL right basal ganglia haemorrhage and GCS 12. BP 195/110</summary>
+      <div class="body">
+        <p>Spot sign present on CTA — high expansion risk.</p>
+        <p><strong>Diagnosis:</strong> Spontaneous ICH on apixaban with active expansion risk.</p>
+        <p><strong>Plan within the next hour:</strong></p>
+        <ol>
+          <li><strong>Reverse apixaban</strong>: <strong>andexanet alfa</strong> (ANNEXA-I NEJM 2024 — improved haemostatic outcome) or <strong>4F-PCC 50 IU/kg</strong> if andexanet unavailable.</li>
+          <li><strong>BP control to SBP &lt; 140 within 1 hour</strong> of presentation (INTERACT2 / ATACH-2 / <strong>INTERACT-3 2023 care bundle</strong> favourable outcome benefit) — nicardipine or labetalol IV infusion.</li>
+          <li>Care bundle (INTERACT-3): BP control + glucose 6–10 + temperature ≤ 37.5 + reverse anticoagulation. Apply all.</li>
+          <li>VTE prophylaxis: mechanical from admission; pharmacological after 24–48 h if bleeding stable.</li>
+          <li>Seizure prophylaxis not routine; treat clinical or EEG-confirmed seizures.</li>
+          <li>Surgical consult: ICH expansion / mass effect / deterioration; consider minimally invasive endoscopic surgery for lobar haemorrhage (ENRICH NEJM 2024); decompressive craniectomy for refractory mass effect; cerebellar &gt; 3 cm requires suboccipital decompression.</li>
+          <li>Restart anticoagulation: typically 2–8 weeks post-bleed depending on indication and bleeding cause; restart earlier if very high thrombotic risk (mechanical valve); cross-ref Module 2.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 45-year-old man is unresponsive 6 days after a witnessed cardiac arrest (downtime 12 min, OHCA, VF arrest). He has been off sedation for 24 hours. Examination: no pupillary or corneal reflexes; no motor response to noxious; bilateral absent N20 on SSEPs; EEG shows burst-suppression with identical bursts; MRI DWI: diffuse cortical + basal-ganglia restricted diffusion</summary>
+      <div class="body">
+        <p>NSE day 3 was 110 µg/L.</p>
+        <p><strong>Diagnosis:</strong> Severe hypoxic-ischaemic brain injury with very poor prognosis (≥ 2 robust features per ERC/ESICM 2021).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Multidisciplinary discussion including neurology, intensivist, palliative care, and family.</li>
+          <li>Present neuroprognostication results with appropriate uncertainty; do not declare brain death unless WBDP/BDDD 2023 criteria are met (separate evaluation).</li>
+          <li>Discuss values, goals of care, prior advance directives; consider withdrawal of life-sustaining treatment with palliative care support if futility consistent with family wishes.</li>
+          <li>If proceeding to brain death evaluation: confirm prerequisites (temperature, BP, metabolic state, no confounders, sedation off ≥ 5 half-lives), conduct full clinical exam, apnoea test (if safe) or ancillary testing (cerebral angiography / nuclear medicine / EEG).</li>
+          <li>If consistent with brain death: notify organ procurement organisation BEFORE withdrawal of support if donation considered.</li>
+          <li>Document everything; family communication and bereavement support; consider chaplaincy / spiritual care.</li>
+          <li>If decision is to continue support: optimise post-arrest care (target normothermia per TTM2; treat seizures; multidisciplinary rehab planning if any recovery emerges).</li>
+        </ol>
+        <div class="warn">Avoid premature withdrawal in the first 72 hours. Lance-Adams (post-anoxic action myoclonus) is a RECOVERY state and does not equal poor prognosis.</div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 22 of an ongoing neurology curriculum. Sources: Adams &amp; Victor 12e Ch 16; Merritt's 14e Ch 19, 20, 34, 121. BTF 4e + SIBICC 2019 + RESCUEicp + Eurotherm3235; ESETT (Kapur NEJM 2019) + RAMPART (Silbergleit NEJM 2012); DESTINY/DECIMAL/HAMLET (Vahedi Lancet Neurol 2007) + DESTINY II (Jüttler NEJM 2014); INTERACT2/ATACH-2/INTERACT-3 (Anderson Lancet 2023) + ENRICH (NEJM 2024); TTM2 (Dankiewicz NEJM 2021) + ERC/ESICM 2021; WBDP/BDDD 2023 (Greer JAMA 2020) + AAN 2010 (Wijdicks Neurology); BOOST-3 (NEJM 2024); AHA/ASA ICH 2022 + SAH 2023.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Framework', q:'Central principle of neuro-critical care?', a:'Treat the body to save the brain. Nothing inside the skull rescues a brain that has not been kept OXYGENATED, PERFUSED, NORMOGLYCAEMIC, NORMOCAPNIC, NORMOTHERMIC, NORMONATRAEMIC, and SEIZURE-FREE. Prevention of secondary brain injury is the central task.'},
+  {tag:'Monro-Kellie', q:'Monro-Kellie doctrine and CPP equation?', a:'Skull is a fixed box: brain ~80%, blood ~10%, CSF ~10%. Increase in one must be matched by decrease in others or ICP rises. CPP = MAP − ICP; target 60–70 mmHg in TBI/SAH. Normal ICP 7–15 mmHg.'},
+  {tag:'Cushing', q:'Cushing\'s triad — what is it and when does it appear?', a:'Hypertension + bradycardia + irregular respiration → LATE sign of brainstem compression in raised ICP. Earlier warning signs: pupil asymmetry / dilation, deteriorating GCS, decerebrate posturing. Act on the early signs — do not wait for the triad.'},
+  {tag:'Tier 1', q:'First-tier measures for raised ICP > 22 mmHg?', a:'Bolus sedation; EVD (monitors + drains CSF); hyperosmolar — 3% hypertonic saline 250 mL over 15 min (preferred in haemodynamic instability) OR mannitol 0.5–1 g/kg over 15 min (causes diuresis); treat seizures; consider continuous EEG.'},
+  {tag:'Tier 2-3', q:'Tier 2 and 3 measures for refractory raised ICP?', a:'Tier 2: deeper sedation + neuromuscular blockade (cisatracurium); brief mild hyperventilation PaCO₂ 32–35 mmHg with PbtO₂ monitoring if available; re-bolus hyperosmolar. Tier 3: decompressive craniectomy (RESCUEicp NEJM 2016 — survives at cost of disability); barbiturate coma to burst-suppression. Therapeutic hypothermia not recommended (Eurotherm 2015 — no benefit, possibly harm in TBI).'},
+  {tag:'Uncal', q:'Uncal herniation — sequence of clinical findings?', a:'Ipsilateral pupil dilation ("blown pupil" — CN III parasympathetic compression) → contralateral hemiparesis (cerebral peduncle compression) → KERNOHAN\'S NOTCH (contralateral peduncle compression on falx → false-localising ipsilateral hemiparesis) → decerebrate posturing → coma → respiratory arrest.'},
+  {tag:'SE 5-min', q:'First-line drug for established status epilepticus (5–20 min)?', a:'Lorazepam 0.1 mg/kg IV (max 4 mg) — typically 4 mg IV stat. Alternatives: midazolam 10 mg IM (RAMPART NEJM 2012 — non-inferior to IV lorazepam pre-hospital), diazepam 0.15 mg/kg IV. Repeat ONCE if no response after 5 minutes.'},
+  {tag:'ESETT', q:'ESETT trial — what did it show?', a:'Kapur NEJM 2019: in benzodiazepine-refractory status epilepticus, LEVETIRACETAM, FOSPHENYTOIN, and VALPROATE were equally effective (~50% efficacy each). LEV usually preferred for safety (no interactions, safe in pregnancy and most comorbidities). LEV 60 mg/kg IV (max 4500 mg) over 10 min; fosphenytoin 20 mg PE/kg IV; VPA 40 mg/kg IV.'},
+  {tag:'Super-refractory', q:'Super-refractory status epilepticus (> 40 min) — approach?', a:'ICU; intubate; anaesthetic infusion to suppress seizures or target burst-suppression on continuous EEG: midazolam 0.05–0.5 mg/kg/h, propofol 30–250 µg/kg/min, pentobarbital, ketamine (emerging — raises BP, useful in hypotensive patients). Treat underlying cause; rule out NCSE; consider autoimmune encephalitis empirical IV methylpred + IVIG/PLEX (Module 11). Continuous EEG essential.'},
+  {tag:'Hemicraniectomy', q:'DESTINY/DECIMAL/HAMLET — what did the pooled meta-analysis show?', a:'Vahedi Lancet Neurol 2007: decompressive hemicraniectomy within 48 hours in patients < 60 with malignant MCA infarct reduces mortality by ~50% and increases the proportion with mRS ≤ 3. DESTINY II (Jüttler NEJM 2014) extended to > 60 — reduces mortality but most survivors have mRS 4 (moderately severe disability); shared decision-making.'},
+  {tag:'SAH BP', q:'BP target in SAH before and after aneurysm securing?', a:'Pre-securing: SBP < 140 mmHg to reduce re-bleed risk. Post-securing: relax BP target; if delayed cerebral ischaemia develops with new neurological deficit, use INDUCED HYPERTENSION (SBP 160–200 mmHg) + euvolaemia (NOT hypervolaemia — harmful). Endovascular angioplasty / vasodilators for refractory.'},
+  {tag:'Nimodipine', q:'Nimodipine in SAH — dose, duration, mechanism?', a:'Nimodipine 60 mg po q4h for 21 days from admission. Reduces poor outcomes from delayed cerebral ischaemia (mechanism uncertain — possibly neuroprotection rather than direct vasodilation). Magnesium has NOT shown benefit (MASH II).'},
+  {tag:'ICH BP', q:'BP target in spontaneous intracerebral haemorrhage?', a:'SBP < 140 mmHg within 1 hour of presentation. INTERACT2 / ATACH-2 supported intensive lowering. INTERACT-3 (Anderson Lancet 2023) bundled BP + glucose + temperature + anticoagulation reversal with favourable outcome benefit. Use IV nicardipine or labetalol infusion.'},
+  {tag:'Reversal', q:'Reversal of anticoagulation in ICH — drug pairings?', a:'Warfarin → 4F-PCC 25–50 IU/kg + vitamin K 10 mg IV. Dabigatran → idarucizumab 5 g IV. Apixaban/rivaroxaban → andexanet alfa (ANNEXA-I NEJM 2024) or 4F-PCC. LMWH → protamine 1 mg per 1 mg LMWH (partial reversal). FFP for fibrinogen issues.'},
+  {tag:'TTM2', q:'TTM2 — what did it change?', a:'Dankiewicz NEJM 2021: in adults with OHCA, targeted NORMOTHERMIA (avoid fever ≤ 37.7 °C) was equivalent to 33 °C × 24 h. Many guidelines now recommend aggressive fever avoidance ≤ 37.5 °C for ≥ 72 h; controlled hypothermia 32–36 °C remains an option for selected patients. Mortality and neurological outcome were similar.'},
+  {tag:'Neuroprognostication', q:'Multimodal neuroprognostication after cardiac arrest — when and which features?', a:'≥ 72 hours after rewarming AND sedation off. Combine ≥ 2 robust features: bilateral absent pupillary + corneal reflexes; status myoclonus day 1; bilateral absent N20 on SSEPs; burst-suppression with identical bursts / GPDs > 50% / status epilepticus on flat background on EEG; NSE > 60 µg/L at 48–72 h; diffuse cortical / BG / cerebellar cytotoxic oedema on MRI DWI. Lance-Adams syndrome (post-anoxic action myoclonus) is a RECOVERY state, not poor prognosis.'},
+  {tag:'BD prereq', q:'Prerequisites for brain death determination (WBDP/BDDD 2023)?', a:'(1) Established irreversible catastrophic brain injury of known cause. (2) Exclude confounders: core temp ≥ 36 °C; SBP ≥ 100 (off vasoactive as feasible); normal metabolic state; CNS depressants + NMBs cleared (5 half-lives, drug levels, train-of-four); no mimicker (GBS, locked-in, fulminant Wernicke, toxin). (3) Observation typically 6–24 h after the inciting event (longer for HIE).'},
+  {tag:'BD exam', q:'Brain death clinical examination components?', a:'(1) Unresponsive coma (no eye opening, motor response, or vocalisation to noxious supraorbital and nailbed); (2) Absent brainstem reflexes — pupillary (4–9 mm fixed); corneal; oculocephalic (if C-spine cleared); oculovestibular (50 mL ice-cold water bilateral with head 30°, observe 1 min); gag; cough; no facial movement to noxious; (3) Apnoea test.'},
+  {tag:'Apnoea', q:'Apnoea test procedure and positive result?', a:'Pre-oxygenate 100% O₂ × 10 min; PaCO₂ baseline ~35–45. Disconnect ventilator; passive O₂ via T-piece or insufflation catheter 6 L/min through ETT. Observe 8–10 min for spontaneous respiration. Draw ABG. Positive (consistent with brain death) if PaCO₂ rises to ≥ 60 mmHg (or rises ≥ 20 mmHg above baseline) AND no respiratory effort observed. ABORT for hypotension, severe hypoxia, or arrhythmia; consider ancillary testing.'},
+  {tag:'Spinal reflexes', q:'What spinal-cord findings can persist in brain death without invalidating the diagnosis?', a:'Triple flexion, Lazarus sign (brief arm movement on ventilator disconnection), deep tendon reflexes, sweating, BP variability — all of spinal origin and do NOT exclude brain death. Brain death = irreversible loss of all BRAIN function including brainstem; spinal reflexes do not arise from the brain.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 28-year-old with severe TBI has ICP 35 mmHg, fixed dilated right pupil, and a CT showing midline shift. Sedation already given. Best NEXT step within minutes?',
+   choices:['Watchful waiting','3% hypertonic saline 250 mL over 15 min + EVD insertion; brief hyperventilation as bridge to definitive treatment for impending herniation; urgent neurosurgical consultation for decompressive craniectomy','Long-term lithium','Aspirin'],
+   ans:1,
+   why:'Tier 1 raised-ICP management: bolus sedation; EVD for ICP monitoring + CSF drainage; hyperosmolar therapy — 3% hypertonic saline 250 mL over 15 min (or 23.4% 30 mL over 10 min for emergency via central line; preferred over mannitol in haemodynamically labile patients). Brief hyperventilation to PaCO₂ ~30 as bridge for impending herniation. Tier 3: decompressive craniectomy (RESCUEicp NEJM 2016 — improves mortality with high disability in survivors). Multimodal monitoring with ICP + PbtO₂ + cEEG.'},
+  {q:'A patient has been in convulsive status epilepticus for 8 minutes. IV access is present, glucose is normal. Best first-line drug?',
+   choices:['Levetiracetam 1000 mg IV','Lorazepam 0.1 mg/kg IV (max 4 mg) — repeat once if no response after 5 minutes; midazolam 10 mg IM if no IV','Phenobarbital 20 mg/kg IV','Propofol infusion immediately'],
+   ans:1,
+   why:'First-line for established status epilepticus (5–20 min): benzodiazepine — lorazepam 0.1 mg/kg IV (typically 4 mg) or midazolam 10 mg IM (RAMPART NEJM 2012 — IM midazolam non-inferior to IV lorazepam pre-hospital). Repeat ONCE if no response. If still in status (refractory, 20–40 min), use a second-line ASM per ESETT (Kapur NEJM 2019): levetiracetam 60 mg/kg, fosphenytoin 20 mg PE/kg, or valproate 40 mg/kg — all equally effective ~50% each. Super-refractory (> 40 min): ICU + anaesthetic infusion + cEEG. Cross-ref Module 3.'},
+  {q:'A 55-year-old with a large left MCA infarct, NIHSS 22, declining GCS, and 6 mm midline shift at 24 hours from onset. Best management?',
+   choices:['Conservative care only','Urgent decompressive hemicraniectomy within 48 hours (DESTINY/DECIMAL/HAMLET pooled — reduces mortality ~50% and increases mRS ≤ 3 in patients < 60); counsel family about aphasia outcome in dominant hemisphere','Long-term steroid','Aspirin alone'],
+   ans:1,
+   why:'Malignant MCA infarct. DESTINY/DECIMAL/HAMLET pooled meta-analysis (Vahedi Lancet Neurol 2007): hemicraniectomy within 48 h in patients < 60 reduces mortality by ~50% and increases mRS ≤ 3 (independent / mild disability). DESTINY II (Jüttler NEJM 2014) for > 60: reduces mortality but most survivors have mRS 4 (moderately severe disability) — shared decision-making is critical. Counsel about communication/vocational impact of dominant-hemisphere aphasia. Cross-ref Module 2.'},
+  {q:'A 60-year-old has aneurysmal SAH with diffuse blood on CT (Fisher 3). BP 175/95, GCS 14. Aneurysm not yet secured. Best initial BP management and prophylactic medication?',
+   choices:['Permissive BP up to 180; aspirin','SBP < 140 pre-securing; nimodipine 60 mg po q4h × 21 days from admission; secure aneurysm within 72 hours','SBP > 180 for cerebral perfusion; mannitol','Anti-epileptic prophylaxis long-term'],
+   ans:1,
+   why:'Pre-aneurysm securing: SBP < 140 to reduce re-bleed risk (typically with labetalol or nicardipine titration). Nimodipine 60 mg po q4h × 21 days reduces DCI poor outcomes (mechanism uncertain — possibly neuroprotection rather than direct vasodilation). Magnesium has not shown benefit (MASH II). Secure aneurysm within 72 hours (coil or clip). Monitor for delayed cerebral ischaemia days 4–14 — induced hypertension if DCI with new deficit. Seizure prophylaxis only short-term peri-procedurally.'},
+  {q:'A 68-year-old on apixaban has a 25 mL right basal ganglia haemorrhage, GCS 12, BP 195/110, and spot sign on CTA. Best management approach within the next hour?',
+   choices:['No BP control; observe','Reverse apixaban (andexanet alfa or 4F-PCC 50 IU/kg); intensive BP control to SBP < 140 mmHg within 1 hour (INTERACT2 / ATACH-2 / INTERACT-3 care bundle); INTERACT-3 bundled BP + glucose + temperature ≤ 37.5 + reversal','Long-term steroids','tPA'],
+   ans:1,
+   why:'Spontaneous ICH on apixaban with spot sign (high expansion risk). Reverse apixaban: andexanet alfa (ANNEXA-I NEJM 2024 — improved haemostatic outcome) or 4F-PCC 50 IU/kg. Intensive BP control to SBP < 140 within 1 hour (INTERACT2 / ATACH-2 / INTERACT-3 2023 — bundle of BP + glucose + temperature + reversal with favourable outcome benefit). VTE prophylaxis mechanical from admission; pharmacological after 24–48 h if stable. Restart anticoagulation typically 2–8 weeks (earlier if very high thrombotic risk like mechanical valve).'},
+  {q:'TTM2 (Dankiewicz NEJM 2021) — main finding?',
+   choices:['Hypothermia 33 °C was clearly superior to normothermia','Targeted NORMOTHERMIA (avoid fever ≤ 37.7 °C) was equivalent to 33 °C × 24 h after OHCA in adults; many guidelines now recommend aggressive fever avoidance ≤ 37.5 °C for ≥ 72 h, with controlled hypothermia 32–36 °C as an option','Hyperthermia was beneficial','Hypothermia was harmful in all patients'],
+   ans:1,
+   why:'TTM2 (Dankiewicz NEJM 2021): targeted normothermia was equivalent to 33 °C × 24 h in OHCA — no difference in mortality or neurological outcome. Many guidelines now recommend aggressive fever avoidance ≤ 37.5 °C for at least 72 hours. Controlled hypothermia 32–36 °C remains an option for selected patients per local protocols. Important caveat: TTM2 was in adults with OHCA; in-hospital arrest and special populations may have different recommendations.'},
+  {q:'Multimodal neuroprognostication after cardiac arrest — best timing and which features?',
+   choices:['Within 24 hours, single feature is enough','≥ 72 hours after rewarming AND sedation off; combine ≥ 2 robust features — bilateral absent pupillary + corneal reflexes / status myoclonus day 1 / absent N20 on SSEPs / burst-suppression EEG / NSE > 60 µg/L at 48–72 h / diffuse cytotoxic oedema on MRI DWI','Within 12 hours, EEG alone','Day 7 GCS only'],
+   ans:1,
+   why:'ERC/ESICM 2021: multimodal neuroprognostication ≥ 72 hours after rewarming AND after sedation withdrawal. Combine ≥ 2 robust features to avoid premature withdrawal: clinical (bilateral absent pupillary + corneal reflexes; status myoclonus day 1), SSEPs (bilateral absent N20), EEG (burst-suppression with identical bursts / GPDs > 50% / status epilepticus on flat background), NSE > 60 µg/L at 48–72 h, MRI DWI diffuse cytotoxic oedema. Lance-Adams syndrome (post-anoxic action myoclonus) is a RECOVERY state, not poor prognosis — do not confuse with status myoclonus.'},
+  {q:'Brain death determination — apnoea test, what is the positive result?',
+   choices:['PaCO₂ rises by 5 mmHg','PaCO₂ rises to ≥ 60 mmHg (or rises ≥ 20 mmHg above baseline) AND no respiratory effort observed during 8–10 min disconnection from ventilator (with passive O₂ insufflation 6 L/min)','SpO₂ falls','BP rises'],
+   ans:1,
+   why:'Apnoea test (consistent with brain death): pre-oxygenate 100% O₂ × 10 min; baseline ABG PaCO₂ 35–45; disconnect ventilator; passive O₂ via T-piece or insufflation catheter 6 L/min through ETT; observe 8–10 min for spontaneous respiration; draw ABG. Positive if PaCO₂ rises to ≥ 60 mmHg or rises ≥ 20 mmHg above baseline AND no respiratory effort observed. Abort for hypotension, severe hypoxia, or arrhythmia → consider ancillary testing (cerebral angiography, EEG, TCD, nuclear medicine HMPAO). Prerequisites must be met (no confounders).'},
+  {q:'Which finding does NOT exclude brain death because it is spinal-cord-mediated?',
+   choices:['Spontaneous breathing','Triple flexion / Lazarus sign / deep tendon reflexes / sweating / BP variability — all spinal-cord-mediated; do not arise from the brain','Pupillary reactivity','Corneal reflex'],
+   ans:1,
+   why:'Spinal cord reflexes can persist in brain death and do NOT invalidate the diagnosis. Triple flexion, Lazarus sign (brief arm movement on ventilator disconnection), DTRs, sweating, BP variability — all originate in spinal cord, not brain. Brain death is irreversible loss of all BRAIN function including brainstem. WBDP/BDDD 2023 emphasises this point. Families should be told that these movements are spinal reflexes, not signs of life.'},
+  {q:'A 30-year-old with GBS has progressive weakness. FVC 18 mL/kg, NIF −20 cm H₂O, MEP 35 cmH₂O. Best management?',
+   choices:['Outpatient observation','Intubate per 20/30/40 rule (FVC < 20, NIF less negative than −30, MEP < 40); avoid succinylcholine (hyperkalaemia from upregulated AChRs); IVIG 0.4 g/kg/day × 5 days or PLEX 5 sessions; ICU monitoring with telemetry for autonomic dysfunction','Long-term oral steroid','Carbamazepine'],
+   ans:1,
+   why:'GBS with respiratory failure — 20/30/40 rule met (FVC < 20, NIF less negative than −30, MEP < 40). Intubate before crisis. Avoid succinylcholine (hyperkalaemia from upregulated AChRs at denervated muscle). IVIG 0.4 g/kg/day × 5 d or plasma exchange 5 sessions. Autonomic dysfunction is a major mortality driver — telemetry; avoid pushed boluses of cardioactive drugs (gentle titration is safer). Cross-ref Module 9 + Module 15.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Raised ICP Tier Walkthrough */
+const tiers = [
+  {head:'Tier 0 — All patients (basic measures)', body:[
+    'Head of bed 30°; head midline (avoid jugular kinking).',
+    'Loosen cervical collars and ETT ties.',
+    'Adequate sedation + analgesia (propofol + opioid first-line).',
+    'Avoid coughing/agitation; lidocaine before suctioning.',
+    'SpO₂ ≥ 94%; PaCO₂ 35–40 mmHg; MAP target.',
+    'Normothermia (acetaminophen, cooling); fever raises ICP.',
+    'Glucose 6–10 mmol/L; sodium 140–145 for mass effect.',
+    'Seizure surveillance + treatment.'
+  ]},
+  {head:'Tier 1 — Initial measures for ICP > 22 mmHg', body:[
+    '<strong>Bolus sedation / analgesia</strong> first.',
+    '<strong>EVD insertion</strong> (External Ventricular Drain — monitors ICP and drains CSF).',
+    '<strong>Hyperosmolar therapy</strong>:',
+    '— 3% hypertonic saline 250 mL over 15 min (or 23.4% 30 mL over 10 min via central line for emergency)',
+    '— OR mannitol 0.5–1 g/kg IV over 15 min (causes diuresis — avoid in hypovolaemia)',
+    '— HTS preferred in haemodynamically labile patients',
+    '— Target serum Na 145–155, osmolality 300–320 mOsm/kg',
+    'Treat seizures; consider continuous EEG.',
+    'If ICP responds, return to Tier 0 monitoring; escalate if persistent.'
+  ]},
+  {head:'Tier 2 — Additional measures for ongoing raised ICP', body:[
+    '<strong>Deeper sedation</strong> + <strong>neuromuscular blockade</strong> (cisatracurium infusion) — minimises cough, shivering, ventilator dyssynchrony.',
+    '<strong>Mild hyperventilation</strong> to PaCO₂ 32–35 mmHg — short-term only; monitor jugular venous saturation or PbtO₂ if available (avoid worsening ischaemia from over-vasoconstriction).',
+    'Re-bolus hyperosmolar therapy.',
+    'Initiate discussion of decompressive surgery if refractory (Tier 3).',
+    'For impending herniation: brief hyperventilation to PaCO₂ ~30 as a BRIDGE to definitive treatment — never sustained.'
+  ]},
+  {head:'Tier 3 — Refractory ICP', body:[
+    '<strong>Decompressive craniectomy</strong> — bifrontal or hemicraniectomy (RESCUEicp NEJM 2016: improves mortality with high disability rate in survivors; preserves life at cost of disability). Shared decision-making with family.',
+    '<strong>Barbiturate coma</strong> (pentobarbital or thiopental) — target burst-suppression on continuous EEG; cardiovascular instability and immunosuppression are major risks.',
+    '<strong>Therapeutic hypothermia 32–34 °C</strong> — NOT recommended as prophylaxis (Eurotherm 2015 no benefit and possibly harm in TBI); rarely used as rescue for refractory ICP.',
+    'At this tier, futility discussions and palliative care input become important.'
+  ]}
+];
+const tierBox = document.getElementById('tierBox');
+let tierIdx = 0;
+function renderTier() {
+  tierBox.innerHTML = '';
+  tiers.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'tier-step' + (i === tierIdx ? ' active' : '');
+    div.innerHTML = `<h4>${t.head}</h4><ul>${t.body.map(b => `<li>${b}</li>`).join('')}</ul>` +
+      (i === tierIdx && i < tiers.length - 1 ? `<button class="next" onclick="nextTier()">Next tier ↓</button>` : '');
+    tierBox.appendChild(div);
+  });
+}
+function nextTier() { tierIdx = Math.min(tierIdx + 1, tiers.length - 1); renderTier(); }
+function resetTier() { tierIdx = 0; renderTier(); }
+renderTier();
+
+/* Status Epilepticus Pathway */
+const sePhases = [
+  {time:'0–5 min — STABILISE', head:'Initial assessment and basic measures', body:[
+    'ABCs: airway protect, oxygen, monitor.',
+    'IV access; check glucose; <strong>thiamine 500 mg IV BEFORE glucose</strong> if at risk (Module 13 — alcoholic, malnourished, hyperemesis).',
+    'Correct hypoglycaemia (25 g IV dextrose) or other reversible cause.',
+    'Send: electrolytes (Na, Ca, Mg), ABG, ammonia (VPA users), drug levels, toxicology, pyridoxine if infant.',
+    'Position laterally; protect from injury.'
+  ]},
+  {time:'5–20 min — ESTABLISHED', head:'First-line: benzodiazepine', body:[
+    '<strong>Lorazepam 0.1 mg/kg IV (max 4 mg)</strong> — typically 4 mg IV stat.',
+    '— Alternative if no IV: <strong>midazolam 10 mg IM</strong> (RAMPART NEJM 2012 — non-inferior to IV lorazepam pre-hospital).',
+    '— Diazepam 0.15 mg/kg IV (rapid distribution; shorter clinical effect).',
+    'REPEAT ONCE if no response after 5 minutes.',
+    'Plan IV second-line ASM if ongoing.'
+  ]},
+  {time:'20–40 min — REFRACTORY', head:'Second-line non-benzodiazepine ASM (ESETT NEJM 2019)', body:[
+    'Per <strong>ESETT trial</strong>: levetiracetam, fosphenytoin, and valproate are equally effective (~50% each).',
+    '<strong>Levetiracetam 60 mg/kg IV (max 4500 mg) over 10 min</strong> — usually preferred (fewer side effects, no interactions, safe in pregnancy and most comorbidities). Cross-ref Module 20.',
+    '<strong>Fosphenytoin 20 mg PE/kg IV over 10 min (max 1500 mg PE)</strong> — caution in arrhythmia, hypotension; monitor BP and ECG.',
+    '<strong>Valproate 40 mg/kg IV over 10 min</strong> — AVOID in mitochondrial disease, hepatic dysfunction, pregnancy.',
+    'Plan ICU + intubation if ongoing.'
+  ]},
+  {time:'> 40 min — SUPER-REFRACTORY', head:'ICU + anaesthetic infusion to burst-suppression', body:[
+    'ICU; intubate; continuous EEG monitoring.',
+    '<strong>Midazolam infusion</strong> 0.05–0.5 mg/kg/h.',
+    '<strong>Propofol infusion</strong> 30–250 µg/kg/min (watch for PRIS at &gt; 4 mg/kg/h or &gt; 48 h).',
+    '<strong>Pentobarbital</strong> or phenobarbital alternative.',
+    '<strong>Ketamine</strong> emerging — raises BP (useful in hypotensive patients); old ICP concerns largely refuted.',
+    'Titrate to seizure suppression or burst-suppression on continuous EEG.',
+    'Treat underlying cause; rule out NCSE; consider autoimmune encephalitis empirical IV methylpred + IVIG/PLEX (Module 11); pyridoxine 100 mg IV trial in refractory unexplained status (especially infants).'
+  ]}
+];
+const seBox = document.getElementById('seBox');
+let seIdx = 0;
+function renderSe() {
+  seBox.innerHTML = '';
+  sePhases.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'se-phase' + (i === seIdx ? ' active' : '');
+    div.innerHTML = `<span class="time">${p.time}</span><h4>${p.head}</h4><ul>${p.body.map(b => `<li>${b}</li>`).join('')}</ul>` +
+      (i === seIdx && i < sePhases.length - 1 ? `<button class="next" onclick="nextSe()" style="background:var(--accent);color:#1a0512;padding:6px 14px;border-radius:6px;cursor:pointer;font:inherit;font-weight:600;border:none;margin-top:8px">Next phase ↓</button>` : '');
+    seBox.appendChild(div);
+  });
+}
+function nextSe() { seIdx = Math.min(seIdx + 1, sePhases.length - 1); renderSe(); }
+function resetSe() { seIdx = 0; renderSe(); }
+renderSe();
+
+/* Brain Death Determination Checklist */
+const bdSections = [
+  {head:'Prerequisites (all must be met before clinical exam)', items:[
+    ['cause','Established irreversible catastrophic brain injury of known cause'],
+    ['temp','Core temperature ≥ 36 °C'],
+    ['bp','SBP ≥ 100 mmHg (off vasoactive drugs as feasible) or MAP ≥ 75'],
+    ['metab','Severe metabolic disturbances excluded (Na, glucose, urea, ammonia, ABG)'],
+    ['drugs','CNS-depressant drugs and neuromuscular blockers cleared (5 half-lives, levels, train-of-four)'],
+    ['mimic','No condition mimicking brain death (GBS, locked-in, fulminant Wernicke, toxin)'],
+    ['obs','Observation period typically 6–24 hours after the inciting event (longer for HIE)']
+  ]},
+  {head:'Clinical examination — coma + absent brainstem reflexes', items:[
+    ['coma','Unresponsive coma — no eye opening, motor response, or vocalisation to noxious (supraorbital, nailbed)'],
+    ['pup','Absent pupillary light reflex (4–9 mm fixed)'],
+    ['corneal','Absent corneal reflex'],
+    ['ocep','Absent oculocephalic (doll\'s eyes) — only if C-spine cleared'],
+    ['oves','Absent oculovestibular — 50 mL ice-cold water bilateral with head 30°, observe 1 min after'],
+    ['gag','Absent gag reflex'],
+    ['cough','Absent cough reflex (deep ETT suction)'],
+    ['face','No facial movement to noxious stimulus']
+  ]},
+  {head:'Apnoea test', items:[
+    ['preox','Pre-oxygenate 100% O₂ × 10 min; baseline ABG PaCO₂ 35–45'],
+    ['disconnect','Disconnect ventilator; passive O₂ via T-piece or insufflation catheter 6 L/min through ETT'],
+    ['observe','Observe 8–10 min for spontaneous respiration'],
+    ['abg','Repeat ABG after observation'],
+    ['positive','POSITIVE result: PaCO₂ rises to ≥ 60 mmHg (or rises ≥ 20 mmHg above baseline) AND no respiratory effort'],
+    ['abort','Aborted if hypotension, severe hypoxia, or arrhythmia — proceed to ancillary testing']
+  ]},
+  {head:'Ancillary testing (only if apnoea test cannot be performed or examination confounded)', items:[
+    ['ang','Cerebral angiography — no intracranial flow at carotid bifurcation / circle of Willis'],
+    ['eeg','EEG — electrocerebral silence ≥ 30 min'],
+    ['tcd','Transcranial Doppler — oscillating / reverberating flow patterns'],
+    ['nuc','Nuclear medicine (Tc-99m HMPAO) — no intracranial perfusion ("hollow skull" sign)']
+  ]},
+  {head:'Documentation and communication', items:[
+    ['doc','Documentation per institutional protocol; some jurisdictions require two independent examinations'],
+    ['family','Family communication; explain spinal reflexes (triple flexion, Lazarus sign, DTRs, sweating) can persist and do NOT exclude brain death'],
+    ['opo','Notify organ procurement organisation BEFORE withdrawal of support if donation considered'],
+    ['support','Withdraw life-sustaining treatment per institutional protocol; spiritual care / chaplaincy / bereavement support']
+  ]}
+];
+const bdBox = document.getElementById('bdBox');
+let bdState = {};
+let bdTotal = 0;
+bdSections.forEach(sec => {
+  const div = document.createElement('div');
+  div.className = 'bd-section';
+  const head = document.createElement('h4');
+  head.textContent = sec.head;
+  div.appendChild(head);
+  sec.items.forEach(([id,label]) => {
+    bdState[id] = false; bdTotal++;
+    const row = document.createElement('div');
+    row.className = 'bd-item';
+    row.innerHTML = `<div class="lbl">${label}</div>
+      <div class="opts">
+        <button class="sel" data-id="${id}" data-val="0">Not done</button>
+        <button data-id="${id}" data-val="1">Confirmed</button>
+      </div>`;
+    div.appendChild(row);
+  });
+  bdBox.appendChild(div);
+});
+bdBox.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = +b.dataset.val;
+  bdState[id] = !!val;
+  bdBox.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreBd();
+}));
+
+function scoreBd() {
+  const done = Object.values(bdState).filter(Boolean).length;
+  const total = bdTotal;
+  const sum = document.getElementById('bd-summary');
+  sum.classList.remove('complete','incomplete');
+  const verdict = document.getElementById('bd-verdict');
+  const detail = document.getElementById('bd-detail');
+  if (done === 0) {
+    verdict.textContent = 'Tick items to see progress.';
+    detail.innerHTML = '';
+    return;
+  }
+  verdict.textContent = `Confirmed: ${done} of ${total} items`;
+  // Check prereq + exam completion
+  const prereqIds = ['cause','temp','bp','metab','drugs','mimic','obs'];
+  const examIds = ['coma','pup','corneal','ocep','oves','gag','cough','face'];
+  const apnoeaIds = ['preox','disconnect','observe','abg','positive'];
+  const allPrereq = prereqIds.every(id => bdState[id]);
+  const allExam = examIds.every(id => bdState[id]);
+  const apnoeaPos = bdState.positive && bdState.preox && bdState.disconnect && bdState.observe && bdState.abg;
+  const ancillaryAny = bdState.ang || bdState.eeg || bdState.tcd || bdState.nuc;
+  if (allPrereq && allExam && (apnoeaPos || ancillaryAny)) {
+    sum.classList.add('complete');
+    verdict.textContent = '✓ Brain death determination criteria met';
+    detail.innerHTML = `<ul>
+      <li>All prerequisites met.</li>
+      <li>Full clinical examination consistent with absent brain function.</li>
+      <li>${apnoeaPos ? 'Apnoea test positive (consistent with brain death)' : 'Ancillary testing confirms no intracranial flow / electrocerebral silence'}.</li>
+      <li><strong>Document per institutional protocol</strong>; notify family with sensitivity; notify organ procurement organisation BEFORE withdrawal if donation considered; arrange spiritual care / chaplaincy / bereavement support.</li>
+      <li>Spinal reflexes (triple flexion, Lazarus sign, DTRs, sweating, BP variability) may persist and do NOT exclude brain death — explain to family.</li>
+    </ul>`;
+  } else {
+    sum.classList.add('incomplete');
+    const missing = [];
+    if (!allPrereq) missing.push('Prerequisites incomplete');
+    if (!allExam) missing.push('Clinical examination incomplete');
+    if (!apnoeaPos && !ancillaryAny) missing.push('Apnoea test or ancillary testing not confirmed');
+    detail.innerHTML = `<ul>${missing.map(m => `<li>${m}</li>`).join('')}</ul>
+      <p>Complete all required items before declaration. If any prerequisite is unfulfilled or any reflex elicited, the diagnosis is NOT brain death.</p>`;
+  }
+}
+scoreBd();
+
+function resetBd() {
+  Object.keys(bdState).forEach(k => bdState[k] = false);
+  bdBox.querySelectorAll('.opts button').forEach(o => {
+    o.classList.toggle('sel', o.dataset.val === '0');
+  });
+  scoreBd();
+}
+</script>
+</body>
+</html>

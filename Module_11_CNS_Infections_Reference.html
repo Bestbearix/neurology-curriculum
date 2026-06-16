@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 11 — CNS Infections (Reference)</title>
+<style>
+  :root{
+    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#a93a3a; --soft:#fbecec;
+    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
+    --pearl-bg:#f5dcdc; --pearl-bd:#a93a3a; --pearl-ink:#5a1a1a;
+    --refer-bg:#fee5e2; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+    --time-bg:#eef7ff; --time-bd:#3a86b0; --time-ink:#163a6a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif; color:var(--ink); background:#fff; line-height:1.55; max-width:880px; margin:0 auto; padding:48px 28px 96px}
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
+  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
+  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
+  h3{font-size:1.18rem; margin-top:1.8em; color:#5a1a1a}
+  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
+  li{margin:.25em 0}
+  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
+  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
+  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
+  tbody tr:nth-child(even){background:#fafbfd}
+  .pearl,.warn,.refer,.time{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
+  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
+  .time{background:var(--time-bg); border-color:var(--time-bd); color:var(--time-ink)}
+  .src{font-size:.8rem; color:var(--muted)}
+  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-button">← Back to Curriculum</a>
+
+<h1>Module 11 — CNS Infections</h1>
+<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 31 Bacterial/Fungal/Spirochetal/Parasitic and Ch. 32 Viral &amp; Prion) and <em>Merritt's Neurology</em> (14e, Ch. 55 Prion Diseases, Ch. 64 Bacterial Meningitis, Ch. 65 Brain/Spinal/Epidural Abscess, Ch. 66 Other Bacterial CNS Infections, Ch. 67 Chronic Meningitis, Ch. 68 Parasitic Infections, Ch. 69 Viral Infections, Ch. 70 HIV/AIDS Neurological Complications, Ch. 74 Autoimmune Encephalitis)</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Big picture: when to think CNS infection</a></li>
+  <li><a href="#csf">CSF interpretation &mdash; the cornerstone</a></li>
+  <li><a href="#approach">Approach in the first hour</a></li>
+  <li><a href="#bact">Acute bacterial meningitis</a></li>
+  <li><a href="#viral">Viral meningitis &amp; encephalitis (HSV the headline)</a></li>
+  <li><a href="#abscess">Brain abscess &amp; empyema</a></li>
+  <li><a href="#chronic">Chronic meningitis &mdash; TB, fungal, neoplastic</a></li>
+  <li><a href="#tb">Tuberculous meningitis</a></li>
+  <li><a href="#crypto">Cryptococcal meningitis</a></li>
+  <li><a href="#syph">Neurosyphilis</a></li>
+  <li><a href="#lyme">Neuroborreliosis (Lyme)</a></li>
+  <li><a href="#hiv">HIV-associated CNS disease &amp; opportunistic infections</a></li>
+  <li><a href="#parasite">Parasitic infections (neurocysticercosis, toxo, cerebral malaria)</a></li>
+  <li><a href="#prion">Prion diseases</a></li>
+  <li><a href="#post">Post-infectious &amp; autoimmune encephalitis</a></li>
+  <li><a href="#refer">When to refer &amp; key counselling points</a></li>
+  <li><a href="#quick">Quick-reference tables</a></li>
+</ol>
+</div>
+
+<h2 id="frame">1 · Big picture: when to think CNS infection</h2>
+
+<p>CNS infections are the single most time-critical group of neurological diagnoses. <strong>Bacterial meningitis</strong> can kill within hours; <strong>HSV encephalitis</strong> destroys the temporal lobes within days. Both have effective treatments. The art is suspecting them early and acting before confirmation.</p>
+
+<p>Two presentation patterns dominate the differential:</p>
+
+<table>
+<tr><th>Syndrome</th><th>Hallmark</th><th>Differential</th></tr>
+<tr><td><strong>Meningitis</strong></td><td>Fever + headache + meningismus ± altered mentation. The brain parenchyma is relatively spared (no focal deficits usually).</td><td>Bacterial, viral, fungal, mycobacterial, parasitic, drug-induced "aseptic," chemical (e.g.&nbsp;subarachnoid blood, malignant), partially treated bacterial</td></tr>
+<tr><td><strong>Encephalitis</strong></td><td>Altered mental status + fever ± seizures ± focal deficits. The brain <em>parenchyma</em> is involved.</td><td>HSV, VZV, enteroviruses, arboviruses (West Nile, JE, La Crosse), respiratory viruses, autoimmune (anti-NMDA-R, LGI1), paraneoplastic, post-infectious (ADEM)</td></tr>
+</table>
+
+<p><em>Meningoencephalitis</em> is a mix of both. <em>Brain abscess</em> behaves like a mass lesion with infection on top &mdash; headache + focal deficits ± fever (fever in only ~50%).</p>
+
+<div class="pearl"><strong>The two clinical rules that prevent disasters:</strong><br>(1) When you cannot exclude bacterial meningitis or HSV encephalitis with confidence, <em>start empirical antimicrobials + aciclovir within 1 hour</em> — before the LP if necessary. Outcome is dictated by time to first dose.<br>(2) <em>Dexamethasone</em> should be given before or with the first antibiotic dose in suspected bacterial meningitis &mdash; not afterwards.</div>
+
+<h2 id="csf">2 · CSF interpretation &mdash; the cornerstone</h2>
+
+<h3>Normal adult CSF</h3>
+<table>
+<tr><th>Parameter</th><th>Normal range</th></tr>
+<tr><td>Opening pressure</td><td>6–25 cm H₂O (lateral position)</td></tr>
+<tr><td>White cells</td><td>0–5 / µL (lymphocytes; no neutrophils)</td></tr>
+<tr><td>Red cells</td><td>0</td></tr>
+<tr><td>Protein</td><td>15–45 mg/dL</td></tr>
+<tr><td>Glucose</td><td>40–70 mg/dL <em>or</em> CSF/serum ratio ≥ 0.6</td></tr>
+<tr><td>Lactate</td><td>&lt; 2.2 mmol/L</td></tr>
+</table>
+
+<h3>Pattern recognition &mdash; the most useful diagnostic step at the bedside</h3>
+<table>
+<tr><th>Pattern</th><th>OP</th><th>WBC</th><th>Differential</th><th>Glucose</th><th>Protein</th><th>Typical diagnoses</th></tr>
+<tr><td><strong>Acute bacterial</strong></td><td>↑↑ (often &gt; 25)</td><td>1,000–10,000+</td><td>Neutrophils (&gt; 80%)</td><td>↓↓ (CSF/serum &lt; 0.4, often &lt; 0.31)</td><td>↑↑ (often &gt; 100)</td><td>S. pneumoniae, N. meningitidis, GBS, E. coli, Listeria; postneurosurgical staph/GNR</td></tr>
+<tr><td><strong>Viral meningitis</strong></td><td>Normal or mildly ↑</td><td>10–500</td><td>Lymphocytes (early may be PMN)</td><td>Normal</td><td>Mildly ↑ (&lt; 100)</td><td>Enteroviruses (most common), HSV-2 (typical meningitis), VZV, mumps, HIV</td></tr>
+<tr><td><strong>Viral encephalitis (HSV-1)</strong></td><td>Mildly ↑</td><td>10–500 (often with RBCs from temporal-lobe haemorrhage)</td><td>Lymphocytes</td><td>Normal</td><td>↑</td><td>HSV-1 → temporal lobe; HSV-2 → meningitis; VZV; arboviruses</td></tr>
+<tr><td><strong>TB meningitis</strong></td><td>↑</td><td>50–500</td><td>Lymphocytes (early may be neutrophilic)</td><td>↓</td><td>↑↑ (often &gt; 100, can spider-web on standing)</td><td>M. tuberculosis</td></tr>
+<tr><td><strong>Cryptococcal</strong></td><td>↑↑ (often &gt; 25)</td><td>Variable; often &lt; 50 in HIV</td><td>Lymphocytes</td><td>↓</td><td>↑</td><td>C. neoformans (HIV, transplant, idiopathic CD4 lymphopenia)</td></tr>
+<tr><td>Neurosyphilis</td><td>Normal–↑</td><td>5–500</td><td>Lymphocytes</td><td>Normal–↓</td><td>↑</td><td>Treponema pallidum (CSF VDRL specific; FTA-ABS sensitive)</td></tr>
+<tr><td>Neuroborreliosis</td><td>Normal–↑</td><td>10–1000</td><td>Lymphocytes</td><td>Normal</td><td>↑</td><td>Borrelia burgdorferi (CSF antibody index)</td></tr>
+<tr><td>SAH</td><td>↑</td><td>↑ from RBC contamination; xanthochromia after 12 h</td><td>—</td><td>Normal</td><td>↑ (from blood)</td><td>Aneurysm rupture</td></tr>
+<tr><td>Carcinomatous / lymphomatous</td><td>↑</td><td>10–500</td><td>Lymphocytes; atypical cells on cytology</td><td>↓</td><td>↑</td><td>Leptomeningeal metastasis, primary CNS lymphoma</td></tr>
+<tr><td>Autoimmune encephalitis</td><td>Normal–↑</td><td>0–100</td><td>Lymphocytes</td><td>Normal</td><td>Normal–↑; OCBs possible; specific autoantibodies in CSF</td><td>Anti-NMDA-R, LGI1, GABA-B, CASPR2, etc.</td></tr>
+</table>
+
+<h3>Useful adjuncts</h3>
+<ul>
+  <li><strong>CSF lactate &gt; 4 mmol/L</strong> &mdash; useful in postoperative neurosurgical patients to flag bacterial meningitis.</li>
+  <li><strong>Serum procalcitonin &gt; 2 ng/mL</strong> and CRP &gt; 40 mg/L &mdash; significantly higher in bacterial vs viral meningitis; helpful when Gram stain is negative.</li>
+  <li><strong>CSF Gram stain</strong> positive in 60–90% of acute bacterial meningitis (depends on organism and prior antibiotics).</li>
+  <li><strong>CSF multiplex PCR panels</strong> (e.g.&nbsp;FilmArray ME panel): rapid (~1 h) detection of 6 bacterial, 7 viral, and 1 yeast pathogen. Use as an adjunct; not a replacement for culture and Gram stain.</li>
+  <li><strong>Cryptococcal antigen (lateral flow assay)</strong> &mdash; serum and CSF; sensitivity &gt; 95% in HIV-associated cryptococcal meningitis.</li>
+  <li><strong>HSV PCR</strong> in CSF &mdash; sensitivity 95–99% for HSV encephalitis. False negative may occur in the first 72 hours; <em>repeat at 72–96 hours if HSV still suspected</em>.</li>
+  <li><strong>Xpert MTB/RIF Ultra</strong> &mdash; nucleic acid amplification for TB meningitis. Sensitivity 70–80% in CSF; specificity &gt; 95%.</li>
+</ul>
+
+<h2 id="approach">3 · Approach in the first hour</h2>
+
+<h3>Suspected bacterial meningitis or HSV encephalitis</h3>
+<ol>
+  <li><strong>Blood cultures × 2.</strong></li>
+  <li><strong>Empirical antibiotics + dexamethasone + aciclovir within 60 min of presentation.</strong> Do not wait for the LP if there is any delay.</li>
+  <li><strong>CT head first if any of these IDSA criteria are present:</strong>
+    <ul>
+      <li>Immunocompromised state (HIV, immunosuppression, transplant)</li>
+      <li>History of CNS disease (mass, stroke, focal infection)</li>
+      <li>New-onset seizure within 1 week</li>
+      <li>Papilloedema</li>
+      <li>Altered level of consciousness</li>
+      <li>Focal neurological deficit</li>
+    </ul>
+    Otherwise, LP can be done first.
+  </li>
+  <li><strong>Lumbar puncture</strong> &mdash; measure opening pressure; send cell count, glucose (with simultaneous serum glucose), protein, Gram stain, culture, lactate (in selected scenarios), bacterial PCR panel, HSV/VZV/enterovirus PCR, cryptococcal antigen, AFB smear + Xpert MTB/RIF + TB culture (if at-risk), cytology if neoplastic suspected.</li>
+  <li><strong>Tickborne coverage</strong> &mdash; add doxycycline during the season when ticks are biting (rickettsiae, ehrlichiosis, Lyme).</li>
+</ol>
+
+<div class="warn"><strong>If LP is delayed</strong> (CT pending, coagulopathy correction, distance to imaging): give empirical antibiotics first; the LP will still be useful for many hours. <em>Antibiotic-induced sterilisation of CSF takes longer than people think</em> — cultures may be negative within 2–4 h of antibiotics, but cell count, protein, and glucose remain abnormal for days. PCR panels remain useful regardless.</div>
+
+<h2 id="bact">4 · Acute bacterial meningitis</h2>
+
+<h3>Classic presentation</h3>
+<p>The full triad of fever + headache + nuchal rigidity is present in only 41% of adults. <strong>Two or more of</strong> fever (≥ 38.5 °C), headache, nuchal rigidity, and altered mental status are present in &gt; 95%. Vomiting is common but often missed as a CNS sign. Kernig and Brudzinski signs have poor sensitivity.</p>
+
+<h3>Pathogen by age and host</h3>
+<table>
+<tr><th>Predisposing factor</th><th>Likely organisms</th></tr>
+<tr><td>Neonate</td><td>Group B strep, <em>E. coli</em>, <em>Listeria monocytogenes</em></td></tr>
+<tr><td>Infant / child / adult (community-acquired)</td><td><em>Streptococcus pneumoniae</em>, <em>Neisseria meningitidis</em></td></tr>
+<tr><td>Adult &gt; 55, alcoholic, diabetic, chronically ill, immunocompromised</td><td>+ <em>Listeria</em>, gram-negative bacilli</td></tr>
+<tr><td>Otitis / sinusitis / mastoiditis</td><td>S. pneumoniae, Streptococci, gram-negative anaerobes, <em>H. influenzae</em>, <em>S. aureus</em></td></tr>
+<tr><td>Basilar skull fracture / CSF leak</td><td>S. pneumoniae, H. influenzae, group A strep</td></tr>
+<tr><td>Post-neurosurgical / ventricular device</td><td><em>Staphylococcus aureus</em>, coagulase-negative staphylococci, gram-negative bacilli (incl. Pseudomonas), anaerobes</td></tr>
+<tr><td>Endocarditis</td><td>Viridans strep, S. aureus, HACEK organisms, enterococci</td></tr>
+<tr><td>Complement deficiency, asplenia (sickle cell, post-splenectomy)</td><td>Encapsulated organisms — <em>N. meningitidis</em>, <em>S. pneumoniae</em></td></tr>
+</table>
+
+<h3>Empirical antibiotic regimen (and adjuncts)</h3>
+<table>
+<tr><th>Scenario</th><th>Regimen</th></tr>
+<tr><td>Neonate</td><td>Cefotaxime + ampicillin (covers GBS, E. coli, Listeria)</td></tr>
+<tr><td>Child / immunocompetent adult, community-acquired</td><td><strong>3rd- or 4th-gen cephalosporin (ceftriaxone 2 g IV q12h) + vancomycin</strong></td></tr>
+<tr><td>Adult &gt; 50, alcoholic, immunocompromised</td><td>+ <strong>ampicillin 2 g IV q4h</strong> (for Listeria)</td></tr>
+<tr><td>Otitis / sinusitis source</td><td>+ <strong>metronidazole</strong> (anaerobic cover)</td></tr>
+<tr><td>Postneurosurgical / device</td><td><strong>Vancomycin + (meropenem or ceftazidime or cefepime)</strong> ± metronidazole</td></tr>
+<tr><td>Suspected HSV (any encephalitis features)</td><td>Add <strong>aciclovir 10 mg/kg IV q8h</strong></td></tr>
+<tr><td>Tickborne season</td><td>Add <strong>doxycycline 100 mg IV q12h</strong></td></tr>
+<tr><td><strong>Dexamethasone</strong></td><td>0.15 mg/kg IV q6h (typical adult dose 10 mg IV q6h) for 4 days. Give <strong>before or with</strong> the first antibiotic dose. Mortality benefit documented for pneumococcal meningitis; favourable trend for meningococcal.</td></tr>
+</table>
+
+<h3>Duration of therapy</h3>
+<ul>
+  <li><em>N. meningitidis</em>: 7 days</li>
+  <li><em>H. influenzae</em>: 7 days</li>
+  <li><em>S. pneumoniae</em>: 10–14 days</li>
+  <li>Group B strep: 14–21 days</li>
+  <li><em>Listeria</em>: 21 days (+ gentamicin synergy first 7 days)</li>
+  <li>Gram-negative bacilli (other than H. influenzae): 21 days</li>
+</ul>
+
+<h3>Complications &amp; outcomes</h3>
+<p>Cerebral oedema, raised ICP, hydrocephalus, stroke (arteritis + venous thrombosis), seizures, cranial-nerve palsies, SIADH, sensorineural hearing loss (~10%), neurocognitive deficits. Mortality: pneumococcal 20%, meningococcal 5–10%, Listeria 15%. Dexamethasone reduces hearing loss in paediatric H. influenzae meningitis and mortality in adult pneumococcal meningitis.</p>
+
+<h3>Chemoprophylaxis for close contacts</h3>
+<ul>
+  <li><em>N. meningitidis</em>: <strong>ciprofloxacin 500 mg PO once</strong> (adults); ceftriaxone 250 mg IM once; rifampin 600 mg PO BID × 2 days. Household members, kissing contacts, healthcare workers with direct mouth-to-mouth resuscitation contact.</li>
+  <li><em>H. influenzae type b</em>: rifampin 20 mg/kg PO daily × 4 days, for unvaccinated household members &lt; 4 y old.</li>
+  <li>Not needed for S. pneumoniae or Listeria.</li>
+</ul>
+
+<h2 id="viral">5 · Viral meningitis &amp; encephalitis</h2>
+
+<h3>Viral meningitis (the "aseptic" picture)</h3>
+<p>Fever + headache + neck stiffness + lymphocytic CSF + normal glucose. Patients usually <em>not toxic</em>; mentation preserved.</p>
+<ul>
+  <li><strong>Enteroviruses</strong> (~85% &mdash; coxsackie, echovirus, EV-71); peak summer-autumn. Treatment supportive.</li>
+  <li>HSV-2 &mdash; often recurrent (Mollaret meningitis), often in young women.</li>
+  <li>VZV.</li>
+  <li>Mumps (in unvaccinated).</li>
+  <li>HIV at seroconversion.</li>
+  <li>LCMV (rodent exposure).</li>
+  <li>Arboviruses (West Nile, JE, dengue, Zika &mdash; geographic).</li>
+</ul>
+<p>Course self-limiting in days to weeks. Most patients can be managed as outpatients once bacterial meningitis is excluded. <em>Drug-induced "aseptic" meningitis</em> (NSAIDs, TMP-SMX, IVIG, immune checkpoint inhibitors) is an important mimic.</p>
+
+<h3>Viral encephalitis</h3>
+<p>Altered mental status + fever ± seizures ± focal deficits. <strong>HSV-1 is the most important treatable cause</strong>.</p>
+
+<h4>Herpes simplex encephalitis (HSE)</h4>
+<ul>
+  <li>~10% of all encephalitis cases; highest mortality of any encephalitis if untreated (&gt; 70%).</li>
+  <li>Typically HSV-1 reactivation, not primary infection.</li>
+  <li>Bilateral (often asymmetric) temporal-lobe involvement → fever, headache, confusion, behavioural change, aphasia, complex partial seizures, hemiparesis.</li>
+  <li>MRI: T2/FLAIR hyperintensity in <strong>medial temporal lobes</strong>, insular cortex, cingulate gyrus; haemorrhage; gyriform enhancement.</li>
+  <li>EEG: periodic lateralised epileptiform discharges (PLEDs) over temporal lobe, slowing.</li>
+  <li>CSF: lymphocytic pleocytosis (rarely &gt; 500), often with RBCs from haemorrhage, normal glucose, elevated protein; <strong>HSV PCR 95–99% sensitive</strong>.</li>
+  <li><strong>Treatment: aciclovir 10 mg/kg IV q8h × 14–21 days</strong>. Start empirically &mdash; <em>delay in starting aciclovir is the strongest predictor of poor outcome</em>. Repeat PCR at 72–96 h if initially negative and HSE still suspected.</li>
+  <li>Watch for <strong>autoimmune encephalitis</strong> (anti-NMDA-R or others) emerging 1–6 weeks after HSE in 5–27% of patients, particularly children. Often relapse of cognitive / movement disorder symptoms after recovery from the acute illness.</li>
+  <li>Neonatal HSV (HSV-2 usually) &mdash; aciclovir 60 mg/kg/day IV in 3 divided doses × 21 days; very high mortality without treatment.</li>
+</ul>
+
+<div class="warn"><strong>Triad to remember:</strong> fever + altered mentation + temporal-lobe MRI changes ≈ HSE until proven otherwise. <em>Start aciclovir before the LP if there is any delay.</em> The drug is cheap, safe (renal hydration is the main consideration), and the diagnosis is missed at the cost of brain.</div>
+
+<h4>Other viral encephalitides</h4>
+<ul>
+  <li><strong>VZV</strong>: vasculopathy with stroke; encephalitis; cerebellitis (especially children post-chickenpox); myelitis. Treat with IV aciclovir.</li>
+  <li><strong>Arboviruses</strong>: West Nile (older patients, asymmetric flaccid paralysis from anterior-horn involvement); Japanese encephalitis (Asia; thalamic/basal ganglia involvement); La Crosse (children); Eastern equine encephalitis (severe). All supportive care.</li>
+  <li><strong>Rabies</strong>: encephalitic (furious) or paralytic; uniformly fatal after symptoms develop. Pre- and post-exposure prophylaxis essential.</li>
+  <li><strong>Tickborne encephalitis virus</strong>: Europe, Asia.</li>
+  <li><strong>Enterovirus 71</strong>: brainstem encephalitis in children.</li>
+  <li><strong>SARS-CoV-2</strong>: acute encephalitis rare; post-COVID neurological syndromes more common.</li>
+</ul>
+
+<h2 id="abscess">6 · Brain abscess &amp; empyema</h2>
+
+<h3>Brain abscess</h3>
+<ul>
+  <li>Focal pyogenic infection of brain parenchyma.</li>
+  <li>Triad of headache + fever + focal deficit present in only ~20%. Fever in only 50%. Most common feature: headache (~70%) &mdash; persistent, progressive, may worsen with positioning.</li>
+  <li>Risk factors: contiguous (sinusitis → frontal lobe; otitis/mastoiditis → temporal lobe/cerebellum; dental); haematogenous (endocarditis, cyanotic congenital heart disease, pulmonary AVM, lung abscess); direct (penetrating trauma, neurosurgery); immunocompromised (toxoplasmosis, fungal, Nocardia, Listeria).</li>
+  <li>Typical organisms: viridans and microaerophilic Streptococci, Staphylococcus aureus, anaerobes (Bacteroides, Prevotella, Fusobacterium), Enterobacteriaceae; often polymicrobial.</li>
+  <li>MRI: ring-enhancing lesion with central restricted diffusion (key differentiator from tumour, which usually does NOT restrict centrally); thin smooth wall; surrounding oedema.</li>
+  <li><strong>Treatment</strong>: aspiration / drainage by neurosurgery <em>plus</em> empirical IV antibiotics &mdash; typically <strong>vancomycin + ceftriaxone (or cefepime) + metronidazole</strong> for 6–8 weeks (longer if multifocal, if Listeria or Nocardia, or if no drainage). Adjust based on culture. Steroids only if significant mass effect (they can blunt the host response and impede antibiotic penetration).</li>
+  <li>Anti-seizure prophylaxis often given for supratentorial abscesses (high seizure risk).</li>
+</ul>
+
+<h3>Subdural empyema</h3>
+<p>Pus in the subdural space, usually from sinusitis or otitis. Rapidly progressive headache + fever + focal signs + seizures + meningeal signs. Surgical drainage + IV antibiotics 4–6 weeks. Mortality 10–20%.</p>
+
+<h3>Epidural abscess (spinal, see Module 10)</h3>
+<p>Back pain + fever + neurological deficit. <em>Stat MRI + emergent surgical drainage + vancomycin + ceftriaxone</em>. Risk factors: IV drug use, diabetes, dental procedures, recent spinal procedure.</p>
+
+<h2 id="chronic">7 · Chronic meningitis &mdash; TB, fungal, neoplastic</h2>
+
+<p>Chronic meningitis is defined by signs and symptoms for &gt; 4 weeks with persistent CSF abnormalities. The differential is broad: infectious (TB, cryptococcal, other fungal, Lyme, syphilis, brucellosis), neoplastic (leptomeningeal metastasis, primary CNS lymphoma, lymphomatosis cerebri), inflammatory (sarcoidosis, vasculitis, Beh&ccedil;et, IgG4-related, NMOSD), drug-induced (NSAIDs, IVIG, checkpoint inhibitors, OKT3).</p>
+
+<p>The pattern of CSF (lymphocytic + ↓ glucose + ↑ protein) suggests TB, fungal, or neoplastic. Key tests in addition to standard CSF analysis: AFB smear, mycobacterial culture, Xpert MTB/RIF Ultra, cryptococcal antigen, fungal culture, ACE, cytology and flow cytometry, FTA-ABS / VDRL, Lyme antibody index.</p>
+
+<h2 id="tb">8 · Tuberculous meningitis (TBM)</h2>
+
+<ul>
+  <li>Subacute (weeks) presentation: low-grade fever, headache, malaise, weight loss → cranial-nerve palsies (especially CN VI), confusion, seizures, hydrocephalus, focal deficits.</li>
+  <li>Often basal meningitis with <strong>hydrocephalus</strong>, basal cistern enhancement, vasculitic strokes (especially basal-ganglia lacunes).</li>
+  <li>Risk factors: HIV, immunosuppression, originating from a TB-endemic region, prior TB exposure.</li>
+  <li>CSF: lymphocytic pleocytosis (50–500), ↓ glucose, ↑↑ protein (often very high &mdash; pellicle / spider-web clot on standing). AFB smear low yield; mycobacterial culture takes weeks; <strong>Xpert MTB/RIF Ultra</strong> is sensitive ~70–80% and rapid.</li>
+  <li><strong>Treatment</strong>: empirical 4-drug RIPE (rifampicin + isoniazid + pyrazinamide + ethambutol) for 2 months → continuation phase RH for at least 7–10 months (total ≥ 9–12 months). <strong>Adjunctive dexamethasone</strong> in the first 6–8 weeks reduces mortality (especially in HIV-negative).</li>
+  <li>HIV-coinfected: be cautious about timing of ART initiation to reduce IRIS risk &mdash; usually start ART after 2–4 weeks of TB treatment in TBM (later than in pulmonary TB).</li>
+</ul>
+
+<div class="pearl"><strong>The "low CSF glucose, high protein, lymphocytic pleocytosis" pattern</strong> in any patient from a TB-endemic country or with HIV is TB until proven otherwise. <em>Start empirical TB therapy promptly</em> even before culture confirmation when the clinical picture fits; outcomes depend on early treatment.</div>
+
+<h2 id="crypto">9 · Cryptococcal meningitis</h2>
+
+<ul>
+  <li><em>Cryptococcus neoformans</em> (HIV, transplant, idiopathic CD4 lymphopenia, steroid use) and <em>Cryptococcus gattii</em> (immunocompetent hosts; Pacific Northwest, tropical regions).</li>
+  <li>Subacute (weeks): headache, fever (often mild or absent), confusion, cranial-nerve deficits, raised ICP (a major killer).</li>
+  <li>CSF: lymphocytic pleocytosis (often surprisingly low in AIDS); ↓ glucose; ↑ protein; <strong>India ink stain positive in ~80%</strong>; <strong>cryptococcal antigen positive in &gt; 95%</strong> (rapid lateral flow assay on serum or CSF); fungal culture positive in 90%.</li>
+  <li><strong>Treatment (HIV-associated, WHO/IDSA-aligned 2022)</strong>: <em>Induction</em> &mdash; single high-dose liposomal amphotericin B 10 mg/kg + flucytosine 100 mg/kg/day + fluconazole 1200 mg/day for 14 days (AMBITION-cm regimen, 2022); or amphotericin B deoxycholate + flucytosine × 2 weeks. <em>Consolidation</em> &mdash; fluconazole 800 mg/day × 8 weeks. <em>Maintenance</em> &mdash; fluconazole 200 mg/day until CD4 &gt; 100 for 6 months on ART.</li>
+  <li><strong>Manage raised ICP</strong> with serial therapeutic LPs (drain to OP &lt; 20 cm H₂O) &mdash; <em>the single most important manoeuvre for survival</em>; insert lumbar drain or VP shunt if needed.</li>
+  <li>HIV-coinfected: delay ART by 4–6 weeks after starting antifungal therapy to reduce IRIS risk.</li>
+</ul>
+
+<h2 id="syph">10 · Neurosyphilis</h2>
+
+<table>
+<tr><th>Stage</th><th>Time after infection</th><th>Features</th></tr>
+<tr><td>Early (within months/years)</td><td>Asymptomatic, syphilitic meningitis, meningovascular (stroke in young), ocular (uveitis), otosyphilis</td><td>Lymphocytic CSF; cranial neuropathies; stroke-like episodes in a young patient</td></tr>
+<tr><td>Late (years–decades)</td><td>General paresis (dementia + psychiatric); tabes dorsalis (lancinating pains, sensory ataxia, Argyll Robertson pupils, areflexia)</td><td>Now rare in antibiotic era</td></tr>
+<tr><td>Gummatous</td><td>Years</td><td>Granulomatous mass lesion in cord or brain; rare</td></tr>
+</table>
+
+<ul>
+  <li>HIV co-infection accelerates progression and increases ocular and meningovascular involvement.</li>
+  <li>Diagnosis: serum non-treponemal (VDRL, RPR) + treponemal (FTA-ABS, TP-PA) tests. CSF: lymphocytic pleocytosis, elevated protein, normal/low glucose; <strong>CSF VDRL</strong> highly specific (low sensitivity ~30–70%); CSF FTA-ABS sensitive but not specific (a negative CSF FTA-ABS effectively rules out neurosyphilis).</li>
+  <li><strong>Treatment</strong>: <strong>IV penicillin G 3–4 million units q4h × 10–14 days</strong> (or continuous infusion 18–24 MU/day). For penicillin allergy: desensitisation is preferred; alternatives are ceftriaxone 2 g IV/IM daily × 10–14 days (with caveats), or doxycycline 200 mg BID × 28 days (poor CNS penetration).</li>
+  <li>Watch for <strong>Jarisch-Herxheimer reaction</strong> at start.</li>
+  <li>Follow CSF and serology at 6 months (and 12 months) to document treatment response.</li>
+</ul>
+
+<h2 id="lyme">11 · Neuroborreliosis (Lyme)</h2>
+
+<ul>
+  <li><em>Borrelia burgdorferi</em>, transmitted by Ixodes ticks. Geographic distribution: northeastern, mid-Atlantic, north-central US; Europe; northern temperate Eurasia.</li>
+  <li>Early disseminated (weeks): lymphocytic meningitis (often mild, with headache + erythema migrans history), facial palsy (often bilateral &mdash; <em>think Lyme in bilateral Bell's palsy</em>), radiculitis (Bannwarth syndrome &mdash; severe radicular pain).</li>
+  <li>Late: chronic encephalomyelitis (rare), peripheral neuropathy, encephalopathy (cognitive complaints, often non-specific &mdash; differentiate from "chronic Lyme" which is contentious).</li>
+  <li>Diagnosis: serum two-tier (ELISA → confirmatory Western blot or second ELISA); CSF analysis with <strong>Lyme antibody index</strong> (intrathecal antibody production: CSF/serum antibody ratio &gt; 1 supports neuroborreliosis).</li>
+  <li>Treatment: IV ceftriaxone 2 g/day × 14–28 days for meningitis, encephalomyelitis; oral doxycycline 100 mg BID × 14–28 days is reasonable for isolated facial palsy or mild meningitis per recent IDSA guidelines.</li>
+</ul>
+
+<h2 id="hiv">12 · HIV-associated CNS disease &amp; opportunistic infections</h2>
+
+<h3>HIV itself</h3>
+<ul>
+  <li><strong>Aseptic meningitis at seroconversion</strong>.</li>
+  <li><strong>HIV-associated neurocognitive disorder (HAND)</strong>: spectrum from asymptomatic to HIV-associated dementia; subcortical pattern. Now uncommon with ART.</li>
+  <li><strong>HIV-associated vacuolar myelopathy</strong>: cord pattern resembling B12 SCD.</li>
+  <li><strong>HIV peripheral neuropathy</strong>: distal symmetric polyneuropathy; older NRTIs cause toxic neuropathy.</li>
+  <li><strong>HIV-associated stroke</strong>: from accelerated atherosclerosis, vasculopathy, opportunistic infection, drug interactions.</li>
+</ul>
+
+<h3>Opportunistic infections (CD4-dependent)</h3>
+<table>
+<tr><th>CD4 count</th><th>Common CNS opportunistic infections</th></tr>
+<tr><td>&lt; 200/µL</td><td>Cryptococcal meningitis, toxoplasmosis (especially &lt; 100), TB</td></tr>
+<tr><td>&lt; 100/µL</td><td>+ Progressive multifocal leukoencephalopathy (PML, JC virus), CMV ventriculo-encephalitis</td></tr>
+<tr><td>&lt; 50/µL</td><td>+ CMV retinitis with encephalitis, primary CNS lymphoma (EBV-driven)</td></tr>
+</table>
+
+<h3>Ring-enhancing lesion(s) in HIV &mdash; the high-stakes differential</h3>
+<table>
+<tr><th>Diagnosis</th><th>Imaging clues</th><th>Diagnostic step</th></tr>
+<tr><td><strong>Cerebral toxoplasmosis</strong></td><td>Multiple ring-enhancing lesions, especially basal ganglia and grey-white junction; "eccentric target sign" on T1 with contrast; less mass effect than lymphoma</td><td>Toxo serology (negative IgG makes diagnosis unlikely); empirical pyrimethamine + sulfadiazine + leucovorin (or TMP-SMX) for 2 weeks &mdash; <strong>radiological response by 2 weeks confirms toxo</strong></td></tr>
+<tr><td><strong>Primary CNS lymphoma</strong></td><td>Single (often) lesion, periventricular, more mass effect; restricted diffusion; FDG-PET hypermetabolic</td><td>EBV DNA in CSF (sensitivity ~80%); FDG-PET; brain biopsy if treatment trial for toxo fails</td></tr>
+<tr><td><strong>Tuberculoma</strong></td><td>Single or multiple ring-enhancing lesions; may have basal meningitis</td><td>TB workup; biopsy if uncertain</td></tr>
+<tr><td><strong>Cryptococcoma</strong></td><td>Rare; gelatinous pseudocysts in basal ganglia</td><td>CSF cryptococcal antigen</td></tr>
+<tr><td>PML</td><td>Non-enhancing (usually) asymmetric subcortical white-matter lesions; spares cortex; cerebellar peduncles in HIV</td><td>JCV PCR in CSF; tissue diagnosis if needed</td></tr>
+<tr><td>Bacterial abscess</td><td>Thin smooth ring; restricted diffusion within centre; surrounding oedema</td><td>Aspiration; antibiotics</td></tr>
+</table>
+
+<h3>Other key HIV CNS conditions</h3>
+<ul>
+  <li><strong>Cryptococcal meningitis</strong> &mdash; see § 9.</li>
+  <li><strong>CMV encephalitis / ventriculitis</strong> &mdash; subacute encephalopathy in advanced AIDS; periventricular enhancement; CSF CMV PCR positive. Treat with ganciclovir + foscarnet.</li>
+  <li><strong>PML</strong> &mdash; subacute focal deficits, visual problems, ataxia; MRI shows asymmetric subcortical white-matter T2 hyperintensity without enhancement; treat the underlying immunosuppression (ART for HIV; remove offending immunosuppressant; pembrolizumab in case reports for refractory PML).</li>
+  <li><strong>Immune reconstitution inflammatory syndrome (IRIS)</strong> &mdash; paradoxical worsening of an OI after ART started. Manage by continuing ART (in most cases), treating the underlying infection, and adding steroids if severe.</li>
+</ul>
+
+<h2 id="parasite">13 · Parasitic infections</h2>
+
+<h3>Neurocysticercosis (NCC)</h3>
+<ul>
+  <li>Larval form of <em>Taenia solium</em> (pork tapeworm). Most common parasitic CNS infection worldwide. Endemic in Latin America, sub-Saharan Africa, South and Southeast Asia.</li>
+  <li>Most common cause of new-onset adult seizures in endemic countries. Also presents with chronic headache, raised ICP (from intraventricular cysts), hydrocephalus, focal deficits, dementia.</li>
+  <li>MRI: parenchymal cysts at different stages (vesicular → colloidal → granular → calcified); "starry sky" appearance; "scolex" sign within cysts.</li>
+  <li>Diagnosis: imaging + clinical context ± serology (EITB / lentil-lectin Western blot).</li>
+  <li><strong>Treatment</strong>: depends on cyst stage and location.
+    <ul>
+      <li>Single viable parenchymal cyst with seizures: albendazole 15 mg/kg/day × 7–14 days + steroids + antiseizure medication.</li>
+      <li>Multiple cysts: albendazole + praziquantel + steroids + longer courses.</li>
+      <li>Intraventricular: surgical removal preferred (endoscopic) due to risk of acute hydrocephalus.</li>
+      <li>Calcified inactive cysts: no antiparasitic; antiseizure medication only.</li>
+      <li>Subarachnoid (racemose): aggressive long-course antiparasitic + steroids + CSF diversion if hydrocephalus.</li>
+    </ul>
+  </li>
+  <li>Always counsel that antiparasitic drugs may transiently worsen symptoms (treatment-induced inflammation).</li>
+</ul>
+
+<h3>Cerebral toxoplasmosis</h3>
+<p>See HIV section. Almost always reactivation of latent infection in immunocompromised host (CD4 &lt; 100, transplant recipients). Multiple ring-enhancing lesions in basal ganglia. Empirical pyrimethamine + sulfadiazine + leucovorin (or TMP-SMX) with radiological response by 2 weeks confirming diagnosis.</p>
+
+<h3>Cerebral malaria</h3>
+<p><em>Plasmodium falciparum</em>; impaired consciousness ± seizures in patient from endemic area. Treat with <strong>IV artesunate</strong> (replaced quinine as first-line; halves mortality compared with quinine in severe malaria). Supportive care for raised ICP, seizures, hypoglycaemia, acidosis.</p>
+
+<h3>Other parasitic CNS infections</h3>
+<ul>
+  <li><strong>Schistosomiasis</strong>: spinal cord granulomas (especially conus); eosinophilia; praziquantel + steroids.</li>
+  <li><strong>Echinococcosis</strong>: solitary cystic lesion; surgical removal + albendazole.</li>
+  <li><strong>African trypanosomiasis</strong>: sleeping sickness; staging by CSF.</li>
+  <li><strong>Amoebic encephalitis</strong>: Naegleria (primary amoebic meningoencephalitis &mdash; freshwater exposure), Acanthamoeba, Balamuthia (granulomatous; immunocompromised).</li>
+  <li><strong>Strongyloides hyperinfection</strong>: bacterial meningitis with bowel flora.</li>
+  <li><strong>Angiostrongylus cantonensis</strong>: eosinophilic meningitis; Pacific Rim, Caribbean.</li>
+</ul>
+
+<h2 id="prion">14 · Prion diseases</h2>
+
+<table>
+<tr><th>Disease</th><th>Features</th></tr>
+<tr><td><strong>Sporadic Creutzfeldt-Jakob (sCJD)</strong></td><td>Most common (~85% of prion disease). Rapidly progressive dementia (weeks-months) + myoclonus + cerebellar ataxia + pyramidal/extrapyramidal signs. Median survival ~6 months. MRI DWI: cortical "ribboning" and basal-ganglia hyperintensity. EEG: periodic sharp wave complexes (1 Hz). CSF: 14-3-3 protein, total tau elevated; <strong>RT-QuIC</strong> highly sensitive and specific (&gt; 95%).</td></tr>
+<tr><td>Familial CJD</td><td>~10%; PRNP mutations</td></tr>
+<tr><td>Iatrogenic CJD</td><td>Dural grafts, pituitary growth hormone, corneal transplants (rare; modern preventive measures effective)</td></tr>
+<tr><td>Variant CJD (vCJD)</td><td>Bovine spongiform encephalopathy; younger patients (~30 y); psychiatric onset, painful sensory symptoms, ataxia; MRI: pulvinar / "hockey-stick" sign (bilateral pulvinar &gt; basal ganglia signal); much rarer now</td></tr>
+<tr><td>Gerstmann-Str&auml;ussler-Scheinker</td><td>Familial; cerebellar predominant; longer course</td></tr>
+<tr><td>Fatal familial insomnia</td><td>Untreatable insomnia + autonomic dysfunction + motor signs</td></tr>
+</table>
+
+<p>No effective treatment. Public-health notification per local protocol; instrument decontamination protocols. Counsel families.</p>
+
+<h2 id="post">15 · Post-infectious &amp; autoimmune encephalitis</h2>
+
+<p>Cross-references Modules 5 and 8.</p>
+
+<ul>
+  <li><strong>Autoimmune encephalitis</strong> &mdash; subacute (weeks) cognitive/psychiatric/seizure/movement disorder presentation. Most important antibodies:
+    <ul>
+      <li><strong>Anti-NMDA-R encephalitis</strong> &mdash; young women; teratoma in 50% of women aged 18–45; psychiatric prodrome → seizures → orofacial dyskinesias and choreoathetosis → autonomic instability. Treat with first-line (steroids + IVIG or PLEX) + tumour removal; second-line rituximab + cyclophosphamide if inadequate response.</li>
+      <li><strong>LGI1 encephalitis</strong> &mdash; older men; faciobrachial dystonic seizures (very brief, &lt; 3 s, in face + arm); hyponatraemia; limbic encephalitis pattern on MRI.</li>
+      <li><strong>CASPR2</strong> &mdash; Morvan syndrome (peripheral hyperexcitability + insomnia + autonomic).</li>
+      <li><strong>GABA-B</strong> &mdash; limbic encephalitis with refractory seizures; often paraneoplastic (small-cell lung cancer).</li>
+      <li><strong>AMPA</strong> &mdash; limbic encephalitis; often paraneoplastic.</li>
+      <li><strong>Anti-Hu, Ma2, CRMP5</strong> (intracellular targets) &mdash; paraneoplastic; less treatment-responsive.</li>
+    </ul>
+  </li>
+  <li><strong>Post-HSE autoimmune encephalitis</strong>: 5–27% of HSV encephalitis patients (especially children) develop autoimmune encephalitis (often anti-NMDA-R) 1–6 weeks after acute HSE. Monitor for new behaviour change, movement disorder, or seizures during recovery.</li>
+  <li><strong>ADEM</strong> (cross-reference Module 8): post-infectious / post-vaccinal monophasic demyelination with encephalopathy.</li>
+</ul>
+
+<h2 id="refer">16 · When to refer &amp; key counselling points</h2>
+<div class="refer"><strong>Emergency:</strong>
+<ul>
+  <li>Suspected bacterial meningitis or HSV encephalitis &mdash; antibiotics + aciclovir + dexamethasone within 1 hour.</li>
+  <li>Brain abscess with mass effect or new neurological deterioration.</li>
+  <li>Raised ICP in cryptococcal meningitis requiring serial therapeutic LP or drainage.</li>
+  <li>Status epilepticus in any encephalitis.</li>
+  <li>Suspected autoimmune encephalitis (esp.&nbsp;anti-NMDA-R with autonomic instability).</li>
+</ul>
+</div>
+
+<div class="warn"><strong>Routine but important:</strong> all confirmed bacterial meningitis (especially meningococcal) &mdash; public-health notification + contact tracing + chemoprophylaxis. Confirmed neurosyphilis or HIV &mdash; partner notification. Confirmed TBM &mdash; public-health notification + contact screening. Confirmed CJD &mdash; instrument decontamination + family counselling.</div>
+
+<h2 id="quick">17 · Quick-reference tables</h2>
+
+<h3>CSF cheat-sheet for the bedside</h3>
+<table>
+<tr><th>Pattern</th><th>Cells</th><th>Glucose</th><th>Protein</th><th>Diagnosis</th></tr>
+<tr><td>Pus / sepsis</td><td>↑↑↑ neutrophils</td><td>↓↓</td><td>↑↑</td><td>Acute bacterial</td></tr>
+<tr><td>Aseptic</td><td>↑ lymphocytes</td><td>Normal</td><td>Normal–↑</td><td>Viral, drug, partially treated, autoimmune</td></tr>
+<tr><td>Chronic (lymphocytic + low glucose)</td><td>↑ lymphocytes</td><td>↓</td><td>↑↑</td><td>TB, fungal, neoplastic, neurosarcoid</td></tr>
+<tr><td>RBC + xanthochromia</td><td>RBCs</td><td>Normal</td><td>↑</td><td>SAH, HSV (haemorrhagic)</td></tr>
+<tr><td>Albuminocytologic dissociation</td><td>Normal–slightly ↑</td><td>Normal</td><td>↑↑</td><td>GBS, CIDP</td></tr>
+</table>
+
+<h3>One-hour rule &mdash; what to give before the LP</h3>
+<table>
+<tr><th>Scenario</th><th>Empirical regimen</th></tr>
+<tr><td>Suspected bacterial meningitis, adult</td><td>Ceftriaxone 2 g IV + vancomycin 15–20 mg/kg IV + dexamethasone 10 mg IV + aciclovir 10 mg/kg IV (if encephalitis features) + ampicillin 2 g IV (if &gt; 50 / immunocompromised) + doxycycline (tick season)</td></tr>
+<tr><td>Suspected viral encephalitis</td><td>Aciclovir 10 mg/kg IV q8h + empirical bacterial cover until ruled out</td></tr>
+<tr><td>Brain abscess suspected</td><td>Vancomycin + ceftriaxone + metronidazole; neurosurgery referral</td></tr>
+</table>
+
+<h3>Distinctive imaging in CNS infection</h3>
+<table>
+<tr><th>Imaging finding</th><th>Diagnosis</th></tr>
+<tr><td>Bilateral medial temporal-lobe T2/FLAIR hyperintensity ± haemorrhage</td><td>HSV encephalitis</td></tr>
+<tr><td>Ring-enhancing lesion with central restricted diffusion</td><td>Bacterial brain abscess</td></tr>
+<tr><td>Multiple ring lesions in basal ganglia / grey-white junction</td><td>Cerebral toxoplasmosis (HIV)</td></tr>
+<tr><td>Single periventricular ring-enhancing lesion with restricted diffusion in HIV</td><td>Primary CNS lymphoma</td></tr>
+<tr><td>Asymmetric subcortical white-matter T2 hyperintensity without enhancement</td><td>PML</td></tr>
+<tr><td>Basal meningitis + hydrocephalus + basal-ganglia lacunes</td><td>TB meningitis</td></tr>
+<tr><td>Bilateral pulvinar T2 hyperintensity ("hockey-stick sign")</td><td>Variant CJD</td></tr>
+<tr><td>Cortical "ribboning" on DWI + basal-ganglia hyperintensity</td><td>Sporadic CJD</td></tr>
+<tr><td>Cystic lesions at multiple stages including calcifications</td><td>Neurocysticercosis</td></tr>
+</table>
+
+<h3>Drugs to start within 1 hour &mdash; doses</h3>
+<table>
+<tr><th>Drug</th><th>Adult dose</th><th>Indication</th></tr>
+<tr><td>Ceftriaxone</td><td>2 g IV q12h</td><td>Bacterial meningitis (community-acquired)</td></tr>
+<tr><td>Vancomycin</td><td>15–20 mg/kg IV q8–12h (trough 15–20)</td><td>Resistant pneumococcus / staph coverage</td></tr>
+<tr><td>Ampicillin</td><td>2 g IV q4h</td><td>Listeria cover (age &gt; 50, immunocompromised)</td></tr>
+<tr><td>Metronidazole</td><td>500 mg IV q8h</td><td>Anaerobic cover (otitis source, abscess)</td></tr>
+<tr><td>Meropenem</td><td>2 g IV q8h</td><td>Postneurosurgical, gram-negative cover</td></tr>
+<tr><td>Aciclovir</td><td>10 mg/kg IV q8h</td><td>Suspected HSV / VZV encephalitis</td></tr>
+<tr><td>Dexamethasone</td><td>10 mg IV q6h × 4 days</td><td>Bacterial meningitis (with or before first antibiotic dose)</td></tr>
+<tr><td>Doxycycline</td><td>100 mg IV/PO q12h</td><td>Tickborne disease cover</td></tr>
+</table>
+
+<hr>
+<p class="src">Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Ch. 31 (Bacterial, Fungal, Spirochetal, and Parasitic Infections), Ch. 32 (Viral Infections &amp; Prion Diseases); Merritt's <em>Neurology</em> 14e, Ch. 55 (Prion Diseases), Ch. 64 (Acute Bacterial Meningitis), Ch. 65 (Brain, Spinal, and Epidural Abscess), Ch. 66 (Other Bacterial CNS Infections), Ch. 67 (Chronic Meningitis), Ch. 68 (Parasitic Infections), Ch. 69 (Viral Infections), Ch. 70 (HIV/AIDS Neurological Complications). IDSA 2004 Guidelines for Bacterial Meningitis; ESCMID 2016 updated guidelines. Cryptococcal: WHO 2022 / IDSA 2010 / AMBITION-cm trial 2022 (single-dose liposomal amphotericin B). Tuberculous meningitis: dexamethasone (Thwaites 2004). HSV: aciclovir (Whitley 1986). Autoimmune encephalitis criteria: Graus et al., Lancet Neurol 2016.</p>
+
+</body>
+</html>

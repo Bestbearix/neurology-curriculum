@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 17 — Pain Syndromes &amp; Neuropathic Pain (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#b04020; --accent-2:#d96940; --soft:#fbeee5;
+    --line:#f0dccf; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#fbeee5; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#fdf8f4; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(176,64,32,0.06)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#822f17; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#9a3a1d}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#f4dcc9; color:#822f17; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#f8e5d6; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#f6e2d2; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 17 — Pain Syndromes &amp; Neuropathic Pain</h1>
+  <div class="sub">Mechanisms (nociceptive · neuropathic · nociplastic · mixed) · painful peripheral neuropathies · trigeminal neuralgia · postherpetic neuralgia · CRPS · central post-stroke pain · fibromyalgia · chronic low back pain · opioid stewardship</div>
+  <div class="meta">For the general physician · Reference · 2026 · Built from Adams &amp; Victor 12e (Ch 7, 10) and Merritt's 14e (Ch 56–59) · IASP 2017 + 2020, NeuPSIG 2015, Budapest CRPS 2010, ACR fibromyalgia 2016/2019</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — three mechanistic buckets that drive treatment</a></li>
+  <li><a href="#phys">Pain pathways and the modern definition</a></li>
+  <li><a href="#assess">Assessment — history, exam, validated tools</a></li>
+  <li><a href="#noci">Nociceptive pain</a></li>
+  <li><a href="#nepi">Neuropathic pain — definition, NeuPSIG criteria, screening</a></li>
+  <li><a href="#painfulpn">Painful peripheral neuropathies (diabetic, post-chemo, small-fibre)</a></li>
+  <li><a href="#postradi">Painful radiculopathy and chronic low back pain</a></li>
+  <li><a href="#phn">Herpes zoster and postherpetic neuralgia</a></li>
+  <li><a href="#tn">Trigeminal neuralgia and other facial pain</a></li>
+  <li><a href="#crps">Complex regional pain syndrome</a></li>
+  <li><a href="#central">Central post-stroke pain, MS pain, spinal cord pain</a></li>
+  <li><a href="#fibro">Nociplastic pain — fibromyalgia and overlap syndromes</a></li>
+  <li><a href="#cancer">Cancer pain and palliative principles</a></li>
+  <li><a href="#opioid">Opioid stewardship</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — three mechanistic buckets that drive treatment</h2>
+<p>Pain medicine works best when you decide first <em>what kind of pain</em> you are looking at. Three mechanistic categories (with a fourth "mixed" common in clinic) drive your treatment plan:</p>
+<table>
+<tr><th>Category</th><th>Bedside hallmarks</th><th>First-line treatments</th></tr>
+<tr><td><strong>Nociceptive</strong> — tissue injury or inflammation, normal nervous system</td><td>Dull, aching, throbbing; localised; worse on use; responds to NSAIDs/paracetamol; normal sensory exam</td><td>Paracetamol, NSAIDs, physical therapy; opioids only short-course for severe acute</td></tr>
+<tr><td><strong>Neuropathic</strong> — disease or lesion of the somatosensory system</td><td>Burning, shooting, electric, allodynia, hyperalgesia, paraesthesiae; sensory deficit in the same distribution</td><td>Gabapentinoids (gabapentin, pregabalin); SNRIs (duloxetine); TCAs (amitriptyline, nortriptyline); topical lidocaine 5% / capsaicin 8%</td></tr>
+<tr><td><strong>Nociplastic</strong> — altered nociceptive processing without clear tissue or nerve injury (formerly "central sensitisation")</td><td>Diffuse, multifocal; widespread tender points; fatigue, sleep disturbance, mood, cognitive fog; normal exam apart from tenderness</td><td>SNRI (duloxetine, milnacipran); TCA (amitriptyline); pregabalin; graded exercise; CBT, mindfulness; avoid opioids</td></tr>
+<tr><td><strong>Mixed</strong></td><td>Combination — e.g., painful radiculopathy (nociceptive low back + neuropathic radicular leg), chronic low back pain with central sensitisation</td><td>Combine approaches; opioid-sparing is the priority</td></tr>
+</table>
+
+<div class="pearl"><strong>The single principle:</strong> the mechanism dictates the drug class. Opioids treat acute severe nociceptive pain reasonably well; they are <em>poorly effective and harmful</em> in neuropathic and nociplastic pain. Reaching for opioids first in chronic pain is one of the most common and damaging errors in pain medicine.</div>
+
+<h2 id="phys">2. Pain pathways and the modern definition</h2>
+
+<h3>IASP 2020 revised definition of pain</h3>
+<p>"An unpleasant sensory and emotional experience associated with, or resembling that associated with, actual or potential tissue damage." Six accompanying notes emphasise that pain is always a personal experience influenced by biological, psychological and social factors; that pain and nociception are different phenomena; that verbal description is only one of several behaviours to express pain; and that a person's report of pain should be respected.</p>
+
+<h3>Pathway in one paragraph</h3>
+<p>Tissue stimulus → activates <strong>nociceptors</strong> (free nerve endings; small-myelinated Aδ for first/sharp pain, unmyelinated C fibres for second/dull burning pain) → dorsal root ganglion → enters spinal cord at <strong>lamina I, II (substantia gelatinosa), V</strong> → crosses within 1–2 segments → ascends in <strong>spinothalamic tract</strong> to VPL of thalamus → primary somatosensory cortex (S1), insula, anterior cingulate cortex. The same input simultaneously engages limbic and prefrontal areas — pain has an affective and cognitive dimension always.</p>
+
+<h3>Key modulating systems</h3>
+<ul>
+  <li><strong>Descending inhibition</strong>: periaqueductal grey (PAG) → rostral ventromedial medulla (RVM) → spinal dorsal horn; mediated by NE (locus coeruleus → α2 receptors) and serotonin (raphe); released by endogenous opioids. <em>SNRIs and TCAs work largely by enhancing this descending NE/5HT pathway.</em></li>
+  <li><strong>Spinal gate control</strong> (Melzack &amp; Wall): large-fibre (Aβ — touch) input inhibits transmission of C/Aδ nociceptive signals at lamina II — the basis for TENS, massage, "rubbing it better".</li>
+  <li><strong>Central sensitisation</strong>: NMDA-mediated wind-up + reduced descending inhibition → amplification at the dorsal horn. Drives allodynia and chronic pain. <em>Gabapentinoids reduce presynaptic calcium influx via α2δ; ketamine blocks NMDA; clonidine enhances descending α2 inhibition.</em></li>
+  <li><strong>Peripheral sensitisation</strong>: inflammatory soup (prostaglandins — COX-1/2, bradykinin, histamine, substance P, CGRP) lowers nociceptor thresholds. <em>NSAIDs work here.</em></li>
+</ul>
+
+<h2 id="assess">3. Assessment</h2>
+
+<h3>Structured history</h3>
+<p>Use a mnemonic such as <strong>OPQRST + impact</strong>:</p>
+<ul>
+  <li><strong>O</strong>nset; <strong>P</strong>rovoking / palliating; <strong>Q</strong>uality (burning, electric → neuropathic; aching → nociceptive; widespread + fatigue → nociplastic); <strong>R</strong>egion / radiation; <strong>S</strong>everity (NRS 0–10); <strong>T</strong>iming &amp; duration.</li>
+  <li><strong>Impact</strong> on sleep, mood, function, work, relationships.</li>
+  <li>Red flags (cauda equina, infection, malignancy, fracture, vascular catastrophe); psychosocial yellow flags (catastrophising, fear avoidance, low mood, work conflict).</li>
+  <li>Prior treatments (which drugs, doses, duration, effect, side effects).</li>
+  <li>Substance use history; opioid use; mental health history.</li>
+</ul>
+
+<h3>Examination</h3>
+<ul>
+  <li>Inspection (swelling, atrophy, posture, splinting, skin/temperature/colour changes — CRPS).</li>
+  <li>Range of motion; tone; reflexes; strength.</li>
+  <li><strong>Sensory mapping</strong> in suspected neuropathic pain — touch (Aβ), pinprick (Aδ), cold (Aδ), warmth (C), vibration (Aβ — large fibre); look for <strong>allodynia</strong> (light touch → pain) and <strong>hyperalgesia</strong> (more pain than expected to noxious stimulus).</li>
+  <li>Provocative tests (straight leg raise, Spurling, Tinel/Phalen, Finkelstein).</li>
+  <li>Generalised tender points / control points (fibromyalgia).</li>
+</ul>
+
+<h3>Validated tools</h3>
+<table>
+<tr><th>Tool</th><th>Use</th></tr>
+<tr><td><strong>DN4 (Douleur Neuropathique 4)</strong></td><td>10-item screen for neuropathic pain; 7 history + 3 exam. Score ≥ 4 of 10 → likely neuropathic (sensitivity ~83%, specificity ~90%).</td></tr>
+<tr><td><strong>painDETECT</strong></td><td>9-item self-report; score ≥ 19 likely neuropathic; 13–18 ambiguous.</td></tr>
+<tr><td><strong>S-LANSS</strong></td><td>Self-completed Leeds neuropathic screen; ≥ 12 of 24 likely neuropathic.</td></tr>
+<tr><td><strong>Brief Pain Inventory (BPI)</strong></td><td>Severity + interference (sleep, mood, walking, work, relations, enjoyment); good for monitoring response.</td></tr>
+<tr><td><strong>2016/2019 ACR fibromyalgia criteria</strong></td><td>Widespread Pain Index (WPI) + Symptom Severity (SS); WPI ≥ 7 + SS ≥ 5 (or WPI 4–6 + SS ≥ 9); generalised pain (4 of 5 regions, axial); symptoms ≥ 3 months.</td></tr>
+<tr><td><strong>STarT Back / Keele STarT</strong></td><td>Risk-stratifies low back pain (low/medium/high risk of persistent disability); guides intervention intensity.</td></tr>
+<tr><td><strong>SOAPP, ORT, PMQ</strong></td><td>Opioid-misuse risk screens before chronic opioid initiation.</td></tr>
+<tr><td><strong>QST (quantitative sensory testing)</strong></td><td>Research-standard sensory phenotyping; clinical use in selected centres for treatment stratification.</td></tr>
+<tr><td><strong>Skin biopsy for IENFD</strong></td><td>Intraepidermal nerve fibre density at distal calf; gold standard for diagnosing small-fibre neuropathy when conventional EMG/NCS is normal.</td></tr>
+</table>
+
+<h2 id="noci">4. Nociceptive pain</h2>
+<ul>
+  <li>Tissue injury or inflammation with intact nervous system. Acute postoperative, fracture, arthritis, biliary colic, MI, pancreatitis — heterogeneous and usually self-limiting with treatment of cause.</li>
+  <li>WHO analgesic ladder (originally cancer pain, widely applied):
+    <ol>
+      <li><strong>Step 1</strong>: paracetamol ± NSAID ± adjuvant.</li>
+      <li><strong>Step 2</strong>: weak opioid (codeine, tramadol — caveats: tramadol has SNRI activity and lowers seizure threshold; codeine highly variable metabolism — CYP2D6).</li>
+      <li><strong>Step 3</strong>: strong opioid (morphine, oxycodone, hydromorphone, fentanyl).</li>
+      <li><strong>Adjuvants</strong> at any step: gabapentinoids, antidepressants, steroids (bony / nerve compression), bisphosphonates, anti-spasmodics, topical agents, regional nerve blocks.</li>
+    </ol>
+  </li>
+  <li><strong>NSAIDs cautions</strong>: GI bleed (add PPI in at-risk), renal injury (especially in elderly, dehydrated, HF, CKD), cardiovascular risk (highest with diclofenac and high-dose ibuprofen; naproxen lowest), hypertension, fluid retention. Avoid in advanced CKD and severe HF.</li>
+  <li><strong>Acute postoperative pain</strong> — multimodal opioid-sparing (paracetamol + NSAID + regional block / wound infiltration + gabapentinoid limited evidence + low-dose ketamine in selected) reduces opioid requirement and persistent post-surgical pain.</li>
+</ul>
+
+<h2 id="nepi">5. Neuropathic pain</h2>
+<p><strong>NeuPSIG 2008 (revised IASP 2011) grading system</strong> for "neuropathic pain":</p>
+<table>
+<tr><th>Grade</th><th>Criteria</th></tr>
+<tr><td>Possible</td><td>Pain with distinct neuroanatomically plausible distribution + history suggestive of relevant lesion/disease of the somatosensory system</td></tr>
+<tr><td>Probable</td><td>Above + sensory signs (negative or positive) confined to the affected territory</td></tr>
+<tr><td>Definite</td><td>Above + a diagnostic test confirming the lesion or disease (NCS, MRI, skin biopsy, etc.)</td></tr>
+</table>
+
+<h3>NeuPSIG 2015 pharmacological recommendations</h3>
+<table>
+<tr><th>Line</th><th>Drug</th><th>Comments</th></tr>
+<tr><td>First-line</td><td><strong>Gabapentinoids</strong> (gabapentin 300 mg → titrate to 1800–3600 mg/day in 3 divided; pregabalin 75 mg BD → 300–600 mg/day)</td><td>Renal dose adjustment; sedation, weight gain, peripheral oedema; abuse / misuse potential — recent black-box concerns about respiratory depression with concurrent opioids and benzodiazepines</td></tr>
+<tr><td>First-line</td><td><strong>SNRIs</strong> — duloxetine 30 mg → 60–120 mg/day; venlafaxine ER 75–225 mg/day</td><td>Especially good for painful diabetic neuropathy, fibromyalgia, chronic musculoskeletal pain. Hypertension at higher doses; serotonin syndrome interactions (cross-ref Module 13)</td></tr>
+<tr><td>First-line</td><td><strong>TCAs</strong> — amitriptyline, nortriptyline, desipramine 10–25 mg nocte → 75–150 mg</td><td>Nortriptyline / desipramine better tolerated; anticholinergic burden in elderly (avoid in elderly with cognitive issues); QT prolongation; cardiovascular safety in older patients</td></tr>
+<tr><td>Second-line</td><td><strong>Topical lidocaine 5% patch</strong>; <strong>capsaicin 8% patch</strong> (single-application clinic procedure)</td><td>Lidocaine: PHN, focal neuropathy. Capsaicin 8%: focal neuropathic pain (PHN, HIV neuropathy, painful diabetic neuropathy), repeat every 3 months</td></tr>
+<tr><td>Second-line</td><td><strong>Tramadol</strong></td><td>Mixed μ-opioid + SNRI; serotonin syndrome risk; lowered seizure threshold; not first-line opioid</td></tr>
+<tr><td>Third-line</td><td><strong>Strong opioids</strong> — last resort and at lowest dose</td><td>Modest benefit in neuropathic pain; harm-benefit ratio worsens with chronic use; tapentadol (μ + NRI) has been studied</td></tr>
+<tr><td>Third-line</td><td><strong>Botulinum toxin A</strong> (focal post-traumatic / post-herpetic / trigeminal)</td><td>Specialist procedure; reasonable evidence in selected focal neuropathic pain</td></tr>
+</table>
+
+<div class="pearl"><strong>Practical opioid principle in neuropathic pain</strong>: even when opioids reduce pain scores, function and quality-of-life gains are usually modest and harms accumulate over time. Combine first/second-line non-opioids with rehabilitation. Trials of opioids in chronic non-cancer pain should be time-limited and goal-directed (function, not pain score alone).</div>
+
+<h2 id="painfulpn">6. Painful peripheral neuropathies</h2>
+<ul>
+  <li><strong>Painful diabetic peripheral neuropathy (DPN)</strong>: most common cause of painful peripheral neuropathy. Symmetric distal burning + electric pain + allodynia, worse at night. Tight glycaemic control (more effective in T1DM than T2DM for prevention); modifiable cardiovascular risk factors. First-line: duloxetine, pregabalin, gabapentin, amitriptyline. Topical capsaicin 8% in selected.</li>
+  <li><strong>Chemotherapy-induced peripheral neuropathy (CIPN)</strong>: platinums (cisplatin — sensory ataxia + lhermitte; oxaliplatin — cold-induced acute neurotoxicity + chronic sensory neuropathy), taxanes (paclitaxel), bortezomib, vincristine, thalidomide / pomalidomide. <strong>Duloxetine</strong> is the only agent with positive RCT evidence (Smith JAMA 2013). Cryotherapy / compression gloves during infusion may reduce incidence (limited evidence).</li>
+  <li><strong>Small-fibre neuropathy (SFN)</strong>: burning feet, allodynia, autonomic features (dry eyes/mouth, OH, GI dysmotility, sudomotor changes — cross-ref Module 15). Conventional NCS normal. Diagnosis: <strong>skin biopsy with reduced IENFD</strong> at the distal calf (gold standard); QST. Causes: diabetes / pre-diabetes (impaired glucose tolerance is a major contributor — OGTT essential), Sjögren, sarcoidosis, vitamin B12 deficiency (Module 13), HIV, paraneoplastic, amyloid (hereditary ATTR with patisiran/vutrisiran/tafamidis — cross-ref Module 15), Fabry disease (X-linked α-galactosidase A; agalsidase enzyme replacement, migalastat in selected GLA mutations), <em>SCN9A/10A/11A</em> channelopathies (erythromelalgia, paroxysmal extreme pain).</li>
+  <li><strong>HIV neuropathy</strong>: distal symmetric painful sensory neuropathy from HIV itself ± antiretrovirals (stavudine, didanosine — now rare).</li>
+  <li><strong>Vasculitic neuropathy</strong> (multiplex, stepwise asymmetric): immunotherapy + treat underlying vasculitis.</li>
+</ul>
+
+<h2 id="postradi">7. Painful radiculopathy and chronic low back pain</h2>
+<ul>
+  <li><strong>Acute radiculopathy</strong>: dermatomal pain ± weakness / numbness / reflex loss; MRI for surgical planning, not for benign presentations within first 6 weeks.</li>
+  <li>Most resolve with conservative management (analgesia, paracetamol/NSAID, early mobilisation, physiotherapy, neuropathic pain agents if sustained radicular pain).</li>
+  <li><strong>Epidural steroid injection</strong> offers short-term pain relief in selected radiculopathy but limited long-term benefit; specialist procedure with rare but serious risks (paralysis, infection, dural puncture).</li>
+  <li><strong>Surgery</strong>: progressive neurological deficit, cauda equina syndrome (emergency — Module 10), or persistent disabling radicular pain despite ≥ 6 weeks of conservative management with clear MRI correlation.</li>
+</ul>
+
+<h3>Chronic low back pain</h3>
+<ul>
+  <li>Globally the leading cause of years lived with disability. Mostly non-specific (~85%); identify the small number with serious cause via red flags (fever, weight loss, IV drug use, history of cancer, age &gt; 50 or &lt; 18, night pain, neurology, recent trauma).</li>
+  <li>First-line: stay active, avoid bed rest, education, physiotherapy / exercise, CBT or mindfulness, paracetamol or NSAID short course.</li>
+  <li>Do not image without red flags within 6 weeks.</li>
+  <li>Many patients have a mixed mechanistic phenotype (nociceptive + radicular neuropathic + nociplastic / central sensitisation). Identify which dominate and combine treatments.</li>
+  <li>Spinal cord stimulation, intrathecal drug delivery, radiofrequency facet denervation, regenerative therapies — specialist procedures with mixed evidence.</li>
+</ul>
+
+<h2 id="phn">8. Herpes zoster and postherpetic neuralgia</h2>
+<ul>
+  <li><strong>Zoster (shingles)</strong>: reactivation of varicella-zoster virus in dorsal root or cranial nerve ganglia; dermatomal vesicular rash, severe neuropathic pain that often precedes the rash.</li>
+  <li><strong>Treatment of acute zoster</strong>: aciclovir 800 mg po 5×/day or valaciclovir 1 g po TID × 7 days, started within 72 hours of rash; reduces severity and duration. Pain control with paracetamol, NSAID, opioid, and consider early gabapentinoid / amitriptyline. <strong>Steroids reduce acute pain but do NOT prevent PHN.</strong></li>
+  <li><strong>Postherpetic neuralgia (PHN)</strong>: pain persisting &gt; 90 days after rash onset. Risk factors: age (rare &lt; 50; ~30% &gt; 80), severe prodromal pain, severe rash, ophthalmic zoster, immunosuppression.</li>
+  <li>Treatment of PHN: <strong>gabapentin, pregabalin, TCAs, topical lidocaine 5% patch, capsaicin 8% patch</strong>; opioids only for refractory cases.</li>
+  <li><strong>Recombinant zoster vaccine (Shingrix)</strong>: 2-dose subunit vaccine; &gt; 90% efficacy against zoster and PHN in adults ≥ 50; preferred over live vaccine (Zostavax now withdrawn in many countries). Recommend in immunocompromised (FDA expanded to ≥ 19 immunocompromised).</li>
+  <li><strong>Ramsay Hunt syndrome</strong>: VZV reactivation in geniculate ganglion → facial palsy + auricular vesicles + hearing/balance symptoms; treat with valaciclovir + steroid; cross-ref Module 1 facial nerve.</li>
+</ul>
+
+<h2 id="tn">9. Trigeminal neuralgia and other facial pain</h2>
+<ul>
+  <li><strong>Trigeminal neuralgia (TN)</strong>: paroxysms of unilateral electric-shock or stabbing facial pain in V2 and V3 (V1 less common); triggered by light touch, brushing teeth, chewing, cold air; usually older women.</li>
+  <li><strong>Burchiel classification</strong>: TN type 1 (classical — episodic, no constant pain between attacks; ICHD-3 "trigeminal neuralgia, purely paroxysmal"); TN type 2 (with concomitant continuous pain); other subtypes (post-traumatic, secondary to MS, secondary to space-occupying lesion).</li>
+  <li><strong>Cause</strong>: vascular loop (superior cerebellar artery) compressing the trigeminal root entry zone in most classical TN. <strong>MRI brain</strong> with high-resolution sequences (FIESTA / CISS) to identify the vascular loop and exclude secondary causes (MS plaque — Module 8; tumour — Module 12; aneurysm). Suspect MS in young patients, bilateral TN, atypical features.</li>
+  <li><strong>First-line treatment</strong>: <strong>carbamazepine 100 mg BD titrated to 600–1200 mg/day</strong> — dramatic relief in 70–90% but eventually loses efficacy in many. <strong>Oxcarbazepine</strong> better tolerated alternative. Watch for hyponatraemia (especially OXC), Stevens-Johnson (HLA-B*1502 in Han Chinese, Thai, Filipino — pre-test before CBZ); cytopenias.</li>
+  <li>Second-line drugs: lamotrigine, baclofen, gabapentin, pregabalin.</li>
+  <li><strong>Surgical options</strong> when drugs fail or cause intolerable side effects:
+    <ul>
+      <li><strong>Microvascular decompression (MVD, Jannetta)</strong> — posterior fossa craniotomy with Teflon pad between vessel and nerve root; ~90% long-term pain relief in classical TN; small but real perioperative risks; reasonable choice in fit younger patients.</li>
+      <li><strong>Gamma Knife stereotactic radiosurgery</strong> — outpatient; delayed onset (weeks to months); ~70–80% pain relief; preferred in older or frail patients.</li>
+      <li><strong>Percutaneous procedures</strong> at Gasserian ganglion — radiofrequency thermocoagulation, glycerol rhizolysis, balloon compression; higher recurrence; risk of facial numbness.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Other facial pain syndromes</h3>
+<ul>
+  <li><strong>Glossopharyngeal neuralgia</strong>: paroxysmal throat/ear pain triggered by swallowing, talking, yawning; rare; treat similarly to TN (carbamazepine) and consider MVD.</li>
+  <li><strong>Persistent idiopathic facial pain (PIFP)</strong> (formerly atypical facial pain): continuous deep ache, often in V2 distribution, no clear trigger or structural cause; treat with antidepressant (TCA or duloxetine) + CBT.</li>
+  <li><strong>Cluster headache, paroxysmal hemicrania, hemicrania continua, SUNCT/SUNA</strong>: cross-ref Module 4.</li>
+  <li><strong>Temporomandibular disorders (TMD)</strong>: jaw pain, clicking, restricted opening; mostly muscular; conservative care.</li>
+  <li><strong>Burning mouth syndrome</strong>: idiopathic chronic oral burning; check for B12/folate/iron deficiency, candida, diabetes; clonazepam swish-and-spit, low-dose TCA, gabapentinoids.</li>
+</ul>
+
+<h2 id="crps">10. Complex regional pain syndrome</h2>
+<ul>
+  <li>Disproportionate pain after a minor injury or surgery, with vasomotor, sudomotor, oedema, motor, and trophic changes in a region.</li>
+  <li><strong>CRPS type 1</strong> (no defined nerve lesion — formerly RSD) vs <strong>type 2</strong> (defined nerve injury — formerly causalgia).</li>
+</ul>
+
+<h3>Budapest diagnostic criteria (Harden 2010)</h3>
+<ol>
+  <li>Continuing pain disproportionate to any inciting event.</li>
+  <li>At least <strong>one symptom in three of four</strong> categories (subjective report): sensory (hyperalgesia, allodynia); vasomotor (temperature or colour asymmetry); sudomotor/oedema (sweating asymmetry, oedema); motor/trophic (decreased ROM, motor dysfunction — weakness, tremor, dystonia; trophic changes in hair, nails, skin).</li>
+  <li>At least <strong>one sign at the time of evaluation in two of four</strong> categories (objective): the same four domains.</li>
+  <li>No other diagnosis better explains the picture.</li>
+</ol>
+
+<h3>Management</h3>
+<ul>
+  <li><strong>Early movement and rehabilitation</strong> is the cornerstone — physiotherapy + occupational therapy + graded motor imagery + mirror box therapy.</li>
+  <li>Multimodal pharmacotherapy: gabapentinoids, TCAs, SNRIs; bisphosphonates (alendronate, neridronate — most evidence in early CRPS); intranasal calcitonin (mixed evidence); topical capsaicin 8%; ketamine infusion in severe refractory; intrathecal baclofen for dystonia.</li>
+  <li>Sympathetic nerve blocks may help — limited long-term effect.</li>
+  <li>Psychological — CBT, fear-avoidance work, education.</li>
+  <li>Vitamin C 500 mg/day for 50 days after wrist fracture <em>reduces</em> CRPS incidence (Lancet 1999, replicated; 2017 Cochrane equivocal — still widely used as low-risk).</li>
+  <li>Spinal cord stimulation in refractory cases.</li>
+</ul>
+
+<div class="pearl"><strong>The single principle in CRPS:</strong> the disorder is partly maintained by disuse and "learned non-use" cortical reorganisation. Restoring movement — even small — is the most important intervention. Pain medications enable rehabilitation; they do not cure CRPS on their own.</div>
+
+<h2 id="central">11. Central pain syndromes</h2>
+<ul>
+  <li><strong>Central post-stroke pain (CPSP, Dejerine-Roussy)</strong>: pain (often burning, sometimes constricting) in the body region affected by a thalamic or lateral medullary stroke; allodynia, dysaesthesia. Onset variable (immediate to months post-stroke). First-line: amitriptyline, gabapentin/pregabalin, lamotrigine; second-line: duloxetine; rTMS/motor cortex stimulation in specialist centres. Cross-ref Module 2.</li>
+  <li><strong>MS pain</strong>: trigeminal neuralgia from pontine plaque (often bilateral, atypical — Module 8), painful tonic spasms, Lhermitte phenomenon (electric shock down the spine on neck flexion — also seen with cervical cord compression, B12 deficiency, radiation myelopathy), central neuropathic burning. Treatment as for neuropathic pain ± management of demyelinating disease.</li>
+  <li><strong>Spinal cord injury pain</strong>: at-level (segmental neuropathic) + below-level (central deafferentation pain) + nociceptive (musculoskeletal from wheelchair use, etc.) — Module 10. Gabapentinoids, TCAs, intrathecal baclofen for spasticity.</li>
+  <li><strong>Syringomyelia</strong>: dissociated sensory loss with burning pain — Module 10.</li>
+</ul>
+
+<h2 id="fibro">12. Nociplastic pain — fibromyalgia and overlap syndromes</h2>
+<ul>
+  <li><strong>Fibromyalgia</strong>: chronic widespread pain + fatigue + sleep disturbance + cognitive symptoms ("fibro fog") + multiple somatic symptoms. Female predominance ~2–3:1. Prevalence 2–4%.</li>
+  <li><strong>ACR 2016/2019 criteria</strong>: Widespread Pain Index (count of pain regions) and Symptom Severity Scale (fatigue, sleep, cognitive symptoms, somatic burden); generalised pain (≥ 4 of 5 regions, with axial); duration ≥ 3 months. Replaces 1990 tender-point criteria.</li>
+  <li><strong>Pathophysiology</strong>: altered central pain processing ("nociplastic") — reduced descending inhibition, increased temporal summation, functional MRI shows amplified responses. Not a peripheral inflammatory or autoimmune disease.</li>
+  <li>Investigation focused: rule out inflammatory arthritis (RF, CCP, ESR/CRP), hypothyroidism, polymyalgia rheumatica, hypovitaminosis D, sleep apnea, depression. Investigations are minimal — do not pursue elaborate workup unless red flags.</li>
+</ul>
+
+<h3>Treatment</h3>
+<ol>
+  <li><strong>Education and self-management cornerstones</strong>: validate the diagnosis; explain that the pain is real but the mechanism is central sensitisation, not tissue damage; encourage activity, sleep hygiene, pacing.</li>
+  <li><strong>Graded aerobic exercise</strong> — strongest evidence base; start very low and progress slowly; aquatic exercise often well tolerated.</li>
+  <li><strong>Cognitive behavioural therapy and mindfulness</strong>.</li>
+  <li><strong>Pharmacotherapy</strong>: duloxetine (FDA-approved), milnacipran (FDA-approved), pregabalin (FDA-approved), amitriptyline (off-label, evidence base); tramadol with caution.</li>
+  <li><strong>Avoid opioids</strong> (limited efficacy, harm potential); avoid benzodiazepines.</li>
+  <li>Address comorbid mood / sleep disorders.</li>
+</ol>
+
+<h3>Overlap nociplastic syndromes</h3>
+<p>Frequently coexist with fibromyalgia and share treatment principles: chronic fatigue syndrome / ME, irritable bowel syndrome, interstitial cystitis, temporomandibular disorders, chronic pelvic pain, tension-type headache (Module 4), chronic low back pain with central sensitisation, post-acute COVID-19 syndromes.</p>
+
+<h2 id="cancer">13. Cancer pain and palliative principles</h2>
+<ul>
+  <li>Use the <strong>WHO analgesic ladder</strong> as a starting framework; modify with disease-specific adjuvants.</li>
+  <li><strong>Bone pain</strong>: NSAIDs, paracetamol, opioids, bisphosphonates (zoledronic acid, denosumab), single-fraction palliative radiotherapy, radionuclides (strontium-89, samarium-153); manage osteoporotic fracture risk.</li>
+  <li><strong>Neuropathic cancer pain</strong> (tumour invasion of plexus, radiation plexopathy, chemo-induced): combine opioids with gabapentinoid, SNRI / TCA; regional / neuraxial procedures.</li>
+  <li><strong>Visceral pain</strong>: opioids + antispasmodics; consider coeliac plexus block for pancreatic / upper-abdominal malignancy.</li>
+  <li>Anticipatory medications at end-of-life: morphine, midazolam, hyoscine butylbromide (or glycopyrrolate), antiemetic.</li>
+  <li>Palliative-care input early in any cancer diagnosis with persistent pain — better symptom control, quality of life, and even survival (Temel NEJM 2010).</li>
+</ul>
+
+<h2 id="opioid">14. Opioid stewardship</h2>
+<ul>
+  <li>Use opioids primarily for acute severe nociceptive pain, cancer pain, and end-of-life care. They are <strong>poorly effective and harmful</strong> in chronic non-cancer pain.</li>
+  <li><strong>Initiation in chronic non-cancer pain</strong> — only as a time-limited trial, with explicit functional goals, after non-opioid pharmacotherapy and rehabilitation have failed. Document risk assessment (SOAPP, ORT), check prescription monitoring program.</li>
+  <li><strong>Dose limits</strong>: many guidelines advise reassessing carefully at &gt; 50 morphine milligram equivalents (MME) per day and avoiding &gt; 90 MME/day where possible.</li>
+  <li><strong>Co-prescribing risks</strong>: benzodiazepines (boxed warning — respiratory depression and death), gabapentinoids (FDA 2019 boxed warning — respiratory depression), alcohol, sedatives.</li>
+  <li><strong>Overdose prevention</strong>: prescribe take-home naloxone for patient and family; counsel.</li>
+  <li><strong>Tapering</strong>: slow (5–10% every 1–4 weeks; slower for long-term users); manage withdrawal symptoms; involve patient in plan; do not abruptly discontinue (rebound pain, withdrawal, mental-health crises, suicide).</li>
+  <li>Opioid use disorder: medication-assisted treatment with methadone or buprenorphine (cross-ref Module 13).</li>
+</ul>
+
+<div class="refer">For any patient with chronic non-cancer pain on chronic opioids, consider a referral to a pain medicine specialist — both for opioid review and for an opioid-sparing multidisciplinary plan. Discuss the risk-benefit transparently and document. Naloxone co-prescribing is increasingly standard.</div>
+
+<h2 id="refer">15. When to refer</h2>
+<ul>
+  <li><strong>Same day</strong>: red-flag back pain with cauda equina or new spinal cord signs (Module 10); suspected zoster ophthalmicus or Ramsay Hunt; new bilateral / atypical trigeminal neuralgia (suspect MS); CRPS with rapidly worsening function.</li>
+  <li><strong>Within 1–2 weeks</strong>: refractory trigeminal neuralgia for MVD/SRS discussion; suspected small-fibre neuropathy needing skin biopsy / autonomic testing; CRPS not improving with first-line care; suspected fibromyalgia with diagnostic uncertainty.</li>
+  <li><strong>Routine</strong>: chronic non-cancer pain on opioids for review and opioid-sparing plan; stable chronic neuropathic pain requiring complex regimens; functional rehabilitation for chronic pain with significant disability.</li>
+  <li><strong>Always involve</strong>: multidisciplinary pain medicine, physiotherapy, occupational therapy, clinical psychology / CBT, palliative care for cancer pain.</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources</h3>
+<p>Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Chapter 7 (Pain) and Chapter 10 (Pain in the Back, Neck, and Extremities).</p>
+<p>Merritt's <em>Neurology</em> 14e, Chapter 56 (Trigeminal Neuralgia and Other Facial Pains), 57 (Postherpetic Neuralgia), 58 (Complex Regional Pain Syndrome), 59 (Neuropathic Pain).</p>
+<p>Raja SN et al. The revised IASP definition of pain (IASP 2020). <em>Pain</em> 2020; 161: 1976–1982.</p>
+<p>Treede RD et al. Neuropathic pain — redefinition and a grading system for clinical and research purposes (NeuPSIG). <em>Neurology</em> 2008; 70: 1630–1635 (updated IASP 2011).</p>
+<p>Finnerup NB et al. Pharmacotherapy for neuropathic pain in adults: a systematic review and meta-analysis (NeuPSIG). <em>Lancet Neurology</em> 2015; 14: 162–173.</p>
+<p>Harden RN et al. Validation of the Budapest criteria for complex regional pain syndrome. <em>Pain</em> 2010; 150: 268–274; and the 2021 CRPS Best Practice Guidelines (Goebel A et al., <em>Pain Med</em> 2022).</p>
+<p>Wolfe F et al. 2016 revisions to the 2010/2011 fibromyalgia diagnostic criteria. <em>Semin Arthritis Rheum</em> 2016; 46: 319–329.</p>
+<p>Smith EML et al. Effect of duloxetine on pain, function, and quality of life among patients with chemotherapy-induced peripheral neuropathic pain. <em>JAMA</em> 2013; 309: 1359–1367.</p>
+<p>Bennett MI et al. The S-LANSS score for identifying pain of predominantly neuropathic origin. <em>J Pain</em> 2005; 6: 149–158. Bouhassira D et al. Comparison of pain syndromes associated with nervous or somatic lesions and development of a new neuropathic pain diagnostic questionnaire (DN4). <em>Pain</em> 2005; 114: 29–36.</p>
+<p>Temel JS et al. Early palliative care for patients with metastatic non-small-cell lung cancer. <em>NEJM</em> 2010; 363: 733–742.</p>
+<p>Cruccu G et al. AAN/EFNS guidelines on trigeminal neuralgia management. <em>Eur J Neurol</em> 2008 (updated 2019). Bendtsen L et al. European Academy of Neurology guideline on trigeminal neuralgia. <em>Eur J Neurol</em> 2019; 26: 831–849.</p>
+<p>Dowell D et al. CDC clinical practice guideline for prescribing opioids for pain — 2022. <em>MMWR Recomm Rep</em> 2022; 71: 1–95.</p>
+</div>
+
+<footer>Module 17 — Pain Syndromes &amp; Neuropathic Pain · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>

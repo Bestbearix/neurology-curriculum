@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 17 — Pain Syndromes &amp; Neuropathic Pain (Interactive)</title>
+<style>
+  :root{
+    --bg:#1a0b08; --panel:#26140f; --panel-2:#321c14; --line:#4a2a1f;
+    --ink:#f0e4dc; --muted:#c2a190; --accent:#ff8050; --accent-2:#ffae85;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#3a2218; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#140703,#1a0b08 35%,#1a0b08); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(255,128,80,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#2a0d05; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#ffd8c4}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(255,128,80,.10); border-color:var(--accent); color:#ffd8c4}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#2a0d05; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(255,128,80,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* DN4 calculator */
+  .calc{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .calc .section-head{font-size:1.0rem; color:var(--accent-2); font-weight:600; margin:10px 0 6px}
+  .calc .row{padding:10px 0; border-bottom:1px dashed var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  .calc .row:last-child{border-bottom:none}
+  .calc .lbl{flex:1; font-size:.94rem}
+  .calc .opts{display:flex; gap:6px}
+  .calc .opts button{background:var(--panel-2); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; color:var(--ink)}
+  .calc .opts button.sel{background:var(--accent); color:#2a0d05; border-color:var(--accent); font-weight:600}
+  .scorebar{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .scorebar h4{margin:0 0 6px; color:var(--accent-2)}
+  .scorebar .big{font-size:2rem; font-weight:700; color:var(--accent-2)}
+  .scorebar .interp{margin-top:8px; font-size:.95rem; color:var(--ink)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 17</span>
+    <span class="badge">General physician</span>
+    <h1>Pain Syndromes &amp; Neuropathic Pain — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 7, 10) and Merritt's <em>Neurology</em> (14e, Ch. 56–59). IASP 2020 definition, NeuPSIG 2008/2015, Budapest CRPS 2010, ACR fibromyalgia 2016/2019, EAN trigeminal neuralgia 2019, CDC opioid 2022.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="dn4">DN4 Screener</button>
+    <button data-tab="mech">Pain Mechanism Classifier</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Pain is the commonest reason patients consult their doctor. It is also one of the most over- and under-treated symptoms in medicine. The general physician who can decide whether the pain is nociceptive, neuropathic, nociplastic, or mixed — and who can build a layered opioid-sparing treatment plan — has a vastly more powerful tool kit than one who simply reaches for an analgesic.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Place every pain presentation into one of four mechanistic categories.</li>
+      <li>Use DN4, painDETECT, BPI, the Budapest criteria, and the 2016 ACR fibromyalgia framework fluently.</li>
+      <li>Apply NeuPSIG-aligned first-, second-, and third-line treatment for neuropathic pain.</li>
+      <li>Diagnose and treat trigeminal neuralgia and discuss MVD vs SRS rationally.</li>
+      <li>Recognise small-fibre neuropathy, send the right tests, and treat the right cause.</li>
+      <li>Use the WHO ladder for nociceptive and cancer pain; recognise when adjuvants matter more than opioids.</li>
+      <li>Identify CRPS by the Budapest criteria and lead with rehabilitation.</li>
+      <li>Steward opioids — initiate cautiously, taper safely, co-prescribe naloxone, identify opioid use disorder.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle that prevents disasters:</strong> the mechanism dictates the drug. Opioids treat acute severe nociceptive pain reasonably well; they are <em>poorly effective and harmful</em> in chronic neuropathic and nociplastic pain. Reaching for opioids first in chronic pain is the most common and damaging error in pain medicine.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Three (or four) mechanistic buckets</summary>
+      <div class="body">
+        <table>
+          <tr><th>Category</th><th>Bedside hallmarks</th><th>First-line treatments</th></tr>
+          <tr><td><strong>Nociceptive</strong></td><td>Dull, aching, throbbing; localised; worse on use; responds to NSAIDs/paracetamol; normal sensory exam</td><td>Paracetamol, NSAIDs, physical therapy; opioids only short-course for severe acute</td></tr>
+          <tr><td><strong>Neuropathic</strong></td><td>Burning, shooting, electric, allodynia, hyperalgesia; sensory deficit in the same distribution</td><td>Gabapentinoids; SNRIs (duloxetine); TCAs; topical lidocaine 5% / capsaicin 8%</td></tr>
+          <tr><td><strong>Nociplastic</strong></td><td>Diffuse, multifocal; widespread tenderness; fatigue, sleep disturbance, mood, "fog"; normal exam</td><td>SNRI (duloxetine, milnacipran); TCA; pregabalin; graded exercise; CBT; AVOID opioids</td></tr>
+          <tr><td><strong>Mixed</strong></td><td>Combination — e.g., painful radiculopathy = nociceptive low back + neuropathic radicular leg</td><td>Combine approaches; opioid-sparing the priority</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Pain pathways &amp; modulating systems</summary>
+      <div class="body">
+        <p><strong>IASP 2020 definition</strong>: "An unpleasant sensory and emotional experience associated with, or resembling that associated with, actual or potential tissue damage." Pain is always a personal experience; pain and nociception are different phenomena; verbal report is one of several behaviours; a person's report of pain should be respected.</p>
+        <p><strong>Pathway</strong>: nociceptor (Aδ first/sharp, C second/dull/burning) → DRG → spinal cord lamina I, II, V → crosses within 1–2 segments → spinothalamic tract → VPL of thalamus → S1, insula, ACC.</p>
+        <p><strong>Descending inhibition</strong>: PAG → RVM → spinal dorsal horn via NE (locus coeruleus → α2) and 5-HT (raphe); endogenous opioids. <em>SNRIs and TCAs work largely by enhancing this pathway.</em></p>
+        <p><strong>Spinal gate control</strong> (Melzack-Wall): Aβ touch input inhibits C/Aδ nociceptive transmission at lamina II — basis for TENS and "rubbing it better".</p>
+        <p><strong>Central sensitisation</strong>: NMDA-mediated wind-up + reduced descending inhibition → amplification. <em>Gabapentinoids reduce presynaptic Ca²⁺ via α2δ; ketamine blocks NMDA; clonidine enhances α2 inhibition.</em></p>
+        <p><strong>Peripheral sensitisation</strong>: inflammatory soup (PGs, bradykinin, histamine, substance P, CGRP) lowers thresholds. <em>NSAIDs work here.</em></p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Assessment — history, exam, tools</summary>
+      <div class="body">
+        <p><strong>OPQRST + impact</strong>: Onset; Provoking/palliating; Quality (burning, electric → neuropathic; aching → nociceptive; widespread → nociplastic); Region/radiation; Severity (NRS 0–10); Timing. Impact on sleep, mood, function, work, relationships. Red flags + yellow flags. Prior treatments + substance use.</p>
+        <p>Exam: inspection (CRPS skin/temperature/colour), ROM, tone, reflexes, strength; sensory mapping (touch, pinprick, cold, warmth, vibration); allodynia, hyperalgesia; provocative tests; fibromyalgia tender survey.</p>
+        <table>
+          <tr><th>Tool</th><th>Use / cut-off</th></tr>
+          <tr><td>DN4</td><td>10 items (7 history + 3 exam); ≥ 4 = likely neuropathic</td></tr>
+          <tr><td>painDETECT</td><td>9 self-report items; ≥ 19 likely; 13–18 ambiguous</td></tr>
+          <tr><td>S-LANSS</td><td>≥ 12 of 24 likely neuropathic</td></tr>
+          <tr><td>BPI</td><td>Severity + interference; good for monitoring</td></tr>
+          <tr><td>ACR 2016/2019 FM</td><td>WPI + SS; widespread pain, ≥ 3 months</td></tr>
+          <tr><td>STarT Back</td><td>Risk-stratify LBP; guides intervention intensity</td></tr>
+          <tr><td>SOAPP / ORT / PMQ</td><td>Opioid misuse risk screens</td></tr>
+          <tr><td>QST</td><td>Sensory phenotyping</td></tr>
+          <tr><td>Skin biopsy IENFD</td><td>Gold standard for SFN when NCS normal</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Neuropathic pain — NeuPSIG criteria &amp; ladder</summary>
+      <div class="body">
+        <p><strong>Grading</strong>: possible (history + plausible distribution) → probable (+ sensory signs in territory) → definite (+ confirmatory test).</p>
+        <table>
+          <tr><th>Line</th><th>Drug</th><th>Notes</th></tr>
+          <tr><td>First</td><td>Gabapentinoids (gabapentin 300 → 1800–3600/day in 3 doses; pregabalin 75 BD → 300–600/day)</td><td>Renal dose adjust; sedation, weight, oedema; FDA 2019 boxed warning re: respiratory depression with opioids/benzos</td></tr>
+          <tr><td>First</td><td>SNRIs — duloxetine 30 → 60–120 mg/day; venlafaxine ER 75–225 mg/day</td><td>Especially DPN, fibromyalgia, MSK pain; HTN at higher doses</td></tr>
+          <tr><td>First</td><td>TCAs — nortriptyline/amitriptyline 10–25 mg nocte → 75–150 mg</td><td>Anticholinergic, QT, cardiac caution in elderly; nortriptyline/desipramine better tolerated</td></tr>
+          <tr><td>Second</td><td>Topical lidocaine 5% patch; capsaicin 8% patch (single application; q3 months)</td><td>PHN, focal neuropathy; capsaicin also DPN, HIV neuropathy</td></tr>
+          <tr><td>Second</td><td>Tramadol</td><td>Mixed μ + SNRI; serotonin syndrome risk; lowered seizure threshold</td></tr>
+          <tr><td>Third</td><td>Strong opioids</td><td>Last resort; harms accumulate; goal-directed time-limited trials</td></tr>
+          <tr><td>Third</td><td>Botulinum toxin A (focal)</td><td>Specialist; reasonable evidence in focal post-traumatic, PHN, TN</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Painful peripheral neuropathies — DPN, CIPN, SFN</summary>
+      <div class="body">
+        <ul>
+          <li><strong>DPN</strong>: most common painful PN. First-line duloxetine, pregabalin, gabapentin, amitriptyline; topical capsaicin 8% in selected. Tight glycaemic control (more in T1DM than T2DM); modifiable CV risk factors.</li>
+          <li><strong>CIPN</strong>: platinum, taxane, bortezomib, vincristine, thalidomide. <strong>Duloxetine</strong> is the only agent with positive RCT (Smith JAMA 2013). Cryotherapy / compression gloves limited evidence.</li>
+          <li><strong>SFN</strong>: burning feet + allodynia + autonomic; conventional NCS normal. Diagnose with skin biopsy IENFD (gold standard) or QST. Causes: diabetes / pre-diabetes (OGTT essential), Sjögren, sarcoidosis, B12, HIV, paraneoplastic, ATTR amyloid (patisiran/vutrisiran/tafamidis — cross-ref Module 15), Fabry (α-galactosidase A → agalsidase ERT or migalastat), SCN9A/10A/11A channelopathies (erythromelalgia, paroxysmal extreme pain).</li>
+          <li><strong>HIV neuropathy</strong>: distal symmetric painful sensory; HIV itself ± older ARVs (stavudine, didanosine).</li>
+          <li><strong>Vasculitic neuropathy</strong>: stepwise asymmetric multiplex; immunotherapy + treat vasculitis.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Painful radiculopathy &amp; chronic low back pain</summary>
+      <div class="body">
+        <ul>
+          <li>Acute radiculopathy: dermatomal pain ± weakness / numbness / reflex loss; MRI for surgical planning, not first-line within 6 weeks.</li>
+          <li>Most resolve with conservative management; neuropathic pain agents for sustained radicular pain.</li>
+          <li>ESI: short-term radicular pain relief in selected; specialist; rare serious risks.</li>
+          <li>Surgery: progressive deficit, cauda equina (Module 10), persistent disabling pain &gt; 6 weeks with MRI correlation.</li>
+        </ul>
+        <p><strong>Chronic LBP</strong>: leading global cause of YLD. Identify red flags (fever, weight loss, IVDU, cancer, &gt; 50 or &lt; 18, night pain, neurology, trauma). First-line stay active, avoid bed rest, education, exercise / physio, CBT or mindfulness, brief paracetamol or NSAID. Don't image without red flags &lt; 6 weeks. Many patients have mixed phenotype (nociceptive + radicular + nociplastic). Specialist procedures (SCS, RF facet denervation, intrathecal drugs) have mixed evidence.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Herpes zoster &amp; postherpetic neuralgia</summary>
+      <div class="body">
+        <ul>
+          <li>Acute zoster: <strong>aciclovir 800 mg 5×/day or valaciclovir 1 g TID × 7 days within 72 h of rash</strong> reduces severity/duration. Pain control + early gabapentinoid/amitriptyline. <strong>Steroids reduce acute pain but do NOT prevent PHN.</strong></li>
+          <li>PHN: pain &gt; 90 days post-rash; risks: age (~30% if &gt; 80), severe prodrome/rash, ophthalmic zoster, immunosuppression.</li>
+          <li>PHN Rx: gabapentin, pregabalin, TCA, lidocaine 5% patch, capsaicin 8% patch; opioids only refractory.</li>
+          <li><strong>Shingrix recombinant zoster vaccine</strong>: 2-dose subunit; &gt; 90% efficacy; preferred over withdrawn Zostavax; recommended ≥ 50 (≥ 19 if immunocompromised).</li>
+          <li><strong>Ramsay Hunt</strong>: VZV geniculate; facial palsy + auricular vesicles + hearing/balance → valaciclovir + steroid.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Trigeminal neuralgia &amp; other facial pain</summary>
+      <div class="body">
+        <ul>
+          <li>Paroxysmal unilateral electric/stabbing facial pain in V2/V3 &gt; V1; triggered by light touch, brushing teeth, chewing, cold air; older women.</li>
+          <li><strong>Burchiel</strong>: TN1 (classical, purely paroxysmal) vs TN2 (with concomitant continuous pain) vs secondary (MS, tumour) or post-traumatic.</li>
+          <li><strong>MRI brain</strong> with FIESTA/CISS — vascular loop (SCA) on root entry zone; exclude MS plaque (Module 8), tumour (Module 12), aneurysm. Bilateral / young / atypical → suspect MS.</li>
+          <li><strong>First-line</strong>: <strong>carbamazepine 100 mg BD → 600–1200 mg/day</strong> (70–90% response). <strong>Oxcarbazepine</strong> better tolerated alternative. HLA-B*1502 test in Han Chinese/Thai/Filipino before CBZ (Stevens-Johnson). Watch hyponatraemia.</li>
+          <li>Second-line: lamotrigine, baclofen, gabapentin, pregabalin.</li>
+          <li><strong>Surgery</strong>: MVD (Jannetta) ~90% long-term relief in classical TN, fit younger patients; Gamma Knife SRS ~70–80%, preferred in older/frail; percutaneous at Gasserian ganglion (RFA, glycerol, balloon) higher recurrence + facial numbness.</li>
+        </ul>
+        <p>Other: glossopharyngeal neuralgia (CBZ + MVD); PIFP — continuous V2 ache, TCA/duloxetine + CBT; cluster/PH/HC/SUNCT (Module 4); TMD — conservative; burning mouth syndrome — clonazepam swish-and-spit, TCA, gabapentinoid.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Complex regional pain syndrome (CRPS)</summary>
+      <div class="body">
+        <p>Disproportionate pain after minor injury/surgery + vasomotor/sudomotor/oedema/motor/trophic changes. Type 1 (no defined nerve lesion) vs Type 2 (defined nerve injury).</p>
+        <div class="pearl"><strong>Budapest criteria (Harden 2010)</strong>:
+          <ol>
+            <li>Continuing disproportionate pain.</li>
+            <li>≥ 1 symptom in <strong>3 of 4</strong> categories: sensory (hyperalgesia, allodynia); vasomotor (temperature/colour asymmetry); sudomotor/oedema; motor/trophic (decreased ROM, weakness, tremor, dystonia; hair/nail/skin changes).</li>
+            <li>≥ 1 sign at evaluation in <strong>2 of 4</strong> categories.</li>
+            <li>No other diagnosis better explains.</li>
+          </ol>
+        </div>
+        <ul>
+          <li><strong>Cornerstone: early movement + rehabilitation</strong> — physio + OT + graded motor imagery + mirror box.</li>
+          <li>Pharm: gabapentinoids, TCAs, SNRIs; bisphosphonates (alendronate, neridronate) for early CRPS; ketamine infusion severe refractory; intrathecal baclofen if dystonia.</li>
+          <li>Sympathetic blocks — limited long-term effect.</li>
+          <li>CBT + fear-avoidance work.</li>
+          <li><strong>Vitamin C 500 mg/day × 50 days after wrist fracture</strong> reduces CRPS incidence (Lancet 1999; Cochrane 2017 equivocal but widely used).</li>
+          <li>Spinal cord stimulation in refractory cases.</li>
+        </ul>
+        <div class="pearl">Partly maintained by disuse and cortical reorganisation. Restoring movement is the most important intervention. Drugs enable rehab; they don't cure CRPS.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Central pain syndromes</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Central post-stroke pain (Dejerine-Roussy)</strong>: thalamic or lateral medullary stroke; burning/constricting pain in affected body region; allodynia. First-line amitriptyline, gabapentinoid, lamotrigine; second-line duloxetine; rTMS/MCS specialist. Cross-ref Module 2.</li>
+          <li><strong>MS pain</strong>: TN from pontine plaque (often bilateral, atypical, suspect MS in young — Module 8); painful tonic spasms; Lhermitte (also cervical compression, B12 deficiency, radiation myelopathy); central neuropathic burning.</li>
+          <li><strong>SCI pain</strong>: at-level segmental neuropathic + below-level central deafferentation + nociceptive MSK from wheelchair (Module 10). Gabapentinoids, TCAs, intrathecal baclofen for spasticity.</li>
+          <li><strong>Syringomyelia</strong>: dissociated sensory loss with burning (Module 10).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Fibromyalgia &amp; overlap nociplastic syndromes</summary>
+      <div class="body">
+        <p><strong>ACR 2016/2019</strong>: Widespread Pain Index (count regions) + Symptom Severity (fatigue, sleep, cognition, somatic); generalised pain (≥ 4 of 5 regions, axial); duration ≥ 3 months. Replaces 1990 tender-point criteria. Nociplastic mechanism (central sensitisation), not peripheral inflammation.</p>
+        <ul>
+          <li>Investigations focused: RF, CCP, ESR/CRP, TSH, vitamin D; rule out PMR, depression, sleep apnea. Avoid elaborate workup unless red flags.</li>
+          <li>Treatment: <strong>education + self-management</strong>; <strong>graded aerobic exercise</strong> (strongest evidence — start very low, progress slowly; aquatic well tolerated); CBT, mindfulness; duloxetine (FDA), milnacipran (FDA), pregabalin (FDA), amitriptyline (off-label); tramadol with caution.</li>
+          <li><strong>Avoid opioids and benzodiazepines.</strong></li>
+        </ul>
+        <p>Overlap: ME/CFS, IBS, interstitial cystitis, TMD, chronic pelvic pain, tension-type headache (Module 4), chronic LBP with central sensitisation, post-acute COVID-19 syndromes.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. Cancer pain &amp; opioid stewardship</summary>
+      <div class="body">
+        <p><strong>WHO ladder</strong> for cancer pain. Adjuvants matter: bone pain (NSAID + bisphosphonate + palliative RT + radionuclides); neuropathic cancer pain (combine opioid with gabapentinoid + SNRI/TCA; regional/neuraxial procedures); visceral pain (opioid + antispasmodic; coeliac plexus block for upper abdo malignancy). Early palliative care input (Temel NEJM 2010).</p>
+        <p><strong>Opioid stewardship in chronic non-cancer pain</strong>:</p>
+        <ul>
+          <li>Time-limited goal-directed trial only after non-opioid pharm + rehab; document SOAPP/ORT; check PMP.</li>
+          <li>Reassess carefully at &gt; 50 MME/day; avoid &gt; 90 MME/day where possible (CDC 2022).</li>
+          <li>Co-prescribing risks: benzos (boxed warning), gabapentinoids (FDA 2019 boxed warning), alcohol, sedatives.</li>
+          <li><strong>Take-home naloxone</strong> for patient + family.</li>
+          <li>Slow tapering (5–10% every 1–4 weeks); never abrupt discontinuation — withdrawal, mental-health crisis, suicide.</li>
+          <li>OUD: methadone or buprenorphine MAT (Module 13).</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="dn4">
+    <h2>DN4 Neuropathic Pain Screener</h2>
+    <p class="muted">Tick each item present. Score ≥ 4 of 10 suggests likely neuropathic pain (sensitivity ~83%, specificity ~90%).</p>
+    <div class="calc" id="dn4Calc"></div>
+    <div class="scorebar" id="dn4Result">
+      <h4>DN4 score</h4>
+      <div><span class="big" id="dn4-score">0</span> / 10</div>
+      <div class="interp" id="dn4-interp">No items selected.</div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="mech">
+    <h2>Pain Mechanism Classifier</h2>
+    <p class="muted">Answer about the dominant pain pattern; the tool suggests a mechanism, examples, and a treatment ladder.</p>
+    <div class="tool" id="mechTool">
+      <div class="q">1. Dominant pain quality?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="aching">Dull, aching, throbbing — worse on movement / pressure</button>
+        <button class="opt" data-val="burning">Burning, electric, shooting; light touch causes pain (allodynia)</button>
+        <button class="opt" data-val="widespread">Diffuse / widespread / multiregional + fatigue + sleep disturbance + cognitive fog</button>
+        <button class="opt" data-val="mixed">Mixed — axial aching + radicular burning, or musculoskeletal + widespread features</button>
+        <button class="opt" data-val="cancer">Cancer pain (any pattern, in patient with active or treated malignancy)</button>
+      </div>
+      <div id="mech-rest"></div>
+      <div class="result" id="mech-result"></div>
+      <button class="reset" onclick="resetMech()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 62-year-old with T2DM (HbA1c 8.5%) has bilateral burning feet, worse at night, with allodynia to bedsheets. Exam: reduced pinprick and vibration to mid-calf, absent ankle reflexes</summary>
+      <div class="body">
+        <p>DN4 score 6/10. NCS shows length-dependent axonal sensorimotor neuropathy.</p>
+        <p><strong>Diagnosis:</strong> Painful diabetic polyneuropathy (definite neuropathic pain by NeuPSIG).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Tighten glycaemic control (cautious — symptomatic improvement is modest in T2DM); address cardiovascular risk (BP, lipids, smoking, exercise).</li>
+          <li><strong>First-line</strong>: choose one based on comorbidities — <strong>duloxetine 30 mg daily titrated to 60 mg</strong> (good evidence in DPN; mood benefit); OR <strong>pregabalin 75 mg BD → 300 mg/day</strong> (rapid effect, renal dose adjustment); OR <strong>gabapentin 300 mg TDS → 1800–3600 mg/day</strong>; OR <strong>amitriptyline 10–25 mg nocte → 75 mg</strong> (caution in elderly — anticholinergic, cardiac).</li>
+          <li>Add <strong>topical capsaicin 8% patch</strong> q3 months for selected focal areas.</li>
+          <li>Foot care education — daily inspection, footwear, podiatry; ulcer prevention.</li>
+          <li>Counsel about expected effect size (~30% pain reduction in good responders); set functional goals; reassess in 4–6 weeks.</li>
+          <li>Avoid opioids as first-line; reserve tramadol or strong opioids for refractory cases under specialist supervision.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 72-year-old woman has 2 months of right-sided lancinating facial pain in V2–V3 distribution, triggered by brushing her teeth and a breeze. Pain-free between attacks. No sensory deficit</summary>
+      <div class="body">
+        <p>Pain duration 1–2 seconds in volleys. MRI brain (FIESTA): superior cerebellar artery loop on the right trigeminal root entry zone.</p>
+        <p><strong>Diagnosis:</strong> Classical trigeminal neuralgia (Burchiel TN1; ICHD-3 "purely paroxysmal").</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Carbamazepine 100 mg BD, titrated to 600–1200 mg/day</strong> in divided doses for response — first-line; 70–90% effective initially.</li>
+          <li>Pre-treatment HLA-B*1502 testing in Han Chinese / Thai / Filipino patients (Stevens-Johnson syndrome risk). Monitor sodium (hyponatraemia), CBC, LFTs.</li>
+          <li>If CBZ intolerant: oxcarbazepine 300 mg BD → 1200–1800 mg/day (better tolerated, fewer drug interactions, similar efficacy; higher hyponatraemia risk).</li>
+          <li>Second-line agents: lamotrigine, baclofen, gabapentin, pregabalin.</li>
+          <li>If drug-refractory or intolerant: discuss surgical options at multidisciplinary review — <strong>microvascular decompression (MVD/Jannetta)</strong> ~90% long-term relief in fit patients; <strong>Gamma Knife SRS</strong> ~70–80% for older/frail; percutaneous Gasserian procedures (RFA, glycerol, balloon) for those preferring quick procedure but accepting recurrence and facial numbness.</li>
+          <li>Counsel about MS — bilateral or young TN should prompt MS workup (Module 8).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 68-year-old man developed a thoracic dermatomal vesicular rash 4 months ago. The rash healed but the pain persists — severe burning + allodynia in T8 dermatome, ESS-impaired sleep, withdrawn mood</summary>
+      <div class="body">
+        <p>DN4 score 7/10. No sensory deficit beyond the affected dermatome.</p>
+        <p><strong>Diagnosis:</strong> Postherpetic neuralgia (definite neuropathic pain).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Education and validation; explain that PHN is a neuropathic-pain condition that often improves over months.</li>
+          <li><strong>First-line</strong>: gabapentin or pregabalin (titrate to effect); amitriptyline or nortriptyline (10–25 mg nocte → 75 mg); duloxetine 30 mg → 60 mg.</li>
+          <li><strong>Topical lidocaine 5% patch</strong> — well-tolerated, especially with allodynia.</li>
+          <li><strong>Capsaicin 8% patch</strong> single in-clinic application; reapply every 3 months if effective.</li>
+          <li>Sleep hygiene + treat depression (consider duloxetine for dual benefit).</li>
+          <li>Reserve opioids for refractory cases under specialist supervision.</li>
+          <li>Prevention: <strong>Shingrix recombinant zoster vaccine</strong> (2 doses) for all adults ≥ 50 (≥ 19 if immunocompromised) — &gt; 90% efficacy against zoster and PHN. Encourage this patient's friends and family.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 45-year-old develops swelling, intense burning pain, hyperhidrosis, and a cool blue right hand 6 weeks after a minor wrist fracture. Pain is grossly out of proportion to the injury. Limited active range of motion, trophic skin changes</summary>
+      <div class="body">
+        <p>Budapest criteria: continuing disproportionate pain; sensory (hyperalgesia, allodynia); vasomotor (temperature/colour asymmetry); sudomotor (sweating asymmetry, oedema); motor/trophic (reduced ROM, skin changes) — symptoms in 4 of 4 categories, signs in ≥ 2 of 4 — criteria met for CRPS type 1.</p>
+        <p><strong>Diagnosis:</strong> Complex regional pain syndrome type 1.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Early rehabilitation is the cornerstone</strong> — physiotherapy + occupational therapy + graded motor imagery + mirror box therapy.</li>
+          <li>Pharmacotherapy: gabapentinoid or TCA or SNRI for neuropathic component; <strong>bisphosphonate</strong> (alendronate, neridronate — best evidence in early CRPS).</li>
+          <li>Topical capsaicin 8% if focal allodynia.</li>
+          <li>Sympathetic nerve block — short-term benefit only; specialist procedure.</li>
+          <li>CBT, fear-avoidance work, education.</li>
+          <li><strong>Vitamin C 500 mg/day × 50 days post-wrist fracture</strong> reduces CRPS recurrence (low-risk, widely used).</li>
+          <li>Refractory: ketamine infusion, intrathecal baclofen if dystonia, spinal cord stimulation.</li>
+          <li>Counsel: restoring movement matters more than blunting pain. Avoid splinting and disuse.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 38-year-old woman has 5 years of widespread pain, severe fatigue, non-restorative sleep, "fibro fog", and tension headaches. WPI 12, SS 8. Examination: diffuse tenderness, otherwise normal. ESR, CRP, RF, CCP, TSH normal</summary>
+      <div class="body">
+        <p>ACR 2016/2019 criteria met (WPI ≥ 7, SS ≥ 5, generalised pain, &gt; 3 months, no alternative diagnosis).</p>
+        <p><strong>Diagnosis:</strong> Fibromyalgia (nociplastic pain syndrome).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Education and validation</strong>: the pain is real but the mechanism is central sensitisation. Explain in plain language; offer reliable resources.</li>
+          <li><strong>Graded aerobic exercise</strong> — start very low (e.g., 5–10 min walking) and progress slowly; aquatic exercise often well tolerated; consistency beats intensity.</li>
+          <li>CBT, mindfulness, sleep hygiene.</li>
+          <li><strong>Pharmacotherapy</strong>: duloxetine 30 mg → 60 mg (FDA-approved); milnacipran; pregabalin 75 mg BD → 300 mg/day; amitriptyline 10–25 mg nocte. Combine if monotherapy inadequate.</li>
+          <li>Address comorbid mood / sleep disorders.</li>
+          <li><strong>Avoid opioids and benzodiazepines</strong> — limited efficacy and significant harms.</li>
+          <li>Limit further investigations unless red flags appear; over-investigation reinforces illness behaviour.</li>
+          <li>Cross-ref overlapping syndromes (IBS, ME/CFS, IC, TMD, chronic pelvic pain, post-acute COVID).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 55-year-old has had chronic non-cancer low back pain on oxycodone 60 mg/day + benzodiazepine for 5 years. Function has declined. He wants help with the opioids</summary>
+      <div class="body">
+        <p>OME ~90 mg/day. Comorbid depression. PHQ-9 = 14.</p>
+        <p><strong>Plan (opioid review + opioid-sparing pathway):</strong></p>
+        <ol>
+          <li>Validate the patient's experience and his motivation to taper. Set shared functional goals (not pain score alone).</li>
+          <li>Check prescription monitoring program; SOAPP/ORT/PMQ; UDS as appropriate.</li>
+          <li>Co-prescribing risk review: <strong>benzodiazepine + opioid + gabapentinoid combination carries FDA boxed warnings for respiratory depression and death</strong>. Plan tapering of one agent at a time, generally starting with the highest-risk combination.</li>
+          <li><strong>Take-home naloxone</strong> — prescribe and train the patient and family.</li>
+          <li>Slow opioid taper (5–10% every 1–4 weeks); manage withdrawal symptoms (autonomic, GI, anxiety); never abrupt discontinuation.</li>
+          <li>Initiate or optimise opioid-sparing pharmacotherapy: duloxetine (mood + chronic pain), gabapentinoid (taper-cautious), topical lidocaine if focal; reassess at each step.</li>
+          <li>Physiotherapy + graded exercise; CBT for chronic pain; treat depression; sleep optimisation.</li>
+          <li>If opioid use disorder: medication-assisted treatment with methadone or buprenorphine (cross-ref Module 13).</li>
+          <li>Refer to pain medicine and addiction medicine as needed; this is a team task.</li>
+          <li>Document the plan, monitor closely, and adjust as conditions change.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 17 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 7, 10; Merritt's <em>Neurology</em> 14e Ch. 56–59. IASP 2020 (Raja Pain); NeuPSIG 2008 (Treede Neurology) + 2015 pharmacotherapy (Finnerup Lancet Neurol); Budapest CRPS (Harden Pain 2010) + 2021 Best Practice; ACR fibromyalgia 2016/2019 (Wolfe Semin Arthritis Rheum); EAN trigeminal neuralgia 2019 (Bendtsen Eur J Neurol); CDC opioid guideline 2022 (Dowell MMWR); duloxetine CIPN (Smith JAMA 2013); early palliative care (Temel NEJM 2010).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Mechanism', q:'Four mechanistic buckets of pain?', a:'(1) Nociceptive — tissue injury / inflammation, normal nervous system; dull aching, responds to NSAIDs/paracetamol. (2) Neuropathic — lesion of somatosensory system; burning, electric, allodynia + sensory deficit; gabapentinoids/SNRIs/TCAs. (3) Nociplastic — altered nociceptive processing without lesion (central sensitisation); diffuse, fatigue, sleep, fog; SNRI/TCA + exercise + CBT. (4) Mixed — combinations (e.g., painful radiculopathy).'},
+  {tag:'IASP 2020', q:'Revised IASP 2020 definition of pain?', a:'"An unpleasant sensory and emotional experience associated with, or resembling that associated with, actual or potential tissue damage." Six notes: always personal; influenced by biopsychosocial factors; pain ≠ nociception; verbal report one of several behaviours; respect the person\'s report.'},
+  {tag:'Pathway', q:'Spinothalamic pathway — fibre types and lamina?', a:'Aδ (small myelinated — first/sharp/well-localised pain) and C (unmyelinated — second/dull/burning) → DRG → spinal cord lamina I, II (substantia gelatinosa), V → cross within 1–2 segments → spinothalamic tract → VPL of thalamus → S1, insula, ACC.'},
+  {tag:'Descending', q:'Descending pain inhibition — anatomy and clinical relevance?', a:'PAG → RVM → spinal dorsal horn, mediated by NE (LC → α2 receptors) and 5-HT (raphe); endogenous opioids. SNRIs and TCAs treat pain largely by enhancing this descending NE/5-HT pathway. Clonidine acts on α2 receptors.'},
+  {tag:'Sensitisation', q:'Central sensitisation — mechanism and drug targets?', a:'NMDA-mediated wind-up + reduced descending inhibition + glial activation → amplification at dorsal horn → allodynia, hyperalgesia, expanded receptive fields. Gabapentinoids reduce presynaptic Ca²⁺ via α2δ; ketamine blocks NMDA; clonidine enhances α2 descending inhibition.'},
+  {tag:'DN4', q:'DN4 cut-off for likely neuropathic pain?', a:'Score ≥ 4 of 10 = likely neuropathic pain (sensitivity ~83%, specificity ~90%). 7 history items (burning, painful cold, electric shocks, tingling, pins-and-needles, numbness, itching) + 3 examination items (hypoaesthesia to touch, hypoaesthesia to pinprick, brush-evoked pain).'},
+  {tag:'NeuPSIG', q:'NeuPSIG grading system for neuropathic pain?', a:'POSSIBLE — pain with distinct neuroanatomically plausible distribution + history suggestive of relevant somatosensory lesion. PROBABLE — above + sensory signs (positive or negative) confined to territory. DEFINITE — above + confirmatory test (NCS, MRI, skin biopsy IENFD, etc.).'},
+  {tag:'Drugs', q:'NeuPSIG 2015 first-line drugs for neuropathic pain?', a:'Three first-line classes: gabapentinoids (gabapentin 1800–3600 mg/day; pregabalin 300–600 mg/day), SNRIs (duloxetine 60–120 mg/day, venlafaxine ER 75–225 mg/day), and TCAs (amitriptyline/nortriptyline 25–150 mg/day). Topicals (lidocaine 5%, capsaicin 8%) second-line. Tramadol second-line, strong opioids third-line.'},
+  {tag:'CIPN', q:'Only drug with positive RCT evidence in chemotherapy-induced peripheral neuropathy?', a:'Duloxetine (Smith JAMA 2013) — 30 mg daily titrated to 60 mg. Other first-line neuropathic agents have less robust CIPN evidence. Cryotherapy / compression gloves during infusion have limited evidence for prevention.'},
+  {tag:'SFN', q:'Gold standard test for small-fibre neuropathy?', a:'Skin biopsy with intraepidermal nerve fibre density (IENFD) at the distal calf (and proximally for comparison) — gold standard when conventional NCS is normal. QST is also useful. Causes to screen: diabetes/pre-diabetes (OGTT essential), Sjögren, sarcoidosis, B12, HIV, paraneoplastic, ATTR amyloid (patisiran/vutrisiran/tafamidis), Fabry disease, SCN9A/10A/11A channelopathies.'},
+  {tag:'TN', q:'First-line drug for trigeminal neuralgia and key safety check?', a:'Carbamazepine 100 mg BD → 600–1200 mg/day (70–90% response). Test HLA-B*1502 BEFORE starting CBZ in Han Chinese, Thai, Filipino patients (Stevens-Johnson syndrome risk). Monitor sodium (hyponatraemia), CBC, LFTs. Oxcarbazepine is a better-tolerated alternative with similar efficacy.'},
+  {tag:'TN surgery', q:'MVD vs Gamma Knife for trigeminal neuralgia — patient selection?', a:'MVD (Jannetta) — posterior fossa craniotomy with Teflon pad; ~90% long-term relief in classical TN; best for fit younger patients. Gamma Knife SRS — outpatient, delayed onset weeks–months; ~70–80% relief; preferred in older/frail. Percutaneous Gasserian procedures (RFA, glycerol, balloon) — quick but more recurrence and facial numbness.'},
+  {tag:'Zoster Rx', q:'Acute zoster — antiviral regimen and the steroid caveat?', a:'Aciclovir 800 mg 5×/day OR valaciclovir 1 g TID × 7 days, started WITHIN 72 HOURS of rash; reduces severity/duration. Steroids reduce acute pain but DO NOT prevent PHN. Add early gabapentinoid or amitriptyline for pain. Shingrix recombinant vaccine for prevention.'},
+  {tag:'Shingrix', q:'Shingrix recombinant zoster vaccine — schedule and efficacy?', a:'Two doses 2–6 months apart; > 90% efficacy against zoster and PHN. Preferred over withdrawn Zostavax. Recommended ≥ 50 (and ≥ 19 in immunocompromised). High protection sustained for ≥ 10 years.'},
+  {tag:'CRPS', q:'Budapest criteria for CRPS — categories and threshold?', a:'(1) Continuing disproportionate pain. (2) ≥ 1 symptom (subjective) in 3 of 4 categories: sensory, vasomotor, sudomotor/oedema, motor/trophic. (3) ≥ 1 sign (objective) at evaluation in 2 of 4 categories. (4) No other diagnosis better explains.'},
+  {tag:'CRPS Rx', q:'Cornerstone of CRPS management?', a:'EARLY MOVEMENT and REHABILITATION — physiotherapy + occupational therapy + graded motor imagery + mirror box therapy. Pharmacotherapy enables rehabilitation; it does not cure CRPS. Bisphosphonates (alendronate, neridronate) have best evidence in early CRPS. Vitamin C 500 mg/day × 50 days reduces CRPS after wrist fracture.'},
+  {tag:'Central', q:'Central post-stroke pain (Dejerine-Roussy) — typical lesion and first-line drug?', a:'Thalamic (especially VPL) or lateral medullary stroke. Burning, constricting, dysaesthetic pain with allodynia in affected body region. First-line: amitriptyline, gabapentin or pregabalin, lamotrigine. Second-line: duloxetine. rTMS and motor cortex stimulation in specialist centres. Cross-ref Module 2.'},
+  {tag:'Fibromyalgia', q:'ACR 2016/2019 fibromyalgia criteria essentials?', a:'Widespread Pain Index + Symptom Severity scale (fatigue, sleep, cognitive symptoms, somatic burden); generalised pain ≥ 4 of 5 regions including axial; duration ≥ 3 months; no other condition better explains. Replaces 1990 tender-point criteria. Nociplastic pain mechanism (central sensitisation).'},
+  {tag:'Fibro Rx', q:'Treatment cornerstones in fibromyalgia and what to avoid?', a:'Education + graded aerobic exercise (strongest evidence — start very low and progress slowly) + CBT/mindfulness + sleep hygiene. Pharmacotherapy: duloxetine, milnacipran, pregabalin (FDA-approved); amitriptyline (off-label). AVOID opioids and benzodiazepines — limited efficacy and significant harms.'},
+  {tag:'Opioid', q:'CDC 2022 opioid stewardship — dose thresholds and overdose prevention?', a:'Reassess carefully at > 50 MME/day; avoid > 90 MME/day where possible. Co-prescribe TAKE-HOME NALOXONE for patient and family. Co-prescribing with benzos (boxed warning), gabapentinoids (FDA 2019 boxed warning), alcohol, sedatives raises respiratory depression / death risk. Slow taper (5–10% every 1–4 weeks); never abrupt. Refer to MAT (methadone or buprenorphine) for opioid use disorder.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 62-year-old with T2DM has bilateral burning feet, worse at night, with allodynia. DN4 score 6/10. NCS shows length-dependent axonal sensorimotor neuropathy. Best first-line treatment?',
+   choices:['Oxycodone 5 mg q4h','Choose one of: duloxetine 30→60 mg, pregabalin 75 mg BD→300/day, gabapentin 1800–3600/day, or amitriptyline 10–25 mg nocte→75 mg','Diphenhydramine','Methadone'],
+   ans:1,
+   why:'Painful diabetic peripheral neuropathy — first-line per NeuPSIG 2015: gabapentinoids, SNRIs (duloxetine has good DPN evidence), or TCAs. Choose based on comorbidities (renal — gabapentinoid dose adjustment; mood — duloxetine dual benefit; elderly/cardiac — caution with TCAs). Avoid opioids first-line; tight glycaemic control + cardiovascular risk reduction. Counsel that ~30% pain reduction is a good response and set functional goals.'},
+  {q:'A 72-year-old has classical trigeminal neuralgia in V2–V3 with a superior cerebellar artery loop on MRI. What is first-line pharmacotherapy and a key pre-treatment safety check in selected populations?',
+   choices:['Tramadol; check blood lead level','Carbamazepine 100 mg BD titrated to 600–1200/day; test HLA-B*1502 in Han Chinese, Thai, or Filipino patients before starting (SJS risk)','Morphine; check kidney function only','Aspirin; no testing needed'],
+   ans:1,
+   why:'Classical TN first-line is carbamazepine (70–90% effective initially). Oxcarbazepine is a better-tolerated alternative. Pre-treatment HLA-B*1502 in patients of Han Chinese, Thai, or Filipino ancestry because of strongly increased Stevens-Johnson syndrome risk. Monitor sodium (hyponatraemia), CBC, LFTs. MRI to confirm vascular loop and exclude MS (Module 8) and tumour (Module 12).'},
+  {q:'A 68-year-old has burning + allodynia in T8 dermatome 4 months after a thoracic shingles rash. Which agent is NOT first-line for postherpetic neuralgia?',
+   choices:['Gabapentin','Pregabalin','Topical lidocaine 5% patch','Long-term high-dose morphine as first-line monotherapy'],
+   ans:3,
+   why:'PHN is treated with gabapentin / pregabalin, TCAs (amitriptyline / nortriptyline), duloxetine, topical lidocaine 5% patch, or capsaicin 8% patch. Opioids are reserved for refractory cases under specialist supervision, not first-line. Prevent zoster + PHN with Shingrix recombinant vaccine (> 90% efficacy, 2 doses) in adults ≥ 50 (or ≥ 19 if immunocompromised).'},
+  {q:'A 45-year-old develops disproportionate burning pain, vasomotor changes (cool blue colour, temperature asymmetry), oedema, hyperhidrosis, and motor/trophic changes (reduced ROM, skin changes) 6 weeks after a wrist fracture. Best management cornerstone?',
+   choices:['Long-term opioids','Early movement and rehabilitation (physio + OT + graded motor imagery + mirror box) with pharmacotherapy adjuncts (gabapentinoid/TCA/SNRI ± bisphosphonate)','Splinting and avoidance of movement','Surgical wrist fusion'],
+   ans:1,
+   why:'Budapest criteria met for CRPS type 1. Early movement and rehabilitation is the cornerstone — CRPS is partly maintained by disuse and cortical reorganisation. Combine with pharmacotherapy (gabapentinoid, TCA, SNRI; bisphosphonate with best evidence in early CRPS; topical capsaicin for focal allodynia). Vitamin C 500 mg/day × 50 days reduces CRPS after wrist fracture (low-risk, widely used). Drugs enable rehab; they don\'t cure CRPS.'},
+  {q:'A 38-year-old woman with 5 years of widespread pain, severe fatigue, non-restorative sleep, and "fibro fog" meets ACR 2016/2019 criteria for fibromyalgia. Inflammatory and thyroid workup negative. Best treatment foundation?',
+   choices:['Long-term opioids and benzodiazepines','Education + graded aerobic exercise + CBT/mindfulness + duloxetine/milnacipran/pregabalin/amitriptyline; AVOID opioids and benzodiazepines','Repeated MRI and EMG/NCS','High-dose long-term steroids'],
+   ans:1,
+   why:'Fibromyalgia is a nociplastic pain syndrome (central sensitisation). Treatment foundation: education (validate the diagnosis, explain central mechanism), graded aerobic exercise (strongest evidence — start very low and progress slowly), CBT and mindfulness, sleep optimisation. Pharmacotherapy: duloxetine, milnacipran, pregabalin (FDA-approved); amitriptyline (off-label). AVOID opioids and benzodiazepines. Over-investigation reinforces illness behaviour.'},
+  {q:'Which test is the gold-standard diagnostic for small-fibre neuropathy when conventional EMG/NCS is normal?',
+   choices:['Repeat NCS in 3 months','Skin biopsy with intraepidermal nerve fibre density (IENFD) at the distal calf','Brain MRI','Blood film'],
+   ans:1,
+   why:'Skin biopsy with reduced IENFD at the distal calf is the gold standard for SFN. QST is also useful. Once SFN is confirmed, screen for causes: diabetes/pre-diabetes (OGTT — impaired glucose tolerance is a major contributor), Sjögren, sarcoidosis, B12 deficiency (Module 13), HIV, paraneoplastic, ATTR amyloid (patisiran/vutrisiran/tafamidis — Module 15), Fabry disease (α-galactosidase A → agalsidase ERT or migalastat), SCN9A/10A/11A channelopathies.'},
+  {q:'Which agent has positive RCT evidence specifically for chemotherapy-induced peripheral neuropathy?',
+   choices:['Duloxetine (Smith JAMA 2013)','Long-term opioid','Carbamazepine','Acyclovir'],
+   ans:0,
+   why:'Duloxetine is the only agent with positive RCT evidence for CIPN (Smith JAMA 2013) — 30 mg daily titrated to 60 mg. Cryotherapy and compression gloves during infusion have limited evidence for prevention. Other CIPN agents (gabapentinoids, TCAs) lack robust evidence specifically for CIPN despite being first-line for general neuropathic pain.'},
+  {q:'A 60-year-old with thalamic stroke 6 months ago develops persistent burning, constricting pain in his left arm and trunk, with allodynia. Best first-line treatment for central post-stroke pain?',
+   choices:['Aspirin','Amitriptyline, gabapentin or pregabalin, or lamotrigine (first-line); duloxetine second-line; rTMS or motor cortex stimulation in specialist centres','High-dose long-term opioid as monotherapy','NSAID'],
+   ans:1,
+   why:'Central post-stroke pain (Dejerine-Roussy syndrome) — neuropathic pain from VPL or lateral medullary stroke. First-line: amitriptyline, gabapentin or pregabalin, lamotrigine. Second-line: duloxetine. rTMS and motor cortex stimulation are specialist options for refractory cases. Cross-ref Module 2.'},
+  {q:'A 55-year-old man with chronic non-cancer low back pain has been on oxycodone 60 mg/day + benzodiazepine for 5 years. Function has declined. He wants to taper. What is the most important safety prescription as you start the taper?',
+   choices:['Stop both medications abruptly today','Co-prescribe take-home naloxone for him and his family; slow opioid taper (5–10% every 1–4 weeks); manage benzodiazepine separately; never abrupt discontinuation','Increase the oxycodone dose first','Add a third agent without changing the others'],
+   ans:1,
+   why:'CDC 2022 opioid guideline: co-prescribe take-home naloxone for patients on chronic opioids — especially those on > 50 MME/day or on combinations with benzodiazepines or gabapentinoids (each combination carries a boxed warning for respiratory depression). Taper slowly (5–10% every 1–4 weeks); never abrupt. Optimise opioid-sparing options (duloxetine, gabapentinoid in low dose, physio, CBT). Treat depression. Refer to MAT (methadone or buprenorphine) for opioid use disorder.'},
+  {q:'A 30-year-old has bilateral trigeminal neuralgia. What additional diagnosis must be excluded?',
+   choices:['No further workup needed','Multiple sclerosis — bilateral and young-onset TN is suggestive; perform brain MRI and CSF analysis as per McDonald 2017 (Module 8)','Migraine only','Cluster headache only'],
+   ans:1,
+   why:'Bilateral TN, young patient (< 40), or atypical features (sensory deficit, sustained pain between attacks, deafness, no response to CBZ) should prompt MRI for MS or structural lesion. MS-related TN is from a pontine demyelinating plaque affecting the trigeminal pathway. Cross-ref Module 8 for MS workup, including McDonald 2017 criteria.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* DN4 Calculator */
+const dn4Sections = [
+  {head:'Interview (7 items, 1 point each)', items:[
+    ['burn','Burning pain'],
+    ['cold','Painful cold sensation'],
+    ['shock','Electric shocks'],
+    ['tingle','Tingling'],
+    ['pins','Pins and needles'],
+    ['numb','Numbness'],
+    ['itch','Itching']
+  ]},
+  {head:'Examination (3 items, 1 point each)', items:[
+    ['hypoesth','Hypoaesthesia to touch'],
+    ['hypopin','Hypoaesthesia to pinprick'],
+    ['brush','Brush-evoked allodynia (light brushing produces pain)']
+  ]}
+];
+const dn4Calc = document.getElementById('dn4Calc');
+let dn4State = {};
+dn4Sections.forEach(sec => {
+  const h = document.createElement('div');
+  h.className = 'section-head';
+  h.textContent = sec.head;
+  dn4Calc.appendChild(h);
+  sec.items.forEach(([id,label]) => {
+    dn4State[id] = false;
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `<div class="lbl">${label}</div>
+      <div class="opts">
+        <button class="sel" data-id="${id}" data-val="0">No</button>
+        <button data-id="${id}" data-val="1">Yes</button>
+      </div>`;
+    dn4Calc.appendChild(row);
+  });
+});
+dn4Calc.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = +b.dataset.val;
+  dn4State[id] = !!val;
+  dn4Calc.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreDn4();
+}));
+
+function scoreDn4() {
+  const total = Object.values(dn4State).filter(Boolean).length;
+  document.getElementById('dn4-score').textContent = total;
+  let interp = '';
+  if (total === 0) interp = 'No items selected.';
+  else if (total < 4) interp = '<strong>Below threshold</strong> — neuropathic mechanism less likely. Consider nociceptive or nociplastic mechanism; reassess if features evolve.';
+  else interp = '<strong>≥ 4 of 10 — likely neuropathic pain</strong> (sensitivity ~83%, specificity ~90%). Workup: identify the underlying somatosensory lesion / disease (DPN, PHN, post-traumatic, radicular, central, etc.). Treat per NeuPSIG: first-line gabapentinoid, SNRI (duloxetine), or TCA; second-line topical lidocaine 5% or capsaicin 8%, tramadol; third-line strong opioids (last resort) or specialist procedures. Reassess in 4–6 weeks for response (target ~30% pain reduction + function gains).';
+  document.getElementById('dn4-interp').innerHTML = interp;
+}
+scoreDn4();
+
+/* Pain Mechanism Classifier */
+const mechRest = document.getElementById('mech-rest');
+const mechResult = document.getElementById('mech-result');
+let mechState = {};
+
+function mechAns(step, val) {
+  mechState[step] = val;
+  Object.keys(mechState).forEach(k => { if (+k > step) delete mechState[k]; });
+  document.querySelectorAll(`#mechTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#mechTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderMech();
+}
+
+function renderMech() {
+  mechRest.innerHTML = '';
+  mechResult.classList.remove('show');
+  const s0 = mechState[0];
+  if (!s0) return;
+
+  if (s0 === 'aching') return showMech('Nociceptive pain', [
+    '<strong>Examples</strong>: postoperative, fracture, arthritis, biliary colic, MI, pancreatitis, soft tissue injury.',
+    '<strong>WHO ladder</strong>: Step 1 paracetamol ± NSAID ± adjuvant; Step 2 weak opioid (codeine, tramadol — caveats); Step 3 strong opioid (morphine, oxycodone, hydromorphone, fentanyl).',
+    'Use adjuvants at any step: gabapentinoids if any neuropathic component; antidepressants for chronic MSK pain; steroids for inflammation; bisphosphonates for bone pain; topical agents; regional blocks.',
+    'NSAID cautions: GI bleed (+ PPI in at-risk), renal injury (elderly, dehydrated, HF, CKD), cardiovascular (highest with diclofenac and high-dose ibuprofen; naproxen lowest), HTN. Avoid in advanced CKD and severe HF.',
+    'Acute post-op: multimodal opioid-sparing — paracetamol + NSAID + regional block / wound infiltration + low-dose ketamine in selected — reduces opioid requirement and persistent post-surgical pain.'
+  ]);
+
+  if (s0 === 'burning') {
+    addMech(1, '2. Distribution clue?',
+      [['focal','Focal — single nerve, dermatome, or limb region'],['symmetric','Symmetric distal (stocking + glove)'],['central','Central (after stroke, MS plaque, SCI, syringomyelia)']]);
+    const s1 = mechState[1];
+    if (s1 === 'focal') return showMech('Focal neuropathic pain', [
+      '<strong>Examples</strong>: postherpetic neuralgia, post-traumatic neuropathy, radiculopathy, mononeuropathy (carpal tunnel, meralgia paresthetica), trigeminal neuralgia.',
+      'NeuPSIG grading: possible → probable (sensory signs in territory) → definite (confirmatory test).',
+      'First-line: gabapentinoids, SNRI (duloxetine), TCA.',
+      'Second-line / focal: topical lidocaine 5% patch (especially with allodynia); capsaicin 8% patch single in-clinic application q3 months.',
+      'Tramadol second-line; strong opioids third-line / refractory.',
+      'For trigeminal neuralgia, carbamazepine first-line (HLA-B*1502 test in Han Chinese, Thai, Filipino); MVD or Gamma Knife SRS for refractory.',
+      'Botulinum toxin A in selected focal post-traumatic / post-herpetic / TN.'
+    ]);
+    if (s1 === 'symmetric') return showMech('Symmetric (length-dependent) painful neuropathy', [
+      '<strong>Causes</strong>: diabetic peripheral neuropathy (most common), chemotherapy-induced (platinum, taxane, bortezomib, vincristine, thalidomide — duloxetine the only positive RCT), HIV neuropathy, small-fibre neuropathy (diabetes/pre-diabetes — OGTT, Sjögren, sarcoidosis, B12, ATTR amyloid, Fabry, channelopathies).',
+      'Workup: HbA1c + OGTT, B12, TFTs, ESR/CRP, immunoglobulins ± SPEP, ANA, SSA/SSB, ACE; skin biopsy IENFD if NCS normal and SFN suspected.',
+      'Tight glycaemic control (more effective in T1DM); modifiable CV risk factors.',
+      'First-line: gabapentinoid, SNRI (duloxetine for DPN + CIPN), TCA.',
+      'Topical capsaicin 8% patch for selected focal areas.',
+      'Treat specific causes (B12 replacement; ATTR with patisiran/vutrisiran/tafamidis; Fabry with agalsidase/migalastat; channelopathies — specialist).'
+    ]);
+    if (s1 === 'central') return showMech('Central neuropathic pain', [
+      'Causes: central post-stroke pain (Dejerine-Roussy — thalamic/lateral medullary), MS-related (TN from pontine plaque, painful tonic spasms, Lhermitte), SCI (at-level + below-level central), syringomyelia.',
+      'First-line: amitriptyline, gabapentinoid, lamotrigine.',
+      'Second-line: duloxetine.',
+      'Specialist procedures: rTMS, motor cortex stimulation, intrathecal baclofen for spasticity.',
+      'Cross-ref Modules 2 (stroke), 8 (MS), 10 (SCI / syringomyelia).'
+    ]);
+  }
+
+  if (s0 === 'widespread') return showMech('Nociplastic pain (fibromyalgia / overlap syndromes)', [
+    '<strong>Diagnosis</strong>: ACR 2016/2019 criteria — Widespread Pain Index + Symptom Severity + duration ≥ 3 months + no alternative explanation.',
+    'Focused workup only: RF, anti-CCP, ESR/CRP, TSH, vitamin D; rule out PMR, depression, sleep apnea; avoid elaborate investigations unless red flags.',
+    'Treatment foundation: <strong>education</strong> (validate diagnosis, explain central sensitisation mechanism) + <strong>graded aerobic exercise</strong> (strongest evidence — very low start, slow progress, aquatic well-tolerated) + <strong>CBT and mindfulness</strong> + sleep optimisation.',
+    'Pharmacotherapy: duloxetine, milnacipran, pregabalin (FDA-approved); amitriptyline (off-label).',
+    '<strong>AVOID opioids and benzodiazepines</strong> — limited efficacy + significant harms.',
+    'Overlap syndromes: ME/CFS, IBS, interstitial cystitis, TMD, chronic pelvic pain, tension-type headache (Module 4), chronic LBP with central sensitisation, post-acute COVID-19 — treat with same principles.'
+  ]);
+
+  if (s0 === 'mixed') return showMech('Mixed mechanism — combine targeted approaches', [
+    '<strong>Examples</strong>: painful radiculopathy (nociceptive low back + neuropathic radicular leg pain); chronic LBP with central sensitisation; cancer pain with nociceptive bone + neuropathic plexopathy; CRPS with neuropathic + nociplastic features.',
+    'Identify which mechanism dominates and treat each accordingly.',
+    'Nociceptive component → paracetamol ± NSAID + physiotherapy + RTW planning.',
+    'Neuropathic component → gabapentinoid, SNRI, TCA; topical agents for focal.',
+    'Nociplastic / central component → exercise + CBT + duloxetine/milnacipran/pregabalin.',
+    'Avoid opioid escalation; use opioid-sparing combinations and rehabilitation.',
+    'Consider STarT Back risk stratification for chronic LBP; intensify intervention for high-risk.'
+  ]);
+
+  if (s0 === 'cancer') return showMech('Cancer pain — WHO ladder + adjuvants + palliative care', [
+    'Use the WHO analgesic ladder as a starting framework; modify with disease-specific adjuvants.',
+    'Bone pain: NSAID, paracetamol, opioid, bisphosphonate (zoledronic acid, denosumab), palliative RT, radionuclides.',
+    'Neuropathic cancer pain: combine opioid with gabapentinoid + SNRI/TCA; regional/neuraxial procedures.',
+    'Visceral pain: opioid + antispasmodic; coeliac plexus block for pancreatic / upper-abdominal malignancy.',
+    'Bowel regimen with any opioid (constipation almost universal).',
+    'Anticipatory medications at end-of-life: morphine, midazolam, hyoscine butylbromide / glycopyrrolate, antiemetic.',
+    '<strong>Early palliative care input</strong> — better symptom control, quality of life, and even survival (Temel NEJM 2010).'
+  ]);
+}
+
+function addMech(step, q, opts) {
+  if (document.querySelector(`#mech-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  mechRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => mechAns(step, b.dataset.val)));
+  if (mechState[step]) {
+    const t = wrap.querySelector(`[data-val="${mechState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showMech(title, items) {
+  mechResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  mechResult.classList.add('show');
+}
+
+function resetMech() {
+  mechState = {};
+  mechRest.innerHTML = '';
+  mechResult.classList.remove('show');
+  document.querySelectorAll('#mechTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#mechTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => mechAns(0, b.dataset.val)));
+</script>
+</body>
+</html>

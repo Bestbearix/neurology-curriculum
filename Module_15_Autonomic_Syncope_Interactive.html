@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 15 — Autonomic Disorders &amp; Syncope (Interactive)</title>
+<style>
+  :root{
+    --bg:#0a1d1a; --panel:#112924; --panel-2:#163530; --line:#234a44;
+    --ink:#e2f0ec; --muted:#8eb0a8; --accent:#48d3b8; --accent-2:#8eebd6;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#1a3a34; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#061412,#0a1d1a 35%,#0a1d1a); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(72,211,184,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#04201b; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#cef3e7}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(72,211,184,.10); border-color:var(--accent); color:#cef3e7}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#04201b; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(72,211,184,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* Calculator */
+  .calc{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .calc .row{padding:10px 0; border-bottom:1px dashed var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  .calc .row:last-child{border-bottom:none}
+  .calc .lbl{flex:1; font-size:.94rem}
+  .calc .pts{background:var(--soft); color:var(--accent-2); padding:2px 10px; border-radius:6px; font-size:.85rem; font-weight:600}
+  .calc .opts{display:flex; gap:6px}
+  .calc .opts button{background:var(--panel-2); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; color:var(--ink)}
+  .calc .opts button.sel{background:var(--accent); color:#04201b; border-color:var(--accent); font-weight:600}
+  .scorebar{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .scorebar h4{margin:0 0 6px; color:var(--accent-2)}
+  .scorebar .big{font-size:2rem; font-weight:700; color:var(--accent-2)}
+  .scorebar .interp{margin-top:8px; font-size:.95rem; color:var(--ink)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 15</span>
+    <span class="badge">General physician</span>
+    <h1>Autonomic Disorders &amp; Syncope — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 17 &amp; 25) and Merritt's <em>Neurology</em> (14e, Ch. 116, 117). 2018/2022 ESC syncope guidelines, Canadian Syncope Risk Score (CMAJ 2016), 2017 AAN/AAS OH consensus, 2015 HRS POTS consensus, Baguley 2014 PSH criteria. Droxidopa, midodrine, ATTR amyloid therapies (patisiran, tafamidis, vutrisiran) included.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="diff">Syncope Differentiator</button>
+    <button data-tab="csrs">Canadian Syncope Risk Score</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Syncope is one of the commonest ED presentations and one of the most over-investigated; the dichotomy that matters at the front door is benign reflex syncope vs cardiac syncope. Autonomic disorders are hugely under-recognised because their features cross many systems — orthostatic dizziness, post-prandial fatigue, urinary symptoms, dry eyes/mouth, abnormal sweating — and are often dismissed as non-specific. They're highly treatable when correctly identified.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Triage transient loss of consciousness reliably and use the San Francisco and Canadian Syncope Risk Scores.</li>
+      <li>Identify red-flag features that mandate cardiac workup and admission.</li>
+      <li>Measure and interpret orthostatic vitals; distinguish neurogenic from non-neurogenic OH.</li>
+      <li>Diagnose POTS using consensus criteria; outline a graded, exercise-led management plan.</li>
+      <li>Recognise PAF, MSA, PD, and DLB autonomic features and use MIBG to differentiate.</li>
+      <li>Recognise and treat autoimmune autonomic ganglionopathy, diabetic autonomic neuropathy, and amyloid autonomic neuropathy.</li>
+      <li>Diagnose paroxysmal sympathetic hyperactivity using Baguley criteria and treat with morphine, propranolol, gabapentin, and clonidine.</li>
+      <li>Recognise and treat autonomic dysreflexia and GBS dysautonomia.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle that prevents disasters:</strong> in any TLoC, ask (1) is it true syncope? (2) was there a prodrome? (3) any red flags (exertion, supine, palpitation, structural heart disease, family history of sudden cardiac death &lt; 40)? If yes to any red flag → ECG + monitoring + cardiology pathway. If clear vasovagal pattern + no red flags → counsel, do not pan-scan.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Autonomic anatomy &amp; the baroreflex</summary>
+      <div class="body">
+        <table>
+          <tr><th></th><th>Sympathetic</th><th>Parasympathetic</th></tr>
+          <tr><td>Origin</td><td>T1–L2 IMLC</td><td>CN III, VII, IX, X + S2–S4</td></tr>
+          <tr><td>Pre/Post NT</td><td>ACh nicotinic → NE (sweat: ACh)</td><td>ACh nicotinic → ACh muscarinic</td></tr>
+          <tr><td>Cardiac action</td><td>↑ HR, ↑ contractility (β1)</td><td>↓ HR (vagus)</td></tr>
+          <tr><td>Vascular</td><td>α1 vasoconstrict; β2 dilate</td><td>Minimal direct vascular</td></tr>
+        </table>
+        <p><strong>Baroreflex</strong>: carotid sinus + aortic arch → CN IX/X → NTS → vagal output (↓ HR) AND inhibits RVLM (↓ sympathetic → vasodilation). Failure anywhere → OH.</p>
+        <p><strong>Central autonomic network</strong>: insula (right = sympathetic; right insular stroke can cause arrhythmias), hypothalamus, amygdala, anterior cingulate; brainstem NTS, nucleus ambiguus, RVLM, DMV.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Syncope — three categories &amp; how to differentiate from seizure</summary>
+      <div class="body">
+        <table>
+          <tr><th>Category</th><th>Hallmarks</th></tr>
+          <tr><td>Reflex (vasovagal, situational, carotid sinus)</td><td>Classic prodrome (warmth, nausea, sweating, tunnel vision); trigger (standing, pain, fear, blood, cough, micturition, swallow)</td></tr>
+          <tr><td>Orthostatic</td><td>On standing; drugs, volume, neurogenic</td></tr>
+          <tr><td>Cardiac</td><td>Sudden, exertional, supine; palpitations; structural disease; abnormal ECG; family history SCD</td></tr>
+        </table>
+        <h3>Syncope vs seizure</h3>
+        <table>
+          <tr><th>Feature</th><th>Syncope</th><th>Seizure</th></tr>
+          <tr><td>Prodrome</td><td>Vasovagal/positional/palpitation</td><td>Aura (déjà vu, epigastric, olfactory)</td></tr>
+          <tr><td>Duration LoC</td><td>Seconds (&lt; 20 s)</td><td>Often &gt; 1 min</td></tr>
+          <tr><td>Movements</td><td>Brief myoclonic jerks ("convulsive syncope") — common, not a seizure</td><td>Sustained rhythmic clonus, tonic phase, head turn</td></tr>
+          <tr><td>Recovery</td><td>Seconds–minutes</td><td>Postictal ~10–30 min</td></tr>
+          <tr><td>Tongue bite</td><td>Tip rarely</td><td>Lateral characteristic</td></tr>
+          <tr><td>Lactate</td><td>Normal</td><td>Often raised within 2 h</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Syncope workup &amp; risk scores</summary>
+      <div class="body">
+        <ol>
+          <li>Detailed history (patient + witness) — prodrome, trigger, posture, exertion, duration, recovery, family history.</li>
+          <li>Examination — orthostatic vitals at 1, 3, and 5 minutes; cardiac (AS, HCM); neurological.</li>
+          <li><strong>12-lead ECG in every patient</strong> — long QT, Brugada, HCM, WPW, AV block, ARVC.</li>
+          <li>Bedside glucose; pregnancy test in reproductive-age women.</li>
+          <li>Echo if abnormal ECG/exam/structural concern.</li>
+          <li>Holter / event recorder / implantable loop recorder for recurrent unexplained syncope.</li>
+          <li>Tilt-table only after cardiac causes excluded.</li>
+          <li>Brain imaging / EEG only for clear neurological features (focal deficit, prolonged confusion, witnessed seizure).</li>
+        </ol>
+        <p><strong>San Francisco Syncope Rule (CHESS)</strong> — any one: CHF history, Haematocrit &lt; 30%, ECG abnormal, Shortness of breath, Systolic BP &lt; 90 at triage → 7-day serious outcome risk (sensitivity ~96%).</p>
+        <p><strong>Canadian Syncope Risk Score</strong> — see the dedicated tab. Risk bands: ≤ 0 low (~0.4–0.7%); 1–3 medium; 4–5 high; ≥ 6 very high (~28% 30-day SAE).</p>
+        <div class="warn"><strong>Red flags mandating admission:</strong> syncope during exertion or supine, preceding palpitation, family history SCD &lt; 40 y, structural heart disease, abnormal ECG (long QT, Brugada, AV block, NSVT, pre-excitation, RBBB+LAFB), syncope with injury or no warning ("drop attacks"), new murmur or signs of CHF.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Tilt-table &amp; autonomic function tests</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Tilt-table test</strong>: head-up 60–70° × 20–45 min ± isoproterenol or nitroglycerin provocation. For recurrent syncope of unclear cause after negative cardiac workup.</li>
+          <li><strong>Active stand</strong>: BP/HR at 1, 3, 5 min — cheaper; 5-min reading detects delayed OH (PD).</li>
+          <li>HRV tests: deep breathing (parasympathetic), Valsalva ratio (combined), 30:15 ratio (vagal).</li>
+          <li><strong>QSART</strong> for sudomotor / small-fibre.</li>
+          <li><strong>Plasma catecholamines</strong>: low standing NE → postganglionic failure (PAF, PD); normal supine NE + poor rise → central failure (MSA).</li>
+          <li><strong>123I-MIBG cardiac scintigraphy</strong>: reduced uptake in PD/PAF/DLB (postganglionic); normal in MSA (preganglionic) — discriminating test.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Orthostatic hypotension — definitions and neurogenic vs not</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Classic OH</strong>: SBP fall ≥ 20 or DBP fall ≥ 10 within 3 minutes of standing/tilt.</li>
+          <li><strong>Initial OH</strong>: transient drop within 15 s; younger; resolves by ~30 s.</li>
+          <li><strong>Delayed OH</strong>: drop after 3 minutes — common in PD; need 5-minute reading or tilt.</li>
+        </ul>
+        <div class="pearl"><strong>HR-response trick</strong>: ≥ 15 bpm rise with the BP drop → volume / drug cause. &lt; 15 bpm rise (or HR-to-systolic-drop ratio &lt; 0.5) → neurogenic OH.</div>
+        <table>
+          <tr><th>Non-neurogenic</th><th>Neurogenic</th></tr>
+          <tr><td>Volume depletion, anaemia, diuretics, antihypertensives, vasodilators, α-blockers, TCAs/MAOIs, antipsychotics, dopamine agonists</td><td>PAF, MSA, PD, DLB, diabetic / amyloid / paraneoplastic / Sjögren / AAG, GBS, SCI, MS</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Management of OH and supine HTN</summary>
+      <div class="body">
+        <ol>
+          <li><strong>Non-pharmacological first</strong>:
+            <ul>
+              <li>Review and reduce offending drugs.</li>
+              <li>Fluid 2–2.5 L/day; salt 6–10 g/day (avoid in HF/CKD).</li>
+              <li>Bolus 0.5 L water in &lt; 5 min raises BP within 5–10 min.</li>
+              <li>Counter-pressure manoeuvres (leg cross + tense, squat, hand grip, abdominal contraction).</li>
+              <li>Compression: abdominal binder &gt; thigh-high stockings.</li>
+              <li>Head of bed up 10–20° at night (reduces supine HTN and nocturnal natriuresis).</li>
+              <li>Avoid hot environments, large meals (postprandial), Valsalva.</li>
+            </ul>
+          </li>
+          <li><strong>Pharmacotherapy</strong>:
+            <ul>
+              <li><strong>Midodrine</strong> 2.5–10 mg po TID — last dose by 6 pm; warn against lying down within 4 h.</li>
+              <li><strong>Droxidopa</strong> 100–600 mg TID — last dose 3 h before bed; FDA-approved for neurogenic OH.</li>
+              <li><strong>Fludrocortisone</strong> 0.1–0.2 mg/day — monitor K, weight, watch for CHF.</li>
+              <li>Pyridostigmine 30–60 mg TID — modest, less supine HTN; useful adjunct.</li>
+              <li>Specialist options: octreotide, atomoxetine, desmopressin, EPO.</li>
+            </ul>
+          </li>
+          <li><strong>Supine hypertension</strong>: head of bed up; carb snack at bedtime; short-acting evening antihypertensive only if SBP &gt; 160–180; avoid long-acting agents (carry-over morning OH).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. POTS — postural orthostatic tachycardia syndrome</summary>
+      <div class="body">
+        <p>Consensus criteria: sustained HR rise ≥ 30 bpm (≥ 40 in adolescents) within 10 minutes of standing/tilt, no &gt; 20 mmHg SBP drop, chronic symptoms ≥ 3 months, no other explanation.</p>
+        <p>Young women predominantly; often triggered by viral illness (incl. post-COVID), surgery, trauma, pregnancy. Subtypes: neuropathic, hyperadrenergic (NE &gt; 600 pg/mL on standing, HTN), hypovolaemic. Overlaps with EDS, MCAS, ME/CFS, post-acute COVID.</p>
+        <ol>
+          <li>Non-pharmacological first: salt 6–10 g/day + fluid 2–3 L/day; compression (abdominal binder + waist-high stockings); <strong>graduated exercise (recumbent → upright over months) — the most effective long-term intervention</strong>; avoid prolonged standing in heat.</li>
+          <li>Pharmacotherapy: low-dose <strong>propranolol 10–20 mg TID/QID</strong> or <strong>ivabradine 2.5–7.5 mg BID</strong>; fludrocortisone; midodrine (especially neuropathic); pyridostigmine; methyldopa / clonidine for hyperadrenergic; IV saline boluses for acute flares.</li>
+          <li>Address mast-cell comorbidity (H1 + H2 antihistamines) and mood as appropriate.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Chronic autonomic failure — PAF, MSA, PD, DLB</summary>
+      <div class="body">
+        <table>
+          <tr><th>Disease</th><th>Distinguishing features</th></tr>
+          <tr><td>PAF (Bradbury-Eggleston)</td><td>Profound OH + urinary/ED for years, no parkinsonism or cognitive change; ~30% phenoconvert. Reduced MIBG (postganglionic).</td></tr>
+          <tr><td>MSA-A (Shy-Drager)</td><td>Early OH + urogenital + parkinsonism (poor levodopa response) and/or cerebellar ataxia within years. Stridor is a key clue. NORMAL MIBG (preganglionic). Median survival 6–9 y.</td></tr>
+          <tr><td>PD</td><td>OH usually later; supine HTN common; constipation often the earliest autonomic symptom. Reduced MIBG.</td></tr>
+          <tr><td>DLB</td><td>Dysautonomia + parkinsonism + visual hallucinations + cognitive fluctuations + RBD. Reduced MIBG.</td></tr>
+        </table>
+        <div class="pearl"><strong>MIBG cardiac scintigraphy</strong> is the most discriminating test between MSA (normal — preganglionic) and PD/PAF/DLB (reduced — postganglionic).</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. AAG, diabetic, amyloid &amp; other autonomic neuropathies</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Acute pandysautonomia / AAN</strong>: subacute severe OH + parasympathetic failure (dry eyes/mouth, dilated unreactive pupils, fixed HR, urinary retention) + GI dysmotility, often post-viral; monophasic.</li>
+          <li><strong>AAG</strong>: anti-α3-gAChR antibodies (~50%); chronic/subacute; IVIG, PLEX, steroids, rituximab.</li>
+          <li><strong>Diabetic autonomic neuropathy</strong>: cardiovascular (resting tachy, OH, silent MI), GI (gastroparesis, diabetic diarrhoea, constipation), urogenital (ED often earliest), sudomotor (gustatory sweating), pupillary, hypoglycaemia unawareness. Tight glycaemic control + symptom-directed care.</li>
+          <li><strong>Amyloid (AL or hereditary ATTR)</strong>: family history, carpal tunnel, cardiomyopathy, autonomic + small-fibre neuropathy. <strong>hATTR therapy</strong>: patisiran, inotersen, vutrisiran (RNA-based silencers), tafamidis (stabiliser); AL → chemotherapy.</li>
+          <li>Other: Sjögren (sicca + SF/autonomic neuropathy), paraneoplastic (anti-Hu, CRMP5; SCLC), HIV, HSAN III (Riley-Day; Ashkenazi; IKBKAP/ELP1).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. PSH — paroxysmal sympathetic hyperactivity after brain injury</summary>
+      <div class="body">
+        <p>"Sympathetic storms" in 5–30% of severe TBI; also after anoxia, stroke, encephalitis. Episodic simultaneous ↑ HR, ↑ BP, ↑ RR, ↑ temp, sweating + dystonic posturing. Misdiagnosed as sepsis, seizures, PE, withdrawal.</p>
+        <p><strong>Baguley criteria (2014)</strong>: Clinical Feature Scale (severity) + Diagnosis Likelihood Tool (features + antecedent brain injury). Combined ≥ 27 = probable.</p>
+        <ol>
+          <li>Reduce noxious stimuli; treat triggers (full bladder, constipation, infection, pain).</li>
+          <li><strong>Abortive</strong>: morphine 1–2 mg IV (gold standard), benzodiazepine, propofol, dexmedetomidine.</li>
+          <li><strong>Prevention</strong>: scheduled propranolol (BBB-penetrating non-selective β), gabapentin, clonidine, baclofen (with posturing), bromocriptine; combinations often.</li>
+          <li>Avoid haloperidol (worsens dystonic features).</li>
+          <li>Improves over weeks–months as brain recovers.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Acute autonomic emergencies in other settings</summary>
+      <div class="body">
+        <ul>
+          <li><strong>GBS dysautonomia</strong> (Module 9): &gt; 50% have lability of BP, HR, arrhythmias, ileus, urinary retention — major mortality driver. Telemetry monitoring; avoid pushed cardioactive drug boluses.</li>
+          <li><strong>Autonomic dysreflexia</strong> (SCI above T6, Module 10): surge of HTN + headache + bradycardia + sweating above lesion, triggered by noxious stimulus below (distended bladder, faecal impaction, pressure ulcer). Sit up, loosen clothing, identify and remove trigger; nifedipine IR or topical/sublingual nitrate if BP persists.</li>
+          <li><strong>Tetanus</strong>: autonomic instability is the major modern-tetanus killer — Mg infusion + benzodiazepines + α-blockade.</li>
+          <li><strong>NMS / serotonin syndrome / MH / sympathomimetic toxidrome</strong>: Module 13.</li>
+          <li><strong>Pheochromocytoma</strong>: paroxysmal HTN + headache + sweating + palpitations. <strong>α-blockade BEFORE β-blockade</strong> (avoid unopposed α-vasoconstriction). Surgical removal definitive.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. When to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li><strong>Same day</strong>: high-risk syncope (CSRS ≥ 4, abnormal ECG, exertional, structural heart disease, family history SCD); PSH; autonomic dysreflexia; suspected pheochromocytoma crisis; severe GBS dysautonomia.</li>
+            <li><strong>Within 1–2 weeks</strong>: recurrent unexplained syncope after low-risk workup; suspected autonomic neuropathy; suspected MSA / PAF / DLB; new POTS; severe diabetic autonomic neuropathy.</li>
+            <li><strong>Routine</strong>: chronic OH stable on therapy; established PAF / PD with autonomic features.</li>
+            <li><strong>Always involve</strong>: cardiology for cardiac causes of syncope; movement disorders for MSA/PD; autonomic clinic for tilt-table, MIBG, complex polypharmacy.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="diff">
+    <h2>Syncope Differentiator</h2>
+    <p class="muted">Answer about the episode and the patient to get a likely category, workup, and management.</p>
+    <div class="tool" id="diffTool">
+      <div class="q">1. Setting / trigger?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="vasovagal">Prolonged standing, hot crowded place, pain, fear, blood draw, emotional stimulus — with classic prodrome (warmth, nausea, sweating, tunnel vision)</button>
+        <button class="opt" data-val="situational">Triggered by cough, micturition, defecation, swallowing, or after vigorous laughter</button>
+        <button class="opt" data-val="orthostatic">Just after standing up, often within minutes; on diuretics / antihypertensives or with autonomic disease</button>
+        <button class="opt" data-val="cardiac">During exertion, supine, preceded by palpitations, family history of sudden cardiac death, or known structural heart disease</button>
+        <button class="opt" data-val="neuro">Focal neurological features, prolonged postictal confusion, lateral tongue bite, or known epilepsy</button>
+      </div>
+      <div id="diff-rest"></div>
+      <div class="result" id="diff-result"></div>
+      <button class="reset" onclick="resetDiff()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="csrs">
+    <h2>Canadian Syncope Risk Score</h2>
+    <p class="muted">Tick each criterion that applies. Live score and 30-day serious-adverse-event risk band update below. <em>Use after cardiac and neurological assessment in the ED; not a substitute for clinical judgement.</em></p>
+    <div class="calc" id="csCalc"></div>
+    <div class="scorebar" id="csResult">
+      <h4>Canadian Syncope Risk Score</h4>
+      <div><span class="big" id="cs-score">0</span> points</div>
+      <div class="interp" id="cs-interp">No criteria selected.</div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 22-year-old medical student feels faint while watching a procedure; she becomes pale, nauseated, sweaty, then collapses briefly. Recovers within 30 seconds, alert and oriented</summary>
+      <div class="body">
+        <p>No injury. No palpitation. No exertion. ECG normal. No structural heart disease. No family history of sudden cardiac death. Brief myoclonic jerk witnessed during the event.</p>
+        <p><strong>Diagnosis:</strong> Vasovagal (reflex) syncope. The brief myoclonic activity is "convulsive syncope" — common and not a seizure.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Reassurance and patient education — vasovagal syncope is common and benign in young healthy patients with a classic prodrome and no red flags.</li>
+          <li>Counsel about triggers (prolonged standing, hot environments, blood, pain) and early-warning physical counter-pressure manoeuvres (leg crossing with tension, hand grip, squat).</li>
+          <li>Adequate hydration; salt liberalisation if recurrent.</li>
+          <li>Discharge without further imaging or telemetry — pan-investigation is inappropriate.</li>
+          <li>If recurrent and disabling: consider tilt-table, then midodrine, fludrocortisone, or — in older patients with cardioinhibitory pattern — pacemaker (selected cases; HRS/ESC guidance).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 68-year-old man collapses while playing tennis. No prodrome. ECG shows long QT with QTc 510 ms. Family history of his brother dying suddenly at age 38</summary>
+      <div class="body">
+        <p>Recovery rapid after a few seconds of unconsciousness. Echo: normal LV function. Holter: occasional polymorphic ventricular ectopy. Canadian Syncope Risk Score: troponin elevated +2, QTc &gt; 480 ms +2, heart disease history may apply +1, BP normal, age &gt; 65; estimated CSRS ~5.</p>
+        <p><strong>Diagnosis:</strong> High-risk cardiac syncope likely due to long QT syndrome with risk of torsades de pointes.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Admit for telemetry and cardiology consultation.</li>
+          <li>Review and stop QT-prolonging medications.</li>
+          <li>Electrolytes — correct K and Mg.</li>
+          <li>Genetic testing (KCNQ1, KCNH2, SCN5A — LQT1, LQT2, LQT3).</li>
+          <li>β-blocker therapy (typically nadolol for LQT1, propranolol for LQT2). Avoid LQT-aggravating drugs.</li>
+          <li><strong>ICD consideration</strong> — syncope on β-blocker, prior cardiac arrest, family history of sudden cardiac death &lt; 40 y in this patient justify discussion.</li>
+          <li>Family cascade screening.</li>
+          <li>Activity restrictions per LQT subtype (swimming for LQT1, auditory triggers for LQT2).</li>
+        </ol>
+        <div class="warn">Exertional or supine syncope, syncope without warning, palpitation prodrome, abnormal ECG, family history SCD &lt; 40 — these features are independently high-risk for arrhythmic cause and mandate cardiology pathway.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 75-year-old with 4-year history of postural lightheadedness, constipation, REM sleep behaviour, and mild parkinsonism poorly responsive to levodopa. Now has urinary retention and inspiratory stridor at night</summary>
+      <div class="body">
+        <p>Supine BP 160/90; standing (3 min) 95/55, HR rises only by 8 bpm. MIBG cardiac scintigraphy: NORMAL uptake. MRI: pontine "hot cross bun" sign and middle cerebellar peduncle hyperintensity.</p>
+        <p><strong>Diagnosis:</strong> Multiple system atrophy, autonomic-predominant (MSA-A; formerly Shy-Drager).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Confirm with movement-disorders neurology referral; cross-ref Module 6.</li>
+          <li><strong>Stridor</strong> — sleep medicine + ENT urgently; <strong>CPAP</strong> often helps; tracheostomy in severe vocal-cord abductor paralysis.</li>
+          <li><strong>Orthostatic hypotension</strong>: head of bed up 10–20°; fluid + salt; abdominal binder; midodrine 2.5–10 mg TID or droxidopa titrated; pyridostigmine adjunct.</li>
+          <li><strong>Supine hypertension</strong>: avoid lying flat; carb snack at bedtime; short-acting evening antihypertensive only if needed.</li>
+          <li>Urinary retention: urodynamics, intermittent self-catheterisation, α-blocker.</li>
+          <li>Constipation: PEG-based laxatives, prokinetics; treat aggressively.</li>
+          <li>Palliative-care input early; multidisciplinary autonomic clinic.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 28-year-old woman has 9 months of palpitations on standing, lightheadedness, fatigue, and cognitive fog after a viral illness. No syncope. No structural heart disease</summary>
+      <div class="body">
+        <p>Standing HR rises from 78 to 130 within 5 minutes, no significant BP drop. Symptoms relieved by sitting. Mild hypermobility on Beighton score. ECG normal.</p>
+        <p><strong>Diagnosis:</strong> Postural orthostatic tachycardia syndrome (POTS), likely post-viral; possible Ehlers-Danlos hypermobility overlap.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Confirm with active stand or tilt-table; rule out anaemia, hyperthyroidism, dehydration, pheochromocytoma, mast cell disease.</li>
+          <li>Non-pharmacological cornerstone: salt 6–10 g/day + fluid 2–3 L/day; abdominal binder + waist-high compression stockings; <strong>structured graded exercise programme</strong> starting recumbent (rowing, recumbent bike, swimming) and progressing to upright over months — most effective long-term intervention.</li>
+          <li>Avoid prolonged standing in heat; cool clothing; elevate legs when seated; small frequent meals.</li>
+          <li>If pharmacotherapy needed: low-dose <strong>propranolol 10–20 mg TID/QID</strong> or <strong>ivabradine 2.5–7.5 mg BID</strong>; fludrocortisone; midodrine; consider methyldopa / clonidine for hyperadrenergic POTS.</li>
+          <li>Screen for and treat comorbid MCAS (H1 + H2), anxiety/depression, GI dysmotility.</li>
+          <li>Hypermobility — physiotherapy, joint protection education.</li>
+          <li>Patient education and reassurance — chronic but improves with consistent self-management.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 25-year-old man with severe TBI 3 weeks ago has episodic tachycardia (HR 140), hypertension (BP 200/110), hyperthermia (39.5 °C), tachypnea, profuse sweating, and dystonic posturing</summary>
+      <div class="body">
+        <p>Episodes triggered by suctioning and turning, lasting 20–30 minutes. No infection on workup. EEG: no seizures. Sepsis ruled out.</p>
+        <p><strong>Diagnosis:</strong> Paroxysmal sympathetic hyperactivity (PSH) after severe TBI. Baguley combined score likely ≥ 27 (probable).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Identify and remove triggers: catheterise full bladder, treat constipation, control pain, minimise environmental stimuli, schedule cares.</li>
+          <li><strong>Abortive</strong>: morphine 1–2 mg IV (gold standard for breakthrough); benzodiazepine if agitation; propofol or dexmedetomidine if ICU sedation needed.</li>
+          <li><strong>Scheduled prevention</strong>: propranolol (BBB-penetrating non-selective β-blocker), gabapentin, clonidine, baclofen (especially with dystonic posturing), bromocriptine; combinations often required.</li>
+          <li>Avoid haloperidol (can worsen dystonic features).</li>
+          <li>Adequate hydration and nutrition; monitor for rhabdomyolysis with severe posturing.</li>
+          <li>Educate family — PSH usually improves over weeks–months as brain recovery progresses.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 60-year-old man with T2DM (HbA1c 9.5%) has postural lightheadedness, early satiety with vomiting, erectile dysfunction, and bladder hesitancy. Hypoglycaemia awareness is impaired</summary>
+      <div class="body">
+        <p>Supine BP 145/85; standing (3 min) 105/60 with HR rise only 5 bpm. Resting HR 100. Examination: reduced ankle reflexes, distal pinprick reduction, normal motor.</p>
+        <p><strong>Diagnosis:</strong> Diabetic autonomic neuropathy (cardiovascular + gastroparesis + urogenital + hypoglycaemia unawareness).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Tighten glycaemic control</strong> while avoiding hypoglycaemia (CGM particularly valuable given unawareness).</li>
+          <li><strong>Cardiovascular autonomic neuropathy</strong>: midodrine for OH (last dose by 6 pm); compression; address supine HTN; cardiology screening (silent MI risk).</li>
+          <li><strong>Gastroparesis</strong>: small frequent meals, low fat/fibre; metoclopramide short courses only (extrapyramidal risk — cross-ref Module 6); erythromycin; prucalopride; gastric electrical stimulation in refractory cases.</li>
+          <li><strong>ED</strong>: PDE5 inhibitors first-line; investigate vascular and endocrine contributions.</li>
+          <li><strong>Bladder</strong>: post-void residual measurement; intermittent self-catheterisation if elevated; α-blocker (tamsulosin) for incomplete emptying.</li>
+          <li><strong>Hypoglycaemia unawareness</strong>: CGM, structured education, raise glucose targets temporarily to restore awareness.</li>
+          <li>Sudomotor symptoms (gustatory sweating): glycopyrrolate topically or systemically; oxybutynin; address triggers.</li>
+          <li>Refer to autonomic clinic and diabetes neuropathy MDT.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 15 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 17, 25; Merritt's <em>Neurology</em> 14e Ch. 116, 117; 2018/2022 ESC syncope guideline; Canadian Syncope Risk Score (CMAJ 2016); San Francisco Syncope Rule (Ann Emerg Med 2004); 2017 AAN/AAS OH consensus; 2015 HRS POTS consensus; Baguley 2014 PSH criteria; tafamidis (NEJM 2018), patisiran (NEJM 2018), vutrisiran (NEJM 2022).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Definition', q:'Syncope vs other TLoC — defining mechanism?', a:'Syncope = transient loss of consciousness due to GLOBAL CEREBRAL HYPOPERFUSION, with rapid onset, short duration, spontaneous complete recovery. Distinguish from seizure (postictal confusion, lateral tongue bite, sustained clonus), hypoglycaemia, intoxication, psychogenic.'},
+  {tag:'Categories', q:'Three ESC categories of syncope?', a:'Reflex (vasovagal, situational — cough/micturition/defecation/swallow, carotid sinus); orthostatic; cardiac (arrhythmia or structural). Brief myoclonic jerks during reflex syncope ("convulsive syncope") are common — NOT a seizure.'},
+  {tag:'Red flags', q:'Red flags in syncope that mandate cardiac workup and admission?', a:'Exertional or supine syncope, preceding palpitation, family history of sudden cardiac death < 40 y, structural heart disease (AS, HCM, MI, CHF), abnormal ECG (long QT, Brugada, AV block, NSVT, pre-excitation, RBBB+LAFB), syncope without warning ("drop attack"), syncope with injury, new murmur or signs of CHF.'},
+  {tag:'CHESS', q:'San Francisco Syncope Rule (CHESS) — five criteria?', a:'CHF history, Hematocrit < 30%, ECG abnormal, Shortness of breath, Systolic BP < 90 mmHg at triage. Any ONE positive → 7-day serious outcome risk (~96% sensitivity).'},
+  {tag:'CSRS', q:'Canadian Syncope Risk Score — biggest single positive predictor (point value)?', a:'Three predictors carry +2: SBP < 90 or > 180, troponin > 99th percentile, QTc > 480 ms, AND ED diagnosis of cardiac syncope. The vasovagal-predisposition factor scores −1; ED diagnosis of vasovagal scores −2. Range −3 to +11; ≥ 6 = very high (~28% 30-day SAE).'},
+  {tag:'OH', q:'Definition of classic orthostatic hypotension?', a:'Sustained fall in systolic BP ≥ 20 mmHg or diastolic ≥ 10 mmHg within 3 minutes of standing or head-up tilt. In supine hypertensive patients, SBP drop ≥ 30 mmHg may be used. Initial OH: within 15 s; delayed OH: > 3 minutes (common in PD).'},
+  {tag:'OH HR', q:'How does heart-rate response differentiate neurogenic from non-neurogenic OH?', a:'In NEUROGENIC OH, HR rise is INADEQUATE (< 15 bpm; or HR-to-systolic-drop ratio < 0.5) because sympathetic outflow has failed. In non-neurogenic OH (volume, drugs), there is a compensatory tachycardia ≥ 15 bpm.'},
+  {tag:'OH Rx', q:'Non-pharmacological cornerstones of OH management?', a:'Review and reduce offending drugs; fluid 2–2.5 L/day + salt 6–10 g/day (if no HF/CKD); 0.5 L water bolus < 5 min for acute pressor effect; counter-pressure manoeuvres; abdominal binder + thigh-high stockings; head of bed up 10–20° at night; avoid hot baths, large carb meals, Valsalva.'},
+  {tag:'Pharm', q:'First-line pharmacotherapy options for neurogenic OH?', a:'Midodrine 2.5–10 mg po TID (last dose by 6 pm); droxidopa 100–600 mg TID (last dose 3 h before bed); fludrocortisone 0.1–0.2 mg/day; pyridostigmine 30–60 mg TID as adjunct (less supine HTN risk). Counsel about supine HTN; avoid lying down within 4 h of midodrine.'},
+  {tag:'POTS', q:'POTS diagnostic criteria?', a:'Sustained HR rise ≥ 30 bpm (≥ 40 bpm in adolescents 12–19) within 10 min of standing/tilt + absence of OH (no > 20 mmHg SBP drop) + chronic symptoms ≥ 3 months + not explained by another cause.'},
+  {tag:'POTS Rx', q:'Most effective long-term POTS treatment?', a:'STRUCTURED GRADUATED EXERCISE PROGRAMME (recumbent → upright over months) — more effective than any drug long-term. Plus salt 6–10 g/day + fluid 2–3 L/day + abdominal binder + waist-high compression. Drugs (low-dose propranolol 10–20 mg TID/QID, ivabradine, fludrocortisone, midodrine, pyridostigmine) are adjuncts.'},
+  {tag:'MSA vs PD', q:'Single best test to differentiate MSA from PD/PAF?', a:'123I-MIBG cardiac scintigraphy. NORMAL uptake = MSA (preganglionic failure); REDUCED uptake = PD, PAF, DLB (postganglionic failure). Also useful: pattern of OH onset (MSA early; PD late), levodopa response (poor MSA; good PD), stridor (MSA), cerebellar signs (MSA-C).'},
+  {tag:'AAG', q:'Diagnostic test for autoimmune autonomic ganglionopathy?', a:'Serum anti-α3-ganglionic acetylcholine receptor antibody (positive in ~50%). Clinical: chronic or subacute selective autonomic failure with tonic pupils, sicca, severe OH, severe GI dysmotility. Treatment: IVIG, plasma exchange, steroids, rituximab, mycophenolate.'},
+  {tag:'Diabetic', q:'Earliest autonomic symptom in diabetic autonomic neuropathy?', a:'Erectile dysfunction in men is often the earliest sign. Other manifestations: cardiovascular (resting tachycardia, OH, silent MI), GI (gastroparesis, diabetic diarrhoea), urogenital (atonic bladder), sudomotor (gustatory sweating + distal anhidrosis), pupillary, hypoglycaemia unawareness.'},
+  {tag:'Amyloid', q:'Hereditary ATTR amyloidosis-targeted therapies (2018+)?', a:'Patisiran and vutrisiran (siRNA against TTR mRNA, given IV or SC); inotersen (antisense oligonucleotide, SC); tafamidis (oral TTR stabiliser, also approved for ATTR cardiomyopathy). Workup any combination of autonomic neuropathy + carpal tunnel + cardiomyopathy + family history.'},
+  {tag:'PSH', q:'PSH key features and treatment cornerstones?', a:'Episodic simultaneous ↑ HR + ↑ BP + ↑ RR + ↑ temperature + sweating + dystonic posturing in severe TBI / anoxia / encephalitis recovery. Baguley criteria. Abortive: morphine 1–2 mg IV (gold standard), benzodiazepine, propofol/dexmedetomidine. Scheduled prevention: propranolol, gabapentin, clonidine, baclofen, bromocriptine. Avoid haloperidol.'},
+  {tag:'AD', q:'Autonomic dysreflexia — trigger, presentation, treatment?', a:'Spinal cord injury above T6 + noxious stimulus below the lesion (distended bladder most common, faecal impaction, pressure ulcer) → surge sympathetic outflow below + bradycardia from intact baroreflex above → HTN + headache + sweating above lesion + flushing above + pallor below. Sit patient up, loosen clothing, identify and remove trigger (catheterise, disimpact), nifedipine IR or topical nitrate if BP persists.'},
+  {tag:'Pheo', q:'Pheochromocytoma — drug-order principle?', a:'α-BLOCKADE FIRST (phenoxybenzamine or doxazosin) THEN β-blockade. Giving a β-blocker first leaves α unopposed → severe vasoconstriction + HTN crisis. Surgery is definitive; preoperative α-blockade + volume expansion + selective β-blocker (only after α established).'},
+  {tag:'PSH-prevent', q:'Why avoid haloperidol in PSH?', a:'PSH commonly includes dystonic posturing; dopamine antagonists (haloperidol, metoclopramide, typical antipsychotics) can WORSEN dystonic features and even precipitate NMS (cross-ref Module 13). Use benzodiazepines, propofol, or dexmedetomidine for acute control instead.'},
+  {tag:'GBS', q:'Why monitor GBS patients on telemetry?', a:'Autonomic instability in > 50% of severe GBS — labile BP, sinus tachy/brady, AV block, asystole, ileus, urinary retention; major mortality driver. Telemetry is mandatory; avoid pushed boluses of cardioactive drugs (small fluid challenges and gentle titration are safer).'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 22-year-old has a brief loss of consciousness while watching a procedure — she felt warm, nauseated, sweaty, then collapsed. She had a brief myoclonic jerk during the event. Recovered within 30 s, fully oriented. ECG normal. Best management?',
+   choices:['Brain MRI and EEG','Reassurance, counselling on triggers + counter-pressure manoeuvres; no imaging','Telemetry admission','Tilt-table test now'],
+   ans:1,
+   why:'Classic vasovagal syncope with prodrome and rapid recovery. Brief myoclonic jerks ("convulsive syncope") are common and do not indicate a seizure. Pan-investigation is inappropriate. Counsel about triggers (prolonged standing, heat, pain, blood draw) and physical counter-pressure manoeuvres (leg cross + tense, hand grip, squat). Reserve tilt-table for recurrent disabling episodes after a benign initial workup.'},
+  {q:'A 68-year-old collapses while playing tennis without warning. ECG shows QTc 510 ms. His brother died suddenly at 38. Best action?',
+   choices:['Discharge with reassurance','Admit for telemetry, cardiology consult, electrolyte correction, β-blocker, ICD discussion, family cascade screening','Outpatient Holter only','Brain MRI'],
+   ans:1,
+   why:'High-risk syncope: exertional, no prodrome, abnormal ECG (long QT), family history SCD < 40 years. Admit and pursue cardiac pathway. Long QT therapy: review QT-prolonging drugs; correct K + Mg; β-blocker (nadolol for LQT1, propranolol for LQT2); ICD if syncope on β-blocker, prior cardiac arrest, or persistent QTc > 500 ms with high-risk genotype; genetic testing; family screening.'},
+  {q:'A 75-year-old with parkinsonism, orthostatic intolerance, inspiratory stridor, urinary retention, and minimal levodopa response. MIBG cardiac scintigraphy shows NORMAL uptake. Most likely diagnosis?',
+   choices:['Idiopathic Parkinson disease','Multiple system atrophy (MSA-A, formerly Shy-Drager)','Pure autonomic failure','Dementia with Lewy bodies'],
+   ans:1,
+   why:'Early prominent autonomic failure + poor levodopa response + stridor + clinical signs of multiple-system involvement + NORMAL MIBG (preganglionic failure — MSA) point to MSA-A. PD, PAF, and DLB all have REDUCED MIBG (postganglionic failure). Stridor is a classic MSA clue requiring sleep medicine + ENT input (CPAP or tracheostomy in severe cases).'},
+  {q:'A 28-year-old woman has 9 months of palpitations on standing, lightheadedness, fatigue, and cognitive fog after a viral illness. Standing HR rises from 78 to 130 within 5 minutes; no SBP drop. Best long-term treatment foundation?',
+   choices:['Long-term high-dose propranolol','High-dose hypnotic at night','Structured graduated exercise programme (recumbent → upright over months) + salt 6–10 g/day + fluid 2–3 L/day + compression + low-dose adjunct medication if needed','Long-term opioid'],
+   ans:2,
+   why:'POTS diagnostic criteria met (HR rise ≥ 30 bpm in 10 min, no OH, chronic ≥ 3 months, no other cause). Most effective long-term treatment is structured graded exercise + salt + fluid + compression. Drugs are adjuncts: low-dose propranolol 10–20 mg TID/QID, ivabradine, fludrocortisone, midodrine, pyridostigmine. Address comorbid mast cell activation, EDS hypermobility, and mood.'},
+  {q:'A 70-year-old with neurogenic OH has supine BP 170/95 and standing 90/55. He is symptomatic on standing. Best management strategy for supine hypertension?',
+   choices:['Long-acting amlodipine at bedtime','Head of bed up 10–20° + carb snack at bedtime + short-acting evening antihypertensive only if SBP > 160–180; avoid long-acting agents','Stop midodrine entirely','Diuretic at night'],
+   ans:1,
+   why:'Supine HTN is common in neurogenic OH (PAF, MSA, PD). Long-acting antihypertensives create morning OH from carry-over effect. Use head-of-bed elevation, bedtime carb snack (induces postprandial BP drop), and a short-acting agent only if supine SBP exceeds 160–180 mmHg (losartan 50 mg, transdermal nitroglycerin removed in morning, immediate-release nifedipine). Do not stop OH therapy.'},
+  {q:'A 25-year-old with severe TBI has episodic HR 140, BP 200/110, T 39.5 °C, tachypnea, sweating, and dystonic posturing 3 weeks after injury. Sepsis and seizures ruled out. Best abortive treatment for breakthrough episodes?',
+   choices:['Haloperidol','Morphine 1–2 mg IV','Antipsychotic','IV fluids alone'],
+   ans:1,
+   why:'Paroxysmal sympathetic hyperactivity (PSH) after TBI. Morphine 1–2 mg IV is the gold-standard abortive. Add benzodiazepine, propofol, or dexmedetomidine as needed. Scheduled prevention: propranolol (BBB-penetrating), gabapentin, clonidine, baclofen (especially with posturing), bromocriptine. AVOID haloperidol — worsens dystonic features. Identify triggers (full bladder, constipation, pain, stimuli).'},
+  {q:'A 35-year-old paraplegic (T4 SCI) develops sudden severe headache and BP 220/120 with bradycardia. He is sweating above the lesion. What is the first action?',
+   choices:['IV labetalol','Sit patient up, loosen restrictive clothing, identify and remove trigger (commonly distended bladder — catheterise; faecal impaction — disimpact; pressure ulcer)','IV β-blocker','MRI brain'],
+   ans:1,
+   why:'Autonomic dysreflexia (SCI above T6) from noxious stimulus below — most often distended bladder. Sit patient up (orthostatic gradient reduces BP), loosen clothing, find and remove the trigger. If BP persists, immediate-release nifedipine or topical / sublingual nitrate. β-blocker monotherapy not first — leaves α unopposed and worsens HTN.'},
+  {q:'A 50-year-old with episodic severe headaches, palpitations, sweating, and BP 220/130 has a 4-cm adrenal mass on imaging. Which drug should be started FIRST before any β-blocker?',
+   choices:['Metoprolol','Phenoxybenzamine (or doxazosin) — α-blockade BEFORE β-blockade to avoid unopposed α-vasoconstriction','Propranolol','Verapamil'],
+   ans:1,
+   why:'Pheochromocytoma. α-Blockade first (phenoxybenzamine, doxazosin) with volume expansion → THEN β-blocker if tachycardia (selective β1 preferred). Surgery definitive. Starting β-blocker first leaves α unopposed → severe vasoconstriction and hypertensive crisis.'},
+  {q:'A 60-year-old with longstanding T2DM has resting HR 100, OH (SBP drop 30, HR rise 5 bpm), gastroparesis, and erectile dysfunction. Which test/feature most strongly supports diabetic autonomic neuropathy in this picture?',
+   choices:['Inadequate HR rise (< 15 bpm) on a 30-mmHg SBP drop — sympathetic failure typical of diabetic cardiovascular autonomic neuropathy','Normal HR variability','Normal MIBG','Negative anti-α3-gAChR antibody'],
+   ans:0,
+   why:'A blunted HR response (< 15 bpm) on a clinically significant SBP drop indicates neurogenic OH. In a patient with longstanding diabetes, this is the most likely cause. Combined with gastroparesis, ED, and hypoglycaemia unawareness, the picture is diabetic autonomic neuropathy. MIBG is typically reduced (postganglionic). Treatment: tighten glycaemic control (CGM), midodrine, prokinetics, PDE5 inhibitors.'},
+  {q:'A 65-year-old man has 5-year history of profound OH, urinary symptoms, ED, and hypohidrosis, with no parkinsonism, cerebellar signs, or cognitive decline. MIBG cardiac scintigraphy: REDUCED uptake. Most likely diagnosis?',
+   choices:['Multiple system atrophy','Pure autonomic failure (Bradbury-Eggleston) — Lewy body postganglionic disease with high risk of phenoconversion to PD/DLB over time','Parkinson disease','Dementia with Lewy bodies'],
+   ans:1,
+   why:'PAF (Bradbury-Eggleston): profound autonomic failure without other neurological features for years, reduced MIBG (postganglionic Lewy body disease). About 30% phenoconvert to PD or DLB over time, so monitor for emerging motor or cognitive features. Manage OH aggressively (head of bed up, abdominal binder, midodrine, droxidopa, fludrocortisone); manage supine hypertension; refer to autonomic clinic.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Syncope Differentiator */
+const diffRest = document.getElementById('diff-rest');
+const diffResult = document.getElementById('diff-result');
+let diffState = {};
+
+function diffAns(step, val) {
+  diffState[step] = val;
+  Object.keys(diffState).forEach(k => { if (+k > step) delete diffState[k]; });
+  document.querySelectorAll(`#diffTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#diffTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderDiff();
+}
+
+function renderDiff() {
+  diffRest.innerHTML = '';
+  diffResult.classList.remove('show');
+  const s0 = diffState[0];
+  if (!s0) return;
+
+  if (s0 === 'vasovagal') return showDiff('Vasovagal (reflex) syncope', [
+    'Classic prodrome + identifiable trigger + rapid recovery + normal ECG → benign reflex syncope.',
+    'Brief myoclonic jerks ("convulsive syncope") are common — not a seizure.',
+    'Reassurance + patient education + early counter-pressure manoeuvres (leg crossing with tension, hand grip, squat, abdominal contraction).',
+    'Hydration (≥ 2 L/day); salt liberalisation if recurrent and no HF/CKD.',
+    'Do not pan-investigate; no routine brain imaging or EEG; no telemetry admission.',
+    'If recurrent and disabling despite measures: tilt-table test; midodrine; fludrocortisone; selected older patients with cardioinhibitory pattern may benefit from pacemaker (HRS/ESC guidance).'
+  ]);
+
+  if (s0 === 'situational') return showDiff('Situational syncope', [
+    'Cough syncope (COPD), micturition syncope (men, nocturnal), defecation, swallow syncope, post-exercise, post-prandial.',
+    'Counsel about avoidance (sit to urinate, slow position changes, treat constipation), trigger control (treat COPD, antitussive).',
+    'Same outpatient pathway as vasovagal — ECG, examination, no extensive workup if otherwise low risk.',
+    'Carotid sinus massage (under monitoring) in older men with neck-related syncope; pacemaker for documented cardioinhibitory carotid sinus syndrome.'
+  ]);
+
+  if (s0 === 'orthostatic') {
+    addDiff(1, '2. HR response on standing?',
+      [['hradeq','HR rises by ≥ 15 bpm (compensatory)'],['hrinadeq','HR rises by < 15 bpm (or HR/SBP-drop ratio < 0.5)']]);
+    const s1 = diffState[1];
+    if (s1 === 'hradeq') return showDiff('Non-neurogenic OH (volume / drug / anaemia)', [
+      'Likely contributors: diuretics, antihypertensives, vasodilators, α-blockers, TCAs/MAOIs, antipsychotics, dopamine agonists, alcohol, sepsis, anaemia, hypovolaemia, post-prandial.',
+      'Review and reduce offending drugs; replace volume; correct anaemia.',
+      'Education: rise slowly, dangle legs before standing, counter-pressure manoeuvres.',
+      'Compression stockings/abdominal binder; fluid + salt.',
+      'Drugs reserved for true neurogenic OH; treat the cause first.'
+    ]);
+    if (s1 === 'hrinadeq') return showDiff('Neurogenic OH — autonomic failure', [
+      'Causes: PAF, MSA, PD, DLB, diabetic / amyloid / paraneoplastic / Sjögren autonomic neuropathy, AAG, GBS, SCI, MS.',
+      'Examine for parkinsonism, cerebellar signs, RBD history, neuropathy signs, sicca, family history (amyloid).',
+      'Investigations: tilt-table; plasma catecholamines (low standing NE in PAF/PD); MIBG cardiac scintigraphy (reduced = PD/PAF/DLB; normal = MSA); ATTR work-up if indicated; anti-α3-gAChR antibody if AAG suspected; HbA1c.',
+      'Non-pharmacological cornerstones: review drugs, fluid 2–2.5 L + salt 6–10 g/day, 0.5 L water bolus, counter-pressure, abdominal binder, head of bed up 10–20°.',
+      'Pharmacotherapy: midodrine (last dose by 6 pm); droxidopa; fludrocortisone; pyridostigmine adjunct.',
+      'Address supine HTN: head of bed up + bedtime carb snack; short-acting evening antihypertensive only if SBP > 160–180.',
+      'Refer to autonomic / movement-disorders clinic.'
+    ]);
+  }
+
+  if (s0 === 'cardiac') return showDiff('Cardiac syncope — high-risk pathway', [
+    '<strong>Admit</strong> for telemetry; urgent cardiology consultation.',
+    '12-lead ECG: long QT (LQTS), Brugada, AV block, NSVT, pre-excitation (WPW), HCM, ARVC, RBBB+LAFB.',
+    'Echo: AS, HCM, severe MR, prior MI, low LVEF.',
+    'Cardiac biomarkers, electrolytes (K + Mg).',
+    'Ambulatory monitoring: Holter (24–48 h) → external loop recorder (2–4 weeks) → implantable loop recorder (1–3 years) for unexplained recurrent syncope.',
+    'Electrophysiology study in selected patients.',
+    'Treat specific cause: pacemaker for high-grade AV block / sinus pause / cardioinhibitory; ICD for life-threatening ventricular arrhythmias, LQTS with high risk features, HCM with risk; ablation for SVT/AF/VT; surgery / TAVR for severe AS; cardiomyopathy-targeted therapy.',
+    'Family cascade screening for inherited arrhythmias (LQTS, Brugada, HCM, ARVC); genetic testing.',
+    'Driving restrictions per local guidance.'
+  ]);
+
+  if (s0 === 'neuro') return showDiff('Likely seizure or other non-syncopal TLoC — neurology pathway', [
+    'Features against syncope and toward seizure: lateral tongue bite, sustained rhythmic clonus, head turning, prolonged postictal confusion (10–30 min), urinary incontinence, focal deficit, known epilepsy, aura (déjà vu, epigastric rising, olfactory).',
+    'Lactate often raised within 2 hours of generalised tonic-clonic seizure; CK may rise later.',
+    'Workup: EEG (and sleep-deprived EEG), brain MRI; consider video EEG monitoring for stereotyped events.',
+    'Cross-ref Module 3 (Epilepsy).',
+    'Also consider hypoglycaemia (check glucose), drug intoxication / withdrawal (Module 13), psychogenic non-epileptic events (history, video EEG).',
+    'Treat underlying cause; epilepsy management per ILAE 2017 framework.'
+  ]);
+}
+
+function addDiff(step, q, opts) {
+  if (document.querySelector(`#diff-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  diffRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => diffAns(step, b.dataset.val)));
+  if (diffState[step]) {
+    const t = wrap.querySelector(`[data-val="${diffState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showDiff(title, items) {
+  diffResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  diffResult.classList.add('show');
+}
+
+function resetDiff() {
+  diffState = {};
+  diffRest.innerHTML = '';
+  diffResult.classList.remove('show');
+  document.querySelectorAll('#diffTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#diffTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => diffAns(0, b.dataset.val)));
+
+/* Canadian Syncope Risk Score */
+const csItems = [
+  ['vv','Predisposition to vasovagal symptoms (warm/crowded place, prolonged standing, fear/emotion/pain)', -1],
+  ['hd','History of heart disease (CAD, valvular disease, CHF, non-sinus rhythm, congenital)', +1],
+  ['bp','SBP < 90 or > 180 mmHg in ED', +2],
+  ['tn','Troponin elevated above 99th percentile', +2],
+  ['axis','Abnormal QRS axis (left < −30° or right > +100°)', +1],
+  ['qrs','QRS duration > 130 ms', +1],
+  ['qt','QTc > 480 ms', +2],
+  ['vvdx','ED diagnosis of vasovagal syncope', -2],
+  ['carddx','ED diagnosis of cardiac syncope', +2],
+];
+const csCalc = document.getElementById('csCalc');
+let csState = {};
+csItems.forEach(([id,label,pts]) => {
+  csState[id] = false;
+  const row = document.createElement('div');
+  row.className = 'row';
+  const sign = pts >= 0 ? '+' : '';
+  row.innerHTML = `<div class="lbl">${label}</div>
+    <div class="pts">${sign}${pts}</div>
+    <div class="opts">
+      <button class="sel" data-id="${id}" data-val="0">No</button>
+      <button data-id="${id}" data-val="1">Yes</button>
+    </div>`;
+  csCalc.appendChild(row);
+});
+csCalc.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = +b.dataset.val;
+  csState[id] = !!val;
+  csCalc.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreCs();
+}));
+
+function scoreCs() {
+  let total = 0;
+  csItems.forEach(([id,_,pts]) => { if (csState[id]) total += pts; });
+  document.getElementById('cs-score').textContent = total;
+  let interp = '';
+  const anySelected = Object.values(csState).some(Boolean);
+  if (!anySelected) interp = 'No criteria selected.';
+  else if (total <= -2) interp = '<strong>Very low risk</strong> (~0.4% 30-day serious adverse events). Vasovagal predominantly. Reassurance + outpatient follow-up appropriate.';
+  else if (total <= 0) interp = '<strong>Low risk</strong> (~0.7% 30-day SAE). Most can be discharged after a complete ED workup with safety-netting and outpatient follow-up.';
+  else if (total <= 3) interp = '<strong>Medium risk</strong> (~3–8% 30-day SAE). Short ED observation with telemetry, repeat ECG, troponin trend; consider cardiology consultation and outpatient ambulatory monitoring.';
+  else if (total <= 5) interp = '<strong>High risk</strong> (~12–20% 30-day SAE). Admit for monitoring and cardiology workup (echo, ambulatory ECG, EP if indicated).';
+  else interp = '<strong>Very high risk</strong> (~28% 30-day SAE). Admit; expedited cardiology workup; consider EP referral; address modifiable risk factors and implantable loop recorder for ongoing unexplained events.';
+  document.getElementById('cs-interp').innerHTML = interp;
+}
+scoreCs();
+</script>
+</body>
+</html>

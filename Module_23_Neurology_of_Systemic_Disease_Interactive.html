@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 23 — Neurology of Systemic Disease (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f0a25; --panel:#1c1240; --panel-2:#241653; --line:#3a2570;
+    --ink:#e8e2f5; --muted:#a89dc8; --accent:#9a7df0; --accent-2:#bca9f5;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#2a1860; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#08051a,#0f0a25 35%,#0f0a25); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(154,125,240,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#0d0820; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#d6c5f5}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(154,125,240,.10); border-color:var(--accent); color:#d6c5f5}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#0d0820; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(154,125,240,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 23</span>
+    <span class="badge">General physician</span>
+    <h1>Neurology of Systemic Disease — Interactive Course</h1>
+    <div class="sub">Built from Merritt's <em>Neurology</em> (14e, Ch. 119, 122–127, 130, 133, 134) and relevant Adams &amp; Victor 12e sections. AF/IE/PFO closure RCTs, sickle cell STOP/TWiTCH, APS TRAPS, TTP HERCULES caplacizumab, neurosarcoidosis, EULAR APS 2019, EULAR LVV 2018, HIV HAND nosology.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="organ">Organ-System Cross-Reference</button>
+    <button data-tab="vasc">CNS Vasculitis Differentiator</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Most neurology in adults is the neurological face of systemic disease. AF causes embolic stroke; SLE causes neuropsychiatric syndromes; sickle cell causes childhood stroke; APS causes recurrent thrombosis; sarcoidosis causes basal meningitis; HIV causes opportunistic infections and cognitive decline; transplant immunosuppression causes PRES and PML; radiation causes necrosis and leukoencephalopathy. The general physician's job is to recognise systemic clues in any new neurological syndrome and to coordinate multidisciplinary care.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Match common cardiac, renal, endocrine, haematological, autoimmune, and infectious systemic conditions to their characteristic neurological manifestations.</li>
+      <li>Differentiate SLE neuropsychiatric syndromes, APS, vasculitides, and lupus-mimics at the bedside.</li>
+      <li>Apply guideline-aligned workups: transcranial Doppler in sickle cell; APS antibody triple; ADAMTS13 for TTP; ACE / chest CT / PET for sarcoid; HLA-B*57 / HIV testing.</li>
+      <li>Choose appropriate anticoagulation in AF, APS, and IE; recognise PFO closure indications.</li>
+      <li>Recognise transplant-related neurology (calcineurin inhibitor toxicity, PRES, opportunistic infections, PTLD).</li>
+      <li>Differentiate radiation necrosis from tumour recurrence and treat both.</li>
+      <li>Avoid the systemic-disease traps that drive iatrogenic harm — uncritical DOAC in APS, missed thiamine after bariatric surgery, missed Wernicke in hyperemesis, missed B12 in IBD or post-bariatric.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> in any new neurological syndrome, do a systems review and basic systemic workup. Many neurological emergencies (TTP, GCA, eclampsia, lupus cerebritis, antiphospholipid catastrophic syndrome, sickle cell stroke, IE cerebral embolus, hepatic encephalopathy) declare themselves only when the systemic clues are sought.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Cardiac disease and the brain</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Atrial fibrillation</strong>: ~5× stroke risk; CHA₂DS₂-VASc; DOAC preferred over warfarin except mechanical valves + rheumatic mitral stenosis (warfarin). Cross-ref Module 2.</li>
+          <li><strong>Patent foramen ovale</strong>: cryptogenic stroke in young + high-risk PFO features; CLOSE/REDUCE/RESPECT-extended → closure reduces recurrence in selected &lt; 60 y.</li>
+          <li><strong>Infective endocarditis</strong>: up to 35% have neurological complications — septic embolic stroke, mycotic aneurysm (distal MCA branches), brain abscess, meningitis. Anticoagulation controversial in IE — usually held. Cardiac surgery timing: early reasonable for ischaemic without haemorrhagic conversion; delay 2–4 weeks for haemorrhagic.</li>
+          <li><strong>Cardiac surgery</strong>: peri-op stroke ~2% CABG; post-pump cognitive decline; perioperative AF.</li>
+          <li><strong>Takotsubo</strong>: catecholamine-mediated apical ballooning; severe SAH/ICH classic precipitants; supportive care, reverses 1–4 weeks.</li>
+          <li><strong>Cardiac arrest</strong>: HIE + multimodal neuroprognostication ≥ 72 h (Module 22; TTM2).</li>
+          <li><strong>Heart failure</strong>: cognitive impairment; treat SDB (CPAP if OSA; <strong>ASV contraindicated in HFrEF EF ≤ 45 per SERVE-HF</strong> — Module 14).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Renal disease, dialysis, electrolytes</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Uraemic encephalopathy</strong> (Module 13): GFR &lt; 10; asterixis + multifocal myoclonus + EEG triphasic; reverses with dialysis.</li>
+          <li><strong>Dialysis disequilibrium</strong>: cerebral oedema from rapid urea clearance; short gentle initial sessions.</li>
+          <li><strong>Dialysis dementia</strong> (now rare; aluminium).</li>
+          <li><strong>Transplant neurology</strong>: calcineurin inhibitor toxicity (tremor, PRES, seizures, neuropathy); opportunistic infections (PML, Listeria, CMV, toxo); PTLD with CNS.</li>
+          <li><strong>Electrolytes</strong> (Module 13): hyponatraemia + CPM if corrected &gt; 8 mmol/L/24 h; hypercalcaemia + hypocalcaemia + hypomagnesaemia + hypoglycaemia / hyperglycaemia; hyperammonaemia.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Endocrine disease</summary>
+      <div class="body">
+        <table>
+          <tr><th>Condition</th><th>Neurology</th></tr>
+          <tr><td>Thyrotoxicosis</td><td>Tremor + proximal myopathy + anxiety + thyrotoxic periodic paralysis (East Asian men, hypoK); thyroid storm; Graves orbitopathy + <strong>teprotumumab FDA 2020</strong> (Module 19)</td></tr>
+          <tr><td>Myxoedema</td><td>Cognitive slowing + Hashimoto cerebellar ataxia + proximal myopathy + CTS; myxoedema coma → IV levothyroxine + hydrocortisone; <strong>SREAT</strong> = Hashimoto encephalopathy with anti-TPO → dramatic steroid response</td></tr>
+          <tr><td>Adrenal</td><td>Addisonian crisis → hydrocortisone 100 mg IV stat; Cushing → cognitive/psychiatric + proximal myopathy; phaeochromocytoma → <strong>α-blockade BEFORE β-blockade</strong> (Module 15)</td></tr>
+          <tr><td>Pituitary</td><td>Macroadenoma + bitemporal hemianopia + apoplexy emergency (hydrocortisone 100 mg IV stat) Module 12, 19; Sheehan postpartum Module 20</td></tr>
+          <tr><td>Diabetes</td><td>Stroke (Module 2); peripheral + autonomic neuropathy (Modules 9, 15); diabetic amyotrophy + pupil-sparing CN III + mononeuropathies; hyperosmolar hyperglycaemic focal seizures; DKA cerebral oedema children</td></tr>
+          <tr><td>Parathyroid</td><td>Hypercalcaemia neurology ("stones bones moans groans"); hypoparathyroidism → tetany + seizures + Fahr disease basal ganglia calcification</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Haematological disease</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Sickle cell</strong>: ~10% of children stroke by 20 untreated; <strong>STOP TCD screening from age 2</strong>; TCD &gt; 200 cm/s → chronic transfusion to keep HbS &lt; 30% (or <strong>hydroxyurea per TWiTCH 2016</strong>); silent infarcts cause cognitive impairment.</li>
+          <li><strong>Polycythaemia vera</strong>: JAK2 V617F; venesection HCT &lt; 45%.</li>
+          <li><strong>Leukaemia</strong>: leptomeningeal infiltration, intrathecal MTX in ALL; hyperviscosity (AML blast crisis); chemo neurotoxicity (vincristine, MTX leukoencephalopathy, ifosfamide encephalopathy).</li>
+          <li><strong>TTP</strong>: pentad (40% only) — MAHA + thrombocytopenia + fever + renal + neuro; ADAMTS13; <strong>PLEX daily + caplacizumab HERCULES + steroid + rituximab</strong>; do NOT wait for ADAMTS13 result.</li>
+          <li><strong>APS</strong>: arterial + venous thrombosis + recurrent fetal loss; lupus anticoagulant + anti-cardiolipin + anti-β2-GP-I; CAPS = emergency anticoag + steroid + PLEX/IVIG; <strong>warfarin INR 2–3 — DOAC LESS EFFECTIVE in APS per TRAPS, AVOID in triple-positive</strong>.</li>
+          <li>Paraneoplastic + POEMS + Waldenström hyperviscosity + myeloma cord compression (Module 10) + MGUS neuropathy.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Rheumatological / autoimmune</summary>
+      <div class="body">
+        <ul>
+          <li><strong>SLE NPSLE</strong> (ACR 19 syndromes): cognitive + mood + psychosis + seizures + stroke (often APS) + transverse myelitis + headache + chorea; ANA + dsDNA + low C3/C4; treat with steroid + cyclophosphamide / MMF / rituximab.</li>
+          <li><strong>Sjögren</strong>: SF / autonomic neuropathy + sensory ganglionopathy + cranial neuropathies + transverse myelitis / NMO-like; anti-Ro/La; treat immunosuppression; rituximab.</li>
+          <li><strong>RA</strong>: <strong>cervical myelopathy from atlantoaxial subluxation</strong> — pre-op flexion/extension films or MRI; CTS + ulnar at elbow; rheumatoid vasculitis + mononeuritis multiplex.</li>
+          <li><strong>Vasculitides table</strong>: GCA (visual loss → empirical IV methylpred + biopsy + tocilizumab — Module 19); GPA pachymeningitis + cranial neuropathies cANCA/PR3 + rituximab/CYC; EGPA mononeuritis multiplex pANCA/MPO + asthma + eosinophilia + mepolizumab; PAN mononeuritis multiplex medium-vessel + HBV historical + CYC; <strong>PACNS</strong> multifocal stroke + encephalopathy + CSF inflammation + DSA beaded narrowing + brain biopsy gold standard + CYC; <strong>RCVS</strong> recurrent thunderclap + segmental vasoconstriction REVERSING in 1-3 months (vs PACNS chronic); Takayasu large-vessel young women.</li>
+          <li><strong>Neurosarcoidosis</strong> (~5% of sarcoidosis): cranial neuropathies (facial, optic), chronic basal meningitis, hypothalamic / pituitary (DI), myelopathy; MRI leptomeningeal basal; CSF lymphocytic + low glucose mimicking TB; ACE + chest CT + PET-CT + biopsy; corticosteroid + MTX/MMF/infliximab.</li>
+          <li><strong>Behçet</strong>: oral + genital ulcers + uveitis + brainstem syndrome / CVST; treat steroid + biologics.</li>
+          <li><strong>IgG4-related</strong>: hypertrophic pachymeningitis + orbital pseudotumour + hypophysitis; IgG4 + biopsy + steroid + rituximab.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. GI, respiratory, HIV, transplantation, radiation</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Coeliac</strong>: gluten ataxia + neuropathy + epilepsy with bilateral occipital calcifications + B12 deficiency; coeliac serology in unexplained ataxia / neuropathy.</li>
+          <li><strong>IBD</strong>: stroke (hypercoagulable) + CVST + B12 after ileal resection.</li>
+          <li><strong>Bariatric surgery</strong>: Wernicke from thiamine deficiency (Module 13, 20); B12 + copper deficiencies.</li>
+          <li><strong>Whipple disease</strong>: oculomasticatory myorhythmia is pathognomonic; ceftriaxone + TMP-SMX.</li>
+          <li><strong>Respiratory</strong>: SDB Module 14; CO₂ narcosis Module 13; NM respiratory failure Module 9.</li>
+          <li><strong>HIV</strong>: HAND nosology; OIs Module 11 (toxo + PCNSL + crypto AMBITION-cm + PML + CMV + TB); IRIS; neurosyphilis (tabes + general paresis + meningovascular + Argyll-Robertson).</li>
+          <li><strong>Transplant</strong>: calcineurin neurotoxicity (PRES, tremor, seizures); OIs; PTLD; CPM/ODS; critical illness PN.</li>
+          <li><strong>Radiation</strong>: acute oedema → steroids; early-delayed somnolence; late-delayed necrosis (mimics recurrence — MRS/PET differentiate; <strong>bevacizumab</strong>); leukoencephalopathy; cavernous malformations; secondary tumours; pituitary; spinal myelopathy; radiation plexopathy painless + myokymia (vs malignant infiltration painful).</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="organ">
+    <h2>Organ-System Cross-Reference</h2>
+    <p class="muted">Choose an organ system; the tool returns characteristic neurological manifestations + workup + treatment.</p>
+    <div class="tool" id="organTool">
+      <div class="q">Organ system?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="cardiac">Cardiac</button>
+        <button class="opt" data-val="renal">Renal / electrolyte</button>
+        <button class="opt" data-val="thyroid">Thyroid</button>
+        <button class="opt" data-val="adrenal">Adrenal</button>
+        <button class="opt" data-val="diabetes">Diabetes</button>
+        <button class="opt" data-val="sickle">Sickle cell</button>
+        <button class="opt" data-val="ttp">TTP</button>
+        <button class="opt" data-val="aps">Antiphospholipid syndrome</button>
+        <button class="opt" data-val="sle">SLE / NPSLE</button>
+        <button class="opt" data-val="sarcoid">Sarcoidosis</button>
+        <button class="opt" data-val="hiv">HIV</button>
+        <button class="opt" data-val="transplant">Solid organ transplant</button>
+        <button class="opt" data-val="rad">Radiation injury</button>
+        <button class="opt" data-val="coeliac">Coeliac / bariatric</button>
+      </div>
+      <div class="result" id="organ-result"></div>
+      <button class="reset" onclick="resetOrgan()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="vasc">
+    <h2>CNS Vasculitis Differentiator</h2>
+    <p class="muted">Choose the dominant clinical pattern; the tool returns likely vasculitis or lookalike with workup + treatment.</p>
+    <div class="tool" id="vascTool">
+      <div class="q">Dominant clinical pattern?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="thunder">Recurrent thunderclap headache (postpartum or with vasoactive drugs), reversing in 1–3 months</button>
+        <button class="opt" data-val="elderly">&gt; 50 y with headache + jaw claudication + scalp tenderness + visual loss + elevated ESR/CRP</button>
+        <button class="opt" data-val="pachy">Hypertrophic pachymeningitis ± cranial neuropathies ± orbital pseudotumour ± hypophysitis</button>
+        <button class="opt" data-val="pansin">Sinusitis + nasal crusting + pulmonary nodules + glomerulonephritis + mononeuritis multiplex</button>
+        <button class="opt" data-val="asthma">Asthma + eosinophilia + mononeuritis multiplex</button>
+        <button class="opt" data-val="multi">Multifocal stroke + encephalopathy + chronic headache + CSF inflammation</button>
+        <button class="opt" data-val="basal">Chronic basal meningitis + cranial neuropathies (esp. facial / optic) + diabetes insipidus + hilar adenopathy on CXR</button>
+        <button class="opt" data-val="ulcers">Recurrent oral + genital ulcers + uveitis + brainstem syndrome / CVST</button>
+        <button class="opt" data-val="young_women">Pulseless extremities + claudication + stroke in a young woman</button>
+      </div>
+      <div class="result" id="vasc-result"></div>
+      <button class="reset" onclick="resetVasc()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 35-year-old woman with prior DVT, miscarriage, and livedo reticularis presents with sudden left hemiparesis. MRI: right MCA infarct. Lupus anticoagulant + anti-cardiolipin + anti-β2-glycoprotein-I all positive (triple positive)</summary>
+      <div class="body">
+        <p>No prior anticoagulation.</p>
+        <p><strong>Diagnosis:</strong> Antiphospholipid syndrome (triple-positive) with arterial thrombotic stroke.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Acute stroke care per Module 2 (thrombolysis if within window and no contraindication; thrombectomy if LVO).</li>
+          <li><strong>Long-term anticoagulation with warfarin INR 2.0–3.0</strong> (some recommend higher INR 3.0–4.0 for recurrent arterial APS).</li>
+          <li><strong>Avoid DOACs</strong> in triple-positive APS — TRAPS trial (Pengo Blood 2018) showed rivaroxaban INFERIOR to warfarin; EULAR 2019 advises against DOAC in triple-positive APS.</li>
+          <li>Aspirin if pregnant or planning pregnancy (Module 20).</li>
+          <li>Workup for SLE (~30% of APS have SLE) — ANA, dsDNA, C3/C4.</li>
+          <li>Counsel about pregnancy planning (aspirin + LMWH from positive pregnancy test).</li>
+          <li>Lifelong anticoagulation; rheumatology / haematology referral.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 38-year-old woman has subacute confusion, fever, fatigue, and now generalized seizures. Hb 8.5 g/dL, platelets 18 × 10⁹/L, creatinine 230, schistocytes on blood film, normal coagulation. ADAMTS13 activity result pending</summary>
+      <div class="body">
+        <p>LDH markedly raised; haptoglobin undetectable.</p>
+        <p><strong>Diagnosis:</strong> Thrombotic thrombocytopenic purpura (TTP).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Plasma exchange daily — START IMMEDIATELY</strong>, do NOT wait for ADAMTS13 result.</li>
+          <li><strong>Caplacizumab</strong> (anti-vWF nanobody) per HERCULES trial (Scully NEJM 2019) — reduces time to platelet normalisation and recurrence; usually combined with PLEX + steroid.</li>
+          <li><strong>Corticosteroid</strong>: methylprednisolone 1 g/day × 3 days then prednisolone taper.</li>
+          <li>Rituximab if refractory or relapsing.</li>
+          <li>AVOID PLATELET TRANSFUSION unless life-threatening bleeding — risk of worsening microvascular thrombosis.</li>
+          <li>Treat seizures (LEV).</li>
+          <li>Investigate trigger: pregnancy (Module 20), infection, drugs (ticlopidine, ciclosporin), connective tissue disease, malignancy.</li>
+          <li>Untreated TTP mortality &gt; 90%; treated &lt; 20%.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 14-year-old boy with HbSS sickle cell disease has a TCD velocity of 220 cm/s on annual screening</summary>
+      <div class="body">
+        <p>He has never had a clinical stroke. MRI brain shows silent infarcts in deep white matter.</p>
+        <p><strong>Diagnosis:</strong> Sickle cell with abnormal TCD (≥ 200 cm/s) — high stroke risk.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Chronic transfusion programme</strong> to maintain HbS &lt; 30% (STOP trial Adams NEJM 1998 — substantially reduces first stroke).</li>
+          <li><strong>TWiTCH trial (Ware Lancet 2016)</strong>: after at least one year of stable chronic transfusion, hydroxyurea (with regular monitoring) is NON-INFERIOR to chronic transfusion for maintaining TCD velocities — many programmes now transition to hydroxyurea after initial stabilisation.</li>
+          <li>Iron overload management (chelation with deferasirox or deferoxamine).</li>
+          <li>Cognitive surveillance — silent infarcts cause neurocognitive impairment even without clinical stroke.</li>
+          <li>Consider <strong>haematopoietic stem cell transplant</strong> for severe disease or when transfusion not feasible.</li>
+          <li>Standard sickle cell care: penicillin prophylaxis, vaccinations, hydration, pain plan, transition to adult care.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 28-year-old woman with known SLE presents with new psychosis, headache, and a focal seizure. MRI: multiple bilateral T2 hyperintensities. CSF: lymphocytic pleocytosis with elevated protein. ANA +, dsDNA elevated, C3 + C4 low. Antiphospholipid antibody negative</summary>
+      <div class="body">
+        <p>Active SLE flare with multi-organ involvement (rash + arthritis + low complement).</p>
+        <p><strong>Diagnosis:</strong> Neuropsychiatric SLE (NPSLE) flare — likely lupus cerebritis.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Stop any drugs that could mimic (steroids → psychosis, NSAIDs).</li>
+          <li><strong>High-dose IV methylprednisolone 1 g/day × 3–5 days</strong> followed by oral prednisolone 1 mg/kg with taper.</li>
+          <li><strong>IV cyclophosphamide</strong> (Euro-Lupus or NIH regimen) or <strong>rituximab</strong> for severe CNS lupus.</li>
+          <li>Mycophenolate as alternative or maintenance.</li>
+          <li>Treat seizures with LEV (no enzyme interactions).</li>
+          <li>Rule out CNS infection (CSF for bacteria, viruses, fungi); exclude PRES from steroid / hypertension; exclude APS thrombotic event.</li>
+          <li>Workup: complete APS panel; full SLE workup; ophthalmology for eye involvement.</li>
+          <li>Long-term: hydroxychloroquine; steroid-sparing immunosuppression; address contraception (avoid oestrogen if APS).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 45-year-old man with sarcoidosis presents with progressive bilateral facial weakness, diabetes insipidus, and bitemporal hemianopia. MRI: leptomeningeal enhancement particularly at the base of the brain and around the optic chiasm. CSF: lymphocytic pleocytosis with low glucose</summary>
+      <div class="body">
+        <p>ACE elevated. Chest CT: bilateral hilar adenopathy. Mediastinal lymph node biopsy: non-caseating granulomata.</p>
+        <p><strong>Diagnosis:</strong> Neurosarcoidosis with chronic basal meningitis, bilateral facial neuropathies, hypothalamic involvement (DI), and chiasmal compression.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>High-dose corticosteroid</strong>: IV methylprednisolone 1 g/day × 3–5 days → oral prednisolone 1 mg/kg with slow taper.</li>
+          <li><strong>Steroid-sparing immunosuppression</strong>: methotrexate or mycophenolate as first-line; <strong>infliximab</strong> (TNF-α inhibitor) for refractory disease — increasingly used as second-line.</li>
+          <li>Endocrine replacement: desmopressin for DI (Module 12, 19).</li>
+          <li>Ophthalmology assessment for chiasmal involvement and uveitis.</li>
+          <li>Rule out TB (sarcoid CSF mimics TB — Module 11); exclude HIV.</li>
+          <li>Address comorbidities: cardiac sarcoid (ECG, echo, cardiac MRI), pulmonary sarcoid (PFTs), hepatic involvement.</li>
+          <li>Multidisciplinary care: neurology + ophthalmology + ID + cardiology + endocrinology + pulmonology + rheumatology.</li>
+          <li>Long-term cognitive surveillance; monitor for relapse on steroid taper.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 60-year-old kidney transplant recipient on tacrolimus develops headache + cortical visual disturbance + seizures. BP 195/115. MRI: bilateral posterior parieto-occipital T2/FLAIR hyperintensity</summary>
+      <div class="body">
+        <p>Tacrolimus trough elevated above target.</p>
+        <p><strong>Diagnosis:</strong> Posterior reversible encephalopathy syndrome (PRES) — calcineurin inhibitor and hypertension triggered (Module 13).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Control BP gently</strong>: target 25% reduction in 1–2 h, then 160/110 over 24 h (labetalol or nicardipine infusion); avoid abrupt large drops (cerebral hypoperfusion).</li>
+          <li><strong>Reduce or rotate calcineurin inhibitor</strong> — consider switching to <strong>belatacept</strong> or <strong>mTOR inhibitor</strong> (sirolimus, everolimus) in consultation with transplant team.</li>
+          <li>Treat seizures (LEV preferred — no interactions; AVOID enzyme inducers like CBZ / phenytoin which affect tacrolimus metabolism).</li>
+          <li>Correct electrolytes (Mg, K).</li>
+          <li>Avoid aggravators (calcineurin inhibitor + bevacizumab + cytotoxic chemo).</li>
+          <li>MRI follow-up in 1–2 weeks to confirm reversal.</li>
+          <li>Most reverse within days–weeks. Counsel about future PRES risk; monitor tacrolimus levels closely.</li>
+          <li>Cross-ref Modules 13, 20.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 23 of an ongoing neurology curriculum. Sources: Merritt's <em>Neurology</em> 14e Ch 119, 122–127, 130, 133, 134. Adams &amp; Victor 12e relevant sections. STOP (Adams NEJM 1998) + TWiTCH (Ware Lancet 2016) for sickle cell; TRAPS (Pengo Blood 2018) + EULAR 2019 for APS; HERCULES (Scully NEJM 2019) for TTP; CLOSE/REDUCE/RESPECT-extended for PFO; Antinori Neurology 2007 for HAND nosology; EULAR LVV 2018 for GCA (Module 19); ACR NPSLE 19 syndromes; AAN/AHA stroke 2026 (Module 2).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'AF stroke', q:'When is warfarin preferred over DOAC in AF stroke prevention?', a:'Mechanical heart valves AND rheumatic mitral stenosis. Otherwise DOAC (apixaban, rivaroxaban, dabigatran, edoxaban) is preferred for ease of use, no INR monitoring, fewer interactions, similar efficacy and less ICH compared with warfarin. CHA₂DS₂-VASc guides anticoagulation decision. Cross-ref Module 2.'},
+  {tag:'PFO', q:'When does PFO closure reduce stroke recurrence?', a:'CLOSE / REDUCE / RESPECT extended-follow-up trials: in selected patients < 60 with cryptogenic stroke + high-risk PFO features (large shunt, atrial septal aneurysm), PFO closure reduces recurrence vs antiplatelet alone. Use RoPE score to identify likely PFO-attributable strokes.'},
+  {tag:'IE', q:'Why is anticoagulation generally HELD in active infective endocarditis with neurological involvement?', a:'Risk of haemorrhagic transformation of septic embolic stroke + mycotic aneurysm bleeding. Anticoagulation is usually paused during active IE with CNS involvement; can be restarted after stabilisation. Mycotic aneurysms are typically distal MCA branches with 5% haemorrhage risk. Cardiac surgery timing: early reasonable for ischaemic stroke without haemorrhagic conversion; delay 2–4 weeks for haemorrhage.'},
+  {tag:'Takotsubo', q:'Takotsubo cardiomyopathy — typical neurological precipitants?', a:'Severe acute neurological insult — especially subarachnoid haemorrhage and intracerebral haemorrhage. Catecholamine-mediated myocardial stunning → "apical ballooning" + ST changes + troponin rise. Reverses 1–4 weeks with supportive care. Severe emotional stress (Module 4 — bereavement, panic) also precipitates.'},
+  {tag:'Dialysis', q:'Dialysis disequilibrium syndrome — mechanism and prevention?', a:'Aggressive urea clearance produces osmotic gradient → cerebral oedema → headache, nausea, seizures, encephalopathy. Especially first dialysis with high BUN. Prevent with SHORT GENTLE INITIAL SESSIONS; treat severe with mannitol. Dialysis dementia (now rare) was aluminium accumulation.'},
+  {tag:'Thyroid', q:'SREAT — what is it?', a:'Steroid-Responsive Encephalopathy Associated with Autoimmune Thyroiditis (Hashimoto encephalopathy) — confusion, seizures, myoclonus, stroke-like episodes with anti-TPO antibodies. Diagnosis of exclusion. Dramatic STEROID RESPONSE is both diagnostic and therapeutic. Most patients are clinically euthyroid.'},
+  {tag:'Periodic paralysis', q:'Thyrotoxic periodic paralysis — classic patient and treatment?', a:'East Asian young men with hypokalaemic paralysis (especially after rest after exertion + carbohydrate meal). Treat acute: cautious K replacement + propranolol (non-selective β-blocker addresses thyrotoxic effect and prevents rebound hyperkalaemia). Definitive: treat thyrotoxicosis. Cross-ref Module 9.'},
+  {tag:'Sickle', q:'STOP trial — what did it show?', a:'Adams NEJM 1998: in children with sickle cell anaemia and abnormal TCD velocity (≥ 200 cm/s), chronic transfusion to keep HbS < 30% reduces first stroke by ~90%. TCD screening from age 2. TWiTCH trial (Ware Lancet 2016) extended: after stabilisation, hydroxyurea is non-inferior to chronic transfusion for TCD velocity maintenance.'},
+  {tag:'TTP', q:'TTP — first move and key drug?', a:'PLASMA EXCHANGE DAILY — start IMMEDIATELY, do NOT wait for ADAMTS13 result. Add caplacizumab (anti-vWF nanobody, HERCULES NEJM 2019) + corticosteroid + rituximab if refractory. AVOID platelet transfusion unless life-threatening bleeding — worsens microvascular thrombosis. Untreated mortality > 90%, treated < 20%.'},
+  {tag:'APS', q:'Why avoid DOACs in triple-positive antiphospholipid syndrome?', a:'TRAPS trial (Pengo Blood 2018): rivaroxaban INFERIOR to warfarin in high-risk (triple-positive) APS — more thrombotic events on rivaroxaban. EULAR 2019: avoid DOACs in triple-positive APS especially with arterial events. Use warfarin INR 2.0–3.0 (some recommend higher 3.0–4.0 for recurrent arterial).'},
+  {tag:'CAPS', q:'Catastrophic antiphospholipid syndrome — treatment?', a:'Multi-organ thrombosis in days; mortality up to 50%. Triple therapy: ANTICOAGULATION (heparin) + corticosteroid + plasma exchange or IVIG. Rituximab for refractory. Address triggers (infection, surgery, anticoagulation withdrawal, malignancy).'},
+  {tag:'NPSLE', q:'Common neuropsychiatric syndromes in SLE?', a:'ACR defines 19 NPSLE syndromes: cognitive dysfunction (commonest), depression, mood disorder, psychosis, seizures, stroke (often APS-mediated), demyelinating syndrome, aseptic meningitis, transverse myelitis, headache, chorea (especially with APS), mononeuritis multiplex + others. Treat with steroid + cyclophosphamide / MMF / rituximab + anti-APS thrombosis with anticoagulation.'},
+  {tag:'RA cervical', q:'Why pre-operative cervical spine imaging in RA patients before surgery?', a:'Atlantoaxial subluxation from pannus erosion of the transverse ligament → C1-C2 instability → cord compression risk during intubation, anaesthetic positioning, neck manipulation. Pre-op flexion / extension cervical X-rays or MRI to assess. Cross-ref Module 10.'},
+  {tag:'Vasculitides', q:'Differentiate ANCA-associated CNS vasculitides?', a:'GPA (cANCA / PR3): pachymeningitis + cranial neuropathies + sinus + lung + renal; rituximab / cyclophosphamide. EGPA (pANCA / MPO): mononeuritis multiplex prominent + asthma + eosinophilia; mepolizumab (IL-5). MPA (pANCA / MPO): glomerulonephritis + alveolar haemorrhage + mononeuritis multiplex. PAN: medium-vessel + mononeuritis multiplex + HBV historical (now rare).'},
+  {tag:'PACNS', q:'How does PACNS differ from RCVS?', a:'PACNS: chronic course, multifocal stroke + encephalopathy + headache, CSF inflammation (mild pleocytosis + elevated protein), DSA beaded segmental narrowing, brain biopsy gold standard. Treat with steroid + cyclophosphamide. RCVS: ACUTE recurrent thunderclap headache, segmental vasoconstriction REVERSING in 1–3 months, CSF usually normal, often postpartum or vasoactive drug-associated. Treat with nimodipine + stop triggers (Module 13, 20).'},
+  {tag:'Sarcoid', q:'Neurosarcoidosis — typical workup?', a:'ACE (raised but non-specific); chest CT + PET-CT for hilar adenopathy + extrapulmonary sites; tissue biopsy (transbronchial, lymph node, skin); MRI brain with leptomeningeal enhancement particularly basal; CSF lymphocytic + elevated protein + low glucose (mimics TB / fungal — Module 11). Treat with steroid + steroid-sparing (MTX, MMF, infliximab).'},
+  {tag:'HIV', q:'HIV-associated neurocognitive disorders (HAND) — modern nosology?', a:'Antinori Neurology 2007: (1) asymptomatic neurocognitive impairment (ANI); (2) mild neurocognitive disorder (MND); (3) HIV-associated dementia (HAD). ART has substantially reduced HAD incidence. Screen with neurocognitive testing; treat opportunistic infections (Module 11); optimise ART CSF penetration if needed.'},
+  {tag:'Calcineurin', q:'Calcineurin inhibitor neurotoxicity — typical features?', a:'Tremor (common), headache, encephalopathy, seizures, PRES (Module 13 — bilateral posterior parieto-occipital T2/FLAIR), peripheral neuropathy. Triggers: tacrolimus / ciclosporin levels above target + hypomagnesaemia + hypertension. Reduce or rotate; switch to belatacept or mTOR inhibitor (sirolimus, everolimus); control BP; correct Mg.'},
+  {tag:'Radiation', q:'Late-delayed radiation injury features?', a:'Radiation necrosis (mimics tumour recurrence — distinguish with MR perfusion / spectroscopy / amino-acid PET; bevacizumab; resection in selected); leukoencephalopathy with cognitive decline; cavernous malformations decades later; secondary tumours (meningioma, glioma); endocrinopathy if pituitary in field; cranial neuropathies; spinal radiation myelopathy.'},
+  {tag:'Coeliac', q:'Neurological manifestations of coeliac disease?', a:'Gluten ataxia (anti-gliadin / TG6 antibodies; cerebellar atrophy; gluten-free diet); peripheral neuropathy; epilepsy with bilateral occipital calcifications; B12 deficiency. Always check coeliac serology (anti-TTG) in unexplained ataxia or peripheral neuropathy. Cross-ref Module 13.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 35-year-old woman with prior DVT, miscarriages, and livedo reticularis develops an acute right MCA infarct. Lupus anticoagulant + anti-cardiolipin + anti-β2-GP-I all positive. Best long-term anticoagulation?',
+   choices:['Apixaban','Warfarin with INR 2.0–3.0; AVOID DOACs in triple-positive APS (TRAPS trial Pengo Blood 2018 — DOAC inferior to warfarin; EULAR 2019 advises against DOAC in triple-positive APS)','Aspirin alone','LMWH lifelong'],
+   ans:1,
+   why:'Antiphospholipid syndrome (triple-positive) with arterial thrombosis. TRAPS trial (Pengo Blood 2018) showed rivaroxaban inferior to warfarin in high-risk triple-positive APS. EULAR 2019 recommends warfarin INR 2.0–3.0 (some suggest 3.0–4.0 for recurrent arterial APS). DOACs should be avoided in triple-positive APS especially with arterial events. Address SLE workup (~30% of APS have SLE).'},
+  {q:'A 38-year-old has confusion, fever, fatigue, seizures, Hb 8.5, plt 18, schistocytes, normal coagulation, raised LDH. ADAMTS13 result pending. Best initial management?',
+   choices:['Wait for ADAMTS13 before treatment','Plasma exchange DAILY immediately + corticosteroid + caplacizumab; AVOID platelet transfusion unless life-threatening bleeding','Empirical antibiotics only','High-dose aspirin'],
+   ans:1,
+   why:'TTP. Start plasma exchange immediately — do not wait for ADAMTS13. Add caplacizumab (HERCULES NEJM 2019 — anti-vWF nanobody, reduces time to platelet normalisation and recurrence) + corticosteroid; rituximab for refractory. AVOID platelet transfusion — worsens microvascular thrombosis (unless life-threatening bleeding). Untreated mortality > 90%; treated < 20%. Investigate triggers (pregnancy, infection, drugs).'},
+  {q:'A 14-year-old with HbSS sickle cell disease has TCD velocity 220 cm/s on annual screening, never had a clinical stroke. Best management?',
+   choices:['Watchful observation','Chronic transfusion programme to maintain HbS < 30% (STOP trial Adams NEJM 1998); after stabilisation, transition to hydroxyurea (TWiTCH Ware Lancet 2016)','Aspirin alone','Long-term anticoagulation'],
+   ans:1,
+   why:'Sickle cell with abnormal TCD (≥ 200 cm/s) — high stroke risk. STOP trial: chronic transfusion to maintain HbS < 30% substantially reduces first stroke. TWiTCH 2016: after at least one year of stable transfusion, hydroxyurea is non-inferior for maintaining TCD velocity. Iron chelation; cognitive surveillance; consider HSCT for selected severe cases. Cross-ref Module 2.'},
+  {q:'A 28-year-old SLE patient has new psychosis, headache, seizures. MRI: multiple bilateral T2 hyperintensities. CSF: lymphocytic pleocytosis. ANA +, dsDNA elevated, low C3/C4. APS negative. Best initial treatment?',
+   choices:['Long-term opioid','IV methylprednisolone 1 g/day × 3–5 days followed by oral prednisolone 1 mg/kg with taper + IV cyclophosphamide or rituximab; rule out CNS infection and PRES; treat seizures with LEV','Aspirin alone','Pyridostigmine'],
+   ans:1,
+   why:'Neuropsychiatric SLE (NPSLE) — likely lupus cerebritis. Treat with high-dose IV methylprednisolone followed by oral prednisolone + cyclophosphamide (Euro-Lupus or NIH) or rituximab. Mycophenolate as alternative / maintenance. Rule out CNS infection, PRES from steroid / hypertension, APS thrombotic event. ACR defines 19 NPSLE syndromes. Cross-ref Module 22 if PRES.'},
+  {q:'A 45-year-old with sarcoidosis has progressive bilateral facial weakness, diabetes insipidus, bitemporal hemianopia. MRI: leptomeningeal enhancement particularly basal. CSF: lymphocytic + low glucose. ACE elevated. Hilar adenopathy on CXR. Best initial treatment?',
+   choices:['Long-term opioid','High-dose corticosteroid (IV methylpred 1 g × 3–5 d then oral 1 mg/kg) + steroid-sparing (methotrexate, mycophenolate, infliximab); endocrine replacement (desmopressin); rule out TB/HIV; multidisciplinary','tPA','Antiretroviral therapy'],
+   ans:1,
+   why:'Neurosarcoidosis — chronic basal meningitis + cranial neuropathies + hypothalamic involvement + chiasmal compression. Treat with high-dose corticosteroid + steroid-sparing (methotrexate / mycophenolate first; infliximab for refractory). Desmopressin for DI (cross-ref Modules 12, 19). Rule out TB (sarcoid CSF mimics — Module 11) + HIV. Multidisciplinary: neurology + ID + endocrinology + ophthalmology + cardiology + rheumatology.'},
+  {q:'A 60-year-old kidney transplant recipient on tacrolimus develops headache + cortical visual disturbance + seizures. BP 195/115. MRI: bilateral posterior parieto-occipital T2/FLAIR. Best management?',
+   choices:['Empirical thrombolysis','Control BP gently (25% reduction in 1–2 h then 160/110 over 24 h); reduce or rotate calcineurin inhibitor; switch to belatacept or mTOR inhibitor (sirolimus, everolimus); LEV for seizures (avoid CBZ/phenytoin enzyme inducers); correct Mg; MRI follow-up','Long-term opioid','High-dose chemotherapy'],
+   ans:1,
+   why:'PRES (posterior reversible encephalopathy syndrome) — calcineurin inhibitor and hypertension triggered. Control BP gently to preserve cerebral perfusion. Reduce/rotate calcineurin inhibitor (switch to belatacept or mTOR inhibitor in transplant team consultation). LEV preferred for seizures (no interactions with tacrolimus). MRI follow-up in 1–2 weeks. Most reverse within days–weeks. Cross-ref Modules 13, 20.'},
+  {q:'Which condition is the classic precipitant of Takotsubo cardiomyopathy in neuro-ICU patients?',
+   choices:['Diabetic ketoacidosis','Severe SAH or ICH (catecholamine-mediated apical ballooning of LV)','Hypothyroidism','Hyperkalaemia'],
+   ans:1,
+   why:'Takotsubo cardiomyopathy ("apical ballooning") is catecholamine-mediated myocardial stunning. Classic precipitants: severe SAH and ICH; severe emotional / physical stress. ST changes mimic MI; troponin moderately raised; LV apical akinesis with hyperkinetic base. Reverses 1–4 weeks with supportive care. Watch for cardiogenic shock and arrhythmias. Cross-ref Module 22.'},
+  {q:'A patient with rheumatoid arthritis is admitted for joint surgery. What pre-op neurological consideration is essential?',
+   choices:['Brain MRI','Pre-operative cervical spine flexion / extension X-rays or MRI to assess atlantoaxial subluxation (pannus erodes transverse ligament → C1-C2 instability → cord compression risk during intubation, anaesthetic positioning)','Carotid Doppler','EMG'],
+   ans:1,
+   why:'Rheumatoid arthritis with atlantoaxial subluxation is a high-risk pre-op neurological consideration. Pannus erodes the transverse ligament → C1-C2 instability → cord compression risk during intubation, anaesthetic positioning, neck manipulation. Pre-op cervical flexion/extension X-rays or MRI assess instability. Address with stabilisation strategies and careful airway management. Cross-ref Module 10.'},
+  {q:'An East Asian young man develops sudden hypokalaemic paralysis after a carbohydrate-rich meal followed by exertion and rest. He has a moderately tachycardic pulse and mild proptosis. Best treatment and underlying cause?',
+   choices:['Long-term antihistamine','Thyrotoxic periodic paralysis: cautious K replacement + propranolol; treat underlying thyrotoxicosis (carbimazole / methimazole + definitive radioiodine or thyroidectomy)','Long-term opioid','tPA'],
+   ans:1,
+   why:'Thyrotoxic periodic paralysis: classic in East Asian young men with hypokalaemic flaccid paralysis after rest following exertion + carbohydrate meal. Treat acute: cautious K replacement + non-selective β-blocker (propranolol) — addresses thyrotoxic effect and prevents rebound hyperkalaemia. Definitive: treat thyrotoxicosis. Cross-ref Module 9 (channelopathy differential).'},
+  {q:'A 25-year-old with progressive ataxia, peripheral neuropathy, and bilateral occipital calcifications on CT brain — what systemic disease should you investigate?',
+   choices:['Lupus','Coeliac disease — gluten ataxia (anti-gliadin / TG6 antibodies; cerebellar atrophy; gluten-free diet); coeliac serology (anti-TTG) is essential; also epilepsy with bilateral occipital calcifications + B12 deficiency','Cushing','Diabetes'],
+   ans:1,
+   why:'Coeliac disease: neurological manifestations include gluten ataxia, peripheral neuropathy, epilepsy with bilateral occipital calcifications, and B12 deficiency. Anti-TTG IgA + duodenal biopsy confirm. Gluten-free diet often improves ataxia (slow course). Always check coeliac serology in unexplained ataxia or peripheral neuropathy. Cross-ref Module 13.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Organ-System Cross-Reference */
+const organResult = document.getElementById('organ-result');
+const organMap = {
+  cardiac:{title:'Cardiac', items:[
+    '<strong>AF stroke</strong>: CHA₂DS₂-VASc; DOAC preferred over warfarin (except mechanical valves + rheumatic mitral stenosis). Cross-ref Module 2.',
+    '<strong>PFO</strong>: cryptogenic stroke in young + high-risk features → closure reduces recurrence (CLOSE / REDUCE / RESPECT-extended) in selected < 60 y.',
+    '<strong>Infective endocarditis</strong>: septic embolic stroke + mycotic aneurysm distal MCA + brain abscess + meningitis; anticoag controversial — usually held in active IE with CNS involvement.',
+    '<strong>Cardiac surgery</strong>: peri-op stroke ~2% CABG; post-pump cognitive decline; perioperative AF.',
+    '<strong>Takotsubo</strong>: classic precipitant severe SAH/ICH; reverses 1–4 weeks.',
+    '<strong>Cardiac arrest HIE</strong> Module 22 — TTM2 + multimodal neuroprognostication ≥ 72 h.',
+    '<strong>Heart failure</strong>: cognitive impairment; treat SDB (CPAP if OSA); <strong>ASV contraindicated HFrEF EF ≤ 45 SERVE-HF</strong> (Module 14).'
+  ]},
+  renal:{title:'Renal / electrolyte', items:[
+    '<strong>Uraemic encephalopathy</strong> (Module 13): GFR < 10; asterixis + multifocal myoclonus + triphasic waves; reverses with dialysis.',
+    '<strong>Dialysis disequilibrium</strong>: short gentle initial sessions; mannitol if severe.',
+    '<strong>Renal transplant</strong>: calcineurin inhibitor neurotoxicity + PRES + opportunistic infections + PTLD.',
+    '<strong>Electrolytes</strong> (Module 13): hyponatraemia + CPM if Na corrected > 8 mmol/L/24 h; hypercalcaemia + hypocalcaemia + hypomagnesaemia + hypoglycaemia / hyperglycaemia + hyperammonaemia.'
+  ]},
+  thyroid:{title:'Thyroid', items:[
+    '<strong>Thyrotoxicosis</strong>: postural tremor + proximal myopathy + anxiety + thyrotoxic periodic paralysis (East Asian young men + hypoK + propranolol + K cautiously); thyroid storm.',
+    '<strong>Graves orbitopathy</strong>: lid retraction + proptosis + restrictive ophthalmoplegia + <strong>teprotumumab FDA 2020</strong> (Module 19).',
+    '<strong>Myxoedema</strong>: cognitive slowing + cerebellar ataxia (Hashimoto) + proximal myopathy + CTS.',
+    '<strong>Myxoedema coma</strong>: IV levothyroxine + hydrocortisone + supportive ICU.',
+    '<strong>SREAT (Hashimoto encephalopathy)</strong>: anti-TPO + dramatic steroid response.'
+  ]},
+  adrenal:{title:'Adrenal', items:[
+    '<strong>Addisonian crisis</strong>: hydrocortisone 100 mg IV stat + fluids + treat trigger.',
+    '<strong>Adrenoleukodystrophy</strong> (X-linked) → adrenal insufficiency in young men + VLCFA elevated (Module 13).',
+    '<strong>Cushing syndrome</strong>: cognitive impairment + depression + psychosis + proximal myopathy + hippocampal atrophy.',
+    '<strong>Phaeochromocytoma</strong>: paroxysmal HTN + headache + sweating + palpitations; <strong>α-blockade BEFORE β-blockade</strong> (Module 15).'
+  ]},
+  diabetes:{title:'Diabetes', items:[
+    '<strong>Cerebrovascular</strong>: large-vessel + lacunar + silent infarcts; control glycaemia + CV risk (Module 2).',
+    '<strong>Neuropathies</strong>: symmetric distal painful + autonomic + diabetic amyotrophy (lumbosacral radiculoplexus) + pupil-sparing CN III + mononeuropathies (CTS, ulnar, peroneal).',
+    '<strong>Hypoglycaemia unawareness</strong>: from cardiovascular autonomic neuropathy (Module 15).',
+    '<strong>Hyperosmolar hyperglycaemic state</strong>: focal motor seizures characteristic — resolve with glucose normalisation.',
+    '<strong>DKA cerebral oedema</strong> in children — emergency.'
+  ]},
+  sickle:{title:'Sickle cell', items:[
+    '~10% of children stroke by 20 if untreated.',
+    '<strong>TCD screening annually from age 2</strong> (STOP trial Adams NEJM 1998); ≥ 200 cm/s = high risk.',
+    '<strong>Primary prevention</strong>: chronic transfusion HbS < 30%; after stabilisation, <strong>hydroxyurea per TWiTCH 2016</strong>.',
+    'Acute stroke: <strong>exchange transfusion</strong> + standard stroke care (Module 2).',
+    'HSCT for severe disease.',
+    'Silent infarcts cause cognitive impairment.'
+  ]},
+  ttp:{title:'TTP', items:[
+    'Pentad (only in 40%): MAHA (schistocytes) + thrombocytopenia + fever + renal injury + neurological symptoms.',
+    'ADAMTS13 deficiency (acquired antibody most common).',
+    '<strong>PLASMA EXCHANGE DAILY — start IMMEDIATELY</strong>, do NOT wait for ADAMTS13.',
+    '<strong>Caplacizumab</strong> (HERCULES NEJM 2019 — anti-vWF nanobody).',
+    'Corticosteroid; rituximab for refractory or relapsing.',
+    'AVOID platelet transfusion unless life-threatening bleeding.',
+    'Untreated mortality > 90%; treated < 20%.'
+  ]},
+  aps:{title:'Antiphospholipid syndrome', items:[
+    'Arterial + venous thromboses + recurrent fetal loss + livedo + thrombocytopenia.',
+    'Antibodies (Sapporo): lupus anticoagulant + anti-cardiolipin + anti-β2-GP-I.',
+    'CAPS: multi-organ thrombosis → anticoag + steroid + PLEX/IVIG.',
+    '<strong>Warfarin INR 2–3</strong>; higher INR 3–4 for recurrent arterial.',
+    '<strong>DOACs less effective than warfarin in APS per TRAPS</strong> (Pengo Blood 2018) + EULAR 2019 — AVOID in triple-positive APS.',
+    'Workup for SLE (~30% overlap).',
+    'Pregnancy: aspirin + LMWH from positive pregnancy test (Module 20).'
+  ]},
+  sle:{title:'SLE / NPSLE', items:[
+    'ACR 19 NPSLE syndromes: cognitive + depression + psychosis + seizures + stroke (often APS) + transverse myelitis + headache + chorea + mononeuritis multiplex.',
+    'Workup: ANA + dsDNA + complement (C3/C4 low in flare); APS panel; MRI + LP for cells + OCBs.',
+    'Treatment: <strong>IV methylpred 1 g × 3-5 d → oral 1 mg/kg + cyclophosphamide or rituximab</strong>; mycophenolate alternative / maintenance.',
+    'Anti-APS thrombosis with anticoagulation.',
+    'Hydroxychloroquine long-term.',
+    'Avoid oestrogen if APS.'
+  ]},
+  sarcoid:{title:'Sarcoidosis (neurosarcoidosis ~5%)', items:[
+    'Cranial neuropathies (facial, optic) + chronic basal meningitis + hypothalamic / pituitary (DI) + myelopathy + peripheral neuropathy.',
+    'MRI: leptomeningeal enhancement particularly basal; spinal cord involvement.',
+    'CSF: lymphocytic + elevated protein + low glucose (mimics TB — Module 11).',
+    'Workup: ACE (non-specific) + chest CT (hilar adenopathy) + PET-CT + tissue biopsy.',
+    'Treatment: <strong>corticosteroid + steroid-sparing</strong> (MTX, MMF, infliximab for refractory).',
+    'Endocrine replacement; ophthalmology; multidisciplinary care.'
+  ]},
+  hiv:{title:'HIV', items:[
+    '<strong>HAND nosology</strong> (Antinori Neurology 2007): asymptomatic NCI + mild NCD + HIV-associated dementia.',
+    'Opportunistic infections (Module 11): toxoplasmosis + PCNSL + cryptococcus (AMBITION-cm) + PML + CMV + TB.',
+    'IRIS after ART initiation — manage with steroids.',
+    '<strong>Neurosyphilis</strong>: tabes dorsalis + general paresis + meningovascular + Argyll-Robertson; IV penicillin G 18–24 MU/d × 14 d.',
+    'ART optimisation; cognitive screening; PCP prophylaxis + Toxo prophylaxis if CD4 low.'
+  ]},
+  transplant:{title:'Solid organ transplant', items:[
+    '<strong>Calcineurin inhibitor neurotoxicity</strong> (tacrolimus, ciclosporin): tremor + PRES + seizures + neuropathy; reduce / rotate; switch to mTOR inhibitor or belatacept; correct Mg + BP.',
+    'Opportunistic infections: CMV + PML + Listeria + Nocardia + Toxo + fungal + TB; TMP-SMX prophylaxis + valganciclovir.',
+    '<strong>PTLD</strong>: EBV-driven; CNS involvement; reduce immunosuppression + rituximab.',
+    'Critical illness PN (Module 22).',
+    'CPM/ODS after rapid Na correction (Module 13).',
+    'BMT: GVHD (CNS rare) + infections + chemo / radiation effects.'
+  ]},
+  rad:{title:'Radiation injury', items:[
+    '<strong>Acute</strong> (during / immediately after RT): tumour-related oedema → steroids.',
+    '<strong>Early-delayed</strong> (1–6 mo): somnolence syndrome; reversible.',
+    '<strong>Late-delayed</strong> (months–years): radiation necrosis (mimics recurrence — MRS/PET differentiate; <strong>bevacizumab</strong>); leukoencephalopathy + cognitive decline; cavernous malformations; secondary tumours (meningioma, glioma); endocrinopathy if pituitary in field; cranial neuropathies.',
+    '<strong>Spinal radiation myelopathy</strong>: progressive myelopathy at irradiated cord segment; bevacizumab + supportive.',
+    '<strong>Radiation plexopathy</strong>: painless slowly progressive + myokymia (vs malignant infiltration painful).'
+  ]},
+  coeliac:{title:'Coeliac / bariatric / IBD', items:[
+    '<strong>Coeliac</strong>: <strong>gluten ataxia</strong> (anti-gliadin / TG6) + peripheral neuropathy + epilepsy with bilateral occipital calcifications + B12 deficiency. Anti-TTG IgA + duodenal biopsy; gluten-free diet.',
+    '<strong>IBD</strong>: stroke (hypercoagulable) + CVST + B12 deficiency after ileal resection + TNF inhibitor unmasking MS.',
+    '<strong>Bariatric surgery</strong>: <strong>Wernicke from thiamine deficiency</strong> (Module 13 + 20) + B12 + copper deficiency myeloneuropathy + vitamin D + E deficiencies.',
+    '<strong>Whipple disease</strong>: oculomasticatory myorhythmia is pathognomonic; ceftriaxone + TMP-SMX long-term.',
+    'Always screen for B12, folate, copper, vitamin E in any unexplained ataxia or peripheral neuropathy.'
+  ]}
+};
+document.querySelectorAll('#organTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#organTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = organMap[b.dataset.val];
+  if (m) {
+    organResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    organResult.classList.add('show');
+  }
+}));
+function resetOrgan() {
+  document.querySelectorAll('#organTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  organResult.classList.remove('show');
+}
+
+/* CNS Vasculitis Differentiator */
+const vascResult = document.getElementById('vasc-result');
+const vascMap = {
+  thunder:{title:'Reversible cerebral vasoconstriction syndrome (RCVS)', items:[
+    'Recurrent thunderclap headache + segmental cerebral vasoconstriction reversing in 1–3 months.',
+    'Triggers: postpartum (Call-Fleming) + vasoactive drugs (cannabis, sympathomimetics, SSRIs, triptans, ergots).',
+    'Complications: cortical SAH + ischaemic stroke + ICH + PRES overlap.',
+    'CSF usually normal (vs PACNS inflammatory).',
+    'Treatment: stop precipitants + <strong>nimodipine 30–60 mg po q4h</strong> often used + analgesia + BP control.',
+    'Repeat angiography at 6–12 weeks to demonstrate resolution.',
+    'Cross-ref Module 13, 20.'
+  ]},
+  elderly:{title:'Giant cell arteritis (GCA) — emergency', items:[
+    'Age > 50; headache + scalp tenderness + jaw claudication + visual loss (arteritic AION) + polymyalgia rheumatica + weight loss + fever.',
+    'ESR usually > 50; CRP > 5.',
+    '<strong>IV methylprednisolone 1 g/day × 3 days then oral prednisolone 1 mg/kg/day IMMEDIATELY</strong> — do not wait for biopsy.',
+    'Temporal artery biopsy within 1–2 weeks (yield preserved) or temporal artery ultrasound (halo sign — EULAR 2018).',
+    '<strong>Tocilizumab</strong> (IL-6 receptor antagonist; GiACTA NEJM 2017) as steroid-sparing.',
+    'Aspirin 75 mg; PCP prophylaxis + bisphosphonate; long taper 12–24 mo.',
+    'Cross-ref Module 19.'
+  ]},
+  pachy:{title:'IgG4-related disease', items:[
+    'Hypertrophic pachymeningitis + orbital pseudotumour + hypophysitis + cranial neuropathies.',
+    'Mimics neurosarcoidosis, GPA pachymeningitis.',
+    'Serum IgG4 elevated; biopsy shows IgG4+ plasma cells with storiform fibrosis.',
+    'Treatment: <strong>corticosteroid first-line + rituximab</strong> for refractory or relapse.',
+    'Multidisciplinary care; surveillance for systemic involvement (autoimmune pancreatitis, retroperitoneal fibrosis).'
+  ]},
+  pansin:{title:'Granulomatosis with polyangiitis (GPA, Wegener)', items:[
+    'Sinusitis + nasal crusting + saddle nose + pulmonary nodules / cavitation + glomerulonephritis + mononeuritis multiplex + pachymeningitis + cranial neuropathies.',
+    'cANCA / anti-PR3.',
+    'Treatment: <strong>rituximab</strong> (preferred over cyclophosphamide in newer guidelines) + corticosteroid; cyclophosphamide as alternative.',
+    'Maintenance: azathioprine, methotrexate, or rituximab.',
+    'Avastin contraindicated.'
+  ]},
+  asthma:{title:'Eosinophilic granulomatosis with polyangiitis (EGPA, Churg-Strauss)', items:[
+    'Asthma + eosinophilia + mononeuritis multiplex (75% of patients) + ANCA positive in ~40% (pANCA / anti-MPO).',
+    'Three phases: prodromal allergic + eosinophilic + vasculitic.',
+    'Treatment: <strong>corticosteroid + mepolizumab</strong> (IL-5 inhibitor) or cyclophosphamide / rituximab for severe organ involvement.',
+    'Asthma control optimisation.',
+    'Cardiac and renal involvement worsens prognosis.'
+  ]},
+  multi:{title:'Primary angiitis of the CNS (PACNS)', items:[
+    'Multifocal stepwise stroke + encephalopathy + chronic headache.',
+    'CSF: mild lymphocytic pleocytosis + elevated protein.',
+    'MRI: multifocal infarcts in different vascular territories ± leptomeningeal enhancement.',
+    'DSA: beaded segmental narrowing (may be negative in small-vessel PACNS).',
+    'Brain biopsy gold standard but low yield.',
+    'Treatment: <strong>corticosteroid + cyclophosphamide</strong>; maintenance with MMF or azathioprine.',
+    'Distinguish from RCVS (which reverses; CSF normal; thunderclap headache central).'
+  ]},
+  basal:{title:'Neurosarcoidosis', items:[
+    'Cranial neuropathies (facial, optic) + chronic basal meningitis + hypothalamic / pituitary (DI) + myelopathy + peripheral neuropathy.',
+    'MRI: leptomeningeal enhancement particularly basal; spinal cord involvement.',
+    'CSF: lymphocytic + elevated protein + low glucose (mimics TB — Module 11).',
+    'Workup: ACE (non-specific) + chest CT (hilar adenopathy) + PET-CT + tissue biopsy.',
+    'Treatment: <strong>corticosteroid + steroid-sparing</strong> (methotrexate, mycophenolate; infliximab for refractory).',
+    'Endocrine replacement (desmopressin for DI).',
+    'Always rule out TB and HIV.'
+  ]},
+  ulcers:{title:'Neuro-Behçet disease', items:[
+    'Recurrent oral + genital ulcers + uveitis + skin lesions (pathergy).',
+    'Two main neurological phenotypes:',
+    '— <strong>Parenchymal</strong>: brainstem syndrome (commonest); diencephalon, spinal cord, hemispheric.',
+    '— <strong>Vascular</strong>: cerebral venous sinus thrombosis (Module 2).',
+    'MRI: brainstem T2/FLAIR hyperintensity.',
+    'CSF: inflammation (lymphocytic pleocytosis + elevated protein).',
+    'Treatment: <strong>corticosteroid + immunosuppression</strong> (cyclophosphamide, azathioprine, biologics — infliximab, adalimumab).',
+    'Anticoagulation for CVST.',
+    'Multidisciplinary care.'
+  ]},
+  young_women:{title:'Takayasu arteritis', items:[
+    'Large-vessel arteritis in young women ("pulseless disease").',
+    'Affects aorta and major branches: stenosis, occlusion, aneurysm of carotid + vertebral + subclavian.',
+    'Neurological: stroke (carotid / vertebral involvement) + TIA + visual symptoms (subclavian steal) + syncope.',
+    'Pulse asymmetry + bruits + BP discrepancy.',
+    'CT/MR angiography or DSA for diagnosis.',
+    'Treatment: <strong>corticosteroid + methotrexate or biologics (TNF-α, tocilizumab)</strong>; aspirin; endovascular or surgical revascularisation for selected critical stenoses.'
+  ]}
+};
+document.querySelectorAll('#vascTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#vascTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = vascMap[b.dataset.val];
+  if (m) {
+    vascResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    vascResult.classList.add('show');
+  }
+}));
+function resetVasc() {
+  document.querySelectorAll('#vascTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  vascResult.classList.remove('show');
+}
+</script>
+</body>
+</html>

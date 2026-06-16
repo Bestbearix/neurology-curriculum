@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 26 — Approach to Weakness (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#1f6fa8; --accent-2:#4a92c2; --soft:#e6eff7;
+    --line:#cfdfec; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#e6eff7; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#f7fafd; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(31,111,168,0.06)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#0f4f7c; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#155e8e}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#d2e3f0; color:#0f4f7c; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#dae8f2; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#d6e2ec; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 26 — Approach to Weakness (Cross-Module Synthesis)</h1>
+  <div class="sub">Tempo · pattern · level (UMN/LMN/NMJ/muscle) · single emergency rule-out before everything else · cross-references to Modules 1–25</div>
+  <div class="meta">For the general physician · Reference · 2026 · Synthesises Modules 1 (exam/localisation), 2 (stroke), 3 (epilepsy — Todd), 8 (MS), 9 (neuromuscular), 10 (spinal cord), 13 (toxic/metabolic), 15 (autonomic), 20 (pregnancy), 22 (neurocritical care)</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — five questions in 30 seconds</a></li>
+  <li><a href="#emerg">Rule out emergencies BEFORE everything else</a></li>
+  <li><a href="#tempo">Tempo of weakness</a></li>
+  <li><a href="#pattern">Pattern of weakness — what the distribution tells you</a></li>
+  <li><a href="#level">Level of lesion — UMN, LMN, NMJ, muscle</a></li>
+  <li><a href="#umn">Upper motor neuron lesions</a></li>
+  <li><a href="#anterior">Anterior horn / radicular / plexus / nerve</a></li>
+  <li><a href="#nmj">Neuromuscular junction</a></li>
+  <li><a href="#muscle">Muscle (myopathy)</a></li>
+  <li><a href="#functional">Functional weakness (Module 21)</a></li>
+  <li><a href="#systemic">Systemic / metabolic causes of weakness</a></li>
+  <li><a href="#workup">Targeted workup by suspected level</a></li>
+  <li><a href="#urgency">Decision points — admit vs same-day clinic vs outpatient</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#sources">Sources &amp; cross-references</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — five questions in 30 seconds</h2>
+<p>Weakness is the symptom that triggers more neurology referrals than any other. A structured approach turns it from a vague complaint into a localisable, treatable problem. Ask <strong>five questions</strong> in order and you have nearly cornered the diagnosis:</p>
+<ol>
+  <li><strong>Is it really weakness</strong> — or fatigue, pain inhibition, ataxia, apraxia, or functional?</li>
+  <li><strong>Tempo</strong> — hyperacute (seconds–minutes), acute (hours–days), subacute (days–weeks), chronic (weeks–months), episodic / fatigable?</li>
+  <li><strong>Pattern</strong> — focal (one limb / hemiparesis / monoparesis), symmetric (proximal vs distal), bilateral with sensory level, cranial / bulbar prominent, fatigable, length-dependent?</li>
+  <li><strong>Level</strong> — UMN, LMN (anterior horn / nerve / plexus / root), NMJ, or muscle?</li>
+  <li><strong>Associated features</strong> — sensory, autonomic, pain, sphincter, bulbar, respiratory, systemic, drugs, family history?</li>
+</ol>
+
+<div class="pearl"><strong>The single principle:</strong> tempo + pattern + level usually localises 95% of weakness. Run the five-question loop in &lt; 30 seconds, then ask one more question on every visit — "anything that doesn't fit?" — to catch the rare emergency (acute spinal cord compression, GBS, MG crisis, dissection-stroke, hypokalaemic paralysis, botulism, polio-like syndrome).</div>
+
+<h2 id="emerg">2. Rule out emergencies BEFORE everything else</h2>
+
+<div class="refer"><strong>The "do not miss" checklist for new weakness</strong> — run it on every patient before you sit down to history:
+<ul>
+  <li><strong>Acute spinal cord compression</strong> (MESCC, abscess, haematoma, fracture) — sensory level + bilateral leg weakness + sphincter dysfunction → urgent MRI whole spine + dexamethasone if malignancy + neurosurgery (Module 10).</li>
+  <li><strong>Stroke</strong> (cortical, brainstem, lacunar) — sudden hemiparesis or crossed signs; FAST screen; thrombolysis / thrombectomy window (Module 2).</li>
+  <li><strong>Guillain-Barré syndrome</strong> — ascending weakness + areflexia + respiratory involvement; <strong>20/30/40 rule</strong> (FVC &lt; 20 mL/kg, NIF less negative than −30, MEP &lt; 40); ICU with telemetry for autonomic instability; IVIG / PLEX (Module 9, 15, 22).</li>
+  <li><strong>Myasthenic crisis</strong> — bulbar / respiratory failure; avoid known precipitants (aminoglycosides, fluoroquinolones, β-blockers, magnesium); PLEX / IVIG (Module 9, 20).</li>
+  <li><strong>Botulism</strong> — descending paralysis + dilated pupils + dry mouth + bulbar; BIG-IV for infants, equine antitoxin for adults (Module 9, 16).</li>
+  <li><strong>Tick paralysis</strong> — ascending paralysis with tick attached; remove the tick.</li>
+  <li><strong>Hypokalaemic periodic paralysis</strong> (incl. thyrotoxic in East Asian men) — episodic; cautious K replacement + propranolol if thyrotoxic (Module 9, 23).</li>
+  <li><strong>Carotid / vertebral dissection</strong> — neck pain + Horner + cranial nerves + stroke (Module 2, 19).</li>
+  <li><strong>Brainstem stroke</strong> — crossed signs (ipsilateral cranial nerve + contralateral hemiparesis); urgent imaging (Module 2).</li>
+  <li><strong>Wernicke encephalopathy</strong> — confusion + nystagmus + ataxia + nutritional risk → thiamine before glucose (Modules 13, 20).</li>
+  <li><strong>Hypoglycaemia</strong> mimicking stroke / focal weakness → glucose stat.</li>
+  <li><strong>Eclampsia / PRES</strong> in pregnancy — magnesium + antihypertensive + delivery (Module 20).</li>
+  <li><strong>NMS / serotonin syndrome / MH</strong> hyperthermia with rigidity → Module 13.</li>
+</ul>
+</div>
+
+<h2 id="tempo">3. Tempo of weakness</h2>
+<table>
+<tr><th>Tempo</th><th>Mechanisms / examples</th></tr>
+<tr><td><strong>Hyperacute (seconds–minutes)</strong></td><td>Stroke (Module 2); TIA; brainstem stroke; intracerebral haemorrhage (Module 22); seizure with Todd paralysis (Module 3); migraine with motor aura (rare, hemiplegic migraine — Module 4); functional (Module 21); syncope mimicker.</td></tr>
+<tr><td><strong>Acute (hours–days)</strong></td><td>Guillain-Barré syndrome (Module 9); transverse myelitis (Module 8, 10); MS relapse (Module 8); spinal cord compression (Module 10); CIDP first attack; meningitis / encephalitis with focal deficit (Module 11); botulism; eclampsia / PRES (Module 20); MG crisis; Todd's; toxic / metabolic (Module 13).</td></tr>
+<tr><td><strong>Subacute (days–weeks)</strong></td><td>Inflammatory myopathy (Module 9); compressive radiculopathy; paraneoplastic (Module 12); HIV-related; B12 deficiency / subacute combined degeneration (Module 13); chronic meningitis; vasculitic neuropathy (Module 23); rapidly progressive ALS (Module 9); neurosarcoidosis (Module 23); steroid myopathy.</td></tr>
+<tr><td><strong>Chronic (weeks–months–years)</strong></td><td>ALS / MND (Module 9); muscular dystrophies; CIDP; hereditary neuropathies (CMT); IBM; PD with bradykinesia (Module 6); chronic compression; chronic MS (Module 8); cervical / lumbar spondylotic myelopathy (Module 10).</td></tr>
+<tr><td><strong>Episodic / fatigable</strong></td><td>Myasthenia gravis (Module 9); LEMS (Module 12); periodic paralysis (channelopathies — Module 9); paroxysmal disorders; fluctuations of PD (Module 6).</td></tr>
+</table>
+
+<h2 id="pattern">4. Pattern of weakness</h2>
+<table>
+<tr><th>Pattern</th><th>Suggests</th></tr>
+<tr><td>Hemiparesis</td><td>Contralateral cortical / subcortical lesion → stroke, MS plaque, tumour, abscess (Module 2, 8, 11, 12)</td></tr>
+<tr><td>Hemiparesis with crossed cranial deficits</td><td>Brainstem stroke (Weber → ipsilateral CN III + contralateral hemiparesis; Wallenberg lateral medullary; pontine) (Module 2)</td></tr>
+<tr><td>Monoparesis</td><td>Cortical lesion in motor strip; radicular lesion; brachial / lumbosacral plexopathy; mononeuropathy</td></tr>
+<tr><td>Bilateral leg weakness + sensory level + sphincter</td><td><strong>Spinal cord lesion — emergency MRI</strong> (Module 10)</td></tr>
+<tr><td>Symmetric distal weakness + sensory loss (length-dependent)</td><td>Polyneuropathy — diabetic, alcoholic, B12 / B1 / B6, CIDP, hereditary CMT, drug, paraneoplastic (Module 9, 13, 23)</td></tr>
+<tr><td>Symmetric proximal weakness</td><td>Myopathy — inflammatory (polymyositis, dermatomyositis, IMNM), endocrine (thyroid, Cushing, hypoK), drug-induced (statin, steroid), muscular dystrophy, mitochondrial (Module 9, 13, 23)</td></tr>
+<tr><td>Ascending weakness + areflexia ± autonomic</td><td><strong>GBS</strong> — emergency; FVC monitoring (Module 9, 15)</td></tr>
+<tr><td>Descending weakness + dilated pupils + dry mouth + bulbar</td><td><strong>Botulism</strong> — antitoxin / BIG-IV (Module 9, 16)</td></tr>
+<tr><td>Asymmetric weakness + sensory loss in different nerve territories</td><td>Mononeuritis multiplex — vasculitis, diabetes, leprosy, HIV, sarcoid (Module 9, 23)</td></tr>
+<tr><td>Bulbar + ocular + fatigable</td><td>Myasthenia gravis (Module 9)</td></tr>
+<tr><td>Bulbar + descending + autonomic</td><td>Botulism (Module 9)</td></tr>
+<tr><td>UMN + LMN signs in same patient (no sensory)</td><td>Motor neuron disease / ALS (Module 9)</td></tr>
+<tr><td>Tetraparesis with respiratory failure</td><td>High-cervical lesion / GBS / botulism / MG crisis / severe periodic paralysis</td></tr>
+<tr><td>Cape-like distribution sensory + UMN below</td><td>Syringomyelia (Module 10)</td></tr>
+<tr><td>Brown-Séquard hemicord</td><td>Ipsilateral UMN below + ipsilateral dorsal column loss + contralateral pain/temp loss (Module 10)</td></tr>
+</table>
+
+<h2 id="level">5. Level of lesion — UMN, LMN, NMJ, muscle</h2>
+<table>
+<tr><th>Feature</th><th>UMN</th><th>LMN (anterior horn / root / plexus / nerve)</th><th>NMJ</th><th>Muscle</th></tr>
+<tr><td>Tone</td><td>Increased (spasticity, velocity-dependent)</td><td>Decreased (flaccid)</td><td>Normal or slightly reduced</td><td>Normal or reduced</td></tr>
+<tr><td>Reflexes</td><td>Hyperreflexia + Babinski + clonus</td><td>Hyporeflexia / areflexia</td><td>Usually preserved; reduced in LEMS</td><td>Preserved; reduced if severe atrophy</td></tr>
+<tr><td>Atrophy</td><td>Disuse atrophy late</td><td>Prominent early; fasciculations</td><td>Mild</td><td>Variable; selective patterns</td></tr>
+<tr><td>Fasciculations</td><td>Absent</td><td>Present (anterior horn — ALS, SMA)</td><td>Absent</td><td>Absent</td></tr>
+<tr><td>Fatigability</td><td>No</td><td>No</td><td>Yes (worsens with sustained use)</td><td>No; rare in metabolic myopathy</td></tr>
+<tr><td>Sensory involvement</td><td>Usually with cortical / cord lesions</td><td>If nerve / plexus / root involved</td><td>Absent</td><td>Absent</td></tr>
+<tr><td>CK</td><td>Normal</td><td>Normal or mildly raised</td><td>Normal</td><td>Often raised (especially IMNM, rhabdo, inflammatory)</td></tr>
+<tr><td>NCS</td><td>Normal motor + sensory</td><td>Abnormal nerve / amplitudes</td><td>Decrement on RNS (MG) or increment (LEMS)</td><td>Normal NCS; abnormal EMG (small short polyphasic units)</td></tr>
+<tr><td>Examples</td><td>Stroke, MS, tumour, cord lesion, ALS UMN</td><td>ALS LMN, SMA, polio, radiculopathy, plexopathy, neuropathy</td><td>MG, LEMS, botulism, congenital MG</td><td>Muscular dystrophy, inflammatory myopathy, endocrine, drug-induced</td></tr>
+</table>
+
+<h2 id="umn">6. Upper motor neuron lesions</h2>
+<ul>
+  <li><strong>Cortical</strong>: hemiparesis with face/arm or arm/leg predominance; aphasia (dominant); neglect (non-dominant) — stroke, tumour, abscess, MS plaque (Module 2, 8, 11, 12).</li>
+  <li><strong>Subcortical / internal capsule</strong>: dense pure motor hemiparesis (lacunar stroke); pure motor lacunar syndrome (Module 2).</li>
+  <li><strong>Brainstem</strong>: crossed signs — ipsilateral cranial nerve + contralateral hemiparesis; INO; gaze palsies (Module 2, 19).</li>
+  <li><strong>Spinal cord</strong>: bilateral UMN weakness below the level + sensory level + sphincter (Module 10).</li>
+  <li><strong>ALS UMN signs</strong>: with LMN signs (without sensory) suggests ALS (Module 9).</li>
+  <li><strong>Hereditary spastic paraplegia</strong>: chronic progressive spasticity + minimal weakness; family history.</li>
+  <li><strong>Post-stroke spasticity</strong>: emerges over weeks (Module 25 spasticity ladder — physiotherapy → oral antispastics → BoNT-A → intrathecal baclofen).</li>
+</ul>
+
+<h2 id="anterior">7. Anterior horn / radicular / plexus / nerve</h2>
+<table>
+<tr><th>Level</th><th>Features</th></tr>
+<tr><td>Anterior horn</td><td>LMN signs + fasciculations + atrophy + cramps; no sensory loss; examples — ALS (Module 9), SMA (Module 16), polio (rare), West Nile, post-polio syndrome</td></tr>
+<tr><td>Radicular (root)</td><td>Dermatomal pain + dermatomal sensory loss + myotomal weakness + reflex change. Common: C6 (biceps), C7 (triceps), L5 (foot dorsiflexion), S1 (plantar flexion + ankle reflex). Causes: disc, spondylosis, malignant infiltration, infection (Module 10)</td></tr>
+<tr><td>Brachial plexus</td><td>Pain + weakness + sensory loss across multiple roots / nerves: upper trunk (Erb's — C5/6); lower trunk (Klumpke — C8/T1 + Horner). Causes: trauma, Pancoast tumour (Module 15), neuralgic amyotrophy / Parsonage-Turner (sudden painful arm + weakness)</td></tr>
+<tr><td>Lumbosacral plexus</td><td>Diabetic amyotrophy (lumbosacral radiculoplexus neuropathy — painful thigh wasting; Module 23); postpartum (Module 20); malignant infiltration; retroperitoneal haematoma in anticoagulation</td></tr>
+<tr><td>Mononeuropathy</td><td>Carpal tunnel (median), cubital tunnel (ulnar), Saturday night palsy (radial), peroneal (foot drop), meralgia paresthetica (LFCN). Pattern follows nerve distribution</td></tr>
+<tr><td>Mononeuritis multiplex</td><td>Stepwise asymmetric multifocal neuropathy. Vasculitis (PAN, GPA, EGPA — Module 23), diabetes, sarcoid, HIV, leprosy, lymphoma</td></tr>
+<tr><td>Polyneuropathy length-dependent</td><td>Symmetric distal sensorimotor with stocking-glove. Diabetes most common; alcohol; B12 / B1; CIDP; CMT; drugs (vincristine, cisplatin, isoniazid, metronidazole); paraneoplastic; amyloid (Module 9, 13, 23)</td></tr>
+<tr><td>GBS / AIDP</td><td>Acute ascending + areflexia + albuminocytologic dissociation; IVIG / PLEX; FVC monitoring (Module 9, 22)</td></tr>
+<tr><td>CIDP</td><td>Subacute / chronic symmetric proximal + distal weakness; IVIG / PLEX / steroid</td></tr>
+</table>
+
+<h2 id="nmj">8. Neuromuscular junction</h2>
+<ul>
+  <li><strong>Myasthenia gravis (MG)</strong> (Module 9): fatigable bulbar + ocular + proximal limb; AChR antibodies (or MuSK or seronegative); decremental response on RNS; pyridostigmine + steroid + steroid-sparing (azathioprine, MMF, rituximab); thymectomy in selected; <strong>modern biologics</strong>: eculizumab, efgartigimod (FcRn 2021), rozanolixizumab (2023), zilucoplan (2023). Crisis: PLEX / IVIG.</li>
+  <li><strong>LEMS (Module 12)</strong>: proximal lower limb weakness improving with brief exercise; dry mouth; reduced reflexes that improve after exercise; incremental response on RNS &gt; 60%; VGCC antibodies; 60% have SCLC (paraneoplastic); 3,4-diaminopyridine + treat tumour.</li>
+  <li><strong>Botulism (Module 9, 16)</strong>: descending paralysis + dilated unreactive pupils + dry mouth + bulbar; BIG-IV for infants; equine antitoxin for adults.</li>
+  <li><strong>Congenital myasthenic syndromes</strong> (Module 16): paediatric ptosis + fatigable weakness; genetic testing; targeted therapy by subtype.</li>
+  <li><strong>Drug-induced NMJ block</strong>: aminoglycosides, fluoroquinolones, magnesium, β-blockers can precipitate MG crisis; succinylcholine in burns / SCI / GBS → hyperkalaemia (Module 9, 20).</li>
+</ul>
+
+<h2 id="muscle">9. Muscle (myopathy)</h2>
+<table>
+<tr><th>Category</th><th>Examples</th></tr>
+<tr><td>Inflammatory (Module 9)</td><td>Polymyositis; dermatomyositis (Gottron + heliotrope + cancer screen anti-TIF1γ/NXP2); IBM (asymmetric finger flexors + quadriceps, older, steroid-refractory); immune-mediated necrotising myopathy (statin-IMNM with anti-HMGCR persistent after stopping statin)</td></tr>
+<tr><td>Muscular dystrophy</td><td>Duchenne / Becker; FSHD; LGMD; myotonic dystrophy type 1 (DM1) — facial + grip myotonia + cataracts + cardiac conduction + endocrine; Emery-Dreifuss; OPMD</td></tr>
+<tr><td>Endocrine</td><td>Hypothyroid (slow relaxation), hyperthyroid, Cushing, hypoK (incl. thyrotoxic), hyperPTH, vitamin D deficiency</td></tr>
+<tr><td>Drug-induced</td><td>Statin (rare rhabdo + anti-HMGCR IMNM); steroid; colchicine; chloroquine; zidovudine; alcohol</td></tr>
+<tr><td>Toxic / metabolic (Module 13)</td><td>Rhabdomyolysis; mitochondrial; McArdle; carnitine deficiency; periodic paralysis (hyperK / hypoK / Andersen-Tawil); critical illness myopathy (Module 22)</td></tr>
+<tr><td>Channelopathies (Module 9)</td><td>Myotonia congenita (chloride channel); paramyotonia congenita (sodium); hypoK / hyperK periodic paralysis (sodium / calcium channels); Andersen-Tawil (Kir2.1 — long QT + dysmorphism + periodic paralysis)</td></tr>
+<tr><td>Mitochondrial (Module 13)</td><td>MELAS + MERRF + Kearns-Sayre + CPEO; ragged-red fibres on biopsy</td></tr>
+</table>
+
+<div class="warn"><strong>Statins and myopathy</strong>: rule out statin-IMNM in any patient with progressive proximal weakness who has been on a statin — anti-HMGCR antibodies persist after stopping statin and need immunosuppression (Module 9, 17). Watch for rhabdomyolysis with high-intensity statin + interacting drug (CYP3A4 inhibitor, clarithromycin, ciclosporin, gemfibrozil) — CK and renal function.</div>
+
+<h2 id="functional">10. Functional weakness</h2>
+<p>Cross-ref Module 21. Use <strong>positive bedside signs</strong> to make a rule-in diagnosis:</p>
+<ul>
+  <li><strong>Hoover's sign</strong>: weak hip extension paretic side normalises with contralateral hip flexion against resistance (sensitivity ~63%, specificity ~100%; Stone JNNP 2010).</li>
+  <li><strong>Hip abductor sign (Sonoo)</strong>.</li>
+  <li><strong>Drag / monoplegic gait</strong> without circumduction.</li>
+  <li><strong>Give-way weakness</strong> with sudden loss of resistance.</li>
+  <li><strong>Inconsistent power</strong> — strong on automatic tasks, weak on formal testing.</li>
+  <li><strong>Spinal Injuries Center sign</strong>: supine leg won't lift; sitting it lifts effortlessly.</li>
+  <li>Communicate diagnosis using Stone framework (Module 21); avoid dismissive phrases; demonstrate the positive sign to the patient; refer to FND-specific physiotherapy.</li>
+  <li>Coexistence with neurological disease is common (~10–20% of PNES patients have epilepsy; functional movements coexist with PD).</li>
+</ul>
+
+<h2 id="systemic">11. Systemic / metabolic causes of weakness</h2>
+<ul>
+  <li><strong>Electrolyte</strong>: hypokalaemia (paralysis at &lt; 2.5; rhabdomyolysis); hyperkalaemia (cardiac > muscle); hypocalcaemia (tetany); hypomagnesaemia (cramps, weakness); hypophosphataemia (severe → diaphragm paralysis in refeeding).</li>
+  <li><strong>Endocrine</strong>: thyroid (myxoedema or thyrotoxic); Cushing; hyperPTH; hypoadrenal; pituitary; diabetes (Module 23).</li>
+  <li><strong>Nutritional</strong>: B12 (subacute combined degeneration — Module 13); B1 (Wernicke / dry beriberi); B6 (sensory neuronopathy); copper (myeloneuropathy mimics B12); vitamin D (proximal myopathy); vitamin E (spinocerebellar) (Module 13).</li>
+  <li><strong>Toxic / drug</strong>: alcohol (Module 13); statin; steroid; aminoglycoside; isoniazid (B6 deficiency); vincristine; cisplatin / oxaliplatin; metronidazole; bortezomib; nitrous oxide abuse (B12 functional deficiency — Module 13); methanol; CO; heavy metals (lead → motor neuropathy / wrist drop; arsenic; mercury) (Module 13).</li>
+  <li><strong>Infection</strong> (Module 11): polio-like syndromes (enterovirus D68 acute flaccid myelitis); West Nile; rabies; tetanus (rigidity not paralysis); diphtheria neuropathy; HIV; Lyme; leprosy.</li>
+  <li><strong>Paraneoplastic</strong> (Module 12): LEMS; anti-Hu sensory ganglionopathy; dermatomyositis; SCLC-associated.</li>
+  <li><strong>Rheumatological</strong> (Module 23): SLE; Sjögren neuropathy; vasculitides; RA atlantoaxial subluxation; sarcoid.</li>
+  <li><strong>Renal failure</strong>: uraemic neuropathy; uraemic myopathy.</li>
+  <li><strong>Hepatic failure</strong>: hepatic myelopathy (rare).</li>
+</ul>
+
+<h2 id="workup">12. Targeted workup by suspected level</h2>
+<table>
+<tr><th>Suspected level</th><th>First-tier tests</th><th>Second-tier</th></tr>
+<tr><td>Acute brain — stroke</td><td>Non-contrast CT + CT angiography ± perfusion; thrombolysis / thrombectomy decision (Module 2); ECG; glucose; troponin; lipid; HbA1c</td><td>MRI ± MRA; echo; carotid Doppler; Holter; vasculitis / hypercoagulable / dissection workup if young / cryptogenic</td></tr>
+<tr><td>Acute spinal cord</td><td><strong>MRI whole spine</strong> URGENT; dexamethasone if malignancy + neurosurgical consult; LP after imaging if needed (Module 10, 22)</td><td>CSF (cells, glucose, protein, OCBs, cytology); CT myelogram if MRI not available; vascular imaging if suspected AVM / dural fistula</td></tr>
+<tr><td>Peripheral / GBS</td><td>FVC + NIF + bedside vital capacity; ECG + telemetry; LP (albuminocytologic dissociation); electrolytes; thiamine if alcohol / hyperemesis (Module 13, 20)</td><td>NCS / EMG (may be normal first week); antiganglioside antibodies (GQ1b in Miller Fisher / GD1a in axonal); MRI spine if CIDP variant; HIV / Lyme / botulism culture / heavy metals if atypical</td></tr>
+<tr><td>NMJ — suspected MG</td><td>AChR + MuSK antibodies; LRP4 if seronegative; ice pack test for ptosis at bedside; RNS / single-fibre EMG; CT chest (thymoma)</td><td>Edrophonium test (rarely done); pulmonary function; thyroid panel; HbA1c; check coexisting autoimmune disease</td></tr>
+<tr><td>NMJ — LEMS</td><td>VGCC antibody; CT chest (SCLC screen); RNS (incremental &gt; 60% post-exercise)</td><td>FDG-PET if CT negative; repeat tumour search every 3–6 months for 2 years</td></tr>
+<tr><td>Myopathy</td><td>CK + LDH + AST + ALT; electrolytes; TSH + free T4; cortisol; vitamin D; HIV; HbA1c; ESR / CRP</td><td>EMG / NCS; muscle biopsy; myositis antibody panel (Jo-1, Mi-2, MDA-5, TIF1γ, NXP2, HMGCR, SRP); MRI muscle; cancer screen for dermatomyositis; genetic testing for dystrophy</td></tr>
+<tr><td>Functional weakness</td><td>Confirm rule-in signs (Hoover, hip abductor, drag); minimise unnecessary investigations</td><td>Refer to FND clinic + physiotherapy + CBT (Module 21)</td></tr>
+<tr><td>Toxic / metabolic / nutritional</td><td>Electrolytes (Na, K, Ca, Mg, PO₄); B12 + methylmalonic acid + homocysteine; copper + ceruloplasmin; thiamine; lead / heavy metals if exposure; ammonia; ABG; lactate; glucose; HbA1c (Module 13)</td><td>Genetic / metabolic workup if suspected; toxicology screen; targeted testing per history</td></tr>
+</table>
+
+<h2 id="urgency">13. Decision points — admit vs same-day clinic vs outpatient</h2>
+
+<div class="refer"><strong>Admit immediately</strong>:
+<ul>
+  <li>Stroke / TIA (within window for reperfusion).</li>
+  <li>Acute spinal cord compression suspected.</li>
+  <li>GBS with respiratory compromise (FVC &lt; 20 mL/kg, NIF less negative than −30, MEP &lt; 40) or autonomic instability.</li>
+  <li>Myasthenic crisis (bulbar / respiratory failure).</li>
+  <li>Botulism suspected.</li>
+  <li>Rhabdomyolysis with renal compromise.</li>
+  <li>Hypokalaemic periodic paralysis with severe weakness.</li>
+  <li>Eclampsia / PRES.</li>
+  <li>NMS / serotonin syndrome / MH.</li>
+  <li>Hyperthermia with rigidity.</li>
+  <li>New severe / progressive weakness with unclear cause.</li>
+</ul>
+</div>
+
+<div class="warn"><strong>Same-day or 24-hour clinic</strong>:
+<ul>
+  <li>Subacute progressive weakness without respiratory compromise.</li>
+  <li>New radicular pain + motor weakness in a stable patient.</li>
+  <li>Suspected MG without crisis (need RNS + antibody testing).</li>
+  <li>Suspected dermatomyositis / polymyositis with rapid progression.</li>
+  <li>Suspected vasculitic neuropathy (mononeuritis multiplex).</li>
+  <li>Coexisting systemic illness (Module 23) suggesting urgent workup.</li>
+</ul>
+</div>
+
+<div class="time"><strong>Outpatient</strong>:
+<ul>
+  <li>Chronic progressive weakness (CIDP, MG with stable disease, muscular dystrophy, ALS — coordinated multidisciplinary clinics — Module 9, 25).</li>
+  <li>Mild radiculopathy without weakness.</li>
+  <li>Carpal tunnel; meralgia paresthetica; common mononeuropathies.</li>
+  <li>Functional weakness (Module 21) — neurology + FND clinic.</li>
+  <li>Statin myalgia without CK rise or weakness.</li>
+</ul>
+</div>
+
+<h2 id="refer">14. When to refer</h2>
+<ul>
+  <li><strong>Neurosurgery</strong>: spinal cord compression, MESCC, herniation, refractory radiculopathy.</li>
+  <li><strong>Neurology</strong>: any new unexplained weakness; MG / LEMS workup; CIDP; ALS; suspected vasculitis; functional weakness; channelopathy.</li>
+  <li><strong>Rheumatology / immunology</strong>: inflammatory myopathy, vasculitis (Module 23).</li>
+  <li><strong>Cardiology</strong>: muscular dystrophy with cardiac involvement; myotonic dystrophy; LGMD; mitochondrial.</li>
+  <li><strong>Endocrinology</strong>: thyroid / Cushing / hyperPTH / vitamin D myopathy.</li>
+  <li><strong>Rehabilitation</strong> (Module 25): all moderate-severe weakness for multidisciplinary care.</li>
+  <li><strong>Genetic / metabolic</strong>: suspected hereditary neuropathy, channelopathy, dystrophy, mitochondrial.</li>
+  <li><strong>Palliative care</strong>: ALS, advanced muscular dystrophy, progressive incurable disease (Module 25).</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources &amp; cross-references</h3>
+<p>This module is a synthesis of the curriculum. Key cross-references:</p>
+<ul>
+  <li><strong>Module 1</strong> — neurological exam and localisation (UMN vs LMN; reflexes; sensory; cranial nerves).</li>
+  <li><strong>Module 2</strong> — stroke (FAST screen; thrombolysis; thrombectomy; AHA/ASA 2026).</li>
+  <li><strong>Module 3</strong> — Todd's paralysis; postictal weakness.</li>
+  <li><strong>Module 8</strong> — MS relapse; transverse myelitis; NMOSD; MOGAD.</li>
+  <li><strong>Module 9</strong> — comprehensive neuromuscular disease: ALS, GBS, MG, LEMS, botulism, muscular dystrophies, myopathies, channelopathies, statin-IMNM, MG modern biologics (eculizumab + efgartigimod + rozanolixizumab + zilucoplan).</li>
+  <li><strong>Module 10</strong> — spinal cord; MESCC; transverse myelitis; cervical spondylotic myelopathy.</li>
+  <li><strong>Module 11</strong> — CNS infections with motor involvement (polio, AFM, West Nile, rabies, Lyme, leprosy, HIV).</li>
+  <li><strong>Module 12</strong> — paraneoplastic LEMS + anti-Hu sensory ganglionopathy + dermatomyositis.</li>
+  <li><strong>Module 13</strong> — toxic / metabolic / nutritional (electrolytes, B12, thiamine, alcohol, statin, lead, mercury, arsenic, manganese, methanol, CO, Wilson, mitochondrial).</li>
+  <li><strong>Module 15</strong> — autonomic dysfunction in GBS / SCI / MG (telemetry; avoid pushed boluses).</li>
+  <li><strong>Module 17</strong> — pain syndromes (radiculopathy, neuropathic pain).</li>
+  <li><strong>Module 20</strong> — pregnancy considerations (eclampsia, GBS in pregnancy, MG and magnesium).</li>
+  <li><strong>Module 21</strong> — functional weakness with rule-in signs (Hoover, hip abductor, drag).</li>
+  <li><strong>Module 22</strong> — neurocritical care for severe weakness (20/30/40 rule; ICU; ventilation).</li>
+  <li><strong>Module 23</strong> — systemic disease (SLE, vasculitis, sarcoid, sickle cell, thyroid, diabetes).</li>
+  <li><strong>Module 25</strong> — rehabilitation (Kleim-Jones plasticity; CIMT; LSVT; spasticity ladder; AVERT 2015 timing).</li>
+</ul>
+<p>Original textbook anchors: Adams &amp; Victor 12e Ch 3 (Paralysis and Weakness), Ch 38 (Degenerative — MND), Ch 42 (Spinal Cord), Ch 43 (Peripheral Nerves), Ch 45 (Muscle), Ch 46 (NMJ + Channelopathies). Merritt's 14e Ch 14 (Weakness, Cramps, Stiffness), 88 (ALS / MND), 90 (Mononeuropathies), 91 (Acquired Neuropathies), 92 (Inherited), 93 (MG / NMJ), 94 (Inflammatory Myopathies), 97 (Channelopathies).</p>
+</div>
+
+<footer>Module 26 — Approach to Weakness · Cross-module synthesis · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>

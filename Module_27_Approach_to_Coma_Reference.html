@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 27 — Approach to the Comatose Patient (Reference)</title>
+<style>
+  :root{
+    --bg:#fbfdff; --ink:#1b2738; --muted:#566578; --accent:#5a3aa9; --accent-2:#8060d1;
+    --soft:#eee7fa; --line:#d8d2ee; --good:#1b8a5a; --warn:#a8631b; --bad:#a93636;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:Georgia,'Times New Roman',serif; background:var(--bg); color:var(--ink); line-height:1.6}
+  .wrap{max-width:880px; margin:0 auto; padding:38px 28px 70px}
+  header{border-bottom:2px solid var(--accent); padding-bottom:18px; margin-bottom:26px}
+  h1{font-size:1.85rem; margin:0 0 6px; color:var(--accent)}
+  .sub{color:var(--muted); font-style:italic}
+  .badge{display:inline-block; background:var(--soft); color:var(--accent); padding:2px 10px; border-radius:12px; font-size:.8rem; margin-right:6px; font-family:'Inter',sans-serif; font-style:normal}
+  h2{font-size:1.32rem; margin:1.8em 0 .5em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.08rem; margin:1.2em 0 .35em; color:var(--accent-2)}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-family:'Inter','Helvetica Neue',sans-serif; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent); font-weight:600}
+  .callout{padding:10px 14px; border-radius:6px; margin:1em 0; border-left:4px solid; font-family:'Inter',sans-serif; font-size:.96rem}
+  .pearl{background:#f0ebfb; border-color:var(--accent); color:#412a7a}
+  .warn{background:#fbf3e7; border-color:var(--warn); color:#6a3e10}
+  .ref{background:#f7e5e5; border-color:var(--bad); color:#6c1f1f}
+  .src{font-family:'Inter',sans-serif; font-size:.88rem; color:var(--muted); margin-top:2em}
+  ol,ul{padding-left:1.4em}
+  footer{margin-top:2.4em; padding-top:1.2em; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem; font-family:'Inter',sans-serif}
+  code{background:#f3eff9; padding:1px 5px; border-radius:3px; color:var(--accent); font-size:.92em}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 27</span>
+    <span class="badge">Synthesis</span>
+    <h1>Approach to the Comatose Patient</h1>
+    <p class="sub">A cross-module synthesis. The four-pillar exam, anatomical localisation, the 10-second reversible-cause sweep, and structured workup — drawing on Modules 2, 3, 5, 11, 13, 18, 19, 22.</p>
+  </header>
+
+  <h2>0. Why this module?</h2>
+  <p>Coma is the highest-stakes neurological presentation. Every minute matters: hypoglycaemia kills cortex, herniation kills brainstem, status epilepticus kills neurons, raised ICP irreversibly distorts midline structures. A structured approach — pillar exam → anatomical localisation → reversible-cause sweep — converts a sea of possibilities into a treatable plan inside the first 10 minutes.</p>
+  <div class="pearl"><strong>One principle:</strong> resuscitate while you localise. ABC + glucose + thiamine + naloxone come before any imaging.</div>
+
+  <h2>1. Definitions and the consciousness spectrum</h2>
+  <table>
+    <tr><th>State</th><th>Arousal</th><th>Awareness</th><th>Hallmark</th></tr>
+    <tr><td>Awake</td><td>Yes</td><td>Yes</td><td>Normal</td></tr>
+    <tr><td>Confusion / delirium</td><td>Yes</td><td>Impaired</td><td>Inattention (Module 5, 7)</td></tr>
+    <tr><td>Drowsiness / obtundation</td><td>Reduced</td><td>Reduced</td><td>Arousable to voice</td></tr>
+    <tr><td>Stupor</td><td>Vigorous stimulus only</td><td>Minimal</td><td>Lapses back when stimulus stops</td></tr>
+    <tr><td>Coma</td><td>None</td><td>None</td><td>Eyes closed; no purposeful response</td></tr>
+    <tr><td>Vegetative / UWS</td><td>Eye opening</td><td>None</td><td>Sleep-wake cycle preserved (Giacino — Module 25)</td></tr>
+    <tr><td>Minimally conscious (MCS+/MCS−)</td><td>Eye opening</td><td>Inconsistent</td><td>Reproducible command following / object use</td></tr>
+    <tr><td>Locked-in</td><td>Yes</td><td>Yes</td><td>Vertical gaze + blinking only; ventral pontine lesion</td></tr>
+    <tr><td>Brain death</td><td>None</td><td>None</td><td>No brainstem reflexes + apnoea + irreversible (Wijdicks — Module 5)</td></tr>
+  </table>
+  <div class="pearl">Arousal lives in the ascending reticular activating system (ARAS) from upper pons → midbrain → thalamus → cortex. Damage anywhere on that axis, OR diffuse bihemispheric cortical dysfunction, produces coma.</div>
+
+  <h2>2. The first 10 minutes — resuscitate while you localise</h2>
+  <ol>
+    <li><strong>A</strong>irway — protect; intubate if GCS ≤ 8 or no gag.</li>
+    <li><strong>B</strong>reathing — pulse ox, ABG; if hyperventilating consider acidosis/sepsis/Kussmaul; if hypoventilating consider opioid/sedative/CO₂ narcosis.</li>
+    <li><strong>C</strong>irculation — BP, HR; treat cardiogenic shock; Cushing's triad (hypertension + bradycardia + irregular respiration) = raised ICP.</li>
+    <li><strong>D</strong>extrose — finger-stick glucose. <strong>Hypoglycaemia must be ruled out before any imaging.</strong></li>
+    <li>Empirical cocktail when relevant:
+      <ul>
+        <li><strong>Thiamine 500 mg IV</strong> (before glucose, as in Wernicke prevention — Module 13).</li>
+        <li><strong>Glucose</strong> if hypoglycaemic (D50W 50 mL adult; D25W 2 mL/kg paeds).</li>
+        <li><strong>Naloxone</strong> 0.04–2 mg IV titrated to respiratory rate (fentanyl needs higher doses and infusions — Module 13).</li>
+        <li><strong>Flumazenil</strong> only if isolated iatrogenic benzodiazepine sedation (AVOID if mixed overdose / chronic benzo use → can precipitate withdrawal seizures).</li>
+      </ul>
+    </li>
+    <li>Bloods: glucose, lactate, ABG, U&amp;E, LFT, NH₃, ethanol, paracetamol, salicylate, troponin, FBC, coag, CK, blood cultures, β-hCG, drug screen.</li>
+    <li>Empirical antibiotics + aciclovir + dexamethasone if meningitis/encephalitis is in the differential and CT-before-LP indications apply (Module 11) — antibiotics within 60 min.</li>
+    <li>Treat seizures empirically if any suggestion of NCSE (eye deviation, twitching, fluctuating mental state) — IV lorazepam 4 mg, then second-line (Module 3).</li>
+  </ol>
+  <div class="ref">DO NOT delay glucose for imaging. DO NOT give glucose without thiamine in chronic alcohol use, hyperemesis, malnutrition, bariatric, prolonged TPN (Modules 13, 20).</div>
+
+  <h2>3. The four-pillar exam (Plum &amp; Posner)</h2>
+  <p>The bedside exam answers one question: <strong>is the brainstem intact, or is the coma structural?</strong></p>
+  <table>
+    <tr><th>Pillar</th><th>What to look at</th><th>Implication</th></tr>
+    <tr><td>1. Level of consciousness</td><td>GCS, FOUR score</td><td>Trajectory matters as much as snapshot</td></tr>
+    <tr><td>2. Pupils</td><td>Size, symmetry, reactivity (Module 19)</td><td>Localises rostral-caudal level + drug clues</td></tr>
+    <tr><td>3. Eye movements + brainstem reflexes</td><td>Spontaneous gaze, dolls-eyes (oculocephalic), cold caloric (oculovestibular), corneals, cough/gag</td><td>Tests pons–midbrain integrity</td></tr>
+    <tr><td>4. Motor response + respiration</td><td>Best motor to noxious; tone; Babinski; Cheyne-Stokes / central neurogenic hyperventilation / apneustic / ataxic</td><td>Localises rostral-caudal damage</td></tr>
+  </table>
+  <p>Use GCS (3–15) AND FOUR score (0–16; eye, motor, brainstem, respiration; better in intubated). Trend serial scores.</p>
+
+  <h3>Pupil patterns (Module 5, 19)</h3>
+  <table>
+    <tr><th>Pupils</th><th>Likely lesion / cause</th></tr>
+    <tr><td>Normal size + reactive</td><td>Metabolic / toxic / bilateral hemispheric</td></tr>
+    <tr><td>Small + reactive ("diencephalic")</td><td>Bilateral thalamic / metabolic</td></tr>
+    <tr><td>Pinpoint + reactive</td><td>Pontine haemorrhage; opioids (gives back to light with magnification); organophosphate</td></tr>
+    <tr><td>Mid-position + fixed</td><td>Midbrain lesion (catastrophic)</td></tr>
+    <tr><td>Unilateral fixed dilated</td><td>Uncal herniation (CN III compression) — emergency</td></tr>
+    <tr><td>Bilateral fixed dilated</td><td>Severe global hypoxia; anticholinergic toxidrome; brain death (irreversible)</td></tr>
+    <tr><td>Mismatch eye position + pupil</td><td>Atropine, scopolamine, mydriatic drops; non-organic if other exam normal</td></tr>
+  </table>
+
+  <h3>Eye movements + brainstem reflexes</h3>
+  <ul>
+    <li><strong>Oculocephalic (dolls-eyes)</strong>: passive head rotation drives conjugate gaze opposite. Requires intact pons-midbrain MLF. Do NOT perform if cervical injury suspected.</li>
+    <li><strong>Oculovestibular (cold caloric)</strong>: ice-water 30 mL into ear with intact tympanic membrane. Normal awake → fast-phase nystagmus AWAY from cold (mnemonic COWS — Cold Opposite, Warm Same). In coma with intact brainstem → tonic deviation TOWARDS cold. Absent → brainstem damage or drug effect.</li>
+    <li><strong>Corneal</strong>: CN V → VII (pontine).</li>
+    <li><strong>Cough / gag</strong>: CN IX, X (medullary).</li>
+    <li><strong>Skew deviation</strong> = brainstem/cerebellar.</li>
+    <li><strong>Roving conjugate eye movements</strong> = brainstem intact.</li>
+    <li><strong>Ocular bobbing</strong> = pontine.</li>
+    <li><strong>One-and-a-half syndrome</strong> = pontine (PPRF + MLF).</li>
+  </ul>
+
+  <h3>Motor and respiration</h3>
+  <table>
+    <tr><th>Pattern</th><th>Localises</th></tr>
+    <tr><td>Decorticate (flexor)</td><td>Above red nucleus (hemispheric / diencephalic)</td></tr>
+    <tr><td>Decerebrate (extensor)</td><td>Brainstem (between red and vestibular nuclei)</td></tr>
+    <tr><td>Flaccid + no response</td><td>Lower brainstem / medullary / agonal</td></tr>
+    <tr><td>Cheyne-Stokes respiration</td><td>Bihemispheric / diencephalic</td></tr>
+    <tr><td>Central neurogenic hyperventilation</td><td>Midbrain / upper pons</td></tr>
+    <tr><td>Apneustic</td><td>Mid/lower pons</td></tr>
+    <tr><td>Ataxic (Biot)</td><td>Medullary — pre-terminal</td></tr>
+  </table>
+  <div class="pearl">Rostral-caudal deterioration (diencephalic → midbrain → pontine → medullary signs in sequence) suggests progressive transtentorial herniation. Pupils + motor + respiration deteriorate together.</div>
+
+  <h2>4. Anatomical localisation — coma is one of three things</h2>
+  <ol>
+    <li><strong>Bilateral cortical / hemispheric</strong> — usually toxic-metabolic; structural rare (bilateral massive strokes, anoxic injury, SAH, encephalitis, status epilepticus, NCSE).</li>
+    <li><strong>Bilateral thalamic / diencephalic</strong> — top-of-basilar embolism (artery of Percheron), thalamic haemorrhage, central herniation.</li>
+    <li><strong>Brainstem (upper pons → midbrain)</strong> — basilar artery thrombosis, brainstem haemorrhage, central pontine myelinolysis (Module 13), tumour, MS plaque, basilar migraine.</li>
+  </ol>
+  <p>Add herniation as a mechanism: <strong>uncal</strong> (lateral mass → CN III + ipsilateral hemiparesis or Kernohan notch), <strong>central</strong> (rostral-caudal), <strong>tonsillar</strong> (posterior fossa → respiratory arrest), <strong>subfalcine</strong> (ACA infarct).</p>
+
+  <h2>5. The reversible-cause sweep (10-second mnemonic)</h2>
+  <p>Before deep diagnostics, scan once for <strong>AEIOU-TIPS</strong>:</p>
+  <table>
+    <tr><th>Letter</th><th>Cause</th><th>Cross-ref</th></tr>
+    <tr><td>A</td><td>Alcohol; Acid-base (DKA, HHS)</td><td>Module 13</td></tr>
+    <tr><td>E</td><td>Electrolytes (Na, Ca, Mg, glucose); Endocrine (myxoedema, Addisonian, panhypopit); Encephalitis; Epilepsy (NCSE)</td><td>Modules 11, 13, 3</td></tr>
+    <tr><td>I</td><td>Infection (sepsis, meningitis, abscess); Insulin (hypoglycaemia)</td><td>Modules 11, 13</td></tr>
+    <tr><td>O</td><td>Opioid; Oxygen (hypoxia, CO)</td><td>Module 13</td></tr>
+    <tr><td>U</td><td>Uraemia; Underdose / overdose</td><td>Module 13</td></tr>
+    <tr><td>T</td><td>Trauma; Temperature (hypo-/hyperthermia, NMS, SS, MH)</td><td>Modules 13, 22</td></tr>
+    <tr><td>I</td><td>Intracranial (stroke, SAH, ICH, tumour, hydrocephalus)</td><td>Modules 2, 12, 22</td></tr>
+    <tr><td>P</td><td>Psychiatric (unresponsiveness — catatonia, conversion); Poisons (CO, cyanide, organophosphate, salicylate)</td><td>Modules 21, 24, 13</td></tr>
+    <tr><td>S</td><td>Shock (cardiogenic, septic, haemorrhagic); Stroke (basilar)</td><td>Modules 2, 22</td></tr>
+  </table>
+
+  <h2>6. The CT decision and imaging algorithm</h2>
+  <p>After ABC + glucose + reversible-cause cocktail:</p>
+  <ol>
+    <li><strong>Non-contrast CT head</strong> within minutes — ICH, SAH, mass, hydrocephalus, midline shift, large infarct.</li>
+    <li><strong>CT angiography</strong> if basilar / LVO suspected (sudden onset + brainstem findings + crossed signs / "locked-in").</li>
+    <li><strong>MRI brain</strong> within hours if CT non-diagnostic — DWI for early infarct (especially posterior fossa), encephalitis, anoxic injury, top-of-basilar.</li>
+    <li><strong>EEG</strong> if NCSE suspected (Module 3): 30% of unexplained coma in ICU has NCSE on continuous EEG.</li>
+    <li><strong>LP</strong> after CT if meningitis/encephalitis suspected — DO NOT delay antibiotics + dexamethasone + aciclovir for LP (Module 11).</li>
+    <li><strong>Toxicology / ABG / co-oximetry</strong> if toxic suspected — co-oximetry detects CO poisoning (standard SpO₂ misleadingly normal).</li>
+  </ol>
+
+  <h2>7. Specific syndromes that look like coma</h2>
+  <table>
+    <tr><th>Syndrome</th><th>Clue</th><th>Source</th></tr>
+    <tr><td>Locked-in</td><td>Ventral pontine lesion (basilar). Patient AWARE. Vertical gaze + blinking preserved. MRI/MRA emergency.</td><td>Module 2, 18</td></tr>
+    <tr><td>Akinetic mutism</td><td>Bilateral medial frontal / cingulate; "alert" with no movement; awake-eyed.</td><td>Module 2</td></tr>
+    <tr><td>Psychogenic unresponsiveness</td><td>Eyes resist opening; cold caloric → nystagmus (intact cortex); arm drops misses face.</td><td>Module 21</td></tr>
+    <tr><td>Catatonia</td><td>Waxy flexibility, posturing, mutism, echolalia; lorazepam challenge.</td><td>Module 24</td></tr>
+    <tr><td>NCSE</td><td>Fluctuating mental state, eye twitches, lip smacking, autonomic; EEG confirms.</td><td>Module 3</td></tr>
+    <tr><td>Top-of-basilar</td><td>Bilateral thalamic + occipital + brainstem; "Heidenhain" visual + behavioural.</td><td>Module 2</td></tr>
+    <tr><td>Central herniation</td><td>Rostral-caudal decline; Cheyne-Stokes → CNH → apnoea; pupils small reactive → mid-position fixed → dilated.</td><td>Module 22</td></tr>
+    <tr><td>Wernicke's encephalopathy</td><td>Confusion + ophthalmoplegia + ataxia; Caine criteria ≥ 2 of 4; thiamine before glucose.</td><td>Module 13, 20</td></tr>
+    <tr><td>Hashimoto's encephalopathy (SREAT)</td><td>Subacute encephalopathy + thyroid antibodies + steroid responsive.</td><td>Module 11, 24</td></tr>
+    <tr><td>Posterior reversible encephalopathy syndrome (PRES)</td><td>HTN urgency, eclampsia, immunosuppressants; bilateral parieto-occipital vasogenic oedema.</td><td>Module 20, 22</td></tr>
+  </table>
+
+  <h2>8. Raised ICP management (Module 22)</h2>
+  <ol>
+    <li>Head elevation 30°; neutral neck; avoid jugular obstruction.</li>
+    <li>Adequate sedation + analgesia; treat fever (every 1°C ↑ ICP).</li>
+    <li>Osmotherapy: <strong>3% hypertonic saline 250 mL bolus</strong> or <strong>mannitol 1 g/kg</strong>; target Na 145–155 or osmolality &lt; 320.</li>
+    <li>Avoid hyper- and hypoglycaemia; PaCO₂ 35–40 mmHg (transient hyperventilation to 30–35 for impending herniation only).</li>
+    <li>External ventricular drain if hydrocephalus.</li>
+    <li>Decompressive craniectomy for malignant MCA infarct (DECIMAL/DESTINY/HAMLET pooled — Module 2) or refractory raised ICP after TBI (RESCUEicp 2016 — Module 22).</li>
+    <li>Anticoagulation reversal: <strong>warfarin → 4F-PCC + vitamin K</strong>; <strong>dabigatran → idarucizumab</strong>; <strong>factor Xa inhibitors → andexanet alfa</strong> (or 4F-PCC if andexanet unavailable).</li>
+  </ol>
+
+  <h2>9. Hypoxic-ischaemic encephalopathy (post-arrest) — Module 13, 22</h2>
+  <ul>
+    <li>Targeted temperature management 32–36 °C for 24 h after ROSC (HACA 2002, TTM 2013, TTM2 2021 — normothermia 36 °C non-inferior to 33 °C in TTM2).</li>
+    <li>Avoid hyperthermia post-arrest at all costs.</li>
+    <li><strong>Multimodal prognostication after ≥ 72 h off sedation</strong> — combine ≥ 2 of: bilateral absent N20 SSEPs, status myoclonus day 1, NSE &gt; 60 ng/mL at 48–72 h, EEG burst-suppression or status without reactivity, MRI DWI showing cytotoxic oedema. NEVER prognosticate on a single test (especially &lt; 72 h).</li>
+    <li>Lance-Adams syndrome (action myoclonus weeks after arrest in awake survivors) — clonazepam, valproate.</li>
+    <li>Delayed post-hypoxic leukoencephalopathy 1–4 weeks later.</li>
+  </ul>
+
+  <h2>10. Brain death determination (Module 5)</h2>
+  <p>Wijdicks AAN 2010 framework:</p>
+  <ol>
+    <li><strong>Prerequisites</strong>: known irreversible catastrophic cause; exclude confounders (drugs, hypothermia &lt; 36 °C, metabolic, neuromuscular blockade); SBP ≥ 100; core temperature ≥ 36 °C.</li>
+    <li><strong>Coma + absent brainstem reflexes</strong>: pupils fixed; no corneal, no oculocephalic, no caloric, no gag, no cough; no motor to noxious cranial nerve stimulation.</li>
+    <li><strong>Apnoea test</strong>: pre-oxygenate; disconnect; observe 8–10 min; ABG. Test positive if no respiratory effort and PaCO₂ ≥ 60 mmHg (or ≥ 20 mmHg above baseline). Abort if SBP &lt; 90, SpO₂ &lt; 85%, arrhythmia.</li>
+    <li>Ancillary tests if exam/apnoea cannot be completed: <strong>cerebral angiography</strong> (gold standard), <strong>EEG</strong>, <strong>nuclear flow scan</strong>, <strong>transcranial Doppler</strong>.</li>
+    <li>Spinal reflexes may persist (Lazarus sign, triple flexion) and do NOT preclude brain death.</li>
+  </ol>
+
+  <h2>11. Prognostic frameworks beyond HIE</h2>
+  <ul>
+    <li><strong>TBI</strong>: IMPACT and CRASH calculators; age + motor + pupils + CT (Marshall / Rotterdam).</li>
+    <li><strong>ICH</strong>: ICH score (GCS, age, ICH volume, IVH, infratentorial).</li>
+    <li><strong>SAH</strong>: Hunt-Hess, WFNS, modified Fisher.</li>
+    <li><strong>Stroke</strong>: NIHSS; mRS trajectory; large core not always doomed (DAWN, DEFUSE 3 — Module 2).</li>
+    <li><strong>Anti-NMDA-R encephalitis</strong>: prolonged ICU but most recover with treatment (Module 11).</li>
+  </ul>
+
+  <h2>12. Disorders of consciousness — recovery and rehabilitation (Module 25)</h2>
+  <ul>
+    <li>Use <strong>Coma Recovery Scale-Revised (CRS-R)</strong> to distinguish UWS, MCS−, MCS+, EMCS.</li>
+    <li>Up to 40% of "vegetative" patients reclassify as MCS on careful CRS-R; covert cognition demonstrated by fMRI / EEG (Owen, Monti).</li>
+    <li><strong>Amantadine 200 → 400 mg/day</strong> (Giacino NEJM 2012) improves recovery in TBI 4–16 weeks post-injury.</li>
+    <li>Early intensive multidisciplinary rehabilitation; tracheostomy + PEG timing; spasticity management; sialorrhoea; sleep-wake regulation.</li>
+    <li>Family communication is essential — refrain from absolute statements before 72 h prognostication window.</li>
+  </ul>
+
+  <h2>13. Targeted workup table</h2>
+  <table>
+    <tr><th>Suspected cause</th><th>First-tier tests</th></tr>
+    <tr><td>Toxic-metabolic (most likely)</td><td>Glucose; ABG with co-oximetry; ammonia; lactate; U&amp;E; Ca; Mg; PO₄; LFT; TSH; cortisol; B12; thiamine if delay; ethanol; tox screen; paracetamol; salicylate; β-hCG; CK</td></tr>
+    <tr><td>Stroke / structural</td><td>Non-contrast CT + CT angiography ± perfusion; MRI/MRA if CT non-diagnostic</td></tr>
+    <tr><td>Infection</td><td>Blood cultures × 2 + procalcitonin + CRP; LP after CT (empirical antibiotics + dexamethasone + aciclovir BEFORE LP if delay)</td></tr>
+    <tr><td>Seizure / NCSE</td><td>Bedside EEG or continuous EEG ≥ 24 h; lorazepam challenge if NCSE highly suspected</td></tr>
+    <tr><td>Autoimmune encephalitis</td><td>CSF cell-surface antibody panel (NMDA-R, LGI1, CASPR2, GABA-B, AMPA, glycine, DPPX); MRI; EEG; pelvic/testicular US</td></tr>
+    <tr><td>Anoxic injury</td><td>Day 1 — clinical only; ≥ 72 h — multimodal (N20, NSE, EEG, MRI DWI)</td></tr>
+    <tr><td>Endocrine</td><td>TSH + free T4 (myxoedema coma); 0800 cortisol + ACTH (Addisonian); HCO₃/glucose/ketones (DKA/HHS)</td></tr>
+    <tr><td>Functional (last)</td><td>Confirm by Bell phenomenon, geotropic eye drift, awake-EEG, awake response to caloric — NEVER first.</td></tr>
+  </table>
+
+  <h2>14. When to refer / escalate</h2>
+  <ul>
+    <li>Any coma with GCS ≤ 8 → intubate + ICU.</li>
+    <li>Suspected basilar artery occlusion → neurointervention IMMEDIATELY (extended thrombectomy windows — Module 2).</li>
+    <li>Suspected SAH → neurosurgery + interventional neuroradiology for coiling/clipping.</li>
+    <li>Suspected MESCC with descending coma from cervical level → neurosurgery (Module 10).</li>
+    <li>NCSE refractory to first + second line → neurology + ICU for anaesthetic infusion (Module 3).</li>
+    <li>Suspected brain death → trained certifiers per local protocol; family + ethics + organ donation pathway.</li>
+    <li>Disorders of consciousness &gt; 28 days → DOC specialist + CRS-R serial + amantadine consideration (Module 25).</li>
+  </ul>
+
+  <div class="src">
+    <h2>Sources and cross-references</h2>
+    <p>Adams &amp; Victor's <em>Principles of Neurology</em> 12e — Ch 16 (Coma &amp; related disorders), 17 (Delirium), 18 (Sleep). Merritt's <em>Neurology</em> 14e — Ch 11 (Delirium), 19 (Stupor &amp; Coma), 20 (Brain Death).</p>
+    <p>Cross-modules: <strong>Module 2</strong> (stroke; basilar; reversal of anticoagulation; decompressive craniectomy). <strong>Module 3</strong> (status epilepticus; NCSE). <strong>Module 5</strong> (coma fundamentals; GCS; FOUR score; brain death — anchor module). <strong>Module 7</strong> (delirium overlay in dementia). <strong>Module 11</strong> (bacterial / viral encephalitis; autoimmune encephalitis). <strong>Module 12</strong> (paraneoplastic / autoimmune encephalitis). <strong>Module 13</strong> (toxic / metabolic / nutritional — Wernicke; hepatic; uraemic; HIE post-arrest; hypoglycaemia; hyperammonaemia; 5-syndrome hyperthermia). <strong>Module 15</strong> (autonomic crises). <strong>Module 18</strong> (vestibular; cold caloric). <strong>Module 19</strong> (pupils; ophthalmoplegia). <strong>Module 20</strong> (eclampsia / PRES; thiamine in hyperemesis). <strong>Module 21</strong> (functional unresponsiveness). <strong>Module 22</strong> (neurocritical care; ICP; herniation; TTM; multimodal prognostication; decompressive craniectomy; RESCUEicp). <strong>Module 23</strong> (systemic — myxoedema; Addisonian; hepatic). <strong>Module 24</strong> (catatonia; Hashimoto's encephalopathy). <strong>Module 25</strong> (DOC rehab; CRS-R; amantadine; Giacino).</p>
+    <p>Key references: Plum &amp; Posner Diagnosis of Stupor &amp; Coma 4e; Wijdicks AAN brain death guideline 2010; HACA 2002 / TTM 2013 / TTM2 2021; Giacino NEJM 2012 amantadine; Owen / Monti covert cognition; AHA/ASA 2026 AIS guideline; IDSA 2004 bacterial meningitis; Graus 2016 autoimmune encephalitis criteria; RESCUEicp 2016.</p>
+  </div>
+
+  <footer>
+    <p>Module 27 of an ongoing neurology curriculum — built 16 June 2026. Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+</body>
+</html>

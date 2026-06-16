@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 18 — Dizziness, Vertigo &amp; Disorders of Equilibrium (Interactive)</title>
+<style>
+  :root{
+    --bg:#081a26; --panel:#11283a; --panel-2:#173248; --line:#264a66;
+    --ink:#e4f0fa; --muted:#8eb0c9; --accent:#5ccef5; --accent-2:#a5e2fa;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#1a3a55; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#05131c,#081a26 35%,#081a26); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(92,206,245,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#04141f; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#cee9f7}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(92,206,245,.10); border-color:var(--accent); color:#cee9f7}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#04141f; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(92,206,245,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* HINTS verdict box */
+  .hints-verdict{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .hints-verdict h4{margin:0 0 6px; color:var(--accent-2)}
+  .hints-verdict .big{font-size:1.4rem; font-weight:700; color:var(--accent-2); margin:6px 0}
+  .hints-verdict.central .big{color:var(--bad)}
+  .hints-verdict.peripheral .big{color:var(--good)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 18</span>
+    <span class="badge">General physician</span>
+    <h1>Dizziness, Vertigo &amp; Disorders of Equilibrium — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 14) and Merritt's <em>Neurology</em> (14e, Ch. 62). Bárány Society criteria — BPPV 2015, Ménière 2015, vestibular migraine 2012, PPPD 2017. TiTrATE framework (Newman-Toker NEJM 2018). HINTS (Kattah Stroke 2009). Strupp NEJM 2004 (steroids for VN). AAO-HNS BPPV CPG 2017.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="titrate">TiTrATE Classifier</button>
+    <button data-tab="hints">HINTS Walkthrough</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Dizziness is one of the commonest ED and clinic presentations — and one of the most over-investigated and under-diagnosed. The traditional "what kind of dizzy?" approach fails because patients describe the same experience in different ways at different times. The modern bedside approach uses <strong>timing and triggers</strong> to assign the patient to a syndrome, then performs a targeted examination — including HINTS for acute vestibular syndrome, Dix-Hallpike for positional vertigo, and orthostatic vitals for presyncope.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Place every dizziness presentation into one of four syndromes by timing and triggers.</li>
+      <li>Perform and interpret HINTS for acute vestibular syndrome — and know when it does NOT apply.</li>
+      <li>Diagnose and treat BPPV with Dix-Hallpike, supine roll, Epley, Semont, and BBQ-roll manoeuvres.</li>
+      <li>Recognise Ménière disease and vestibular migraine using Bárány Society criteria.</li>
+      <li>Identify PPPD and lead with vestibular rehabilitation + SSRI.</li>
+      <li>Recognise central red flags — inability to walk, central HINTS pattern, brainstem signs, sudden hearing loss with vertigo.</li>
+      <li>Manage acute vestibular neuritis with short-course suppressants and early vestibular rehab.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> in acute spontaneous continuous dizziness, <strong>HINTS+ is more sensitive than early MRI DWI for posterior-circulation stroke</strong> (when done correctly by trained examiners). And in episodic dizziness with positional triggers, the bedside answer is usually BPPV — which a Dix-Hallpike followed by an Epley fixes in a single visit.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. TiTrATE framework — timing and triggers</summary>
+      <div class="body">
+        <table>
+          <tr><th>Syndrome</th><th>Timing</th><th>Trigger</th><th>Examples</th></tr>
+          <tr><td>Acute Vestibular Syndrome (AVS)</td><td>Continuous, days–weeks</td><td>Spontaneous</td><td>Vestibular neuritis; labyrinthitis; posterior-circulation stroke (cerebellar / lateral medullary); MS</td></tr>
+          <tr><td>Triggered Episodic (t-EVS)</td><td>Seconds–minutes, recurrent</td><td>Head position, Valsalva, sound</td><td>BPPV (commonest); orthostatic hypotension (Module 15); SCDS</td></tr>
+          <tr><td>Spontaneous Episodic (s-EVS)</td><td>Minutes–hours, recurrent</td><td>None</td><td>Vestibular migraine; Ménière; TIA; panic / arrhythmia</td></tr>
+          <tr><td>Chronic Vestibular Syndrome</td><td>Months, often constant</td><td>Upright, motion, busy visuals</td><td>PPPD; bilateral vestibulopathy; chronic central</td></tr>
+        </table>
+        <div class="pearl">Stop asking "what kind of dizzy" — ask <strong>"how long does each episode last and what makes it happen?"</strong> That answers most of the diagnostic question before the exam begins.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Vestibular anatomy and the VOR</summary>
+      <div class="body">
+        <ul>
+          <li>3 semicircular canals (angular acceleration) + utricle (horizontal + tilt) + saccule (vertical) on each side.</li>
+          <li>Vestibular nerve: superior division → anterior + horizontal canals + utricle; inferior division → posterior canal + saccule.</li>
+          <li>Brainstem → vestibular nuclei → cerebellar flocculus/nodulus (gain), thalamus → PIVC, oculomotor nuclei (VOR), spinal cord (vestibulospinal).</li>
+          <li><strong>VOR</strong>: head move → opposite eye move keeps gaze stable. Latency ~10 ms. Peripheral lesion → corrective saccade on affected side during head impulse. Central lesions usually spare the VOR.</li>
+          <li>Peripheral nystagmus = horizontal-torsional, unidirectional, suppressed by fixation, obeys <strong>Alexander's law</strong> (worse when looking toward fast phase).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. HINTS exam — the AVS pathway</summary>
+      <div class="body">
+        <div class="refer">HINTS is for ONGOING continuous dizziness with nystagmus (AVS). It is NOT for patients who are not actively dizzy at exam, or for episodic dizziness.</div>
+        <table>
+          <tr><th>Test</th><th>Peripheral</th><th>Central (stroke)</th></tr>
+          <tr><td><strong>H</strong>ead Impulse</td><td>Abnormal (corrective saccade on affected side)</td><td>Normal (intact VOR) — counter-intuitive</td></tr>
+          <tr><td><strong>N</strong>ystagmus</td><td>Unidirectional horizontal-torsional, suppressed by fixation</td><td>Bidirectional / direction-changing, vertical, or torsional, not suppressed</td></tr>
+          <tr><td>Test of <strong>S</strong>kew</td><td>No vertical skew on alternate cover</td><td>Vertical skew deviation</td></tr>
+        </table>
+        <p><strong>HINTS+</strong>: + new unilateral SNHL suggests AICA stroke (>= AICA territory includes internal auditory artery).</p>
+        <p>When done correctly, HINTS+ is <strong>more sensitive than early MRI DWI</strong> (~99% vs ~80%) for posterior-circulation stroke (Kattah Stroke 2009). Performed poorly, head impulse can give false-negative "intact VOR".</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Acute vestibular syndrome — VN vs stroke</summary>
+      <div class="body">
+        <h3>Vestibular neuritis</h3>
+        <ul>
+          <li>Continuous vertigo + nausea/vomiting + gait imbalance for days; peaks within 24 h; resolves over 1–6 weeks. Post-viral inflammation (HSV-1 in some).</li>
+          <li>Usually superior division (spares posterior canal and saccule). Hearing preserved (vs labyrinthitis).</li>
+          <li>Exam: horizontal-torsional nystagmus with fast phase AWAY from affected side; suppressed by fixation; Alexander's law; abnormal head impulse on affected side; otherwise normal HINTS+.</li>
+          <li>Treatment: <strong>short course (≤ 3 days)</strong> vestibular suppressant (cyclizine, meclizine, dimenhydrinate) or benzodiazepine + antiemetic. Stop within 3 days — delays compensation.</li>
+          <li><strong>Methylprednisolone 100 mg taper over 22 days within 3 days of onset</strong> improves caloric recovery (Strupp NEJM 2004).</li>
+          <li><strong>Vestibular rehabilitation</strong> — most important long-term intervention; start as soon as tolerated.</li>
+        </ul>
+        <h3>Labyrinthitis</h3>
+        <p>VN + cochlear involvement → vertigo + SNHL + tinnitus. Distinguish from <strong>AICA stroke</strong> (vertigo + sudden SNHL + central HINTS — urgent imaging).</p>
+        <div class="refer">~25% of AVS patients in the ED have a posterior-circulation stroke — PICA (cerebellum / lateral medullary Wallenberg) or AICA. Lateral medullary Wallenberg: vertigo + ipsilateral facial sensory loss + Horner + cerebellar signs + contralateral body pain/temp loss + dysphagia + hoarseness. Early MRI DWI misses 10–20% of small posterior-fossa strokes — HINTS+ is more sensitive in trained hands. Use MRI/MRA; CT misses posterior fossa.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Benign paroxysmal positional vertigo</summary>
+      <div class="body">
+        <p>Most common cause of vertigo. Otoconia detach from utricle into a semicircular canal — <strong>posterior canal ~85%</strong> > horizontal > anterior. Canalithiasis (free) vs cupulolithiasis (adherent).</p>
+        <ul>
+          <li>Triggers: rolling over, looking up, bending; brief episodes (seconds to &lt; 1 min).</li>
+          <li><strong>Dix-Hallpike</strong> — posterior canal — upbeat-torsional nystagmus, 5–20 s latency, &lt; 60 s duration, reverses on sit-up, fatigues on repeat.</li>
+          <li><strong>Supine roll (Pagnini-McClure)</strong> — horizontal canal — geotropic (canalithiasis) or apogeotropic (cupulolithiasis).</li>
+        </ul>
+        <table>
+          <tr><th>BPPV</th><th>Manoeuvre</th></tr>
+          <tr><td>Posterior canal</td><td><strong>Epley</strong> — 80–90% after 1–2 attempts; Semont alternative</td></tr>
+          <tr><td>Horizontal — geotropic</td><td><strong>BBQ roll (Lempert)</strong>; Gufoni alternative</td></tr>
+          <tr><td>Horizontal — apogeotropic</td><td>Convert to geotropic first (Gufoni or head-shake), then BBQ; forced prolonged position</td></tr>
+          <tr><td>Anterior (rare)</td><td>Deep head-hanging / reverse Epley</td></tr>
+        </table>
+        <p>Recurrence ~30% at 1 year, ~50% at 5 years. Teach modified home Epley. <strong>Avoid vestibular suppressants</strong> — they don't treat BPPV.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Ménière disease (Bárány 2015)</summary>
+      <div class="body">
+        <p>Endolymphatic hydrops. Definite Ménière criteria:</p>
+        <ol>
+          <li>≥ 2 spontaneous vertigo episodes, each 20 min – 12 h.</li>
+          <li>Audiometric low/medium-frequency SNHL in affected ear before/during/after a vertigo episode.</li>
+          <li>Fluctuating aural symptoms (hearing, tinnitus, fullness) in the affected ear.</li>
+          <li>No better diagnosis.</li>
+        </ol>
+        <ul>
+          <li>Lifestyle: low salt (&lt; 2 g/day), reduced caffeine/alcohol, sleep, stress.</li>
+          <li>Diuretic (HCTZ ± triamterene) widely used first-line.</li>
+          <li>Acute: vestibular suppressant + antiemetic.</li>
+          <li>Betahistine 16–48 mg/day common outside US; weak RCT evidence.</li>
+          <li>Refractory: intratympanic gentamicin (vertigo control; hearing loss risk) or intratympanic steroid (preserves hearing better).</li>
+          <li>Surgery: labyrinthectomy or vestibular neurectomy for refractory unilateral with non-serviceable hearing. Hearing aids or cochlear implant for hearing.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Vestibular migraine (Bárány / IHS 2012)</summary>
+      <div class="body">
+        <ol>
+          <li>≥ 5 episodes of vestibular symptoms (vertigo, head-motion intolerance, positional vertigo, visually induced) lasting 5 min – 72 h.</li>
+          <li>Current or past migraine (ICHD-3).</li>
+          <li>≥ 1 migraine feature with ≥ 50% of vestibular episodes: headache (unilateral, pulsating, mod-severe, aggravated by activity); photophobia + phonophobia; visual aura.</li>
+          <li>No better diagnosis.</li>
+        </ol>
+        <p>Treat as migraine (Module 4): triggers, sleep, hydration, regular meals. Acute: triptan, antiemetic, short suppressant. Prevention: topiramate, propranolol/metoprolol, amitriptyline, venlafaxine, flunarizine, valproate; emerging CGRP mAb data. Vestibular rehab for residual imbalance.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. PPPD — persistent postural-perceptual dizziness (Bárány 2017)</summary>
+      <div class="body">
+        <p>Most common cause of chronic vestibular symptoms. ≥ 3 months of non-spinning dizziness / unsteadiness exacerbated by:</p>
+        <ul>
+          <li>Upright posture.</li>
+          <li>Active or passive motion (any direction).</li>
+          <li>Moving visual stimuli (supermarket aisles, scrolling screens).</li>
+        </ul>
+        <p>Often follows acute vestibular event (VN, BPPV, VM, panic, post-concussion) that has resolved. Not psychogenic — functional vestibular disorder.</p>
+        <ul>
+          <li><strong>Vestibular rehabilitation</strong> — foundation.</li>
+          <li><strong>SSRI or SNRI</strong> (sertraline, escitalopram, venlafaxine) — best pharm evidence; start low, titrate slowly.</li>
+          <li><strong>CBT</strong> for fear-avoidance and visual dependence.</li>
+          <li>Avoid prolonged vestibular suppressants.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Bilateral vestibulopathy, SCDS, perilymph fistula</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Bilateral vestibulopathy</strong>: oscillopsia with head/walking + imbalance in dark + no vertigo. Bilaterally abnormal head impulse; dynamic visual acuity drops ≥ 2 Snellen lines. Causes: <strong>aminoglycoside (gentamicin)</strong>, cisplatin, idiopathic, autoimmune (Cogan), meningitis, superficial siderosis. Stop offending drug + vestibular rehab.</li>
+          <li><strong>SCDS (Minor syndrome)</strong>: thin/absent bone over superior canal — "third window". Vertigo + oscillopsia triggered by loud sound (<strong>Tullio</strong>) or Valsalva/pressure (<strong>Hennebert</strong>); autophony; hearing own footsteps, pulse, eye movements; conductive HL with normal middle ear. Dx: high-resolution CT Pöschl plane + VEMP low thresholds. Tx: avoid triggers; surgical plugging / resurfacing.</li>
+          <li><strong>Perilymph fistula</strong>: post-barotrauma / head injury / stapes surgery; fluctuating vertigo + HL; bed rest, surgical repair selected.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Central vertigo — features and causes</summary>
+      <div class="body">
+        <table>
+          <tr><th>Feature</th><th>Peripheral</th><th>Central</th></tr>
+          <tr><td>Severity</td><td>Severe vertigo + N/V</td><td>Less severe but with neurology</td></tr>
+          <tr><td>Nystagmus</td><td>Horizontal-torsional, unidirectional, suppressed by fixation, Alexander's law</td><td>Pure vertical (down-beat), pure torsional, bidirectional, not suppressed</td></tr>
+          <tr><td>Hearing</td><td>Often involved</td><td>Usually preserved (unless AICA)</td></tr>
+          <tr><td>Other neuro</td><td>Absent</td><td>Brainstem / cerebellar signs</td></tr>
+          <tr><td>Gait</td><td>Mild unsteadiness</td><td><strong>Inability to walk unaided</strong> — high suspicion for stroke</td></tr>
+          <tr><td>Head impulse</td><td>Abnormal</td><td>Usually normal (intact VOR) — high suspicion for stroke</td></tr>
+        </table>
+        <p>Causes: posterior-circulation stroke (PICA Wallenberg, AICA, basilar — Module 2); cerebellar haemorrhage (sudden severe occipital headache + vomiting + ataxia + ↓ LOC — neurosurgical emergency); vertebral artery dissection; MS (Module 8); tumour — vestibular schwannoma at CPA (Module 12); Chiari I (Module 16); episodic ataxia type 2 (CACNA1A — acetazolamide); Wernicke encephalopathy (Module 13 — thiamine before glucose); drugs (phenytoin, CBZ, alcohol, lithium — Module 13).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Disequilibrium, gait, presyncope</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Disequilibrium without vertigo</strong>: bilateral vestibulopathy, peripheral neuropathy (Module 9), cerebellar disease (Module 6), spasticity, parkinsonism, NPH (Module 7), severe visual impairment, deconditioning, multisensory deficit of the elderly.</li>
+          <li><strong>Presyncope</strong>: orthostatic hypotension, cardiac (arrhythmia, AS), reflex syncope, drugs (Module 15). Not vestibular.</li>
+          <li><strong>Falls in older adults</strong>: multifactorial. Multidisciplinary falls clinic; deprescribing; exercise (Otago); home safety; vision and hearing check; bone health.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. When to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li><strong>Same day</strong>: suspected posterior-circulation stroke (AVS with central HINTS, inability to walk unaided, sudden hearing loss with vertigo, brainstem signs); cerebellar haemorrhage; vertebral artery dissection; sudden hearing loss (otology emergency within 72 h for steroid trial).</li>
+            <li><strong>Within 1 week</strong>: refractory BPPV; suspected Ménière; suspected vestibular migraine; suspected SCDS; chronic dizziness with red flags.</li>
+            <li><strong>Routine</strong>: PPPD for vestibular rehab + SSRI; established VM on prophylaxis; bilateral vestibulopathy for rehab.</li>
+            <li><strong>Always involve</strong>: ENT / neuro-otology; audiology; vestibular physiotherapy; neurology when central or atypical; falls clinic.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="titrate">
+    <h2>TiTrATE Classifier</h2>
+    <p class="muted">Answer about timing and triggers; the tool places the patient in one of four syndromes and lists the differential, the right exam, and the next steps.</p>
+    <div class="tool" id="ttTool">
+      <div class="q">1. Duration of each episode / current symptom pattern?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="brief">Brief — seconds to minutes per episode, recurrent</button>
+        <button class="opt" data-val="hours">Minutes to hours per episode, recurrent</button>
+        <button class="opt" data-val="continuous">Continuous, ongoing, lasting days</button>
+        <button class="opt" data-val="chronic">Chronic, present most days for ≥ 3 months</button>
+      </div>
+      <div id="tt-rest"></div>
+      <div class="result" id="tt-result"></div>
+      <button class="reset" onclick="resetTt()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="hints">
+    <h2>HINTS Walkthrough</h2>
+    <p class="muted">Tick the result of each component. The verdict updates live. <em>HINTS is only valid in patients with continuous spontaneous dizziness and nystagmus at exam (AVS).</em></p>
+    <div class="tool" id="hintsTool">
+      <div class="q">Head Impulse Test (rapid 10–20° head turn while patient fixates on examiner's nose)</div>
+      <div class="opts" data-step="hi">
+        <button class="opt" data-val="abnormal">Abnormal — corrective saccade on one side</button>
+        <button class="opt" data-val="normal">Normal — eyes stay on target (intact VOR)</button>
+      </div>
+      <div class="q">Nystagmus pattern (observe with and without fixation)</div>
+      <div class="opts" data-step="ny">
+        <button class="opt" data-val="peripheral">Unidirectional horizontal-torsional, fast phase same direction on all gazes, suppressed by fixation</button>
+        <button class="opt" data-val="central">Bidirectional / direction-changing, vertical, or pure torsional; not suppressed by fixation</button>
+      </div>
+      <div class="q">Test of Skew (alternate cover test)</div>
+      <div class="opts" data-step="sk">
+        <button class="opt" data-val="absent">No vertical skew deviation</button>
+        <button class="opt" data-val="present">Vertical skew deviation present</button>
+      </div>
+      <div class="q">HINTS+ — New unilateral sensorineural hearing loss in the acute event?</div>
+      <div class="opts" data-step="hl">
+        <button class="opt" data-val="no">No new hearing loss</button>
+        <button class="opt" data-val="yes">Yes — new unilateral SNHL</button>
+      </div>
+      <div class="hints-verdict" id="hintsVerdict">
+        <h4>HINTS+ verdict</h4>
+        <div class="big" id="hints-verdict-text">Select all four components to see the interpretation.</div>
+        <div id="hints-detail"></div>
+      </div>
+      <button class="reset" onclick="resetHints()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 65-year-old man with hypertension and AF develops sudden continuous vertigo, nausea, and is unable to walk unaided. Exam: bidirectional gaze-evoked nystagmus, normal head impulse, and a vertical skew on alternate cover. Hearing intact</summary>
+      <div class="body">
+        <p>HINTS pattern: normal head impulse + direction-changing nystagmus + skew = central (stroke pattern).</p>
+        <p><strong>Diagnosis:</strong> Posterior-circulation stroke (PICA cerebellar) until proven otherwise.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Treat as a stroke pathway — urgent stroke team activation; ABCs; IV access; bedside glucose; ECG.</li>
+          <li><strong>MRI/MRA</strong> brain (not CT — misses posterior fossa); CTA helpful for vertebral / basilar stenosis or dissection.</li>
+          <li>If MRI confirms acute infarct and within time window: consider thrombolysis (Module 2) per local protocol.</li>
+          <li>Admission to stroke unit; secondary prevention (anticoagulate for AF; statin; BP optimisation).</li>
+          <li>Watch for cerebellar oedema and impending herniation in first 24–48 h; neurosurgical consult if mass effect.</li>
+          <li>Vestibular rehabilitation after acute phase.</li>
+          <li>Cross-ref Module 2.</li>
+        </ol>
+        <div class="warn">"Inability to walk unaided" in an AVS patient is a major red flag for stroke. Normal head impulse + direction-changing nystagmus + skew = central pattern, even if MRI DWI is initially negative. Repeat MRI at 24–48 h if clinical suspicion remains.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 55-year-old woman has 5 episodes of brief spinning vertigo lasting 20–40 seconds, triggered by rolling over in bed and looking up to a high shelf. No hearing loss or headache</summary>
+      <div class="body">
+        <p>Dix-Hallpike on the right: upbeat-torsional nystagmus with 10 s latency, lasting ~30 s, reversed on sit-up, fatigued on repeat. Left Dix-Hallpike negative. No central features.</p>
+        <p><strong>Diagnosis:</strong> Right posterior canal BPPV (canalithiasis).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Perform <strong>Epley canalith repositioning manoeuvre</strong> for the right posterior canal: Dix-Hallpike (head turned 45° right, lowered) → wait 30 s → rotate head 90° to left → wait 30 s → roll patient onto left side, head turning further so nose points down → wait 30 s → sit patient up. Watch for nystagmus throughout.</li>
+          <li>Educate: mild lingering disequilibrium for hours to days is normal; gradual return to activity; reassess in 1 week if symptoms persist.</li>
+          <li>Teach modified home Epley for recurrence (~30% at 1 year).</li>
+          <li>Avoid vestibular suppressants — they don't treat BPPV and delay compensation.</li>
+          <li>If unsuccessful after 2 attempts: try Semont liberatory manoeuvre; refer to ENT / neuro-otology.</li>
+          <li>Investigate for secondary causes if recurrent/atypical: prior head injury, vestibular neuritis, Ménière, vascular insult.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 45-year-old has episodes of vertigo lasting 1–4 hours with fluctuating left-sided hearing loss, tinnitus, and aural fullness, occurring every few weeks for the past year</summary>
+      <div class="body">
+        <p>Audiometry: low-frequency SNHL in left ear documented during one episode.</p>
+        <p><strong>Diagnosis:</strong> Definite Ménière disease, left (Bárány 2015 criteria met: ≥ 2 spontaneous vertigo 20 min – 12 h + audiometric low-frequency SNHL + fluctuating aural symptoms + no other cause).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Lifestyle</strong>: low salt (&lt; 2 g/day), reduced caffeine/alcohol, regular sleep, stress reduction.</li>
+          <li>First-line: <strong>thiazide diuretic</strong> (hydrochlorothiazide ± triamterene).</li>
+          <li>Betahistine 16–48 mg/day where available (Europe / Asia; not US).</li>
+          <li>Acute attacks: vestibular suppressant (cyclizine, meclizine) + antiemetic.</li>
+          <li>Audiology follow-up; consider hearing aid as hearing loss progresses.</li>
+          <li>If frequent disabling vertigo despite conservative care: <strong>intratympanic gentamicin</strong> (chemical labyrinthectomy — controls vertigo but worsens hearing) or <strong>intratympanic steroid</strong> (better hearing preservation).</li>
+          <li>Refractory unilateral with non-serviceable hearing: labyrinthectomy or vestibular neurectomy.</li>
+          <li>Counsel about bilateral involvement (~30% over years) and avoiding driving during active episodes.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 32-year-old with history of migraine has 10 episodes of vertigo lasting 30 minutes to 4 hours over 6 months. Half are accompanied by unilateral pulsating headache, photophobia, and phonophobia. No hearing loss. Triggers include lack of sleep and red wine</summary>
+      <div class="body">
+        <p>Audiometry normal. No central features. Bárány / IHS 2012 criteria for vestibular migraine met.</p>
+        <p><strong>Diagnosis:</strong> Vestibular migraine.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Education and reassurance — VM is common, under-diagnosed, and responds to standard migraine management. Cross-ref Module 4.</li>
+          <li>Identify and manage triggers: sleep, hydration, regular meals, caffeine consistency, alcohol moderation, stress reduction.</li>
+          <li><strong>Acute</strong>: triptan + antiemetic (prochlorperazine, ondansetron); short course of vestibular suppressant only for severe attacks.</li>
+          <li><strong>Prevention</strong> (≥ 4 episodes/month or significant disability): topiramate or propranolol/metoprolol first-line; amitriptyline, venlafaxine, flunarizine, valproate as alternatives; emerging CGRP mAb data.</li>
+          <li>Vestibular rehabilitation for residual imbalance between attacks.</li>
+          <li>Headache diary; review at 3 months for prophylactic response.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 55-year-old man had vestibular neuritis 8 months ago. The acute spinning resolved within 3 weeks, but he remains dizzy daily — non-spinning, worse upright, worse in busy visual environments (supermarket aisles, scrolling screens). Avoidance and anxiety are escalating</summary>
+      <div class="body">
+        <p>Exam: normal cranial nerves, normal head impulse, normal nystagmus, normal gait. Audiology normal. MRI normal.</p>
+        <p><strong>Diagnosis:</strong> Persistent postural-perceptual dizziness (PPPD; Bárány 2017 criteria met).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Education and validation: PPPD is a recognised, treatable disorder, not "all in your head" — it is a functional vestibular disorder driven by maladaptive postural control and visual dependence after an acute vestibular event.</li>
+          <li><strong>Vestibular rehabilitation</strong> — foundation; gradual exposure, habituation, visual desensitisation; expect months of therapy.</li>
+          <li><strong>SSRI or SNRI</strong>: sertraline 25 mg titrated to 50–100 mg, or escitalopram 5 mg → 10–20 mg, or venlafaxine — best pharmacological evidence; start low and increase slowly because patients with PPPD are sensitive to side effects.</li>
+          <li><strong>CBT</strong> targeted at fear-avoidance and visual dependence.</li>
+          <li>Avoid prolonged vestibular suppressants — they delay habituation.</li>
+          <li>Address comorbid anxiety; sleep hygiene.</li>
+          <li>Reassess at 3 months; expect gradual improvement over 6–12 months.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 50-year-old septic patient received 12 days of IV gentamicin during admission. After recovery, she complains of bouncing vision when walking, severe imbalance in the dark, and inability to read street signs while moving. No vertigo</summary>
+      <div class="body">
+        <p>Exam: bilaterally abnormal head impulse test. Dynamic visual acuity: Snellen drops ≥ 3 lines with head shake. Romberg positive. Normal cranial nerves.</p>
+        <p><strong>Diagnosis:</strong> Bilateral vestibulopathy from aminoglycoside ototoxicity.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Stop any further aminoglycoside exposure; document allergy.</li>
+          <li>Audiology + formal vestibular function tests (caloric, video head impulse, VEMP).</li>
+          <li><strong>Vestibular rehabilitation</strong> — gaze stabilisation, balance training, walking with head turns; long-term and patient-specific.</li>
+          <li>Counsel: recovery is variable; complete return of function is rare. Safety measures (no driving without compensation; lighting at night; check vision and proprioception; avoid scaffolds, ladders).</li>
+          <li>Consider other causes (autoimmune Cogan, cisplatin, idiopathic, meningitis, superficial siderosis).</li>
+          <li>Caveat for future antibiotic prescribing: aminoglycosides can cause vestibulotoxicity even at "therapeutic" doses; risk increased by renal impairment, duration, concomitant ototoxics, age, mitochondrial m.1555A&gt;G variant — screen if family history of aminoglycoside ototoxicity.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 18 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 14; Merritt's <em>Neurology</em> 14e Ch. 62. TiTrATE (Newman-Toker NEJM 2018; Neurol Clin 2015); HINTS (Kattah Stroke 2009); Bárány Society criteria (BPPV 2015, Ménière 2015, VM 2012, PPPD 2017); Strupp NEJM 2004 (steroids for VN); AAO-HNS BPPV CPG 2017.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'TiTrATE', q:'TiTrATE framework — four vestibular syndromes by timing + triggers?', a:'(1) Acute Vestibular Syndrome (AVS): continuous days, spontaneous → VN/labyrinthitis/posterior stroke/MS. (2) Triggered Episodic (t-EVS): seconds-min, with trigger (head position) → BPPV/OH/SCDS. (3) Spontaneous Episodic (s-EVS): min-hours, no trigger → vestibular migraine/Ménière/TIA. (4) Chronic Vestibular Syndrome: months → PPPD/bilateral vestibulopathy.'},
+  {tag:'HINTS', q:'HINTS components and patterns?', a:'Head impulse (peripheral = abnormal corrective saccade; central = normal/intact VOR), Nystagmus (peripheral = unidirectional horizontal-torsional, suppressed by fixation, Alexander\'s law; central = bidirectional/direction-changing/vertical/torsional, not suppressed), Test of Skew (peripheral = absent; central = vertical skew). Any one central finding ⇒ central. HINTS+ adds new SNHL → AICA stroke.'},
+  {tag:'HINTS+ vs MRI', q:'HINTS+ vs early MRI DWI for posterior-circulation stroke in AVS?', a:'When performed correctly by trained examiners, HINTS+ sensitivity ~99% vs early MRI DWI ~80% (Kattah Stroke 2009). Early MRI DWI misses ~10–20% of small brainstem/cerebellar strokes in the first 24–48 hours. Repeat MRI at 24–48 h if HINTS+ central but initial MRI negative.'},
+  {tag:'BPPV', q:'Diagnostic test and positive findings for posterior canal BPPV?', a:'Dix-Hallpike. Positive: upbeat-torsional nystagmus (top of eye torts toward affected/down-side ear), 5–20 s latency, < 60 s duration, reverses direction on sitting up, fatigues on repeat.'},
+  {tag:'Epley', q:'Steps of the Epley canalith repositioning manoeuvre for posterior canal BPPV?', a:'(1) Dix-Hallpike position with head turned 45° to affected side, lowered to head-hanging 20–30° below horizontal; (2) wait 30–60 s; (3) rotate head 90° to opposite side; (4) wait 30–60 s; (5) roll patient onto opposite-side shoulder, head now nose-down to floor; (6) wait 30–60 s; (7) sit patient up. 80–90% effective after 1–2 attempts.'},
+  {tag:'Horizontal BPPV', q:'Test and treatment of horizontal canal BPPV?', a:'Supine roll (Pagnini-McClure) test: supine, rapidly turn head 90° each side → geotropic (canalithiasis) or apogeotropic (cupulolithiasis). Treatment: BBQ roll (Lempert) — 360° in 90° increments toward unaffected side; Gufoni alternative for geotropic; for apogeotropic, convert to geotropic first (Gufoni or head-shake) then BBQ.'},
+  {tag:'VN', q:'Vestibular neuritis — exam findings and acute treatment?', a:'Continuous vertigo + N/V + gait imbalance, peaking 24 h. Exam: horizontal-torsional nystagmus with fast phase AWAY from affected side, suppressed by fixation, abnormal head impulse on affected side, no other central HINTS findings, hearing preserved. Treatment: short course (≤ 3 days) vestibular suppressant + antiemetic. Methylprednisolone 100 mg taper × 22 days within 3 days of onset improves caloric recovery (Strupp NEJM 2004). VESTIBULAR REHABILITATION is the most important long-term intervention.'},
+  {tag:'Ménière', q:'Bárány Society 2015 criteria for definite Ménière disease?', a:'(1) ≥ 2 spontaneous vertigo episodes 20 min – 12 h. (2) Audiometric low-/medium-frequency SNHL in affected ear before/during/after a vertigo episode. (3) Fluctuating aural symptoms (hearing, tinnitus, fullness) in affected ear. (4) No better explanation.'},
+  {tag:'Ménière Rx', q:'Treatment ladder for Ménière disease?', a:'Lifestyle (low salt < 2 g/day, reduced caffeine/alcohol, sleep, stress) → thiazide diuretic (HCTZ ± triamterene) → betahistine (Europe/Asia, weak RCT evidence, not US) → refractory: intratympanic gentamicin (vertigo control, hearing loss risk) or intratympanic steroid (better hearing preservation) → labyrinthectomy / vestibular neurectomy for refractory unilateral with non-serviceable hearing. Hearing aid; cochlear implant for severe bilateral.'},
+  {tag:'VM', q:'Bárány/IHS 2012 criteria for vestibular migraine?', a:'(1) ≥ 5 vestibular episodes (vertigo, head-motion intolerance, positional, visually induced) lasting 5 min – 72 h. (2) Past or current migraine per ICHD-3. (3) ≥ 1 migraine feature with ≥ 50% of vestibular episodes (headache: unilateral, pulsating, mod-severe, aggravated by activity; photo+phonophobia; visual aura). (4) Not better accounted for by another diagnosis.'},
+  {tag:'VM Rx', q:'Treatment principles for vestibular migraine?', a:'Treat as migraine (Module 4). Trigger identification, sleep, hydration, regular meals. Acute: triptan, antiemetic, short suppressant if severe. Prevention: topiramate, propranolol/metoprolol, amitriptyline, venlafaxine, flunarizine, valproate; emerging CGRP mAb data. Vestibular rehab for residual imbalance.'},
+  {tag:'PPPD', q:'Bárány Society 2017 criteria and treatment principles for PPPD?', a:'≥ 3 months persistent non-spinning dizziness / unsteadiness exacerbated by upright posture, active or passive motion, and exposure to moving visual stimuli. Often follows acute vestibular event (VN, BPPV, VM, panic, post-concussion). NOT psychogenic. Treatment: VESTIBULAR REHABILITATION (foundation) + SSRI/SNRI (sertraline, escitalopram, venlafaxine; start low, titrate slowly) + CBT for fear-avoidance and visual dependence. Avoid prolonged vestibular suppressants.'},
+  {tag:'AICA', q:'Distinctive feature of AICA stroke that helps differentiate it from vestibular neuritis or labyrinthitis?', a:'Sudden unilateral sensorineural hearing loss with vertigo + central HINTS findings + cerebellar/brainstem signs (ipsilateral facial weakness, Horner). AICA territory includes the internal auditory artery → cochlea + vestibular labyrinth + lateral pons + cerebellar peduncle. Suspect AICA in AVS + new SNHL → image urgently with MRI/MRA.'},
+  {tag:'Wallenberg', q:'Lateral medullary (Wallenberg) syndrome — features?', a:'Vertigo + ipsilateral facial sensory loss (V) + Horner syndrome + ipsilateral cerebellar signs + contralateral body pain/temperature loss + dysphagia + hoarseness (CN IX/X). PICA or vertebral artery occlusion. Cross-ref Module 2.'},
+  {tag:'Gait', q:'Single feature that should prompt suspicion of central cause in acute vestibular syndrome?', a:'Inability to walk unaided. Peripheral vertigo can usually still walk with effort and unsteadiness. Inability to walk unaided + AVS = stroke pathway, even if HINTS is unclear.'},
+  {tag:'Aminoglycoside', q:'Bilateral vestibulopathy — cardinal feature and most important reversible cause?', a:'Oscillopsia (bouncing vision) with head movement, walking; severe imbalance in dark; NO vertigo. Aminoglycoside ototoxicity (gentamicin especially) is the most important reversible cause — vestibulotoxicity can occur even at "therapeutic" doses; risk increased by renal impairment, duration, ototoxic comedication, age, mitochondrial m.1555A>G variant. Treat: stop drug + vestibular rehab.'},
+  {tag:'SCDS', q:'Superior canal dehiscence syndrome — characteristic symptoms?', a:'Vertigo and oscillopsia triggered by LOUD SOUND (Tullio phenomenon) or VALSALVA / PRESSURE CHANGE (Hennebert sign). Autophony (hearing own voice loudly), hearing own footsteps, pulse, eye movements. Conductive hearing loss with normal middle ear. Dx: high-resolution CT temporal bone (Pöschl plane) + VEMP low thresholds. Treatment: avoid triggers; surgical canal plugging or resurfacing for disabling cases.'},
+  {tag:'OH vs vertigo', q:'Quickly differentiate orthostatic presyncope from vertigo at the bedside?', a:'Orthostatic presyncope → lightheaded, "about to faint", brought on by STANDING UP; orthostatic vitals show ≥ 20/10 mmHg drop within 3 minutes (≥ 30 SBP drop in supine hypertensives). Vertigo → spinning or motion illusion, triggered by head position (BPPV) or spontaneous (VN, VM, Ménière), not relieved by lying back. Cross-ref Module 15.'},
+  {tag:'Central nystagmus', q:'Features of nystagmus that suggest a central cause?', a:'Bidirectional / direction-changing on gaze; pure vertical (especially down-beat); pure torsional; not suppressed by fixation; associated with other central signs (dysarthria, diplopia, ataxia, motor/sensory deficit, dysphagia, Horner).'},
+  {tag:'Steroid AVS', q:'When should an AVS patient with acute hearing loss be assessed urgently?', a:'WITHIN 72 HOURS for an otology emergency assessment + audiometry + steroid trial — sudden sensorineural hearing loss is treatable if caught early (oral prednisolone or intratympanic steroid). Also raises suspicion of AICA stroke when accompanied by central HINTS findings (image urgently). Do not delay.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 65-year-old with hypertension and AF develops sudden continuous vertigo and cannot walk unaided. HINTS: normal head impulse, direction-changing nystagmus on lateral gaze, vertical skew on alternate cover. Best next step?',
+   choices:['Discharge with meclizine','Activate stroke pathway; MRI/MRA brain (CT misses posterior fossa); admit to stroke unit; secondary prevention for AF','Outpatient ENT clinic in 2 weeks','BPPV manoeuvres'],
+   ans:1,
+   why:'Central HINTS pattern (normal head impulse + direction-changing nystagmus + skew) plus inability to walk unaided in AVS = posterior-circulation stroke until proven otherwise. ~25% of AVS patients in the ED have stroke. MRI/MRA preferred over CT (misses posterior fossa). Repeat MRI at 24–48 h if initial DWI negative — small posterior-fossa strokes are missed in 10–20% of early scans. Treat as stroke pathway including secondary prevention for AF.'},
+  {q:'A 55-year-old has brief vertigo (~30 seconds) triggered by rolling over in bed. Dix-Hallpike on the right: upbeat-torsional nystagmus with 10 s latency, lasting 30 s, reversing on sit-up. Best treatment?',
+   choices:['Long-term meclizine','Epley canalith repositioning manoeuvre for right posterior canal; teach home modified Epley; avoid vestibular suppressants','Brain MRI urgently','High-dose oral steroid'],
+   ans:1,
+   why:'Posterior canal BPPV (canalithiasis pattern). Epley manoeuvre is 80–90% effective after 1–2 attempts. Avoid vestibular suppressants — they don\'t treat BPPV and delay compensation. Teach home modified Epley for recurrence (~30% at 1 year). If refractory after 2 attempts, try Semont liberatory manoeuvre; refer to ENT / neuro-otology. Investigate secondary causes if atypical or recurrent.'},
+  {q:'A 45-year-old has episodes of vertigo lasting 2 hours with left-sided fluctuating hearing loss, tinnitus, and aural fullness, recurring every few weeks. Audiogram shows low-frequency SNHL in left ear during one episode. Best initial management?',
+   choices:['Carbamazepine','Low-salt diet + thiazide diuretic; vestibular suppressant for acute attacks; audiology follow-up','Long-term opioid','Topiramate'],
+   ans:1,
+   why:'Definite Ménière disease (Bárány 2015 criteria met). Lifestyle (low salt < 2 g/day, reduced caffeine/alcohol, sleep, stress) + thiazide diuretic (HCTZ ± triamterene) first-line. Betahistine widely used outside US (weak RCT evidence). Refractory: intratympanic gentamicin (vertigo control, hearing loss risk) or intratympanic steroid (better hearing preservation). Surgical labyrinthectomy or vestibular neurectomy for refractory unilateral disease with non-serviceable hearing.'},
+  {q:'A 32-year-old migraineur has 10 episodes of vertigo lasting 30 min – 4 hours over 6 months, half accompanied by migraine features. No hearing loss. Bárány/IHS criteria met. Best prevention strategy?',
+   choices:['Tighten glycaemic control','Use migraine prevention agents — topiramate, propranolol/metoprolol, amitriptyline, venlafaxine, flunarizine, or valproate; lifestyle (sleep, hydration, regular meals)','Long-term high-dose steroid','Cochlear implant'],
+   ans:1,
+   why:'Vestibular migraine — treat as migraine (Module 4). Acute: triptan + antiemetic; short suppressant for severe attacks. Prevention if ≥ 4 episodes/month or significant disability: topiramate, propranolol, amitriptyline, venlafaxine, flunarizine, valproate; emerging CGRP mAb data. Vestibular rehab for residual imbalance.'},
+  {q:'A 55-year-old has had non-spinning dizziness for 8 months that started after an episode of vestibular neuritis. He is worse upright, in supermarkets, and looking at scrolling screens. Exam and MRI normal. Best management foundation?',
+   choices:['Long-term meclizine','Vestibular rehabilitation + SSRI/SNRI (sertraline, escitalopram, venlafaxine — start low, titrate slowly) + CBT for fear-avoidance and visual dependence','Repeat brain MRI every 3 months','Long-term opioid'],
+   ans:1,
+   why:'Persistent postural-perceptual dizziness (PPPD; Bárány 2017 criteria). Foundation: vestibular rehabilitation (visual desensitisation, habituation), SSRI/SNRI (best pharm evidence), CBT for fear-avoidance. Avoid prolonged vestibular suppressants — they delay habituation. Educate patient: PPPD is recognised, treatable, not "all in your head".'},
+  {q:'In a patient with acute vestibular syndrome, which combination of features should prompt immediate stroke workup despite a young age and no vascular risk factors?',
+   choices:['Spontaneous remission in 30 minutes','Inability to walk unaided, central HINTS findings (normal head impulse, direction-changing or vertical nystagmus, vertical skew), and/or sudden unilateral SNHL with vertigo','BPPV pattern on Dix-Hallpike','Tinnitus alone'],
+   ans:1,
+   why:'AVS + inability to walk unaided + central HINTS + new SNHL all flag posterior-circulation stroke (PICA — Wallenberg / cerebellar; AICA when SNHL is present). Even in young patients, consider vertebral artery dissection (post-trauma, post-manipulation, severe neck/head pain). Image urgently with MRI/MRA — CT misses posterior fossa.'},
+  {q:'A 50-year-old septic patient received 12 days of IV gentamicin. After recovery she has oscillopsia (bouncing vision) walking, severe imbalance in dark, no vertigo. Head impulse bilaterally abnormal; dynamic visual acuity drops ≥ 3 Snellen lines with head shake. Most likely diagnosis?',
+   choices:['Vestibular neuritis','Bilateral vestibulopathy from aminoglycoside ototoxicity','BPPV','Vestibular migraine'],
+   ans:1,
+   why:'Cardinal features of bilateral vestibulopathy: oscillopsia with head movement / walking; severe imbalance in dark; NO vertigo. Bilaterally abnormal head impulse; abnormal dynamic visual acuity. Aminoglycoside ototoxicity (gentamicin) is the most important reversible cause — can occur at "therapeutic" doses; higher risk with renal impairment, duration, mitochondrial m.1555A>G variant. Stop drug + vestibular rehab; recovery variable, complete return rare.'},
+  {q:'A 40-year-old develops vertigo and oscillopsia triggered by loud sounds at concerts (Tullio phenomenon) and by sneezing (Hennebert sign), with autophony (hearing own voice loudly) and hearing own footsteps. Conductive hearing loss but normal middle ear. Best next step?',
+   choices:['Antibiotic for otitis media','High-resolution CT temporal bone (Pöschl plane) + VEMP for superior canal dehiscence; ENT/neuro-otology referral; trigger avoidance; surgical plugging or resurfacing for disabling cases','Tympanostomy tube','Cochlear implant'],
+   ans:1,
+   why:'Classic superior canal dehiscence syndrome (Minor syndrome). Diagnose with high-resolution CT in the Pöschl plane (along the long axis of superior canal) + VEMP showing low thresholds. Treatment: avoid triggers; surgical canal plugging or resurfacing through middle fossa or transmastoid approach for disabling cases.'},
+  {q:'A 38-year-old with vestibular neuritis presents within 36 hours of onset. Hearing is preserved. Beyond vestibular rehab, which acute treatment has RCT evidence for improving caloric recovery?',
+   choices:['Long-term meclizine','Methylprednisolone 100 mg tapered over 22 days within 3 days of onset (Strupp NEJM 2004)','Long-term opioid','High-dose vitamin C'],
+   ans:1,
+   why:'Strupp NEJM 2004: methylprednisolone 100 mg tapered over 22 days within 3 days of onset improved caloric recovery in vestibular neuritis; combination with valaciclovir did not add benefit. Acute symptom relief: short course (≤ 3 days) of vestibular suppressant (cyclizine, meclizine, dimenhydrinate) or benzodiazepine + antiemetic. STOP suppressants within 3 days — prolonged use delays central compensation. Vestibular rehab is the most important long-term intervention.'},
+  {q:'When is HINTS exam NOT useful?',
+   choices:['In any dizzy patient','In patients who are not actively dizzy at exam, or in episodic dizziness (e.g., BPPV); also poorly performed head impulse can give false-negative "intact VOR" in peripheral lesions','In patients over 50','In patients with hearing loss'],
+   ans:1,
+   why:'HINTS is for ONGOING continuous dizziness with nystagmus (acute vestibular syndrome). It is NOT useful in patients who are not actively dizzy at exam, or in episodic dizziness (BPPV, vestibular migraine, Ménière between attacks). Performing head impulse poorly (small low-velocity head turns) gives false-negative results in peripheral lesions. Use the TiTrATE framework first — identify the syndrome, then choose the targeted exam.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* TiTrATE Classifier */
+const ttRest = document.getElementById('tt-rest');
+const ttResult = document.getElementById('tt-result');
+let ttState = {};
+
+function ttAns(step, val) {
+  ttState[step] = val;
+  Object.keys(ttState).forEach(k => { if (+k > step) delete ttState[k]; });
+  document.querySelectorAll(`#ttTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#ttTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderTt();
+}
+
+function renderTt() {
+  ttRest.innerHTML = '';
+  ttResult.classList.remove('show');
+  const s0 = ttState[0];
+  if (!s0) return;
+
+  if (s0 === 'brief') {
+    addTt(1, '2. Trigger?',
+      [['position','Head position change (rolling over, looking up, bending) — recurrent'],['standing','Standing up from sitting / supine'],['sound','Loud sound or Valsalva / pressure change in ear']]);
+    const s1 = ttState[1];
+    if (s1 === 'position') return showTt('Triggered Episodic (t-EVS) — likely BPPV', [
+      '<strong>Examine</strong>: Dix-Hallpike (posterior canal) and supine roll (Pagnini-McClure for horizontal canal).',
+      'Posterior canal BPPV (commonest): upbeat-torsional nystagmus, 5–20 s latency, < 60 s duration, reverses on sit-up, fatigues on repeat.',
+      'Horizontal canal: geotropic (canalithiasis) or apogeotropic (cupulolithiasis).',
+      '<strong>Treat</strong>: Epley for posterior canal (80–90% effective after 1–2 attempts); Semont alternative. BBQ roll (Lempert) or Gufoni for horizontal canal geotropic; convert apogeotropic to geotropic first then BBQ.',
+      'Teach modified home Epley for recurrence (~30% at 1 year).',
+      'Avoid vestibular suppressants — they don\'t treat BPPV and delay compensation.',
+      'Recurrent or atypical → ENT/neuro-otology; investigate secondary causes (head injury, vestibular neuritis, Ménière, vascular insult).'
+    ]);
+    if (s1 === 'standing') return showTt('Triggered Episodic (t-EVS) — orthostatic presyncope, not vertigo', [
+      'Measure <strong>orthostatic vitals</strong> at 1, 3, and 5 minutes — classic OH: SBP drop ≥ 20 mmHg or DBP ≥ 10 mmHg within 3 min.',
+      '<strong>HR-response trick</strong>: rise < 15 bpm with ≥ 20 mmHg drop = neurogenic OH; ≥ 15 bpm rise = non-neurogenic (drug, volume, anaemia).',
+      'Review medications: diuretics, antihypertensives, vasodilators, α-blockers, TCAs/MAOIs, antipsychotics, dopamine agonists, alcohol.',
+      'Non-pharmacological: fluid 2–2.5 L/day + salt 6–10 g/day (no HF/CKD); 0.5 L water bolus pressor effect; counter-pressure manoeuvres; abdominal binder; head of bed up 10–20° at night.',
+      'Pharmacotherapy for neurogenic OH: midodrine, droxidopa, fludrocortisone, pyridostigmine adjunct.',
+      'Cross-ref Module 15.'
+    ]);
+    if (s1 === 'sound') return showTt('Triggered Episodic (t-EVS) — suspect SCDS', [
+      '<strong>Superior canal dehiscence syndrome (Minor)</strong>: vertigo + oscillopsia triggered by loud sound (Tullio) or Valsalva/pressure (Hennebert); autophony; hearing own footsteps, pulse, eye movements; conductive HL with normal middle ear.',
+      'Diagnose with high-resolution CT temporal bone (Pöschl plane) + VEMP showing low thresholds.',
+      'Treat: avoid triggers; surgical canal plugging or resurfacing for disabling cases.',
+      'Also consider <strong>perilymph fistula</strong> (post-barotrauma, head injury, stapes surgery; fluctuating vertigo + HL; bed rest, surgical repair selected).'
+    ]);
+  }
+
+  if (s0 === 'hours') {
+    addTt(1, '2. Associated features?',
+      [['hearing','Fluctuating hearing loss + tinnitus + aural fullness on the affected side'],['migraine','Migraine features (unilateral pulsating headache, photophobia/phonophobia, visual aura) with ≥ 50% of episodes'],['none','No specific associated features'],['neurology','Acute focal neurology (dysarthria, diplopia, weakness, sensory loss) — even if transient']]);
+    const s1 = ttState[1];
+    if (s1 === 'hearing') return showTt('Spontaneous Episodic (s-EVS) — likely Ménière disease', [
+      '<strong>Bárány Society 2015 criteria for definite Ménière</strong>: ≥ 2 spontaneous vertigo 20 min – 12 h + audiometric low/medium-frequency SNHL + fluctuating aural symptoms + no better explanation.',
+      'Audiometry is essential (low-frequency SNHL during episode).',
+      'Lifestyle: low salt < 2 g/day, reduced caffeine and alcohol, sleep, stress reduction.',
+      'Thiazide diuretic (HCTZ ± triamterene) first-line; betahistine (Europe/Asia; weak RCT evidence; not US).',
+      'Acute attacks: vestibular suppressant + antiemetic.',
+      'Refractory: intratympanic gentamicin (vertigo control, hearing loss risk) OR intratympanic steroid (better hearing preservation); surgery (labyrinthectomy/vestibular neurectomy) for refractory unilateral with non-serviceable hearing.',
+      'Hearing aids, cochlear implant for severe.'
+    ]);
+    if (s1 === 'migraine') return showTt('Spontaneous Episodic (s-EVS) — vestibular migraine', [
+      '<strong>Bárány/IHS 2012 criteria</strong>: ≥ 5 vestibular episodes 5 min – 72 h + past/current migraine + ≥ 1 migraine feature with ≥ 50% of episodes + no better explanation.',
+      'Treat as migraine (Module 4). Trigger identification, sleep, hydration, regular meals.',
+      'Acute: triptan + antiemetic; short vestibular suppressant for severe.',
+      'Prevention: topiramate, propranolol/metoprolol, amitriptyline, venlafaxine, flunarizine, valproate; emerging CGRP mAb data.',
+      'Vestibular rehabilitation for residual imbalance between attacks.'
+    ]);
+    if (s1 === 'neurology') return showTt('Spontaneous Episodic with focal neurology — exclude TIA', [
+      'Posterior-circulation TIA (vertebrobasilar) can present with vertigo, but isolated vertigo without other brainstem features is very unlikely TIA.',
+      'Workup as for TIA: ABCD2, MRI/MRA, carotid + vertebral imaging, ECG/Holter, echo, stroke risk-factor review.',
+      'Refer to TIA / stroke clinic urgently; start antiplatelet (or DAPT for high risk per CHANCE/POINT principles) and statin per local protocol.',
+      'Cross-ref Module 2.'
+    ]);
+    if (s1 === 'none') return showTt('Spontaneous Episodic (s-EVS) — broaden differential', [
+      'Consider <strong>vestibular migraine</strong> as the commonest cause of recurrent spontaneous vertigo even without explicit headache association — re-take a careful migraine history (childhood motion sickness, family history, photophobia/phonophobia, food triggers).',
+      '<strong>Ménière</strong> early — hearing changes may not yet be apparent; serial audiograms.',
+      'Anxiety / panic — usually with autonomic + situational triggers; rule out.',
+      'Cardiac arrhythmia — ECG, possibly Holter.',
+      'TIA — Module 2.',
+      'Consider neuro-otology referral if pattern unclear after initial workup.'
+    ]);
+  }
+
+  if (s0 === 'continuous') return showTt('Acute Vestibular Syndrome (AVS) — perform HINTS+', [
+    'Use the dedicated <strong>HINTS Walkthrough</strong> tab.',
+    'Peripheral pattern: abnormal head impulse + unidirectional horizontal-torsional nystagmus suppressed by fixation + no skew + hearing preserved → likely vestibular neuritis.',
+    'Central pattern (ANY of): normal head impulse, direction-changing/vertical/torsional nystagmus, vertical skew, new SNHL → likely posterior-circulation stroke (PICA cerebellar/lateral medullary Wallenberg, or AICA with SNHL).',
+    '<strong>Inability to walk unaided</strong> is a major red flag for stroke even if HINTS is unclear.',
+    'Stroke pathway: MRI/MRA (CT misses posterior fossa); repeat MRI at 24–48 h if initial negative; admit to stroke unit; secondary prevention.',
+    'Vestibular neuritis: short suppressant (≤ 3 days) + methylprednisolone 100 mg taper × 22 days within 3 days of onset (Strupp NEJM 2004) + early vestibular rehabilitation.',
+    'Sudden hearing loss with vertigo → otology emergency assessment within 72 h for steroid trial.'
+  ]);
+
+  if (s0 === 'chronic') return showTt('Chronic Vestibular Syndrome — likely PPPD; consider bilateral vestibulopathy or chronic central', [
+    '<strong>PPPD (Bárány 2017)</strong>: ≥ 3 months non-spinning dizziness / unsteadiness exacerbated by upright posture, motion, and moving visual stimuli; often follows acute vestibular event (VN, BPPV, VM, panic, post-concussion). Foundation: vestibular rehabilitation + SSRI/SNRI (sertraline, escitalopram, venlafaxine; start low) + CBT for fear-avoidance and visual dependence. Avoid prolonged vestibular suppressants.',
+    '<strong>Bilateral vestibulopathy</strong>: oscillopsia with head movement, imbalance in dark, no vertigo. Bilaterally abnormal head impulse, abnormal dynamic visual acuity. Causes: aminoglycoside (gentamicin), cisplatin, Cogan syndrome, idiopathic, meningitis, superficial siderosis. Stop ototoxic drug; vestibular rehab.',
+    '<strong>Chronic central</strong>: progressive cerebellar disease (Module 6), MS (Module 8), tumour (Module 12), Chiari I (Module 16) — image with MRI.',
+    'Multidisciplinary care: vestibular physiotherapy, audiology, ENT/neuro-otology, neurology, psychiatry/CBT for PPPD.'
+  ]);
+}
+
+function addTt(step, q, opts) {
+  if (document.querySelector(`#tt-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  ttRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => ttAns(step, b.dataset.val)));
+  if (ttState[step]) {
+    const t = wrap.querySelector(`[data-val="${ttState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showTt(title, items) {
+  ttResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  ttResult.classList.add('show');
+}
+
+function resetTt() {
+  ttState = {};
+  ttRest.innerHTML = '';
+  ttResult.classList.remove('show');
+  document.querySelectorAll('#ttTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#ttTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => ttAns(0, b.dataset.val)));
+
+/* HINTS Walkthrough */
+const hintsTool = document.getElementById('hintsTool');
+let hintsState = {hi:null, ny:null, sk:null, hl:null};
+hintsTool.querySelectorAll('.opts').forEach(opts => {
+  const step = opts.dataset.step;
+  opts.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+    hintsState[step] = b.dataset.val;
+    opts.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+    b.classList.add('sel');
+    renderHints();
+  }));
+});
+
+function renderHints() {
+  const verdict = document.getElementById('hintsVerdict');
+  const text = document.getElementById('hints-verdict-text');
+  const detail = document.getElementById('hints-detail');
+  verdict.classList.remove('central','peripheral');
+  if (!hintsState.hi || !hintsState.ny || !hintsState.sk || !hintsState.hl) {
+    text.textContent = 'Select all four components to see the interpretation.';
+    detail.innerHTML = '';
+    return;
+  }
+  // Any central feature = central
+  const central = hintsState.hi === 'normal' || hintsState.ny === 'central' || hintsState.sk === 'present' || hintsState.hl === 'yes';
+  if (central) {
+    verdict.classList.add('central');
+    text.textContent = '⚠ Central pattern — suspect posterior-circulation stroke';
+    const flags = [];
+    if (hintsState.hi === 'normal') flags.push('Head impulse: NORMAL — counter-intuitive but central');
+    if (hintsState.ny === 'central') flags.push('Nystagmus: direction-changing / vertical / pure torsional, not suppressed by fixation');
+    if (hintsState.sk === 'present') flags.push('Test of Skew: VERTICAL SKEW deviation present');
+    if (hintsState.hl === 'yes') flags.push('New unilateral SNHL: suggests <strong>AICA stroke</strong>');
+    detail.innerHTML = '<ul>' + flags.map(f => `<li>${f}</li>`).join('') + `</ul>
+      <p><strong>Next steps</strong>: urgent stroke pathway — MRI/MRA (CT misses posterior fossa), admit to stroke unit, repeat MRI at 24–48 h if initial negative (small posterior-fossa strokes missed in 10–20% of early DWI). Look for PICA (cerebellar / Wallenberg lateral medullary) and AICA territories. Cross-ref Module 2.</p>
+      <p><strong>Caveats</strong>: HINTS+ is valid only in AVS (continuous spontaneous dizziness with nystagmus) and is highly examiner-dependent. "Inability to walk unaided" in AVS is itself a major red flag for stroke even if HINTS is unclear.</p>`;
+  } else {
+    verdict.classList.add('peripheral');
+    text.textContent = '✓ Peripheral pattern — likely vestibular neuritis';
+    detail.innerHTML = `<ul>
+      <li>Head impulse: abnormal (corrective saccade on affected side)</li>
+      <li>Nystagmus: unidirectional horizontal-torsional, suppressed by fixation, Alexander's law</li>
+      <li>No vertical skew</li>
+      <li>Hearing preserved</li>
+    </ul>
+    <p><strong>Treatment</strong>: short course (≤ 3 days) vestibular suppressant + antiemetic; <strong>methylprednisolone 100 mg taper over 22 days within 3 days of onset</strong> improves caloric recovery (Strupp NEJM 2004). <strong>Vestibular rehabilitation</strong> — most important long-term intervention; start as soon as tolerated.</p>
+    <p><strong>Note</strong>: HINTS is only valid in patients with continuous spontaneous dizziness and nystagmus at exam. Performing head impulse poorly (small low-velocity head turns) gives false-negative results. "Peripheral" HINTS in a high-risk patient without overt central features still warrants careful clinical judgement and serial assessment.</p>`;
+  }
+}
+
+function resetHints() {
+  hintsState = {hi:null, ny:null, sk:null, hl:null};
+  hintsTool.querySelectorAll('.opt.sel').forEach(o => o.classList.remove('sel'));
+  document.getElementById('hintsVerdict').classList.remove('central','peripheral');
+  document.getElementById('hints-verdict-text').textContent = 'Select all four components to see the interpretation.';
+  document.getElementById('hints-detail').innerHTML = '';
+}
+</script>
+</body>
+</html>

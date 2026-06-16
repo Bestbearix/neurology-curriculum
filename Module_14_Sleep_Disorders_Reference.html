@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 14 — Sleep Disorders (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#2c4a7c; --accent-2:#5a7ab0; --soft:#eaf0fa;
+    --line:#dde4f0; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#eaf0fa; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#f8fafd; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(44,74,124,0.06)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#1c3a66; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#234171}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#dde6f3; color:#1c3a66; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#ebf0f9; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#e8eef8; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 14 — Sleep Disorders</h1>
+  <div class="sub">Sleep physiology · insomnia · OSA · narcolepsy · RBD &amp; the synucleinopathy prodrome · RLS · parasomnias · circadian rhythm disorders</div>
+  <div class="meta">For the general physician · Reference · 2026 · Built from Adams &amp; Victor 12e (Ch 18) and Merritt's 14e (Ch 30, 118) · ICSD-3-TR (2023) terminology</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — why sleep matters in a general clinic</a></li>
+  <li><a href="#phys">Sleep physiology and architecture</a></li>
+  <li><a href="#approach">Bedside approach to a sleep complaint</a></li>
+  <li><a href="#tools">Validated tools and tests (Epworth, STOP-BANG, ISI, PSG, MSLT, actigraphy)</a></li>
+  <li><a href="#insomnia">Insomnia disorder &amp; CBT-I</a></li>
+  <li><a href="#osa">Obstructive sleep apnea</a></li>
+  <li><a href="#csa">Central sleep apnea, Cheyne-Stokes &amp; hypoventilation</a></li>
+  <li><a href="#narco">Narcolepsy &amp; idiopathic hypersomnia</a></li>
+  <li><a href="#rbd">REM sleep behaviour disorder and the synucleinopathy prodrome</a></li>
+  <li><a href="#rls">Restless legs syndrome &amp; periodic limb movement disorder</a></li>
+  <li><a href="#paras">Parasomnias (NREM and REM)</a></li>
+  <li><a href="#circ">Circadian rhythm sleep-wake disorders</a></li>
+  <li><a href="#klein">Kleine-Levin syndrome &amp; other recurrent hypersomnias</a></li>
+  <li><a href="#neuro">Sleep in neurological disease (PD, AD, stroke, MS, epilepsy)</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — why sleep matters in a general clinic</h2>
+<p>Sleep complaints reach the general physician faster than the sleep specialist. They are massively under-recognised: untreated obstructive sleep apnea drives hypertension, stroke, atrial fibrillation, and motor-vehicle accidents; untreated insomnia worsens depression and chronic pain; REM sleep behaviour disorder is a window into pre-clinical Parkinson disease. The cost of missing them is rarely acute but always significant.</p>
+<ul>
+  <li>Sleep complaints split into three big buckets: <strong>insomnia</strong> (cannot sleep), <strong>hypersomnia</strong> (sleeps too much / falls asleep in the day), and <strong>parasomnia / abnormal behaviour during sleep</strong>.</li>
+  <li>OSA can present as any of these — and frequently mimics narcolepsy, RBD, and insomnia. <strong>Exclude OSA before pursuing rarer diagnoses</strong>.</li>
+  <li>Adults need ~7–9 h sleep on average; chronic short sleep (&lt; 6 h) raises all-cause mortality, cardiovascular events, dementia risk.</li>
+</ul>
+
+<div class="pearl"><strong>The single principle:</strong> a thoughtful sleep history — bed partner observation, sleep–wake schedule, daytime sleepiness (Epworth), snoring, pauses, choking, leg movements, dream enactment, nocturnal eating — answers most of the diagnostic question before any test. Two-week sleep diary or actigraphy then refines the picture.</div>
+
+<h2 id="phys">2. Sleep physiology and architecture</h2>
+
+<h3>Normal sleep architecture (adult)</h3>
+<table>
+<tr><th>Stage</th><th>% night</th><th>EEG</th><th>Features</th></tr>
+<tr><td>Wake (W)</td><td>—</td><td>Low-voltage, fast (alpha when eyes closed)</td><td>High muscle tone, rapid eye movements</td></tr>
+<tr><td>N1</td><td>~5%</td><td>Low-voltage, mixed-frequency; vertex sharps</td><td>Slow rolling eye movements; hypnic jerks; easily roused</td></tr>
+<tr><td>N2</td><td>~45%</td><td>Sleep spindles (12–16 Hz) + K-complexes</td><td>Defining stage of "light sleep"; most of the night</td></tr>
+<tr><td>N3 (slow-wave sleep)</td><td>~25%</td><td>Delta (0–2 Hz, ≥ 20% of epoch)</td><td>Most restorative; deepest sleep; growth hormone surge; NREM parasomnias here</td></tr>
+<tr><td>REM (R)</td><td>~25%</td><td>Low-voltage, sawtooth waves</td><td>Bursts of rapid eye movements; muscle atonia (except eye and respiratory); dreaming; autonomic instability</td></tr>
+</table>
+<p>Cycles repeat every 90–120 minutes. N3 dominates the first third of the night; REM dominates the last third. Across life: REM declines from ~50% in newborns to ~25% in adults; N3 declines progressively from adolescence to old age.</p>
+
+<h3>Sleep–wake regulation (two-process model)</h3>
+<ul>
+  <li><strong>Process C (circadian)</strong>: ~24-hour rhythm from the suprachiasmatic nucleus (SCN), entrained by light via the retinohypothalamic tract. Melatonin secretion (pineal) rises in the evening and peaks at ~3 am.</li>
+  <li><strong>Process S (homeostatic sleep drive)</strong>: builds across wakefulness (adenosine accumulates), dissipates during sleep.</li>
+</ul>
+
+<h3>Key neurotransmitter systems</h3>
+<ul>
+  <li><strong>Wake-promoting</strong>: orexin/hypocretin (lateral hypothalamus — loss in narcolepsy type 1), histamine (TMN), noradrenaline (LC), acetylcholine (PPT/LDT), serotonin (raphe), dopamine.</li>
+  <li><strong>Sleep-promoting</strong>: GABA + galanin (ventrolateral preoptic nucleus, VLPO); adenosine; melatonin.</li>
+  <li><strong>REM control</strong>: cholinergic "REM-on" neurons (PPT/LDT) and monoaminergic "REM-off" neurons (LC, raphe) — flip-flop switch.</li>
+  <li><strong>REM atonia</strong>: brainstem subcoeruleus → ventromedial medullary glycinergic/GABAergic inhibition of α-motor neurons. <em>Loss of this circuit causes REM sleep behaviour disorder.</em></li>
+</ul>
+
+<h2 id="approach">3. Bedside approach to a sleep complaint</h2>
+
+<h3>Eight questions that organise the visit</h3>
+<ol>
+  <li>What is the main problem — falling asleep, staying asleep, daytime sleepiness, or abnormal behaviour at night?</li>
+  <li>What is your sleep schedule on workdays vs days off? (Reveals circadian misalignment, social jet lag.)</li>
+  <li>How long does it take to fall asleep, how many awakenings, total sleep time? (Insomnia phenotype, sleep efficiency.)</li>
+  <li>Do you snore? Has anyone seen breathing pauses or gasping? Have you woken up choking? (OSA.)</li>
+  <li>Do you have an irresistible urge to move your legs, especially in the evening? Does movement relieve it? (RLS.)</li>
+  <li>Have you ever fallen asleep at the wheel or in a conversation? (EDS — quantify with Epworth.)</li>
+  <li>Do you act out your dreams — punching, kicking, shouting, falling out of bed? (RBD — synucleinopathy prodrome.)</li>
+  <li>Caffeine, alcohol, prescription / OTC / recreational drug use, electronics, exercise pattern, daytime naps, shift work?</li>
+</ol>
+
+<h3>Examination essentials</h3>
+<ul>
+  <li>Vitals — BP, BMI, neck circumference (&gt; 17 in / 43 cm men, &gt; 16 in / 41 cm women — OSA risk).</li>
+  <li>Upper airway — modified Mallampati class, tonsil size, retrognathia, septal deviation, nasal patency.</li>
+  <li>General — heart failure signs (CSA / Cheyne-Stokes), thyroid (hypothyroidism worsens OSA), depression screen (PHQ-9).</li>
+  <li>Neurological — focus on parkinsonism (link to RBD), cognitive screen, autonomic signs.</li>
+</ul>
+
+<h2 id="tools">4. Validated tools and tests</h2>
+
+<h3>Bedside questionnaires</h3>
+<table>
+<tr><th>Tool</th><th>Use</th><th>Cut-offs</th></tr>
+<tr><td><strong>Epworth Sleepiness Scale (ESS)</strong></td><td>Subjective daytime sleepiness</td><td>0–24; ≤ 10 normal; 11–14 mild; 15–17 moderate; 18–24 severe; &gt; 16 = high suspicion for narcolepsy/severe OSA</td></tr>
+<tr><td><strong>STOP-BANG</strong></td><td>OSA screening</td><td>≥ 3 of 8 = intermediate; ≥ 5 = high probability (high specificity for moderate/severe OSA)</td></tr>
+<tr><td><strong>Berlin Questionnaire</strong></td><td>OSA screening (snoring + EDS + BP/BMI categories)</td><td>2 of 3 categories high = high risk</td></tr>
+<tr><td><strong>Insomnia Severity Index (ISI)</strong></td><td>Insomnia severity</td><td>0–7 none; 8–14 subthreshold; 15–21 moderate clinical; 22–28 severe clinical</td></tr>
+<tr><td><strong>Pittsburgh Sleep Quality Index (PSQI)</strong></td><td>Global sleep quality over past month</td><td>&gt; 5 = poor sleep quality</td></tr>
+<tr><td><strong>IRLSSG diagnostic criteria + IRLS rating scale</strong></td><td>RLS diagnosis &amp; severity</td><td>IRLS ≥ 21 = severe; ≥ 31 = very severe</td></tr>
+</table>
+
+<h3>Objective tests</h3>
+<table>
+<tr><th>Test</th><th>What it measures</th><th>When</th></tr>
+<tr><td><strong>Polysomnography (PSG)</strong></td><td>EEG (6+ channels), EOG, EMG (chin + leg), ECG, airflow, effort (chest/abdo), SpO₂ ± CO₂</td><td>OSA confirmation (in-lab or home), CSA, RBD (REM without atonia), parasomnias, atypical features</td></tr>
+<tr><td><strong>Home sleep apnea test (HSAT)</strong></td><td>Limited cardiopulmonary channels (flow, effort, SpO₂)</td><td>Uncomplicated suspected moderate-severe OSA in otherwise healthy adult; not for CSA, hypoventilation, complex sleep disorders</td></tr>
+<tr><td><strong>Multiple Sleep Latency Test (MSLT)</strong></td><td>Five 20-min nap opportunities at 2-hour intervals after overnight PSG</td><td>Narcolepsy diagnosis: mean sleep latency ≤ 8 min + ≥ 2 SOREMPs (sleep-onset REM periods, one can be on preceding PSG). Idiopathic hypersomnia: ≤ 8 min + &lt; 2 SOREMPs</td></tr>
+<tr><td><strong>Maintenance of Wakefulness Test (MWT)</strong></td><td>Ability to stay awake in soporific conditions</td><td>Treatment response, fitness for safety-critical occupations</td></tr>
+<tr><td><strong>Actigraphy</strong></td><td>Wrist accelerometer for ≥ 7 days (estimates rest/activity cycles)</td><td>Circadian rhythm disorders, insomnia phenotyping (paradoxical insomnia), assessing total sleep time and timing</td></tr>
+<tr><td><strong>2-week sleep diary</strong></td><td>Subjective record</td><td>Always start here; pairs with actigraphy</td></tr>
+<tr><td><strong>CSF orexin-A (hypocretin-1)</strong></td><td>Diagnostic of narcolepsy type 1 if &lt; 110 pg/mL (or &lt; ⅓ of control mean)</td><td>Equivocal narcolepsy, post-H1N1 narcolepsy (rare), or when MSLT not feasible</td></tr>
+</table>
+
+<h3>Defining OSA terms</h3>
+<ul>
+  <li><strong>Apnea</strong>: &gt; 90% reduction in airflow for ≥ 10 s. Obstructive = effort preserved; central = no effort; mixed = both.</li>
+  <li><strong>Hypopnea</strong>: ≥ 30% reduction in airflow for ≥ 10 s with either ≥ 3% (AASM) / ≥ 4% (Medicare) desaturation or arousal.</li>
+  <li><strong>Apnea-Hypopnea Index (AHI)</strong>: events per hour of sleep. 5–14 mild; 15–29 moderate; ≥ 30 severe.</li>
+  <li><strong>Respiratory Disturbance Index (RDI)</strong>: AHI + respiratory effort-related arousals (RERAs).</li>
+  <li><strong>Oxygen Desaturation Index (ODI)</strong>: desaturations ≥ 3 or 4% per hour.</li>
+</ul>
+
+<h2 id="insomnia">5. Insomnia disorder</h2>
+<ul>
+  <li>Difficulty initiating, maintaining, early-morning waking, or non-restorative sleep ≥ 3 nights/week for ≥ 3 months <em>despite adequate opportunity</em> + daytime consequences. ICSD-3-TR / DSM-5-TR.</li>
+  <li>Up to 30% of adults have insomnia symptoms; ~10% chronic insomnia disorder.</li>
+  <li><strong>Always exclude / treat comorbid conditions first</strong>: OSA, RLS, depression / anxiety, chronic pain, caffeine/alcohol/stimulants, drugs (β-blockers, steroids, decongestants, SSRIs at start), hyperthyroidism, GORD, prostate.</li>
+</ul>
+
+<h3>Treatment</h3>
+<div class="pearl"><strong>CBT-I (cognitive behavioural therapy for insomnia) is first-line and the only insomnia treatment with durable benefit after discontinuation.</strong> Components:
+<ul>
+  <li><strong>Stimulus control</strong>: bed for sleep + sex only; leave bed if not asleep within ~20 min and return only when sleepy; consistent wake time.</li>
+  <li><strong>Sleep restriction therapy</strong>: limit time in bed to actual sleep time to increase sleep drive; gradually expand as efficiency rises &gt; 85–90%.</li>
+  <li><strong>Cognitive restructuring</strong>: address catastrophising about sleep loss.</li>
+  <li><strong>Sleep hygiene</strong>: a useful adjunct but insufficient alone.</li>
+  <li><strong>Relaxation</strong>: progressive muscle relaxation, paced breathing.</li>
+</ul>
+Digital CBT-I apps and brief 4-session CBT-I are evidence-based when in-person therapy is unavailable.</div>
+
+<h4>Pharmacotherapy</h4>
+<table>
+<tr><th>Class</th><th>Examples</th><th>Comments</th></tr>
+<tr><td>Z-drugs (benzodiazepine receptor agonists)</td><td>Zolpidem, eszopiclone, zaleplon</td><td>Short-term only; falls, parasomnias (complex sleep behaviour — driving asleep — FDA boxed warning), dependence; avoid in elderly</td></tr>
+<tr><td>Benzodiazepines</td><td>Temazepam, lorazepam</td><td>Avoid long-term; falls in elderly; not preferred for insomnia in modern practice</td></tr>
+<tr><td>Melatonin receptor agonist</td><td>Ramelteon (US), melatonin slow-release</td><td>Sleep-onset insomnia, especially in elderly; safer profile; not addictive</td></tr>
+<tr><td>Dual orexin receptor antagonists (DORAs)</td><td>Suvorexant, lemborexant, daridorexant (FDA approved 2022)</td><td>Sleep maintenance + onset; less morning grogginess than Z-drugs; do not cause REM rebound on cessation; caution in narcolepsy (theoretical worsening of cataplexy)</td></tr>
+<tr><td>Sedating antidepressants</td><td>Low-dose doxepin (FDA-approved 3 or 6 mg), trazodone (off-label)</td><td>Doxepin specifically licensed for sleep maintenance insomnia; trazodone widely used but evidence less robust</td></tr>
+<tr><td>Sedating antihistamines</td><td>Diphenhydramine, doxylamine</td><td>Tolerance develops; anticholinergic burden; avoid in elderly (delirium, falls)</td></tr>
+</table>
+
+<h2 id="osa">6. Obstructive sleep apnea (OSA)</h2>
+<ul>
+  <li>Prevalence: ~14% of men, ~5% of women in middle age (likely higher with current obesity rates).</li>
+  <li>Pathophysiology: upper airway collapses during sleep → arousal → fragmented sleep + hypoxaemia + autonomic activation.</li>
+  <li>Risk factors: obesity (BMI &gt; 30), male sex, age, post-menopausal in women, neck circumference, retrognathia, large tonsils, nasal obstruction, hypothyroidism, acromegaly, Down syndrome.</li>
+  <li>Clinical: loud habitual snoring, witnessed apneas, gasping/choking arousals, non-restorative sleep, morning headache, daytime sleepiness (or fatigue without sleepiness, especially in women), poor concentration, mood changes, nocturia.</li>
+  <li>Consequences: hypertension (especially treatment-resistant), atrial fibrillation, stroke, coronary disease, type 2 diabetes worsening, pulmonary hypertension, MVA risk, perioperative complications.</li>
+</ul>
+
+<h3>Diagnosis</h3>
+<ul>
+  <li>STOP-BANG ≥ 3 → diagnostic test. Home sleep apnea test (HSAT) for uncomplicated suspected moderate-severe OSA. In-lab PSG for complex patients (CHF, CSA suspected, hypoventilation, neuromuscular disease, drug-resistant hypertension with negative HSAT, suspected non-OSA sleep disorder).</li>
+  <li>AHI 5–14 mild; 15–29 moderate; ≥ 30 severe.</li>
+</ul>
+
+<h3>Treatment</h3>
+<ol>
+  <li><strong>Continuous positive airway pressure (CPAP)</strong> — first-line for moderate to severe OSA. Titrated by autoPAP or in-lab. Adherence (≥ 4 h/night ≥ 70% nights) is the key challenge — humidification, mask fit, troubleshooting, behavioural support all matter.</li>
+  <li><strong>Bi-level (BiPAP)</strong> — for CPAP intolerance, high pressures, coexistent hypoventilation.</li>
+  <li><strong>Mandibular advancement device</strong> — mild-moderate OSA, CPAP-intolerant; needs adequate dentition.</li>
+  <li><strong>Weight loss</strong> — 10% body weight reduction → ~25–30% AHI improvement; bariatric surgery for severe obesity.</li>
+  <li><strong>Positional therapy</strong> for predominantly supine-related OSA.</li>
+  <li><strong>Surgery</strong>: tonsillectomy/adenoidectomy in children with adenotonsillar hypertrophy is first-line. UPPP, maxillomandibular advancement, septoplasty in select adults. Tracheostomy reserved for life-threatening OSA refractory to other care.</li>
+  <li><strong>Hypoglossal nerve stimulation</strong> (Inspire, FDA-approved): selected moderate-severe OSA, BMI &lt; 32 (some programmes &lt; 35), CPAP-intolerant, no concentric palatal collapse on DISE.</li>
+  <li><strong>Modafinil / armodafinil / pitolisant / solriamfetol</strong> for residual EDS despite adequate CPAP adherence.</li>
+  <li>Treat comorbidities: hypothyroidism, allergic rhinitis, GORD.</li>
+  <li>Driving: counsel to not drive when sleepy; legal reporting obligations vary by country.</li>
+</ol>
+
+<div class="warn">CPAP improves daytime symptoms, mood, and BP; large RCTs (SAVE, ISAACC) <em>did not</em> show cardiovascular event reduction in non-sleepy OSA — most clear benefit is for sleepy patients, severe OSA, and treatment-resistant hypertension.</div>
+
+<h2 id="csa">7. Central sleep apnea (CSA), Cheyne-Stokes &amp; hypoventilation</h2>
+<ul>
+  <li><strong>Cheyne-Stokes respiration</strong>: crescendo-decrescendo respiration with apnoeas, classically in heart failure (~30–50% of HF with reduced EF). Treat heart failure; CPAP often helps; <strong>adaptive servo-ventilation (ASV) is contraindicated in HFrEF with LVEF ≤ 45%</strong> (SERVE-HF trial: increased cardiovascular mortality).</li>
+  <li><strong>High-altitude periodic breathing</strong>: physiological at altitude; acetazolamide effective.</li>
+  <li><strong>Opioid-induced CSA</strong>: classic ataxic / Biot breathing; ↓ opioid; consider naltrexone; CPAP / ASV variable success.</li>
+  <li><strong>Treatment-emergent CSA</strong> (formerly "complex sleep apnea"): emerges on CPAP initiation; resolves spontaneously in many; ASV may help if persistent.</li>
+  <li><strong>Obesity hypoventilation syndrome</strong> (Pickwickian): BMI ≥ 30 + daytime PaCO₂ ≥ 45 mmHg without alternative cause; treat with BiPAP + weight loss; high mortality untreated.</li>
+  <li><strong>Neuromuscular hypoventilation</strong> (ALS, muscular dystrophies — Module 9): nocturnal NIV improves symptoms and survival; trigger criteria include orthopnea, FVC &lt; 50% predicted, sniff nasal inspiratory pressure (SNIP) &lt; 40 cm H₂O.</li>
+</ul>
+
+<h2 id="narco">8. Narcolepsy &amp; idiopathic hypersomnia</h2>
+
+<h3>Narcolepsy type 1 (with cataplexy)</h3>
+<ul>
+  <li>Loss of hypothalamic orexin (hypocretin)-producing neurons; HLA-DQB1*06:02 in &gt; 95%; autoimmune (post-H1N1 / Pandemrix association).</li>
+  <li>Onset usually in second decade.</li>
+  <li><strong>Tetrad</strong>: excessive daytime sleepiness (universal); <strong>cataplexy</strong> (sudden brief loss of muscle tone triggered by emotion, especially laughter, lasting seconds–minutes, consciousness preserved — pathognomonic); sleep paralysis; hypnagogic / hypnopompic hallucinations.</li>
+  <li>Disrupted nocturnal sleep, automatic behaviour, vivid dreams in short naps, refreshing naps.</li>
+  <li>MSLT: mean sleep latency ≤ 8 min + ≥ 2 SOREMPs.</li>
+  <li>CSF orexin-A &lt; 110 pg/mL confirms.</li>
+</ul>
+
+<h3>Narcolepsy type 2 (without cataplexy)</h3>
+<ul>
+  <li>Less consistent orexin loss; MSLT criteria as above; CSF orexin usually normal; some patients later develop cataplexy and are reclassified.</li>
+</ul>
+
+<h3>Idiopathic hypersomnia</h3>
+<ul>
+  <li>Chronic EDS with long unrefreshing naps, severe sleep inertia ("sleep drunkenness"), often long total sleep time.</li>
+  <li>MSLT: mean sleep latency ≤ 8 min + &lt; 2 SOREMPs <em>or</em> total 24-hour sleep ≥ 11 hours documented.</li>
+</ul>
+
+<h3>Treatment of narcolepsy/IH</h3>
+<table>
+<tr><th>Symptom</th><th>Drug</th></tr>
+<tr><td>EDS</td><td>Modafinil, armodafinil; <strong>pitolisant</strong> (H3-inverse agonist, also reduces cataplexy); <strong>solriamfetol</strong> (DNRI); methylphenidate, dextroamphetamine; sodium oxybate (also helps EDS &amp; disrupted sleep)</td></tr>
+<tr><td>Cataplexy</td><td><strong>Sodium oxybate (γ-hydroxybutyrate)</strong> taken nightly + middle of night — very effective, but boxed warnings (CNS depression, respiratory depression, abuse — REMS programme). Low-sodium oxybate (Xywav, FDA-approved 2020) preferred when sodium load matters; once-nightly extended release (Lumryz, FDA-approved 2023) available; pitolisant; venlafaxine and fluoxetine (off-label, suppress REM and cataplexy); historically clomipramine, protriptyline</td></tr>
+<tr><td>Sleep paralysis / hypnagogic hallucinations</td><td>SNRI / SSRI; sodium oxybate</td></tr>
+<tr><td>Disrupted nocturnal sleep</td><td>Sodium oxybate</td></tr>
+</table>
+<p>Behavioural: scheduled 15–20 min naps (often refreshing in narcolepsy), regular sleep schedule, driving counselling, school/work accommodations.</p>
+
+<h2 id="rbd">9. REM sleep behaviour disorder (RBD) &amp; the synucleinopathy prodrome</h2>
+<ul>
+  <li>Loss of normal REM-sleep atonia → dream enactment behaviour: punching, kicking, shouting, jumping out of bed; often violent; vivid action / threat content.</li>
+  <li>Bed-partner reports first; injury to self or partner common.</li>
+  <li>Predominantly males &gt; 50.</li>
+  <li>PSG: REM sleep without atonia + clinical history of dream enactment.</li>
+  <li>Conditions to differentiate from RBD: NREM parasomnias (occur in first half of night, no dream recall, sit-up confused), nocturnal seizures (stereotyped, brief), severe OSA (respiratory arousals with motor activity), trauma-related nightmares.</li>
+</ul>
+
+<div class="refer"><strong>Isolated (idiopathic) RBD is a prodromal synucleinopathy.</strong>
+<ul>
+  <li>Up to <strong>80% of patients with isolated RBD convert</strong> to Parkinson disease, Lewy body dementia, or multiple system atrophy within 10–15 years.</li>
+  <li>Counsel sensitively at diagnosis; offer surveillance (annual cognitive, motor, autonomic exam); avoid alarmism, but enable preparation and ongoing research participation.</li>
+  <li>Secondary RBD: antidepressants (SSRIs, SNRIs, mirtazapine, TCAs), narcolepsy, structural brainstem lesions, post-traumatic.</li>
+</ul>
+</div>
+
+<h3>Treatment of RBD</h3>
+<ol>
+  <li><strong>Bedroom safety</strong> first: pad sharp corners, move bedside tables, mattress on floor, partner sleeps separately if injury risk.</li>
+  <li><strong>Melatonin 3–12 mg at bedtime</strong> — first-line in many guidelines (better tolerability, modest evidence).</li>
+  <li><strong>Clonazepam 0.25–1 mg at bedtime</strong> — historically first-line; falls in elderly, daytime sedation, cognitive effects, worsens OSA.</li>
+  <li>Stop or reduce SSRI / SNRI if implicated.</li>
+  <li>Refer to sleep clinic + neurology for surveillance.</li>
+</ol>
+
+<h2 id="rls">10. Restless legs syndrome (RLS) &amp; periodic limb movement disorder (PLMD)</h2>
+
+<h3>RLS — IRLSSG diagnostic criteria (all five)</h3>
+<ol>
+  <li><strong>U</strong>rge to move legs, usually with uncomfortable sensations.</li>
+  <li><strong>R</strong>est worsens (sitting / lying).</li>
+  <li><strong>G</strong>ets better with movement (at least partially, as long as activity continues).</li>
+  <li><strong>E</strong>vening / night worsening.</li>
+  <li>Not solely explained by another condition (leg cramps, positional discomfort, arthritis).</li>
+</ol>
+
+<h3>Workup</h3>
+<ul>
+  <li><strong>Serum ferritin (with TSAT)</strong> — iron deficiency is the most important reversible cause. Target ferritin ≥ 75 ng/mL (some recommend ≥ 100) AND TSAT &gt; 20%; supplement with oral iron (ferrous sulfate + vitamin C; or alternate-day dosing) or IV iron (ferric carboxymaltose) for refractory or severe cases.</li>
+  <li>Exclude pregnancy, ESRD, neuropathy (especially small-fibre), MS (Module 8), drugs (antihistamines, antidepressants — especially mirtazapine, SSRIs/SNRIs, dopamine antagonists, lithium).</li>
+</ul>
+
+<h3>Treatment</h3>
+<table>
+<tr><th>Step</th><th>Detail</th></tr>
+<tr><td>Lifestyle</td><td>Sleep schedule, leg massage, warm bath, moderate exercise; reduce caffeine, alcohol, nicotine</td></tr>
+<tr><td>Iron</td><td>Replace if ferritin &lt; 75 or TSAT &lt; 20%</td></tr>
+<tr><td>First-line pharmacotherapy</td><td><strong>α2δ ligands (gabapentinoids)</strong>: gabapentin enacarbil 600 mg, gabapentin 300–1200 mg, pregabalin 75–300 mg at bedtime — preferred over dopamine agonists due to lack of augmentation</td></tr>
+<tr><td>Dopamine agonists (second-line)</td><td>Pramipexole, ropinirole, rotigotine patch — effective but high rate of <strong>augmentation</strong> (worsening / earlier-in-day / spreading symptoms) over time. Use the lowest dose for the shortest duration if needed; ICDs / impulse-control disorders risk (cross-ref Module 6)</td></tr>
+<tr><td>Refractory / severe</td><td>Low-dose opioids (oxycodone, methadone, tramadol) under specialist care</td></tr>
+</table>
+
+<div class="warn"><strong>Augmentation</strong>: a paradoxical worsening of RLS on dopamine agonist therapy — earlier onset, more severe symptoms, spread to upper limbs. Management: reduce / rotate / discontinue dopamine agonist; replace with gabapentinoid; treat any iron deficit; specialist help if severe.</div>
+
+<h3>Periodic limb movement disorder</h3>
+<p>Stereotyped repetitive leg movements during sleep (PLMS); diagnosis requires PSG-documented PLMS + clinical sleep disturbance not explained otherwise. Often overlaps with RLS. Iron and gabapentinoids first-line.</p>
+
+<h2 id="paras">11. Parasomnias</h2>
+
+<h3>NREM parasomnias (disorders of arousal — from N3)</h3>
+<ul>
+  <li><strong>Sleepwalking (somnambulism)</strong>, <strong>sleep terrors</strong>, <strong>confusional arousals</strong>.</li>
+  <li>First third of the night; eyes open but confused; <em>no recall</em>; can return to sleep; family history common.</li>
+  <li>Triggers: sleep deprivation, alcohol, fever, OSA, stress.</li>
+  <li>Management: safety (lock doors/windows, alarms), trigger avoidance, treat OSA; pharmacotherapy (clonazepam) only for high-injury risk.</li>
+</ul>
+
+<h3>REM parasomnias</h3>
+<ul>
+  <li><strong>RBD</strong> (above).</li>
+  <li><strong>Sleep paralysis</strong>: inability to move at sleep onset (hypnagogic) or wake (hypnopompic), seconds–minutes; may co-exist with narcolepsy or be isolated; reassurance, regularise sleep, treat OSA.</li>
+  <li><strong>Nightmare disorder</strong>: distressing dreams from REM; PTSD-related → image rehearsal therapy first-line; prazosin can reduce trauma-related nightmares.</li>
+</ul>
+
+<h3>Other parasomnias</h3>
+<ul>
+  <li><strong>Sleep-related eating disorder</strong>: complex eating behaviour during partial arousal; OSA, RLS, zolpidem-associated.</li>
+  <li><strong>Sexsomnia</strong>: sexual behaviour during partial arousal from NREM; medico-legal implications.</li>
+  <li><strong>Exploding head syndrome</strong>: sudden loud sound at sleep onset; benign; reassurance.</li>
+  <li><strong>Hypnic jerks / sleep starts</strong>: physiological.</li>
+</ul>
+
+<div class="pearl"><strong>NREM vs RBD differentiation:</strong> NREM parasomnia → first half of night, no dream recall, sit-up confused, family history common, EEG slow-wave arousal. RBD → second half / REM-dense periods, vivid dream recall, dream content matched to movements, older male, PSG: REM without atonia.</div>
+
+<h2 id="circ">12. Circadian rhythm sleep-wake disorders</h2>
+<table>
+<tr><th>Disorder</th><th>Clinical</th><th>Treatment</th></tr>
+<tr><td><strong>Delayed sleep-wake phase disorder (DSWPD)</strong></td><td>Cannot fall asleep until late (e.g., 3 am) + difficulty waking in the morning; chronic; typical in adolescents/young adults; "night owl"</td><td>Strict morning bright light (10,000 lux for 30–60 min on waking); evening blue-light avoidance; low-dose <strong>melatonin 0.3–0.5 mg ~5–6 h before desired sleep onset</strong>; gradual sleep schedule advance</td></tr>
+<tr><td><strong>Advanced sleep-wake phase disorder (ASWPD)</strong></td><td>Early evening sleep + early morning waking (e.g., 7 pm – 4 am); typical in elderly</td><td>Evening bright light therapy to delay phase; avoid morning bright light</td></tr>
+<tr><td><strong>Non-24-hour sleep-wake disorder</strong></td><td>Free-running rhythm; common in totally blind individuals (no retinal entrainment)</td><td>Melatonin (in blind: <strong>tasimelteon</strong> FDA-approved 0.5–1 mg); structured sun-light exposure</td></tr>
+<tr><td><strong>Shift work disorder</strong></td><td>Sleepiness / insomnia in association with non-traditional work hours</td><td>Strategic napping; bright light at start of night shift; melatonin before day sleep; modafinil / armodafinil for excessive shift-work sleepiness</td></tr>
+<tr><td><strong>Jet lag disorder</strong></td><td>Transient after rapid time-zone change</td><td>Adapt before travel; light exposure to advance/delay; low-dose melatonin in destination evening; short-acting hypnotic for selected travellers</td></tr>
+<tr><td><strong>Irregular sleep-wake rhythm</strong></td><td>No clear sleep-wake pattern; common in advanced dementia, severely brain-injured</td><td>Structured day-time light, social cues, scheduled meals, evening melatonin</td></tr>
+</table>
+
+<h2 id="klein">13. Kleine-Levin syndrome &amp; recurrent hypersomnias</h2>
+<ul>
+  <li>Episodic severe hypersomnia (15–20 h/day), cognitive disturbance ("dreamy" state), hyperphagia, hypersexuality, derealisation — over days–weeks, with intervals of normal function.</li>
+  <li>Onset typically adolescence; male predominance.</li>
+  <li>Self-limiting over years in most; supportive care; lithium has some evidence for prevention.</li>
+</ul>
+
+<h2 id="neuro">14. Sleep in neurological disease</h2>
+
+<h3>Parkinson disease (Module 6)</h3>
+<ul>
+  <li>RBD (often predates motor onset by years), insomnia, EDS, "sleep attacks" on dopamine agonists, RLS, OSA, vivid dreams.</li>
+  <li>Treat motor fluctuations affecting nocturnal mobility; avoid antihistamines; treat RBD (melatonin first); modafinil for EDS; treat OSA.</li>
+</ul>
+
+<h3>Dementia / Alzheimer disease (Module 7)</h3>
+<ul>
+  <li>Sundowning (evening agitation), fragmented sleep, irregular sleep-wake rhythm.</li>
+  <li>Non-pharmacological first: structured day, daylight, exercise, social interaction, sleep hygiene; avoid benzodiazepines.</li>
+  <li>Trazodone, low-dose mirtazapine, melatonin used cautiously.</li>
+</ul>
+
+<h3>Stroke (Module 2)</h3>
+<ul>
+  <li>OSA very common after stroke (~50%); CPAP improves outcomes in selected patients.</li>
+  <li>Insomnia, post-stroke fatigue (distinct from EDS).</li>
+</ul>
+
+<h3>Multiple sclerosis (Module 8)</h3>
+<ul>
+  <li>RLS more common; fatigue distinct from EDS; nocturnal spasms; central hypersomnia rare with hypothalamic lesions.</li>
+</ul>
+
+<h3>Epilepsy (Module 3)</h3>
+<ul>
+  <li>Sleep deprivation precipitates seizures; nocturnal seizures (esp. frontal-lobe) misdiagnosed as parasomnia. Video EEG monitoring helps differentiation.</li>
+  <li>Many AEDs affect sleep (sedation, weight gain → OSA).</li>
+</ul>
+
+<h2 id="refer">15. When to refer</h2>
+<ul>
+  <li><strong>Same-week</strong>: suspected narcolepsy / IH; significant cataplexy; suspected RBD; OSA with treatment-resistant hypertension, motor-vehicle / occupational safety concerns, atrial fibrillation, or stroke; severe RLS with augmentation.</li>
+  <li><strong>Routine</strong>: insomnia not responsive to CBT-I; uncomplicated suspected OSA via HSAT pathway; circadian disorders not responding to first-line measures.</li>
+  <li><strong>Always</strong>: video-EEG referral for stereotyped nocturnal behaviour suggestive of seizures; cardiology / heart failure team for CSA/Cheyne-Stokes patients.</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources</h3>
+<p>Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Chapter 18 (Sleep and Its Abnormalities).</p>
+<p>Merritt's <em>Neurology</em> 14e, Chapter 30 (Sleep Studies) and Chapter 118 (Sleep Disorders).</p>
+<p>American Academy of Sleep Medicine: International Classification of Sleep Disorders, 3rd ed., Text Revision (ICSD-3-TR, 2023).</p>
+<p>Riemann D et al. European guideline for the diagnosis and treatment of insomnia. <em>J Sleep Res</em> 2017; 26: 675–700 (update 2023 in press).</p>
+<p>Kapur VK et al. Clinical practice guideline for diagnostic testing for adult obstructive sleep apnea. <em>J Clin Sleep Med</em> 2017; 13: 479–504.</p>
+<p>Patil SP et al. Treatment of adult OSA with PAP therapy. <em>J Clin Sleep Med</em> 2019; 15: 335–343.</p>
+<p>SERVE-HF trial (Cowie MR et al., NEJM 2015) for ASV in HFrEF; SAVE trial (McEvoy RD et al., NEJM 2016) for CPAP in non-sleepy OSA + CV disease.</p>
+<p>Maski K et al. AASM clinical practice guideline for treatment of central disorders of hypersomnolence. <em>J Clin Sleep Med</em> 2021; 17: 1881–1893.</p>
+<p>Aurora RN et al. AASM treatment of RBD (2010); Howell M et al. AASM clinical practice guideline for treatment of RBD (2023).</p>
+<p>Allen RP et al. Revised IRLSSG diagnostic criteria for RLS. <em>Sleep Med</em> 2014; 15: 860–873; AAN / Mayo update 2018; AASM 2024 guideline favouring α2δ ligands.</p>
+</div>
+
+<footer>Module 14 — Sleep Disorders · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>

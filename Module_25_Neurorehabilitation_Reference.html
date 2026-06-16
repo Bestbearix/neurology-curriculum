@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 25 — Neurorehabilitation &amp; Recovery (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#2a7a52; --accent-2:#4ea478; --soft:#e3f1e9;
+    --line:#cce4d5; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#e3f1e9; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#f6fbf8; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(42,122,82,0.06)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#1c5638; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#256945}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#cfe6d9; color:#1c5638; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#daedde; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#d3e8da; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 25 — Neurorehabilitation &amp; Recovery</h1>
+  <div class="sub">Recovery mechanisms · ICF framework · stroke rehab · SCI rehab · TBI cognitive rehab · MS &amp; PD rehab · spasticity (botulinum toxin, intrathecal baclofen) · technology (BCI, exoskeletons, FES) · return-to-work &amp; driving</div>
+  <div class="meta">For the general physician · Reference · 2026 · ICF (WHO 2001); AVERT 2015; CIMT (EXCITE 2006); LSVT BIG/LOUD; modern spasticity guidelines; epidural stimulation breakthroughs (Courtine)</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — recovery, the rehabilitation team, and ICF</a></li>
+  <li><a href="#neuroplasticity">Mechanisms of recovery — neuroplasticity</a></li>
+  <li><a href="#assess">Assessment and outcome measures (FIM, mRS, ASIA, Berg, mBI, 10MWT, 6MWT, EQ-5D)</a></li>
+  <li><a href="#mdt">The multidisciplinary rehabilitation team</a></li>
+  <li><a href="#stroke">Stroke rehabilitation</a></li>
+  <li><a href="#sci">Spinal cord injury rehabilitation</a></li>
+  <li><a href="#tbi">Traumatic brain injury rehabilitation</a></li>
+  <li><a href="#ms">Multiple sclerosis rehabilitation</a></li>
+  <li><a href="#pd">Parkinson disease and movement disorder rehabilitation</a></li>
+  <li><a href="#nm">Neuromuscular disease rehabilitation (GBS, MG, ALS)</a></li>
+  <li><a href="#spasticity">Spasticity management — pharmacology, botulinum toxin, intrathecal baclofen</a></li>
+  <li><a href="#dys">Dysphagia rehabilitation</a></li>
+  <li><a href="#tech">Technology in neurorehabilitation</a></li>
+  <li><a href="#community">Return to work, driving, community reintegration</a></li>
+  <li><a href="#palliative">Palliative neurorehabilitation</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — recovery, the rehabilitation team, and ICF</h2>
+<p>Neurorehabilitation is the discipline of <strong>maximising function, participation, and quality of life</strong> after neurological injury. It is not a synonym for "physiotherapy" — it is a multidisciplinary, goal-oriented, time-limited process that takes a patient from impairment through rehabilitation hospital and out-patient programmes to community living, return to work, and independent participation.</p>
+
+<h3>The WHO ICF model (International Classification of Functioning, Disability and Health, 2001)</h3>
+<ul>
+  <li><strong>Body structure / function</strong>: anatomy (e.g., MCA infarct) and impairment (e.g., right hemiparesis).</li>
+  <li><strong>Activity</strong>: what the person can do (e.g., walk 50 m with a stick).</li>
+  <li><strong>Participation</strong>: role engagement (e.g., back at work as an accountant).</li>
+  <li><strong>Environmental factors</strong>: built environment, family, services, technology.</li>
+  <li><strong>Personal factors</strong>: age, education, motivation, comorbidity, premorbid function.</li>
+</ul>
+
+<div class="pearl"><strong>The single principle:</strong> rehabilitation goals are set at the <em>activity</em> and <em>participation</em> levels, not at the impairment level. Restoring full strength may be impossible after a large stroke; restoring independent walking, returning to work, and resuming family roles are usually possible with structured rehabilitation. <em>The patient and family define the goals; the team finds the route.</em></div>
+
+<h2 id="neuroplasticity">2. Mechanisms of recovery — neuroplasticity</h2>
+<ul>
+  <li><strong>Acute (hours–days)</strong>: resolution of oedema, reperfusion, reversal of metabolic depression in penumbra (diaschisis).</li>
+  <li><strong>Subacute (days–weeks)</strong>: <strong>unmasking</strong> of latent connections; axonal sprouting; synaptogenesis; cortical map reorganisation; <strong>contralesional</strong> hemisphere takes on function.</li>
+  <li><strong>Chronic (months–years)</strong>: continued cortical map reorganisation; compensation strategies; experience-dependent plasticity; learning-based recovery (use-dependent).</li>
+</ul>
+
+<h3>Principles of experience-dependent plasticity (Kleim &amp; Jones)</h3>
+<ol>
+  <li><strong>Use it or lose it</strong> — unused circuits regress.</li>
+  <li><strong>Use it and improve it</strong> — training enhances specific circuits.</li>
+  <li><strong>Specificity</strong> — the nature of the training defines the gains.</li>
+  <li><strong>Repetition matters</strong> — sufficient repetition required for lasting change.</li>
+  <li><strong>Intensity matters</strong> — sufficient training intensity required.</li>
+  <li><strong>Time matters</strong> — different forms of plasticity at different time points.</li>
+  <li><strong>Salience matters</strong> — training must be meaningful to the patient.</li>
+  <li><strong>Age matters</strong> — plasticity is greater in younger brains.</li>
+  <li><strong>Transference</strong> — training can enhance non-trained behaviours.</li>
+  <li><strong>Interference</strong> — maladaptive plasticity (learned non-use) can impair recovery.</li>
+</ol>
+
+<h3>Adjuncts to neuroplasticity</h3>
+<ul>
+  <li><strong>Pharmacological</strong>: dopaminergics for arousal (amantadine — TBI recovery; Giacino NEJM 2012); SSRIs (FLAME 2011 — fluoxetine improved motor recovery; later FOCUS / EFFECTS / AFFINITY trials 2019–2020 did not replicate the motor benefit, but supported reduced post-stroke depression). Avoid drugs that impair plasticity (benzodiazepines, anticholinergics, typical antipsychotics).</li>
+  <li><strong>Non-invasive brain stimulation</strong>: rTMS, tDCS — promising in stroke and aphasia; not yet standard of care.</li>
+  <li><strong>Robotics and BCIs</strong>: emerging.</li>
+</ul>
+
+<h2 id="assess">3. Assessment and outcome measures</h2>
+<table>
+<tr><th>Measure</th><th>Use</th></tr>
+<tr><td><strong>modified Rankin Scale (mRS)</strong></td><td>Stroke global disability 0 (no symptoms) → 6 (dead); the global outcome measure of stroke trials. mRS ≤ 2 = good outcome (independent ADLs).</td></tr>
+<tr><td><strong>FIM (Functional Independence Measure)</strong></td><td>18 items, 7-point scale; assesses motor + cognitive function in rehabilitation; widely used in inpatient rehabilitation outcomes.</td></tr>
+<tr><td><strong>Modified Barthel Index (mBI)</strong></td><td>10 ADL items; 0–100; widely used; quicker than FIM.</td></tr>
+<tr><td><strong>ASIA Impairment Scale</strong></td><td>SCI severity A (complete) → E (normal); sacral sparing key (Module 10).</td></tr>
+<tr><td><strong>Berg Balance Scale</strong></td><td>14-item balance assessment; predicts fall risk.</td></tr>
+<tr><td><strong>10-Metre Walk Test (10MWT)</strong></td><td>Comfortable + fast walking speed; gait speed predicts community independence; &gt; 1.0 m/s = community ambulator.</td></tr>
+<tr><td><strong>6-Minute Walk Test (6MWT)</strong></td><td>Distance walked in 6 min; endurance measure.</td></tr>
+<tr><td><strong>Fugl-Meyer Assessment</strong></td><td>Stroke motor function (upper + lower limb); research and clinical.</td></tr>
+<tr><td><strong>Box and Block Test</strong></td><td>Upper limb gross manual dexterity.</td></tr>
+<tr><td><strong>Nine-Hole Peg Test</strong></td><td>Upper limb fine motor; MS Functional Composite.</td></tr>
+<tr><td><strong>Western Aphasia Battery (WAB)</strong></td><td>Aphasia comprehensive assessment.</td></tr>
+<tr><td><strong>Cognistat, MoCA, RBANS</strong></td><td>Cognitive screen / detailed assessment.</td></tr>
+<tr><td><strong>EQ-5D / SF-36</strong></td><td>Generic health-related quality of life.</td></tr>
+<tr><td><strong>Goal Attainment Scaling</strong></td><td>Individualised; patient-centred; widely used in rehabilitation.</td></tr>
+</table>
+
+<h2 id="mdt">4. The multidisciplinary rehabilitation team</h2>
+<ul>
+  <li><strong>Rehabilitation physician</strong> (physiatrist): medical oversight, prescription of therapies.</li>
+  <li><strong>Physiotherapist</strong>: motor recovery, gait, balance, spasticity, mobility, equipment.</li>
+  <li><strong>Occupational therapist</strong>: upper limb function, ADLs, splinting, environmental adaptation, cognitive rehab, driving assessment.</li>
+  <li><strong>Speech and language therapist</strong>: dysphagia, aphasia, dysarthria, cognitive-communication.</li>
+  <li><strong>Clinical psychologist / neuropsychologist</strong>: cognitive assessment, mood, behavioural intervention, family support.</li>
+  <li><strong>Rehabilitation nurse</strong>: bowel / bladder management, skin care, education, coordination.</li>
+  <li><strong>Social worker</strong>: discharge planning, benefits, community reintegration, family support.</li>
+  <li><strong>Orthotist / prosthetist</strong>: bracing, AFOs, splints.</li>
+  <li><strong>Dietitian</strong>: nutrition (enteral feeding, swallow-safe diets).</li>
+  <li><strong>Vocational rehabilitation specialist</strong>: return to work / education.</li>
+  <li>Family + caregivers are partners in goal-setting and intervention.</li>
+</ul>
+
+<h2 id="stroke">5. Stroke rehabilitation</h2>
+
+<h3>Early phase</h3>
+<ul>
+  <li><strong>Very early mobilisation</strong>: AVERT trial (Lancet 2015) — frequent, high-dose mobilisation within 24 h of stroke <strong>worse</strong> than usual care; <strong>early but short, frequent sessions are recommended</strong>; avoid very high doses in the first 24 hours.</li>
+  <li>Stroke unit care reduces mortality and dependency.</li>
+  <li>VTE prophylaxis; aspiration precautions; positioning; pressure care.</li>
+</ul>
+
+<h3>Motor recovery</h3>
+<ul>
+  <li><strong>Constraint-induced movement therapy (CIMT)</strong>: EXCITE trial (Wolf JAMA 2006) — constraining the unaffected limb 90% of waking hours + intensive shaping of the affected limb for 2 weeks improves upper-limb function in selected patients (some active wrist + finger extension preserved).</li>
+  <li><strong>Repetitive task-specific training</strong>: high-dose, task-relevant practice — modest gains.</li>
+  <li><strong>Robotic-assisted upper limb training</strong>: similar gains to intensive matched-dose therapy.</li>
+  <li><strong>Mental practice and mirror therapy</strong>: improve upper-limb function and reduce hemi-neglect.</li>
+  <li><strong>Treadmill training with body-weight support</strong>: regains gait; modest evidence; consider in selected patients.</li>
+  <li><strong>Functional electrical stimulation (FES)</strong>: for foot drop; selected upper limb applications.</li>
+  <li><strong>SSRI for motor recovery</strong>: FLAME (Chollet Lancet Neurol 2011) showed fluoxetine improved Fugl-Meyer motor scores. Subsequent larger trials (FOCUS UK, EFFECTS Sweden, AFFINITY Australia, 2019–2020) did NOT replicate the motor benefit but supported reduced depression incidence. <strong>SSRI not routinely used for motor recovery</strong> after these trials, but still used for post-stroke depression (Module 24).</li>
+</ul>
+
+<h3>Aphasia</h3>
+<ul>
+  <li><strong>Intensive speech-language therapy</strong> in subacute phase; CIAT (Constraint-Induced Aphasia Therapy); melodic intonation therapy for non-fluent aphasia; semantic feature analysis for anomia.</li>
+  <li>High-dose intervention superior to low-dose (Brady Cochrane 2016).</li>
+  <li>tDCS over Broca's area + intensive language therapy emerging.</li>
+</ul>
+
+<h3>Dysphagia</h3>
+<ul>
+  <li>Screen every stroke patient (water swallow test on admission); NPO until cleared.</li>
+  <li>Formal assessment: videofluoroscopy (VFSS) or fibreoptic endoscopic evaluation of swallowing (FEES).</li>
+  <li>Compensatory: chin tuck, head turn, smaller bolus, thickened fluids, IDDSI diet classification.</li>
+  <li>Rehabilitative: shaker exercise, effortful swallow, Mendelsohn manoeuvre, neuromuscular electrical stimulation (NMES — selected).</li>
+  <li>NG / PEG feeding if persistent severe dysphagia.</li>
+</ul>
+
+<h3>Hemispatial neglect</h3>
+<ul>
+  <li>Right parietal lesion classic; affects rehabilitation engagement.</li>
+  <li><strong>Prism adaptation</strong> + scanning training + visual exploration training + limb activation; modest evidence; rTMS to contralesional parietal cortex emerging.</li>
+</ul>
+
+<h3>Shoulder complications</h3>
+<ul>
+  <li><strong>Shoulder subluxation</strong>: very common in flaccid hemiparesis; supportive sling + handling education; FES; neglect of the shoulder leads to pain.</li>
+  <li><strong>Hemiplegic shoulder pain</strong>: shoulder support; analgesia; physiotherapy.</li>
+  <li><strong>Adhesive capsulitis</strong>: passive range exercises.</li>
+</ul>
+
+<h3>Spasticity (see Section 11)</h3>
+<p>Botulinum toxin A for focal spasticity; oral antispastics; intrathecal baclofen for severe diffuse spasticity.</p>
+
+<h2 id="sci">6. Spinal cord injury rehabilitation</h2>
+
+<h3>Acute and ICU phase (cross-ref Modules 10 + 22)</h3>
+<ul>
+  <li>Stabilisation; pressure care; VTE prophylaxis (LMWH from 72 h after acute injury if no contraindication); bowel / bladder management; psychological support.</li>
+  <li>ASIA assessment serially.</li>
+  <li>Autonomic dysreflexia prevention (above T6 lesions): identify and remove noxious stimuli; sit up; loosen restrictive clothing; nifedipine IR or topical nitrate if persistent.</li>
+</ul>
+
+<h3>Inpatient rehabilitation</h3>
+<ul>
+  <li><strong>Activity-based therapy</strong>: high-dose task-specific motor training; body-weight-supported treadmill training; exoskeleton-assisted walking; <strong>epidural stimulation</strong> (Harkema, Courtine — selected patients with chronic complete SCI have regained voluntary movement with epidural stimulation + training).</li>
+  <li><strong>Wheelchair training</strong>: prescription (manual / powered; tilt-in-space; cushioning), skills training, transfers.</li>
+  <li><strong>Bladder management</strong>: intermittent self-catheterisation; suprapubic catheter; baclofen / botulinum toxin to the detrusor (or external sphincter); avoid long-term indwelling catheter (UTI, stones, autonomic dysreflexia).</li>
+  <li><strong>Bowel management</strong>: scheduled programmes; digital stimulation; suppositories; gastrocolic reflex use; constipation management.</li>
+  <li><strong>Sexual function</strong>: counselling; PDE5 inhibitors; mechanical aids; fertility (electroejaculation for men); pregnancy planning (autonomic dysreflexia risk in T6+ lesions).</li>
+  <li><strong>Pressure injury prevention</strong>: regular position changes; pressure-relief cushions / mattresses; skin inspection; nutrition.</li>
+  <li><strong>Spasticity</strong>: baclofen (oral / intrathecal), tizanidine, botulinum toxin, gabapentin.</li>
+  <li><strong>Heterotopic ossification</strong>: pain + reduced range; bisphosphonate, NSAID; surgical excision when matured.</li>
+  <li><strong>Autonomic dysreflexia education</strong> for patient + family (T6 and above lesions).</li>
+</ul>
+
+<h3>Long-term issues</h3>
+<ul>
+  <li>Cardiovascular risk; respiratory issues (cervical lesions); chronic pain (at-level + below-level + nociceptive); depression; community reintegration; vocational rehabilitation; aging with SCI.</li>
+  <li>Cross-ref Module 10 (SCI), 15 (autonomic dysreflexia), 22 (acute SCI).</li>
+</ul>
+
+<h2 id="tbi">7. Traumatic brain injury rehabilitation</h2>
+
+<h3>Disorders of consciousness</h3>
+<ul>
+  <li>Coma → vegetative state (now "unresponsive wakefulness syndrome") → minimally conscious state → emergence to consciousness.</li>
+  <li>Assess with Coma Recovery Scale-Revised (CRS-R); avoid premature withdrawal.</li>
+  <li><strong>Amantadine</strong> (Giacino NEJM 2012): 200–400 mg/day improves recovery in vegetative / minimally conscious states within 4 weeks of injury.</li>
+  <li>Modafinil, methylphenidate emerging.</li>
+</ul>
+
+<h3>Post-traumatic amnesia (PTA)</h3>
+<p>Time-orientation + memory impairment; resolves over days–weeks; orient frequently; reduce stimulation; family education; PTA duration predicts cognitive recovery (longer = worse).</p>
+
+<h3>Cognitive rehabilitation</h3>
+<ul>
+  <li>Attention training (e.g., APT — attention process training).</li>
+  <li>Memory rehabilitation: external aids (smartphone calendars, alarms), errorless learning, spaced retrieval.</li>
+  <li>Executive function rehabilitation: goal management training, problem-solving training.</li>
+  <li>Compensation strategies + environmental adaptation.</li>
+</ul>
+
+<h3>Behavioural &amp; emotional</h3>
+<ul>
+  <li>Aggression, disinhibition, apathy, depression, anxiety, PTSD.</li>
+  <li>Behavioural intervention + family / staff education + SSRI for mood; AVOID benzodiazepines (impair recovery) + typical antipsychotics where possible.</li>
+  <li>Post-traumatic seizures: prophylaxis with levetiracetam in first week post-severe TBI; long-term ASMs if seizures occur.</li>
+</ul>
+
+<h3>Concussion &amp; mTBI</h3>
+<ul>
+  <li>Most resolve within 4 weeks.</li>
+  <li><strong>Graded return to activity (and to sport)</strong> protocols (Berlin consensus; CISG): symptom-limited cognitive + physical rest 24–48 h, then gradual return through 6 stages (light aerobic → sport-specific → non-contact → full contact → return); 24 h between stages; relapse → return to previous stage.</li>
+  <li>Persistent post-concussion symptoms (PPCS): multidisciplinary management; treat headache, sleep, mood, vestibular, cervical, autonomic; CBT; gradual return.</li>
+  <li>Second impact syndrome (rare but catastrophic) — diffuse cerebral oedema with second injury before first has resolved.</li>
+</ul>
+
+<h2 id="ms">8. Multiple sclerosis rehabilitation</h2>
+<ul>
+  <li><strong>Fatigue</strong>: ~80%; energy conservation + scheduled rest + cooling + graded exercise + amantadine / modafinil / methylphenidate (limited evidence — REFAMS trial).</li>
+  <li><strong>Spasticity</strong>: baclofen, tizanidine, gabapentin; botulinum toxin focal; intrathecal baclofen for severe (Module 11 cross-ref).</li>
+  <li><strong>Cognitive rehabilitation</strong>: attention + memory + executive function strategies; modafinil for cognitive fatigue; computerised cognitive training.</li>
+  <li><strong>Balance and gait</strong>: physiotherapy; aquatic exercise (cooling benefit); AFO if foot drop.</li>
+  <li><strong>Bladder</strong>: anticholinergics (oxybutynin, solifenacin); intermittent self-catheterisation; mirabegron; botulinum toxin to detrusor.</li>
+  <li><strong>Bowel</strong>: laxatives, scheduled programme.</li>
+  <li><strong>Sexual dysfunction</strong>: PDE5 inhibitors, counselling, vibrators / fertility specialists.</li>
+  <li><strong>Mood</strong>: SSRI / SNRI for depression (Module 24).</li>
+  <li>Multidisciplinary MS rehabilitation in dedicated programmes shows benefit.</li>
+  <li>Cross-ref Module 8.</li>
+</ul>
+
+<h2 id="pd">9. Parkinson disease and movement disorder rehabilitation</h2>
+<ul>
+  <li><strong>LSVT BIG</strong>: amplitude-focused movement therapy; 16 sessions over 4 weeks; improves bradykinesia and posture.</li>
+  <li><strong>LSVT LOUD</strong>: amplitude-focused speech therapy for PD hypophonia; improves loudness and intelligibility.</li>
+  <li><strong>Cueing strategies</strong>: visual (lines on floor), auditory (metronome, music), tactile — overcome freezing of gait.</li>
+  <li><strong>Treadmill training</strong>: improves gait speed.</li>
+  <li><strong>Boxing programmes (Rock Steady Boxing)</strong>: community-based; popular; positive anecdotal but limited high-quality evidence.</li>
+  <li><strong>Tai chi</strong>: improves balance (Li NEJM 2012).</li>
+  <li><strong>Dance therapy</strong> (Argentine tango): balance + gait.</li>
+  <li><strong>Fall prevention</strong>: comprehensive falls assessment; home environment; multidisciplinary; DBS programming optimisation; cross-ref Module 6.</li>
+  <li><strong>DBS programming and rehabilitation</strong>: rehabilitation continues after DBS to optimise function with new motor windows.</li>
+  <li><strong>Huntington disease</strong> rehabilitation (Module 6): exercise + speech + dysphagia management + psychosocial.</li>
+</ul>
+
+<h2 id="nm">10. Neuromuscular disease rehabilitation</h2>
+<ul>
+  <li><strong>GBS</strong> (Module 9): gradual physiotherapy as strength returns; avoid over-exertion in acute phase; rehabilitation hospital admission for moderate-severe; cardiac monitoring during acute autonomic instability; nutritional support; psychological — long course; vocational rehabilitation.</li>
+  <li><strong>Myasthenia gravis</strong> (Module 9): <strong>energy conservation</strong>; activity scheduling around fatigability; medication timing; avoid contraindicated drugs (Module 9, 20).</li>
+  <li><strong>ALS</strong>: multidisciplinary clinics improve survival + quality of life; assistive equipment (AAC for communication; gastrostomy for nutrition; NIV for respiratory function); palliative care integration early.</li>
+  <li><strong>Muscular dystrophies</strong>: stretching to prevent contractures; AFOs; pulmonary care; nutritional support; cardiac surveillance; multidisciplinary clinics.</li>
+  <li><strong>SMA</strong> (Module 16): modern era with nusinersen + onasemnogene + risdiplam transforming rehabilitation outcomes; pre-symptomatic treatment via newborn screening.</li>
+  <li><strong>Chronic neuropathies</strong>: orthoses, physiotherapy, occupational therapy, pain management.</li>
+</ul>
+
+<h2 id="spasticity">11. Spasticity management</h2>
+
+<h3>Definition and assessment</h3>
+<p>Velocity-dependent increase in muscle tone with exaggerated stretch reflex, a positive feature of the upper motor neuron syndrome. Assess with Modified Ashworth Scale (MAS) 0–4 or Tardieu Scale (which captures velocity).</p>
+
+<h3>Treatment ladder</h3>
+<ol>
+  <li><strong>Identify and remove triggers</strong>: pain, infection (UTI), constipation, pressure injury, ill-fitting equipment, mood disturbance.</li>
+  <li><strong>Physiotherapy</strong>: stretching, positioning, splinting, strengthening of antagonists, functional task training.</li>
+  <li><strong>Oral antispastics</strong> for diffuse spasticity:
+    <ul>
+      <li><strong>Baclofen</strong>: GABA-B agonist; 5 mg TID titrated to 80 mg/day; sedation; avoid abrupt withdrawal (seizures, hyperthermia).</li>
+      <li><strong>Tizanidine</strong>: α2 agonist; hypotension; hepatotoxicity (monitor LFTs).</li>
+      <li><strong>Gabapentin / pregabalin</strong>: useful especially when neuropathic pain coexists.</li>
+      <li><strong>Diazepam</strong>: short-term; sedation.</li>
+      <li><strong>Dantrolene</strong>: peripheral; hepatotoxicity; useful in MS, cerebral palsy.</li>
+    </ul>
+  </li>
+  <li><strong>Focal interventions</strong>:
+    <ul>
+      <li><strong>Botulinum toxin A</strong> (BoNT-A) injection: cosmetic + functional; effect 2–4 weeks; lasts 3 months; repeat. Selected muscles (e.g., gastrocnemius for equinovarus foot; finger flexors for clenched fist; hip adductors).</li>
+      <li>Phenol or alcohol nerve block.</li>
+    </ul>
+  </li>
+  <li><strong>Intrathecal baclofen pump</strong>: for severe diffuse spasticity not controlled by oral agents (cerebral palsy, MS, SCI). Tightly controlled programmable infusion; complications include catheter problems and abrupt withdrawal (hyperthermia, rhabdomyolysis, mortality).</li>
+  <li><strong>Surgical options</strong>: selective dorsal rhizotomy (paediatric cerebral palsy); tendon lengthening / transfer; nerve transfer.</li>
+</ol>
+
+<h2 id="dys">12. Dysphagia rehabilitation</h2>
+<p>(Detail in Section 5 stroke rehab.) Apply principles across stroke, TBI, MS, PD, MND, dementia: bedside screening + formal VFSS/FEES + IDDSI diet + compensatory and rehabilitative techniques + multidisciplinary input. Persistent severe dysphagia → PEG decision in shared discussion with patient + family + palliative care framework where appropriate (especially advanced dementia and end-stage MND).</p>
+
+<h2 id="tech">13. Technology in neurorehabilitation</h2>
+<ul>
+  <li><strong>Functional electrical stimulation (FES)</strong>: foot drop devices; upper limb cycling; cycling for SCI.</li>
+  <li><strong>Robot-assisted training</strong>: Lokomat (gait); InMotion / Armeo (upper limb) — similar gains to dose-matched conventional therapy.</li>
+  <li><strong>Exoskeletons</strong>: ReWalk, Ekso, EksoNR — selected SCI walking; high cost; selected indications; emerging consumer markets.</li>
+  <li><strong>Brain-computer interfaces (BCIs)</strong>: motor + communication; implanted electrodes (Neuralink, Synchron, BrainGate); rapidly evolving; selected ALS / paralysis.</li>
+  <li><strong>Non-invasive brain stimulation</strong>: rTMS for depression, aphasia, motor recovery; tDCS for motor + cognitive — adjuncts to rehabilitation.</li>
+  <li><strong>Virtual reality</strong>: motor retraining, neglect rehabilitation, exposure therapy.</li>
+  <li><strong>Telerehabilitation</strong>: video-delivered therapy; effective in selected populations; expanded since COVID-19; cost-effective and access-improving.</li>
+  <li><strong>Wearable sensors and apps</strong>: monitor activity; remote monitoring; gamification.</li>
+  <li><strong>Epidural stimulation</strong> (Courtine and colleagues): voluntary motor recovery in chronic SCI; selected centres; promising but invasive.</li>
+</ul>
+
+<h2 id="community">14. Return to work, driving, community reintegration</h2>
+<ul>
+  <li><strong>Return to work</strong>: vocational rehabilitation specialist; graded return; workplace assessment; reasonable adjustments under disability legislation; job coaching.</li>
+  <li><strong>Driving assessment</strong>: post-stroke / TBI / first seizure (Module 3) / advanced dementia (Module 7) / advanced PD (Module 6) — clinical assessment + on-road assessment when needed; reporting obligations vary by country.</li>
+  <li><strong>Home assessment + modifications</strong>: ramps, grab rails, wet rooms, lighting, kitchen adaptations.</li>
+  <li><strong>Community reintegration</strong>: social, recreation, leisure, peer support groups.</li>
+  <li><strong>Carer education and support</strong>: respite care; psychological support; financial planning; advance care planning.</li>
+  <li><strong>Disability benefits</strong>: country-specific; social work guidance.</li>
+</ul>
+
+<h2 id="palliative">15. Palliative neurorehabilitation</h2>
+<p>For progressive incurable neurological disease (ALS, end-stage MS, advanced PD, primary brain tumour, advanced dementia): rehabilitation goals shift from restoration → adaptation → maintenance → comfort. Multidisciplinary approach combining symptomatic management + assistive equipment + family support + advance care planning + hospice involvement when appropriate.</p>
+
+<h2 id="refer">16. When to refer</h2>
+<ul>
+  <li><strong>Stroke unit + acute rehabilitation</strong>: every patient with disabling stroke benefits.</li>
+  <li><strong>Inpatient rehabilitation</strong>: moderate-severe disability, multidisciplinary need, expected progress.</li>
+  <li><strong>Specialist outpatient programmes</strong>: PD (LSVT clinics), MS, SCI, TBI, neuromuscular.</li>
+  <li><strong>Specialised spasticity / botulinum toxin clinics</strong>: focal spasticity, intrathecal baclofen candidates.</li>
+  <li><strong>Vocational rehabilitation</strong>: return-to-work planning.</li>
+  <li><strong>Driving assessment</strong>: after major neurological event.</li>
+  <li><strong>Palliative care</strong>: in progressive incurable disease.</li>
+  <li><strong>Always involve</strong>: physiotherapy + OT + SLT + psychology + rehab medicine + neurology + social work + community services + family.</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources</h3>
+<p>World Health Organization. International Classification of Functioning, Disability and Health (ICF). WHO 2001.</p>
+<p>Kleim JA, Jones TA. Principles of experience-dependent neural plasticity: implications for rehabilitation after brain damage. <em>J Speech Lang Hear Res</em> 2008.</p>
+<p>AVERT Trial Collaboration. Efficacy and safety of very early mobilisation within 24 h of stroke onset (AVERT). <em>Lancet</em> 2015; 386: 46–55.</p>
+<p>Wolf SL et al. (EXCITE) Effect of constraint-induced movement therapy on upper extremity function 3 to 9 months after stroke. <em>JAMA</em> 2006; 296: 2095–2104.</p>
+<p>Chollet F et al. (FLAME) Fluoxetine for motor recovery after acute ischaemic stroke. <em>Lancet Neurology</em> 2011; 10: 123–130. FOCUS trial: <em>Lancet</em> 2019; AFFINITY: <em>Lancet Neurology</em> 2020; EFFECTS: <em>Lancet Neurology</em> 2020 (motor benefit not replicated; depression benefit supported).</p>
+<p>Giacino JT et al. Placebo-controlled trial of amantadine for severe traumatic brain injury. <em>NEJM</em> 2012; 366: 819–826.</p>
+<p>Patrick D Lyden + AHA/ASA Stroke 2026 (Module 2) for stroke care; AHA/ASA SCI rehabilitation guidance.</p>
+<p>Fox C et al. LSVT LOUD for Parkinson disease. <em>J Speech Lang Hear Res</em> 2006. Ebersbach G et al. LSVT BIG. <em>Mov Disord</em> 2010.</p>
+<p>McCrory P et al. Consensus statement on concussion in sport — Berlin 2016 (Concussion in Sport Group); Amsterdam 2022 update.</p>
+<p>Harkema S, Courtine G et al. Epidural stimulation for chronic SCI — various publications.</p>
+<p>Brady MC et al. Speech and language therapy for aphasia following stroke. <em>Cochrane Database Syst Rev</em> 2016.</p>
+<p>Li F et al. Tai chi and postural stability in patients with Parkinson's disease. <em>NEJM</em> 2012; 366: 511–519.</p>
+<p>Multidisciplinary rehabilitation programmes: NHS, AHA/ASA, multidisciplinary clinic models.</p>
+<p>Cross-references: Module 2 (stroke), 6 (PD/HD), 7 (dementia), 8 (MS), 9 (neuromuscular), 10 (SCI), 14 (sleep / fatigue), 15 (autonomic), 17 (pain), 22 (acute neuro-critical care), 24 (neuropsychiatry).</p>
+</div>
+
+<footer>Module 25 — Neurorehabilitation &amp; Recovery · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>

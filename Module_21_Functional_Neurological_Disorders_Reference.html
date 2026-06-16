@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 21 — Functional Neurological Disorders (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#0d8b8b; --accent-2:#33b0b0; --soft:#e2f3f3;
+    --line:#cfe8e8; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#e2f3f3; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#f7fbfb; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(13,139,139,0.06)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#0a6a6a; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#0e7878}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#d4ebeb; color:#0a6a6a; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#dceaea; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#d8e8e8; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 21 — Functional Neurological Disorders (FND)</h1>
+  <div class="sub">Rule-in (not rule-out) diagnosis · Hoover's sign · tremor entrainment · PNES vs epileptic seizure · functional movement disorders · biopsychosocial model · physiotherapy + CBT</div>
+  <div class="meta">For the general physician · Reference · 2026 · Built from Adams &amp; Victor 12e (Ch 47) and Merritt's 14e · DSM-5 / ICD-11; Stone-Edwards predictive-processing model; CONSORT FND physio (Nielsen 2015); CODES PNES (Goldstein Lancet Psych 2020)</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — paradigm shift to rule-in diagnosis</a></li>
+  <li><a href="#dsm">Definition and DSM-5 / ICD-11 criteria</a></li>
+  <li><a href="#mech">A modern model — predictive processing and the brain on autopilot</a></li>
+  <li><a href="#bppp">Biopsychosocial formulation — predisposing, precipitating, perpetuating</a></li>
+  <li><a href="#weak">Functional limb weakness — Hoover, hip abductor, drag</a></li>
+  <li><a href="#mov">Functional movement disorders — tremor, dystonia, jerks, gait</a></li>
+  <li><a href="#pnes">Psychogenic non-epileptic seizures (PNES / functional seizures)</a></li>
+  <li><a href="#sens">Functional sensory and visual symptoms</a></li>
+  <li><a href="#cog">Functional cognitive symptoms and "brain fog"</a></li>
+  <li><a href="#diag">Communicating the diagnosis</a></li>
+  <li><a href="#tx">Treatment — physiotherapy, CBT, multidisciplinary</a></li>
+  <li><a href="#prog">Prognosis and red flags for relapse</a></li>
+  <li><a href="#dx">FND vs malingering vs factitious</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — paradigm shift to rule-in diagnosis</h2>
+<p>Functional neurological disorder is one of the commonest reasons for neurology consultation — accounting for ~16% of new outpatient referrals in many large series. Until recently, the diagnosis was made by <em>exclusion</em>: when all tests were negative, the symptom was deemed "functional" (or worse, "non-organic", "hysteria"). This was wrong both clinically and scientifically. The modern approach (DSM-5, 2013; ICD-11, 2022) makes FND a <strong>rule-in</strong> diagnosis based on positive clinical features that are <em>inconsistent and incongruent</em> with recognised neurological disease.</p>
+
+<ul>
+  <li><strong>Positive bedside signs</strong> like Hoover's sign, tremor entrainment, and ictal eye closure are more specific than imaging or EEG for many FND subtypes.</li>
+  <li><strong>FND is not a diagnosis of psychological cause</strong>: many patients have no current psychiatric comorbidity. The relationship between FND and stress / trauma is heterogeneous.</li>
+  <li><strong>FND coexists with neurological disease</strong> regularly — about 10–20% of patients with epilepsy also have PNES; functional movements can coexist with Parkinson disease. Diagnosis of FND does not depend on the absence of other conditions.</li>
+  <li><strong>FND is treatable</strong> with FND-specific physiotherapy, CBT (especially for PNES), and multidisciplinary input. Recovery is possible even in long-standing disease.</li>
+</ul>
+
+<div class="pearl"><strong>The single principle:</strong> diagnose FND by what you <em>see</em> on examination, not by what you <em>cannot see</em> on imaging. Look for inconsistency, incongruity, and reversibility with distraction. Then communicate the diagnosis with confidence, demonstrating the positive sign to the patient.</div>
+
+<h2 id="dsm">2. Definition and DSM-5 / ICD-11 criteria</h2>
+
+<h3>DSM-5 (2013) — Functional Neurological Symptom Disorder (Conversion Disorder)</h3>
+<ol>
+  <li>One or more symptoms of altered voluntary motor or sensory function.</li>
+  <li>Clinical findings provide evidence of incompatibility between the symptom and recognised neurological or medical conditions.</li>
+  <li>The symptom is not better explained by another medical or mental disorder.</li>
+  <li>The symptom causes clinically significant distress or impairment.</li>
+</ol>
+<p>Notably, the DSM-5 <strong>removed</strong> the long-standing requirement of an identifiable psychological stressor. The diagnosis rests on the clinical examination — specifically, the demonstration of positive signs of FND — not on attribution to psychological causes.</p>
+
+<h3>ICD-11 (2022)</h3>
+<p>ICD-11 retains <strong>"dissociative neurological symptom disorder"</strong> with sub-types (motor weakness, movement disorder, non-epileptic seizures, sensory, speech, vision, cognitive, mixed). The criteria align with DSM-5 — positive clinical signs of incompatibility.</p>
+
+<h2 id="mech">3. A modern model — predictive processing and the brain on autopilot</h2>
+<p>The dominant contemporary model (Edwards, Stone, Nielsen, and colleagues) frames FND as a disorder of <strong>aberrant predictions and attention</strong> in the brain's normal sensorimotor control loop:</p>
+<ul>
+  <li>The brain normally generates predictions about expected sensory and motor signals, and compares them with actual input.</li>
+  <li>In FND, a strongly held <em>prior</em> (an internal model — e.g., "my leg will not move") becomes weighted more heavily than incoming sensory evidence (the actual fact that the limb <em>can</em> move).</li>
+  <li>Attention focused on the symptom <strong>amplifies</strong> the aberrant prediction; distraction <strong>weakens</strong> it. This explains why distraction reverses functional signs.</li>
+  <li>Predisposing factors (genetics, childhood adversity, prior illness experience) + precipitating events (injury, illness, stress) + perpetuating factors (avoidance, fear, deconditioning, system reinforcement) shape the clinical picture.</li>
+</ul>
+
+<p>Imaging studies show real abnormalities in functional connectivity (TPJ–insula, sensorimotor cortex, limbic regions). FND has neurobiological correlates — it is <strong>not "imaginary"</strong> nor <strong>"feigned"</strong>.</p>
+
+<h2 id="bppp">4. Biopsychosocial formulation — the 3 P's</h2>
+<table>
+<tr><th>Factor</th><th>Examples</th></tr>
+<tr><td><strong>Predisposing</strong></td><td>Genetic temperament; childhood adverse experiences (variable — many patients have none); prior physical injury or illness; preceding neurological symptoms; high somatic vigilance; perfectionism</td></tr>
+<tr><td><strong>Precipitating</strong></td><td>Acute physical injury (especially limb injury preceding functional weakness, or whiplash preceding functional movement); acute illness (viral, surgery, anaesthesia); panic attack; psychological trauma (variable); migraine; vestibular event</td></tr>
+<tr><td><strong>Perpetuating</strong></td><td>Avoidance and deconditioning; attentional focus on the symptom; learned non-use; family or system reinforcement (sick role); litigation/compensation context (small minority); concurrent depression or anxiety; medication side-effects; iatrogenic harm from inconsistent diagnoses; deconditioning from prolonged bed rest</td></tr>
+</table>
+
+<p>Treatment usually targets the <strong>perpetuating</strong> factors — that is where the leverage is.</p>
+
+<h2 id="weak">5. Functional limb weakness — rule-in signs</h2>
+
+<h3>Hoover's sign (the workhorse)</h3>
+<ol>
+  <li>With the patient supine, place your hand under the heel of the <em>weak</em> leg.</li>
+  <li>Ask the patient to push down on the bed with the weak leg — note the (weak) effort.</li>
+  <li>Now place your hand under the heel of the <em>unaffected</em> leg.</li>
+  <li>Ask the patient to lift the unaffected leg off the bed against gravity.</li>
+  <li>Feel the involuntary <strong>downward pressure</strong> of the weak heel into your hand — this is reflexively coupled with hip flexion of the contralateral leg.</li>
+</ol>
+<p>In genuine pyramidal weakness, the affected heel does not push down because the corticospinal tract is impaired. In functional weakness, the heel does push down strongly during contralateral hip flexion — demonstrating that the motor pathway is intact and the apparent weakness is variable with attention. <strong>Sensitivity ~63%, specificity ~100%</strong> (Stone J Neurol Neurosurg Psychiatry 2010).</p>
+
+<h3>Hip abductor sign (Sonoo)</h3>
+<p>Similar concept — bilateral hip abduction force; functional weakness shows preserved abduction force on the "weak" side when concurrent contralateral abduction is tested.</p>
+
+<h3>Other rule-in signs for functional limb weakness</h3>
+<ul>
+  <li><strong>Drag (monoplegic) gait</strong>: leg dragged behind without circumduction (which would be seen in spastic gait) and without the foot strike or knee compensation of true hemiparesis.</li>
+  <li><strong>Give-way weakness</strong> with sudden loss of resistance on testing.</li>
+  <li><strong>Inconsistent power</strong> — strong on automatic tasks (rising from chair, walking out of the room) but weak on formal testing.</li>
+  <li><strong>"Trunk-thigh sign"</strong> in functional paraplegia: when the supine patient tries to sit up, the trunk and thigh of the "paralysed" leg lift together — not seen in true paraplegia.</li>
+  <li><strong>Spinal Injuries Center sign</strong> — patient cannot lift a paralysed leg off the bed when supine but the leg lifts effortlessly when the patient sits up.</li>
+</ul>
+
+<h2 id="mov">6. Functional movement disorders</h2>
+
+<h3>Functional tremor</h3>
+<ul>
+  <li>Variable frequency, amplitude, and distribution; often complex (postural, action, rest in different proportions); often unilateral upper limb predominant.</li>
+  <li><strong>Tremor entrainment / distraction test</strong>: ask the patient to tap a rhythm (e.g., 1 Hz, then 3 Hz) with the <em>unaffected</em> hand. The functional tremor in the affected hand will <strong>change to match</strong> the tapped frequency (entrain), <strong>become disorganised</strong>, or <strong>stop</strong> entirely. Tremors of neurological disease (essential, parkinsonian) maintain their own frequency.</li>
+  <li><strong>Ballistic movement task</strong>: ask the patient to perform a brisk, ballistic movement (e.g., quickly touching the nose) with the unaffected limb. Functional tremor pauses during the ballistic task; organic tremor does not.</li>
+  <li><strong>Whack-a-mole sign</strong>: if you suppress tremor at one site (by holding the limb still), tremor migrates to another site.</li>
+</ul>
+
+<h3>Functional dystonia</h3>
+<ul>
+  <li>Often fixed posture from onset (genuine dystonia is usually mobile and task-specific); fixed flexion of fingers, fixed plantar flexion + inversion of the foot (the classic post-traumatic "psychogenic" foot).</li>
+  <li>Onset often after minor injury / surgery (often the same limb), with rapid disability.</li>
+  <li>Pain is common.</li>
+  <li>Compare with genuine dystonia: usually action-induced, task-specific, geste antagoniste, evolves slowly.</li>
+</ul>
+
+<h3>Functional jerks and myoclonus</h3>
+<ul>
+  <li>Variable frequency, distribution, anatomy; entrainable; distractible; precipitated by stimulus.</li>
+  <li>Back-averaged EEG shows a <strong>Bereitschaftspotential</strong> before the jerk (a pre-movement potential seen with voluntary movements), present in functional jerks — used in specialised centres.</li>
+</ul>
+
+<h3>Functional gait disorders</h3>
+<ul>
+  <li><strong>Astasia-abasia</strong>: dramatic veering, wide-based, near-fall reaction (almost always caught) without consistent direction.</li>
+  <li><strong>Knee buckling</strong>: knee gives way during weight-bearing without consistent fall.</li>
+  <li><strong>Scissors with crossing legs</strong>: walking with crossed legs that does not fit any organic gait disorder.</li>
+  <li><strong>Skating / sliding gait</strong>: feet do not lift; floor-skating quality.</li>
+  <li><strong>Slow exaggerated steps</strong>: high effort, near-falls, but rare actual falls; effort signs strongly support diagnosis.</li>
+</ul>
+
+<h2 id="pnes">7. Psychogenic non-epileptic seizures (PNES / functional seizures)</h2>
+<ul>
+  <li>Episodes of altered behaviour, movement, sensation, or consciousness that resemble epileptic seizures but are not accompanied by epileptic activity on EEG.</li>
+  <li>Prevalence: ~5–20 per 100,000; account for ~15–30% of refractory epilepsy referrals; ~10–15% of PNES patients also have coexisting epileptic seizures.</li>
+</ul>
+
+<h3>Semiological features that favour PNES over epileptic seizure</h3>
+<table>
+<tr><th>Feature</th><th>Favours PNES</th><th>Favours epileptic seizure</th></tr>
+<tr><td>Eyes during event</td><td><strong>Closed</strong>; resistance to eye opening</td><td>Open; eyes deviated</td></tr>
+<tr><td>Motor activity</td><td>Asynchronous; "pelvic thrusting"; side-to-side head shake; opisthotonic arching; flailing</td><td>Synchronous tonic-clonic; stereotyped</td></tr>
+<tr><td>Duration</td><td>Often &gt; 2 minutes; waxing and waning</td><td>Usually 30 seconds to 2 minutes</td></tr>
+<tr><td>Ictal weeping / talking</td><td>Common</td><td>Rare</td></tr>
+<tr><td>Vocalisation</td><td>Vocal mid-event, talking</td><td>Initial cry, then silence</td></tr>
+<tr><td>Memory of event</td><td>Often preserved</td><td>Amnesia</td></tr>
+<tr><td>Postictal confusion</td><td>Minimal</td><td>Postictal confusion 10–30 min</td></tr>
+<tr><td>Tongue bite</td><td>Tip of tongue (if at all)</td><td>Lateral characteristic</td></tr>
+<tr><td>Incontinence</td><td>Less common</td><td>Common</td></tr>
+<tr><td>Prolactin level</td><td>Not elevated</td><td>Elevated 10–20 min after GTC (less reliable now)</td></tr>
+<tr><td>Postictal stertor (snoring breathing)</td><td>Absent</td><td>Present after GTC</td></tr>
+<tr><td>Injury</td><td>Less injurious (although carpet burns, lip injury can occur)</td><td>Falls / lateral tongue bite / lacerations</td></tr>
+</table>
+
+<div class="pearl"><strong>Diagnosis</strong>: gold standard is <strong>video EEG during a typical event</strong>. ILAE criteria (LaFrance 2013) classify PNES diagnosis as possible / probable / clinically established / documented. <strong>Ictal eye closure</strong> is the most specific single bedside feature (positive predictive value &gt; 95%). Coexisting epileptic seizures occur in 10–15% — comorbidity does not exclude either diagnosis.</div>
+
+<h2 id="sens">8. Functional sensory and visual symptoms</h2>
+<ul>
+  <li><strong>Hemisensory syndrome</strong>: sharp midline split of sensory loss (touch, pinprick, vibration) that splits exactly at the midline — true hemisensory deficits typically spare midline structures because of bilateral innervation.</li>
+  <li><strong>"Splitting of vibration" sign</strong>: vibration over the sternum is felt differently on the two sides of the midline — biologically implausible (bone vibration is conducted across the whole sternum).</li>
+  <li><strong>Functional visual loss</strong>: tubular fields (cone-shaped tunnel field independent of test distance — true tunnel vision expands with distance), positive optokinetic response when patient reports total blindness, normal pupil responses with claimed blindness.</li>
+  <li><strong>Functional dysphonia / aphonia</strong>: whispered speech with preserved cough and laughter.</li>
+</ul>
+
+<h2 id="cog">9. Functional cognitive symptoms</h2>
+<ul>
+  <li>Subjective cognitive complaint (memory, concentration, "brain fog") in absence of objective cognitive impairment on testing.</li>
+  <li>Inconsistency: detailed recall of the cognitive complaint at clinic; good performance on demanding tasks.</li>
+  <li>Often coexist with anxiety, depression, sleep disturbance, fibromyalgia (Module 17), PPPD (Module 18), post-acute COVID-19, post-concussion.</li>
+  <li>Reassurance + CBT + sleep optimisation; treat coexisting mood / sleep disorders.</li>
+  <li>Important to distinguish from genuine early Alzheimer / FTD / dementia with mild objective deficits (Module 7) and from medication / substance / depression / sleep apnea effects.</li>
+</ul>
+
+<h2 id="diag">10. Communicating the diagnosis</h2>
+<p>How the diagnosis is delivered is therapeutic. Done well, recovery often begins at the consultation. Done badly, the patient leaves disenchanted, often shopping for further opinions, with longer-term disability and iatrogenic harm.</p>
+
+<h3>Stone-style script</h3>
+<ol>
+  <li><strong>Name it</strong> — "You have a functional neurological disorder. We call it FND. It's a recognised medical condition."</li>
+  <li><strong>Explain the mechanism</strong> — "The hardware (your nerves and muscles) is intact. The software (how your brain runs the movement) has got stuck in a faulty pattern. We see this often and can help you."</li>
+  <li><strong>Show the rule-in sign</strong> — demonstrate Hoover's sign, tremor entrainment, or whatever positive sign is present. Show them their leg pushes down strongly when distracted.</li>
+  <li><strong>Explain how it's different from feigning</strong> — "I'm not saying you're making this up. This is not under your conscious control. It's a real condition with a real mechanism."</li>
+  <li><strong>Explain why investigations were normal</strong> — "MRI is normal because the problem is in how the brain is using normal hardware, not in damage to the hardware."</li>
+  <li><strong>Give a treatment plan with hope</strong> — "FND-specialised physiotherapy and / or CBT can substantially improve symptoms in most people. I'll refer you."</li>
+  <li><strong>Acknowledge difficulty</strong> — "I know this is a lot to take in. Many people find it helps to look at <em>neurosymptoms.org</em> for more information."</li>
+</ol>
+
+<div class="warn"><strong>Avoid these phrases</strong>: "non-organic", "psychogenic" (patient hears "psychological cause" / "blamed"), "hysterical", "medically unexplained" (sounds like diagnostic giving-up), "all in your head" (heard as "imaginary"), "it's stress" (often inaccurate and dismissive). Use "functional", "real", "treatable", "the brain's software not its hardware".</div>
+
+<h2 id="tx">11. Treatment — physiotherapy, CBT, multidisciplinary</h2>
+
+<h3>Physiotherapy (Nielsen et al. consensus 2015)</h3>
+<ul>
+  <li><strong>FND-specific physiotherapy</strong> differs from standard neurological rehab. Key principles:
+    <ul>
+      <li>Education about the diagnosis using the predictive-processing model.</li>
+      <li>Movement strategies that <em>distract attention</em> from the affected limb / function (e.g., reciprocal limb movements; rhythmic / counted activities).</li>
+      <li>Encouraging <strong>automatic</strong> rather than effortful movement.</li>
+      <li>Gradual return to normal activity (sub-symptom-threshold initially); reducing avoidance.</li>
+      <li>Avoid splints, wheelchairs, walking aids beyond the minimum needed for safety — they reinforce the disorder.</li>
+    </ul>
+  </li>
+  <li>Nielsen Physio4FMD trial (BMJ Open 2017; Lancet Neurol 2024 results pending): structured 5-day FND physiotherapy programme — meaningful functional improvement.</li>
+</ul>
+
+<h3>Cognitive behavioural therapy</h3>
+<ul>
+  <li><strong>CBT for PNES</strong> — CODES trial (Goldstein et al., Lancet Psychiatry 2020): 12 sessions of CBT did not reduce seizure frequency compared with standardised medical care, but improved secondary outcomes including quality of life, somatic symptoms, and overall functioning. Many programmes still use CBT given these wider benefits.</li>
+  <li><strong>CBT for functional motor symptoms</strong>: emerging evidence; mixed picture; useful for selected patients.</li>
+  <li>Adapted for FND with focus on the diagnosis, attention, fear of movement, catastrophising, and behavioural activation.</li>
+</ul>
+
+<h3>Multidisciplinary care</h3>
+<ul>
+  <li>Coordinated neurology + physiotherapy + occupational therapy + speech and language therapy + psychology + psychiatry + GP / family doctor.</li>
+  <li>Specialised FND clinics (UK, US, Netherlands, Australia) show better outcomes than fragmented care.</li>
+  <li>Address co-morbid depression / anxiety / PTSD / sleep with appropriate evidence-based treatment.</li>
+  <li>Avoid pharmacotherapy targeted at symptoms (e.g., AEDs for PNES, dopaminergics for functional dystonia) — usually unhelpful and harmful through side effects and reinforcement of the wrong illness model.</li>
+</ul>
+
+<h3>Practical pharmacotherapy comments</h3>
+<ul>
+  <li>If depression or anxiety co-exist: SSRI / SNRI per usual practice; treat trauma symptoms.</li>
+  <li>Sleep: address insomnia via CBT-I (Module 14).</li>
+  <li>Pain (often co-exists): standard chronic-pain approaches (Module 17) but avoid opioids and benzodiazepines.</li>
+  <li>For PNES, taper anticonvulsants slowly if they had been started for misdiagnosis (after confirming PNES not co-exists with epilepsy).</li>
+</ul>
+
+<h2 id="prog">12. Prognosis and red flags</h2>
+<ul>
+  <li>FND has a wide range of outcomes: a third improve, a third remain stable, a third worsen — depending heavily on duration, comorbidity, and quality of treatment.</li>
+  <li>Better outcome predictors: short duration, early correct diagnosis, fewer somatic comorbidities, engagement with multidisciplinary treatment, absence of severe psychiatric or personality comorbidity, agreement with the diagnosis.</li>
+  <li>Worse outcome predictors: long duration, multiple investigations and conflicting opinions before diagnosis, ongoing litigation / benefits at stake, severe psychiatric comorbidity, lack of buy-in to the diagnosis.</li>
+  <li>FND can cause major disability and reduced quality of life comparable to MS or Parkinson disease.</li>
+</ul>
+
+<div class="warn"><strong>Red flags to consider before settling on FND</strong>:
+<ul>
+  <li>New focal neurological signs not previously present.</li>
+  <li>Findings that fluctuate but follow recognisable neurological patterns (TIA, MS relapse, dystonia precipitated by specific tasks).</li>
+  <li>Coexistence with progressive symptoms.</li>
+  <li>Onset after head injury (rule out post-traumatic conditions; FND may still be present).</li>
+  <li>Loss of weight, fever, sweating, autonomic features inconsistent with the picture.</li>
+  <li>Always re-evaluate if the clinical picture evolves; FND can coexist with neurological disease and the diagnosis is not permanent if new features emerge.</li>
+</ul>
+</div>
+
+<h2 id="dx">13. FND vs malingering vs factitious</h2>
+<table>
+<tr><th>Feature</th><th>FND</th><th>Malingering</th><th>Factitious disorder</th></tr>
+<tr><td>Symptom production</td><td>Involuntary; not feigned</td><td>Voluntary, deliberate</td></tr>
+<tr><td>Goal</td><td>Not consciously pursued — disability is unwanted</td><td>Concrete external gain (compensation, drugs, escape from duty)</td></tr>
+<tr><td>Distress with diagnosis</td><td>Usually present; relief at validation</td><td>Often defensive or attempts to extend illness</td></tr>
+<tr><td>Inconsistencies</td><td>Inconsistent with neurology but consistent with one another (the same Hoover's sign each visit)</td><td>Inconsistent in different contexts; may exaggerate when observed</td></tr>
+<tr><td>Treatment response</td><td>Responsive to engagement and physiotherapy</td><td>Resistant; reluctant to participate when external gain absent</td></tr>
+</table>
+<p>Factitious disorder (intentional production with no external gain — to assume the sick role) sits between FND and malingering and is rare. The vast majority of patients with positive bedside FND signs have FND, not malingering or factitious disorder. Suspecting malingering rarely changes management at the bedside and damages therapeutic alliance.</p>
+
+<h2 id="refer">14. When to refer</h2>
+<ul>
+  <li><strong>Same day</strong>: presentations that overlap with stroke / status epilepticus / spinal cord emergency — never diagnose FND until those are excluded; even when FND is suspected, the relevant emergency workup proceeds.</li>
+  <li><strong>Within 1–2 weeks</strong>: any new FND diagnosis for FND-specific physiotherapy and / or CBT; PNES for video EEG monitoring confirmation if diagnosis uncertain; complex cases for multidisciplinary FND clinic.</li>
+  <li><strong>Routine</strong>: established FND with stable symptoms for re-engagement when motivation rises; comorbidity management.</li>
+  <li><strong>Always involve</strong>: neurology + FND-specific physiotherapy + psychology / CBT + GP / family doctor + (where relevant) psychiatry, OT, speech therapy.</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources</h3>
+<p>Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Chapter 47 (Anxiety, "Functional" and Personality Disorders).</p>
+<p>Merritt's <em>Neurology</em> 14e — relevant sections.</p>
+<p>American Psychiatric Association. Diagnostic and Statistical Manual of Mental Disorders, 5th ed. (DSM-5, 2013) — Functional Neurological Symptom Disorder (Conversion Disorder). DSM-5-TR (2022).</p>
+<p>World Health Organization. International Classification of Diseases, 11th Revision (ICD-11, 2022) — Dissociative neurological symptom disorder.</p>
+<p>Stone J et al. The bare essentials: functional symptoms in neurology. <em>Practical Neurology</em> 2009; 9: 179–189. Stone J. Functional neurological disorders: the neurological assessment as treatment. <em>Practical Neurology</em> 2016; 16: 7–17.</p>
+<p>Edwards MJ, Adams RA, Brown H, Pareés I, Friston KJ. A Bayesian account of "hysteria". <em>Brain</em> 2012; 135: 3495–3512.</p>
+<p>Espay AJ et al. Current concepts in diagnosis and treatment of functional neurological disorders. <em>JAMA Neurology</em> 2018; 75: 1132–1141.</p>
+<p>Nielsen G et al. Physiotherapy for functional motor disorders: a consensus recommendation. <em>JNNP</em> 2015; 86: 1113–1119.</p>
+<p>Goldstein LH et al. (CODES Trial). Cognitive-behavioural therapy for adults with dissociative seizures (CODES): a pragmatic, multicentre, randomised controlled trial. <em>Lancet Psychiatry</em> 2020; 7: 491–505.</p>
+<p>LaFrance WC Jr et al. Minimum requirements for the diagnosis of psychogenic non-epileptic seizures: ILAE Non-epileptic Seizures Task Force. <em>Epilepsia</em> 2013; 54: 2005–2018.</p>
+<p>Aybek S, Perez DL. Diagnosis and management of functional neurological disorder. <em>BMJ</em> 2022; 376: o64.</p>
+<p>Patient and clinician resource: <em>www.neurosymptoms.org</em> (Stone et al.).</p>
+</div>
+
+<footer>Module 21 — Functional Neurological Disorders · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>

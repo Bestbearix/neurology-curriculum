@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 27 — Approach to the Comatose Patient (Interactive)</title>
+<style>
+  :root{
+    --bg:#0a0820; --panel:#181230; --panel-2:#221940; --line:#3a2d6c;
+    --ink:#e8e3f6; --muted:#a89bd2; --accent:#a48dff; --accent-2:#c4b2ff;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#251a4d; --time:#7fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#06051a,#0a0820 35%,#0a0820); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(164,141,255,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#0a0820; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#d4c4ff}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(164,141,255,.10); border-color:var(--accent); color:#d4c4ff}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(127,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#0a0820; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(164,141,255,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 27</span>
+    <span class="badge">Synthesis</span>
+    <h1>Approach to the Comatose Patient — Interactive Course</h1>
+    <div class="sub">Cross-module synthesis. Four-pillar exam → anatomical localisation → reversible-cause sweep. Built on Modules 2, 3, 5, 7, 11, 12, 13, 15, 18, 19, 20, 21, 22, 23, 24, 25.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="localizer">Coma Localizer</button>
+    <button data-tab="revsweep">Reversible-Cause Sweep</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Coma is the highest-stakes neurological presentation. A structured first 10 minutes — ABC + glucose + thiamine + naloxone, then a four-pillar exam, then targeted imaging and EEG — converts a sea of possibilities into a treatable plan.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Run the empirical resuscitation cocktail before any imaging.</li>
+      <li>Perform the four-pillar Plum &amp; Posner exam (LOC + pupils + eyes/brainstem + motor/respiration).</li>
+      <li>Localise coma to bilateral cortical, bilateral thalamic, or brainstem mechanisms.</li>
+      <li>Run the AEIOU-TIPS reversible-cause sweep in 10 seconds.</li>
+      <li>Decide CT vs MRI vs continuous EEG vs LP.</li>
+      <li>Identify coma mimics (locked-in, akinetic mutism, catatonia, NCSE, functional).</li>
+      <li>Apply Wijdicks 2010 brain death criteria correctly.</li>
+      <li>Use multimodal prognostication at ≥ 72 h for HIE — never on a single test.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> resuscitate while you localise. ABC + glucose + thiamine + naloxone come before any imaging. Hypoglycaemia kills cortex faster than herniation.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. The consciousness spectrum</summary>
+      <div class="body">
+        <table>
+          <tr><th>State</th><th>Arousal</th><th>Awareness</th><th>Hallmark</th></tr>
+          <tr><td>Confusion / delirium</td><td>Yes</td><td>Impaired</td><td>Inattention</td></tr>
+          <tr><td>Drowsiness / obtundation</td><td>Reduced</td><td>Reduced</td><td>Arousable to voice</td></tr>
+          <tr><td>Stupor</td><td>Vigorous stim only</td><td>Minimal</td><td>Lapses back</td></tr>
+          <tr><td>Coma</td><td>None</td><td>None</td><td>Eyes closed; no purposeful response</td></tr>
+          <tr><td>UWS (vegetative)</td><td>Eye opening</td><td>None</td><td>Sleep-wake preserved</td></tr>
+          <tr><td>MCS+/MCS−</td><td>Eye opening</td><td>Inconsistent</td><td>Reproducible command following</td></tr>
+          <tr><td>Locked-in</td><td>Yes</td><td>Yes</td><td>Vertical gaze + blinking; ventral pontine</td></tr>
+          <tr><td>Brain death</td><td>None</td><td>None</td><td>No brainstem reflexes + apnoea + irreversible</td></tr>
+        </table>
+        <div class="pearl">Arousal lives in the ARAS (pons → midbrain → thalamus → cortex). Damage anywhere on that axis OR diffuse bihemispheric cortical dysfunction = coma.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. The first 10 minutes — resuscitate while you localise</summary>
+      <div class="body">
+        <ol>
+          <li>ABC — intubate if GCS ≤ 8.</li>
+          <li>Glucose — finger stick BEFORE anything else.</li>
+          <li>Thiamine 500 mg IV BEFORE glucose if any nutritional risk.</li>
+          <li>Naloxone 0.04–2 mg IV titrated to respiration (fentanyl needs higher doses + infusion).</li>
+          <li>Flumazenil ONLY for isolated iatrogenic benzodiazepine — avoid in mixed overdose / chronic use (seizures).</li>
+          <li>Bloods: glucose, lactate, ABG with co-oximetry (CO!), U&amp;E, LFT, NH₃, ethanol, paracetamol, salicylate, troponin, FBC, coag, CK, blood cultures, β-hCG, drug screen.</li>
+          <li>Empirical antibiotics + dexamethasone + aciclovir within 60 min if meningitis/encephalitis (Module 11) — do not delay for LP.</li>
+          <li>Empirical seizure treatment if any suggestion of NCSE (Module 3): lorazepam 4 mg IV.</li>
+        </ol>
+        <div class="refer">DO NOT delay glucose for imaging. DO NOT give glucose without thiamine in chronic alcohol use, hyperemesis, malnutrition, bariatric, prolonged TPN.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. The four-pillar exam (Plum &amp; Posner)</summary>
+      <div class="body">
+        <p>The bedside exam answers one question: <strong>is the brainstem intact, or is the coma structural?</strong></p>
+        <table>
+          <tr><th>Pillar</th><th>What to look at</th></tr>
+          <tr><td>1. LOC</td><td>GCS + FOUR score; serial trend matters</td></tr>
+          <tr><td>2. Pupils</td><td>Size, symmetry, reactivity (Module 19)</td></tr>
+          <tr><td>3. Eye movements + brainstem reflexes</td><td>Spontaneous gaze; dolls-eyes; cold caloric; corneals; cough/gag</td></tr>
+          <tr><td>4. Motor + respiration</td><td>Best motor to noxious; tone; Babinski; Cheyne-Stokes / CNH / apneustic / ataxic</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Pupil patterns</summary>
+      <div class="body">
+        <table>
+          <tr><th>Pupils</th><th>Likely cause</th></tr>
+          <tr><td>Normal + reactive</td><td>Metabolic / toxic / bilateral hemispheric</td></tr>
+          <tr><td>Small + reactive ("diencephalic")</td><td>Bilateral thalamic / metabolic</td></tr>
+          <tr><td>Pinpoint reactive</td><td>Pontine haemorrhage; opioids; organophosphate</td></tr>
+          <tr><td>Mid-position fixed</td><td>Midbrain (catastrophic)</td></tr>
+          <tr><td>Unilateral fixed dilated</td><td>Uncal herniation (CN III) — emergency</td></tr>
+          <tr><td>Bilateral fixed dilated</td><td>Severe hypoxia; anticholinergic toxidrome; brain death</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Eye movements + brainstem reflexes</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Oculocephalic (dolls-eyes)</strong>: passive head rotation drives conjugate gaze opposite — intact pons-midbrain MLF. NOT if cervical injury.</li>
+          <li><strong>Oculovestibular (cold caloric)</strong>: ice water 30 mL. In awake → fast-phase AWAY (COWS). In coma with intact brainstem → tonic deviation TOWARDS cold. Absent → brainstem damage or drug.</li>
+          <li><strong>Corneal</strong> = CN V → VII (pontine).</li>
+          <li><strong>Cough / gag</strong> = CN IX, X (medullary).</li>
+          <li><strong>Roving conjugate</strong> = brainstem intact.</li>
+          <li><strong>Ocular bobbing</strong> = pontine.</li>
+          <li><strong>One-and-a-half syndrome</strong> = pontine (PPRF + MLF).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Motor and respiration patterns</summary>
+      <div class="body">
+        <table>
+          <tr><th>Pattern</th><th>Localises</th></tr>
+          <tr><td>Decorticate (flexor)</td><td>Above red nucleus (hemispheric / diencephalic)</td></tr>
+          <tr><td>Decerebrate (extensor)</td><td>Brainstem (between red and vestibular nuclei)</td></tr>
+          <tr><td>Flaccid no response</td><td>Lower brainstem / medullary</td></tr>
+          <tr><td>Cheyne-Stokes</td><td>Bihemispheric / diencephalic</td></tr>
+          <tr><td>Central neurogenic hyperventilation</td><td>Midbrain / upper pons</td></tr>
+          <tr><td>Apneustic</td><td>Mid/lower pons</td></tr>
+          <tr><td>Ataxic (Biot)</td><td>Medullary — pre-terminal</td></tr>
+        </table>
+        <div class="pearl">Rostral-caudal deterioration (diencephalic → midbrain → pontine → medullary) suggests progressive transtentorial herniation.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Coma mimics</summary>
+      <div class="body">
+        <table>
+          <tr><th>Mimic</th><th>Clue</th></tr>
+          <tr><td>Locked-in</td><td>Ventral pontine; AWARE; vertical gaze + blinking preserved</td></tr>
+          <tr><td>Akinetic mutism</td><td>Bilateral medial frontal; alert-eyed but no movement</td></tr>
+          <tr><td>Psychogenic unresponsiveness</td><td>Resists eye opening; cold caloric → nystagmus; arm misses face on drop</td></tr>
+          <tr><td>Catatonia</td><td>Waxy flexibility, posturing, mutism; lorazepam challenge (Module 24)</td></tr>
+          <tr><td>NCSE</td><td>Fluctuating mental state, eye twitches, lip smacking; EEG (Module 3)</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Brain death (Wijdicks AAN 2010)</summary>
+      <div class="body">
+        <ol>
+          <li><strong>Prerequisites</strong>: known irreversible catastrophic cause; exclude confounders (drugs, hypothermia < 36 °C, metabolic, NM blockade); SBP ≥ 100; core ≥ 36 °C.</li>
+          <li><strong>Coma + absent brainstem reflexes</strong>: pupils fixed; no corneal/oculocephalic/caloric/gag/cough; no motor to noxious cranial nerve stim.</li>
+          <li><strong>Apnoea test</strong>: pre-oxygenate; disconnect; observe 8–10 min; ABG. Positive: no respiratory effort + PaCO₂ ≥ 60 (or ≥ 20 above baseline). Abort if SBP < 90, SpO₂ < 85%, arrhythmia.</li>
+          <li>Ancillary: cerebral angiography (gold), EEG, nuclear flow, TCD.</li>
+          <li>Spinal reflexes (Lazarus, triple flexion) can persist and do NOT preclude brain death.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Post-arrest HIE and multimodal prognostication (Modules 13, 22)</summary>
+      <div class="body">
+        <ul>
+          <li>TTM 32–36 °C × 24 h (TTM2 2021: 33 vs 36 — normothermia 36 non-inferior).</li>
+          <li>AVOID hyperthermia post-arrest.</li>
+          <li><strong>Multimodal prognostication after ≥ 72 h off sedation</strong> — combine ≥ 2 of:
+            <ul>
+              <li>Bilateral absent N20 SSEPs</li>
+              <li>Status myoclonus day 1</li>
+              <li>NSE > 60 ng/mL at 48–72 h</li>
+              <li>EEG burst-suppression or status without reactivity</li>
+              <li>MRI DWI cytotoxic oedema (cortical ribbon, basal ganglia)</li>
+            </ul>
+          </li>
+          <li>NEVER prognosticate on a single test, especially < 72 h.</li>
+          <li>Lance-Adams (action myoclonus in awake survivors weeks later) — clonazepam, valproate.</li>
+          <li>Delayed post-hypoxic leukoencephalopathy 1–4 weeks later.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Disorders of consciousness (Module 25)</summary>
+      <div class="body">
+        <ul>
+          <li>Use <strong>CRS-R</strong> to distinguish UWS, MCS−, MCS+, EMCS.</li>
+          <li>Up to 40% of "vegetative" patients reclassify as MCS on careful CRS-R; covert cognition demonstrated by fMRI/EEG (Owen, Monti).</li>
+          <li><strong>Amantadine 200 → 400 mg/day</strong> (Giacino NEJM 2012) improves recovery in TBI 4–16 weeks post-injury.</li>
+          <li>Avoid absolute statements before 72 h prognostication window.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="localizer">
+    <h2>Coma Localizer</h2>
+    <p class="muted">Choose the dominant pupil + brainstem-reflex + motor + respiration finding; the tool returns suspected level + likely diagnoses + next steps.</p>
+    <div class="tool" id="locTool">
+      <div class="q">Dominant bedside finding?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="pinpoint">Pinpoint reactive pupils + intact brainstem reflexes</button>
+        <button class="opt" data-val="small_metab">Small reactive pupils + symmetric multifocal myoclonus or asterixis</button>
+        <button class="opt" data-val="unilat_dilated">Unilateral fixed dilated pupil + contralateral hemiparesis</button>
+        <button class="opt" data-val="midposition">Mid-position fixed pupils + decerebrate posturing</button>
+        <button class="opt" data-val="both_fixed_dilated">Bilateral fixed dilated pupils + no brainstem reflexes</button>
+        <button class="opt" data-val="locked_in">Quadriplegic + vertical gaze and blinking only + alert appearance</button>
+        <button class="opt" data-val="ncse">Subtle eye twitches + lip smacking + fluctuating LOC, normal CT</button>
+        <button class="opt" data-val="basilar">Sudden coma + bilateral motor + cranial nerve involvement</button>
+        <button class="opt" data-val="rostro_caudal">Progressive rostral-caudal decline: Cheyne-Stokes → CNH → apnoea</button>
+        <button class="opt" data-val="catatonic">Mute + waxy flexibility + posturing + maintains odd positions</button>
+        <button class="opt" data-val="functional">Resists eye opening + arm drop misses face + caloric induces nystagmus</button>
+        <button class="opt" data-val="cushing">HTN + bradycardia + irregular respiration + dilating pupil</button>
+      </div>
+      <div class="result" id="loc-result"></div>
+      <button class="reset" onclick="resetLoc()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="revsweep">
+    <h2>Reversible-Cause Sweep (AEIOU-TIPS)</h2>
+    <p class="muted">Tick each reversible cause as ruled out (Y) or still pending (N). Run before settling on a primary diagnosis.</p>
+    <div class="tool" id="emTool"></div>
+    <div class="tool" style="margin-top:14px">
+      <div id="em-summary" style="font-size:.95rem">Tick each cause as ruled out or still under consideration.</div>
+      <button class="reset" onclick="resetEm()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 24-year-old found unresponsive at home with empty pill bottles. Pinpoint pupils. RR 6. GCS 4</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Opioid overdose.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>A: bag-mask ventilation; B: pulse ox; C: IV access.</li>
+          <li>Naloxone 0.04 mg IV titrated to respiratory rate (start low to avoid acute withdrawal in opioid-dependent); fentanyl needs higher doses + infusion.</li>
+          <li>Finger-stick glucose; thiamine before glucose if any nutritional risk.</li>
+          <li>ABG, paracetamol level (commonest co-ingestant), salicylate, lactate, ECG, troponin.</li>
+          <li>Co-oximetry (CO).</li>
+          <li>Tox screen; do not rely on negative urine screen.</li>
+          <li>Admit to monitored bed for several hours after naloxone (half-life shorter than most opioids — re-sedation likely).</li>
+          <li>Connect to addiction services + naloxone take-home + harm reduction (Module 13).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 68-year-old in AF on warfarin. Acute coma. CT shows large left thalamic ICH with intraventricular extension. Right hemiparesis. INR 3.4</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Warfarin-related thalamic ICH with IVH and acute hydrocephalus.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>A: intubate (GCS < 8); B: ventilation strategy with PaCO₂ 35–40; C: BP control to SBP 140 (INTERACT-2 / ATACH-2 framework).</li>
+          <li>Anticoagulation reversal: <strong>4F-PCC 25–50 IU/kg + vitamin K 10 mg IV slowly</strong>.</li>
+          <li>Head elevation 30°; treat fever; mannitol 1 g/kg or hypertonic 3% saline 250 mL bolus for clinical herniation.</li>
+          <li>Neurosurgery consult: external ventricular drain for IVH + hydrocephalus.</li>
+          <li>ICH score for prognostication (GCS + age + ICH volume + IVH + infratentorial).</li>
+          <li>Treat seizures; avoid prophylactic antiepileptics unless seizure occurred.</li>
+          <li>Re-anticoagulation timing after weeks based on bleed control + clot burden.</li>
+          <li>Cross-ref Modules 2, 22.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 55-year-old with sudden coma. Quadriplegic with eyes open. Examination shows preserved vertical gaze and blinking. He blinks to commands</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Locked-in syndrome from basilar artery thrombosis (ventral pontine infarct).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>URGENT non-contrast CT + CT angiography.</li>
+          <li>If basilar occlusion: <strong>mechanical thrombectomy</strong> (basilar Class 1 per AHA/ASA 2026; wider window than anterior circulation).</li>
+          <li>IV thrombolysis if eligible.</li>
+          <li>Establish communication channel using vertical gaze and blinking (eye-gaze board → AAC).</li>
+          <li>ICU + stroke unit + careful BP management.</li>
+          <li>Family education: patient is AWARE — speak to them.</li>
+          <li>Early rehabilitation; long-term DOC clinic if recovery prolonged (Module 25).</li>
+          <li>Cross-ref Modules 2, 18.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 35-year-old pregnant patient at 32 weeks. Sudden severe headache + seizure + coma. BP 200/130. Hyperreflexia. CT shows occipital vasogenic oedema</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Eclampsia with posterior reversible encephalopathy syndrome (PRES).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>A: intubate; B; C: cautious BP control to 140–160/90–100 (over-rapid reduction worsens cerebral ischaemia) — labetalol IV or hydralazine.</li>
+          <li><strong>Magnesium sulphate 4–6 g IV loading then 1–2 g/h infusion × 24 h post-delivery</strong> (Magpie trial — Module 20).</li>
+          <li>Plan urgent delivery — definitive treatment.</li>
+          <li>Continuous fetal monitoring.</li>
+          <li>Avoid magnesium if known myasthenia gravis (use benzodiazepines + cautious BP).</li>
+          <li>MRI post-stabilisation for PRES vs RCVS.</li>
+          <li>Resolution typically within days–weeks of trigger removal.</li>
+          <li>Cross-ref Modules 20, 22.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 70-year-old man post out-of-hospital cardiac arrest. Day 4. Off sedation 36 h. Examiner asks whether to withdraw care. GCS 6, status myoclonus on day 1, NSE 85 ng/mL at 72 h, EEG burst-suppression without reactivity, MRI DWI cortical ribbon</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Severe hypoxic-ischaemic encephalopathy with multimodal poor prognosis.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Confirm sedation washout (off ≥ 72 h; consider drug levels if uncertain — fentanyl, midazolam half-lives prolonged in renal/hepatic).</li>
+          <li>Confirm no confounders: temperature, U&amp;E, glucose, ammonia, drug effect.</li>
+          <li><strong>Multimodal poor prognostic signs (4 of 5 present)</strong>: status myoclonus day 1 + NSE > 60 + EEG burst-suppression without reactivity + DWI cortical ribbon. Bilateral absent N20 SSEPs adds confirmation.</li>
+          <li>Combine ≥ 2 of: bilateral absent N20, status myoclonus day 1, NSE > 60, EEG burst-suppression / unreactive status, MRI DWI cytotoxic — never single test.</li>
+          <li>Family meeting with palliative care; respect prior advance directive; values-based decision; bereavement support.</li>
+          <li>Avoid prognostication < 72 h; avoid sole reliance on clinical exam.</li>
+          <li>If proceeding with WLST, document criteria met; otherwise continue care with planned re-assessment.</li>
+          <li>Cross-ref Modules 13, 22, 25.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 45-year-old man with refractory psychosis is now mute, immobile, with waxy flexibility and posturing. CK 1200. Temp 38.2 °C. On haloperidol</summary>
+      <div class="body">
+        <p>Differential: catatonia vs neuroleptic malignant syndrome (NMS). Distinguishing features matter.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>STOP the haloperidol immediately.</li>
+          <li>Differentiate: NMS has lead-pipe rigidity, hyperthermia >38.5–40, autonomic instability, CK often > 1000, develops over days; catatonia has waxy flexibility, posturing, mutism, echolalia, may have lower temp + less rigidity.</li>
+          <li>If catatonia suspected: <strong>lorazepam challenge</strong> 1–2 mg IV — often dramatic response within minutes confirms diagnosis.</li>
+          <li>If NMS: aggressive cooling, IV fluids, dantrolene + bromocriptine/amantadine, ICU monitoring, treat rhabdomyolysis (Module 13).</li>
+          <li>If catatonia confirmed: scheduled lorazepam (start ~ 6 mg/day divided); ECT for refractory; treat underlying psychiatric illness.</li>
+          <li>Avoid antipsychotics during acute catatonia (risk of NMS); restart after resolution and consider clozapine if needed.</li>
+          <li>Cross-ref Modules 13 (hyperthermia syndromes), 24.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 27 of an ongoing neurology curriculum. Cross-references throughout: Modules 2, 3, 5, 7, 11, 12, 13, 15, 18, 19, 20, 21, 22, 23, 24, 25. Original anchors: Adams &amp; Victor 12e Ch 16, 17, 18; Merritt's 14e Ch 11, 19, 20. Plum &amp; Posner Diagnosis of Stupor &amp; Coma 4e; Wijdicks AAN 2010; TTM/TTM2; Giacino NEJM 2012; Graus 2016.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Definition', q:'Define coma vs stupor vs UWS vs MCS vs locked-in', a:'Coma — no arousal, no awareness, eyes closed. Stupor — vigorous stimulus elicits brief arousal. UWS (vegetative) — eye opening + sleep-wake cycle but no awareness. MCS+/− — reproducible command following / visual pursuit / object use (inconsistent). Locked-in — fully aware, only vertical gaze and blinking; ventral pontine lesion.'},
+  {tag:'Resuscitation', q:'The empirical cocktail before any imaging?', a:'ABC + finger-stick glucose; thiamine 500 mg IV BEFORE glucose if nutritional risk; glucose if hypoglycaemic; naloxone 0.04–2 mg IV titrated to respiration (fentanyl needs higher); flumazenil only if isolated iatrogenic benzodiazepine.'},
+  {tag:'Four pillars', q:'The four pillars of the bedside coma exam?', a:'LOC (GCS + FOUR); pupils (Module 19); eye movements + brainstem reflexes (oculocephalic, cold caloric, corneals, cough/gag); motor + respiration (decorticate/decerebrate, Cheyne-Stokes / CNH / apneustic / ataxic).'},
+  {tag:'Pupils', q:'Pinpoint reactive pupils in coma — DDx?', a:'Pontine haemorrhage; opioids (reactive to bright light with magnification); organophosphate (cholinergic toxidrome).'},
+  {tag:'Pupils', q:'Unilateral fixed dilated pupil + contralateral hemiparesis?', a:'Uncal herniation compressing CN III on side of mass. Emergency. Empirical osmotherapy (3% hypertonic 250 mL or mannitol 1 g/kg), head elevation 30°, transient hyperventilation to PaCO₂ 30–35 only as bridge, urgent CT + neurosurgery.'},
+  {tag:'Cold caloric', q:'Interpretation of cold caloric in coma?', a:'Awake: fast-phase nystagmus AWAY from cold (COWS). Comatose with intact brainstem: tonic deviation TOWARDS cold (no fast phase). Absent response: brainstem damage or drug effect. Useful for functional unresponsiveness (intact response with eye nystagmus disproves coma).'},
+  {tag:'Motor', q:'Decorticate vs decerebrate localisation?', a:'Decorticate (flexor): above red nucleus — hemispheric/diencephalic. Decerebrate (extensor): brainstem between red and vestibular nuclei. Worse prognosis.'},
+  {tag:'Respiration', q:'Cheyne-Stokes vs CNH vs apneustic vs ataxic localisation?', a:'Cheyne-Stokes — bihemispheric/diencephalic. CNH — midbrain/upper pons. Apneustic — mid/lower pons. Ataxic (Biot) — medullary, pre-terminal.'},
+  {tag:'Localisation', q:'The three anatomical mechanisms of coma?', a:'(1) Bilateral cortical/hemispheric (usually toxic-metabolic; rarely structural such as bilateral massive strokes, SAH, encephalitis, NCSE). (2) Bilateral thalamic/diencephalic (top-of-basilar, thalamic ICH, central herniation). (3) Brainstem upper pons → midbrain (basilar, brainstem haemorrhage, CPM, tumour, MS plaque, basilar migraine).'},
+  {tag:'Mnemonic', q:'AEIOU-TIPS — what does it cover?', a:'A — alcohol, acid-base. E — electrolytes, endocrine, encephalitis, epilepsy (NCSE). I — infection, insulin (hypoglycaemia). O — opioid, oxygen (hypoxia, CO). U — uraemia, under/overdose. T — trauma, temperature. I — intracranial (stroke, SAH, ICH, tumour). P — psychiatric, poisons. S — shock, stroke.'},
+  {tag:'Locked-in', q:'Locked-in syndrome — lesion and clue?', a:'Ventral pontine infarct (basilar artery). Patient AWARE — speak to them. Vertical gaze + blinking preserved (CN III/IV supranuclear pathways above lesion). Urgent CTA + thrombectomy (basilar wider window per AHA/ASA 2026). Establish blinking-based communication channel.'},
+  {tag:'NCSE', q:'When to suspect NCSE in unexplained coma?', a:'Subtle eye twitches, lip smacking, fluctuating mental state without structural cause; previously known epilepsy; post-status; recent withdrawal. 30% of unexplained ICU coma has NCSE on continuous EEG. Empirical lorazepam 4 mg IV may unmask diagnosis. Always get continuous EEG > 24 h.'},
+  {tag:'Imaging', q:'Imaging algorithm in coma?', a:'Non-contrast CT first (ICH, SAH, mass, hydrocephalus). CT angiography if basilar / LVO suspected. MRI within hours if CT non-diagnostic (early infarct especially posterior fossa, encephalitis, anoxic injury). Continuous EEG if NCSE possible. LP after CT if meningitis/encephalitis — DO NOT delay antibiotics + dex + aciclovir.'},
+  {tag:'Wernicke', q:'Wernicke encephalopathy — Caine criteria and management?', a:'Caine: ≥ 2 of (1) nutritional deficit, (2) oculomotor abnormality, (3) cerebellar signs, (4) altered mental state. Classic triad in only 16%. Thiamine 500 mg IV TID × 2–3 days BEFORE any glucose, then 250 mg IM/IV daily × 3–5 days, then high-dose oral. Korsakoff in 80% of untreated survivors. Cross-ref Modules 13, 20.'},
+  {tag:'Anticoag reversal', q:'Anticoagulation reversal in acute ICH?', a:'Warfarin → 4F-PCC 25–50 IU/kg + vitamin K 10 mg IV slowly. Dabigatran → idarucizumab 5 g IV (two 2.5 g doses). Factor Xa inhibitors (apixaban, rivaroxaban) → andexanet alfa (or 4F-PCC if andexanet unavailable). Cross-ref Module 2, 22.'},
+  {tag:'Brain death', q:'Wijdicks 2010 framework for brain death?', a:'(1) Prerequisites: known irreversible cause; no confounders (drugs, hypothermia, metabolic, NM blockade); SBP ≥ 100; core ≥ 36 °C. (2) Coma + absent brainstem reflexes. (3) Apnoea test positive: PaCO₂ ≥ 60 (or ≥ 20 above baseline) with no respiratory effort. (4) Ancillary if needed: cerebral angiography (gold), EEG, nuclear flow, TCD. Spinal reflexes (Lazarus, triple flexion) can persist.'},
+  {tag:'HIE prognosis', q:'Multimodal prognostication in post-arrest HIE?', a:'After ≥ 72 h off sedation, combine ≥ 2 of: bilateral absent N20 SSEPs; status myoclonus day 1; NSE > 60 ng/mL at 48–72 h; EEG burst-suppression or status without reactivity; MRI DWI cytotoxic oedema (cortical ribbon, basal ganglia). Never single test. TTM 32–36 °C × 24 h (TTM2 2021: 33 vs 36 — 36 non-inferior). Avoid hyperthermia.'},
+  {tag:'DOC', q:'Disorders of consciousness assessment and treatment?', a:'Use CRS-R to distinguish UWS / MCS− / MCS+ / EMCS. Up to 40% of "vegetative" patients reclassify as MCS on careful CRS-R; covert cognition by fMRI/EEG (Owen, Monti). Amantadine 200 → 400 mg/day (Giacino NEJM 2012) improves recovery in TBI 4–16 weeks post-injury. Cross-ref Module 25.'},
+  {tag:'PRES', q:'Posterior reversible encephalopathy syndrome — clue?', a:'HTN urgency, eclampsia (Module 20), immunosuppressants (calcineurin), MMF, chemo, sepsis, autoimmune. Headache + seizure + visual + encephalopathy. Bilateral parieto-occipital vasogenic oedema on MRI (T2/FLAIR hyperintense, ADC bright). Cautious BP reduction; treat trigger; magnesium for eclampsia; usually resolves over days–weeks. Cross-ref Modules 20, 22.'},
+  {tag:'Cross-module', q:'Modules to consult for coma?', a:'Module 2 (stroke, basilar, decompressive craniectomy); 3 (status epilepticus, NCSE); 5 (coma fundamentals, GCS, FOUR, Wijdicks); 7 (delirium overlay); 11 (CNS infections, encephalitis); 12 (autoimmune encephalitis); 13 (toxic/metabolic, Wernicke, HIE, hyperthermia syndromes); 15 (autonomic crises); 18 (cold caloric); 19 (pupils); 20 (eclampsia/PRES); 21 (functional); 22 (neurocritical care, ICP, herniation, TTM, prognostication); 23 (myxoedema, Addisonian); 24 (catatonia); 25 (DOC, CRS-R, amantadine).'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 24-year-old is brought in unconscious. Pinpoint pupils, RR 6, GCS 4. What is the next step BEFORE any imaging?',
+   choices:['Non-contrast CT head','ABC + finger-stick glucose + thiamine 500 mg IV (if any nutritional risk) + naloxone 0.04–2 mg IV titrated to respiratory rate; co-oximetry; tox screen; ABG; admit to monitored bed for several hours (naloxone half-life shorter than most opioids)','Lumbar puncture','Lorazepam'],
+   ans:1,
+   why:'Opioid overdose. Resuscitate while you localise — ABC + glucose + thiamine + naloxone come before any imaging. Pinpoint pupils + bradypnoea = opioid toxidrome. Titrate naloxone to respiratory rate (avoid acute withdrawal in opioid-dependent); fentanyl needs higher doses + infusion. Cross-ref Module 13.'},
+  {q:'A 35-year-old pregnant patient at 32 weeks develops seizure + coma + BP 200/130. CT shows bilateral parieto-occipital vasogenic oedema. Next step?',
+   choices:['IV mannitol','Magnesium sulphate 4–6 g IV loading then 1–2 g/h infusion × 24 h post-delivery; cautious BP control with labetalol or hydralazine; plan urgent delivery; continuous fetal monitoring','Aspirin','tPA'],
+   ans:1,
+   why:'Eclampsia with PRES. Magnesium 4–6 g IV + 1–2 g/h × 24 h post-delivery (Magpie). Cautious BP reduction to 140–160/90–100 (over-rapid reduction worsens cerebral ischaemia). Definitive treatment is delivery. AVOID magnesium if known MG (use benzodiazepines + cautious BP). PRES typically resolves over days–weeks. Cross-ref Modules 20, 22.'},
+  {q:'A 55-year-old with sudden coma is quadriplegic with preserved vertical gaze and blinking; blinks to commands. Diagnosis and immediate plan?',
+   choices:['Vegetative state — supportive care','Locked-in syndrome from basilar artery thrombosis — urgent CT + CT angiography; mechanical thrombectomy (basilar Class 1 per AHA/ASA 2026; wider window); IV thrombolysis if eligible; establish blinking-based communication; speak to the patient (they are AWARE)','Catatonia — lorazepam','Brain death pathway'],
+   ans:1,
+   why:'Locked-in syndrome — ventral pontine infarct from basilar thrombosis. Patient AWARE. Vertical gaze + blinking preserved (CN III/IV supranuclear pathways above lesion). Urgent CTA + thrombectomy. Basilar has wider thrombectomy window than anterior circulation per AHA/ASA 2026. Cross-ref Modules 2, 18.'},
+  {q:'A 68-year-old on warfarin (INR 3.4) with AF develops sudden coma. CT shows left thalamic ICH with IVH. Next step?',
+   choices:['Long-term observation','Reverse warfarin with 4F-PCC 25–50 IU/kg + vitamin K 10 mg IV slowly; BP control to SBP 140; head elevation 30°; mannitol or 3% hypertonic if clinical herniation; neurosurgery consult for EVD due to hydrocephalus from IVH','tPA','Aspirin'],
+   ans:1,
+   why:'Warfarin-related thalamic ICH with IVH and acute hydrocephalus. 4F-PCC 25–50 IU/kg + vitamin K 10 mg IV slowly (faster onset than FFP, smaller volume). BP control to SBP 140 (INTERACT-2 / ATACH-2). Neurosurgery for EVD. Cross-ref Modules 2, 22.'},
+  {q:'A 70-year-old post-arrest patient is comatose on day 4. Off sedation 36 hours. Status myoclonus day 1, NSE 85, EEG burst-suppression without reactivity, MRI DWI cortical ribbon. Best framework?',
+   choices:['Withdraw care immediately at 36 hours','Multimodal prognostication at ≥ 72 h off sedation requires combining ≥ 2 poor features (bilateral absent N20, status myoclonus day 1, NSE > 60, EEG burst-suppression/unreactive status, MRI DWI cytotoxic). Confirm sedation washout + no confounders (drugs, hypothermia, U&E, NM blockade). Family meeting with palliative care + advance directive + values-based decision.','Continue care indefinitely','Single test SSEP alone'],
+   ans:1,
+   why:'Multimodal prognostication after ≥ 72 h off sedation, combining ≥ 2 poor features. NEVER prognosticate on a single test or before 72 h. Confirm sedation washout (especially fentanyl, midazolam in renal/hepatic). TTM2 2021: 33 vs 36 °C — 36 non-inferior. AVOID hyperthermia post-arrest. Lance-Adams (action myoclonus in awake survivors) distinct from status myoclonus. Cross-ref Modules 13, 22, 25.'},
+  {q:'In coma, unilateral fixed dilated pupil with contralateral hemiparesis suggests?',
+   choices:['Pontine haemorrhage','Uncal herniation compressing CN III on side of mass — emergency. Osmotherapy (3% hypertonic 250 mL bolus or mannitol 1 g/kg), head elevation 30°, transient hyperventilation to PaCO₂ 30–35 only as bridge, urgent CT + neurosurgery','Locked-in syndrome','Brain death'],
+   ans:1,
+   why:'Uncal herniation — lateral mass effect pushes uncus over tentorial edge, compressing ipsilateral CN III (fixed dilated pupil) and cerebral peduncle (contralateral hemiparesis or sometimes IPSILATERAL hemiparesis from Kernohan notch against contralateral tentorial edge — a localising trap). Emergency osmotherapy, head elevation, urgent CT, neurosurgery.'},
+  {q:'A 45-year-old refractory psychosis patient on haloperidol now mute, immobile, waxy flexibility, posturing, CK 1200, temp 38.2 °C. Diagnostic step?',
+   choices:['Continue haloperidol','Stop haloperidol; differentiate catatonia from NMS (NMS has lead-pipe rigidity, hyperthermia > 38.5–40, autonomic instability, CK > 1000, days of evolution); lorazepam challenge 1–2 mg IV (catatonia often dramatic response within minutes); if NMS — aggressive cooling, IV fluids, dantrolene + bromocriptine/amantadine','Cyproheptadine','Restart antipsychotic'],
+   ans:1,
+   why:'Stop offending antipsychotic. Lorazepam challenge for catatonia — dramatic response within minutes confirms diagnosis. If NMS suspected: aggressive cooling, IV fluids, dantrolene + bromocriptine/amantadine, treat rhabdomyolysis. Avoid antipsychotics during acute catatonia (NMS risk); restart after resolution; clozapine if needed. Cross-ref Modules 13, 24.'},
+  {q:'Brain death determination per Wijdicks 2010 requires which sequence?',
+   choices:['Single neurologist exam','Prerequisites (known irreversible cause, no confounders, SBP ≥ 100, core ≥ 36 °C) + coma with absent brainstem reflexes + positive apnoea test (PaCO₂ ≥ 60 or ≥ 20 above baseline with no respiratory effort) ± ancillary tests if exam/apnoea cannot be completed (cerebral angiography gold standard, EEG, nuclear flow, TCD). Spinal reflexes can persist.','Just absent brainstem reflexes','Just absent EEG'],
+   ans:1,
+   why:'Wijdicks 2010 framework. Prerequisites must be met before exam. Apnoea test positive: PaCO₂ ≥ 60 (or ≥ 20 above baseline) with no respiratory effort over 8–10 minutes. Abort if SBP < 90, SpO₂ < 85%, arrhythmia. Spinal reflexes (Lazarus, triple flexion) can persist and do NOT preclude brain death. Cross-ref Module 5.'},
+  {q:'A 60-year-old in ICU with unexplained fluctuating mental state, eye twitches, lip smacking, normal CT. Next step?',
+   choices:['Discharge home','Suspect NCSE; continuous EEG > 24 h; empirical lorazepam 4 mg IV may unmask diagnosis (30% of unexplained ICU coma has NCSE)','Start ceftriaxone alone','Aspirin'],
+   ans:1,
+   why:'NCSE suspected — subtle eye twitches + lip smacking + fluctuating mental state without structural cause. 30% of unexplained ICU coma has NCSE on continuous EEG. Empirical lorazepam may unmask diagnosis. Continuous EEG > 24 h is the standard. Cross-ref Module 3.'},
+  {q:'A 22-year-old presents with hyperemesis at 12 weeks pregnancy. Admitted for IV fluids with dextrose. Day 2 develops confusion + nystagmus + ataxia. Next step?',
+   choices:['Long-term opioid','Thiamine 500 mg IV TID × 2–3 days BEFORE any further glucose; then 250 mg IM/IV daily × 3–5 days; then high-dose oral. PREVENTION: routine thiamine in any pregnant patient with prolonged vomiting or IV fluids','tPA','Lorazepam'],
+   ans:1,
+   why:'Wernicke encephalopathy precipitated by IV dextrose without thiamine in a thiamine-deficient patient (hyperemesis). Caine criteria: ≥ 2 of (1) nutritional deficit, (2) oculomotor abnormality, (3) cerebellar signs, (4) altered mental state. Thiamine BEFORE glucose. Korsakoff in 80% of untreated survivors. PREVENTION: routine thiamine in any pregnant patient with prolonged vomiting or IV fluids; in any patient with alcohol use, malnutrition, bariatric surgery, prolonged TPN. Cross-ref Modules 13, 20.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Coma Localizer */
+const locResult = document.getElementById('loc-result');
+const locMap = {
+  pinpoint:{title:'Pinpoint reactive pupils — pontine vs opioid vs organophosphate', items:[
+    'Suspected level: <strong>pontine</strong> OR <strong>toxidrome</strong>.',
+    'Likely: pontine haemorrhage; opioid overdose (responsive to bright light with magnification); organophosphate (DUMBELS / SLUDGE cholinergic toxidrome — diarrhoea, urination, miosis, bradycardia, emesis, lacrimation, salivation).',
+    'Workup: pulse ox; ABG with co-oximetry; CT head; tox screen; cholinesterase activity if suspected.',
+    'Treatment depends on cause: opioid → naloxone 0.04–2 mg IV titrated to respiratory rate (fentanyl needs higher); organophosphate → atropine titrated to drying of secretions + pralidoxime; pontine haemorrhage → ICU + BP control + neurosurgery + possible EVD.',
+    'Cross-ref Modules 2 (stroke), 13 (toxicology).'
+  ]},
+  small_metab:{title:'Small reactive pupils + asterixis or multifocal myoclonus — toxic-metabolic encephalopathy', items:[
+    'Suspected level: <strong>diffuse cortical / metabolic</strong>.',
+    'Likely: hepatic, uraemic, septic, hypoglycaemia, hyperammonaemia (VPA, urea cycle, bariatric), hypoxic, electrolyte derangement (Na, Ca, Mg), endocrine (myxoedema, Addisonian).',
+    'Workup: glucose; lactate; ABG; ammonia; U&E; LFT; Ca/Mg/PO₄; TSH; cortisol; CK; ethanol; tox screen; blood cultures.',
+    'Treatment depends on cause. Hepatic encephalopathy: lactulose + rifaximin (Module 13). Uraemia: dialysis. Hypoglycaemia: glucose. Hyperammonaemia: L-carnitine for VPA, lactulose. Myxoedema: levothyroxine + hydrocortisone first to avoid adrenal crisis.',
+    'Cross-ref Modules 13, 23.'
+  ]},
+  unilat_dilated:{title:'Unilateral fixed dilated pupil + contralateral hemiparesis — uncal herniation', items:[
+    'Suspected level: <strong>transtentorial / uncal herniation</strong>.',
+    'Likely: ipsilateral mass effect (ICH, EDH/SDH, large MCA infarct with cytotoxic oedema, tumour, abscess) compressing CN III + cerebral peduncle.',
+    'Note Kernohan notch — pressure on contralateral peduncle gives ipsilateral hemiparesis (false-localising).',
+    '<strong>Emergency:</strong> head elevation 30°; <strong>osmotherapy</strong> (3% hypertonic 250 mL bolus OR mannitol 1 g/kg); transient hyperventilation to PaCO₂ 30–35 mmHg only as bridge; urgent CT; neurosurgery for decompression / craniectomy.',
+    'Anticoagulation reversal as needed (4F-PCC + vitamin K, idarucizumab, andexanet).',
+    'Cross-ref Modules 2, 19, 22.'
+  ]},
+  midposition:{title:'Mid-position fixed pupils + decerebrate posturing — midbrain damage', items:[
+    'Suspected level: <strong>midbrain</strong> (catastrophic).',
+    'Likely: central transtentorial herniation; midbrain haemorrhage; top-of-basilar; advanced HIE.',
+    'Workup: CT + CT angiography (basilar); MRI within hours.',
+    'Treatment: ICP management; reverse herniation (osmotherapy); restore cerebral perfusion; if basilar — mechanical thrombectomy (basilar Class 1 with wider window per AHA/ASA 2026).',
+    'Generally a very poor prognosis; multimodal prognostication if HIE.',
+    'Cross-ref Modules 2, 22.'
+  ]},
+  both_fixed_dilated:{title:'Bilateral fixed dilated pupils + no brainstem reflexes', items:[
+    'Suspected level: <strong>global brainstem failure</strong> or <strong>anticholinergic toxidrome</strong>.',
+    'Likely: severe hypoxic injury; anticholinergic toxidrome (hot, dry, mydriatic, mad — TCA, antihistamine, atropine); brain death (after Wijdicks prerequisites met).',
+    'Workup: confirm prerequisites for brain death (known irreversible cause; no drug, hypothermia, metabolic, NM blockade confounders; SBP ≥ 100; core ≥ 36 °C); tox screen; flumazenil/naloxone trial only if relevant; toxicology consultation.',
+    'For brain death assessment: pupils + corneal + oculocephalic + caloric + cough + gag + motor to noxious cranial stim + apnoea test (PaCO₂ ≥ 60 or ≥ 20 above baseline). Spinal reflexes can persist.',
+    'For anticholinergic: physostigmine (ONLY for pure anticholinergic — NOT if TCA — risk of asystole + seizures).',
+    'Cross-ref Modules 5, 13.'
+  ]},
+  locked_in:{title:'Locked-in syndrome', items:[
+    'Suspected level: <strong>ventral pontine</strong>.',
+    'Likely: basilar artery thrombosis or pontine haemorrhage. Patient AWARE — speak to them.',
+    'Vertical gaze and blinking preserved (CN III / IV supranuclear pathways above lesion); quadriplegia + anarthria + bulbar paralysis.',
+    'Workup: urgent CT + CTA + MRI.',
+    'Treatment: thrombolysis if eligible; <strong>mechanical thrombectomy</strong> (basilar Class 1 with wider window per AHA/ASA 2026).',
+    'Establish communication channel using vertical gaze + blinking (eye-gaze board → AAC); ICU + stroke unit.',
+    'Long-term rehabilitation; DOC clinic; education for family.',
+    'Cross-ref Modules 2, 18, 25.'
+  ]},
+  ncse:{title:'Non-convulsive status epilepticus (NCSE)', items:[
+    'Suspected level: <strong>cortical seizure activity</strong>.',
+    'Clues: subtle eye twitches, lip smacking, automatisms, fluctuating mental state, no structural cause on CT.',
+    '30% of unexplained ICU coma has NCSE on continuous EEG.',
+    'Workup: <strong>continuous EEG > 24 h</strong>; empirical lorazepam 4 mg IV may unmask diagnosis.',
+    'Treatment: lorazepam first; second-line valproate / levetiracetam / fosphenytoin / lacosamide; refractory → midazolam / propofol / ketamine infusion + intubation; cross-ref Module 3 stepwise walkthrough.',
+    'Treat underlying cause: structural (stroke, tumour, infection), metabolic (hyponatraemia, hypoglycaemia, hepatic, uraemic, hyperammonaemia), withdrawal (alcohol, benzo).',
+    'Cross-ref Module 3.'
+  ]},
+  basilar:{title:'Sudden coma + bilateral motor + cranial nerve — basilar artery occlusion', items:[
+    'Suspected level: <strong>posterior circulation (basilar artery)</strong>.',
+    'Likely: basilar artery thrombosis affecting bilateral pons + midbrain ± thalami (top-of-basilar).',
+    'Workup: <strong>urgent CT + CTA</strong> (CT often misses posterior fossa); MRI DWI if non-diagnostic.',
+    'Treatment: thrombolysis if eligible; <strong>mechanical thrombectomy</strong> for basilar occlusion (basilar Class 1 per AHA/ASA 2026; wider window than anterior circulation — up to 24 h with imaging-based selection in selected cases).',
+    'ICU + stroke unit + careful BP management.',
+    'Cross-ref Modules 2, 18, 22.'
+  ]},
+  rostro_caudal:{title:'Progressive rostral-caudal deterioration — central herniation', items:[
+    'Suspected level: <strong>progressive transtentorial herniation</strong>.',
+    'Pattern: diencephalic → midbrain → pontine → medullary signs in sequence (Cheyne-Stokes → CNH → apneustic → ataxic respiration; pupils small reactive → mid-position fixed → dilated; posture decorticate → decerebrate → flaccid).',
+    'Workup: urgent CT to identify mass / oedema / hydrocephalus.',
+    'Treatment: <strong>head elevation 30°</strong>; <strong>osmotherapy</strong> (3% hypertonic 250 mL bolus OR mannitol 1 g/kg); transient hyperventilation to PaCO₂ 30–35 only as bridge; treat fever; <strong>EVD</strong> if hydrocephalus; <strong>decompressive craniectomy</strong> for malignant MCA (DECIMAL/DESTINY/HAMLET — Module 2) or refractory raised ICP (RESCUEicp 2016 — Module 22).',
+    'Anticoagulation reversal as needed.',
+    'Cross-ref Modules 22, 2.'
+  ]},
+  catatonic:{title:'Catatonia', items:[
+    'Suspected level: <strong>psychiatric (with somatic mimics excluded)</strong>.',
+    'Clues: waxy flexibility, posturing, mutism, echolalia, echopraxia, negativism, automatic obedience, ambitendency; may have lower temp + less rigidity than NMS.',
+    'Differential vs NMS: NMS has lead-pipe rigidity, hyperthermia > 38.5–40, autonomic instability, CK > 1000, develops over days; <strong>stop offending antipsychotic immediately</strong>.',
+    'Workup: rule out metabolic + structural causes (CT, U&E, glucose, NH₃, TSH, autoimmune antibodies including anti-NMDA-R which can mimic, EEG); CK, temp, autonomic monitoring.',
+    'Treatment: <strong>lorazepam challenge 1–2 mg IV</strong> — often dramatic response within minutes confirms diagnosis. Maintain scheduled lorazepam (~6 mg/day divided). ECT for refractory. Treat underlying psychiatric illness.',
+    'Avoid antipsychotics during acute catatonia (NMS risk); after resolution consider clozapine.',
+    'Cross-ref Modules 13 (hyperthermia), 24.'
+  ]},
+  functional:{title:'Functional / psychogenic unresponsiveness', items:[
+    'Suspected: <strong>functional (must be confirmed by positive rule-in signs)</strong>.',
+    'Clues: resists eye opening (Bell phenomenon — eyes roll up); arm drop misses face on release; cold caloric induces NYSTAGMUS (intact cortex disproves coma); HR + BP + pupils normal; geotropic eye drift; awake-pattern EEG.',
+    'Communicate using Stone framework (Module 21): name as functional disorder; explain mechanism; demonstrate positive signs; differentiate from feigning; plan with hope.',
+    'Workup: minimum needed to confirm — usually CT, glucose, EEG.',
+    'Coexistence with neurological disease common — keep open mind.',
+    'Avoid further unnecessary investigations once diagnosis secure.',
+    'Refer to FND-specific therapy (psychiatry, CBT, physiotherapy).',
+    'Cross-ref Module 21.'
+  ]},
+  cushing:{title:'Cushing triad — raised ICP', items:[
+    'Cushing triad: hypertension + bradycardia + irregular respiration. Pupillary dilation may follow.',
+    '<strong>Late and pre-terminal sign of raised ICP</strong> — act IMMEDIATELY.',
+    'Treatment: head elevation 30°; intubate; <strong>osmotherapy</strong> (3% hypertonic 250 mL bolus OR mannitol 1 g/kg); transient hyperventilation to PaCO₂ 30–35 mmHg as bridge; treat fever; urgent CT.',
+    'Anticoagulation reversal as needed (4F-PCC + vitamin K, idarucizumab, andexanet).',
+    'Neurosurgery: EVD for hydrocephalus; decompressive craniectomy (DECIMAL/DESTINY/HAMLET for malignant MCA; RESCUEicp for refractory TBI ICP).',
+    'Cross-ref Modules 22, 2.'
+  ]}
+};
+document.querySelectorAll('#locTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#locTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = locMap[b.dataset.val];
+  if (m) {
+    locResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    locResult.classList.add('show');
+  }
+}));
+function resetLoc() {
+  document.querySelectorAll('#locTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  locResult.classList.remove('show');
+}
+
+/* Reversible-Cause Sweep */
+const emItems = [
+  ['hypogl','Hypoglycaemia (finger-stick glucose; D50W 50 mL if low + thiamine first if nutritional risk) — Module 13'],
+  ['thiamine','Thiamine deficiency / Wernicke (thiamine 500 mg IV TID BEFORE glucose; Caine criteria) — Modules 13, 20'],
+  ['opioid','Opioid overdose (pinpoint pupils, bradypnoea → naloxone 0.04–2 mg IV titrated) — Module 13'],
+  ['benzo','Benzodiazepine overdose (flumazenil ONLY for isolated iatrogenic; AVOID in mixed/chronic — seizures)'],
+  ['hypoxia','Hypoxia / CO (ABG + co-oximetry; consider hyperbaric for CO with neurological signs) — Module 13'],
+  ['electrolyte','Electrolyte derangement (Na, Ca, Mg, glucose, NH₃) — Module 13'],
+  ['endocrine','Endocrine — myxoedema, Addisonian, DKA, HHS, panhypopit (TSH/T4, cortisol, glucose) — Modules 13, 23'],
+  ['infection','Infection / meningitis / encephalitis (blood cultures + LP after CT + ABx + dex + aciclovir within 60 min) — Module 11'],
+  ['ncse','NCSE (continuous EEG > 24 h; empirical lorazepam) — Module 3'],
+  ['stroke','Stroke / SAH / ICH (non-contrast CT + CTA; thrombolysis/thrombectomy for AIS; reversal + BP control for ICH) — Module 2, 22'],
+  ['herniation','Raised ICP / herniation (Cushing triad; osmotherapy; head 30°; PaCO₂ 30–35; EVD; craniectomy) — Module 22'],
+  ['temperature','Temperature: hypothermia / hyperthermia (NMS, SS, MH; physical cooling; specific antidote) — Module 13']
+];
+const emTool = document.getElementById('emTool');
+let emState = {};
+emItems.forEach(([id,label]) => {
+  emState[id] = null;
+  const row = document.createElement('div');
+  row.style.cssText = 'padding:10px 0; border-bottom:1px dashed var(--line); display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;';
+  row.innerHTML = `<div style="flex:1;font-size:.92rem">${label}</div>
+    <div class="opts">
+      <button class="opt" data-id="${id}" data-val="N">Pending</button>
+      <button class="opt" data-id="${id}" data-val="Y">Ruled out</button>
+    </div>`;
+  emTool.appendChild(row);
+});
+emTool.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = b.dataset.val;
+  emState[id] = val;
+  emTool.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreEm();
+}));
+
+function scoreEm() {
+  const rulled = Object.values(emState).filter(v => v === 'Y').length;
+  const pending = Object.values(emState).filter(v => v === 'N').length;
+  const total = emItems.length;
+  let summary = `<strong>${rulled}</strong> of ${total} ruled out. <strong>${pending}</strong> pending.`;
+  if (pending > 0) {
+    summary += ` <span style="color:#ffb95c">Pending items remain — complete sweep before settling on a primary diagnosis.</span>`;
+  } else if (rulled === total) {
+    summary += ` <span style="color:#5fd28a">All reversible causes ruled out — proceed to structured workup with imaging and EEG.</span>`;
+  }
+  document.getElementById('em-summary').innerHTML = summary;
+}
+
+function resetEm() {
+  emItems.forEach(([id]) => emState[id] = null);
+  emTool.querySelectorAll('.opt.sel').forEach(o => o.classList.remove('sel'));
+  document.getElementById('em-summary').textContent = 'Tick each cause as ruled out or still under consideration.';
+}
+</script>
+</body>
+</html>

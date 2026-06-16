@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 26 — Approach to Weakness (Interactive)</title>
+<style>
+  :root{
+    --bg:#08182a; --panel:#10283e; --panel-2:#163350; --line:#1f5478;
+    --ink:#e4eef9; --muted:#95b3d2; --accent:#5ab8f0; --accent-2:#8ed1f7;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#143850; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#040f1c,#08182a 35%,#08182a); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(90,184,240,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#03101e; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#c2def5}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(90,184,240,.10); border-color:var(--accent); color:#c2def5}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#03101e; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(90,184,240,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 26</span>
+    <span class="badge">Synthesis</span>
+    <h1>Approach to Weakness — Interactive Course</h1>
+    <div class="sub">Cross-module synthesis. Tempo + pattern + level → diagnosis. Built on Modules 1 (exam), 2 (stroke), 3 (Todd's), 8 (MS), 9 (neuromuscular), 10 (cord), 13 (toxic/metabolic), 15 (autonomic), 20 (pregnancy), 21 (FND), 22 (neurocritical care), 23 (systemic), 25 (rehab).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="localizer">Weakness Localizer</button>
+    <button data-tab="emerg">Emergency Rule-Out Checklist</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Weakness is the symptom that triggers more neurology referrals than any other. A structured approach — tempo + pattern + level — turns a vague complaint into a localisable, treatable problem. This synthesis module pulls the threads from across the curriculum into a single bedside algorithm.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Run the 5-question loop in &lt; 30 seconds to localise weakness.</li>
+      <li>Rule out the "do-not-miss" emergencies before history (stroke, cord compression, GBS, MG crisis, botulism, hypokalaemic paralysis, eclampsia).</li>
+      <li>Differentiate UMN, LMN, NMJ, and muscle patterns at the bedside.</li>
+      <li>Choose the right first-tier workup by suspected level (CT/MRI brain, MRI spine, FVC, AChR antibodies, CK, NCS/EMG, electrolytes, B12).</li>
+      <li>Identify functional weakness with rule-in signs (Hoover, hip abductor, drag) and communicate it well.</li>
+      <li>Apply the 20/30/40 rule for neuromuscular respiratory failure (FVC &lt; 20 mL/kg, NIF less negative than −30, MEP &lt; 40).</li>
+      <li>Decide admit vs same-day clinic vs outpatient.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> tempo + pattern + level usually localises 95% of weakness. Run the loop in 30 seconds, then ask "anything that doesn't fit?" to catch the rare emergency.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. The five-question loop</summary>
+      <div class="body">
+        <ol>
+          <li>Is it really weakness — or fatigue, pain, ataxia, apraxia, functional?</li>
+          <li>Tempo — hyperacute / acute / subacute / chronic / episodic-fatigable?</li>
+          <li>Pattern — focal / symmetric / proximal / distal / bulbar / fatigable / length-dependent?</li>
+          <li>Level — UMN / LMN / NMJ / muscle?</li>
+          <li>Associated — sensory / autonomic / pain / sphincter / bulbar / respiratory / systemic / drugs / family?</li>
+        </ol>
+        <div class="pearl">Tempo + pattern + level usually localises 95% of weakness.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Emergency rule-out checklist</summary>
+      <div class="body">
+        <div class="refer">Run before history:
+          <ul>
+            <li><strong>Acute spinal cord compression</strong> → MRI whole spine + dexamethasone + neurosurgery (Module 10).</li>
+            <li><strong>Stroke</strong> → CT/CTA + thrombolysis/thrombectomy (Module 2).</li>
+            <li><strong>GBS respiratory failure</strong> → 20/30/40 rule + ICU + IVIG/PLEX (Module 9, 22).</li>
+            <li><strong>MG crisis</strong> → PLEX/IVIG + avoid precipitants (Module 9).</li>
+            <li><strong>Botulism</strong> → antitoxin / BIG-IV (Module 9).</li>
+            <li><strong>Hypokalaemic paralysis</strong> (incl. thyrotoxic) → cautious K + propranolol if thyrotoxic (Module 9, 23).</li>
+            <li><strong>Carotid / vertebral dissection</strong> (Module 2, 19).</li>
+            <li><strong>Brainstem stroke</strong> (Module 2).</li>
+            <li><strong>Wernicke</strong> → thiamine before glucose (Module 13).</li>
+            <li><strong>Hypoglycaemia</strong> → glucose (Module 13).</li>
+            <li><strong>Eclampsia / PRES</strong> (Module 20).</li>
+            <li><strong>NMS / SS / MH</strong> hyperthermia + rigidity (Module 13).</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Tempo of weakness</summary>
+      <div class="body">
+        <table>
+          <tr><th>Tempo</th><th>Examples</th></tr>
+          <tr><td>Hyperacute</td><td>Stroke; TIA; haemorrhage; seizure with Todd's; functional; syncope mimicker</td></tr>
+          <tr><td>Acute (h–d)</td><td>GBS; TM; MS relapse; cord compression; meningitis; botulism; eclampsia; MG crisis; toxic/metabolic</td></tr>
+          <tr><td>Subacute (d–wk)</td><td>Inflammatory myopathy; compressive radiculopathy; paraneoplastic; B12; chronic meningitis; vasculitis; rapid ALS; sarcoid; steroid myopathy</td></tr>
+          <tr><td>Chronic (wk–mo–yr)</td><td>ALS; muscular dystrophy; CIDP; CMT; IBM; PD; chronic compression; spondylotic myelopathy</td></tr>
+          <tr><td>Episodic / fatigable</td><td>MG; LEMS; channelopathies; PD fluctuations</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Pattern of weakness</summary>
+      <div class="body">
+        <table>
+          <tr><th>Pattern</th><th>Suggests</th></tr>
+          <tr><td>Hemiparesis</td><td>Cortical/subcortical (stroke, MS, tumour)</td></tr>
+          <tr><td>Hemiparesis + crossed CN</td><td>Brainstem stroke</td></tr>
+          <tr><td>Bilateral legs + sensory level + sphincter</td><td><strong>Spinal cord — MRI urgently</strong></td></tr>
+          <tr><td>Symmetric distal + sensory (length-dep)</td><td>Polyneuropathy — DM, alcohol, B12, CIDP, CMT, drugs, paraneoplastic, amyloid</td></tr>
+          <tr><td>Symmetric proximal</td><td>Myopathy — inflammatory, endocrine, drug, dystrophy</td></tr>
+          <tr><td>Ascending + areflexia</td><td><strong>GBS</strong></td></tr>
+          <tr><td>Descending + dilated pupils + dry mouth</td><td><strong>Botulism</strong></td></tr>
+          <tr><td>Asymmetric multifocal nerve territories</td><td>Mononeuritis multiplex — vasculitis, DM, sarcoid, HIV, leprosy</td></tr>
+          <tr><td>Bulbar + ocular + fatigable</td><td>MG</td></tr>
+          <tr><td>UMN + LMN, no sensory</td><td>ALS</td></tr>
+          <tr><td>Tetraparesis + respiratory</td><td>High C-cord / GBS / botulism / MG / severe periodic paralysis</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Level table — UMN vs LMN vs NMJ vs muscle</summary>
+      <div class="body">
+        <table>
+          <tr><th></th><th>UMN</th><th>LMN</th><th>NMJ</th><th>Muscle</th></tr>
+          <tr><td>Tone</td><td>↑ spasticity</td><td>↓ flaccid</td><td>Normal/↓</td><td>Normal/↓</td></tr>
+          <tr><td>Reflexes</td><td>↑ + Babinski + clonus</td><td>↓/absent</td><td>Normal; ↓ in LEMS</td><td>Preserved</td></tr>
+          <tr><td>Atrophy</td><td>Disuse late</td><td>Early + fasciculations</td><td>Mild</td><td>Variable, selective</td></tr>
+          <tr><td>Fasciculations</td><td>−</td><td>+ (ALS, SMA)</td><td>−</td><td>−</td></tr>
+          <tr><td>Fatigability</td><td>−</td><td>−</td><td>+</td><td>− (rare in metabolic)</td></tr>
+          <tr><td>Sensory</td><td>Often</td><td>If nerve/root</td><td>−</td><td>−</td></tr>
+          <tr><td>CK</td><td>Normal</td><td>Normal/mild</td><td>Normal</td><td>Often ↑</td></tr>
+          <tr><td>RNS</td><td>n/a</td><td>n/a</td><td>Decrement MG; increment LEMS</td><td>Normal</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. NMJ details — MG, LEMS, botulism, drug-induced</summary>
+      <div class="body">
+        <ul>
+          <li><strong>MG</strong>: fatigable bulbar + ocular + proximal; AChR / MuSK / LRP4 antibodies; decremental on RNS; pyridostigmine + steroid + steroid-sparing; thymectomy; modern biologics — <strong>eculizumab, efgartigimod (FcRn 2021), rozanolixizumab (2023), zilucoplan (2023)</strong>; crisis → PLEX / IVIG.</li>
+          <li><strong>LEMS</strong>: proximal lower limb improving with brief exercise; dry mouth; reflexes improve after exercise; <strong>incremental &gt; 60%</strong> on RNS; VGCC; 60% SCLC; 3,4-DAP + treat tumour.</li>
+          <li><strong>Botulism</strong>: descending + dilated pupils + dry mouth + bulbar; BIG-IV / equine antitoxin.</li>
+          <li><strong>Drug-induced NMJ block</strong>: aminoglycosides, fluoroquinolones, magnesium, β-blockers; <strong>avoid in MG</strong> + caution in pregnancy with eclampsia magnesium (Module 20).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Muscle (myopathy) categories</summary>
+      <div class="body">
+        <table>
+          <tr><th>Category</th><th>Examples</th></tr>
+          <tr><td>Inflammatory</td><td>Polymyositis; dermatomyositis + cancer screen; <strong>IBM</strong> (asymmetric finger flexors + quad, older); <strong>statin-IMNM</strong> (anti-HMGCR persistent after stopping)</td></tr>
+          <tr><td>Dystrophies</td><td>Duchenne / Becker; FSHD; LGMD; <strong>DM1 myotonic</strong> + cataracts + cardiac; OPMD; Emery-Dreifuss</td></tr>
+          <tr><td>Endocrine</td><td>Thyroid; Cushing; vitamin D; hyperPTH</td></tr>
+          <tr><td>Drug-induced</td><td>Statin; steroid; colchicine; chloroquine; AZT; alcohol</td></tr>
+          <tr><td>Toxic/metabolic</td><td>Rhabdo; mitochondrial; McArdle; carnitine; periodic paralysis (hyper/hypoK); critical illness myopathy</td></tr>
+          <tr><td>Channelopathies</td><td>Myotonia congenita; paramyotonia; hypoK/hyperK PP; <strong>Andersen-Tawil</strong> (Kir2.1, long QT, dysmorphism)</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Functional weakness rule-in signs</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Hoover's sign</strong>: weak hip extension normalises with contralateral hip flexion against resistance (sensitivity ~63%, specificity ~100%; Stone JNNP 2010).</li>
+          <li>Hip abductor sign (Sonoo); drag / monoplegic gait without circumduction; give-way weakness; inconsistent power.</li>
+          <li>Spinal Injuries Center sign: supine leg won't lift; sitting it lifts effortlessly.</li>
+          <li>Communicate using Stone framework; demonstrate the positive sign; refer to FND-specific physio + CBT (Module 21).</li>
+          <li>Coexistence with neurological disease is common.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Systemic / metabolic weakness</summary>
+      <div class="body">
+        <ul>
+          <li>Electrolytes: hypoK paralysis < 2.5; hypoMg cramps; hypoPO₄ refeeding diaphragm paralysis; hypoCa tetany.</li>
+          <li>Endocrine: thyroid (myxoedema or thyrotoxic); Cushing; vitamin D; hyperPTH; hypoadrenal; pituitary; DM (Module 23).</li>
+          <li>Nutritional: B12 (subacute combined); B1 (Wernicke / dry beriberi); B6; copper; vitamin D; vitamin E (Module 13).</li>
+          <li>Toxic: alcohol; statin; aminoglycoside; isoniazid; vincristine; cisplatin; N₂O; methanol; CO; lead (wrist drop); arsenic; mercury (Module 13).</li>
+          <li>Infection: polio-like (AFM); West Nile; rabies; tetanus; diphtheria; HIV; Lyme; leprosy (Module 11).</li>
+          <li>Paraneoplastic (Module 12): LEMS; anti-Hu; dermatomyositis; SCLC.</li>
+          <li>Rheumatological (Module 23): SLE; Sjögren; vasculitis; sarcoid; RA atlantoaxial.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Targeted workup by suspected level</summary>
+      <div class="body">
+        <table>
+          <tr><th>Suspected level</th><th>First-tier</th></tr>
+          <tr><td>Stroke</td><td>CT + CTA ± perfusion; thrombolysis/thrombectomy decision (Module 2)</td></tr>
+          <tr><td>Cord compression</td><td><strong>MRI whole spine</strong> URGENT + dexamethasone if malignancy + neurosurgery (Module 10, 22)</td></tr>
+          <tr><td>GBS</td><td>FVC + NIF + ECG + telemetry + LP (albuminocytologic dissociation) + IVIG/PLEX (Module 9, 22)</td></tr>
+          <tr><td>MG</td><td>AChR + MuSK + LRP4; ice pack; RNS / SFEMG; CT chest (thymoma)</td></tr>
+          <tr><td>LEMS</td><td>VGCC + CT chest + RNS incremental > 60%; PET if CT negative</td></tr>
+          <tr><td>Myopathy</td><td>CK + electrolytes + TSH + cortisol + vitamin D + HIV + HbA1c + ESR/CRP; EMG/NCS; biopsy; myositis antibodies</td></tr>
+          <tr><td>Toxic/metabolic</td><td>Electrolytes + B12/MMA + copper + thiamine + heavy metals if exposure (Module 13)</td></tr>
+          <tr><td>Functional</td><td>Confirm rule-in signs; minimise unnecessary investigations</td></tr>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="localizer">
+    <h2>Weakness Localizer</h2>
+    <p class="muted">Choose the dominant clinical pattern; the tool returns suspected level + likely diagnoses + first-tier workup.</p>
+    <div class="tool" id="locTool">
+      <div class="q">Dominant pattern?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="hemi_sudden">Sudden hemiparesis ± face droop ± speech disturbance</button>
+        <button class="opt" data-val="hemi_crossed">Hemiparesis with crossed cranial nerve deficit (e.g., ipsilateral CN III + contralateral weakness)</button>
+        <button class="opt" data-val="cord">Bilateral leg weakness + sensory level + bladder/bowel dysfunction</button>
+        <button class="opt" data-val="ascending">Ascending weakness + areflexia ± autonomic instability</button>
+        <button class="opt" data-val="descending">Descending weakness + dilated pupils + dry mouth + bulbar</button>
+        <button class="opt" data-val="proximal_sym">Symmetric proximal weakness developing over weeks</button>
+        <button class="opt" data-val="distal_sensory">Symmetric distal sensorimotor in stocking-glove pattern</button>
+        <button class="opt" data-val="multi_nerve">Asymmetric weakness + sensory loss in different nerve territories (stepwise)</button>
+        <button class="opt" data-val="bulbar_fatigable">Bulbar + ocular + fatigable weakness (worse at end of day)</button>
+        <button class="opt" data-val="umn_lmn_no_sensory">UMN + LMN signs in same patient with NO sensory involvement</button>
+        <button class="opt" data-val="episodic">Episodic paralysis after rest following exertion or carbohydrate meal</button>
+        <button class="opt" data-val="functional">Inconsistent weakness with positive Hoover's sign + give-way + drag gait without circumduction</button>
+      </div>
+      <div class="result" id="loc-result"></div>
+      <button class="reset" onclick="resetLoc()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="emerg">
+    <h2>Emergency Rule-Out Checklist</h2>
+    <p class="muted">Tick each emergency consideration as ruled out (Y) or still pending (N). Run before history-taking on any patient with new weakness.</p>
+    <div class="tool" id="emTool"></div>
+    <div class="tool" style="margin-top:14px">
+      <div id="em-summary" style="font-size:.95rem">Tick each emergency as ruled out or still under consideration.</div>
+      <button class="reset" onclick="resetEm()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 68-year-old man with AF develops sudden right hemiparesis + global aphasia at 11:00. NIHSS 18</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Acute ischaemic stroke (left MCA territory).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>FAST screen + stroke pathway activation (Module 2).</li>
+          <li>Non-contrast CT + CT angiography immediately to exclude haemorrhage + identify LVO.</li>
+          <li>IV tenecteplase 0.25 mg/kg (AHA/ASA 2026 — Class 1 alternative to alteplase) within 4.5 h if no contraindication.</li>
+          <li>Mechanical thrombectomy if LVO and within window (up to 24 h with imaging-based selection).</li>
+          <li>Admit to stroke unit; secondary prevention for AF (DOAC + statin + BP).</li>
+          <li>Rehabilitation pathway (Module 25): AVERT 2015 short-frequent sessions, avoid very high doses in first 24 h.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 35-year-old develops ascending weakness over 5 days, now unable to walk, with absent reflexes throughout. FVC 18 mL/kg</summary>
+      <div class="body">
+        <p>Recent Campylobacter gastroenteritis 2 weeks ago.</p>
+        <p><strong>Diagnosis:</strong> Guillain-Barré syndrome (AIDP) with impending respiratory failure (20/30/40 rule met).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>ICU admission with telemetry — autonomic instability is major mortality driver (Module 15).</li>
+          <li>Intubate now (FVC < 20). Avoid succinylcholine (hyperkalaemia from upregulated AChRs).</li>
+          <li>IVIG 0.4 g/kg/day × 5 days or plasma exchange × 5 sessions (equivalent).</li>
+          <li>LP: albuminocytologic dissociation (high protein, normal cells).</li>
+          <li>NCS may be normal in first week.</li>
+          <li>VTE prophylaxis (LMWH).</li>
+          <li>Rehabilitation planning (Module 25): gradual physiotherapy as strength returns; 6–12 months recovery; ~80% reach independent ambulation.</li>
+          <li>Cross-ref Modules 9, 22.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 60-year-old with breast cancer on chemo develops 2 weeks of progressive bilateral leg weakness, T6 sensory level, and urinary retention. Severe back pain</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Metastatic epidural spinal cord compression (MESCC) until proven otherwise.</p>
+        <p><strong>Plan within 6 hours:</strong></p>
+        <ol>
+          <li>Dexamethasone 10 mg IV bolus then 4 mg IV q6h (or 16 mg/day in divided doses).</li>
+          <li>Urgent whole-spine MRI (not just symptomatic level — multilevel disease common).</li>
+          <li>Combined neurosurgery + radiation oncology consultation.</li>
+          <li>If ambulatory, single level, life expectancy > 3 months: surgical decompression + RT (Patchell trial).</li>
+          <li>Bladder catheter; VTE prophylaxis; analgesia; bowel regimen.</li>
+          <li>Restage systemic disease; tumour board discussion of systemic therapy.</li>
+          <li>Cross-ref Modules 10, 12.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 28-year-old East Asian man develops sudden bilateral leg paralysis after a large carbohydrate meal followed by sleep. He has been losing weight + tremulous. K 1.8</summary>
+      <div class="body">
+        <p>Eye signs: lid lag. Mild proptosis. Pulse 120 with mild atrial fibrillation.</p>
+        <p><strong>Diagnosis:</strong> Thyrotoxic hypokalaemic periodic paralysis.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Cautious K replacement</strong> — typically 10 mmol/h IV with cardiac monitoring (risk of rebound hyperkalaemia as K shifts back out of cells).</li>
+          <li><strong>Propranolol 1–3 mg IV slowly</strong> (or oral 60–80 mg) — addresses underlying thyrotoxic effect, prevents shifts, restores K.</li>
+          <li>TSH + free T4/T3 to confirm thyrotoxicosis; treat thyrotoxicosis (carbimazole / methimazole + later definitive radioiodine or thyroidectomy).</li>
+          <li>Avoid further triggers (high-carbohydrate meals, alcohol, stress, vigorous exercise).</li>
+          <li>Cross-ref Modules 9, 23.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 22-year-old woman has 3 months of unexplained left leg weakness with give-way pattern + drag gait. MRI brain and spine normal. NCS normal. Hoover's sign positive</summary>
+      <div class="body">
+        <p>No precipitating event. No sensory complaints. Recently bereaved.</p>
+        <p><strong>Diagnosis:</strong> Functional weakness (left leg).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Communicate the diagnosis using the <strong>Stone framework</strong>:
+            <ul>
+              <li>Name it ("functional neurological disorder").</li>
+              <li>Explain the mechanism ("hardware intact, software stuck in faulty pattern").</li>
+              <li><strong>Demonstrate the positive Hoover's sign to the patient</strong>.</li>
+              <li>Differentiate from feigning ("not under your conscious control").</li>
+              <li>Explain normal investigations.</li>
+              <li>Plan with hope (FND-specific physiotherapy + CBT).</li>
+            </ul>
+          </li>
+          <li>Refer to <strong>FND-specific physiotherapy</strong> (Nielsen 2015 consensus — distract-attention strategies, automatic over effortful movement, avoid splints/aids beyond minimum).</li>
+          <li>Address comorbid depression / bereavement; sleep; pain.</li>
+          <li>Avoid further unnecessary investigations once diagnosis is secure.</li>
+          <li>Patient resource: neurosymptoms.org.</li>
+          <li>Cross-ref Module 21.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 55-year-old man has 9 months of progressive limb weakness with both UMN signs (brisk reflexes, Babinski) and LMN signs (fasciculations, wasting), bulbar features (dysarthria + dysphagia), no sensory involvement, no sphincter problems</summary>
+      <div class="body">
+        <p>FVC 70%. No family history.</p>
+        <p><strong>Diagnosis:</strong> Amyotrophic lateral sclerosis (ALS) — combined UMN + LMN in multiple regions without sensory.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Confirm with EMG (Awaji criteria) — denervation + reinnervation across multiple regions.</li>
+          <li>Genetic counselling — C9orf72, SOD1, TARDBP, FUS especially with bulbar onset / family history.</li>
+          <li><strong>Riluzole 50 mg BD</strong> + <strong>edaravone</strong> (FDA 2017, IV / oral) where available. AMX0035 withdrawn 2024. <strong>Tofersen</strong> for SOD1-ALS (FDA 2023).</li>
+          <li><strong>Multidisciplinary ALS clinic</strong> improves survival + QoL (Module 9, 25). Coordinate neurology + nursing + SLT + PT + OT + dietitian + respiratory + social work + palliative.</li>
+          <li>Respiratory: PFT + SNIP + NIV at FVC < 50% predicted or symptomatic — improves survival + QoL.</li>
+          <li>Bulbar: SLT for dysarthria + dysphagia + voice banking + AAC (eye-gaze, BCIs in selected); PEG before FVC drops too low (Module 9).</li>
+          <li>Spasticity: baclofen; sialorrhoea: glycopyrrolate / atropine drops / BoNT to salivary glands; cramps: gabapentin / quinine; pseudobulbar affect: dextromethorphan-quinidine.</li>
+          <li>Early palliative care integration + advance care planning + hospice + bereavement.</li>
+          <li>Cross-ref Modules 9, 25.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 26 of an ongoing neurology curriculum. Cross-references throughout: Modules 1, 2, 3, 8, 9, 10, 11, 12, 13, 15, 17, 20, 21, 22, 23, 25. Original anchors: Adams &amp; Victor 12e Ch 3, 38, 42, 43, 45, 46; Merritt's 14e Ch 14, 88, 90–94, 97.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Framework', q:'Five-question loop for weakness?', a:'(1) Is it really weakness? (2) Tempo — hyperacute/acute/subacute/chronic/episodic-fatigable? (3) Pattern — focal/symmetric/proximal/distal/bulbar/fatigable/length-dependent? (4) Level — UMN/LMN/NMJ/muscle? (5) Associated — sensory/autonomic/pain/sphincter/bulbar/respiratory/systemic/drugs/family? Tempo + pattern + level localises ~95%.'},
+  {tag:'Emergency', q:'Do-not-miss emergencies in new weakness?', a:'Stroke; acute spinal cord compression (MRI urgent); GBS with respiratory failure (20/30/40 rule); MG crisis (PLEX/IVIG, avoid magnesium/aminoglycosides); botulism (antitoxin); hypokalaemic paralysis (incl. thyrotoxic); dissection; brainstem stroke; Wernicke (thiamine before glucose); hypoglycaemia; eclampsia/PRES; NMS/SS/MH.'},
+  {tag:'UMN vs LMN', q:'Key bedside differences between UMN and LMN weakness?', a:'UMN: increased tone (spasticity), hyperreflexia + Babinski + clonus, disuse atrophy late, no fasciculations, often sensory. LMN: decreased tone (flaccid), hyporeflexia/areflexia, prominent atrophy + fasciculations (anterior horn), sensory if root/nerve. ALS has UMN + LMN in same patient WITHOUT sensory.'},
+  {tag:'20/30/40', q:'20/30/40 rule for neuromuscular respiratory failure?', a:'FVC < 20 mL/kg, NIF less negative than −30 cm H₂O, MEP < 40 cm H₂O — INTUBATE. Used in GBS, MG crisis, neuromuscular respiratory decline. Avoid succinylcholine (hyperkalaemia from upregulated AChRs). Cross-ref Modules 9, 22.'},
+  {tag:'Pattern', q:'Distinguish GBS from botulism by pattern?', a:'GBS: ASCENDING weakness + AREFLEXIA + autonomic instability + post-infectious (Campylobacter). Botulism: DESCENDING weakness + DILATED unreactive pupils + dry mouth + bulbar predominant + autonomic (constipation in infants). Both can cause respiratory failure.'},
+  {tag:'Cord', q:'Bilateral leg weakness + sensory level + sphincter dysfunction — next step?', a:'URGENT MRI WHOLE SPINE — acute spinal cord compression until proven otherwise. Dexamethasone 10 mg IV bolus then 4 mg IV q6h if malignancy. Neurosurgical consultation. Patchell trial: surgery + RT > RT alone for MESCC if ambulatory, single level, life expectancy > 3 months. Cross-ref Modules 10, 12, 22.'},
+  {tag:'MG', q:'Bulbar + ocular + fatigable weakness — what tests?', a:'AChR + MuSK + LRP4 antibodies; ice pack test for ptosis at bedside; RNS (decremental response) / single-fibre EMG; CT chest for thymoma. Treatment: pyridostigmine + steroid + steroid-sparing (azathioprine, MMF, rituximab); thymectomy; modern biologics — eculizumab, efgartigimod (FcRn 2021), rozanolixizumab (2023), zilucoplan (2023); crisis → PLEX/IVIG.'},
+  {tag:'LEMS', q:'How does LEMS differ from MG on bedside testing?', a:'LEMS: proximal LOWER limb weakness IMPROVES with brief exercise; reduced reflexes that AUGMENT after exercise; dry mouth; VGCC antibodies; INCREMENTAL response > 60% on RNS post-exercise (opposite of MG); 60% have SCLC (paraneoplastic — Module 12); 3,4-DAP + treat tumour.'},
+  {tag:'Statin-IMNM', q:'Statin-induced immune-mediated necrotising myopathy — key features?', a:'Progressive proximal weakness + high CK + ANTI-HMGCR antibodies + PERSISTS after stopping statin. Treat with steroid + IVIG + MMF or methotrexate. Differs from common statin myalgia (no weakness, normal/mildly elevated CK, resolves on stopping statin). Cross-ref Module 9.'},
+  {tag:'Periodic paralysis', q:'Thyrotoxic periodic paralysis — typical patient and treatment?', a:'East Asian young man with hypokalaemic flaccid paralysis after rest following exertion + carbohydrate meal. Treat: CAUTIOUS K replacement (risk of rebound hyperkalaemia) + PROPRANOLOL (addresses thyrotoxic effect, prevents shifts). Definitive: treat thyrotoxicosis. Cross-ref Modules 9, 23.'},
+  {tag:'Hoover', q:'Hoover\'s sign — procedure and sensitivity/specificity?', a:'Patient supine. Place hand under "weak" leg heel; ask to push down — note effort. Place hand under unaffected heel; ask to lift unaffected leg. Feel involuntary downward pressure of weak heel during contralateral hip flexion. Sensitivity ~63%, specificity ~100% (Stone JNNP 2010). In functional weakness, weak heel pushes down strongly during contralateral hip flexion (motor pathway intact). Cross-ref Module 21.'},
+  {tag:'Wernicke', q:'Hyperemesis or alcohol risk with new ataxia + confusion + nystagmus — first step?', a:'Thiamine 500 mg IV BEFORE glucose; then 250 mg IM/IV daily × 3–5 days; then high-dose oral. Caine criteria: ≥ 2 of nutritional deficit + oculomotor + cerebellar + altered mental state. PREVENTION: routine thiamine in any pregnant patient with prolonged vomiting or IV fluids (Module 13, 20). Korsakoff in 80% of untreated survivors.'},
+  {tag:'Brainstem', q:'How do brainstem strokes typically present?', a:'CROSSED SIGNS: ipsilateral cranial nerve deficit + contralateral hemiparesis. Examples: Weber (midbrain — ipsilateral CN III + contralateral hemiparesis); Wallenberg (lateral medullary — ipsilateral facial sensory + Horner + cerebellar + contralateral body pain/temp + dysphagia + hoarseness); pontine. AICA stroke + sudden SNHL with vertigo (Module 18). Urgent MRI/MRA.'},
+  {tag:'ALS', q:'Diagnostic features of ALS at bedside?', a:'UMN signs (brisk reflexes, Babinski, spasticity) + LMN signs (fasciculations, wasting, weakness) in multiple regions + bulbar involvement (dysarthria, dysphagia) + NO sensory + NO sphincter problems. EMG confirms (Awaji criteria). Riluzole + edaravone + tofersen SOD1; multidisciplinary clinic improves survival + QoL; NIV at FVC < 50%; PEG before FVC drops; early palliative care.'},
+  {tag:'IBM', q:'Inclusion body myositis — distinguishing features?', a:'Older patient + ASYMMETRIC + selective involvement of FINGER FLEXORS + QUADRICEPS; steroid-RESISTANT (unlike polymyositis); slowly progressive; rimmed vacuoles on biopsy. Cross-ref Module 9.'},
+  {tag:'DM antibodies', q:'Dermatomyositis antibodies and cancer screening?', a:'Anti-TIF1γ and anti-NXP2 — strongly associated with malignancy; cancer screening warranted (chest/abdomen/pelvis CT, mammography, pelvic ultrasound, FDG-PET if negative). Anti-MDA-5: rapidly progressive ILD. Anti-Jo-1: antisynthetase syndrome (mechanic hands + Raynaud + ILD). Treatment: steroid + steroid-sparing + IVIG.'},
+  {tag:'CIDP', q:'CIDP vs GBS — distinguishing features?', a:'GBS: ACUTE (< 4 weeks); IVIG/PLEX; recovery 6–12 months; ~80% reach independent ambulation. CIDP: CHRONIC (> 8 weeks) or RELAPSING; demyelinating on NCS with conduction blocks; IVIG/PLEX + STEROID (responds to steroid unlike GBS); maintenance immunosuppression. MGUS-related neuropathy is a CIDP-like variant.'},
+  {tag:'Diabetic amyotrophy', q:'Diabetic lumbosacral radiculoplexus neuropathy — features?', a:'Severe ASYMMETRIC PAINFUL proximal LEG weakness with wasting, after weight loss, in patient with diabetes. Self-limiting over months; supportive care + analgesia; immunotherapy (IVIG, steroid) controversial. Cross-ref Module 23 (diabetic neuropathy spectrum).'},
+  {tag:'Mononeuritis multiplex', q:'Differential of mononeuritis multiplex?', a:'Stepwise asymmetric multifocal neuropathy. Vasculitis (PAN, GPA, EGPA — Module 23); diabetes; leprosy; HIV; Lyme; sarcoid; lymphoma; cryoglobulinaemia. Workup: ANCA + ANA + complement + cryoglobulins + HIV + Lyme + ESR/CRP + nerve biopsy if vasculitis suspected. Treatment: steroid + cyclophosphamide / rituximab for vasculitis.'},
+  {tag:'Cross-module', q:'Modules to consult for weakness?', a:'Module 1 (exam/localisation); 2 (stroke); 3 (Todd\'s); 8 (MS/transverse myelitis); 9 (neuromuscular comprehensive); 10 (spinal cord); 11 (CNS infections); 12 (paraneoplastic); 13 (toxic/metabolic); 15 (autonomic); 17 (radicular pain); 20 (pregnancy); 21 (functional); 22 (neurocritical care); 23 (systemic); 25 (rehabilitation).'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 35-year-old has 5 days of ascending weakness, now unable to walk, with absent reflexes. FVC 18 mL/kg. Recent Campylobacter. Best immediate management?',
+   choices:['Outpatient observation','ICU admission with telemetry + intubate (20/30/40 rule met: FVC < 20); IVIG 0.4 g/kg/day × 5 days or PLEX × 5; avoid succinylcholine (hyperkalaemia); monitor for autonomic instability; LP shows albuminocytologic dissociation','Long-term steroid as first-line','Bedside lorazepam'],
+   ans:1,
+   why:'GBS with impending respiratory failure (20/30/40 rule met). ICU + telemetry — autonomic instability is the major mortality driver. Intubate now. Avoid succinylcholine (hyperkalaemia from upregulated AChRs). IVIG 0.4 g/kg/day × 5 days or PLEX × 5 sessions — equivalent. LP shows albuminocytologic dissociation (high protein, normal cells). NCS may be normal in first week. Recovery 6–12 months; ~80% reach independent ambulation. Cross-ref Modules 9, 15, 22.'},
+  {q:'A 60-year-old with breast cancer has 2 weeks of progressive bilateral leg weakness, T6 sensory level, urinary retention, severe back pain. Best next step within hours?',
+   choices:['CT abdomen/pelvis','Dexamethasone 10 mg IV + URGENT whole-spine MRI + neurosurgical + radiation oncology consultation (Patchell: surgery + RT > RT alone if ambulatory, single level, life expectancy > 3 months)','Long-term opioid alone','Outpatient MRI'],
+   ans:1,
+   why:'Metastatic epidural spinal cord compression (MESCC) until proven otherwise. Dexamethasone 10 mg IV bolus then 4 mg IV q6h (or 16 mg/day). Urgent whole-spine MRI (multilevel disease common). Combined neurosurgery + radiation oncology. Patchell trial: surgery + RT > RT alone if ambulatory, single level, life expectancy > 3 months. Cross-ref Modules 10, 12, 22.'},
+  {q:'A 28-year-old East Asian man has sudden flaccid paralysis after a high-carbohydrate meal + sleep. K 1.8. TSH suppressed. Mild proptosis. Best management?',
+   choices:['Long-term opioid','Cautious K replacement (10 mmol/h IV with cardiac monitoring) + propranolol 1–3 mg IV slowly (addresses thyrotoxic effect, prevents rebound hyperkalaemia); treat underlying thyrotoxicosis','Aspirin alone','tPA'],
+   ans:1,
+   why:'Thyrotoxic hypokalaemic periodic paralysis. Cautious K replacement (rebound hyperkalaemia risk as K shifts back). Non-selective β-blocker (propranolol) addresses underlying thyrotoxic effect and prevents shifts. Definitive: treat thyrotoxicosis (carbimazole / methimazole then radioiodine or thyroidectomy). Common in East Asian young men. Cross-ref Modules 9, 23.'},
+  {q:'A 22-year-old has 3 months of left leg weakness with give-way pattern + drag gait. MRI and NCS normal. Hoover\'s sign positive. Best management?',
+   choices:['Long-term steroid','Communicate diagnosis using Stone framework: name it ("FND"), explain mechanism ("hardware intact, software stuck"), DEMONSTRATE POSITIVE HOOVER\'S SIGN to patient, differentiate from feigning, plan with hope; refer to FND-specific physiotherapy (Nielsen 2015 consensus); avoid unnecessary further investigations; neurosymptoms.org','Long-term opioid','Repeat MRI in 1 month'],
+   ans:1,
+   why:'Functional weakness. FND is a RULE-IN diagnosis based on positive bedside signs (DSM-5/ICD-11). Hoover\'s sign sensitivity ~63%, specificity ~100% (Stone JNNP 2010). Communicate using Stone framework: name it, explain mechanism, show the sign, differentiate from feigning, plan with hope. Refer to FND-specific physiotherapy (distract-attention strategies, automatic over effortful movement, avoid splints/aids beyond minimum). Address comorbid mood/sleep/pain. Cross-ref Module 21.'},
+  {q:'A 55-year-old has 9 months of progressive limb weakness with UMN + LMN signs in multiple regions, bulbar features, no sensory or sphincter involvement. EMG confirms denervation + reinnervation. Best treatment framework?',
+   choices:['Long-term steroid','Multidisciplinary ALS clinic (improves survival + QoL); riluzole + edaravone (FDA 2017) + tofersen (SOD1 2023); NIV at FVC < 50%; PEG before FVC too low; AAC + voice banking; early palliative care + ACP','Pyridostigmine','tPA'],
+   ans:1,
+   why:'ALS — combined UMN + LMN in multiple regions without sensory. Multidisciplinary ALS clinics improve survival + QoL vs general clinic. Riluzole + edaravone (FDA 2017); AMX0035 withdrawn 2024. Tofersen for SOD1-ALS (FDA 2023). NIV at FVC < 50% predicted improves survival + QoL. PEG before FVC drops too low. AAC (eye-gaze, BCIs in selected). Voice banking before voice deteriorates. Early palliative care + ACP. Cross-ref Modules 9, 25.'},
+  {q:'Distinguishing GBS from botulism by clinical pattern?',
+   choices:['GBS descending; botulism ascending','GBS ASCENDING + AREFLEXIA + autonomic; botulism DESCENDING + DILATED unreactive pupils + dry mouth + bulbar predominant','Both have ascending weakness','Both have identical features'],
+   ans:1,
+   why:'GBS: ASCENDING weakness + AREFLEXIA + autonomic instability + post-infectious (Campylobacter most common). Botulism: DESCENDING weakness + DILATED unreactive pupils + dry mouth + BULBAR predominant + autonomic (constipation in infants). Both can cause respiratory failure. Cross-ref Module 9.'},
+  {q:'A 50-year-old on simvastatin develops progressive proximal weakness; CK 4500. Anti-HMGCR positive. Stopping the statin does not improve symptoms. Best treatment?',
+   choices:['Restart statin','Statin-induced immune-mediated necrotising myopathy (IMNM); steroid + IVIG + MMF or methotrexate; anti-HMGCR persists after stopping statin; differs from common statin myalgia which resolves on stopping','Long-term opioid','Pyridostigmine'],
+   ans:1,
+   why:'Statin-IMNM. Distinct from common statin myalgia (no weakness, mild or no CK rise, resolves on stopping). Anti-HMGCR antibodies persist after stopping statin and require immunosuppression. Treatment: steroid + IVIG + MMF or methotrexate. Cross-ref Module 9, 17.'},
+  {q:'A 65-year-old woman with new diplopia + bilateral ptosis + proximal weakness that worsens at end of day. Ice pack test positive. Best diagnostic test?',
+   choices:['Brain MRI alone','AChR + MuSK + LRP4 antibodies; RNS (decremental response) / single-fibre EMG; CT chest for thymoma','Long-term opioid','Lumbar puncture'],
+   ans:1,
+   why:'Myasthenia gravis. Bedside ice pack test (improves ptosis) suggestive. Send AChR antibodies (positive ~85% of generalised MG; ~50% of ocular-only); MuSK antibodies if AChR negative (~5%); LRP4 if both negative. RNS shows decremental response (single-fibre EMG more sensitive). CT chest for thymoma (10–15%). Treatment: pyridostigmine + steroid + steroid-sparing; thymectomy; modern biologics — eculizumab, efgartigimod (FcRn 2021), rozanolixizumab (2023), zilucoplan (2023). Cross-ref Module 9.'},
+  {q:'A 60-year-old smoker has 6 months of proximal LEG weakness that improves with brief exercise. Dry mouth. Reduced reflexes that augment after exercise. Best diagnostic test?',
+   choices:['Anti-AChR','VGCC (voltage-gated calcium channel) antibodies + CT chest for SCLC; RNS shows incremental > 60% post-exercise; 60% of LEMS are paraneoplastic with SCLC; treatment: 3,4-DAP + treat tumour','EMG only','MRI brain'],
+   ans:1,
+   why:'Lambert-Eaton myasthenic syndrome (LEMS). VGCC antibodies. CT chest for SCLC; 60% paraneoplastic. RNS shows incremental > 60% response post-exercise (opposite of MG decremental). Reflexes augment after brief exercise (post-tetanic facilitation). 3,4-diaminopyridine (amifampridine) + treat underlying tumour. Cross-ref Module 12.'},
+  {q:'A 22-year-old pregnant patient at 12 weeks with hyperemesis is admitted for IV fluids with dextrose. Two days later she develops nystagmus + bilateral lateral rectus weakness + ataxia + confusion. Best management?',
+   choices:['Long-term opioid','Thiamine 500 mg IV TID × 2–3 days BEFORE any further glucose; then 250 mg IM/IV daily × 3–5 days; then high-dose oral; PREVENTION: routine thiamine in any pregnant patient with prolonged vomiting or IV fluids','tPA','Lorazepam'],
+   ans:1,
+   why:'Wernicke encephalopathy precipitated by IV dextrose without thiamine in a thiamine-deficient patient (hyperemesis). Caine criteria: ≥ 2 of nutritional deficit + oculomotor + cerebellar + altered mental state. Thiamine BEFORE glucose. Korsakoff in 80% of untreated survivors. PREVENTION: routine thiamine in any pregnant patient with prolonged vomiting or IV fluids; in any patient with alcohol use, malnutrition, bariatric surgery, prolonged TPN. Cross-ref Modules 13, 20.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Weakness Localizer */
+const locResult = document.getElementById('loc-result');
+const locMap = {
+  hemi_sudden:{title:'Acute hemispheric / subcortical stroke', items:[
+    'Suspected level: <strong>cortical or subcortical</strong> (UMN).',
+    'Most likely: ischaemic stroke (MCA, ACA, PCA) > intracerebral haemorrhage.',
+    'First-tier workup: non-contrast CT + CT angiography ± perfusion; ECG; glucose; troponin; lipid; HbA1c.',
+    'Decision: thrombolysis (alteplase or tenecteplase 0.25 mg/kg per AHA/ASA 2026 Class 1 alternative) within 4.5 h; mechanical thrombectomy if LVO and within window (up to 24 h with imaging-based selection).',
+    'Stroke unit + secondary prevention (DOAC for AF, statin, BP, antiplatelet).',
+    'Rehabilitation (Module 25): AVERT 2015 short-frequent sessions; AVOID very-high-dose in first 24 h.',
+    'Cross-ref Module 2.'
+  ]},
+  hemi_crossed:{title:'Brainstem stroke (crossed signs)', items:[
+    'Suspected level: <strong>brainstem</strong> (UMN crossed with cranial nerve).',
+    'Classic syndromes: Weber (midbrain — ipsilateral CN III + contralateral hemiparesis); Wallenberg (lateral medullary — ipsilateral facial sensory + Horner + cerebellar + contralateral body pain/temp + dysphagia + hoarseness); pontine.',
+    'AICA stroke + sudden unilateral SNHL with vertigo (Module 18).',
+    'Workup: urgent MRI/MRA (CT often misses posterior fossa).',
+    'Treatment: thrombolysis/thrombectomy per AHA/ASA 2026; basilar occlusion has wider thrombectomy window.',
+    'Cross-ref Modules 2, 18, 19.'
+  ]},
+  cord:{title:'Acute spinal cord lesion (EMERGENCY)', items:[
+    'Suspected level: <strong>spinal cord</strong>.',
+    '<strong>URGENT WHOLE-SPINE MRI</strong> — multilevel disease common.',
+    'Most likely: MESCC (malignancy), epidural abscess (IV drug use, immunocompromised), epidural haematoma (anticoagulation), transverse myelitis (MS/NMOSD/MOGAD — Module 8), trauma.',
+    'If malignancy suspected: dexamethasone 10 mg IV bolus then 4 mg IV q6h immediately.',
+    'If abscess: IV antibiotics + neurosurgery; if haematoma: reverse anticoagulation + neurosurgery; if myelitis: IV methylprednisolone + IVIG/PLEX.',
+    'Patchell trial for MESCC: surgery + RT > RT alone if ambulatory, single level, life expectancy > 3 months.',
+    'VTE prophylaxis; bladder catheter; analgesia; bowel regimen.',
+    'Cross-ref Modules 10, 12, 22.'
+  ]},
+  ascending:{title:'Guillain-Barré syndrome (GBS)', items:[
+    'Suspected level: <strong>peripheral nerve</strong> (acute inflammatory demyelinating polyradiculoneuropathy).',
+    'Most often post-infectious (Campylobacter — axonal variant; CMV; EBV; HIV; SARS-CoV-2).',
+    'Workup: <strong>FVC + NIF + ECG</strong>; ICU telemetry; LP (albuminocytologic dissociation — high protein, normal cells); NCS may be normal first week; antiganglioside antibodies (GQ1b for Miller-Fisher; GD1a for axonal).',
+    '<strong>20/30/40 rule</strong> for intubation: FVC < 20 mL/kg, NIF less negative than −30, MEP < 40.',
+    'Treatment: <strong>IVIG 0.4 g/kg/day × 5 days OR PLEX × 5 sessions</strong> (equivalent).',
+    'AVOID succinylcholine (hyperkalaemia from upregulated AChRs).',
+    'Autonomic instability is major mortality driver (Module 15) — telemetry; avoid pushed boluses.',
+    'Rehabilitation (Module 25): 6–12 months recovery; ~80% reach independent ambulation.',
+    'Cross-ref Modules 9, 15, 22.'
+  ]},
+  descending:{title:'Botulism', items:[
+    'Suspected level: <strong>presynaptic NMJ</strong> (blockade of acetylcholine release by botulinum toxin).',
+    'Sources: infant botulism (honey, soil — most common in infants), wound botulism (IV drug use), foodborne (home canning), iatrogenic.',
+    'Clinical: descending paralysis + dilated unreactive pupils + dry mouth + bulbar (dysphagia, dysarthria) + ptosis + autonomic (constipation in infants); afebrile + alert.',
+    'Workup: stool / wound culture + toxin assay; EMG (incremental response on high-frequency RNS); supportive ICU.',
+    'Treatment: <strong>BIG-IV (BabyBIG) for infants &lt; 1 year</strong>; <strong>equine heptavalent antitoxin for adults</strong> (call CDC / public health for access).',
+    'Wound debridement + antibiotics for wound botulism.',
+    'NPO and respiratory support until recovery.',
+    'Cross-ref Modules 9, 16, 22.'
+  ]},
+  proximal_sym:{title:'Subacute myopathy (proximal weakness over weeks)', items:[
+    'Suspected level: <strong>muscle</strong> > NMJ.',
+    'Differential: inflammatory myopathy (polymyositis, dermatomyositis with malignancy screen, IMNM with statin/anti-HMGCR, IBM in older); endocrine (thyroid, Cushing, vitamin D deficiency, hyperPTH); drug-induced (steroid, colchicine, chloroquine, AZT).',
+    'Workup: <strong>CK + electrolytes + TSH + cortisol + vitamin D + HIV + HbA1c + ESR/CRP</strong>; EMG/NCS; muscle biopsy; myositis antibody panel (Jo-1, Mi-2, MDA-5, TIF1γ + NXP2 with cancer screen, HMGCR, SRP).',
+    'Treatment: high-dose steroid for inflammatory; treat underlying endocrine; stop offending drug.',
+    'For IBM: steroid-resistant; supportive care + AFO + rehabilitation.',
+    'For statin-IMNM: stop statin + steroid + IVIG + MMF (antibodies persist after stopping statin).',
+    'Cross-ref Module 9, 23.'
+  ]},
+  distal_sensory:{title:'Length-dependent polyneuropathy', items:[
+    'Suspected level: <strong>peripheral nerve</strong> (axonal or demyelinating).',
+    'Differential: diabetic (most common — Module 23); alcoholic; B12 / B1 / B6 / copper / vitamin E (Module 13); CIDP (chronic > 8 weeks; demyelinating; conduction blocks on NCS; responds to steroid + IVIG); CMT (hereditary, family history, pes cavus, hammer toes); drug-induced (vincristine, cisplatin, isoniazid, metronidazole, bortezomib, N₂O — Module 13); paraneoplastic (Module 12); amyloid (carpal tunnel + cardiomyopathy + autonomic — Module 15).',
+    'Workup: HbA1c + B12 + methylmalonic acid + homocysteine + thiamine + copper + ceruloplasmin + HIV + Lyme + ESR/CRP + heavy metals if exposure; NCS/EMG (axonal vs demyelinating); SPEP/IFE + free light chains (MGUS / amyloid); CSF if CIDP suspected.',
+    'Treatment: depends on cause. CIDP: IVIG + PLEX + steroid + maintenance immunosuppression. Diabetic: glycaemic control + neuropathic pain (Module 17). Toxic: stop offending drug.',
+    'Cross-ref Modules 9, 13, 17, 23.'
+  ]},
+  multi_nerve:{title:'Mononeuritis multiplex', items:[
+    'Suspected level: <strong>peripheral nerve</strong> (multifocal stepwise).',
+    'Stepwise asymmetric multifocal neuropathy in multiple nerve territories.',
+    'Differential: vasculitis (PAN, GPA, EGPA — Module 23); diabetes; leprosy; HIV; Lyme; sarcoid; lymphoma; cryoglobulinaemia.',
+    'Workup: ANCA + ANA + complement + cryoglobulins + HIV + Lyme + ESR/CRP + HbA1c + ACE/chest CT for sarcoid; <strong>nerve biopsy</strong> (often sural) if vasculitis suspected.',
+    'Treatment: depends on cause. Vasculitis: <strong>steroid + cyclophosphamide or rituximab</strong>; specific biologics per syndrome (mepolizumab for EGPA, rituximab for GPA).',
+    'Cross-ref Modules 9, 23.'
+  ]},
+  bulbar_fatigable:{title:'Myasthenia gravis', items:[
+    'Suspected level: <strong>postsynaptic NMJ</strong> (acetylcholine receptor antibody).',
+    'Fatigable bulbar + ocular + proximal limb; worse at end of day; improves with rest; AChR > MuSK > LRP4 > seronegative.',
+    'Bedside: <strong>ice pack test</strong> (improves ptosis in 2 minutes); sustained upgaze test (ptosis worsens).',
+    'Workup: AChR + MuSK + LRP4 antibodies; RNS (decremental); single-fibre EMG; <strong>CT chest for thymoma</strong>; thyroid panel; coexisting autoimmune disease.',
+    'Treatment: pyridostigmine + steroid + steroid-sparing (azathioprine, MMF, rituximab); thymectomy in selected; <strong>modern biologics — eculizumab, efgartigimod (FcRn 2021), rozanolixizumab (2023), zilucoplan (2023)</strong>; crisis → PLEX/IVIG.',
+    'AVOID precipitants: aminoglycosides, fluoroquinolones, β-blockers, magnesium (Module 9, 20).',
+    'Pregnancy: avoid magnesium for eclampsia (use benzodiazepines + cautious BP control); 10–20% of AChR+ mothers have transient neonatal MG.',
+    'Cross-ref Modules 9, 20.'
+  ]},
+  umn_lmn_no_sensory:{title:'Amyotrophic lateral sclerosis (ALS) / motor neuron disease', items:[
+    'Suspected level: <strong>motor neurons (UMN + LMN)</strong>.',
+    'Combined UMN signs (brisk reflexes, Babinski, spasticity) + LMN signs (fasciculations, wasting, weakness) + bulbar features in multiple regions + NO sensory + NO sphincter involvement.',
+    'Workup: EMG (denervation + reinnervation across multiple regions — Awaji criteria); MRI brain + cervical spine to exclude mimics; genetic testing (C9orf72, SOD1, TARDBP, FUS especially with family history / bulbar onset).',
+    'Treatment: <strong>riluzole 50 mg BD + edaravone (FDA 2017) + tofersen (SOD1 2023)</strong>; AMX0035 withdrawn 2024.',
+    '<strong>Multidisciplinary ALS clinic improves survival + QoL</strong> vs general clinic.',
+    'NIV at FVC < 50% predicted or symptomatic — improves survival + QoL.',
+    'PEG before FVC drops too low.',
+    'AAC (eye-gaze, BCIs in selected); voice banking before voice deteriorates.',
+    'Spasticity baclofen; sialorrhoea glycopyrrolate/atropine/BoNT; cramps gabapentin/quinine; pseudobulbar dextromethorphan-quinidine.',
+    'Early palliative care + ACP + hospice + bereavement.',
+    'Cross-ref Modules 9, 25.'
+  ]},
+  episodic:{title:'Periodic paralysis (channelopathy)', items:[
+    'Suspected level: <strong>muscle (channelopathy)</strong>.',
+    'Differential: <strong>hypokalaemic periodic paralysis</strong> (sodium channel; classic; thyrotoxic form in East Asian men + Andersen-Tawil with long QT + dysmorphism); <strong>hyperkalaemic periodic paralysis</strong> (sodium channel; shorter episodes; triggered by potassium-rich foods or rest after exercise); <strong>paramyotonia congenita</strong> (sodium channel; cold-induced).',
+    'Workup: K during attack; TSH + free T4 (thyrotoxic form); ECG (QT in Andersen-Tawil); genetic testing.',
+    'Treatment depends on type: hypoK — cautious K replacement + propranolol if thyrotoxic; hyperK — avoid potassium-rich foods + acetazolamide; paramyotonia — avoid cold + mexiletine.',
+    'For thyrotoxic hypokalaemic periodic paralysis: <strong>treat the thyrotoxicosis</strong> (carbimazole / methimazole → radioiodine or thyroidectomy).',
+    'Cross-ref Modules 9, 23.'
+  ]},
+  functional:{title:'Functional weakness', items:[
+    'Suspected level: <strong>functional</strong> (not "non-organic").',
+    'Rule-in signs: <strong>Hoover\'s sign</strong> (sensitivity ~63%, specificity ~100%; Stone JNNP 2010); hip abductor sign (Sonoo); drag / monoplegic gait without circumduction; give-way weakness; inconsistent power (strong on automatic tasks, weak on formal testing); Spinal Injuries Center sign (supine leg won\'t lift; sitting it lifts effortlessly).',
+    'Communicate using <strong>Stone framework</strong>: name it ("functional neurological disorder"); explain mechanism ("hardware intact, software stuck in a faulty pattern"); <strong>demonstrate positive Hoover\'s sign to the patient</strong>; differentiate from feigning ("not under your conscious control"); explain normal investigations; plan with hope (FND-specific physiotherapy + CBT).',
+    'AVOID phrases: "non-organic", "psychogenic", "hysterical", "medically unexplained", "all in your head", "it\'s stress".',
+    'Refer to <strong>FND-specific physiotherapy</strong> (Nielsen 2015 consensus — distract-attention strategies, automatic over effortful movement, avoid splints/aids beyond minimum).',
+    'Address comorbid depression/anxiety/sleep/pain.',
+    'Patient resource: neurosymptoms.org.',
+    'Coexistence with neurological disease is common (~10–20% of PNES patients have epilepsy; functional movements coexist with PD).',
+    'Cross-ref Module 21.'
+  ]}
+};
+document.querySelectorAll('#locTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#locTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = locMap[b.dataset.val];
+  if (m) {
+    locResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    locResult.classList.add('show');
+  }
+}));
+function resetLoc() {
+  document.querySelectorAll('#locTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  locResult.classList.remove('show');
+}
+
+/* Emergency Checklist */
+const emItems = [
+  ['stroke','Stroke (CT/CTA + thrombolysis window) — Module 2'],
+  ['cord','Acute spinal cord compression (MRI urgent + dexamethasone) — Module 10'],
+  ['gbs','GBS with respiratory failure (20/30/40 rule: FVC < 20 / NIF less negative than −30 / MEP < 40) — Module 9, 22'],
+  ['mg','Myasthenic crisis (bulbar/respiratory failure → PLEX/IVIG + avoid magnesium/aminoglycosides) — Module 9'],
+  ['bot','Botulism (descending + dilated pupils + dry mouth + bulbar → BIG-IV/antitoxin) — Module 9'],
+  ['hypok','Hypokalaemic periodic paralysis incl. thyrotoxic (cautious K + propranolol) — Module 9, 23'],
+  ['diss','Carotid/vertebral dissection (neck pain + Horner + CN/stroke → CTA) — Module 2, 19'],
+  ['bs','Brainstem stroke (crossed signs → urgent MRI/MRA) — Module 2'],
+  ['wern','Wernicke (confusion + nystagmus + ataxia + nutritional risk → thiamine BEFORE glucose) — Modules 13, 20'],
+  ['hypogl','Hypoglycaemia (glucose stat) — Module 13'],
+  ['ecl','Eclampsia / PRES in pregnancy (magnesium + antihypertensive + delivery) — Module 20'],
+  ['nms','NMS / serotonin syndrome / MH (hyperthermia + rigidity) — Module 13']
+];
+const emTool = document.getElementById('emTool');
+let emState = {};
+emItems.forEach(([id,label]) => {
+  emState[id] = null;
+  const row = document.createElement('div');
+  row.style.cssText = 'padding:10px 0; border-bottom:1px dashed var(--line); display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;';
+  row.innerHTML = `<div style="flex:1;font-size:.92rem">${label}</div>
+    <div class="opts">
+      <button class="opt" data-id="${id}" data-val="N">Pending</button>
+      <button class="opt" data-id="${id}" data-val="Y">Ruled out</button>
+    </div>`;
+  emTool.appendChild(row);
+});
+emTool.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = b.dataset.val;
+  emState[id] = val;
+  emTool.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreEm();
+}));
+
+function scoreEm() {
+  const rulled = Object.values(emState).filter(v => v === 'Y').length;
+  const pending = Object.values(emState).filter(v => v === 'N').length;
+  const total = emItems.length;
+  let summary = `<strong>${rulled}</strong> of ${total} ruled out. <strong>${pending}</strong> pending.`;
+  if (pending > 0) {
+    summary += ` <span style="color:#ffb95c">Pending items remain — complete checklist before settling on a primary diagnosis.</span>`;
+  } else if (rulled === total) {
+    summary += ` <span style="color:#5fd28a">All emergencies ruled out — proceed to structured history (tempo + pattern + level).</span>`;
+  }
+  document.getElementById('em-summary').innerHTML = summary;
+}
+
+function resetEm() {
+  emItems.forEach(([id]) => emState[id] = null);
+  emTool.querySelectorAll('.opt.sel').forEach(o => o.classList.remove('sel'));
+  document.getElementById('em-summary').textContent = 'Tick each emergency as ruled out or still under consideration.';
+}
+</script>
+</body>
+</html>

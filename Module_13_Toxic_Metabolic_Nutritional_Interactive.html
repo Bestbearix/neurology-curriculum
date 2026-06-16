@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 13 — Toxic, Metabolic &amp; Nutritional Disorders (Interactive)</title>
+<style>
+  :root{
+    --bg:#0a1612; --panel:#11201b; --panel-2:#172a23; --line:#234039;
+    --ink:#e4f0ec; --muted:#8fa9a0; --accent:#5fd9b8; --accent-2:#a5ebd6;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#1b302a; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#070f0d,#0a1612 35%,#0a1612); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(95,217,184,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#04221a; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#cdf5e6}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(95,217,184,.10); border-color:var(--accent); color:#cdf5e6}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#04221a; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(95,217,184,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  /* Hyperthermia differentiator features */
+  .hf-grid{display:grid; grid-template-columns:1fr; gap:8px; margin:14px 0}
+  .hf-row{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
+  .hf-row .label{flex:1; font-size:.92rem}
+  .hf-row .opts{display:flex; gap:6px}
+  .hf-row .opt{background:var(--panel); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; color:var(--ink)}
+  .hf-row .opt.sel{background:var(--accent); color:#04221a; border-color:var(--accent); font-weight:600}
+  .hf-scores{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-top:14px}
+  .hf-score{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 12px; text-align:center}
+  .hf-score .name{font-size:.85rem; color:var(--muted); margin-bottom:4px}
+  .hf-score .val{font-size:1.4rem; font-weight:600; color:var(--accent-2)}
+  .hf-score.top{border-color:var(--accent); background:rgba(95,217,184,.15)}
+  .hf-result{margin-top:16px; padding:14px 16px; border-radius:10px; background:rgba(95,217,184,.08); border:1px solid var(--accent); display:none}
+  .hf-result.show{display:block}
+  .hf-result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 13</span>
+    <span class="badge">General physician</span>
+    <h1>Toxic, Metabolic &amp; Nutritional Disorders — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 36, 39, 40, 41) and Merritt's <em>Neurology</em> (14e, Ch. 120, 122–125, 128, 131–134, 139). Caine criteria for Wernicke encephalopathy, Hunter criteria for serotonin syndrome, AASLD hepatic encephalopathy 2014, EFNS Wernicke 2010, TTM2 (NEJM 2021), EASL Wilson 2012.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="enceph">Encephalopathy Classifier</button>
+    <button data-tab="hyper">Hyperthermia Differentiator</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Toxic, metabolic, and nutritional disorders mimic almost everything in neurology — and many are completely reversible if recognised early. The general physician sees them constantly: alcohol withdrawal, hepatic encephalopathy, hyponatraemia, hypoglycaemia, drug toxicity, and missed Wernicke encephalopathy are everyday hospital problems. Missing them costs lives and permanent disability.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Build a structured approach to acute encephalopathy and identify reversible causes early.</li>
+      <li>Recognise and manage alcohol withdrawal and Wernicke-Korsakoff before damage becomes permanent.</li>
+      <li>Diagnose and treat hepatic, uraemic, and electrolyte-related encephalopathies.</li>
+      <li>Correct sodium safely and recognise central pontine myelinolysis.</li>
+      <li>Differentiate NMS, serotonin syndrome, malignant hyperthermia, anticholinergic, and sympathomimetic syndromes — and treat each correctly.</li>
+      <li>Recognise vitamin deficiencies (B1, B12, B6, niacin, E, copper) and metal poisoning.</li>
+      <li>Identify Wilson disease in any young patient with combined neuropsychiatric + hepatic features.</li>
+      <li>Manage opioid overdose and connect patients to addiction services.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle that prevents disasters:</strong> in any acute encephalopathy, give <strong>thiamine 500 mg IV BEFORE glucose</strong> if Wernicke is possible (alcohol use, malnutrition, hyperemesis, bariatric surgery, prolonged TPN, GI malignancy). Wernicke encephalopathy is a clinical diagnosis, the classic triad is present in only ~16%, and the cost of missing it is Korsakoff psychosis — permanent.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Bedside approach to acute encephalopathy</summary>
+      <div class="body">
+        <p>Toxic/metabolic encephalopathies share features that distinguish them from structural disease:</p>
+        <ul>
+          <li>Fluctuating attention and cognition (defining feature of delirium).</li>
+          <li>Symmetric motor signs — paratonia, multifocal myoclonus, asterixis, tremor. Focal deficits suggest structural until proven otherwise.</li>
+          <li>Symmetric pupil/oculomotor signs; small reactive pupils typical.</li>
+          <li>Preserved brainstem reflexes until very deep coma.</li>
+          <li>Diffuse EEG slowing ± triphasic waves.</li>
+        </ul>
+        <table>
+          <tr><th>Sign</th><th>Localising value</th></tr>
+          <tr><td>Asterixis</td><td>Hepatic, uraemic, CO₂ retention, lithium/valproate, Wilson</td></tr>
+          <tr><td>Multifocal myoclonus</td><td>Uraemic, anoxic, lithium, severe hepatic, prion</td></tr>
+          <tr><td>Triphasic waves on EEG</td><td>Hepatic, uraemic, hyperammonaemia (incl. valproate, urea-cycle)</td></tr>
+          <tr><td>Hypothermia</td><td>Myxoedema, hypoglycaemia, alcohol, sepsis (elderly), drug overdose</td></tr>
+          <tr><td>Hyperthermia + rigidity</td><td>NMS, serotonin syndrome, MH, sympathomimetic, anticholinergic</td></tr>
+        </table>
+        <div class="time"><strong>Empirical resuscitation cocktail</strong>: O₂, IV access, glucose check (50 mL of 50% dextrose if low or unknown), <strong>thiamine 500 mg IV before glucose if Wernicke possible</strong>, naloxone 0.4–2 mg IV if opioid possible; flumazenil generally avoided (precipitates seizures in tolerant patients).</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Hepatic encephalopathy</summary>
+      <div class="body">
+        <p>Multifactorial — ammonia + inflammation + GABAergic tone. <strong>West Haven grading</strong> 0–IV. Precipitants — <em>HEPATICS</em>: Hypovolaemia, Electrolytes, Protein load (GI bleed), Alkalosis, TIPS, Infection (SBP), Constipation, Sedatives.</p>
+        <ol>
+          <li>Identify and treat precipitant — SBP, GI bleed, hypokalaemia, dehydration, sedatives, constipation.</li>
+          <li><strong>Lactulose</strong> 30–45 mL po q1–2h until soft stools, then titrate to 2–3 soft stools/day.</li>
+          <li><strong>Rifaximin 550 mg po BID</strong> for recurrence prevention.</li>
+          <li>Avoid protein-restriction long-term (sarcopenia worsens outcome).</li>
+          <li>Liver transplant for refractory disease.</li>
+        </ol>
+        <div class="pearl"><strong>Ammonia caveat</strong>: normal arterial ammonia largely rules out HE; venous ammonia unreliable. Don't titrate to ammonia — titrate to mental status and bowel movements.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Hyponatraemia and central pontine myelinolysis</summary>
+      <div class="body">
+        <ul>
+          <li>Acute symptomatic severe (Na &lt; 125 mmol/L + seizures, coma): <strong>100 mL of 3% saline IV bolus over 10 min</strong>, repeat × 2 if symptoms persist (target rise of 4–6 mmol/L to abolish symptoms).</li>
+          <li><strong>Correction limits</strong>: ≤ 8 mmol/L in 24 h (≤ 6 in alcoholics / malnourished / hypokalaemic).</li>
+          <li>If overcorrection (&gt; 10 mmol/L/24 h), <strong>re-lower</strong> with D5W ± desmopressin.</li>
+          <li><strong>CPM/ODS</strong> presents 2–6 days later: pseudobulbar palsy, quadriparesis, "locked-in", encephalopathy. MRI: pons hyperintense. Once developed, supportive care only.</li>
+        </ul>
+        <div class="warn">Most CPM cases are <em>iatrogenic</em>. The single most important preventive step is slow, monitored Na correction. Check Na every 2–4 hours during active correction.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Alcohol withdrawal and Wernicke-Korsakoff</summary>
+      <div class="body">
+        <table>
+          <tr><th>Time from last drink</th><th>Syndrome</th></tr>
+          <tr><td>6–24 h</td><td>Tremor, anxiety, insomnia, autonomic activation</td></tr>
+          <tr><td>12–48 h</td><td>Alcohol withdrawal seizures (GTC, usually short cluster)</td></tr>
+          <tr><td>12–24 h</td><td>Alcoholic hallucinosis — visual; sensorium clear</td></tr>
+          <tr><td>48–96 h</td><td>Delirium tremens — confusion + autonomic instability + hallucinations; mortality 1–5% treated</td></tr>
+        </table>
+        <p>Management:</p>
+        <ul>
+          <li><strong>CIWA-Ar–guided</strong> diazepam 10–20 mg po (or lorazepam 1–2 mg in hepatic disease).</li>
+          <li><strong>Thiamine 500 mg IV TID × 2–3 days BEFORE glucose</strong>, then 250 mg IM/IV daily × 3–5 days, then oral. Multivitamins, magnesium, glucose as needed.</li>
+          <li>Refractory withdrawal / DTs: phenobarbital, propofol, dexmedetomidine in ICU.</li>
+          <li>Long-term: naltrexone, acamprosate, disulfiram (if motivated and liver intact).</li>
+        </ul>
+        <div class="refer"><strong>Wernicke encephalopathy</strong>: clinical diagnosis, medical emergency.
+          <ul>
+            <li><strong>Caine criteria (≥ 2 of 4)</strong>: nutritional deficiency, oculomotor abnormalities, cerebellar signs, altered mental state.</li>
+            <li>Classic triad (encephalopathy + ophthalmoplegia/nystagmus + ataxia) in only ~16%.</li>
+            <li><strong>Thiamine 500 mg IV TID × 2–3 days</strong> (RCP regimen), then 250 mg IV/IM daily × 3–5 days, then high-dose oral.</li>
+            <li><strong>Korsakoff syndrome</strong>: residual anterograde amnesia + confabulation in 80% of untreated survivors — largely irreversible.</li>
+            <li>MRI: symmetric T2/FLAIR in mammillary bodies, periaqueductal grey, dorsomedial thalami.</li>
+            <li>Causes beyond alcohol: hyperemesis gravidarum, bariatric surgery, prolonged TPN without thiamine, anorexia, malabsorption, dialysis, refeeding syndrome, GI malignancy.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Other chronic alcohol-related neurology</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Alcoholic cerebellar degeneration</strong> — gait > truncal > limb; superior vermian atrophy.</li>
+          <li><strong>Alcoholic polyneuropathy</strong> — length-dependent, painful; nutritional + ethanol toxicity.</li>
+          <li><strong>Marchiafava-Bignami</strong> — corpus callosum demyelination; malnourished alcoholics.</li>
+          <li><strong>Hepatocerebral degeneration</strong> — parkinsonism + chorea + dementia.</li>
+          <li><strong>CPM/ODS</strong> — after rapid Na correction (above).</li>
+          <li><strong>Fetal alcohol spectrum disorder</strong> — no safe threshold in pregnancy.</li>
+          <li><strong>Nutritional optic neuropathy</strong> — bilateral central scotoma; treat with thiamine + B12 + folate + abstinence.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Hyperthermia syndromes</summary>
+      <div class="body">
+        <table>
+          <tr><th>Syndrome</th><th>Onset</th><th>Hallmarks</th><th>Treatment</th></tr>
+          <tr><td>NMS</td><td>Days–weeks</td><td>Lead-pipe rigidity + bradyreflexia + hyperthermia + autonomic instability + ↑CK</td><td>Stop dopamine antagonist (or restart dopaminergic); cooling; IV fluids; <strong>dantrolene</strong>; bromocriptine/amantadine</td></tr>
+          <tr><td>Serotonin syndrome</td><td>Hours</td><td><strong>Clonus</strong> (esp. ocular and lower limb), hyperreflexia, diaphoresis, mydriasis, agitation, hyperthermia</td><td>Stop serotonergic; cooling; benzos; <strong>cyproheptadine</strong> 12 mg → 2 mg q2h</td></tr>
+          <tr><td>Malignant hyperthermia</td><td>Minutes (intra-op)</td><td>Masseter spasm, hypercapnia (early), generalised rigidity, rhabdo, hyperthermia (RYR1)</td><td>Stop volatile/succinylcholine; <strong>dantrolene 2.5 mg/kg IV</strong> repeat to 10 mg/kg; cool; correct acidosis + K</td></tr>
+          <tr><td>Anticholinergic</td><td>Hours</td><td>Hot dry red blind mad — fever + dry skin + flushing + mydriasis + delirium + ileus + urinary retention</td><td>Supportive; benzos; <strong>physostigmine</strong> (pure anticholinergic, NOT TCA)</td></tr>
+          <tr><td>Sympathomimetic</td><td>Min–hours</td><td>HTN, tachycardia, hyperthermia, <strong>diaphoresis</strong>, mydriasis, agitation, seizures</td><td>Benzodiazepines first; cooling; <strong>avoid pure β-blockers in cocaine</strong>; phentolamine if refractory HTN</td></tr>
+        </table>
+        <div class="pearl"><strong>Bedside differentiation</strong>: <em>lead-pipe + bradyreflexic</em> = NMS; <em>clonus + hyperreflexia</em> = serotonin syndrome; <em>dry + flushed + mydriasis</em> = anticholinergic; <em>diaphoresis + sympathetic surge</em> = serotonin or sympathomimetic.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Drug-related neurological syndromes</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Lithium toxicity</strong>: tremor + ataxia + dysarthria + confusion + seizures; level &gt; 1.5 mmol/L or chronic with renal impairment. Stop, IV fluids, haemodialysis if severe.</li>
+          <li><strong>Valproate-induced hyperammonaemic encephalopathy</strong>: stop VPA; L-carnitine 100 mg/kg IV → 50 mg/kg q6h.</li>
+          <li><strong>Phenytoin toxicity</strong>: nystagmus → ataxia → dysarthria → drowsiness ladder.</li>
+          <li><strong>N₂O ("whippets") abuse</strong>: functional B12 deficiency → subacute combined degeneration (Module 10). Parenteral B12 + counselling.</li>
+          <li><strong>Methanol</strong>: anion-gap acidosis + osmolar gap + optic neuropathy + putaminal necrosis. Fomepizole (or ethanol), folate, dialysis.</li>
+          <li><strong>Ethylene glycol</strong>: AG acidosis + osmolar gap + oxalate crystals + renal failure + cranial neuropathies (delayed). Fomepizole, pyridoxine, thiamine, dialysis.</li>
+          <li><strong>Carbon monoxide</strong>: 100% O₂; HBO for severe / pregnancy / persistent symptoms. <em>Delayed neurological sequelae</em> weeks later (parkinsonism, cognitive decline, bilateral globus pallidus T2 hyperintensity).</li>
+          <li><strong>Chemotherapy</strong>: vincristine/platinum/taxane neuropathy; ifosfamide encephalopathy (methylene blue); methotrexate myelopathy/leukoencephalopathy; immune checkpoint inhibitors (hypophysitis, encephalitis, myositis-myocarditis-myasthenia overlap).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Vitamin deficiencies</summary>
+      <div class="body">
+        <table>
+          <tr><th>Vitamin</th><th>Deficiency syndrome</th><th>Treatment</th></tr>
+          <tr><td>B1 (thiamine)</td><td>Wernicke-Korsakoff; dry/wet beriberi</td><td>500 mg IV TID → 250 mg/day → oral</td></tr>
+          <tr><td>B12 (cobalamin)</td><td>Subacute combined degeneration, neuropathy, optic neuropathy, dementia, megaloblastic anaemia; N₂O abuse</td><td>Hydroxocobalamin 1000 µg IM daily × 5 → weekly × 4 → monthly</td></tr>
+          <tr><td>Folate</td><td>Megaloblastic anaemia ± mild cognitive; pregnancy NTD</td><td>5 mg po daily; check B12 first (folate alone in B12 deficiency precipitates myelopathy)</td></tr>
+          <tr><td>B6 (pyridoxine)</td><td>INH-induced neuropathy (prevent with 10–25 mg/day)</td><td>Replace; excess (&gt; 200 mg/day chronic) causes sensory neuronopathy</td></tr>
+          <tr><td>Niacin (B3)</td><td>Pellagra: dermatitis + diarrhoea + dementia</td><td>Nicotinamide 100–500 mg/day</td></tr>
+          <tr><td>Vitamin E</td><td>Spinocerebellar syndrome + areflexia + ophthalmoplegia ± retinopathy</td><td>400–1200 IU/day</td></tr>
+          <tr><td>Copper</td><td>Myeloneuropathy mimicking SCD (zinc-induced, post-bariatric)</td><td>Cu replacement; stop zinc</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Heavy metals</summary>
+      <div class="body">
+        <table>
+          <tr><th>Metal</th><th>Setting</th><th>Features</th><th>Treatment</th></tr>
+          <tr><td>Lead</td><td>Old paint, batteries, ammunition, occupational</td><td>Adults: wrist drop, gum lead line, anaemia (basophilic stippling); children: encephalopathy, developmental delay</td><td>Removal; succimer (DMSA); CaEDTA + dimercaprol for severe</td></tr>
+          <tr><td>Mercury (organic)</td><td>Methylmercury — fish</td><td>Visual field constriction, ataxia, paraesthesiae, hearing loss; "erethism" with inorganic Hg</td><td>Source removal; succimer; often irreversible</td></tr>
+          <tr><td>Arsenic</td><td>Groundwater, historical poisoning</td><td>Sensorimotor neuropathy, Mees lines, hyperkeratosis</td><td>Source removal; dimercaprol or succimer</td></tr>
+          <tr><td>Manganese</td><td>Welding, mining, methcathinone, TPN dysfunction, chronic liver failure</td><td><strong>Parkinsonism</strong>: "cock-walk", postural instability, psychiatric; T1 hyperintense globus pallidus</td><td>Source removal; poorly levodopa-responsive; CaNa-EDTA</td></tr>
+          <tr><td>Thallium</td><td>Rodenticide, historical</td><td>Painful neuropathy + alopecia (~2 weeks after exposure)</td><td>Prussian blue (binds in gut); dialysis</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Wilson disease</summary>
+      <div class="body">
+        <p>AR; <em>ATP7B</em> mutation; biliary copper excretion impaired. Presents 5–35 years (rarely later). Three presentations: hepatic (incl. acute liver failure with Coombs-negative haemolysis), neurological (dysarthria, wing-beating tremor, dystonia, parkinsonism, ataxia, risus sardonicus), psychiatric (personality change, depression, psychosis).</p>
+        <ul>
+          <li><strong>Kayser-Fleischer rings</strong>: slit-lamp; &gt; 95% with neurological Wilson.</li>
+          <li><strong>Diagnosis</strong>: low ceruloplasmin (&lt; 0.2 g/L) + elevated 24-h urinary copper (&gt; 100 µg/24 h); liver biopsy copper (&gt; 250 µg/g dry weight) + <em>ATP7B</em> mutation analysis. Free serum copper high.</li>
+          <li>MRI: "face of the giant panda" sign in midbrain; basal ganglia and thalamic T2 changes.</li>
+          <li><strong>Treatment</strong>: chelators (penicillamine — may transiently worsen neurological symptoms; trientine better tolerated); zinc (induces metallothionein — maintenance + presymptomatic relatives); low-copper diet; liver transplant for fulminant/advanced cirrhosis.</li>
+          <li><strong>Screen all first-degree relatives.</strong></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Mitochondrial and inherited metabolic (adult presentations)</summary>
+      <div class="body">
+        <ul>
+          <li><strong>MELAS</strong>: stroke-like episodes (often posterior, not respecting vascular territories), seizures, sensorineural hearing loss, migraine, short stature, ragged-red fibres; mtDNA m.3243A&gt;G. <strong>Avoid valproate</strong> (worsens). L-arginine for acute episodes.</li>
+          <li><strong>MERRF</strong>: myoclonic epilepsy + ataxia + myopathy; m.8344A&gt;G.</li>
+          <li><strong>Kearns-Sayre / CPEO</strong>: ptosis + PEO + retinopathy + heart block (KSS); large mtDNA deletions.</li>
+          <li><strong>LHON</strong>: bilateral subacute optic neuropathy in young men; m.11778/14484/3460; idebenone may help m.14484.</li>
+          <li><strong>Adult leukodystrophies</strong>: AMN (X-linked, VLCFA), MLD (ARSA), Krabbe (GALC), CADASIL (Module 2), Alexander, vanishing white matter.</li>
+          <li><strong>Acute intermittent porphyria</strong>: abdominal pain + autonomic + neuropathy + psychiatric + hyponatraemia. Triggers: many drugs, fasting, alcohol. Urinary porphobilinogen ↑ during attack. Treat: stop triggers, IV glucose, IV haemin, pain control (avoid barbiturates).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. When to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li><strong>Same day</strong>: unexplained acute encephalopathy; suspected NMS / SS / MH; methanol / ethylene glycol / CO poisoning; Na &lt; 120 with seizures or coma; severe withdrawal / DTs.</li>
+            <li><strong>Within 1 week</strong>: suspected Wilson disease; mitochondrial disease workup; toxic neuropathy; suspected porphyria.</li>
+            <li><strong>Routine</strong>: chronic alcohol-related neurology after stabilisation; vitamin replacement follow-up; chelation; addiction medicine.</li>
+            <li><strong>Always</strong>: poisons centre for any non-routine toxic exposure; hepatology for Wilson; clinical genetics for inherited metabolic disorders.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="enceph">
+    <h2>Encephalopathy Classifier</h2>
+    <p class="muted">Answer about clinical setting and dominant signs to get a working differential and next-step suggestions.</p>
+    <div class="tool" id="encTool">
+      <div class="q">1. Dominant feature?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="asterixis">Asterixis ± multifocal myoclonus, fluctuating attention</button>
+        <button class="opt" data-val="seizure">Seizure(s) and altered mental status without obvious structural lesion</button>
+        <button class="opt" data-val="rigid">Rigidity / hyperthermia / autonomic features (toxidrome)</button>
+        <button class="opt" data-val="acute">Acute unexplained coma, no obvious cause</button>
+        <button class="opt" data-val="subacute">Subacute cognitive / behavioural decline + neuropsychiatric features in a young patient</button>
+        <button class="opt" data-val="postarrest">Post-cardiac-arrest encephalopathy</button>
+      </div>
+      <div id="enc-rest"></div>
+      <div class="result" id="enc-result"></div>
+      <button class="reset" onclick="resetEnc()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="hyper">
+    <h2>Hyperthermia Differentiator</h2>
+    <p class="muted">Tick the features present. The tool scores five syndromes and highlights the best fit, with specific treatment.</p>
+    <div class="tool" id="hfTool">
+      <div class="hf-grid" id="hf-grid"></div>
+      <div class="hf-scores" id="hf-scores"></div>
+      <div class="hf-result" id="hf-result"></div>
+      <button class="reset" onclick="resetHf()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 45-year-old man with chronic alcohol use, found confused with horizontal nystagmus and unable to stand</summary>
+      <div class="body">
+        <p>Last drink unclear; girlfriend reports poor diet and weight loss. Exam: encephalopathy, bilateral lateral-rectus weakness (CN VI), gaze-evoked horizontal nystagmus, broad-based gait, intact strength. Glucose 4.5 mmol/L. ED clinician about to give "B&amp;C cocktail" (glucose + multivitamin).</p>
+        <p><strong>Diagnosis:</strong> Wernicke encephalopathy. Caine criteria met (nutritional deficit + oculomotor + cerebellar + altered mental state — all four).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Thiamine 500 mg IV TID for 2–3 days</strong> (RCP regimen) — GIVE BEFORE any glucose load.</li>
+          <li>Then thiamine 250 mg IV/IM daily × 3–5 days → high-dose oral thiamine 100 mg TID long-term.</li>
+          <li>Multivitamins (folate), magnesium replacement (often co-deficient), correct electrolytes.</li>
+          <li>CIWA-Ar–guided benzodiazepine for emerging alcohol withdrawal.</li>
+          <li>MRI brain (mammillary body, periaqueductal grey, thalamic T2/FLAIR hyperintensity) — supportive but not required for diagnosis.</li>
+          <li>Counsel: untreated Wernicke leaves residual Korsakoff (anterograde amnesia + confabulation) in 80%. Refer to addiction medicine; consider acamprosate or naltrexone after stabilisation.</li>
+        </ol>
+        <div class="warn">Giving glucose without thiamine in a thiamine-deficient patient <em>precipitates</em> Wernicke encephalopathy. Always thiamine first.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 70-year-old woman with cirrhosis develops drowsiness over 24 h after a small GI bleed</summary>
+      <div class="body">
+        <p>Lethargic, asterixis, slurred speech, mild flapping tremor. Recently treated with diuretics and a new sedative for "insomnia". Na 130, K 3.0, INR 1.8, Hb dropped by 2 g/dL after a small upper GI bleed.</p>
+        <p><strong>Diagnosis:</strong> Hepatic encephalopathy (West Haven II), precipitated by GI bleed + hypokalaemia + sedative + alkalosis.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Identify and treat each precipitant: stop the sedative, replace K, treat GI bleed, exclude SBP (diagnostic paracentesis if ascites), check for constipation.</li>
+          <li><strong>Lactulose 30–45 mL po q1–2h</strong> until soft stools, then titrate to 2–3 soft stools daily.</li>
+          <li><strong>Add rifaximin 550 mg po BID</strong> for recurrence prevention (this is her second episode).</li>
+          <li>Avoid further sedatives. Avoid long-term protein restriction.</li>
+          <li>Don't titrate to ammonia — titrate to mental status and bowel movements.</li>
+          <li>Liver transplant evaluation if Child-Pugh advanced / refractory.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 30-year-old with depression has been started on tramadol on top of fluoxetine and now has confusion, hyperreflexia with sustained ankle clonus, dilated pupils, and a temperature of 39.5 °C</summary>
+      <div class="body">
+        <p>Onset over 6 hours. Diaphoretic, agitated, BP 170/100, HR 130. Inducible ankle clonus, ocular clonus visible. Mild GI symptoms.</p>
+        <p><strong>Diagnosis:</strong> Serotonin syndrome (Hunter criteria — spontaneous or inducible clonus + agitation/diaphoresis or ocular clonus + tremor/hyperreflexia).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Stop tramadol, fluoxetine, and any other serotonergic agent (linezolid, MAOI, lithium, triptans, MDMA, St John's wort).</li>
+          <li>Aggressive external cooling; IV fluids; benzodiazepines (lorazepam or diazepam) titrated to control agitation, clonus, and autonomic surge.</li>
+          <li><strong>Cyproheptadine 12 mg po (or via NG) loading, then 2 mg q2h up to 32 mg/day</strong> (5-HT2A antagonist).</li>
+          <li>Avoid bromocriptine (worsens by stimulating serotonin).</li>
+          <li>Avoid antipyretics — fever is from muscle activity, not central; benzodiazepines treat it indirectly.</li>
+          <li>Severe cases: ICU, paralytic + intubation; consider non-depolarising NMB if rigidity is causing rhabdomyolysis / hyperthermia.</li>
+          <li>Counsel about future medication safety; document allergy/serotonergic combination interaction.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 78-year-old with Parkinson disease is admitted for pneumonia; an evening RN gives metoclopramide for nausea. 5 days later he is rigid, hyperthermic, and confused</summary>
+      <div class="body">
+        <p>Lead-pipe rigidity throughout, hyperthermia 40.5 °C, bradyreflexic, autonomic instability with labile BP, encephalopathy. CK 8500 U/L, WBC 18,000.</p>
+        <p><strong>Diagnosis:</strong> Neuroleptic malignant syndrome (NMS) from metoclopramide + possible interruption of his PD medication.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Stop metoclopramide. Restart and optimise PD medication.</li>
+          <li>Aggressive external cooling; IV fluids (large volume, watch CK and renal function — rhabdomyolysis common).</li>
+          <li><strong>Dantrolene 1–2.5 mg/kg IV</strong> (max 10 mg/kg/day) for severe rigidity and hyperthermia.</li>
+          <li><strong>Bromocriptine 2.5–5 mg po TID</strong> or amantadine for dopaminergic support.</li>
+          <li>ICU; benzodiazepines for agitation; avoid further dopamine antagonists.</li>
+          <li>ECT considered in refractory cases.</li>
+          <li>Counsel: future avoidance of metoclopramide, prochlorperazine, typical antipsychotics in PD; cross-ref Module 6.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 24-year-old man with a vegan diet has used nitrous oxide ("whippets") recreationally for 6 months; now has progressive bilateral leg paraesthesiae, gait ataxia, and a wide-based gait</summary>
+      <div class="body">
+        <p>Exam: reduced vibration and proprioception to mid-thigh, Romberg positive, mildly brisk knee reflexes with absent ankle reflexes (combined upper-and-lower-motor-neuron pattern), normal mentation. B12 250 pg/mL, MCV 102, homocysteine markedly elevated, methylmalonic acid elevated.</p>
+        <p><strong>Diagnosis:</strong> Subacute combined degeneration of the spinal cord from functional B12 deficiency (N₂O oxidises cobalamin) + dietary contribution.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Hydroxocobalamin 1000 µg IM daily × 5 days, then weekly × 4, then monthly for life</strong> (or until N₂O abuse stopped and dietary issue corrected).</li>
+          <li>Stop N₂O abuse and counsel about ongoing risk; refer to addiction medicine.</li>
+          <li>Folate replacement only AFTER B12 started (folate alone in B12 deficiency can precipitate myelopathy).</li>
+          <li>Dietary counselling: B12 fortified foods, supplements; vegans require oral B12 supplementation.</li>
+          <li>MRI spinal cord: T2 hyperintensity of posterior columns ("inverted V" sign).</li>
+          <li>Cross-ref Module 10 — recovery depends on duration of deficiency; partial improvement possible over months.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 22-year-old presents with subacute behavioural change, dysarthria, and a tremor that worsens when the arms are held outstretched</summary>
+      <div class="body">
+        <p>6-month history. Recent psychiatric assessment for "depression". Exam: prominent wing-beating proximal-arm tremor, dysarthria, drooling, mild parkinsonism, mild dystonic posturing. Family: father died of liver failure in his 30s. Slit-lamp: bilateral Kayser-Fleischer rings.</p>
+        <p><strong>Diagnosis:</strong> Wilson disease (combined neuropsychiatric + family history of liver disease + KF rings).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Confirm: ceruloplasmin (low, &lt; 0.2 g/L), 24-h urinary copper (&gt; 100 µg/24 h), serum free copper, LFTs, AST:ALT ratio (often &gt; 2 in Wilson), liver biopsy with tissue copper if needed, <em>ATP7B</em> mutation analysis.</li>
+          <li>MRI brain: look for "face of the giant panda" midbrain sign, basal ganglia and thalamic T2 changes.</li>
+          <li><strong>Treatment</strong>: <strong>trientine</strong> (preferred over penicillamine for neurological presentations to avoid initial worsening) + zinc; low-copper diet (avoid liver, shellfish, nuts, chocolate, mushrooms).</li>
+          <li>Counsel about the gradual response (months); ongoing monitoring of 24-h urinary copper, ceruloplasmin, LFTs.</li>
+          <li>Liver transplant for fulminant or advanced cirrhosis.</li>
+          <li><strong>Screen all first-degree relatives</strong> (clinical, biochemistry, mutation analysis).</li>
+          <li>Multidisciplinary: hepatology + clinical genetics + neurology + psychiatry.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 13 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 36, 39, 40, 41; Merritt's <em>Neurology</em> 14e Ch. 120, 122–125, 128, 131–134, 139. EFNS Wernicke encephalopathy 2010; Royal College of Physicians thiamine guidance; AASLD hepatic encephalopathy 2014; ERC/ESICM post-resuscitation 2021; TTM2 (NEJM 2021); Wilson disease guidelines (AASLD 2008, EASL 2012); Hunter serotonin syndrome criteria (QJM 2003); Caine Wernicke criteria (JNNP 1997).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Approach', q:'Three bedside signs that suggest toxic-metabolic rather than structural encephalopathy?', a:'Symmetric motor signs (asterixis, multifocal myoclonus, tremor), preserved brainstem reflexes (small reactive pupils), and fluctuating attention/cognition. Focal deficits suggest a structural cause until proven otherwise.'},
+  {tag:'Thiamine', q:'Why give thiamine BEFORE glucose in suspected Wernicke?', a:'Glucose without thiamine in a thiamine-deficient brain depletes the remaining thiamine through glycolysis demand and can precipitate or worsen Wernicke encephalopathy. Always give thiamine 500 mg IV first (RCP regimen: TID × 2–3 days).'},
+  {tag:'Caine', q:'Caine criteria for Wernicke encephalopathy?', a:'≥ 2 of 4: (1) nutritional deficiency; (2) oculomotor abnormalities (nystagmus, ophthalmoplegia, esp. lateral rectus / CN VI); (3) cerebellar dysfunction (gait or limb ataxia); (4) altered mental state (encephalopathy or memory impairment). Classic triad in only ~16%.'},
+  {tag:'HE', q:'Best titration target for lactulose in hepatic encephalopathy?', a:'2–3 soft stools per day. Do NOT titrate to ammonia (poor correlation with West Haven grade; venous ammonia unreliable). Treat precipitants (HEPATICS); add rifaximin 550 mg BID after first response for recurrence prevention.'},
+  {tag:'CPM', q:'Maximum safe sodium correction rate per 24 hours, and what should you do if you overshoot?', a:'≤ 8 mmol/L per 24 h (more cautious, ≤ 6, in alcoholic, malnourished, hypokalaemic). If overcorrection > 10 mmol/L/24 h, RE-LOWER with D5W ± desmopressin to prevent CPM. Check Na every 2–4 h during active correction.'},
+  {tag:'Severe Na', q:'Acute severe symptomatic hyponatraemia — first move?', a:'100 mL of 3% hypertonic saline IV bolus over 10 minutes; repeat × 2 if symptoms (seizures, coma) persist. Target rise of 4–6 mmol/L abolishes symptoms. THEN cautious slow correction; total ≤ 8 mmol/L in 24 h.'},
+  {tag:'NMS vs SS', q:'Single bedside feature that best distinguishes NMS from serotonin syndrome?', a:'Reflexes: NMS = lead-pipe rigidity with BRADYREFLEXIA; serotonin syndrome = clonus (especially ocular and lower-extremity) with HYPERREFLEXIA. Onset also helps: NMS over days–weeks; SS over hours.'},
+  {tag:'SS Rx', q:'Treatment-specific antidotes for serotonin syndrome and NMS?', a:'Serotonin syndrome: stop serotonergic + benzodiazepines + cyproheptadine 12 mg po → 2 mg q2h. NMS: stop dopamine antagonist (or restart dopaminergic) + dantrolene + bromocriptine/amantadine. AVOID bromocriptine in serotonin syndrome (worsens).'},
+  {tag:'MH', q:'Malignant hyperthermia triggers and treatment?', a:'Volatile anaesthetics and succinylcholine in RYR1 mutation. Early sign: rising end-tidal CO₂ + masseter spasm. Treatment: stop trigger, switch to non-triggering agent, DANTROLENE 2.5 mg/kg IV (repeat to 10 mg/kg/day), aggressive cooling, correct K and acidosis. Stock dantrolene in every OR.'},
+  {tag:'Withdrawal', q:'Timeline of alcohol withdrawal — when do seizures peak and when does DT begin?', a:'Tremor/autonomic 6–24 h. Withdrawal seizures peak 12–48 h. Alcoholic hallucinosis 12–24 h. Delirium tremens 48–96 h (mortality 1–5% treated, > 35% historically). Manage with CIWA-Ar–guided benzodiazepines; thiamine before glucose.'},
+  {tag:'Naloxone', q:'Naloxone dose for opioid overdose and special caveat for fentanyl?', a:'0.4 mg IV/IM/intranasal; repeat q2–3 min titrated to RESPIRATION (not consciousness). Fentanyl and analogues often need 2–4 mg or more, sometimes infusions. Naloxone duration 30–60 min — shorter than most opioids — so observe post-reversal and consider infusion. Take-home naloxone for patients and family.'},
+  {tag:'CO', q:'Treatment of carbon monoxide poisoning and the delayed sequelae?', a:'100% O₂ via non-rebreather; hyperbaric O₂ for severe (LOC, neurological signs, COHb > 25%), pregnancy (any symptoms), persistent symptoms. DELAYED NEUROLOGICAL SEQUELAE in 10–30% — parkinsonism, cognitive decline, neuropsychiatric — develop days to weeks later; classic bilateral globus pallidus T2 hyperintensity on MRI.'},
+  {tag:'Methanol', q:'Methanol toxicity — distinctive features and antidote?', a:'Anion-gap metabolic acidosis + osmolar gap, optic neuropathy ("snowfield blindness"), putaminal necrosis. Antidote: fomepizole (or ethanol if fomepizole unavailable) + folate + dialysis. Ethylene glycol is similar but with calcium oxalate crystals in urine + renal failure + delayed cranial neuropathies; treat with fomepizole + pyridoxine + thiamine + dialysis.'},
+  {tag:'B12 + folate', q:'Why must B12 be replaced BEFORE folate in suspected combined deficiency?', a:'Folate alone in a B12-deficient patient can precipitate or worsen subacute combined degeneration of the spinal cord (it bypasses the megaloblastic block but does not correct the neurological pathway). Check B12 and start hydroxocobalamin first.'},
+  {tag:'Pellagra', q:'Pellagra triad and classic settings?', a:'Three Ds: dermatitis (photosensitive), diarrhoea, dementia ± death. Niacin (B3) deficiency. Settings: alcoholism, malabsorption, INH treatment, carcinoid (tryptophan diverted), Hartnup disease. Treatment: nicotinamide 100–500 mg/day.'},
+  {tag:'Manganese', q:'Manganese toxicity setting and distinguishing features from Parkinson disease?', a:'Welders, miners, methcathinone abuse, TPN dysfunction, chronic liver failure. Features: early gait disturbance ("cock-walk"), postural instability, psychiatric symptoms, poorly levodopa-responsive parkinsonism. MRI: T1 hyperintensity in globus pallidus. Stop exposure; CaNa-EDTA in occupational cases.'},
+  {tag:'Wilson', q:'Three biochemical findings that confirm Wilson disease?', a:'Low ceruloplasmin (< 0.2 g/L), elevated 24-h urinary copper (> 100 µg/24 h), and either liver biopsy tissue copper > 250 µg/g dry weight or ATP7B mutation analysis. Free serum copper also elevated. Slit-lamp Kayser-Fleischer rings in > 95% of neurological Wilson.'},
+  {tag:'Wilson Rx', q:'Preferred chelator for neurological Wilson disease and why?', a:'Trientine (or zinc maintenance) is preferred over penicillamine in neurological presentations because penicillamine can transiently WORSEN neurological symptoms initially (paradoxical worsening). Add zinc for maintenance and presymptomatic relatives. Liver transplant for fulminant or advanced cirrhosis.'},
+  {tag:'MELAS', q:'MELAS clinical features and one drug to avoid?', a:'Stroke-like episodes not respecting vascular territories (often posterior), seizures, sensorineural hearing loss, migraine, short stature; ragged-red fibres on muscle biopsy; mtDNA m.3243A>G most common. AVOID valproate (worsens mitochondrial function). L-arginine may help acute stroke-like episodes; antiseizure medications + coenzyme Q10 supportive.'},
+  {tag:'AIP', q:'Classic presentation of acute intermittent porphyria and confirmatory test during an attack?', a:'Severe abdominal pain (no peritonism) + autonomic features (tachycardia, hypertension) + peripheral neuropathy + psychiatric/encephalopathy + hyponatraemia in a young adult. Triggers: many drugs (CYP inducers — barbiturates, sulfa), fasting, alcohol, hormones. Diagnose with elevated urinary porphobilinogen during attack. Treatment: stop precipitants, IV glucose, IV haemin, pain control (avoid barbiturates and other porphyrinogenic drugs).'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 50-year-old man with chronic alcoholism is brought to the ED confused. The intern is about to give 50 mL of 50% dextrose IV. What should be administered first or concurrently?',
+   choices:['Naloxone 0.4 mg IV','Thiamine 500 mg IV','Flumazenil 0.2 mg IV','Fomepizole 15 mg/kg IV'],
+   ans:1,
+   why:'Always give thiamine BEFORE glucose in any patient at risk of thiamine deficiency. A glucose load in a thiamine-deficient brain depletes remaining thiamine and can precipitate Wernicke encephalopathy. RCP regimen: thiamine 500 mg IV TID for 2–3 days.'},
+  {q:'A 65-year-old woman with cirrhosis is admitted with confusion. Asterixis present. Serum ammonia is 80 µmol/L. Best initial treatment plan?',
+   choices:['Protein restriction to 0.5 g/kg/day long-term','Identify and treat precipitant (e.g., GI bleed, hypokalaemia, sedative, SBP, constipation) and start lactulose 30–45 mL po q1–2h titrated to 2–3 soft stools daily','Start IV haemin','Therapeutic lumbar puncture'],
+   ans:1,
+   why:'Hepatic encephalopathy management is precipitant identification + lactulose titrated to 2–3 soft stools/day. Add rifaximin 550 mg BID for recurrence. Avoid long-term protein restriction (sarcopenia worsens outcome). Don\'t titrate to ammonia — venous ammonia is unreliable and ammonia poorly correlates with West Haven grade.'},
+  {q:'A 30-year-old woman on fluoxetine is given tramadol postoperatively. Six hours later she is agitated, hyperreflexic with sustained ankle clonus, diaphoretic, mydriatic, and febrile (39.5 °C). Best specific therapy?',
+   choices:['Dantrolene + bromocriptine','Stop serotonergic agents + benzodiazepines + cyproheptadine 12 mg po then 2 mg q2h','Physostigmine','Activated charcoal'],
+   ans:1,
+   why:'Serotonin syndrome (Hunter criteria: clonus, hyperreflexia, agitation, mydriasis, diaphoresis, hyperthermia). Stop serotonergic drugs (fluoxetine, tramadol), give benzodiazepines, and cyproheptadine 12 mg → 2 mg q2h up to 32 mg/day. Avoid bromocriptine (worsens). Antipyretics don\'t help; fever is from muscle activity.'},
+  {q:'A 65-year-old man with Parkinson disease receives metoclopramide for nausea during admission for pneumonia. Five days later he is hyperthermic (40.5 °C), with lead-pipe rigidity, bradyreflexia, autonomic instability, and CK of 8500 U/L. Best management?',
+   choices:['Cyproheptadine + activated charcoal','Stop metoclopramide, restart dopaminergic therapy, give IV fluids, dantrolene, bromocriptine, ICU monitoring','Beta-blocker for autonomic surge','Physostigmine 1 mg IV'],
+   ans:1,
+   why:'NMS, precipitated by metoclopramide (dopamine antagonist) and likely interrupted PD medication. Stop offending drug, restart dopaminergic therapy, aggressive cooling/fluids (rhabdomyolysis common), dantrolene for severe rigidity/hyperthermia, bromocriptine or amantadine for dopaminergic support, ICU monitoring. Avoid further dopamine antagonists.'},
+  {q:'An elderly woman with chronic SIADH has a serum sodium of 110 mmol/L, no seizures, no coma, mild confusion only. What is the safest correction rate?',
+   choices:['Aim for normal Na within 6 hours','Correction ≤ 8 mmol/L in 24 h (≤ 6 if malnourished/alcoholic/hypokalaemic); check Na every 2–4 h; re-lower with D5W ± desmopressin if overcorrection','3% saline infusion at 100 mL/h until Na 140','Restrict all fluid, no IV correction'],
+   ans:1,
+   why:'In chronic asymptomatic or mildly symptomatic hyponatraemia, correct at ≤ 8 mmol/L per 24 h (more cautious in high-risk groups). Use fluid restriction ± salt tablets ± vaptans depending on cause. If overshoot, re-lower with D5W and desmopressin to prevent central pontine myelinolysis. Reserve 3% saline boluses for severe symptomatic (seizures/coma).'},
+  {q:'A 24-year-old with depression takes lithium and presents with coarse tremor, ataxia, dysarthria, confusion, and a lithium level of 3.5 mmol/L. Creatinine elevated. Best management?',
+   choices:['Stop lithium, IV fluids, urgent haemodialysis','Activated charcoal alone','Naloxone','Cyproheptadine'],
+   ans:0,
+   why:'Severe lithium toxicity (level > 2.5 acute or > 1.5 chronic with renal failure or severe neurological symptoms) — stop lithium, aggressive IV hydration with isotonic saline, and urgent haemodialysis. Activated charcoal does NOT bind lithium and is not helpful.'},
+  {q:'A 22-year-old vegan abuses nitrous oxide ("whippets") recreationally. He now has progressive bilateral paraesthesiae, sensory ataxia, and Romberg sign. B12 is 250 pg/mL, MCV 102, methylmalonic acid and homocysteine markedly elevated. Treatment?',
+   choices:['Folate alone','Stop N₂O, replace B12 (hydroxocobalamin 1000 µg IM daily × 5, weekly × 4, monthly for life), and only then start folate if needed','Vitamin E','Pyridoxine'],
+   ans:1,
+   why:'Functional B12 deficiency from N₂O oxidising cobalamin (plus dietary vegan contribution) causes subacute combined degeneration of the spinal cord. Stop N₂O abuse, replace B12 parenterally. Folate alone in B12 deficiency can precipitate myelopathy. Recovery depends on duration.'},
+  {q:'A 60-year-old welder presents with bradykinesia, gait disturbance ("cock-walk"), postural instability, and psychiatric symptoms. MRI shows bilateral T1 hyperintensity in the globus pallidus. The parkinsonism does not respond to levodopa. Most likely cause?',
+   choices:['Idiopathic Parkinson disease','Manganese neurotoxicity','Wilson disease','Multiple system atrophy'],
+   ans:1,
+   why:'Welding fume exposure, atypical parkinsonism (early gait, "cock-walk", psychiatric features), globus pallidus T1 hyperintensity, poor levodopa response — all consistent with manganism. Other causes of pallidal T1 hyperintensity: TPN dysfunction, chronic liver failure, methcathinone abuse. Remove exposure; consider CaNa-EDTA chelation.'},
+  {q:'A 24-year-old presents with subacute behavioural change, dysarthria, wing-beating tremor, and mild parkinsonism. Slit-lamp shows bilateral Kayser-Fleischer rings. Best confirmatory tests and preferred chelator for the neurological presentation?',
+   choices:['MRI brain alone; penicillamine','Ceruloplasmin + 24-h urinary copper + ATP7B mutation analysis; preferred chelator is trientine (penicillamine may transiently worsen neurological symptoms)','Brain biopsy; corticosteroids','LP for CSF copper; deferoxamine'],
+   ans:1,
+   why:'Wilson disease workup: low ceruloplasmin (< 0.2 g/L), elevated 24-h urinary copper (> 100 µg/24 h), free serum copper elevated, ATP7B mutation analysis, ± liver biopsy with tissue copper. Trientine is preferred over penicillamine for NEUROLOGICAL Wilson disease because penicillamine can transiently worsen neurological symptoms. Add zinc maintenance and screen first-degree relatives.'},
+  {q:'A 28-year-old woman in late pregnancy with hyperemesis gravidarum receives IV fluids with dextrose. Two days later she develops nystagmus, ophthalmoplegia, and confusion. Best preventive lesson here?',
+   choices:['Hyperemesis is a risk factor for Wernicke encephalopathy; give thiamine prophylactically (500 mg IV TID for 2–3 days) BEFORE any prolonged IV dextrose','Hyperemesis only requires antiemetics','Glucose loads do not affect thiamine','Folate alone is sufficient'],
+   ans:0,
+   why:'Hyperemesis gravidarum is a classic non-alcoholic cause of Wernicke encephalopathy. Prolonged vomiting + prolonged IV dextrose without thiamine + reduced intake = Wernicke. Other non-alcohol causes: bariatric surgery, prolonged TPN without thiamine, anorexia, malabsorption, dialysis, refeeding syndrome, GI malignancy. ALWAYS give thiamine before dextrose in any of these settings.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Encephalopathy Classifier */
+const encRest = document.getElementById('enc-rest');
+const encResult = document.getElementById('enc-result');
+let encState = {};
+
+function encAns(step, val) {
+  encState[step] = val;
+  Object.keys(encState).forEach(k => { if (+k > step) delete encState[k]; });
+  document.querySelectorAll(`#encTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#encTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderEnc();
+}
+
+function renderEnc() {
+  encRest.innerHTML = '';
+  encResult.classList.remove('show');
+  const s0 = encState[0];
+  if (!s0) return;
+
+  if (s0 === 'asterixis') {
+    addEnc(1, '2. Clinical setting?',
+      [['cirrhosis','Known liver disease or recent GI bleed / SBP / sedative / diuretic'],['ckd','CKD / dialysis / recent uraemia'],['copd','Chronic respiratory disease / hypercapnia'],['drug','On lithium, valproate, phenytoin, or another sedating drug'],['young','Young patient + neurological + hepatic features']]);
+    const s1 = encState[1];
+    if (s1 === 'cirrhosis') return showEnc('Hepatic encephalopathy', [
+      '<strong>Identify and treat precipitant</strong> (HEPATICS: Hypovolaemia, Electrolytes, Protein load, Alkalosis, TIPS, Infection (SBP), Constipation, Sedatives).',
+      '<strong>Lactulose 30–45 mL po q1–2h</strong> until soft stools, then titrate to 2–3 soft stools/day.',
+      '<strong>Rifaximin 550 mg po BID</strong> for recurrence prevention.',
+      'Don\'t titrate to ammonia; titrate to mental status and bowel movements.',
+      'Avoid long-term protein restriction; consider transplant evaluation.'
+    ]);
+    if (s1 === 'ckd') return showEnc('Uraemic encephalopathy', [
+      'Usually develops at GFR < 10 mL/min; cognitive slowing → asterixis, multifocal myoclonus, seizures, coma.',
+      'EEG: diffuse slowing ± triphasic waves; BUN correlates better than creatinine.',
+      'Treat with dialysis; reverses over days.',
+      'Beware <strong>dialysis disequilibrium syndrome</strong> with first dialysis (cerebral oedema from rapid urea clearance); start short, gentle sessions.',
+      'Dialysis dementia (aluminium accumulation) is now rare after aluminium removed from dialysate.'
+    ]);
+    if (s1 === 'copd') return showEnc('CO₂ narcosis / hypercapnic encephalopathy', [
+      'Chronic CO₂ retention → headache, asterixis, papilloedema, drowsiness, coma.',
+      'Treat the underlying lung disease; cautious O₂ titration in chronic CO₂ retainers.',
+      'Avoid sudden correction of hypercapnia (post-hypercapnic alkalosis can cause seizures).',
+      'NIV / mechanical ventilation indications per local protocols.'
+    ]);
+    if (s1 === 'drug') return showEnc('Drug-induced encephalopathy', [
+      'Lithium toxicity: tremor, ataxia, confusion, seizures; level > 1.5 mmol/L or chronic with renal impairment → stop, hydrate, haemodialyse if severe.',
+      'Valproate-induced hyperammonaemic encephalopathy: stop VPA; L-carnitine 100 mg/kg IV bolus + 50 mg/kg q6h.',
+      'Phenytoin ladder: nystagmus → ataxia → dysarthria → drowsiness with rising levels.',
+      'Benzodiazepines/opioids: discontinue or reduce; antidote if appropriate (flumazenil rarely; naloxone for opioids).',
+      'Check full drug history including OTC, herbal, recreational.'
+    ]);
+    if (s1 === 'young') return showEnc('Consider Wilson disease', [
+      'Combination of neuropsychiatric + hepatic features in a young patient → workup for Wilson.',
+      'Slit-lamp for Kayser-Fleischer rings (> 95% with neurological Wilson).',
+      'Low ceruloplasmin (< 0.2 g/L), elevated 24-h urinary copper (> 100 µg/24 h), elevated free serum copper.',
+      'MRI: "face of the giant panda" sign, basal ganglia/thalamic T2 changes.',
+      'Treat with trientine (preferred over penicillamine in neurological Wilson) + zinc; low-copper diet; screen first-degree relatives.'
+    ]);
+  }
+
+  if (s0 === 'seizure') {
+    addEnc(1, '2. Most informative finding?',
+      [['hypogly','Glucose low'],['hyponat','Sodium low (< 125)'],['hyperosm','Glucose very high, hyperosmolar'],['etoh','Last drink ~12–48 h ago'],['valpro','Recent valproate / drug interaction'],['pres','HTN + headache + visual disturbance + posterior MRI T2/FLAIR']]);
+    const s1 = encState[1];
+    if (s1 === 'hypogly') return showEnc('Hypoglycaemic seizure', [
+      'Glucose < 3 mmol/L: focal deficits, seizures, coma. Always check glucose first in any acute neurological deterioration.',
+      '<strong>25 g IV dextrose stat</strong>; if not on dextrose monitor closely; thiamine before glucose in at-risk patients.',
+      'Recurrent: insulin overdose, sulfonylurea (octreotide reduces insulin release), insulinoma; prolonged glucose infusion.',
+      'Diabetic patients on insulin: counsel about hypoglycaemia awareness and dosing.'
+    ]);
+    if (s1 === 'hyponat') return showEnc('Hyponatraemic seizure', [
+      'Acute symptomatic severe (Na < 125 + seizures, coma): <strong>100 mL of 3% saline IV over 10 min</strong>; repeat × 2 if symptoms persist.',
+      'Target rise of 4–6 mmol/L abolishes acute symptoms.',
+      'Then cautious correction: <strong>≤ 8 mmol/L/24 h</strong> (≤ 6 in high-risk groups).',
+      'Re-lower with D5W ± desmopressin if overcorrection > 10 mmol/L/24 h.',
+      'Investigate cause (SIADH, drugs, hypothyroid, adrenal, hypovolaemia).'
+    ]);
+    if (s1 === 'hyperosm') return showEnc('Hyperosmolar hyperglycaemic state with focal seizures', [
+      'Nonketotic hyperglycaemic hyperosmolar state with characteristic <strong>focal motor seizures</strong> that resolve with glucose normalisation — NOT antiseizure medication.',
+      'Aggressive IV fluid rehydration; insulin only after fluid resuscitation; correct K.',
+      'Identify precipitant (infection, missed insulin, new drugs, MI).'
+    ]);
+    if (s1 === 'etoh') return showEnc('Alcohol withdrawal seizure', [
+      'Typically generalised tonic-clonic, single or short cluster, 12–48 h after last drink.',
+      'Loading dose of <strong>diazepam 10–20 mg IV</strong> (or lorazepam in hepatic disease) protects against further seizures.',
+      'CIWA-Ar–guided benzodiazepine for ongoing withdrawal.',
+      'Thiamine 500 mg IV TID before glucose.',
+      'Long-term ASMs not usually needed after alcohol cessation.'
+    ]);
+    if (s1 === 'valpro') return showEnc('Drug-related seizure / toxicity', [
+      'Valproate-induced hyperammonaemic encephalopathy with seizures: stop VPA; L-carnitine 100 mg/kg IV bolus + 50 mg/kg q6h.',
+      'Lithium toxicity with seizures: stop, IV fluids, haemodialysis if severe.',
+      'Bupropion overdose, theophylline, isoniazid (give pyridoxine), antihistamines, TCA — all classic seizure-inducing drugs.',
+      'Cocaine/sympathomimetic seizure: benzodiazepines; avoid β-blockers in cocaine (unopposed α).'
+    ]);
+    if (s1 === 'pres') return showEnc('Posterior reversible encephalopathy syndrome (PRES)', [
+      'Headache + seizures + visual disturbance (cortical blindness) + encephalopathy.',
+      'Triggers: hypertensive emergency, eclampsia, calcineurin inhibitors (tacrolimus, ciclosporin), chemotherapy (bevacizumab, gemcitabine), TTP/HUS.',
+      'MRI: bilateral posterior parieto-occipital symmetric T2/FLAIR hyperintensity (cortical/subcortical), no enhancement, no restricted diffusion (typically).',
+      '<strong>Control BP</strong>: 25% reduction in 1–2 h, then 160/110 over 24 h.',
+      'Correct triggers; antiseizure medication for seizures; most reverse over days–weeks.',
+      'Beware RCVS (similar triggers; thunderclap headache; segmental vasoconstriction on angio).'
+    ]);
+  }
+
+  if (s0 === 'rigid') return showEnc('Hyperthermia syndrome — use the dedicated tab', [
+    'Go to the <strong>Hyperthermia Differentiator</strong> tab and tick the features present.',
+    'Five differentials: NMS, serotonin syndrome, malignant hyperthermia, anticholinergic, sympathomimetic.',
+    'Key bedside differentiators: reflexes (bradyreflexia in NMS; hyperreflexia + clonus in SS), skin (dry/flushed in anticholinergic; diaphoretic in SS/sympathomimetic), onset (days in NMS; hours in SS; minutes intra-op in MH).'
+  ]);
+
+  if (s0 === 'acute') return showEnc('Empirical resuscitation cocktail + targeted workup', [
+    '<strong>Empirical cocktail for any unexplained acute encephalopathy/coma</strong>: O₂; IV access; check glucose (50 mL of 50% dextrose if low or unknown); <strong>thiamine 500 mg IV BEFORE glucose</strong> if Wernicke possible; naloxone 0.4–2 mg IV/IM/intranasal if opioid possible.',
+    'Avoid flumazenil — precipitates seizures in benzodiazepine tolerance / co-ingestants.',
+    'Send: electrolytes, calcium, magnesium, glucose, lactate, ammonia, ABG (acid-base, CO₂), LFTs, renal function, CK, TSH, cortisol, alcohol level, salicylate, paracetamol, urine and serum tox screen, carboxyhaemoglobin if CO suspected.',
+    'CT head to exclude structural; consider LP after CT if febrile or meningeal signs.',
+    'EEG if non-convulsive status epilepticus possible.',
+    'Targeted antidotes per toxidrome (see Hyperthermia tab for hyperthermic toxidromes).'
+  ]);
+
+  if (s0 === 'subacute') return showEnc('Subacute neuropsychiatric decline in a young patient', [
+    'Wilson disease (slit-lamp KF rings; ceruloplasmin; 24-h urinary copper; ATP7B mutation).',
+    'Autoimmune encephalitis (Module 11): subacute psychiatric + cognitive ± seizures; CSF antibodies (NMDA-R, LGI1, CASPR2, etc.).',
+    'Inherited metabolic / mitochondrial: MELAS, MERRF, leukodystrophies (AMN, MLD, CADASIL).',
+    'Acute intermittent porphyria: abdominal pain + autonomic + neuropathy + psychiatric + hyponatraemia; urinary PBG.',
+    'Vitamin deficiencies: B12, vitamin E, copper (myeloneuropathy mimicking SCD); pellagra (3 Ds + photosensitive dermatitis).',
+    'Hashimoto encephalopathy / CNS vasculitis / neurosarcoidosis / paraneoplastic — Module 12.',
+    'Substance misuse: chronic methamphetamine, MDMA, GHB, novel psychoactive substances; alcohol-related cognitive decline.'
+  ]);
+
+  if (s0 === 'postarrest') return showEnc('Hypoxic-ischaemic encephalopathy after cardiac arrest', [
+    '<strong>Targeted temperature management</strong>: 32–36 °C for 24 h (TTM trial); recent TTM2 trial favoured normothermia with active fever avoidance — follow local protocol.',
+    'Sedation, neuromuscular blockade for shivering; correct K, Mg, glucose.',
+    'EEG monitoring for non-convulsive status epilepticus; treat seizures aggressively.',
+    '<strong>Multimodal neuroprognostication ≥ 72 h after rewarming and sedation off</strong>:',
+    '— Clinical: bilateral absent pupil + corneal reflexes; status myoclonus day 1.',
+    '— SSEPs: bilateral absent N20.',
+    '— EEG: burst-suppression with identical bursts; generalised periodic discharges > 50%; status epilepticus on flat background.',
+    '— Biomarker: NSE > 60 μg/L at 48–72 h.',
+    '— Imaging: diffuse cortical / basal ganglia cytotoxic oedema on MRI DWI.',
+    '<strong>No single feature alone</strong> — combine ≥ 2 robust features and integrate with imaging and EEG.',
+    'Look for Lance-Adams (post-anoxic action myoclonus — survivors) and delayed post-hypoxic leukoencephalopathy (apparent recovery then days–weeks later decline).'
+  ]);
+}
+
+function addEnc(step, q, opts) {
+  if (document.querySelector(`#enc-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  encRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => encAns(step, b.dataset.val)));
+  if (encState[step]) {
+    const t = wrap.querySelector(`[data-val="${encState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showEnc(title, items) {
+  encResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  encResult.classList.add('show');
+}
+
+function resetEnc() {
+  encState = {};
+  encRest.innerHTML = '';
+  encResult.classList.remove('show');
+  document.querySelectorAll('#encTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#encTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => encAns(0, b.dataset.val)));
+
+/* Hyperthermia Differentiator — scoring */
+const hfFeatures = [
+  // [id, label, scoreMap {NMS,SS,MH,Antichol,Sympathomimetic}]
+  ['onset_days','Onset over days–weeks',                                  {NMS:3,SS:0,MH:0,Antichol:0,Sympath:0}],
+  ['onset_hours','Onset over hours',                                       {NMS:0,SS:2,MH:0,Antichol:2,Sympath:2}],
+  ['onset_intraop','Onset minutes (intra-op or postop)',                   {NMS:0,SS:0,MH:3,Antichol:0,Sympath:0}],
+  ['leadpipe','Lead-pipe rigidity (constant, throughout movement)',        {NMS:3,SS:1,MH:2,Antichol:0,Sympath:0}],
+  ['clonus','Clonus (especially ocular or lower-limb)',                    {NMS:0,SS:3,MH:0,Antichol:0,Sympath:0}],
+  ['hyperref','Hyperreflexia',                                              {NMS:0,SS:3,MH:0,Antichol:0,Sympath:1}],
+  ['bradyref','Bradyreflexia or normal reflexes',                          {NMS:2,SS:0,MH:0,Antichol:0,Sympath:0}],
+  ['dia','Diaphoresis (wet skin)',                                          {NMS:1,SS:3,MH:1,Antichol:-2,Sympath:3}],
+  ['dryskin','Dry skin and dry mucosa',                                    {NMS:0,SS:0,MH:0,Antichol:3,Sympath:0}],
+  ['flush','Flushed red skin (no diaphoresis)',                            {NMS:0,SS:0,MH:0,Antichol:3,Sympath:0}],
+  ['myd','Mydriasis (dilated pupils)',                                     {NMS:0,SS:2,MH:0,Antichol:3,Sympath:3}],
+  ['ileus','Urinary retention / ileus (no bowel sounds)',                  {NMS:0,SS:0,MH:0,Antichol:3,Sympath:0}],
+  ['cocaine','Recent cocaine, methamphetamine, MDMA, synthetic cathinone',  {NMS:0,SS:1,MH:0,Antichol:0,Sympath:3}],
+  ['dopamineblock','Dopamine antagonist (antipsychotic, metoclopramide) or sudden withdrawal of levodopa/DA',{NMS:3,SS:0,MH:0,Antichol:0,Sympath:0}],
+  ['serotonergic','Serotonergic drug overdose or combination (SSRI+MAOI, SSRI+tramadol, linezolid, lithium, triptan, MDMA, St John\'s wort)',{NMS:0,SS:3,MH:0,Antichol:0,Sympath:0}],
+  ['anticho_drug','Anticholinergic exposure (diphenhydramine, TCA overdose, atropine, scopolamine, jimsonweed)',{NMS:0,SS:0,MH:0,Antichol:3,Sympath:0}],
+  ['anaesthesia','Volatile anaesthetic or succinylcholine exposure',       {NMS:0,SS:0,MH:3,Antichol:0,Sympath:0}],
+  ['etco2','Rising end-tidal CO₂, masseter spasm intra-op',                {NMS:0,SS:0,MH:3,Antichol:0,Sympath:0}],
+  ['ck','Markedly elevated CK / rhabdomyolysis',                           {NMS:3,SS:1,MH:3,Antichol:0,Sympath:1}],
+  ['autonomic','Autonomic instability (labile BP, HR)',                    {NMS:2,SS:2,MH:1,Antichol:1,Sympath:3}],
+];
+const hfGrid = document.getElementById('hf-grid');
+let hfState = {};
+hfFeatures.forEach(([id,label]) => {
+  const row = document.createElement('div');
+  row.className = 'hf-row';
+  row.innerHTML = `<div class="label">${label}</div>
+    <div class="opts">
+      <button class="opt" data-feat="${id}" data-val="0">—</button>
+      <button class="opt sel" data-feat="${id}" data-val="0">Absent</button>
+      <button class="opt" data-feat="${id}" data-val="1">Present</button>
+    </div>`;
+  hfGrid.appendChild(row);
+});
+// Clean up — re-render with just Absent/Present and a default-absent state
+hfGrid.innerHTML = '';
+hfFeatures.forEach(([id,label]) => {
+  hfState[id] = 0;
+  const row = document.createElement('div');
+  row.className = 'hf-row';
+  row.innerHTML = `<div class="label">${label}</div>
+    <div class="opts">
+      <button class="opt sel" data-feat="${id}" data-val="0">Absent</button>
+      <button class="opt" data-feat="${id}" data-val="1">Present</button>
+    </div>`;
+  hfGrid.appendChild(row);
+});
+hfGrid.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+  const feat = b.dataset.feat;
+  const val = +b.dataset.val;
+  hfState[feat] = val;
+  hfGrid.querySelectorAll(`.opt[data-feat="${feat}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreHf();
+}));
+
+const hfDxNames = {NMS:'NMS', SS:'Serotonin syndrome', MH:'Malignant hyperthermia', Antichol:'Anticholinergic toxidrome', Sympath:'Sympathomimetic toxidrome'};
+const hfRx = {
+  NMS:['Stop dopamine antagonist; restart dopaminergic if withdrawal triggered.','Aggressive external cooling; IV fluids (rhabdo).','<strong>Dantrolene 1–2.5 mg/kg IV</strong> (max 10 mg/kg/day) for severe rigidity/hyperthermia.','<strong>Bromocriptine 2.5–5 mg po TID or amantadine</strong> for dopaminergic support.','ICU; benzodiazepines for agitation; avoid further dopamine antagonists.','ECT in refractory cases.'],
+  SS:['Stop serotonergic drug(s).','External cooling, IV fluids.','<strong>Benzodiazepines</strong> for agitation, clonus, autonomic surge.','<strong>Cyproheptadine 12 mg po loading → 2 mg q2h up to 32 mg/day</strong> (5-HT2A antagonist).','Avoid bromocriptine (worsens). Severe cases: ICU, paralytic + intubation if rhabdomyolysis.','Antipyretics don\'t help (fever is muscle activity).'],
+  MH:['Stop volatile anaesthetic and succinylcholine; switch to non-triggering agent.','<strong>Dantrolene 2.5 mg/kg IV bolus, repeat to total 10 mg/kg/day</strong>.','Aggressive cooling; correct acidosis (bicarbonate), hyperkalaemia, rhabdomyolysis.','Hyperventilate with 100% O₂; activated charcoal in anaesthetic circuit.','ICU; continue dantrolene 1 mg/kg q6h × 24–48 h.','MH crisis hotline; genetic counselling for RYR1 mutation; family screening.'],
+  Antichol:['Supportive: cooling, IV fluids, urinary catheter.','Activated charcoal if recent ingestion.','<strong>Benzodiazepines</strong> for agitation.','<strong>Physostigmine</strong> 1–2 mg IV slow (pure anticholinergic only — NOT TCA, where it can cause asystole/seizures).','Treat specific co-ingestions (e.g., sodium bicarbonate for TCA QRS widening).'],
+  Sympath:['<strong>Benzodiazepines first</strong> (control sympathetic drive, agitation, seizures, BP, HR all at once).','External cooling; IV fluids.','<strong>Avoid pure β-blockers in cocaine</strong> (unopposed α — paradoxical hypertension). Use phentolamine for refractory HTN; consider mixed labetalol (controversial).','Manage ACS / stroke risk; serial troponin, ECG.','Psych referral; harm-reduction; addiction medicine for substance use disorder.']
+};
+
+function scoreHf() {
+  const scores = {NMS:0, SS:0, MH:0, Antichol:0, Sympath:0};
+  hfFeatures.forEach(([id, _, map]) => {
+    if (hfState[id]) {
+      Object.keys(scores).forEach(k => scores[k] += map[k] || 0);
+    }
+  });
+  // Render scores
+  const sc = document.getElementById('hf-scores');
+  sc.innerHTML = '';
+  const max = Math.max(...Object.values(scores));
+  const topKey = max > 0 ? Object.keys(scores).find(k => scores[k] === max) : null;
+  Object.entries(scores).forEach(([k, v]) => {
+    const div = document.createElement('div');
+    div.className = 'hf-score' + (k === topKey && max > 0 ? ' top' : '');
+    div.innerHTML = `<div class="name">${hfDxNames[k]}</div><div class="val">${v}</div>`;
+    sc.appendChild(div);
+  });
+  const res = document.getElementById('hf-result');
+  if (max === 0) {
+    res.classList.remove('show');
+    return;
+  }
+  res.innerHTML = `<h4>Most likely: ${hfDxNames[topKey]} (score ${max})</h4>
+    <strong>Treatment:</strong>
+    <ul>${hfRx[topKey].map(i => `<li>${i}</li>`).join('')}</ul>
+    <em class="muted">Scoring is a triage aid only — clinical judgement, drug history, and exam are essential. Consider co-existing causes (e.g., sympathomimetic + serotonergic in MDMA).</em>`;
+  res.classList.add('show');
+}
+
+function resetHf() {
+  hfFeatures.forEach(([id]) => { hfState[id] = 0; });
+  hfGrid.querySelectorAll('.opt').forEach(o => {
+    o.classList.toggle('sel', o.dataset.val === '0');
+  });
+  document.getElementById('hf-scores').innerHTML = '';
+  document.getElementById('hf-result').classList.remove('show');
+}
+
+scoreHf();
+</script>
+</body>
+</html>

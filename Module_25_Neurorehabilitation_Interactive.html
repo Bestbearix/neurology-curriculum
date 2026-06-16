@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 25 — Neurorehabilitation &amp; Recovery (Interactive)</title>
+<style>
+  :root{
+    --bg:#06241a; --panel:#0d3a2a; --panel-2:#114836; --line:#1d6a4c;
+    --ink:#dff5e8; --muted:#8bc5a7; --accent:#48d895; --accent-2:#7be9b5;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#155640; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#031a13,#06241a 35%,#06241a); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(72,216,149,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#062014; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#bff3d6}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(72,216,149,.10); border-color:var(--accent); color:#bff3d6}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#062014; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(72,216,149,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 25</span>
+    <span class="badge">General physician</span>
+    <h1>Neurorehabilitation &amp; Recovery — Interactive Course</h1>
+    <div class="sub">ICF framework, AVERT 2015 early mobilisation, EXCITE 2006 CIMT, FLAME / FOCUS / EFFECTS / AFFINITY SSRI for stroke, Giacino NEJM 2012 amantadine for TBI, LSVT BIG/LOUD for PD, Berlin / Amsterdam concussion consensus, epidural stimulation breakthroughs.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="trajectory">Recovery Trajectory Predictor</button>
+    <button data-tab="prescription">Rehab Prescription Builder</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Most disability after neurological disease results from how recovery is managed, not from the primary lesion. Stroke unit care + structured rehabilitation reduce dependency. Goal-directed multidisciplinary therapy transforms function and participation. The general physician's job is to know which interventions are evidence-based, when to escalate from outpatient to inpatient rehabilitation, when to involve specialist clinics (LSVT, spasticity, SCI), and how to set realistic patient-centred goals at the ICF activity and participation levels.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Use the ICF framework to set goals at activity and participation levels.</li>
+      <li>Apply Kleim-Jones principles of experience-dependent plasticity.</li>
+      <li>Choose appropriate outcome measures (mRS, FIM, mBI, ASIA, Berg, 10MWT, 6MWT).</li>
+      <li>Run an early stroke rehabilitation pathway respecting AVERT 2015 evidence.</li>
+      <li>Identify candidates for constraint-induced movement therapy, intensive speech therapy, and dysphagia rehabilitation.</li>
+      <li>Run a spasticity ladder from triggers identification → physiotherapy → oral antispastics → botulinum toxin → intrathecal baclofen.</li>
+      <li>Use amantadine in TBI per Giacino NEJM 2012.</li>
+      <li>Apply LSVT BIG and LOUD in PD; cueing strategies for freezing of gait.</li>
+      <li>Manage SCI rehabilitation including bladder, bowel, sexual, pressure injury, autonomic dysreflexia.</li>
+      <li>Recognise when palliative neurorehabilitation principles apply.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> rehabilitation goals are set at the <em>activity</em> and <em>participation</em> levels, not at the impairment level. Restoring full strength may be impossible; restoring independent walking, return to work, and resuming family roles usually is. The patient and family define the goals; the team finds the route.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Framework, ICF, recovery mechanisms</summary>
+      <div class="body">
+        <ul>
+          <li><strong>ICF (WHO 2001)</strong>: body structure/function → activity → participation; influenced by environmental + personal factors.</li>
+          <li>Rehabilitation goals at activity + participation levels.</li>
+          <li><strong>Recovery mechanisms</strong>: acute (oedema/reperfusion/diaschisis resolution) → subacute (unmasking + sprouting + map reorganisation + contralesional takeover) → chronic (use-dependent learning + compensation).</li>
+        </ul>
+        <p><strong>Kleim-Jones principles of experience-dependent plasticity</strong>: use it or lose it; use it and improve it; specificity; repetition; intensity; time; salience; age; transference; interference (learned non-use).</p>
+        <p><strong>Adjuncts</strong>: dopaminergics for arousal (amantadine TBI Giacino NEJM 2012); SSRI for post-stroke depression (FLAME motor benefit not replicated FOCUS/EFFECTS/AFFINITY 2019-2020 but depression supported); rTMS / tDCS emerging; <strong>AVOID benzodiazepines + anticholinergics + typical antipsychotics</strong> (impair plasticity).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Outcome measures + MDT</summary>
+      <div class="body">
+        <table>
+          <tr><th>Measure</th><th>Use</th></tr>
+          <tr><td>mRS</td><td>Stroke global; ≤ 2 = good outcome (independent ADL)</td></tr>
+          <tr><td>FIM</td><td>18 items × 7-point; motor + cognitive; inpatient rehab</td></tr>
+          <tr><td>mBI</td><td>10 ADL items; 0–100; quicker than FIM</td></tr>
+          <tr><td>ASIA</td><td>SCI A → E (Module 10)</td></tr>
+          <tr><td>Berg Balance</td><td>14-item; predicts falls</td></tr>
+          <tr><td>10MWT</td><td>Gait speed; > 1.0 m/s = community ambulator</td></tr>
+          <tr><td>6MWT</td><td>Endurance</td></tr>
+          <tr><td>Fugl-Meyer / Box-and-Block / 9HPT</td><td>Stroke motor + upper limb</td></tr>
+          <tr><td>EQ-5D / SF-36</td><td>HRQoL generic</td></tr>
+          <tr><td>Goal Attainment Scaling</td><td>Individualised patient-centred</td></tr>
+        </table>
+        <p><strong>MDT</strong>: rehab physician + PT + OT + SLT + clinical psychology + rehab nurse + social worker + orthotist + dietitian + vocational rehab + family.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Stroke rehabilitation</summary>
+      <div class="body">
+        <ul>
+          <li><strong>AVERT 2015</strong>: very high-dose mobilisation within 24 h WORSE than usual care; early but short frequent sessions recommended; avoid very high doses in first 24 h.</li>
+          <li>Stroke unit care reduces mortality + dependency.</li>
+          <li><strong>CIMT (EXCITE 2006)</strong>: constrain unaffected limb 90% waking hours + intensive shaping affected limb × 2 weeks → upper limb function in patients with active wrist + finger extension.</li>
+          <li>Repetitive task-specific training; robotic upper limb (matched-dose equivalent); mental practice + mirror therapy; treadmill with BWS; FES for foot drop.</li>
+          <li>SSRI for motor recovery: <strong>FLAME 2011 positive but FOCUS / EFFECTS / AFFINITY 2019-2020 not replicated</strong> — not routinely used for motor recovery; still used for depression.</li>
+          <li><strong>Aphasia</strong>: intensive SLT (high-dose > low-dose Brady Cochrane 2016); CIAT, melodic intonation, semantic feature analysis.</li>
+          <li><strong>Dysphagia</strong>: bedside screen + VFSS/FEES + IDDSI diet + compensatory + rehabilitative + NG/PEG.</li>
+          <li><strong>Neglect</strong>: prism adaptation + scanning + limb activation.</li>
+          <li><strong>Shoulder subluxation + pain</strong>: support + FES + handling education.</li>
+          <li>Spasticity: see Section 11.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. SCI rehabilitation</summary>
+      <div class="body">
+        <ul>
+          <li>Acute (Modules 10, 22): stabilisation + pressure + VTE LMWH after 72 h + bowel/bladder + ASIA serially + <strong>autonomic dysreflexia prevention above T6</strong>.</li>
+          <li><strong>Activity-based therapy</strong>: BWS treadmill + exoskeletons + <strong>epidural stimulation (Harkema, Courtine)</strong> emerging.</li>
+          <li><strong>Wheelchair</strong>: prescription + skills + transfers.</li>
+          <li><strong>Bladder</strong>: ISC > indwelling; suprapubic if needed; botulinum toxin detrusor; mirabegron; oxybutynin.</li>
+          <li><strong>Bowel</strong>: scheduled programmes + digital stim + suppositories + gastrocolic reflex.</li>
+          <li><strong>Sexual</strong>: PDE5; electroejaculation for fertility; pregnancy planning autonomic dysreflexia caveat.</li>
+          <li><strong>Pressure injury</strong> prevention.</li>
+          <li><strong>Spasticity</strong>: baclofen / tizanidine / gabapentin / BoNT / intrathecal baclofen.</li>
+          <li><strong>Heterotopic ossification</strong>: bisphosphonate + NSAID + surgery when matured.</li>
+          <li>Long-term: CV risk + respiratory + chronic pain + depression + community + vocational + aging.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. TBI rehabilitation</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Disorders of consciousness</strong>: coma → VS (UWS) → MCS → emergence; CRS-R; <strong>amantadine 200–400 mg/day Giacino NEJM 2012</strong> improves recovery in vegetative / MCS within 4 weeks.</li>
+          <li><strong>PTA</strong>: time-orientation + memory impairment; duration predicts cognitive recovery (longer = worse).</li>
+          <li><strong>Cognitive rehab</strong>: attention training (APT); memory (external aids, errorless learning, spaced retrieval); executive (goal management training); compensation strategies.</li>
+          <li><strong>Behavioural / emotional</strong>: SSRI for mood; AVOID benzodiazepines + typical antipsychotics where possible. Post-traumatic seizures: LEV prophylaxis first week severe TBI.</li>
+          <li><strong>Concussion / mTBI</strong>: most resolve 4 weeks; <strong>graded RTA/RTS (Berlin/Amsterdam 2022)</strong> — symptom-limited rest 24-48h then 6 stages 24h apart; relapse → previous stage; persistent post-concussion symptoms → MDT.</li>
+          <li>Second impact syndrome rare but catastrophic.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. MS, PD, neuromuscular rehab</summary>
+      <div class="body">
+        <ul>
+          <li><strong>MS (Module 8)</strong>: fatigue ~80% energy conservation + cooling + amantadine / modafinil; spasticity baclofen / BoNT / intrathecal; cognitive rehab; balance + AFO; bladder anticholinergic / ISC / BoNT; mood SSRI; multidisciplinary MS rehab.</li>
+          <li><strong>PD (Module 6)</strong>: <strong>LSVT BIG (amplitude movement) + LSVT LOUD (amplitude speech) — 16 sessions × 4 weeks</strong>; cueing strategies for freezing; treadmill; tai chi (Li NEJM 2012 balance); dance therapy; falls prevention; DBS programming.</li>
+          <li>HD rehab (Module 6).</li>
+          <li><strong>GBS (Module 9)</strong>: gradual physio as strength returns; cardiac monitoring acute autonomic; psych support; vocational.</li>
+          <li><strong>MG (Module 9)</strong>: energy conservation + activity scheduling around fatigability + medication timing + avoid contraindicated drugs.</li>
+          <li><strong>ALS</strong>: <strong>multidisciplinary clinics improve survival + QoL</strong>; AAC + gastrostomy + NIV + palliative integration early.</li>
+          <li>Muscular dystrophy + SMA (Module 16 transformed by gene therapy) + chronic neuropathies.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Spasticity ladder</summary>
+      <div class="body">
+        <p>Modified Ashworth Scale (MAS) or Tardieu Scale.</p>
+        <ol>
+          <li><strong>Identify + remove triggers</strong>: pain, infection (UTI), constipation, pressure injury, ill-fitting equipment, mood.</li>
+          <li><strong>Physiotherapy</strong>: stretching + positioning + splinting + strengthen antagonists + functional task training.</li>
+          <li><strong>Oral antispastics</strong>:
+            <ul>
+              <li><strong>Baclofen</strong>: GABA-B; 5 mg TID → 80 mg/d; sedation; AVOID abrupt withdrawal (seizures, hyperthermia).</li>
+              <li><strong>Tizanidine</strong>: α2 agonist; hypotension; hepatotoxicity (monitor LFTs).</li>
+              <li>Gabapentin / pregabalin (especially with neuropathic pain).</li>
+              <li>Dantrolene (peripheral; hepatotoxicity; MS, CP).</li>
+            </ul>
+          </li>
+          <li><strong>Focal</strong>: <strong>botulinum toxin A</strong> 2-4 weeks onset + 3 months duration; phenol / alcohol nerve block.</li>
+          <li><strong>Intrathecal baclofen pump</strong>: severe diffuse spasticity (CP, MS, SCI); withdrawal life-threatening.</li>
+          <li>Surgical: selective dorsal rhizotomy (paediatric CP); tendon lengthening / transfer; nerve transfer.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Technology + community reintegration</summary>
+      <div class="body">
+        <ul>
+          <li><strong>FES</strong>: foot drop; upper limb cycling; SCI.</li>
+          <li><strong>Robot-assisted training</strong>: Lokomat / InMotion / Armeo — matched-dose equivalent to conventional.</li>
+          <li><strong>Exoskeletons</strong>: ReWalk / Ekso / EksoNR for SCI walking; selected.</li>
+          <li><strong>BCIs</strong>: BrainGate, Synchron, Neuralink — motor + communication; ALS / paralysis.</li>
+          <li><strong>Non-invasive brain stimulation</strong>: rTMS for depression, aphasia, motor; tDCS — adjuncts.</li>
+          <li><strong>VR</strong>: motor + neglect + exposure.</li>
+          <li><strong>Telerehabilitation</strong>: video-delivered; expanded since COVID-19; cost-effective.</li>
+          <li><strong>Wearables + apps</strong>: monitor + remote + gamification.</li>
+          <li><strong>Epidural stimulation</strong> (Courtine) for chronic SCI emerging.</li>
+        </ul>
+        <p><strong>Community + vocational</strong>: RTW with reasonable adjustments + graded return; driving assessment + reporting per country; home assessment + modifications; respite + carer support; advance care planning; disability benefits.</p>
+        <p><strong>Palliative neurorehabilitation</strong>: progressive incurable disease (ALS, end-stage MS, advanced PD, brain tumour, advanced dementia) — goals shift restoration → adaptation → maintenance → comfort.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="trajectory">
+    <h2>Recovery Trajectory Predictor</h2>
+    <p class="muted">Choose the condition; the tool returns the expected recovery trajectory and rehabilitation targets.</p>
+    <div class="tool" id="trajTool">
+      <div class="q">Primary condition?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="stroke">Stroke</button>
+        <button class="opt" data-val="sci">Spinal cord injury</button>
+        <button class="opt" data-val="tbi">Traumatic brain injury (moderate-severe)</button>
+        <button class="opt" data-val="concussion">Concussion / mild TBI</button>
+        <button class="opt" data-val="gbs">GBS</button>
+        <button class="opt" data-val="ms">Multiple sclerosis (RRMS)</button>
+        <button class="opt" data-val="pd">Parkinson disease</button>
+        <button class="opt" data-val="als">ALS</button>
+        <button class="opt" data-val="post_arrest">Post-cardiac-arrest HIE</button>
+      </div>
+      <div class="result" id="traj-result"></div>
+      <button class="reset" onclick="resetTraj()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="prescription">
+    <h2>Rehab Prescription Builder</h2>
+    <p class="muted">Choose the impairment; the tool returns evidence-based interventions with dose + technology + outcome measure.</p>
+    <div class="tool" id="presTool">
+      <div class="q">Dominant impairment?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="upper">Upper limb hemiparesis after stroke with some active wrist + finger extension</button>
+        <button class="opt" data-val="foot_drop">Foot drop after stroke / MS / peroneal nerve injury</button>
+        <button class="opt" data-val="aphasia">Non-fluent aphasia after left MCA stroke</button>
+        <button class="opt" data-val="dysphagia">Dysphagia post-stroke</button>
+        <button class="opt" data-val="neglect">Hemispatial neglect (right parietal stroke)</button>
+        <button class="opt" data-val="focal_spast">Focal spasticity (e.g., equinovarus foot or clenched fist)</button>
+        <button class="opt" data-val="diffuse_spast">Severe diffuse spasticity refractory to oral antispastics (MS, SCI, CP)</button>
+        <button class="opt" data-val="freezing">Freezing of gait in PD</button>
+        <button class="opt" data-val="pd_speech">PD hypophonia (soft voice)</button>
+        <button class="opt" data-val="tbi_doc">Disorder of consciousness after TBI</button>
+        <button class="opt" data-val="ms_fatigue">MS fatigue</button>
+        <button class="opt" data-val="neurogenic_bladder">Neurogenic bladder (SCI, MS)</button>
+      </div>
+      <div class="result" id="pres-result"></div>
+      <button class="reset" onclick="resetPres()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 65-year-old man 3 weeks after a right MCA infarct with NIHSS 14. He has dense left hemiparesis, mild left neglect, dysphagia (NG fed), and intact cognition. He is medically stable</summary>
+      <div class="body">
+        <p>Family motivated and supportive; lives in a single-story house. Previously independent + working part-time as an accountant.</p>
+        <p><strong>Diagnosis:</strong> Moderate-severity stroke requiring inpatient rehabilitation.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Transfer to inpatient rehabilitation unit</strong> — stroke unit care reduces mortality + dependency; structured MDT.</li>
+          <li>Goal-setting with patient + family using ICF framework: activity (independent transfers, walking 50 m with stick) + participation (return to work part-time within 6 months, drive within 12).</li>
+          <li><strong>Physiotherapy</strong>: high-dose task-specific training; gait training + treadmill with body-weight support if needed; AFO if foot drop emerges.</li>
+          <li><strong>Occupational therapy</strong>: upper limb retraining; ADLs; constraint-induced movement therapy if some active wrist + finger extension; environmental adaptation; cognitive rehab for neglect (prism adaptation + scanning training + limb activation).</li>
+          <li><strong>SLT</strong>: aphasia therapy if present; <strong>VFSS / FEES</strong> for dysphagia; IDDSI diet progression; PEG decision if no progress at 4 weeks.</li>
+          <li><strong>Spasticity</strong>: monitor; physiotherapy; baclofen / tizanidine if diffuse; botulinum toxin A if focal (equinovarus, clenched fist, hip adductors).</li>
+          <li><strong>Mood</strong>: screen for post-stroke depression; SSRI (sertraline) if present + CBT.</li>
+          <li><strong>Discharge planning</strong>: home assessment; carer education; community physiotherapy + OT + SLT; vocational rehabilitation; driving assessment at 6 months.</li>
+          <li>Outcome measures: mRS, mBI, FIM, 10MWT serially.</li>
+          <li>Cross-ref Modules 2, 17 (post-stroke pain), 24 (post-stroke depression).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 30-year-old man 6 weeks after C5-AIS B (sensory incomplete tetraplegia) from a diving injury, transferred from ICU after neurosurgery + tracheostomy decannulation</summary>
+      <div class="body">
+        <p>Previously working in construction. Married with 2 young children.</p>
+        <p><strong>Plan — SCI rehabilitation:</strong></p>
+        <ol>
+          <li><strong>Specialist SCI rehabilitation unit</strong> if available; high-intensity multidisciplinary care.</li>
+          <li>Serial <strong>ASIA</strong> assessments; goal-setting at activity + participation levels.</li>
+          <li><strong>Activity-based therapy</strong>: high-dose task-specific motor training; consider body-weight-supported treadmill training + exoskeleton-assisted standing.</li>
+          <li><strong>Wheelchair prescription</strong>: powered (likely given C5 tetraplegia); cushioning; tilt-in-space.</li>
+          <li><strong>Bladder</strong>: intermittent self-catheterisation (with carer / partner assistance initially); avoid long-term indwelling; UTI surveillance.</li>
+          <li><strong>Bowel</strong>: scheduled programme; gastrocolic reflex; digital stim.</li>
+          <li><strong>Sexual function</strong>: counselling; PDE5; fertility specialist (electroejaculation).</li>
+          <li><strong>Pressure injury prevention</strong>: position changes every 2 h initially; pressure-relief cushions + mattress; skin inspection education.</li>
+          <li><strong>Autonomic dysreflexia education</strong> (T6 and above — this patient is at risk): patient + family education; sit-up + remove trigger + nifedipine IR or topical nitrate; medical alert card.</li>
+          <li><strong>Spasticity</strong>: baclofen first-line; intrathecal baclofen pump if severe + refractory.</li>
+          <li><strong>Respiratory</strong>: secretion management; pulmonary care; flu / pneumococcal vaccination.</li>
+          <li><strong>Mood + psychosocial</strong>: clinical psychology; peer support; carer education; long-term mental health support.</li>
+          <li><strong>Vocational rehabilitation</strong>: education / re-skilling; possible community employment options; financial support.</li>
+          <li><strong>Long-term</strong>: cardiovascular surveillance; bone health (osteoporosis from immobilisation); aging with SCI clinic surveillance.</li>
+          <li>Cross-ref Modules 10, 15, 22.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 25-year-old man 6 weeks after severe TBI with diffuse axonal injury. GCS 9 on admission. Currently in minimally conscious state (CRS-R 11). Family considering withdrawal</summary>
+      <div class="body">
+        <p>Spontaneous eye opening; visual tracking + occasional command-following present. No verbal output. Tube-fed via PEG.</p>
+        <p><strong>Diagnosis:</strong> Minimally conscious state after severe TBI; within window for amantadine.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Avoid premature withdrawal</strong> — recovery from MCS can occur over months; multidisciplinary discussion + family meetings + advance directive review.</li>
+          <li><strong>Amantadine 100 mg BID titrated to 200 mg BID</strong> (Giacino NEJM 2012) — improves recovery in vegetative / minimally conscious states when started within 4 weeks of injury (acceptable to start at 6 weeks); continue until plateau, then trial off.</li>
+          <li>Other agents (modafinil, methylphenidate) emerging — consult.</li>
+          <li><strong>Serial CRS-R assessment</strong> — track emergence to consciousness.</li>
+          <li><strong>AVOID benzodiazepines, anticholinergics, and typical antipsychotics</strong> — impair plasticity and consciousness recovery.</li>
+          <li>Manage post-traumatic seizures (LEV preferred); manage spasticity; tracheostomy + PEG care.</li>
+          <li>When emerging, structured cognitive rehabilitation (attention + memory + executive function).</li>
+          <li>Family-centred care; psychological support; vocational rehabilitation planning over months.</li>
+          <li>If no recovery emerges, transition to long-term care with palliative principles.</li>
+          <li>Cross-ref Modules 22, 24.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 22-year-old footballer concussed in a tackle; loss of consciousness for 30 seconds; headache + dizziness + difficulty concentrating now</summary>
+      <div class="body">
+        <p>No focal neurology. CT brain normal.</p>
+        <p><strong>Diagnosis:</strong> Concussion / mild TBI.</p>
+        <p><strong>Plan — Berlin / Amsterdam (2022) Consensus Concussion in Sport Group framework:</strong></p>
+        <ol>
+          <li><strong>Symptom-limited cognitive + physical rest 24–48 hours</strong>; observe for red flags (deterioration, focal signs, seizures).</li>
+          <li><strong>Graded return-to-sport / return-to-activity</strong> through 6 stages with 24 h between stages; relapse of symptoms → return to previous stage:
+            <ol>
+              <li>Symptom-limited daily activity.</li>
+              <li>Light aerobic exercise (walking, stationary cycle).</li>
+              <li>Sport-specific exercise (no head impact).</li>
+              <li>Non-contact training.</li>
+              <li>Full-contact practice (medical clearance required).</li>
+              <li>Return to play.</li>
+            </ol>
+          </li>
+          <li>Address specific symptoms: headache (paracetamol short-term; avoid medication overuse — Module 4); sleep (sleep hygiene); mood; vestibular (physiotherapy); cervical (physiotherapy).</li>
+          <li><strong>Persistent post-concussion symptoms (PPCS, &gt; 4 weeks)</strong>: multidisciplinary management; CBT for anxiety / depression; vestibular physiotherapy; gradual return to activity; education + reassurance.</li>
+          <li>Counsel about <strong>second impact syndrome</strong> — diffuse cerebral oedema risk if second injury before first has resolved (rare but catastrophic).</li>
+          <li>Repeated concussion + CTE risk discussion for retirement / equipment changes (boxing, American football).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 70-year-old with moderate Parkinson disease (Hoehn-Yahr III) has progressive hypophonia (soft voice) and freezing of gait with multiple near-falls</summary>
+      <div class="body">
+        <p>On levodopa-carbidopa + ropinirole. Cognition intact.</p>
+        <p><strong>Plan — multidisciplinary PD rehabilitation:</strong></p>
+        <ol>
+          <li><strong>LSVT LOUD</strong> for hypophonia: 16 sessions over 4 weeks; amplitude-focused speech therapy; improves loudness + intelligibility; refer to a certified LSVT LOUD clinician.</li>
+          <li><strong>LSVT BIG</strong> for motor symptoms: 16 sessions over 4 weeks; amplitude-focused movement therapy; improves bradykinesia + posture.</li>
+          <li><strong>Cueing strategies for freezing of gait</strong>: visual (lines on floor, target with foot), auditory (metronome, music with beat), tactile (vibrating cue); STARTSTOP strategy at doorways.</li>
+          <li><strong>Treadmill training</strong> for gait speed (if safe).</li>
+          <li><strong>Falls prevention</strong>: home assessment; remove tripping hazards; install grab rails; appropriate footwear; tai chi (Li NEJM 2012 — improves balance in PD); referral to multidisciplinary falls clinic.</li>
+          <li>Review medications: optimise dopaminergic timing (especially around speech / mobility tasks); consider DBS referral if motor fluctuations not controlled (Module 6).</li>
+          <li>Carer education; community PD support group; consider community-based exercise programmes (Rock Steady Boxing, dance therapy — patient choice).</li>
+          <li>Cross-ref Module 6.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 55-year-old with ALS has progressive bulbar dysfunction (dysarthria + dysphagia) and respiratory decline (FVC 60%). He is considering NIV and feeding options</summary>
+      <div class="body">
+        <p>He has 2 young adult children. Lives with wife. Previously working as a teacher.</p>
+        <p><strong>Plan — multidisciplinary ALS rehabilitation:</strong></p>
+        <ol>
+          <li><strong>Multidisciplinary ALS clinic</strong> — improves survival + quality of life vs general clinic.</li>
+          <li><strong>Respiratory</strong>: pulmonary function tests + sniff nasal inspiratory pressure (SNIP); discuss <strong>NIV at FVC &lt; 50% predicted or symptomatic respiratory failure</strong> (improves survival + QoL); cough assist devices; secretion management.</li>
+          <li><strong>Bulbar</strong>: SLT for dysarthria + dysphagia; <strong>augmentative and alternative communication (AAC)</strong> — picture boards, speech-generating devices, eye-gaze technology, BCIs in selected patients; voice banking early before voice deteriorates.</li>
+          <li><strong>Nutrition</strong>: dietitian; <strong>gastrostomy (PEG / RIG) when oral intake compromised + weight loss</strong> (better placed earlier when FVC &gt; 50% to reduce procedural risk).</li>
+          <li><strong>Mobility</strong>: physiotherapy + OT + AFO + walking aids + wheelchair (powered when needed).</li>
+          <li><strong>Spasticity / cramps</strong>: baclofen, gabapentin; quinine for cramps.</li>
+          <li><strong>Sialorrhoea</strong>: glycopyrrolate, atropine drops, botulinum toxin to salivary glands.</li>
+          <li><strong>Pseudobulbar affect</strong>: dextromethorphan-quinidine.</li>
+          <li><strong>Riluzole</strong> + (where available) <strong>edaravone</strong>; AMX0035 withdrawn 2024; tofersen for SOD1-ALS (cross-ref Module 9).</li>
+          <li><strong>Psychological + family + palliative care integration early</strong>: ACP (advance care planning); hospice; bereavement support.</li>
+          <li><strong>End-of-life</strong>: discuss preferences for NIV, tracheostomy, gastrostomy, place of care, comfort measures; respect autonomy.</li>
+          <li>Cross-ref Modules 9 (ALS), 14 (sleep / respiratory), 17 (palliative pain).</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 25 of an ongoing neurology curriculum. Sources: ICF (WHO 2001); Kleim &amp; Jones 2008 plasticity principles; AVERT (Lancet 2015); EXCITE (Wolf JAMA 2006); FLAME (Chollet Lancet Neurol 2011) + FOCUS / EFFECTS / AFFINITY 2019-2020; Giacino NEJM 2012 amantadine TBI; Berlin / Amsterdam concussion consensus 2022; LSVT BIG/LOUD; Li NEJM 2012 tai chi PD; Brady Cochrane 2016 aphasia; cross-references to Modules 2, 6, 7, 8, 9, 10, 14, 15, 17, 22, 24.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Framework', q:'ICF framework — at what levels are rehabilitation goals best set?', a:'WHO ICF (2001) levels: body structure/function → activity → participation. Goals should be set at the ACTIVITY (e.g., walk 50 m with stick) and PARTICIPATION (e.g., return to work) levels, NOT at the impairment level. The patient and family define the goals; the team finds the route.'},
+  {tag:'Plasticity', q:'Kleim-Jones principles — name 5 of 10?', a:'(1) Use it or lose it; (2) Use it and improve it; (3) Specificity; (4) Repetition matters; (5) Intensity matters; (6) Time matters; (7) Salience matters; (8) Age matters; (9) Transference; (10) Interference (learned non-use). These guide all rehabilitation interventions.'},
+  {tag:'AVERT', q:'AVERT 2015 — what did it show about early stroke mobilisation?', a:'Very high-dose mobilisation within 24 h of stroke was WORSE than usual care. Early but SHORT FREQUENT SESSIONS are recommended; avoid very high doses in the first 24 hours. Stroke unit care reduces mortality + dependency.'},
+  {tag:'EXCITE', q:'CIMT (EXCITE 2006) — eligibility and protocol?', a:'Eligibility: some active wrist + finger extension preserved on affected side (selected upper limb hemiparesis). Protocol: constrain the unaffected limb 90% of waking hours + intensive shaping of the affected limb for 2 weeks. Improves upper-limb function (Wolf JAMA 2006). Not for severe deficits without movement.'},
+  {tag:'FLAME', q:'Fluoxetine for motor recovery after stroke — current evidence?', a:'FLAME (Chollet Lancet Neurol 2011) positive for motor recovery. Subsequent larger trials FOCUS (UK), EFFECTS (Sweden), AFFINITY (Australia) 2019–2020 did NOT replicate motor benefit but supported reduced post-stroke depression. SSRI not routinely used for motor recovery; still used for post-stroke depression. Cross-ref Module 24.'},
+  {tag:'Amantadine', q:'Amantadine for TBI — when and for what?', a:'Giacino NEJM 2012: amantadine 200–400 mg/day improves recovery in patients in vegetative state or minimally conscious state after severe TBI when started WITHIN 4 WEEKS of injury. Acceptable up to weeks 4–16 in clinical practice. Continue until plateau then trial off. AVOID benzodiazepines + anticholinergics + typical antipsychotics — impair plasticity.'},
+  {tag:'LSVT', q:'LSVT BIG and LSVT LOUD — what for, what dose?', a:'AMPLITUDE-focused therapies for Parkinson disease. LSVT BIG: movement therapy (improves bradykinesia, posture). LSVT LOUD: speech therapy (improves hypophonia — voice loudness and intelligibility). Both: 16 sessions over 4 weeks (4 sessions per week × 4 weeks). Delivered by certified clinicians.'},
+  {tag:'Cueing', q:'Cueing strategies for freezing of gait in PD?', a:'VISUAL cues (lines on floor, targets), AUDITORY cues (metronome, music with beat), TACTILE cues (vibrating cue). STARTSTOP strategy at doorways. Mental imagery. Cues bypass impaired internal cuing system in PD and help re-initiate gait. Cross-ref Module 6.'},
+  {tag:'Concussion', q:'Berlin / Amsterdam 2022 graded return-to-sport — basic structure?', a:'(1) Symptom-limited daily activity; (2) Light aerobic exercise; (3) Sport-specific exercise (no head impact); (4) Non-contact training; (5) Full-contact practice (medical clearance); (6) Return to play. 24 hours between stages. Relapse of symptoms → return to previous stage. Persistent symptoms > 4 weeks = PPCS; multidisciplinary management.'},
+  {tag:'Spasticity', q:'Spasticity treatment ladder?', a:'(1) Identify and REMOVE TRIGGERS (pain, UTI, constipation, pressure injury, mood); (2) Physiotherapy (stretching, positioning, splinting); (3) Oral antispastics (baclofen first-line; tizanidine, gabapentin, dantrolene); (4) Focal botulinum toxin A injection; (5) Intrathecal baclofen pump (severe diffuse); (6) Surgery (selective dorsal rhizotomy for paediatric CP; tendon lengthening / transfer).'},
+  {tag:'Baclofen', q:'Baclofen — dose range and key safety caveat?', a:'5 mg TID titrated to maximum 80 mg/day in divided doses. Sedation is common. AVOID ABRUPT WITHDRAWAL — can cause withdrawal syndrome with seizures, hyperthermia, mortality. Intrathecal baclofen catheter problems are particularly dangerous. Taper gradually. Especially monitor patients with implanted pumps for catheter dysfunction.'},
+  {tag:'Botulinum', q:'Botulinum toxin A for focal spasticity — pharmacology basics?', a:'Onset 2–4 weeks; peak effect 4–6 weeks; duration 3 months; can be repeated. Selected muscles based on functional goal (e.g., gastrocnemius for equinovarus, finger flexors for clenched fist, hip adductors). Goal-setting before each injection cycle. Monitor for antibody-mediated treatment resistance (rare with modern formulations).'},
+  {tag:'SCI', q:'Why is intermittent self-catheterisation preferred over long-term indwelling in neurogenic bladder?', a:'Long-term indwelling catheters have higher rates of UTI, bladder stones, autonomic dysreflexia (Module 15), urethral injury, and bladder cancer over years. ISC (4–6× daily) is preferred when feasible. Alternatives: suprapubic catheter (better than urethral if indwelling needed); botulinum toxin to detrusor; mirabegron / oxybutynin to reduce overactivity.'},
+  {tag:'Aphasia', q:'Aphasia therapy intensity — what does evidence support?', a:'Brady Cochrane 2016: HIGH-DOSE speech-language therapy in subacute phase is superior to low-dose for aphasia recovery after stroke. Specific protocols: CIAT (constraint-induced aphasia therapy), melodic intonation therapy for non-fluent aphasia, semantic feature analysis for anomia. tDCS over Broca\'s area + intensive language therapy emerging.'},
+  {tag:'Dysphagia', q:'Dysphagia screening + formal assessment after stroke?', a:'BEDSIDE SCREEN (e.g., water swallow test) on admission in every stroke patient; NPO until cleared. Formal assessment: VIDEOFLUOROSCOPY (VFSS) or FIBREOPTIC ENDOSCOPIC EVALUATION OF SWALLOWING (FEES). Use IDDSI framework for diet modification. Compensatory: chin tuck, head turn, smaller bolus, thickened fluids. Rehabilitative: shaker, effortful swallow, Mendelsohn manoeuvre, NMES.'},
+  {tag:'Outcomes', q:'10MWT gait speed threshold for community ambulation?', a:'Gait speed > 1.0 m/s on the 10-Metre Walk Test is associated with community ambulation. < 0.4 m/s = household ambulator (limited mobility outside home). 0.4–0.8 m/s = limited community ambulator. > 0.8 m/s = community ambulator. Gait speed is the "6th vital sign" predicting independence + falls + hospitalisation.'},
+  {tag:'mRS', q:'Modified Rankin Scale — what does mRS ≤ 2 mean?', a:'Stroke global outcome measure 0 → 6 (0 = no symptoms; 6 = dead). mRS ≤ 2 = GOOD OUTCOME = independent in basic ADLs (may have some symptoms / mild disability but does not need help). mRS ≤ 2 is the primary outcome of most stroke trials. mRS 3 = moderate disability (needs some help). mRS 4–5 = severe disability.'},
+  {tag:'Autonomic dysreflexia', q:'Why educate SCI patients and families about autonomic dysreflexia?', a:'Patients with spinal cord injury above T6 are at risk. Surge of sympathetic outflow below the lesion + bradycardia + headache + sweating above the lesion. Triggered by noxious stimulus below (distended bladder most common, faecal impaction, pressure ulcer). Life-threatening hypertensive crisis possible. Manage: sit up + loosen clothing + REMOVE TRIGGER (catheterise, disimpact) + nifedipine IR or topical nitrate if BP persists. Cross-ref Modules 10, 15.'},
+  {tag:'Tai chi', q:'Tai chi in Parkinson disease — evidence?', a:'Li et al. NEJM 2012: tai chi improved postural stability in patients with Parkinson disease in a randomised trial (vs resistance training or stretching). Twice weekly 60-min sessions for 24 weeks. Reduces falls. Easy to integrate into community-based programmes. Other community options for PD: dance therapy, Rock Steady Boxing.'},
+  {tag:'ALS MDT', q:'Why does multidisciplinary clinic care improve ALS outcomes?', a:'Multidisciplinary ALS clinics (neurology + nursing + SLT + PT + OT + dietitian + respiratory + social work + palliative) improve SURVIVAL + QUALITY OF LIFE vs general clinic care. Coordinate riluzole / edaravone + tofersen (SOD1); NIV when FVC < 50% (improves survival); PEG before FVC drops too low; AAC; spasticity; sialorrhoea; psychological + family + palliative + ACP. Cross-ref Module 9.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 65-year-old man 3 weeks after a right MCA infarct (NIHSS 14) with left hemiparesis + mild neglect + dysphagia + intact cognition. Best level for rehabilitation?',
+   choices:['Outpatient physiotherapy only','Inpatient stroke rehabilitation unit — multidisciplinary care reduces mortality + dependency; structured goal-setting at ICF activity + participation levels; PT/OT/SLT/psychology/social work integration','Discharge home with family','Long-term nursing home'],
+   ans:1,
+   why:'Moderate stroke with multiple impairments + cognitive preservation + supportive family + motivated patient is ideal for inpatient rehabilitation. Stroke unit care reduces mortality + dependency. Set goals using ICF framework at activity (independent transfers, walking with stick) and participation (return to work, drive). Multidisciplinary team: physiatrist + PT + OT + SLT + psychology + nursing + social work + dietitian.'},
+  {q:'What was the main finding of the AVERT trial (Lancet 2015) regarding early stroke mobilisation?',
+   choices:['Very early high-dose mobilisation within 24 h improved outcomes','Very early HIGH-DOSE mobilisation within 24 h was WORSE than usual care; early but short frequent sessions are recommended; avoid very high doses in the first 24 hours','Bed rest was better','Mobilisation timing did not matter'],
+   ans:1,
+   why:'AVERT (Lancet 2015): very high-dose mobilisation within 24 hours of stroke was associated with worse outcomes at 3 months than usual care. Recommendation: early but short frequent sessions; avoid very high doses in first 24 h. Subsequent stroke unit care reduces mortality + dependency. Balance early mobilisation with avoiding excessive dosing in the acute phase.'},
+  {q:'A 55-year-old man 3 months post left MCA stroke has retained some active wrist + finger extension on the affected right hand. He has good motivation and family support. Best intervention to improve upper-limb function?',
+   choices:['Long-term diphenhydramine','Constraint-induced movement therapy (CIMT) — EXCITE trial (Wolf JAMA 2006): constrain unaffected limb 90% of waking hours + intensive shaping of affected limb × 2 weeks → improves upper limb function','Long-term opioids','Bed rest'],
+   ans:1,
+   why:'CIMT eligibility: some active wrist + finger extension preserved (not severe paralysis). Protocol: constrain unaffected limb 90% of waking hours + intensive shaping of affected limb for 2 weeks. EXCITE (Wolf JAMA 2006) demonstrated improved upper-limb function 3 to 9 months after stroke. Repetitive task-specific training, robot-assisted training, mental practice, and mirror therapy are alternatives or adjuncts.'},
+  {q:'A 25-year-old man 6 weeks after severe TBI is in minimally conscious state (CRS-R 11). Family is anxious about prognosis. Which intervention has the best RCT evidence for improving consciousness recovery?',
+   choices:['Long-term benzodiazepine','Amantadine 200–400 mg/day (Giacino NEJM 2012 — improves recovery in vegetative / minimally conscious states when started within 4 weeks of injury); AVOID benzodiazepines, anticholinergics, typical antipsychotics; avoid premature withdrawal','High-dose steroid','Phenobarbital'],
+   ans:1,
+   why:'Giacino NEJM 2012 RCT: amantadine 200–400 mg/day improves recovery in vegetative and minimally conscious states after severe TBI when started within 4 weeks of injury. AVOID benzodiazepines + anticholinergics + typical antipsychotics — impair plasticity and recovery. Multidisciplinary team + serial CRS-R + family-centred care + avoid premature withdrawal of life-sustaining treatment. Modafinil, methylphenidate are emerging alternatives.'},
+  {q:'A 22-year-old footballer has a concussion (30 seconds LOC). Headache + dizziness + difficulty concentrating now. CT normal. Best initial management framework?',
+   choices:['Strict prolonged bed rest','Symptom-limited cognitive + physical rest 24–48 hours, then 6-stage graded return-to-sport with 24 h between stages; relapse → previous stage; persistent symptoms > 4 weeks = PPCS with MDT','Helmet alone','tPA'],
+   ans:1,
+   why:'Concussion / mild TBI per Berlin / Amsterdam 2022 Consensus Concussion in Sport Group: symptom-limited rest 24–48 h, then 6-stage graded return-to-sport (light aerobic → sport-specific → non-contact → full contact → return to play) with 24 h between stages; relapse → return to previous stage. Persistent post-concussion symptoms > 4 weeks (PPCS) require multidisciplinary management. Counsel about second impact syndrome. Avoid prolonged rest (delays recovery).'},
+  {q:'A 70-year-old with PD Hoehn-Yahr III has hypophonia + freezing of gait. Best evidence-based rehabilitation interventions?',
+   choices:['Long-term opioid','LSVT LOUD for hypophonia (16 sessions over 4 weeks, amplitude-focused speech therapy) + LSVT BIG for movement + cueing strategies for freezing (visual / auditory / tactile) + falls prevention; tai chi for balance per Li NEJM 2012','Bed rest','tPA'],
+   ans:1,
+   why:'LSVT LOUD (speech) and LSVT BIG (movement) are amplitude-focused therapies delivered in 16 sessions over 4 weeks. Both improve PD symptoms. Cueing strategies (visual, auditory, tactile) help freezing of gait. Tai chi improves postural stability (Li NEJM 2012). Falls prevention: home assessment + grab rails + tai chi + appropriate footwear. Optimise dopaminergic timing. Consider DBS referral if motor fluctuations not controlled. Cross-ref Module 6.'},
+  {q:'A 30-year-old with C5 ASIA B (sensory incomplete tetraplegia) needs SCI rehabilitation. Which is NOT appropriate?',
+   choices:['Intermittent self-catheterisation (with carer/partner assistance initially)','Long-term indwelling urethral catheter as first-line bladder management — preferred is intermittent self-catheterisation to reduce UTI, stones, autonomic dysreflexia; suprapubic catheter if indwelling needed','Patient/family education on autonomic dysreflexia (T6+ lesions)','Powered wheelchair'],
+   ans:1,
+   why:'Long-term indwelling urethral catheters have higher rates of UTI, bladder stones, autonomic dysreflexia (Module 15), urethral injury, and bladder cancer over years. ISC (4–6× daily) is preferred when feasible. Alternatives: suprapubic catheter (better than urethral if indwelling needed); botulinum toxin to detrusor; mirabegron / oxybutynin. Always counsel patients with SCI above T6 about autonomic dysreflexia.'},
+  {q:'A 50-year-old MS patient with severe diffuse spasticity is on baclofen 80 mg/day, tizanidine 24 mg/day, and gabapentin 2700 mg/day with inadequate control. Next step?',
+   choices:['Add benzodiazepine long-term','Intrathecal baclofen pump trial (intrathecal test dose); if effective, implant pump; monitor for catheter problems and avoid abrupt withdrawal','Discontinue all medications','tPA'],
+   ans:1,
+   why:'Intrathecal baclofen pump is indicated for severe diffuse spasticity refractory to maximal oral therapy. Test dose first (intrathecal bolus to confirm response). If effective, implant pump. Monitor for catheter problems and AVOID abrupt withdrawal (life-threatening — seizures, hyperthermia, rhabdomyolysis, mortality). For FOCAL spasticity, botulinum toxin A is preferred. Cross-ref Modules 8, 10.'},
+  {q:'A 55-year-old with ALS has FVC 60% and progressive bulbar dysfunction. Best practice approach to overall care?',
+   choices:['Riluzole alone','Multidisciplinary ALS clinic — improves survival + QoL vs general clinic; NIV when FVC < 50% or symptomatic; PEG before FVC drops too low; AAC; voice banking early; nutrition; psychological + early palliative care + ACP; riluzole + edaravone','Discharge to community','Long-term opioid only'],
+   ans:1,
+   why:'Multidisciplinary ALS clinics (neurology + nursing + SLT + PT + OT + dietitian + respiratory + social work + palliative) improve survival + QoL vs general clinic. NIV at FVC < 50% predicted or symptomatic respiratory failure improves survival. PEG before FVC drops too low (better procedural risk). AAC (picture boards, speech-generating devices, eye-gaze, BCIs); voice banking before deterioration. Riluzole + edaravone; tofersen for SOD1; AMX0035 withdrawn 2024. Early palliative care integration. Cross-ref Module 9.'},
+  {q:'A 60-year-old stroke patient develops post-stroke depression. Best treatment based on modern evidence (FOCUS/EFFECTS/AFFINITY)?',
+   choices:['No treatment needed','SSRI (sertraline or citalopram) for post-stroke depression — supported by trial evidence; FOCUS/EFFECTS/AFFINITY 2019-2020 did NOT confirm FLAME 2011 motor recovery benefit but supported reduced depression incidence; CBT adjunct','Long-term benzodiazepine','Bupropion as first-line'],
+   ans:1,
+   why:'Post-stroke depression affects ~30% of stroke survivors; impairs functional recovery + increases mortality. SSRI (sertraline, citalopram with QT caution) + CBT. FLAME trial (2011) suggested fluoxetine improved motor recovery; subsequent larger trials FOCUS / EFFECTS / AFFINITY 2019-2020 did NOT replicate motor benefit but supported reduced depression incidence. SSRI not routinely used for motor recovery but still used for post-stroke depression. Cross-ref Module 24.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Recovery Trajectory Predictor */
+const trajResult = document.getElementById('traj-result');
+const trajMap = {
+  stroke:{title:'Stroke recovery trajectory', items:[
+    'Steepest recovery in <strong>first 3 months</strong> (acute + early subacute phases).',
+    'Continued meaningful recovery up to 6–12 months in most patients; further gains in late subacute / chronic phase with task-specific training.',
+    'Predictors: stroke severity (NIHSS, lesion size + location), age, comorbidity, baseline function, family + social support, access to multidisciplinary rehabilitation.',
+    '<strong>Goals</strong>: ICF activity (independent transfers, walking, ADLs) + participation (return to work, driving, social).',
+    '<strong>Outcome measures</strong>: mRS, mBI, FIM, 10MWT, 6MWT, Fugl-Meyer.',
+    '<strong>Targets</strong>: mRS ≤ 2 = independent ADLs (good outcome); 10MWT > 1.0 m/s = community ambulator.',
+    '<strong>Care pathway</strong>: stroke unit → inpatient rehabilitation → outpatient rehab → community → vocational rehab → driving assessment at 6 months.'
+  ]},
+  sci:{title:'SCI recovery trajectory', items:[
+    'Most neurological recovery occurs within the <strong>first 6–12 months</strong>; some patients with incomplete injuries continue improving for years.',
+    'ASIA Impairment Scale conversion: ~10–20% of ASIA A complete tetraplegia patients convert to incomplete; higher conversion rates for incomplete SCI.',
+    'Predictors: completeness (ASIA), level, age, surgical timing, rehabilitation intensity.',
+    '<strong>Goals</strong>: functional independence appropriate to level — eating, dressing, transfers, mobility, bladder + bowel programmes.',
+    '<strong>Outcome measures</strong>: ASIA, Spinal Cord Independence Measure (SCIM), FIM.',
+    '<strong>Specialist SCI rehabilitation unit</strong> ideal; high-intensity multidisciplinary care.',
+    '<strong>Long-term issues</strong>: cardiovascular surveillance + respiratory care + chronic pain + depression + community + vocational + aging-with-SCI clinic.',
+    '<strong>Future</strong>: epidural stimulation + activity-based therapy may extend recovery in chronic SCI (Courtine; Harkema).'
+  ]},
+  tbi:{title:'Moderate-severe TBI recovery trajectory', items:[
+    'Highly variable; depends on injury severity, PTA duration, age, premorbid function.',
+    'Cognitive and behavioural recovery continues for <strong>months to years</strong>; physical recovery typically faster.',
+    '<strong>Disorders of consciousness</strong> (vegetative → minimally conscious → emergence): amantadine within 4 weeks improves recovery (Giacino NEJM 2012).',
+    '<strong>PTA duration</strong> predicts cognitive recovery (longer = worse).',
+    '<strong>Goals</strong>: cognitive rehabilitation (attention, memory, executive), behavioural management, ADLs, return to work / education (often graded over months).',
+    '<strong>Outcome measures</strong>: CRS-R (consciousness), Glasgow Outcome Scale Extended (GOS-E), FIM, neuropsychological battery.',
+    'AVOID benzodiazepines + anticholinergics + typical antipsychotics where possible.',
+    'Family + caregiver support is essential; long-term mental health support common.'
+  ]},
+  concussion:{title:'Concussion / mild TBI recovery trajectory', items:[
+    '<strong>Most resolve within 4 weeks</strong>; many within 1–2 weeks.',
+    '<strong>Persistent post-concussion symptoms (PPCS) &gt; 4 weeks</strong> in ~10–30% requires multidisciplinary management.',
+    'Berlin / Amsterdam 2022: graded return-to-sport / return-to-activity with 6 stages, 24 h between, relapse → previous stage.',
+    'Predictors of prolonged recovery: female sex, prior concussion, pre-existing mood / anxiety / migraine, longer LOC / amnesia, vestibular / oculomotor abnormalities.',
+    'Goals: full symptom resolution + return to school / work / sport.',
+    'Targets: SCAT-6 or similar; symptom checklist; balance + cognitive function recovery.',
+    'Counsel about second impact syndrome + CTE risk with repeated injury.'
+  ]},
+  gbs:{title:'GBS recovery trajectory', items:[
+    'Recovery typically begins <strong>2–4 weeks</strong> after nadir; gradual improvement over <strong>6–12 months</strong> in most.',
+    '~80% reach independent ambulation by 6 months.',
+    '~20% have persistent disability; ~5% relapse (CIDP differential).',
+    'Predictors: age, severity at nadir (need for ventilation), preceding Campylobacter, electrodiagnostic features (axonal vs demyelinating).',
+    'Acute autonomic instability (Module 15) is the major mortality driver — telemetry; avoid pushed cardioactive drug boluses.',
+    'Goals: weaning from ventilator + regaining independent ambulation + community reintegration + vocational rehabilitation.',
+    'Outcome measures: GBS Disability Score, MRC sum score, FIM.',
+    'IVIG or PLEX in acute phase; rehabilitation begins as soon as stability allows.',
+    'Cross-ref Module 9.'
+  ]},
+  ms:{title:'MS rehabilitation trajectory', items:[
+    'RRMS: relapse-recovery pattern; relapse rate reduces during pregnancy + rebounds postpartum (Module 20); long-term disability accumulates over years.',
+    'SPMS / PPMS: progressive accumulation of disability.',
+    'Rehabilitation is <strong>ongoing through course of disease</strong>; multidisciplinary MS rehabilitation programmes improve function + QoL.',
+    'Goals depend on phase: post-relapse recovery + maintaining function + managing fatigue / spasticity / cognitive / bladder / mood / sexual.',
+    'Outcome measures: EDSS, MS Functional Composite (timed 25-foot walk + 9HPT + PASAT), 6MWT.',
+    'Cross-ref Module 8.'
+  ]},
+  pd:{title:'Parkinson disease rehabilitation trajectory', items:[
+    'PD is progressive; rehabilitation is <strong>ongoing through course of disease</strong>.',
+    'Rehabilitation is most effective in early-moderate PD; LSVT BIG and LOUD have best evidence in mild-moderate PD.',
+    'Goals: maintain function + delay falls + manage motor fluctuations + maintain communication + cognitive surveillance.',
+    'Outcome measures: UPDRS, 10MWT, Berg Balance, Falls Efficacy Scale.',
+    'Multidisciplinary PD clinics; falls prevention; medication optimisation; DBS referral when motor fluctuations not controlled (Module 6).',
+    'Cross-ref Module 6.'
+  ]},
+  als:{title:'ALS rehabilitation trajectory', items:[
+    'ALS is progressive; median survival 3–5 years from diagnosis; bulbar onset has shorter survival.',
+    'Rehabilitation is <strong>adaptation + maintenance + comfort</strong>; not restoration.',
+    '<strong>Multidisciplinary ALS clinics improve survival + QoL</strong> vs general clinic.',
+    'NIV at FVC < 50% or symptomatic respiratory failure improves survival + QoL.',
+    'PEG before FVC drops too low to reduce procedural risk.',
+    'AAC (picture boards, speech-generating devices, eye-gaze, BCIs) before voice deteriorates; voice banking.',
+    'Riluzole + edaravone; tofersen SOD1; palliative care integration early.',
+    'End-of-life: ACP + hospice + carer + bereavement.',
+    'Cross-ref Module 9.'
+  ]},
+  post_arrest:{title:'Post-cardiac-arrest HIE recovery trajectory', items:[
+    'Highly variable; ~50% of survivors of OHCA with ROSC have significant neurological disability.',
+    'Multimodal neuroprognostication ≥ 72 h after rewarming + sedation off (Module 22 ERC/ESICM 2021).',
+    'Combine ≥ 2 robust features: bilateral absent pupillary + corneal reflexes + status myoclonus day 1 + absent N20 SSEPs + burst-suppression EEG + NSE > 60 µg/L + diffuse cytotoxic oedema MRI DWI.',
+    '<strong>Lance-Adams syndrome (post-anoxic action myoclonus)</strong> is a RECOVERY state, not a poor prognostic sign.',
+    'Delayed post-hypoxic leukoencephalopathy: apparent recovery → days–weeks later decline → extensive white matter changes.',
+    'Goals depend on recovery: cognitive + motor + ADL + community reintegration.',
+    'TTM2 (Dankiewicz NEJM 2021): targeted normothermia ≤ 37.7 °C equivalent to 33 °C in OHCA.',
+    'Cross-ref Module 22.'
+  ]}
+};
+document.querySelectorAll('#trajTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#trajTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = trajMap[b.dataset.val];
+  if (m) {
+    trajResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    trajResult.classList.add('show');
+  }
+}));
+function resetTraj() {
+  document.querySelectorAll('#trajTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  trajResult.classList.remove('show');
+}
+
+/* Rehab Prescription Builder */
+const presResult = document.getElementById('pres-result');
+const presMap = {
+  upper:{title:'Upper limb hemiparesis with retained wrist + finger extension', items:[
+    '<strong>Constraint-induced movement therapy (CIMT)</strong>: constrain unaffected limb 90% of waking hours + intensive shaping of affected limb × 2 weeks (EXCITE Wolf JAMA 2006).',
+    'Repetitive task-specific training; dose-matched robotic upper limb training (similar gains).',
+    'Mental practice + mirror therapy (improves upper limb + reduces neglect).',
+    'Bilateral training emerging.',
+    'AVOID excessive splinting (learned non-use).',
+    '<strong>Outcome measures</strong>: Fugl-Meyer Assessment + Box and Block Test + Action Research Arm Test + 9-Hole Peg Test.'
+  ]},
+  foot_drop:{title:'Foot drop', items:[
+    '<strong>Ankle-foot orthosis (AFO)</strong> — solid or hinged; immediate gait improvement.',
+    '<strong>Functional electrical stimulation (FES)</strong>: peroneal nerve stimulation devices (e.g., WalkAide, Bioness); during swing phase; improves gait quality + reduces falls.',
+    'Strengthening anterior tibialis + foot dorsiflexors.',
+    '<strong>Outcome measures</strong>: 10-Metre Walk Test (gait speed) + 6-Minute Walk Test + walking distance.'
+  ]},
+  aphasia:{title:'Non-fluent (Broca-like) aphasia post-stroke', items:[
+    '<strong>Intensive speech-language therapy</strong> in subacute phase (Brady Cochrane 2016 — high-dose superior to low-dose).',
+    'Constraint-Induced Aphasia Therapy (CIAT) for forced verbal output.',
+    '<strong>Melodic Intonation Therapy</strong>: uses singing/melodic chanting to facilitate speech in non-fluent aphasia.',
+    'Conversational practice + script training.',
+    'tDCS over Broca\'s area + intensive language therapy emerging.',
+    '<strong>Outcome measures</strong>: Western Aphasia Battery + Boston Naming Test + functional communication measures.'
+  ]},
+  dysphagia:{title:'Dysphagia post-stroke', items:[
+    'Bedside screen (water swallow test) on admission; NPO until cleared.',
+    '<strong>Formal assessment</strong>: videofluoroscopy (VFSS) or fibreoptic endoscopic evaluation of swallowing (FEES).',
+    '<strong>Compensatory strategies</strong>: chin tuck + head turn + smaller bolus + thickened fluids (IDDSI framework).',
+    '<strong>Rehabilitative exercises</strong>: shaker exercise + effortful swallow + Mendelsohn manoeuvre + tongue strengthening + neuromuscular electrical stimulation (NMES — selected).',
+    'NG → PEG transition if persistent severe dysphagia.',
+    '<strong>Outcome measures</strong>: Functional Oral Intake Scale + penetration-aspiration scale + DOSS.'
+  ]},
+  neglect:{title:'Hemispatial neglect (right parietal stroke)', items:[
+    '<strong>Prism adaptation therapy</strong>: rightward-deviating prisms; 20-30 min sessions; effect persists hours-days; repeated treatment.',
+    'Visual scanning + visual exploration training.',
+    'Limb activation strategies (active movement of left arm in left hemispace).',
+    '<strong>Repetitive TMS to contralesional (left) parietal cortex</strong> emerging (rebalances cortical excitability).',
+    'Auditory and tactile cueing for left side.',
+    'Family education to approach from left + place items on left.',
+    '<strong>Outcome measures</strong>: Behavioural Inattention Test + line bisection + cancellation tasks + functional measures (Catherine Bergego Scale).'
+  ]},
+  focal_spast:{title:'Focal spasticity (equinovarus foot, clenched fist)', items:[
+    'Identify and remove triggers (pain, UTI, constipation, pressure injury, ill-fitting equipment).',
+    'Physiotherapy: stretching + splinting + functional task training.',
+    'Oral antispastics if mild diffuse component (baclofen 5 mg TID titrated).',
+    '<strong>Botulinum toxin A injection</strong>: selected muscles based on functional goal (gastrocnemius / soleus for equinovarus; finger flexors + thumb adductor for clenched fist); onset 2–4 weeks; duration 3 months; repeat.',
+    'Phenol or alcohol nerve block as alternative for selected muscles (e.g., obturator nerve for hip adductor spasticity).',
+    'Combined with physiotherapy + serial casting + splinting after injection.',
+    '<strong>Outcome measures</strong>: Modified Ashworth Scale + Tardieu + goal attainment scaling + functional measures (gait speed, hand function).'
+  ]},
+  diffuse_spast:{title:'Severe diffuse spasticity refractory to oral antispastics', items:[
+    'Optimise oral antispastics: baclofen titrated to max 80 mg/day + tizanidine + gabapentin + dantrolene (combinations).',
+    'Identify + remove triggers; physiotherapy + positioning.',
+    '<strong>Intrathecal baclofen pump trial</strong>: test dose 50–100 µg intrathecal — assess response over 4–8 h; if effective, implant programmable pump with refill every 1–3 months.',
+    'Monitor for catheter problems and AVOID ABRUPT WITHDRAWAL (life-threatening: seizures, hyperthermia, rhabdomyolysis, mortality).',
+    'Surgical: selective dorsal rhizotomy (paediatric cerebral palsy); orthopaedic tendon lengthening / transfer for fixed deformity.',
+    '<strong>Outcome measures</strong>: Modified Ashworth Scale + Tardieu + goal attainment scaling + caregiver burden measures + functional measures.'
+  ]},
+  freezing:{title:'Freezing of gait in PD', items:[
+    'Optimise dopaminergic medication timing (especially before walking tasks).',
+    '<strong>Cueing strategies</strong>: visual (lines on floor, target with foot), auditory (metronome, music with beat), tactile (vibrating cue).',
+    'STARTSTOP strategy at doorways and turns.',
+    'Mental imagery + counting + weight-shifting techniques.',
+    'Treadmill training (if safe with harness).',
+    'LSVT BIG amplitude-focused movement therapy (4 weeks).',
+    'Falls prevention: home assessment + grab rails + appropriate footwear + tai chi (Li NEJM 2012).',
+    'Consider DBS referral if motor fluctuations not controlled (Module 6).',
+    '<strong>Outcome measures</strong>: Freezing of Gait Questionnaire + UPDRS + 10MWT + Berg Balance.'
+  ]},
+  pd_speech:{title:'PD hypophonia (soft voice)', items:[
+    '<strong>LSVT LOUD</strong> — amplitude-focused speech therapy; 16 sessions over 4 weeks; refer to a certified LSVT LOUD clinician.',
+    'Improves vocal loudness + intelligibility + facial expression + swallowing.',
+    'Long-term maintenance with home practice + occasional refresher.',
+    'Voice amplification devices as adjunct.',
+    'Address swallow + sialorrhoea + facial expression.',
+    'Encourage social engagement to maintain voice use.',
+    '<strong>Outcome measures</strong>: Voice Handicap Index + acoustic measures + perceptual ratings + functional communication.'
+  ]},
+  tbi_doc:{title:'Disorder of consciousness after TBI', items:[
+    'Avoid premature withdrawal; multidisciplinary discussion + family meetings + advance directive review.',
+    '<strong>Amantadine 100 mg BID titrated to 200 mg BID</strong> (Giacino NEJM 2012) — improves recovery in vegetative / minimally conscious states when started within 4 weeks of injury.',
+    'Modafinil, methylphenidate, zolpidem (paradoxical alerting) emerging.',
+    'Serial CRS-R assessment to track emergence to consciousness.',
+    '<strong>AVOID benzodiazepines + anticholinergics + typical antipsychotics</strong> — impair plasticity and consciousness recovery.',
+    'Manage post-traumatic seizures (LEV preferred); manage spasticity; tracheostomy + PEG care.',
+    'When emerging, structured cognitive rehabilitation.',
+    'Family-centred care; long-term rehabilitation planning.',
+    '<strong>Outcome measures</strong>: CRS-R + Glasgow Outcome Scale Extended (GOS-E) + Disability Rating Scale.'
+  ]},
+  ms_fatigue:{title:'MS fatigue', items:[
+    'Fatigue affects ~80% of MS patients; distinct from depression.',
+    '<strong>Energy conservation</strong>: pacing + activity scheduling around peak energy + delegating tasks.',
+    '<strong>Cooling strategies</strong>: avoid heat exposure; cooling vests; cool showers; air conditioning (Uhthoff phenomenon).',
+    '<strong>Graded exercise</strong>: aerobic exercise improves fatigue (paradoxically).',
+    'Pharmacotherapy: <strong>amantadine 100 mg BID</strong> + modafinil + methylphenidate (mixed evidence — REFAMS trial); 4-aminopyridine for ambulation.',
+    'Treat coexisting depression (Module 24) + sleep disorders (Module 14) + spasticity (which worsens fatigue).',
+    '<strong>Outcome measures</strong>: Modified Fatigue Impact Scale + Fatigue Severity Scale + visual analogue scale.'
+  ]},
+  neurogenic_bladder:{title:'Neurogenic bladder (SCI, MS)', items:[
+    'Assess bladder type (urodynamics): detrusor overactivity vs underactivity vs detrusor-sphincter dyssynergia.',
+    '<strong>Intermittent self-catheterisation (ISC)</strong>: 4–6× daily; reduces UTI vs indwelling; reduces stones + autonomic dysreflexia (Module 15) + urethral injury + bladder cancer risk over years.',
+    'Anticholinergics: oxybutynin, tolterodine, solifenacin (detrusor overactivity); watch cognitive side effects in older patients.',
+    'Mirabegron (β3 agonist) — less anticholinergic burden.',
+    'Botulinum toxin A to detrusor (refractory overactivity); to external sphincter (DSD).',
+    'Suprapubic catheter if indwelling needed long-term (better than urethral).',
+    'AVOID long-term indwelling urethral catheter where possible.',
+    'UTI surveillance + treat symptomatic only.',
+    '<strong>Outcome measures</strong>: urodynamics + bladder diary + post-void residual + Qualiveen + functional measures.'
+  ]}
+};
+document.querySelectorAll('#presTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#presTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = presMap[b.dataset.val];
+  if (m) {
+    presResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    presResult.classList.add('show');
+  }
+}));
+function resetPres() {
+  document.querySelectorAll('#presTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  presResult.classList.remove('show');
+}
+</script>
+</body>
+</html>

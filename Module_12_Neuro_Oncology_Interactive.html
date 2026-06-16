@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 12 — Neuro-Oncology (Interactive)</title>
+<style>
+  :root{
+    --bg:#0e0d1a; --panel:#1a1828; --panel-2:#211e34; --line:#2f2b48;
+    --ink:#e8e4f5; --muted:#9a92b8; --accent:#b07dff; --accent-2:#d4baff;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#27243c; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0a0915,#0e0d1a 35%,#0e0d1a); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(176,125,255,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#1a0830; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#e8d6ff}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(176,125,255,.10); border-color:var(--accent); color:#e8d6ff}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#1a0830; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(176,125,255,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 12</span>
+    <span class="badge">General physician</span>
+    <h1>Neuro-Oncology — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 30) and Merritt's <em>Neurology</em> (14e, Ch. 100–109, 145). Incorporates WHO CNS5 (2021), Stupp protocol, Patchell trial, Graus 2021 paraneoplastic criteria, and recent targeted-therapy approvals (selumetinib, belzutifan, tucatinib, osimertinib).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="classifier">CNS Tumor Classifier</button>
+    <button data-tab="paraneo">Paraneoplastic Identifier</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Brain tumors and their consequences arrive at the general physician's door first: new headache with red flags, first seizure in an adult, an unexpected mass on a scan, a cancer patient with back pain, or a confused patient who turns out to have a paraneoplastic syndrome. The job is to recognise, image promptly, manage symptoms safely (especially raised ICP and MESCC), and route the patient through a multidisciplinary team without delay.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Place a new brain lesion into a working differential using age, location, imaging, and tempo.</li>
+      <li>Read a pathology report with WHO CNS5 (2021) vocabulary — IDH, 1p/19q, MGMT, BRAF, H3 K27M.</li>
+      <li>Manage the Stupp protocol patient at follow-up and recognise pseudoprogression.</li>
+      <li>Recognise and triage MESCC, pituitary apoplexy, and leptomeningeal disease.</li>
+      <li>Identify classic paraneoplastic syndromes and the right antibody/tumor pairings.</li>
+      <li>Recognise NF1, NF2, TSC, vHL, and Sturge-Weber at the bedside.</li>
+      <li>Know when not to give steroids before biopsy (suspected lymphoma).</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle that prevents disasters:</strong> a cancer patient with new back pain has MESCC until proven otherwise — give dexamethasone and image the whole spine within hours, not the next morning. A young woman with subacute psychiatric symptoms, seizures, and orofacial dyskinesias has anti-NMDA-R encephalitis — image the ovaries, send antibodies, and start immunotherapy empirically.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Approach to a new brain lesion — age, location, imaging, tempo</summary>
+      <div class="body">
+        <table>
+          <tr><th>Anchor</th><th>What it tells you</th></tr>
+          <tr><td>Age</td><td>Adult supratentorial: glioma, meningioma, metastasis, lymphoma. Child infratentorial: medulloblastoma, pilocytic astrocytoma, ependymoma, brainstem glioma.</td></tr>
+          <tr><td>Location</td><td>Extra-axial (dural tail) → meningioma, schwannoma. Intra-axial → glioma, mets, abscess, lymphoma.</td></tr>
+          <tr><td>Imaging features</td><td>Ring enhancement (GBM, mets, abscess, lymphoma in HIV); homogeneous enhancement (lymphoma, meningioma); calcified (oligodendroglioma, meningioma, craniopharyngioma); restricted diffusion (lymphoma, abscess, hypercellular).</td></tr>
+          <tr><td>Tempo</td><td>Hyperacute → stroke/haemorrhage into a tumor. Days–weeks → high-grade glioma, abscess. Weeks–months → low-grade glioma, meningioma, mets.</td></tr>
+        </table>
+        <div class="time"><strong>Workup:</strong> MRI brain ± contrast; CT chest/abdomen/pelvis if mets suspected; LP after imaging excludes herniation risk; dexamethasone if vasogenic oedema — but <strong>defer steroids if PCNSL is on the differential</strong>.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. WHO CNS5 (2021) classification — what changed</summary>
+      <div class="body">
+        <p>WHO CNS5 (2021) integrates histology with molecular markers. Three adult diffuse-glioma categories now drive prognosis and treatment:</p>
+        <ol>
+          <li><strong>Astrocytoma, IDH-mutant</strong> (grades 2–4).</li>
+          <li><strong>Oligodendroglioma, IDH-mutant and 1p/19q-codeleted</strong> (grades 2–3).</li>
+          <li><strong>Glioblastoma, IDH-wildtype</strong> (grade 4).</li>
+        </ol>
+        <table>
+          <tr><th>Marker</th><th>Meaning</th></tr>
+          <tr><td>IDH1/2</td><td>Younger patient, better prognosis.</td></tr>
+          <tr><td>1p/19q codeletion</td><td>Defines oligodendroglioma; responsive to PCV / temozolomide; best prognosis.</td></tr>
+          <tr><td>MGMT methylation</td><td>Predicts response to temozolomide in GBM.</td></tr>
+          <tr><td>EGFR amp, +7/−10, TERT promoter</td><td>Upgrades a diffuse astrocytoma to glioblastoma even if histology looks low grade.</td></tr>
+          <tr><td>BRAF V600E</td><td>Pilocytic astrocytoma, ganglioglioma. Targetable (dabrafenib + trametinib).</td></tr>
+          <tr><td>H3 K27M</td><td>Diffuse midline glioma (children, young adults); poor prognosis.</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Glioblastoma — Stupp protocol and TTF</summary>
+      <div class="body">
+        <ol>
+          <li><strong>Maximal safe resection</strong>.</li>
+          <li><strong>Concurrent chemoradiation</strong>: 60 Gy / 30 fractions + daily temozolomide 75 mg/m²/day.</li>
+          <li><strong>Adjuvant temozolomide</strong>: 6 cycles, 150–200 mg/m²/day × 5 days each 28-day cycle.</li>
+          <li><strong>Tumor-treating fields (TTF)</strong> — scalp electric fields; EF-14 trial: median OS 20.9 vs 16.0 months with maintenance temozolomide.</li>
+          <li><strong>Elderly / frail</strong>: hypofractionated RT 40 Gy / 15 fx ± temozolomide; MGMT-methylated patients may have temozolomide monotherapy.</li>
+          <li><strong>Recurrence</strong>: bevacizumab (anti-VEGF) reduces oedema and steroid need; re-resection in select cases; clinical trials.</li>
+        </ol>
+        <div class="warn"><strong>Pseudoprogression</strong>: after chemoradiation, MRI may transiently worsen in the first 3 months. Don't switch therapy on that scan alone — re-image at 1–3 months; advanced perfusion / spectroscopy can help.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Meningioma</summary>
+      <div class="body">
+        <p>Most common primary brain tumor (~36%). Female predominance 2:1. Sex-hormone-receptor positive (may enlarge in pregnancy or with anti-androgen/progestin exposure). Imaging: extra-axial, dural-based, homogeneously enhancing, dural tail, often calcified, may hyperostose adjacent bone.</p>
+        <ul>
+          <li>Asymptomatic, incidental: observe with MRI at 6–12 months, then yearly.</li>
+          <li>Symptomatic or growing: surgical resection (Simpson grade).</li>
+          <li>Unresectable / residual / atypical (grade 2) / anaplastic (grade 3): SRS or fractionated RT.</li>
+          <li>NF2 → multiple meningiomas.</li>
+          <li>Prior cranial RT increases meningioma risk for decades.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Pituitary tumors and apoplexy</summary>
+      <div class="body">
+        <table>
+          <tr><th>Type</th><th>Hormone</th><th>Picture</th></tr>
+          <tr><td>Prolactinoma</td><td>Prolactin</td><td>Amenorrhoea-galactorrhoea; ED, low libido.</td></tr>
+          <tr><td>GH</td><td>GH/IGF-1</td><td>Acromegaly / gigantism.</td></tr>
+          <tr><td>ACTH</td><td>ACTH</td><td>Cushing disease.</td></tr>
+          <tr><td>TSH</td><td>TSH</td><td>Rare central hyperthyroidism.</td></tr>
+          <tr><td>Non-functioning</td><td>—</td><td>Bitemporal hemianopia, hypopituitarism.</td></tr>
+        </table>
+        <p>Macroadenoma = ≥ 10 mm. Workup: pituitary MRI + full hormone panel + visual fields. Prolactinoma — cabergoline (medical first). Others — transsphenoidal surgery first-line, RT for residual.</p>
+        <div class="refer"><strong>Pituitary apoplexy</strong>: thunderclap headache + ophthalmoplegia + bitemporal hemianopia + panhypopituitarism. <strong>Hydrocortisone 100 mg IV stat</strong>, MRI, urgent neurosurgery for visual/oculomotor compromise.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Vestibular schwannoma and CPA masses</summary>
+      <div class="body">
+        <ul>
+          <li>Unilateral sensorineural hearing loss + tinnitus → image internal auditory meatus.</li>
+          <li>Larger tumors: trigeminal then facial nerve involvement, hydrocephalus.</li>
+          <li><strong>Bilateral vestibular schwannomas = NF2 until proven otherwise.</strong></li>
+          <li>Options: observation (small stable); Gamma Knife radiosurgery; microsurgery. Hearing preservation ~50%.</li>
+          <li>CPA differential: meningioma (broad dural base, no IAM extension), epidermoid (restricted diffusion), facial nerve schwannoma.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Primary CNS lymphoma</summary>
+      <div class="body">
+        <ul>
+          <li>Aggressive diffuse large B-cell lymphoma confined to CNS. Median age 60s.</li>
+          <li>HIV/transplant → EBV-driven; immunocompetent → usually not.</li>
+          <li>MRI: periventricular, homogeneously enhancing (immunocompetent), restricted diffusion; may cross corpus callosum ("butterfly").</li>
+          <li>HIV may be multifocal ring-enhancing — mimics toxoplasmosis (cross-ref Module 11).</li>
+          <li>CSF cytology + flow cytometry; vitreous biopsy if ocular; EBV PCR in HIV.</li>
+          <li><strong>Do not give steroids before biopsy</strong> — they shrink lymphoma and abolish histology.</li>
+          <li>Induction: high-dose methotrexate–based (e.g., MATRix). Consolidation: autologous stem-cell transplant or whole-brain RT.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Brain metastases &amp; leptomeningeal disease</summary>
+      <div class="body">
+        <p>Most common intracranial tumor overall. Primaries: lung (~50%), breast, melanoma, renal, colorectal. Haemorrhagic mets: melanoma, renal, choriocarcinoma, thyroid, lung.</p>
+        <p>Pattern: well-circumscribed, multiple, grey-white junction, disproportionate vasogenic oedema.</p>
+        <h4>Treatment</h4>
+        <ul>
+          <li>Symptom control: dexamethasone 4–8 mg po BID (titrate up to 16 mg/day); antiseizure medication only if seizures.</li>
+          <li>Local: surgery or SRS for solitary/oligometastatic; SRS for up to ~10 lesions in modern programmes; WBRT reserved (cognitive cost).</li>
+          <li>Hippocampal-sparing WBRT + memantine reduces cognitive decline.</li>
+          <li>CNS-penetrating systemic therapy: tucatinib (HER2+ breast), osimertinib (EGFR lung), alectinib/lorlatinib (ALK lung), dabrafenib+trametinib (BRAF melanoma), ipi+nivo (melanoma).</li>
+        </ul>
+        <h4>Leptomeningeal carcinomatosis</h4>
+        <p>Multifocal: CN palsies + polyradiculopathy + communicating hydrocephalus + encephalopathy. MRI pial / sulcal / CN enhancement. CSF cytology often needs ≥ 2 LPs. Intrathecal chemotherapy + CNS-penetrating systemic Rx + focal RT to symptomatic sites. Median survival weeks to months.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Spinal tumors and MESCC</summary>
+      <div class="body">
+        <table>
+          <tr><th>Compartment</th><th>Tumors</th><th>Clues</th></tr>
+          <tr><td>Extradural (vertebral)</td><td>Metastases (breast, lung, prostate, kidney, lymphoma, myeloma)</td><td>Most common; back pain → myelopathy / cauda equina; <strong>MESCC emergency</strong>.</td></tr>
+          <tr><td>Intradural-extramedullary</td><td>Meningioma, schwannoma, neurofibroma, drop mets</td><td>Slowly progressive radicular pain + myelopathy.</td></tr>
+          <tr><td>Intramedullary</td><td>Ependymoma (most common adult), astrocytoma, haemangioblastoma</td><td>Central cord features — dissociated sensory, bilateral weakness.</td></tr>
+        </table>
+        <div class="refer"><strong>MESCC</strong>: dexamethasone 10 mg IV bolus then 4 mg IV q6h. Urgent whole-spine MRI. Surgery + RT (Patchell trial: better than RT alone) if ambulatory, &lt; 48 h paraparesis, single level, life expectancy &gt; 3 months. Otherwise palliative RT. The 6-hour window matters.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Paraneoplastic neurologic syndromes</summary>
+      <div class="body">
+        <p>Two antibody categories shape treatability:</p>
+        <table>
+          <tr><th>Category</th><th>Examples</th><th>Treatability</th></tr>
+          <tr><td>Cell-surface / synaptic</td><td>NMDA-R, LGI1, CASPR2, AMPA-R, GABA-B</td><td>Treatable — immunotherapy effective.</td></tr>
+          <tr><td>Intracellular (onconeural)</td><td>Hu, Yo, Ri, Ma2, CV2/CRMP5, amphiphysin</td><td>T-cell mediated; treatment-resistant; focus on tumor.</td></tr>
+        </table>
+        <table>
+          <tr><th>Syndrome</th><th>Antibody</th><th>Tumor</th></tr>
+          <tr><td>Anti-NMDA-R encephalitis</td><td>NMDA-R</td><td>Ovarian teratoma (~50% of women 18–45)</td></tr>
+          <tr><td>Limbic encephalitis (LGI1)</td><td>LGI1</td><td>Often non-paraneoplastic; FBDS, hyponatraemia</td></tr>
+          <tr><td>Limbic encephalitis (Ma2)</td><td>Ma2</td><td>Testicular germ cell tumor (young men)</td></tr>
+          <tr><td>Paraneoplastic cerebellar degeneration</td><td>Yo</td><td>Breast, ovarian</td></tr>
+          <tr><td>Sensory neuronopathy</td><td>Hu</td><td>SCLC</td></tr>
+          <tr><td>LEMS</td><td>VGCC (P/Q)</td><td>SCLC (~60%)</td></tr>
+          <tr><td>Opsoclonus-myoclonus</td><td>Ri (adults); none specific (children)</td><td>Breast/SCLC; neuroblastoma in children</td></tr>
+          <tr><td>Stiff-person (paraneoplastic)</td><td>Amphiphysin</td><td>Breast</td></tr>
+        </table>
+        <p>Search for tumor with CT chest/abdomen/pelvis, mammography, pelvic/testicular US; if negative, <strong>FDG-PET</strong>; if antibody+ but no tumor, repeat surveillance every 3–6 months for 2 years. Treat tumor + immunotherapy (steroids + IVIG/PLEX first-line; rituximab/cyclophosphamide second-line).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Neurocutaneous syndromes</summary>
+      <div class="body">
+        <table>
+          <tr><th>Syndrome</th><th>Gene</th><th>Skin / Eye</th><th>CNS / tumors</th><th>Targeted Rx</th></tr>
+          <tr><td>NF1</td><td>NF1 (17q)</td><td>Café-au-lait, axillary/inguinal freckling, neurofibromas, Lisch nodules</td><td>Optic pathway glioma, plexiform NF (MPNST risk), gliomas, phaeo</td><td><strong>Selumetinib</strong> for symptomatic plexiform NF (FDA 2020)</td></tr>
+          <tr><td>NF2</td><td>NF2 (22q)</td><td>Juvenile cataracts (no CALs)</td><td><strong>Bilateral vestibular schwannomas</strong>, multiple meningiomas, ependymomas</td><td>Bevacizumab (hearing benefit in some)</td></tr>
+          <tr><td>TSC</td><td>TSC1/2</td><td>Ash-leaf macules, shagreen patches, facial angiofibromas, ungual fibromas</td><td>Cortical tubers, subependymal nodules, SEGA; cardiac rhabdo; renal AML; LAM; refractory seizures incl. infantile spasms (<strong>vigabatrin</strong>)</td><td><strong>Everolimus</strong>/sirolimus (SEGA, AML, refractory seizures, LAM)</td></tr>
+          <tr><td>vHL</td><td>VHL (3p)</td><td>Retinal haemangioblastomas</td><td>Cerebellar haemangioblastoma (± polycythaemia), spinal HBL, clear cell RCC, phaeo, pNETs, endolymphatic sac tumors</td><td><strong>Belzutifan</strong> (HIF-2α inhibitor; FDA 2021)</td></tr>
+          <tr><td>Sturge-Weber</td><td>GNAQ somatic</td><td>Port-wine stain V1, glaucoma</td><td>Leptomeningeal angiomatosis, tram-track calcification, refractory focal seizures, stroke-like episodes</td><td>Seizure control; aspirin (some); hemispherectomy if refractory</td></tr>
+          <tr><td>Ataxia-telangiectasia</td><td>ATM (11q)</td><td>Oculocutaneous telangiectasias</td><td>Progressive ataxia, immunodeficiency, lymphoma/leukaemia risk, radiation sensitivity, high AFP</td><td>Supportive; avoid radiation</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. Oncologic neurologic emergencies</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li><strong>MESCC</strong>: dexamethasone + urgent MRI + neurosurgery/RO consult within 6 hours.</li>
+            <li><strong>Symptomatic raised ICP</strong>: dexamethasone, head of bed up, mannitol/hypertonic saline if herniation, urgent neurosurgical referral.</li>
+            <li><strong>Pituitary apoplexy</strong>: hydrocortisone 100 mg IV stat; urgent MRI &amp; neurosurgery.</li>
+            <li><strong>Status epilepticus in a tumor patient</strong>: standard SE pathway (Module 3); careful with phenytoin–dexamethasone interaction.</li>
+            <li><strong>Symptomatic hydrocephalus</strong> (especially posterior-fossa mass): EVD ± shunt.</li>
+            <li><strong>Stroke in cancer patient</strong>: consider Trousseau syndrome / NBTE; therapeutic LMWH if appropriate.</li>
+            <li><strong>Neutropenic fever + neuro deficit</strong>: assume CNS infection (Module 11) — broad antibiotics + aciclovir empirically.</li>
+            <li><strong>Tumor lysis syndrome with seizures</strong>: correct K, Ca, PO4, uric acid first.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="classifier">
+    <h2>CNS Tumor Classifier</h2>
+    <p class="muted">Answer about age, location, and imaging features; the tool suggests a likely diagnosis with management hints.</p>
+    <div class="tool" id="clsTool">
+      <div class="q">1. Patient age group?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="ped">Child (&lt; 18)</button>
+        <button class="opt" data-val="young">Young adult (18–40)</button>
+        <button class="opt" data-val="mid">Middle age (40–60)</button>
+        <button class="opt" data-val="old">Older adult (&gt; 60)</button>
+      </div>
+      <div id="cls-rest"></div>
+      <div class="result" id="cls-result"></div>
+      <button class="reset" onclick="resetCls()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="paraneo">
+    <h2>Paraneoplastic Syndrome Identifier</h2>
+    <p class="muted">Select the clinical syndrome that fits best; the tool suggests likely antibodies, associated tumors, and a workup plan.</p>
+    <div class="tool" id="pnTool">
+      <div class="q">Clinical picture?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="nmda">Subacute psychiatric + seizures + orofacial dyskinesias + autonomic instability (young woman)</button>
+        <button class="opt" data-val="lgi1">Subacute amnesia + faciobrachial dystonic seizures + hyponatraemia (older man)</button>
+        <button class="opt" data-val="ma2">Limbic encephalitis + hypothalamic / brainstem signs in a young man</button>
+        <button class="opt" data-val="cerebellar">Subacute pancerebellar syndrome (weeks)</button>
+        <button class="opt" data-val="hu">Subacute sensory ganglionopathy + dysautonomia (smoker, weight loss)</button>
+        <button class="opt" data-val="lems">Proximal weakness improving with effort; dry mouth; reduced reflexes</button>
+        <button class="opt" data-val="opso">Opsoclonus + myoclonus + ataxia (adult or child)</button>
+        <button class="opt" data-val="sps">Truncal stiffness + spasms + falls (paraneoplastic variant)</button>
+      </div>
+      <div class="result" id="pn-result"></div>
+      <button class="reset" onclick="resetPn()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 65-year-old with 3 weeks of progressive aphasia and a new generalised seizure</summary>
+      <div class="body">
+        <p>Subacute expressive aphasia, mild right facial droop, evolving over 3 weeks. MRI: 4 cm ring-enhancing mass in left temporal-parietal region with central necrosis, surrounding T2/FLAIR hyperintensity extending across the corpus callosum. No prior cancer history.</p>
+        <p><strong>Diagnosis:</strong> Glioblastoma, IDH-wildtype until proven otherwise.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Dexamethasone 8 mg po (or IV) BID for oedema; load with antiseizure medication (levetiracetam) since seizure occurred.</li>
+          <li>Urgent neurosurgical referral for maximal safe resection (or stereotactic biopsy if eloquent area).</li>
+          <li>Histology + molecular: IDH1/2, MGMT methylation, EGFR, TERT, +7/−10, ATRX, TP53.</li>
+          <li>If GBM IDH-wildtype: <strong>Stupp protocol</strong> — 60 Gy / 30 fx + concurrent temozolomide 75 mg/m²/day → 6 cycles adjuvant temozolomide 150–200 mg/m²/day × 5 days each 28-day cycle.</li>
+          <li>Consider TTF (Optune) added to maintenance temozolomide.</li>
+          <li>MRI surveillance every 2–3 months; remember pseudoprogression in the first 3 months after chemoradiation.</li>
+          <li>Discuss prognosis and palliative-care input early.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 58-year-old woman with breast cancer (treated 4 years ago) presents with 1 week of progressive thoracic back pain and 2 days of leg weakness</summary>
+      <div class="body">
+        <p>On exam: hyperreflexia in lower limbs, sensory level at T6, urinary retention. Now ambulating only with assistance.</p>
+        <p><strong>Diagnosis:</strong> Metastatic epidural spinal cord compression (MESCC) until proven otherwise.</p>
+        <p><strong>Plan within 6 hours:</strong></p>
+        <ol>
+          <li><strong>Dexamethasone 10 mg IV bolus, then 4 mg IV q6h.</strong></li>
+          <li><strong>Urgent whole-spine MRI</strong> (not just the symptomatic level — multilevel disease common).</li>
+          <li>Combined neurosurgery + radiation oncology consultation.</li>
+          <li>If ambulatory at presentation, single level, life expectancy &gt; 3 months: <strong>surgical decompression + post-op RT</strong> (Patchell trial: better than RT alone).</li>
+          <li>If not surgical candidate: palliative external beam RT.</li>
+          <li>Bladder catheter; thromboprophylaxis (high VTE risk in cancer + immobility); analgesia; bowel regimen.</li>
+          <li>Restage systemic disease (CT chest/abdomen/pelvis ± PET); discuss systemic therapy change in tumor board.</li>
+        </ol>
+        <div class="warn">Do not wait for "morning rounds" — the best ambulatory outcome correlates with treatment within ~6 hours of new weakness.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 28-year-old woman with 3 weeks of bizarre behaviour, seizures, and now orofacial dyskinesias and autonomic instability</summary>
+      <div class="body">
+        <p>Initially anxiety and insomnia; then psychotic features; admitted to psychiatry; had a seizure; now has prominent orofacial dyskinesias and autonomic instability. CSF: 60 lymphocytes/µL, normal glucose, mildly elevated protein. MRI mostly normal. EEG: extreme delta brush. CSF anti-NMDA-R antibody positive. Pelvic US: 4 cm ovarian mass.</p>
+        <p><strong>Diagnosis:</strong> Anti-NMDA-R encephalitis (paraneoplastic from ovarian teratoma).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>First-line: high-dose IV methylprednisolone + IVIG (or plasma exchange).</li>
+          <li><strong>Surgical removal of the ovarian teratoma</strong> — early removal dramatically improves outcome.</li>
+          <li>ICU monitoring for autonomic instability (BP swings, arrhythmias, hypoventilation).</li>
+          <li>Antiseizure medication for seizures.</li>
+          <li>If inadequate response by 2 weeks: <strong>second-line rituximab + cyclophosphamide</strong>.</li>
+          <li>Slow recovery (months); full or near-full in ~80% with adequate treatment.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 50-year-old man with sudden thunderclap headache, double vision, and tunnel vision</summary>
+      <div class="body">
+        <p>Sudden retro-orbital headache; CN III palsy + partial IV/VI involvement; bitemporal hemianopia on confrontation; BP 90/60; lethargic. No prior pituitary diagnosis. Cortisol low, ACTH inappropriately normal.</p>
+        <p><strong>Diagnosis:</strong> Pituitary apoplexy in a previously unrecognised macroadenoma.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Hydrocortisone 100 mg IV stat</strong> for adrenal crisis, then 50 mg IV q6h.</li>
+          <li>Urgent dedicated pituitary MRI.</li>
+          <li>Full pituitary hormone panel (prolactin, free T4, TSH, ACTH, cortisol, LH/FSH, testosterone, GH/IGF-1).</li>
+          <li>Visual fields formal testing.</li>
+          <li>Urgent neurosurgery for transsphenoidal decompression — indicated if visual or oculomotor compromise; conservative management possible only if mild presentation, stable vision.</li>
+          <li>Long-term hormone replacement counselling.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 35-year-old man with chronic progressive unilateral hearing loss and now imbalance</summary>
+      <div class="body">
+        <p>2 years of progressive left-sided sensorineural hearing loss and tinnitus; recent unsteady gait. Exam: reduced left corneal reflex, mild left facial weakness, ipsilateral cerebellar signs. Audiometry: asymmetric SNHL left. MRI IAM: 2.8 cm enhancing mass extending into the left IAM ("ice cream cone" sign).</p>
+        <p><strong>Diagnosis:</strong> Left vestibular schwannoma.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Check the contralateral side — bilateral vestibular schwannomas = NF2. Also examine for cutaneous schwannomas and check for ophthalmologic features (cataracts).</li>
+          <li>Audiometry baseline + speech discrimination.</li>
+          <li>Options discussed at skull-base tumor board: observation if small/stable; <strong>stereotactic radiosurgery</strong> (Gamma Knife) for tumors typically &lt; 3 cm; microsurgical resection (retrosigmoid, translabyrinthine, or middle fossa) — hearing preservation ~50% in selected cases.</li>
+          <li>If NF2 confirmed: bevacizumab may provide hearing benefit for some patients.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 6-year-old boy with multiple café-au-lait macules, axillary freckling, and now progressive vision loss in the left eye</summary>
+      <div class="body">
+        <p>9 café-au-lait macules &gt; 5 mm, bilateral axillary freckling, Lisch nodules on slit lamp, several small cutaneous neurofibromas. MRI: enhancing fusiform mass involving the left optic nerve with proptosis.</p>
+        <p><strong>Diagnosis:</strong> NF1 with optic pathway glioma (typically pilocytic).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Formal NF1 diagnosis (≥ 2 NIH criteria met: CALs + freckling + Lisch + first-degree relative typically).</li>
+          <li>Neuro-ophthalmology evaluation: visual acuity, fields, OCT for surveillance.</li>
+          <li>MRI brain/orbit with contrast — full extent of glioma and any other lesions (a plexiform neurofibroma, optic chiasm involvement, MOYAMOYA changes).</li>
+          <li>Multidisciplinary NF clinic + pediatric oncology. Most optic pathway gliomas in NF1 are indolent — observe unless vision is threatened.</li>
+          <li>If progression: carboplatin + vincristine chemotherapy first-line; <strong>selumetinib</strong> (MEK inhibitor) is FDA-approved (2020) for inoperable symptomatic plexiform neurofibromas and is being investigated in NF1 low-grade gliomas.</li>
+          <li>Counsel family on genetics; surveillance for new tumors (plexiform NF with MPNST risk, hypertension from phaeo or renal artery stenosis, learning difficulties, scoliosis).</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 12 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 30; Merritt's <em>Neurology</em> 14e Ch. 100–109, 145. WHO CNS5 (2021). Stupp protocol (NEJM 2005); EF-14 TTF (JAMA 2017); Patchell trial (Lancet 2005); Graus paraneoplastic criteria (Lancet Neurol 2016; Neurol Neuroimmunol 2021); selumetinib (NEJM 2020); belzutifan (NEJM 2021).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Framework', q:'In adults vs children, which is more common in the brain — primary tumors or metastases?', a:'Adults: metastases outnumber primary tumors. ~25% of all cancer patients have CNS involvement at some point. Children: primary tumors predominate (medulloblastoma, pilocytic astrocytoma, ependymoma, brainstem glioma); ~70% are infratentorial.'},
+  {tag:'WHO CNS5', q:'Three adult diffuse-glioma categories in WHO CNS5 (2021)?', a:'1) Astrocytoma, IDH-mutant (grades 2–4); 2) Oligodendroglioma, IDH-mutant and 1p/19q-codeleted (grades 2–3); 3) Glioblastoma, IDH-wildtype (grade 4). "IDH-mutant glioblastoma" is no longer a category — those are now grade 4 IDH-mutant astrocytomas.'},
+  {tag:'Markers', q:'Significance of MGMT promoter methylation in glioblastoma?', a:'Predicts response to temozolomide. Methylated MGMT → better survival (~21 vs ~12 months in unmethylated). Important for selecting elderly patients for monotherapy temozolomide if frail.'},
+  {tag:'Markers', q:'What does 1p/19q codeletion define?', a:'Oligodendroglioma. Combined with IDH mutation, it gives the best prognosis among adult diffuse gliomas. Predicts response to PCV or temozolomide chemotherapy.'},
+  {tag:'Stupp', q:'Stupp protocol for glioblastoma?', a:'Maximal safe resection → concurrent chemoradiation (60 Gy / 30 fractions + daily temozolomide 75 mg/m²/day) → adjuvant temozolomide × 6 cycles (150–200 mg/m²/day × 5 days each 28-day cycle). Consider TTF added to maintenance temozolomide.'},
+  {tag:'GBM', q:'What is pseudoprogression and why does it matter?', a:'Transient post-chemoradiation MRI worsening within the first 3 months that resolves on follow-up. Do NOT switch therapy on a single early scan — re-image in 1–3 months; advanced perfusion / MR spectroscopy can help differentiate from true progression.'},
+  {tag:'Meningioma', q:'Most common primary brain tumor; classic imaging features?', a:'Meningioma (~36% of primary brain tumors). Extra-axial, broadly dural-based, homogeneously enhancing, with a "dural tail"; often calcified; may hyperostose bone. Female 2:1. Asymptomatic incidental → observe. Symptomatic → resect.'},
+  {tag:'Pituitary', q:'Treatment-of-choice for prolactinoma?', a:'Cabergoline (dopamine agonist) — medical, not surgical, is first-line. Cabergoline is preferred over bromocriptine for tolerability. Transsphenoidal surgery only for intolerance, resistance, or apoplexy.'},
+  {tag:'Apoplexy', q:'Pituitary apoplexy — first move?', a:'Hydrocortisone 100 mg IV stat (then 50 mg q6h) for adrenal crisis, urgent pituitary MRI, full pituitary hormone panel, formal visual fields, urgent neurosurgery for visual or oculomotor compromise.'},
+  {tag:'VS / NF2', q:'Bilateral vestibular schwannomas — what diagnosis?', a:'Neurofibromatosis type 2 (NF2; chromosome 22, merlin/schwannomin). Also look for multiple meningiomas, ependymomas, juvenile cataracts. No café-au-lait or Lisch nodules.'},
+  {tag:'PCNSL', q:'Why must steroids be deferred if PCNSL is on the differential?', a:'Steroids shrink lymphoma rapidly and lyse the lymphocytes that pathologists need to make the diagnosis. Defer dexamethasone until biopsy is done (unless the patient has herniation risk). Treatment is high-dose methotrexate–based; consolidation with autologous SCT or whole-brain RT.'},
+  {tag:'Brain mets', q:'Which primary cancers cause haemorrhagic brain metastases?', a:'Melanoma, Renal, Choriocarcinoma, Thyroid, and Lung — mnemonic "MR-CT Lung". Most common primary overall is lung (~50%), then breast, melanoma, renal, colorectal.'},
+  {tag:'MESCC', q:'First steps for suspected MESCC?', a:'Dexamethasone 10 mg IV bolus then 4 mg IV q6h; urgent whole-spine MRI; neurosurgery + radiation oncology consult within 6 hours of new weakness. Surgery + RT > RT alone (Patchell trial) if ambulatory, < 48 h paraparesis, single level, life expectancy > 3 months.'},
+  {tag:'Paraneo', q:'Anti-NMDA-R encephalitis classic clinical and tumor association?', a:'Young woman; psychiatric prodrome → seizures → orofacial dyskinesias and choreoathetosis → autonomic instability; ovarian teratoma in ~50% of women 18–45. Treat: steroids + IVIG/PLEX + tumour removal; rituximab + cyclophosphamide if needed.'},
+  {tag:'Paraneo', q:'Antibody and tumor for paraneoplastic cerebellar degeneration in a woman?', a:'Anti-Yo (PCA-1); breast or ovarian cancer. Intracellular antigen → T-cell mediated → treatment-resistant; focus is on tumor identification and removal. (Other PCD: Hu/SCLC; Tr/DNER → Hodgkin lymphoma.)'},
+  {tag:'Paraneo', q:'LEMS — antibody, tumor, distinguishing feature from MG?', a:'P/Q-type voltage-gated calcium channel antibodies. Small-cell lung cancer in ~60%. Distinguishing features from MG: proximal weakness, reflexes diminished and ENHANCE with brief exercise, autonomic features (dry mouth, ED), incremental response > 60% on high-frequency repetitive nerve stimulation.'},
+  {tag:'NF1', q:'NIH criteria for NF1 (any ≥ 2)?', a:'≥ 6 café-au-lait macules (> 5 mm pre-puberty, > 15 mm post); ≥ 2 neurofibromas or 1 plexiform neurofibroma; axillary or inguinal freckling (Crowe sign); optic-pathway glioma; ≥ 2 Lisch nodules; characteristic bone dysplasia (sphenoid, long bone); first-degree relative with NF1. Updated 2021 criteria also include pathogenic NF1 variant.'},
+  {tag:'TSC', q:'CNS manifestations of tuberous sclerosis and targeted therapy?', a:'Cortical tubers, subependymal nodules, subependymal giant cell astrocytomas (SEGAs) at foramen of Monro; infantile spasms; refractory focal seizures. Vigabatrin first-line for TSC infantile spasms. Everolimus / sirolimus (mTOR inhibitors) for SEGA, renal AML, refractory seizures, LAM.'},
+  {tag:'vHL', q:'Cerebellar tumor in von Hippel-Lindau, and what laboratory finding can accompany it?', a:'Haemangioblastoma — can produce erythropoietin and cause secondary polycythaemia. Look also for retinal haemangioblastomas, clear cell RCC, phaeochromocytoma, pancreatic NETs/cysts, endolymphatic sac tumors. Belzutifan (HIF-2α inhibitor, FDA 2021) for VHL tumors not requiring immediate surgery.'},
+  {tag:'SWS', q:'Triad of Sturge-Weber syndrome and classic imaging finding?', a:'Facial port-wine stain (V1 distribution), ipsilateral leptomeningeal angiomatosis (parieto-occipital), glaucoma. Imaging: tram-track cortical calcifications + pial enhancement. Refractory focal seizures and stroke-like episodes; somatic GNAQ mutation.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 65-year-old man presents with 3 weeks of progressive aphasia and a new generalised seizure. MRI shows a 4 cm ring-enhancing left temporal-parietal mass with central necrosis and surrounding T2/FLAIR signal crossing the corpus callosum. What is the most likely diagnosis and standard first-line management after biopsy/resection?',
+   choices:['Brain abscess — drainage + antibiotics','Glioblastoma IDH-wildtype — Stupp protocol (concurrent chemoradiation + adjuvant temozolomide ± TTF)','Cerebral toxoplasmosis — pyrimethamine + sulfadiazine','Primary CNS lymphoma — high-dose methotrexate'],
+   ans:1,
+   why:'A ring-enhancing infiltrative supratentorial mass with central necrosis crossing the corpus callosum in an older adult is glioblastoma until proven otherwise. After maximal safe resection (or biopsy), the standard is the Stupp protocol: 60 Gy / 30 fractions with concurrent temozolomide 75 mg/m²/day, then 6 cycles of adjuvant temozolomide. TTF can be added to maintenance temozolomide. Watch for pseudoprogression in the first 3 months.'},
+  {q:'A 58-year-old woman with previously treated breast cancer develops thoracic back pain and 2 days of leg weakness. Exam: T6 sensory level, hyperreflexia, urinary retention. What is the most appropriate first step within the next hour?',
+   choices:['Plain spine X-rays','Dexamethasone 10 mg IV bolus then 4 mg IV q6h and urgent whole-spine MRI','Bone scan','Begin opioid analgesia and outpatient MRI in 1 week'],
+   ans:1,
+   why:'This is metastatic epidural spinal cord compression (MESCC). Dexamethasone 10 mg IV bolus then 4 mg IV q6h (or 16 mg/day in divided doses) and urgent whole-spine MRI within hours. Patchell trial: surgical decompression + post-op RT > RT alone if ambulatory, < 48 h paraparesis, single level, life expectancy > 3 months.'},
+  {q:'A 28-year-old woman presents with 3 weeks of severe psychiatric symptoms, then seizures, and now prominent orofacial dyskinesias and autonomic instability. CSF: 60 lymphocytes/µL, normal glucose. EEG: extreme delta brush. Pelvic US: 4 cm ovarian mass. Best treatment combination?',
+   choices:['Aciclovir alone','Antipsychotics and observation','Methylprednisolone + IVIG + surgical removal of ovarian teratoma','Antibiotics empirically'],
+   ans:2,
+   why:'Anti-NMDA-R encephalitis with ovarian teratoma. First-line immunotherapy (steroids + IVIG or PLEX) PLUS surgical tumor removal — early removal dramatically improves outcome. Second-line rituximab + cyclophosphamide for refractory cases. ICU monitoring for autonomic instability is essential.'},
+  {q:'A 35-year-old man presents with 2 years of progressive left-sided sensorineural hearing loss and tinnitus, now with imbalance. Audiometry shows asymmetric SNHL. Best next test?',
+   choices:['CT temporal bone','Brainstem auditory evoked potentials only','MRI brain with dedicated internal auditory meatus sequences and gadolinium','Routine MRI without contrast'],
+   ans:2,
+   why:'Asymmetric sensorineural hearing loss warrants MRI with dedicated IAM (internal auditory meatus) sequences and gadolinium to detect vestibular schwannoma. Classic finding: enhancing mass extending into the IAM ("ice cream cone" sign). If bilateral, suspect NF2.'},
+  {q:'A 60-year-old immunocompetent man has 3 weeks of personality change and gait imbalance. MRI: solitary 3 cm periventricular homogeneously enhancing mass crossing the corpus callosum with restricted diffusion. CSF: mildly elevated protein, no cells, cytology pending. The patient is haemodynamically stable, no herniation features. What should you NOT do until biopsy is performed?',
+   choices:['Send LP cytology and flow cytometry','Order CT chest/abdomen/pelvis for staging','Start high-dose dexamethasone','Arrange ophthalmology slit-lamp exam for ocular lymphoma'],
+   ans:2,
+   why:'Imaging strongly suggests primary CNS lymphoma. Dexamethasone shrinks lymphoma rapidly and can abolish histological diagnosis — defer steroids until biopsy unless there is herniation risk. Cytology, flow cytometry, ocular exam, and EBV PCR (HIV) are all appropriate.'},
+  {q:'Which pituitary tumor is best treated medically rather than surgically as first-line therapy?',
+   choices:['Non-functioning macroadenoma','Prolactinoma','GH-secreting adenoma (acromegaly)','ACTH-secreting adenoma (Cushing disease)'],
+   ans:1,
+   why:'Prolactinoma is the exception — dopamine agonists (cabergoline preferred over bromocriptine) shrink the tumor and normalise prolactin in most cases. Surgery is reserved for intolerance, resistance, or apoplexy. All other functioning and non-functioning pituitary tumors generally need transsphenoidal surgical resection as first-line management.'},
+  {q:'A 50-year-old man develops sudden thunderclap headache, ophthalmoplegia (CN III predominantly), bitemporal hemianopia, and is hypotensive with cortisol 2 µg/dL. MRI shows a haemorrhagic pituitary macroadenoma. What is the immediate first step?',
+   choices:['IV mannitol','Hydrocortisone 100 mg IV stat','Transsphenoidal surgery within 24 h regardless of stability','Bromocriptine'],
+   ans:1,
+   why:'Pituitary apoplexy with adrenal crisis. Give hydrocortisone 100 mg IV stat (then 50 mg IV q6h), urgent pituitary MRI, full hormone panel, formal visual fields, urgent neurosurgery for visual or oculomotor compromise. Hormone replacement is the immediate life-saving step before surgery.'},
+  {q:'A 6-year-old with multiple café-au-lait macules, axillary freckling, Lisch nodules, and progressive left-sided vision loss is found to have an enhancing optic nerve mass. What is the most likely diagnosis and an FDA-approved targeted therapy for NF1-related symptomatic inoperable plexiform neurofibromas?',
+   choices:['Tuberous sclerosis; everolimus','Sturge-Weber; aspirin','Neurofibromatosis type 1 with optic pathway glioma; selumetinib for plexiform neurofibromas','Von Hippel-Lindau; belzutifan'],
+   ans:2,
+   why:'Diagnostic criteria for NF1 met (≥ 2 of: ≥ 6 CALs, freckling, Lisch nodules, neurofibromas, optic pathway glioma, etc.). Optic pathway glioma (typically pilocytic) is a classic NF1-associated tumor. Selumetinib (MEK inhibitor) was FDA-approved in 2020 for symptomatic inoperable plexiform neurofibromas. Everolimus is for TSC; belzutifan for vHL.'},
+  {q:'Which paraneoplastic antibody pairing is most associated with treatment-resistant disease and tells you to focus on tumor identification more than immunotherapy?',
+   choices:['Anti-NMDA-R encephalitis','Anti-LGI1 limbic encephalitis','Anti-Yo cerebellar degeneration in a woman with breast cancer','Anti-CASPR2 Morvan syndrome'],
+   ans:2,
+   why:'Anti-Yo (and other intracellular onconeural antibodies like Hu, Ri, Ma2, CV2/CRMP5, amphiphysin) cause T-cell-mediated neuronal damage that is largely treatment-resistant. Cell-surface antibody syndromes (NMDA-R, LGI1, CASPR2, GABA-B, AMPA-R) are much more responsive to immunotherapy. For Yo-mediated paraneoplastic cerebellar degeneration in a woman, urgent tumor search (breast, ovarian) and tumor treatment are the priority.'},
+  {q:'Which of the following best describes the appropriate use of corticosteroids in symptomatic brain metastases?',
+   choices:['Routinely use prophylactic phenytoin + dexamethasone in every brain met patient','Dexamethasone 4–8 mg po BID (up to 16 mg/day) for symptomatic vasogenic oedema; antiseizure medication only if seizures occur','High-dose IV solumedrol pulse therapy for all brain mets','Avoid steroids in brain mets as they worsen oedema'],
+   ans:1,
+   why:'For symptomatic brain mets with vasogenic oedema, dexamethasone 4–8 mg po BID (titrate up to 16 mg/day) is standard. Antiseizure medication is reserved for patients who have actually had a seizure — prophylactic ASMs in non-seizing brain met patients are NOT recommended (no benefit, side effects, and drug interactions).'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* CNS Tumor Classifier */
+const clsRest = document.getElementById('cls-rest');
+const clsResult = document.getElementById('cls-result');
+let clsState = {};
+
+function clsAns(step, val) {
+  clsState[step] = val;
+  Object.keys(clsState).forEach(k => { if (+k > step) delete clsState[k]; });
+  document.querySelectorAll(`#clsTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#clsTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderCls();
+}
+
+function renderCls() {
+  clsRest.innerHTML = '';
+  clsResult.classList.remove('show');
+  const s0 = clsState[0];
+  if (!s0) return;
+
+  // Step 1: location
+  addCls(1, '2. Lesion compartment?',
+    [['extra','Extra-axial (dural-based, dural tail)'],['intra','Intra-axial (within brain parenchyma)'],['sellar','Sellar / suprasellar'],['cpa','Cerebellopontine angle'],['infra','Infratentorial (posterior fossa / brainstem)']]);
+  const s1 = clsState[1];
+  if (!s1) return;
+
+  if (s1 === 'extra') {
+    addCls(2, '3. Number and feature?',
+      [['solitary','Solitary, broad dural base, homogeneous enhancement, ± dural tail'],['multiple','Multiple meningiomas (think NF2)']]);
+    if (clsState[2] === 'solitary') return showCls('Meningioma', [
+      'WHO grade 1 (most common, benign), 2 (atypical), or 3 (anaplastic).',
+      'Female 2:1; estrogen/progesterone receptor positive — may grow in pregnancy or with anti-androgen/progestin exposure.',
+      'Asymptomatic / incidental → observe with MRI at 6–12 months then yearly.',
+      'Symptomatic or growing → surgical resection (Simpson grade describes completeness).',
+      'Unresectable / atypical / anaplastic → stereotactic radiosurgery or fractionated RT.',
+      'Prior cranial RT increases risk (latency 5–30 years).'
+    ]);
+    if (clsState[2] === 'multiple') return showCls('Multiple meningiomas — think NF2', [
+      'NF2 gene (chromosome 22; merlin/schwannomin), autosomal dominant.',
+      'Look for bilateral vestibular schwannomas, ependymomas, juvenile cataracts.',
+      'No café-au-lait or Lisch nodules.',
+      'Neurosurgery + radiation oncology + clinical genetics referral.',
+      'Bevacizumab may improve hearing in NF2 vestibular schwannomas.'
+    ]);
+  }
+
+  if (s1 === 'intra') {
+    addCls(2, '3. Imaging pattern?',
+      [['ring','Ring-enhancing with central necrosis'],['homo','Homogeneous enhancement, periventricular, restricted diffusion'],['cortical','Cortical / subcortical, calcified, ± enhancement, frontal'],['multi','Multiple peripheral lesions at grey-white junction']]);
+    const s2 = clsState[2];
+    if (s2 === 'ring') {
+      if (s0 === 'old' || s0 === 'mid') return showCls('Likely glioblastoma (IDH-wildtype) — also consider abscess, metastasis, PCNSL', [
+        'GBM: ring-enhancing with necrosis, infiltrative T2/FLAIR, may cross corpus callosum.',
+        'Differentiate from abscess by DWI (abscess has central restricted diffusion).',
+        'If multiple → favour metastases over GBM (GBM usually solitary).',
+        'Workup: maximal safe resection or biopsy; histology + IDH, MGMT, EGFR, TERT, +7/−10, ATRX, TP53.',
+        '<strong>Stupp protocol</strong>: 60 Gy / 30 fx + concurrent temozolomide 75 mg/m²/day → 6 cycles adjuvant temozolomide.',
+        'Add TTF for maintenance; bevacizumab at recurrence.',
+        'Dexamethasone for oedema; antiseizure medication only if seizure.'
+      ]);
+      return showCls('Ring-enhancing lesion in a younger patient — broaden the differential', [
+        'In a young adult: abscess (Module 11), metastasis, demyelinating tumefactive lesion (Module 8), high-grade glioma, lymphoma in HIV (Module 11).',
+        'DWI to look for central restricted diffusion (abscess favoured).',
+        'Defer steroids if PCNSL is plausible.',
+        'Aggressive workup including CT C/A/P, HIV testing, contrast MRI with perfusion/spectroscopy.'
+      ]);
+    }
+    if (s2 === 'homo') return showCls('Primary CNS lymphoma (immunocompetent pattern)', [
+      'Periventricular, homogeneously enhancing, may cross corpus callosum, restricted diffusion (hypercellular).',
+      'In HIV may be ring-enhancing — differential with toxoplasmosis (cross-ref Module 11).',
+      '<strong>Do not give steroids before biopsy</strong> (they lyse the lymphocytes pathologists need).',
+      'CSF cytology + flow cytometry; ocular exam (vitreous involvement); EBV PCR if HIV.',
+      'Induction: high-dose methotrexate–based chemotherapy (e.g., MATRix).',
+      'Consolidation: autologous SCT or whole-brain RT.'
+    ]);
+    if (s2 === 'cortical') {
+      if (s0 === 'young' || s0 === 'mid') return showCls('Likely oligodendroglioma (IDH-mutant, 1p/19q-codeleted) or low-grade astrocytoma', [
+        'Young adult with first seizure + frontal calcified cortical mass = oligodendroglioma until proven otherwise.',
+        'Best prognosis of adult diffuse gliomas; > 10 year median survival for grade 2.',
+        'Resection (maximal safe) → adjuvant PCV (procarbazine + CCNU + vincristine) or temozolomide ± RT for grades 2–3.',
+        'Antiseizure medication for tumor-related seizures (levetiracetam preferred — fewer interactions).'
+      ]);
+      return showCls('Cortical / calcified mass — consider oligodendroglioma, ganglioglioma, DNET, low-grade astrocytoma', [
+        'Frontal location + calcification favours oligodendroglioma.',
+        'Workup: resection + molecular (IDH, 1p/19q, BRAF V600E for ganglioglioma/DNET/PXA).',
+        'BRAF V600E-positive low-grade tumors may respond to dabrafenib + trametinib.'
+      ]);
+    }
+    if (s2 === 'multi') return showCls('Brain metastases', [
+      'Most common intracranial tumor overall.',
+      'Primaries (in order): lung (~50%), breast, melanoma, renal, colorectal.',
+      'Haemorrhagic mets: melanoma, renal, choriocarcinoma, thyroid, lung.',
+      'Symptom control: dexamethasone 4–8 mg po BID (titrate to 16 mg/day); ASM only if seizures.',
+      'Local control: surgery or SRS for solitary/oligometastatic; SRS for up to ~10 lesions; WBRT reserved (cognitive cost).',
+      'Hippocampal-sparing WBRT + memantine reduces cognitive decline.',
+      'CNS-penetrating systemic therapy: tucatinib (HER2 breast), osimertinib (EGFR lung), alectinib/lorlatinib (ALK lung), dabrafenib+trametinib (BRAF melanoma), ipi+nivo (melanoma).'
+    ]);
+  }
+
+  if (s1 === 'sellar') {
+    addCls(2, '3. Hormone secretion?',
+      [['prl','Hyperprolactinaemia / amenorrhoea-galactorrhoea'],['gh','Acromegaly / gigantism'],['acth','Cushing features'],['nonf','Non-functioning / mass effect (bitemporal hemianopia, hypopituitarism)'],['apop','Sudden thunderclap headache + ophthalmoplegia + visual loss']]);
+    const s2 = clsState[2];
+    if (s2 === 'prl') return showCls('Prolactinoma', [
+      'Most common functioning pituitary adenoma.',
+      'Medical first: <strong>cabergoline</strong> (dopamine agonist) — preferred over bromocriptine for tolerability.',
+      'Surgery (transsphenoidal) only for intolerance, resistance, or apoplexy.',
+      'Exclude pregnancy, hypothyroidism, antipsychotic-induced hyperprolactinaemia; macroadenoma can cause stalk-effect mild hyperprolactinaemia from compression rather than true secretion.'
+    ]);
+    if (s2 === 'gh') return showCls('GH-secreting adenoma (acromegaly)', [
+      'IGF-1 elevated, GH suppressed by oral glucose tolerance test if normal.',
+      'Transsphenoidal surgery first-line.',
+      'Medical: somatostatin analogues (octreotide LAR, lanreotide), GH-receptor antagonist (pegvisomant), dopamine agonist (cabergoline) for residual disease.',
+      'Radiotherapy for refractory cases.'
+    ]);
+    if (s2 === 'acth') return showCls('ACTH-secreting adenoma (Cushing disease)', [
+      'Diagnosis: late-night salivary cortisol, 24-h urine free cortisol, low-dose dexamethasone suppression; petrosal sinus sampling if uncertain.',
+      'Transsphenoidal resection first-line.',
+      'Medical: ketoconazole, metyrapone, osilodrostat (cortisol synthesis inhibitors); pasireotide (somatostatin analogue); bilateral adrenalectomy as backup.',
+      'Radiotherapy for refractory.'
+    ]);
+    if (s2 === 'nonf') return showCls('Non-functioning pituitary macroadenoma', [
+      'Mass effect: bitemporal hemianopia (chiasm compression), hypopituitarism, ± cavernous sinus extension with cranial neuropathies.',
+      'Workup: dedicated pituitary MRI + full pituitary hormone panel + formal visual fields.',
+      'Macroadenoma = ≥ 10 mm; transsphenoidal surgery if symptomatic.',
+      'Microincidentaloma without endocrine features: serial MRI and hormone testing.',
+      'Radiotherapy for residual disease or recurrence.'
+    ]);
+    if (s2 === 'apop') return showCls('Pituitary apoplexy — emergency', [
+      '<strong>Hydrocortisone 100 mg IV stat</strong>, then 50 mg IV q6h, for adrenal crisis.',
+      'Urgent dedicated pituitary MRI.',
+      'Full pituitary hormone panel; formal visual fields.',
+      'Urgent neurosurgical referral for transsphenoidal decompression if visual or oculomotor compromise; conservative management possible only in mild presentations with stable vision.',
+      'Long-term hormone replacement; counsel patient and family.'
+    ]);
+  }
+
+  if (s1 === 'cpa') {
+    addCls(2, '3. Specific feature?',
+      [['ice','Enhancing mass extending into IAM ("ice cream cone")'],['dural','Broad dural base, no IAM extension'],['dwi','Restricted diffusion (no enhancement)']]);
+    const s2 = clsState[2];
+    if (s2 === 'ice') return showCls('Vestibular (acoustic) schwannoma', [
+      'Unilateral SNHL + tinnitus → image IAM with gadolinium.',
+      '<strong>Bilateral vestibular schwannomas = NF2 until proven otherwise.</strong>',
+      'Options: observation if small/stable; stereotactic radiosurgery (Gamma Knife) typically for tumors < 3 cm; microsurgical resection.',
+      'Hearing preservation ~50% with appropriate approach.',
+      'Bevacizumab may help hearing in NF2 patients.'
+    ]);
+    if (s2 === 'dural') return showCls('CPA meningioma', [
+      'Broad dural base, no IAM extension; homogeneous enhancement; dural tail.',
+      'Differentiates from vestibular schwannoma on imaging.',
+      'Management as for meningioma — observation, microsurgery, or SRS.'
+    ]);
+    if (s2 === 'dwi') return showCls('Epidermoid cyst', [
+      'Restricted diffusion (DWI bright), no enhancement, "insinuates" around structures.',
+      'Surgical resection for symptomatic lesions; recurrence common if incomplete.'
+    ]);
+  }
+
+  if (s1 === 'infra') {
+    if (s0 === 'ped') return showCls('Paediatric posterior-fossa tumor — orientation', [
+      'Most common paediatric brain-tumor location (~70% infratentorial).',
+      '<strong>Pilocytic astrocytoma</strong>: cerebellar, cyst + mural nodule, BRAF fusions, often curable.',
+      '<strong>Medulloblastoma</strong>: midline (vermis), CSF dissemination; resection + craniospinal RT + chemo (CSI for older children; some chemo-only protocols for very young).',
+      '<strong>Ependymoma</strong>: posterior fossa or spinal; resection often difficult, RT adjuvant.',
+      '<strong>Diffuse intrinsic pontine glioma (DIPG)</strong> = H3 K27M-altered diffuse midline glioma; uniformly fatal < 12 months.',
+      'Refer to paediatric neuro-oncology.'
+    ]);
+    return showCls('Adult posterior-fossa mass — broaden differential', [
+      'Metastasis is the most common posterior-fossa mass in adults.',
+      'Haemangioblastoma — solitary or vHL-associated (cerebellar, mural nodule with cyst, ± polycythaemia from EPO).',
+      'Schwannoma, meningioma, ependymoma (4th ventricle), brainstem glioma (rare in adults).',
+      'Urgent workup including dedicated MRI, body imaging for primary, genetic counselling if vHL suspected.'
+    ]);
+  }
+}
+
+function addCls(step, q, opts) {
+  if (document.querySelector(`#cls-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  clsRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => clsAns(step, b.dataset.val)));
+  if (clsState[step]) {
+    const t = wrap.querySelector(`[data-val="${clsState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showCls(title, items) {
+  clsResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  clsResult.classList.add('show');
+}
+
+function resetCls() {
+  clsState = {};
+  clsRest.innerHTML = '';
+  clsResult.classList.remove('show');
+  document.querySelectorAll('#clsTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#clsTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => clsAns(0, b.dataset.val)));
+
+/* Paraneoplastic Identifier */
+const pnResult = document.getElementById('pn-result');
+const pnMap = {
+  nmda:{
+    title:'Anti-NMDA-R encephalitis',
+    items:[
+      '<strong>Antibody:</strong> NMDA-R (NR1 subunit). CSF more sensitive than serum.',
+      '<strong>Tumor association:</strong> ovarian teratoma in ~50% of women aged 18–45 (lower in men and at extremes of age).',
+      '<strong>Workup:</strong> CSF and serum NMDA-R antibody; pelvic ultrasound + MRI in women, testicular US in young men; CT chest/abdomen/pelvis; FDG-PET if standard imaging negative.',
+      '<strong>Treatment:</strong> first-line steroids + IVIG or PLEX + tumour removal; second-line rituximab + cyclophosphamide if inadequate response by ~2 weeks. ICU monitoring for autonomic instability.',
+      '<strong>Recovery:</strong> typically slow (months) but ~80% achieve good or near-complete recovery with adequate treatment.',
+      'Post-HSE NMDA-R encephalitis: develops in 5–27% of HSE survivors 1–6 weeks later (cross-ref Module 11).'
+    ]
+  },
+  lgi1:{
+    title:'LGI1 limbic encephalitis',
+    items:[
+      '<strong>Antibody:</strong> LGI1 (leucine-rich glioma-inactivated 1). Serum often more sensitive than CSF.',
+      '<strong>Tumor association:</strong> typically <em>not</em> paraneoplastic, but exclude thymoma and SCLC at baseline.',
+      '<strong>Hallmarks:</strong> faciobrachial dystonic seizures (brief < 3 s) → amnesia/limbic encephalitis; hyponatraemia from SIADH; sleep disturbance.',
+      'MRI: medial temporal T2/FLAIR hyperintensity (limbic).',
+      '<strong>Treatment:</strong> steroids + IVIG (often dramatically responsive); rituximab for refractory cases. Recovery often good but cognitive sequelae common if treatment delayed.'
+    ]
+  },
+  ma2:{
+    title:'Ma2 limbic / brainstem / hypothalamic encephalitis',
+    items:[
+      '<strong>Antibody:</strong> Ma2 (intracellular antigen).',
+      '<strong>Tumor association:</strong> <strong>testicular germ-cell tumor</strong> in young men; lung, breast in older patients.',
+      'Limbic, diencephalic, brainstem involvement: narcolepsy/cataplexy, hypothalamic dysfunction, vertical gaze palsy.',
+      '<strong>Workup:</strong> testicular ultrasound (essential in any young man with limbic encephalitis); CT chest/abdomen/pelvis; FDG-PET if testicular imaging negative — consider orchiectomy if clinical suspicion is high despite negative imaging.',
+      '<strong>Treatment:</strong> tumor removal + chemotherapy (germ cell tumors are very chemosensitive); immunotherapy as adjunct (intracellular antigen → less treatment-responsive).'
+    ]
+  },
+  cerebellar:{
+    title:'Paraneoplastic cerebellar degeneration',
+    items:[
+      '<strong>Antibodies (commonest):</strong> Yo (PCA-1) — breast, ovarian; Hu — SCLC; Tr/DNER — Hodgkin lymphoma; mGluR1 — Hodgkin; CASPR2 — rare.',
+      '<strong>Pattern:</strong> subacute pancerebellar syndrome over weeks, often with prodromal vertigo / nausea.',
+      'MRI may be normal initially; later cerebellar atrophy.',
+      '<strong>Workup:</strong> mammogram + pelvic US + CT chest/abdomen/pelvis (women); CT chest (smoker); FDG-PET if negative; CSF antibody panel.',
+      '<strong>Treatment:</strong> tumor identification and treatment are the priority. Most Yo/Hu PCD is poorly responsive to immunotherapy. Tr/DNER (Hodgkin) and CASPR2 may respond better.'
+    ]
+  },
+  hu:{
+    title:'Anti-Hu sensory neuronopathy / encephalomyelitis',
+    items:[
+      '<strong>Antibody:</strong> Hu (ANNA-1; intracellular).',
+      '<strong>Tumor association:</strong> small-cell lung cancer (SCLC) in &gt; 80%.',
+      '<strong>Clinical:</strong> subacute asymmetric sensory loss + ataxia + dysautonomia ± limbic encephalitis ± cerebellar ± brainstem (encephalomyeloneuritis).',
+      '<strong>Workup:</strong> CT chest + FDG-PET; bronchoscopy if positive; consider repeat surveillance every 3–6 months for 2 years if antibody+ but no tumor found.',
+      '<strong>Treatment:</strong> treat the SCLC (chemo ± thoracic RT); immunotherapy may stabilise but rarely reverses; intracellular antigen → poor immunotherapy response.'
+    ]
+  },
+  lems:{
+    title:'Lambert-Eaton myasthenic syndrome (LEMS)',
+    items:[
+      '<strong>Antibody:</strong> P/Q-type voltage-gated calcium channel (VGCC) antibody.',
+      '<strong>Tumor association:</strong> small-cell lung cancer in ~60%.',
+      '<strong>Clinical:</strong> proximal weakness improving with brief exercise (facilitation), dry mouth, erectile dysfunction, hyporeflexia that improves with brief exercise. Cross-ref Module 9.',
+      '<strong>Electrophysiology:</strong> low baseline CMAP amplitude; > 60% incremental response on high-frequency (30–50 Hz) repetitive nerve stimulation or post-exercise; the most sensitive electrodiagnostic finding.',
+      '<strong>Workup:</strong> CT chest + FDG-PET; bronchoscopy if positive.',
+      '<strong>Treatment:</strong> treat SCLC; symptomatic: 3,4-diaminopyridine (amifampridine) first-line, pyridostigmine adjunct; immunotherapy (IVIG, PLEX, immunosuppressants) for severe disease.'
+    ]
+  },
+  opso:{
+    title:'Opsoclonus-myoclonus-ataxia syndrome (OMAS)',
+    items:[
+      '<strong>Adults:</strong> Ri (ANNA-2) — breast, SCLC; some seronegative.',
+      '<strong>Children:</strong> often paraneoplastic to <strong>neuroblastoma</strong> (search urinary catecholamines, abdomen imaging including MIBG scan); also post-viral idiopathic OMAS.',
+      '<strong>Workup:</strong> mammography (women), CT chest (smokers), urine catecholamines + abdominal imaging (children).',
+      '<strong>Treatment:</strong> tumor treatment + immunotherapy (steroids + IVIG; ACTH in children); rituximab in refractory cases; long-term immunosuppression often needed.'
+    ]
+  },
+  sps:{
+    title:'Stiff-person syndrome (paraneoplastic variant)',
+    items:[
+      '<strong>Antibody:</strong> amphiphysin (paraneoplastic); GAD65 (mostly non-paraneoplastic, autoimmune).',
+      '<strong>Tumor association:</strong> amphiphysin → breast cancer (small-cell lung less common).',
+      '<strong>Clinical:</strong> truncal/proximal rigidity + episodic spasms triggered by stimuli + falls; co-contraction of agonist/antagonist muscles on EMG; ± brainstem features.',
+      '<strong>Workup:</strong> mammography + CT chest; antibodies in serum and CSF.',
+      '<strong>Treatment:</strong> benzodiazepines (diazepam, clonazepam) symptomatically + baclofen; IVIG; tumor treatment for amphiphysin-positive cases. Plasma exchange + rituximab for refractory.'
+    ]
+  }
+};
+
+document.querySelectorAll('#pnTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#pnTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = pnMap[b.dataset.val];
+  if (m) {
+    pnResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    pnResult.classList.add('show');
+  }
+}));
+
+function resetPn() {
+  document.querySelectorAll('#pnTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  pnResult.classList.remove('show');
+}
+</script>
+</body>
+</html>

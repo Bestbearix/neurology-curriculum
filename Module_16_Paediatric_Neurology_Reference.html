@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 16 — Developmental &amp; Paediatric Neurology (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#c2407a; --accent-2:#e070a4; --soft:#fbeef4;
+    --line:#f0e0e8; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#fbeef4; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#fdf8fa; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(194,64,122,0.05)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#8b2a5a; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#a23066}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#f6dde8; color:#8b2a5a; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#f6e5ed; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#f3dde8; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 16 — Developmental &amp; Paediatric Neurology</h1>
+  <div class="sub">Milestones &amp; red flags · neonatal HIE · neonatal seizures · cerebral palsy · paediatric epilepsies · neural tube defects · floppy infant · paediatric stroke · ADEM · autism</div>
+  <div class="meta">For the general physician · Reference · 2026 · Built from Adams &amp; Victor 12e (Ch 27, 37) and Merritt's 14e (Ch 137–152) · Current AAN/AAP guidance, ILAE 2017</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — what is different about the paediatric brain</a></li>
+  <li><a href="#milestones">Normal development and milestones</a></li>
+  <li><a href="#redflags">Developmental red flags and surveillance</a></li>
+  <li><a href="#prenatal">Prenatal and perinatal CNS development</a></li>
+  <li><a href="#ntd">Neural tube defects and brain malformations</a></li>
+  <li><a href="#headsize">Microcephaly, macrocephaly, and hydrocephalus</a></li>
+  <li><a href="#hie">Neonatal hypoxic-ischaemic encephalopathy and therapeutic hypothermia</a></li>
+  <li><a href="#nseiz">Neonatal seizures</a></li>
+  <li><a href="#cp">Cerebral palsy</a></li>
+  <li><a href="#epileps">Paediatric epilepsy syndromes</a></li>
+  <li><a href="#floppy">The floppy infant — approach</a></li>
+  <li><a href="#stroke">Paediatric stroke</a></li>
+  <li><a href="#demyel">Acute disseminated encephalomyelitis &amp; paediatric demyelinating disease</a></li>
+  <li><a href="#move">Paediatric movement disorders (Sydenham, PANDAS, tics, dystonia)</a></li>
+  <li><a href="#headache">Paediatric headache</a></li>
+  <li><a href="#asd">Autism spectrum disorder and intellectual disability</a></li>
+  <li><a href="#abuse">Non-accidental injury &amp; safeguarding</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — what is different about the paediatric brain</h2>
+<p>The paediatric brain is a moving target. Disease in childhood happens against a backdrop of <em>active development</em>, so the same insult produces different phenotypes at different ages, and any disorder may be expressed as developmental delay or regression rather than discrete focal signs. A few principles shape everything that follows:</p>
+<ul>
+  <li><strong>Use milestones as a vital sign</strong>. A 6-month head-lag, a 12-month child not babbling, an 18-month child not walking, a 24-month child with no words — these are red flags as concrete as a neurological deficit in an adult.</li>
+  <li><strong>Regression is never normal</strong>. Loss of acquired skills points to a treatable encephalopathy, structural lesion, neurodegenerative disease, or autism with regression (most commonly the first three).</li>
+  <li><strong>The newborn is a special case</strong>. Hypoxic-ischaemic encephalopathy is the dominant emergency; neonatal seizures look unlike older-child seizures; therapeutic hypothermia improves outcome only inside a 6-hour window.</li>
+  <li><strong>Many conditions cross modules</strong>: paediatric MS / ADEM / MOGAD (Module 8), neurocutaneous syndromes (Module 12), inborn metabolic disease (Module 13), paediatric stroke (Module 2), CNS infections (Module 11), brain tumours (Module 12), and ILAE 2017 epilepsy classification (Module 3). Reach for the relevant adult module when the picture overlaps.</li>
+</ul>
+
+<div class="pearl"><strong>The single principle:</strong> for any child presenting with delay, regression, weakness, seizure, or behavioural change — first ask "is this an emergency that needs treating now?" (neonatal HIE, status epilepticus, raised ICP, infection, stroke, NAI) and second "where on the development trajectory does this child sit?" These two questions structure everything that follows.</div>
+
+<h2 id="milestones">2. Normal development and milestones</h2>
+<p>Use four streams: <strong>gross motor, fine motor / vision, speech / language / hearing, social / behaviour</strong>. The following are mean-age summary milestones — late-normal is up to ~25% beyond mean.</p>
+
+<table>
+<tr><th>Age</th><th>Gross motor</th><th>Fine motor / vision</th><th>Speech / language</th><th>Social / behaviour</th></tr>
+<tr><td>Newborn</td><td>Flexor tone, primitive reflexes (Moro, palmar grasp, ATNR, rooting, stepping)</td><td>Fixes momentarily to face</td><td>Cries</td><td>Quiets to voice</td></tr>
+<tr><td>6 weeks</td><td>Lifts head briefly prone</td><td>Follows face through 90°</td><td>Vocalises</td><td><strong>Social smile</strong></td></tr>
+<tr><td>3 months</td><td>Head up 45° prone</td><td>Hands open; reaches for objects</td><td>Coos, laughs</td><td>Recognises caregiver</td></tr>
+<tr><td>6 months</td><td>Sits with support; rolls both ways; <strong>no head lag</strong> on pull-to-sit</td><td>Palmar grasp, transfers objects</td><td>Babbles (consonants)</td><td>Stranger awareness emerging</td></tr>
+<tr><td>9 months</td><td>Sits independently; crawls; pulls to stand</td><td>Pincer grasp emerging</td><td>"Mama / dada" non-specific</td><td>Stranger anxiety, waves bye</td></tr>
+<tr><td>12 months</td><td>Cruises; first steps</td><td>Mature pincer grasp; gives objects</td><td>1–3 specific words; <strong>understands "no"</strong></td><td>Plays peekaboo; points to wants</td></tr>
+<tr><td>18 months</td><td>Walks well; climbs stairs holding rail</td><td>Scribbles; tower of 2–3 cubes</td><td>10–25 words; points to body parts</td><td>Feeds self; imitates housework</td></tr>
+<tr><td>2 years</td><td>Runs; up/down stairs with support</td><td>Tower of 6 cubes; vertical line</td><td>2-word phrases; ~50 words; follows 2-step commands</td><td>Parallel play</td></tr>
+<tr><td>3 years</td><td>Pedals tricycle; jumps</td><td>Copies circle; tower of 9</td><td>3-word sentences; speech ~75% intelligible to strangers</td><td>Symbolic play; toilet training</td></tr>
+<tr><td>4 years</td><td>Hops on one foot; up stairs alternating</td><td>Copies cross and square; draws stick figure</td><td>Tells stories; full sentences</td><td>Cooperative play; understands rules</td></tr>
+<tr><td>5 years</td><td>Skips</td><td>Copies triangle; writes own name</td><td>Speech fully intelligible</td><td>Friendships; impulse control developing</td></tr>
+</table>
+
+<div class="pearl"><strong>The "rule of one" memory aid:</strong> 1 month — lifts head; 6 months — sits with support; 12 months — walks (one foot); 18 months — climbs; 2 years — runs; the same numbers for language (1 word at 12 mo; 10–25 at 18 mo; phrases at 2 y; sentences at 3 y).</div>
+
+<h3>Primitive reflexes — appearance and disappearance</h3>
+<ul>
+  <li><strong>Moro</strong>: from birth → fades by 4–6 months. Persistence beyond 6 months suggests CNS pathology.</li>
+  <li><strong>Palmar grasp</strong>: birth → 5–6 months.</li>
+  <li><strong>ATNR (asymmetric tonic neck)</strong>: 1 → 6 months.</li>
+  <li><strong>Rooting</strong>: birth → 3–4 months (longer when hungry).</li>
+  <li><strong>Stepping</strong>: birth → 1–2 months.</li>
+  <li><strong>Parachute</strong>: emerges at 8–10 months → persists for life.</li>
+</ul>
+<p>Persistence of primitive reflexes beyond their normal window and absence of postural protective reflexes (parachute) are core features of cerebral palsy.</p>
+
+<h2 id="redflags">3. Developmental red flags and surveillance</h2>
+
+<table>
+<tr><th>Age</th><th>Red flag — refer</th></tr>
+<tr><td>Any age</td><td>Loss of skills (regression); abnormal tone (hypotonic or hypertonic); failure of head to grow normally; ongoing concern from parents</td></tr>
+<tr><td>6 weeks</td><td>No social smile</td></tr>
+<tr><td>3 months</td><td>Head lag on pull-to-sit; persistent fisting; not turning to sound</td></tr>
+<tr><td>6 months</td><td>Not reaching for objects; persistent ATNR; no babble</td></tr>
+<tr><td>9 months</td><td>Not sitting independently; not babbling consonants</td></tr>
+<tr><td>12 months</td><td>Not pointing; no words; not pulling to stand; primitive reflexes persisting</td></tr>
+<tr><td>18 months</td><td>Not walking; fewer than 6 words; no eye contact / joint attention; ongoing hand regard</td></tr>
+<tr><td>24 months</td><td>Not running; no two-word phrases; not following 1-step commands; loss of words</td></tr>
+<tr><td>3 years</td><td>Speech not intelligible to family; persistent toe-walking with tightness; no symbolic play</td></tr>
+</table>
+
+<div class="warn"><strong>Always refer urgently</strong> if there is regression of any skill, an abnormal head circumference trajectory (microcephaly, macrocephaly, or crossing centiles), focal neurological signs, or the parents have a strong concern that something is wrong. Parental concern is one of the most sensitive screening tools.</div>
+
+<h3>Vision and hearing screening</h3>
+<ul>
+  <li><strong>Hearing</strong>: universal newborn screen (OAE or AABR). Repeat hearing assessment any child with delayed speech.</li>
+  <li><strong>Vision</strong>: red reflex check at every well-child visit (excludes retinoblastoma, congenital cataract).</li>
+  <li>Any concern about gaze, fixation, or pursuit at 6 weeks → 3 months → ophthalmology referral.</li>
+</ul>
+
+<h2 id="prenatal">4. Prenatal and perinatal CNS development</h2>
+<p>Stage-specific vulnerabilities give important diagnostic clues:</p>
+<ul>
+  <li><strong>Days 18–28 — neurulation</strong>: neural tube closes. Failure → anencephaly, encephalocele, spina bifida. Folate supplementation (400 µg/day periconception; 4 mg/day for high-risk pregnancies — prior NTD, on antiseizure medication) substantially reduces risk.</li>
+  <li><strong>Weeks 4–7 — prosencephalisation</strong>: forebrain cleavage. Failure → <em>holoprosencephaly</em> (alobar, semilobar, lobar; midline craniofacial defects).</li>
+  <li><strong>Weeks 8–16 — neuronal proliferation</strong>: subependymal germinal matrix. Failure → microcephaly, megalencephaly.</li>
+  <li><strong>Weeks 12–24 — migration</strong>: radial glial guides. Failure → lissencephaly (smooth brain), polymicrogyria, schizencephaly, heterotopias (LIS1, DCX, TUBA1A genes etc.).</li>
+  <li><strong>Weeks 24+ — organisation, myelination</strong>: continues postnatally into early adulthood. Hypothyroidism, severe malnutrition, alcohol, or radiation here affects organisation and myelination.</li>
+</ul>
+
+<h2 id="ntd">5. Neural tube defects and brain malformations</h2>
+<table>
+<tr><th>Condition</th><th>Features</th></tr>
+<tr><td><strong>Anencephaly</strong></td><td>Absent skull vault and cerebral hemispheres. Incompatible with life beyond hours/days.</td></tr>
+<tr><td><strong>Encephalocele</strong></td><td>Skull defect with herniated brain ± meninges. Surgical repair; outcome depends on tissue herniated and associated malformations.</td></tr>
+<tr><td><strong>Spina bifida occulta</strong></td><td>Vertebral arch defect without protrusion; often incidental. Skin clues: hairy patch, dimple, sinus, lipoma in midline lumbosacral region. Look for tethered cord — MRI if symptomatic or skin marker.</td></tr>
+<tr><td><strong>Meningocele</strong></td><td>Meninges herniate through defect; cord usually normal.</td></tr>
+<tr><td><strong>Myelomeningocele</strong></td><td>Spinal cord + meninges herniate. Leg paralysis, sensory loss, bladder/bowel dysfunction. Almost always with Chiari II malformation and hydrocephalus. Surgical closure within 48 hours (or fetal closure MOMS trial); shunt for hydrocephalus; lifelong multidisciplinary care.</td></tr>
+<tr><td><strong>Chiari I</strong></td><td>Cerebellar tonsils &gt; 5 mm below foramen magnum. Often asymptomatic; may cause headache (cough-induced), syringomyelia, brainstem symptoms in older children. Decompression for symptomatic disease.</td></tr>
+<tr><td><strong>Chiari II</strong></td><td>Brainstem + 4th ventricle herniation. Always with myelomeningocele.</td></tr>
+<tr><td><strong>Dandy-Walker malformation</strong></td><td>Cystic dilation of 4th ventricle + cerebellar vermis hypoplasia + posterior fossa enlargement. Hydrocephalus in most. Often with other CNS anomalies.</td></tr>
+<tr><td><strong>Agenesis of corpus callosum</strong></td><td>Range from asymptomatic to severe intellectual disability with seizures. Look for associated malformations (Aicardi syndrome — girls, with chorioretinal lacunae and infantile spasms).</td></tr>
+<tr><td><strong>Holoprosencephaly</strong></td><td>Failed forebrain cleavage. Midline facial defects (cleft, single nostril, cyclopia in severe forms). Associated with trisomy 13, maternal diabetes.</td></tr>
+<tr><td><strong>Lissencephaly</strong></td><td>Smooth cortex; severe developmental delay, refractory seizures. LIS1 (Miller-Dieker), DCX (X-linked).</td></tr>
+</table>
+
+<h2 id="headsize">6. Microcephaly, macrocephaly, and hydrocephalus</h2>
+
+<h3>Microcephaly</h3>
+<ul>
+  <li>Head circumference &gt; 2 SD below mean for age and sex. <strong>Primary microcephaly</strong> (genetic, present at birth) vs <strong>secondary</strong> (acquired insult).</li>
+  <li>Causes:
+    <ul>
+      <li>Genetic: autosomal recessive primary microcephaly (MCPH1, ASPM, WDR62); chromosomal (T13, T18, T21); single-gene syndromes (Rett — girls with regression and stereotypies after normal early development; Angelman — happy demeanour, ataxia, refractory epilepsy; Cornelia de Lange).</li>
+      <li>Congenital infections (<strong>TORCH</strong>: Toxoplasma, Other — syphilis, Zika, Rubella, CMV, Herpes, HIV). Zika virus epidemic 2015–2016 caused major outbreak of congenital microcephaly.</li>
+      <li>Fetal alcohol spectrum disorder (cross-ref Module 13).</li>
+      <li>Severe intrauterine growth restriction.</li>
+      <li>Acquired postnatal: HIE, meningitis, head injury, severe malnutrition, untreated PKU.</li>
+    </ul>
+  </li>
+  <li>Workup: head circumference of both parents (familial microcephaly); MRI; TORCH screen; chromosome / microarray ± gene panel; metabolic workup if features suggest.</li>
+</ul>
+
+<h3>Macrocephaly</h3>
+<ul>
+  <li>HC &gt; 2 SD above mean for age. Always check parents (familial macrocephaly common).</li>
+  <li>Causes:
+    <ul>
+      <li>Hydrocephalus (most important to exclude — urgent MRI).</li>
+      <li>Megalencephaly (NF1, tuberous sclerosis, Sotos syndrome, PTEN hamartoma syndromes, Canavan / Alexander leukodystrophies).</li>
+      <li>Subdural collections (consider NAI / abusive head trauma).</li>
+      <li>Glutaric aciduria type I (often presents with acute encephalopathy after viral illness in a child with macrocephaly and frontotemporal atrophy on MRI).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Hydrocephalus</h3>
+<ul>
+  <li>Increased CSF volume → ventriculomegaly + raised ICP.</li>
+  <li>Communicating (impaired CSF reabsorption — post-haemorrhagic, post-meningitic, congenital) vs non-communicating / obstructive (aqueductal stenosis, posterior-fossa lesion).</li>
+  <li>Infant: tense bulging fontanelle, sunsetting eyes, accelerating HC, splayed sutures, irritability, poor feeding.</li>
+  <li>Older child: morning headache, vomiting, papilloedema, gait/cognitive change.</li>
+  <li>Treatment: VP shunt or endoscopic third ventriculostomy (ETV — for obstructive hydrocephalus in suitable patients). Shunt complications: infection, blockage (rapid deterioration — urgent neurosurgical assessment).</li>
+</ul>
+
+<h2 id="hie">7. Neonatal hypoxic-ischaemic encephalopathy and therapeutic hypothermia</h2>
+
+<h3>Definition and clinical staging (Sarnat)</h3>
+<table>
+<tr><th>Stage</th><th>Consciousness</th><th>Tone</th><th>Reflexes / autonomic</th><th>Outcome</th></tr>
+<tr><td>Sarnat I (mild)</td><td>Hyperalert, irritable</td><td>Normal or slight increase</td><td>Mydriasis, tachycardia, hyperactive Moro; seizures rare</td><td>Normal recovery in &gt; 48 h</td></tr>
+<tr><td>Sarnat II (moderate)</td><td>Lethargic</td><td>Hypotonic</td><td>Miosis, bradycardia; seizures common in 24–48 h</td><td>~25–50% disability; 5% mortality</td></tr>
+<tr><td>Sarnat III (severe)</td><td>Comatose</td><td>Flaccid</td><td>Suppressed brainstem reflexes; seizures may be subclinical; multi-organ failure</td><td>~75% mortality or major disability</td></tr>
+</table>
+
+<h3>Therapeutic hypothermia (TH)</h3>
+<div class="refer"><strong>Therapeutic hypothermia is the single intervention that improves outcomes in moderate-to-severe neonatal HIE.</strong>
+<ul>
+  <li><strong>Eligibility</strong>: term or near-term (≥ 36 weeks); &lt; 6 hours of age; clinical evidence of moderate or severe encephalopathy (Sarnat II/III); evidence of perinatal asphyxia (any of: 10-min Apgar ≤ 5, cord pH ≤ 7.0 or base deficit ≥ 16, continued resuscitation at 10 min).</li>
+  <li><strong>Cooling</strong>: core temperature 33.5 °C for 72 hours, then slow rewarming over 6–12 hours.</li>
+  <li><strong>Benefit</strong>: NNT ~7 to prevent one case of death or disability (CoolCap, NICHD, TOBY trials).</li>
+  <li><strong>Caveats</strong>: not for preterm &lt; 36 weeks; window closes at 6 hours; meta-analyses suggest the benefit may be more limited in low-resource settings (HELIX trial, Lancet Global Health 2021 — no benefit in low/middle-income settings); ongoing research.</li>
+</ul>
+</div>
+
+<h3>Workup of suspected HIE</h3>
+<ol>
+  <li>Cord blood gases; APGAR scores; placental history.</li>
+  <li>Continuous video EEG or amplitude-integrated EEG (aEEG) — both diagnostic and prognostic; abnormal background pattern indicates poor outcome.</li>
+  <li>Brain MRI day 4–7 (DWI) and day 10–14 (conventional) — characteristic injury patterns: parasagittal cortex (full-term, partial prolonged hypoxia), basal ganglia + thalami + perirolandic cortex (term acute profound — "BGT pattern" — worst prognosis), watershed (partial prolonged in preterm), periventricular leukomalacia (PVL — preterm cystic encephalomalacia, classic for spastic diplegia).</li>
+  <li>Multidisciplinary follow-up: developmental paediatrics, neurology, ophthalmology, audiology, physiotherapy.</li>
+</ol>
+
+<h2 id="nseiz">8. Neonatal seizures</h2>
+<ul>
+  <li>Different from later seizures because of immature cortical-subcortical circuits — often <strong>subtle</strong>: lip-smacking, cycling movements, sustained eye deviation, apnoea, autonomic changes; or focal clonic; rarely generalised tonic-clonic.</li>
+  <li><strong>Causes</strong>: HIE (most common — 50–60%), intracranial haemorrhage, stroke, meningitis, hypoglycaemia, hypocalcaemia, hyponatraemia, hypomagnesaemia, inborn errors (pyridoxine-dependent epilepsy with PNPO and ALDH7A1, non-ketotic hyperglycinaemia, urea cycle), genetic channelopathies (<em>KCNQ2/3</em> — benign familial neonatal seizures; <em>SCN2A</em>).</li>
+  <li><strong>Diagnosis</strong>: every suspected event needs continuous video EEG — most neonatal seizures are electrographic-only (without clinical correlate) or have <strong>electroclinical dissociation</strong> (clinical event without EEG change). Treating clinical events alone misses many true seizures and over-treats non-epileptic movements.</li>
+</ul>
+
+<h3>Treatment</h3>
+<ol>
+  <li>Correct electrolytes: glucose (2 mL/kg D10W for hypoglycaemia), calcium (Ca gluconate), magnesium, sodium.</li>
+  <li><strong>Phenobarbital 20 mg/kg IV loading dose</strong>, may add further 10–20 mg/kg to total 40 mg/kg. Long the first-line agent globally.</li>
+  <li>Second-line: <strong>levetiracetam 40–60 mg/kg IV</strong> (NEOLEV2 trial showed phenobarbital superior to levetiracetam acutely, but levetiracetam has better neurodevelopmental safety profile and is widely preferred when efficacy comparable).</li>
+  <li>Third-line: phenytoin / fosphenytoin, midazolam infusion, lidocaine infusion (specialist).</li>
+  <li>If refractory: trial of <strong>pyridoxine 100 mg IV under EEG</strong> (pyridoxine-dependent epilepsy); <strong>pyridoxal-5-phosphate</strong> (PNPO deficiency); biotin; folinic acid.</li>
+  <li>Targeted therapy in genetic neonatal-onset epilepsy: carbamazepine or oxcarbazepine for KCNQ2 / SCN2A gain-of-function variants.</li>
+</ol>
+
+<h2 id="cp">9. Cerebral palsy</h2>
+<ul>
+  <li><strong>Definition</strong>: a group of permanent disorders of movement and posture caused by a <em>non-progressive</em> disturbance to the developing fetal or infant brain, with associated disturbances of sensation, cognition, communication, perception, behaviour, and seizures.</li>
+  <li>Prevalence ~2 per 1000 live births; many causes (prematurity, PVL, HIE, congenital malformations, prenatal infection, stroke, kernicterus, genetic).</li>
+</ul>
+
+<h3>Topographic and physiological classification</h3>
+<table>
+<tr><th>Type</th><th>Lesion pattern</th><th>Common cause</th></tr>
+<tr><td>Spastic diplegia</td><td>Periventricular leukomalacia (PVL) → corticospinal fibres to legs &gt; arms</td><td>Prematurity</td></tr>
+<tr><td>Spastic hemiplegia</td><td>Unilateral cortical / subcortical lesion (perinatal stroke, congenital malformation)</td><td>Perinatal arterial ischaemic stroke; in utero MCA infarct</td></tr>
+<tr><td>Spastic quadriplegia</td><td>Diffuse cortical injury</td><td>Severe term HIE; major congenital malformation</td></tr>
+<tr><td>Dyskinetic (athetoid / dystonic)</td><td>Basal ganglia + thalami (BGT pattern)</td><td>Acute profound term HIE; kernicterus; mitochondrial disease</td></tr>
+<tr><td>Ataxic</td><td>Cerebellar</td><td>Cerebellar hypoplasia, congenital malformations</td></tr>
+<tr><td>Mixed</td><td>—</td><td>—</td></tr>
+</table>
+
+<h3>GMFCS — Gross Motor Function Classification System (Palisano)</h3>
+<ul>
+  <li><strong>I</strong> — walks without limitation.</li>
+  <li><strong>II</strong> — walks with limitations.</li>
+  <li><strong>III</strong> — walks using a hand-held mobility device.</li>
+  <li><strong>IV</strong> — self-mobility with limitations; may use powered mobility.</li>
+  <li><strong>V</strong> — transported in a manual wheelchair.</li>
+</ul>
+
+<h3>Workup and management</h3>
+<ul>
+  <li>MRI brain (~80% have abnormal MRI consistent with timing of insult).</li>
+  <li>Investigate for cause if MRI normal: genetic / metabolic workup (some "cerebral palsy" is in fact dopa-responsive dystonia, glutaric aciduria, hereditary spastic paraplegia, SPG / Krabbe / metachromatic leukodystrophy → critical to identify because treatable or genetically counsellable).</li>
+  <li><strong>Trial of L-dopa</strong> in any unexplained childhood dystonia/spasticity — dopa-responsive dystonia (Segawa) is dramatically responsive.</li>
+  <li>Multidisciplinary care: physio, OT, speech and language, orthotics, orthopaedic, neurology, developmental paediatrics.</li>
+  <li>Spasticity: oral baclofen, tizanidine, diazepam; intrathecal baclofen for severe diffuse spasticity; botulinum toxin for focal spasticity; selective dorsal rhizotomy for selected children (GMFCS II–III).</li>
+  <li>Seizures, hip surveillance, feeding (gastrostomy if aspiration risk), constipation, drooling, communication aids, education planning.</li>
+</ul>
+
+<div class="warn"><strong>A child labelled "cerebral palsy" but with normal MRI, progressive features, or family history needs a metabolic and genetic workup.</strong> Hereditary spastic paraplegia, dopa-responsive dystonia, glutaric aciduria, and Lesch-Nyhan can all be mistaken for CP and have specific treatments.</div>
+
+<h2 id="epileps">10. Paediatric epilepsy syndromes</h2>
+<p>Use the ILAE 2017 framework (cross-ref Module 3): seizure type → epilepsy type (focal, generalised, combined, unknown) → epilepsy syndrome → aetiology.</p>
+
+<table>
+<tr><th>Syndrome</th><th>Age</th><th>Hallmarks</th><th>First-line treatment</th></tr>
+<tr><td><strong>Infantile epileptic spasms syndrome (IESS, formerly West syndrome)</strong></td><td>3–12 months</td><td>Clusters of brief flexor/extensor spasms; developmental regression; <strong>hypsarrhythmia</strong> on EEG (chaotic high-voltage slow waves with multifocal spikes). Causes: many (TS — cross-ref Module 12; HIE; structural; metabolic; genetic).</td><td><strong>ACTH or oral prednisolone</strong>; <strong>vigabatrin first-line in tuberous sclerosis</strong> (monitor for visual field constriction). Early control improves outcome.</td></tr>
+<tr><td><strong>Lennox-Gastaut syndrome</strong></td><td>1–8 y (often preceded by IESS)</td><td>Multiple seizure types (tonic at night, atonic "drop attacks", atypical absences); slow spike-wave on EEG (&lt; 2.5 Hz); intellectual disability.</td><td>Valproate, lamotrigine, rufinamide, clobazam, cannabidiol (FDA 2018); ketogenic diet; corpus callosotomy for drop attacks; vagus nerve stimulator.</td></tr>
+<tr><td><strong>Dravet syndrome</strong></td><td>Onset 6 months</td><td>Prolonged febrile / hemiclonic seizures in 1st year → multiple seizure types and regression. <em>SCN1A</em> loss-of-function in &gt; 80%. AVOID sodium-channel blockers (carbamazepine, lamotrigine, phenytoin — worsen seizures).</td><td>Valproate + clobazam first; add <strong>stiripentol</strong> (EMA/FDA approved), <strong>cannabidiol</strong>, <strong>fenfluramine</strong> (FDA 2020 — striking efficacy); ketogenic diet.</td></tr>
+<tr><td><strong>Self-limited epilepsy with centrotemporal spikes (SeLECTS, formerly BECTS / "Rolandic")</strong></td><td>3–10 y</td><td>Nocturnal focal seizures with facial twitching, sialorrhoea, dysarthria, sometimes hemiconvulsions. Characteristic centrotemporal spikes on sleep EEG. Resolves by adolescence.</td><td>Often no treatment if infrequent. If treating, levetiracetam or carbamazepine.</td></tr>
+<tr><td><strong>Childhood absence epilepsy</strong></td><td>4–10 y</td><td>Brief unresponsive episodes with subtle eye flutter, multiple per day; provoked by hyperventilation. EEG: 3 Hz generalised spike-and-wave.</td><td><strong>Ethosuximide</strong> (best efficacy + tolerability per CAE trial); valproate; lamotrigine (slower). Most remit by adolescence.</td></tr>
+<tr><td><strong>Juvenile myoclonic epilepsy (JME)</strong></td><td>12–18 y</td><td>Morning myoclonic jerks + GTC seizures + ± absence; sleep deprivation precipitates. EEG: 4–6 Hz polyspike-wave.</td><td>Valproate (males), levetiracetam (preferred in females of childbearing age); avoid sodium-channel blockers as monotherapy (can worsen myoclonus). Lifelong treatment usually required.</td></tr>
+<tr><td><strong>Febrile seizures</strong></td><td>6 m – 5 y</td><td>Simple: brief, generalised, single in 24 h. Complex: prolonged (&gt; 15 min), focal, or recurrent in 24 h. Common (2–5% of children); usually benign.</td><td>Treat fever; LP only if signs of meningitis; admit if complex / first / unwell. Antipyretics do NOT prevent recurrence. Recurrence risk ~30%. Slightly increased epilepsy risk if complex / family history.</td></tr>
+</table>
+
+<h2 id="floppy">11. The floppy infant — structured approach</h2>
+<p>"Floppy infant" = abnormal hypotonia presenting at or shortly after birth. The first split is <strong>central</strong> (UMN) vs <strong>peripheral</strong> (LMN) vs <strong>systemic</strong>:</p>
+
+<table>
+<tr><th>Feature</th><th>Central (UMN)</th><th>Peripheral (LMN — anterior horn / nerve / NMJ / muscle)</th></tr>
+<tr><td>Alertness</td><td>Often depressed</td><td>Alert</td></tr>
+<tr><td>Strength (against gravity)</td><td>Relatively preserved</td><td>Markedly reduced</td></tr>
+<tr><td>Reflexes</td><td>Brisk (or normal early)</td><td>Absent or markedly reduced</td></tr>
+<tr><td>Fasciculations</td><td>Absent</td><td>Tongue fasciculations in SMA</td></tr>
+<tr><td>Dysmorphism</td><td>May be present (syndromic)</td><td>Usually absent</td></tr>
+<tr><td>Power vs head lag</td><td>Head lag with preserved limb tone</td><td>Profound proximal weakness, "frog-leg" posture</td></tr>
+</table>
+
+<h3>Central causes</h3>
+<ul>
+  <li>HIE, intracranial haemorrhage, congenital malformations, congenital infection, chromosomal (Down syndrome, Prader-Willi), inborn errors of metabolism (Zellweger spectrum, mitochondrial, urea cycle), peroxisomal disorders.</li>
+</ul>
+
+<h3>Peripheral causes</h3>
+<ul>
+  <li><strong>Anterior horn</strong>: spinal muscular atrophy (SMA). Type 1 (Werdnig-Hoffmann): onset &lt; 6 months, never sit, tongue fasciculations. <strong>Modern era: nusinersen (intrathecal, 2016), onasemnogene abeparvovec (gene therapy IV, 2019), risdiplam (oral, 2020) — transformed survival and function when started early.</strong></li>
+  <li><strong>Peripheral nerve</strong>: hereditary motor and sensory neuropathies (CMT types presenting in infancy), congenital hypomyelinating neuropathy.</li>
+  <li><strong>Neuromuscular junction</strong>: congenital myasthenic syndromes; transient neonatal myasthenia (transplacental antibody from mother with MG); infantile botulism (constipation, descending weakness, dilated pupils — treat with human botulism immune globulin / BIG-IV).</li>
+  <li><strong>Muscle</strong>: congenital muscular dystrophies (LAMA2, FKRP); congenital myopathies (nemaline, central core, myotubular — XL severe); myotonic dystrophy type 1 (congenital form — facial diplegia, club feet, severe weakness, maternal transmission with anticipation).</li>
+</ul>
+
+<h3>Workup</h3>
+<ol>
+  <li>Complete antenatal, perinatal, and family history (consanguinity, maternal MG, maternal myotonia).</li>
+  <li>Examination — alertness, dysmorphism, organomegaly, tongue fasciculations, deep tendon reflexes, arthrogryposis.</li>
+  <li>CK; lactate; ammonia; acylcarnitine profile, urine organic acids, plasma amino acids; chromosomal microarray.</li>
+  <li><strong>SMN1 deletion testing immediately</strong> in any infant with hypotonia, areflexia, tongue fasciculations.</li>
+  <li>EMG/NCS, muscle biopsy, MRI brain when indicated.</li>
+  <li>Targeted gene panels and trio whole-exome / whole-genome sequencing have transformed diagnostic yield.</li>
+</ol>
+
+<div class="pearl"><strong>SMA newborn screening</strong> is now standard in many countries (US 2018; growing globally). Pre-symptomatic treatment with nusinersen, onasemnogene abeparvovec, or risdiplam dramatically improves outcomes — many treated infants achieve motor milestones not previously possible.</div>
+
+<h2 id="stroke">12. Paediatric stroke</h2>
+<ul>
+  <li>~2–13 per 100,000 children per year — neonates have the highest rate (perinatal arterial ischaemic stroke).</li>
+  <li>Bimodal: <strong>neonatal stroke</strong> (often presents with focal seizures day 1–3; left MCA most common; often diagnosed only after focal seizure or hand preference later) and <strong>childhood stroke</strong> (focal deficit, seizures, headache).</li>
+  <li><strong>Causes are diverse and rarely "lifestyle":</strong>
+    <ul>
+      <li>Cardioembolic (congenital heart disease, post-cardiac surgery, endocarditis).</li>
+      <li>Arteriopathy (focal cerebral arteriopathy — likely post-VZV vasculopathy; moyamoya, sickle cell, dissection, NF1, post-radiation).</li>
+      <li>Prothrombotic (sickle cell, leukaemia, factor V Leiden, antiphospholipid syndrome, MTHFR, protein C/S deficiency).</li>
+      <li>Infection / inflammation (CNS vasculitis, meningitis with vasculopathy).</li>
+      <li>Trauma (dissection from carotid/vertebral trauma — toothbrush, neck manipulation, sports).</li>
+      <li>Metabolic (MELAS — stroke-like episodes not respecting vascular territories, cross-ref Module 13; Fabry).</li>
+    </ul>
+  </li>
+  <li><strong>Sickle cell</strong> is the single most important treatable cause — transcranial Doppler screening (STOP trial), regular transfusion or hydroxyurea, bone marrow transplant.</li>
+  <li><strong>Acute management</strong>: urgent imaging (MRI preferred where available — CT can miss early). Tissue plasminogen activator and endovascular thrombectomy in selected paediatric patients per recent series and AHA 2019 statement; specialised paediatric stroke teams handle decisions. Aspirin for most arterial ischaemic strokes; anticoagulation for cardiac embolism, dissection, CVST.</li>
+  <li>Cross-ref Module 2.</li>
+</ul>
+
+<h2 id="demyel">13. Acute disseminated encephalomyelitis (ADEM) &amp; paediatric demyelinating disease</h2>
+<ul>
+  <li><strong>ADEM</strong>: monophasic demyelinating syndrome with encephalopathy + multifocal CNS deficits + multifocal T2 lesions (deep and subcortical white matter, sometimes basal ganglia and thalami; often large, bilateral, asymmetric). Typically 5–10 days post viral / vaccine.</li>
+  <li>Treat with high-dose IV methylprednisolone 30 mg/kg/day × 3–5 days followed by oral taper; IVIG or plasma exchange in refractory disease.</li>
+  <li><strong>MOG-IgG–associated demyelinating disease (MOGAD, 2023 international criteria)</strong>: paediatric ADEM phenotype is strongly MOG-associated. Recurrence common. Cross-ref Module 8.</li>
+  <li><strong>Paediatric multiple sclerosis</strong>: 3–5% of all MS cases; often more inflammatory MRI with high relapse rate. McDonald 2017 criteria apply (with caveats — first event before 12 may be MOGAD; defer MS diagnosis). Disease-modifying therapy with interferons, glatiramer, fingolimod (paediatric MS phase III trial), and increasingly natalizumab and ocrelizumab in adolescents. Cross-ref Module 8.</li>
+  <li><strong>Neuromyelitis optica spectrum disorder (NMOSD)</strong> with anti-AQP4: rarer in children; same IPND 2015 criteria; eculizumab / inebilizumab / satralizumab used in adolescents.</li>
+</ul>
+
+<h2 id="move">14. Paediatric movement disorders</h2>
+<ul>
+  <li><strong>Sydenham chorea</strong>: post-streptococcal autoimmune chorea (major criterion for rheumatic fever); girls &gt; boys; subacute chorea + hypotonia + emotional lability; "milkmaid's grip", "darting tongue". Treat infection (penicillin); chorea symptomatic (valproate, carbamazepine, or risperidone); steroids or IVIG for severe disease; long-term penicillin prophylaxis.</li>
+  <li><strong>PANDAS / PANS</strong> (Paediatric Autoimmune Neuropsychiatric Disorders Associated with Streptococcus / Paediatric Acute-onset Neuropsychiatric Syndrome): abrupt-onset OCD, tics, anxiety, restricted eating after strep or other infection. Controversial entity; treat infection and offer behavioural therapy / SSRI; immunotherapy in selected severe cases.</li>
+  <li><strong>Tics and Tourette syndrome</strong>: simple and complex motor and vocal tics; onset typically 5–7 years; wax and wane; often comorbid OCD, ADHD. First-line behavioural therapy (CBIT — Comprehensive Behavioural Intervention for Tics). Pharmacotherapy: α2 agonists (clonidine, guanfacine), dopamine antagonists for severe cases. Cross-ref Module 6.</li>
+  <li><strong>Dopa-responsive dystonia (Segawa)</strong>: childhood-onset lower-limb dystonia with diurnal worsening (worse in the evening); GCH1 deficiency. <strong>Dramatic response to low-dose L-dopa</strong> — always trial in unexplained childhood dystonia.</li>
+  <li><strong>Wilson disease</strong> (Module 13): rare under 5; present 5–35 y with hepatic, neurological (tremor, dystonia, parkinsonism, psychiatric).</li>
+  <li><strong>Stereotypies</strong>: hand flapping, head banging — common in autism, intellectual disability, but also in typical children (primary motor stereotypies). Differentiate from tics: no urge, no suppressibility, longer duration episodes, often during excitement.</li>
+</ul>
+
+<h2 id="headache">15. Paediatric headache</h2>
+<ul>
+  <li><strong>Migraine</strong>: most common cause of recurrent headache in children. Shorter attacks (1–72 h vs 4–72 h in adults — ICHD-3); bilateral location accepted in children &lt; 15. Often with abdominal pain, motion sickness history, family history. Childhood periodic syndromes (cyclical vomiting, abdominal migraine, BPV of childhood — now called episodic syndromes that may be associated with migraine).</li>
+  <li><strong>Tension-type headache</strong>: common; less disabling.</li>
+  <li><strong>Cluster headache</strong>: rare in children.</li>
+  <li><strong>Secondary causes more common than in adults — exclude carefully</strong>: posterior-fossa tumour (worst in mornings, vomiting on rising, gait disturbance, papilloedema, focal signs, abducens palsy), idiopathic intracranial hypertension (obese adolescent girls; papilloedema; sixth-nerve palsy; cross-ref Module 4), CVST, hydrocephalus (shunt malfunction), meningitis, post-traumatic, medication overuse.</li>
+  <li><strong>Red flags requiring imaging</strong>: occipital location, headache awakening from sleep, increasing frequency/severity, focal neurology, papilloedema, age &lt; 6, abnormal head circumference, vomiting without other migraine features, new headache pattern.</li>
+  <li>Treatment: acute paracetamol or ibuprofen ± triptan (sumatriptan nasal spray, almotriptan, rizatriptan, zolmitriptan); preventive (topiramate, propranolol, amitriptyline, riboflavin, magnesium, behavioural strategies); CGRP mAbs and gepants used selectively in adolescents (off-label/limited paediatric data). Cross-ref Module 4.</li>
+</ul>
+
+<h2 id="asd">16. Autism spectrum disorder and intellectual disability</h2>
+<ul>
+  <li><strong>Autism spectrum disorder (ASD)</strong>: persistent deficits in social communication + restricted/repetitive behaviours, sensory abnormalities, with onset in the developmental period (DSM-5). Prevalence ~2%; male predominance.</li>
+  <li>Early features: reduced joint attention, no pointing by 12 mo, no two-word phrases by 24 mo, loss of words / social skills, intense fixations, sensory aversions, stereotypies.</li>
+  <li><strong>Screening</strong>: M-CHAT-R at 18 and 24 months. Refer for diagnostic assessment if positive.</li>
+  <li>Workup: hearing test (all delayed-language children); chromosomal microarray + Fragile X testing (~5–7% diagnostic yield); whole-exome sequencing increasingly first-line if syndromic features. Look for treatable mimics (Rett — girls, regression with hand stereotypies, X-linked MECP2; phenylketonuria — newborn screen; congenital hypothyroidism; lead toxicity).</li>
+  <li>Management: early behavioural intervention (applied behaviour analysis variants, naturalistic developmental behavioural interventions), speech/OT, education planning, family support. Pharmacotherapy targets specific comorbidities (risperidone or aripiprazole for severe irritability/aggression; methylphenidate for ADHD overlap; SSRI for anxiety/OCD).</li>
+  <li><strong>Intellectual disability</strong>: IQ &lt; 70 with deficits in adaptive functioning, onset before 18. Workup similar; ~50% have an identifiable genetic cause with current testing.</li>
+</ul>
+
+<h2 id="abuse">17. Non-accidental injury &amp; safeguarding</h2>
+<div class="refer"><strong>Always consider non-accidental head injury</strong> in infants and young children with:
+<ul>
+  <li>Subdural haemorrhages (especially multiple ages, bilateral, posterior).</li>
+  <li>Retinal haemorrhages — particularly multilayer, extending to the periphery.</li>
+  <li>Inconsistent or evolving history; injury inconsistent with developmental ability ("rolled off the sofa" in a 2-month-old).</li>
+  <li>Delay in seeking medical care.</li>
+  <li>Long bone or rib fractures of different ages; metaphyseal corner fractures.</li>
+  <li>Coexisting neglect or psychosocial concerns.</li>
+</ul>
+Investigate, document carefully, and involve safeguarding teams without delay. Skeletal survey, ophthalmology for retinal exam, neuroimaging (CT acutely + MRI), full bloods and bleeding screen.
+</div>
+
+<h2 id="refer">18. When to refer</h2>
+<ul>
+  <li><strong>Same day</strong>: any neonate with suspected HIE (therapeutic hypothermia 6-h window); active or refractory seizures; suspected meningitis or encephalitis; suspected non-accidental head injury; acute focal deficit (paediatric stroke); shunt malfunction; raised ICP signs.</li>
+  <li><strong>Within 1 week</strong>: any developmental regression; suspected infantile spasms (EEG urgently for hypsarrhythmia); suspected SMA (SMN1 deletion testing); new movement disorder; suspected ADEM; concerning headache pattern.</li>
+  <li><strong>Routine</strong>: developmental delay without regression; chronic stable epilepsy; established CP requiring multidisciplinary care; autism spectrum assessment and surveillance.</li>
+  <li><strong>Always involve</strong>: paediatric neurology, developmental paediatrics, paediatric epilepsy / movement / sleep / metabolic clinics, ophthalmology, audiology, physiotherapy, OT, SLT, social work / safeguarding when indicated, genetics for likely monogenic disease.</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources</h3>
+<p>Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Chapter 27 (Normal Development) and Chapter 37 (Developmental Diseases of the Nervous System).</p>
+<p>Merritt's <em>Neurology</em> 14e, Chapter 137 (Neonatal Neurology), 138 (Nervous System Formation and Malformation), 141 (The Floppy Infant), 142 (Disorders of Motor and Cognitive Development), 143 (Autism Spectrum Disorders), 145 (Neurocutaneous Syndromes), 146 (Spinal Muscular Atrophies of Childhood), 147 (Muscular Dystrophies and Congenital Myopathies), 150 (Congenital Brain Tumors in Children).</p>
+<p>Sarnat HB, Sarnat MS. Neonatal encephalopathy following fetal distress. <em>Arch Neurol</em> 1976; 33: 696–705 (Sarnat staging).</p>
+<p>Higgins RD et al. Hypothermia and other treatment options for neonatal encephalopathy. <em>J Pediatr</em> 2011 — synthesis of CoolCap (Gluckman 2005), NICHD (Shankaran 2005), TOBY (Azzopardi 2009) trials. HELIX trial (Thayyil S et al., Lancet Global Health 2021) for limited benefit in low/middle-income settings.</p>
+<p>Glass HC et al. Contemporary profile of seizures in neonates. <em>J Pediatr</em> 2016. NEOLEV2 trial (Sharpe C et al., Pediatrics 2020) — phenobarbital vs levetiracetam.</p>
+<p>Palisano R et al. Development and reliability of a system to classify gross motor function in children with cerebral palsy. <em>Dev Med Child Neurol</em> 1997 (GMFCS).</p>
+<p>Glauser TA et al. Ethosuximide, valproic acid, and lamotrigine in childhood absence epilepsy. <em>NEJM</em> 2010 (CAE trial). Riney K et al. ILAE 2017 classification of seizures, epilepsy, and epilepsy syndromes (Module 3).</p>
+<p>Mercuri E et al. Diagnosis and management of spinal muscular atrophy. <em>Neuromuscul Disord</em> 2018; nusinersen (CHERISH and NURTURE), onasemnogene abeparvovec (Mendell, NEJM 2017), risdiplam (FIREFISH).</p>
+<p>Rivkin MJ et al. Guidelines for urgent management of stroke in children. <em>Pediatr Neurol</em> 2016; Ferriero DM et al. AHA/ASA paediatric stroke management statement 2019. STOP trial (Adams RJ et al., NEJM 1998) — transcranial Doppler screening in sickle cell.</p>
+<p>Banwell B et al. International criteria for MOG-IgG–associated disease 2023 (Lancet Neurol). Thompson AJ et al. McDonald 2017 (with paediatric caveats). Krupp LB et al. International Pediatric MS Study Group consensus, Neurology 2013.</p>
+<p>Hyman SL et al. Identification, evaluation, and management of children with autism spectrum disorder. <em>Pediatrics</em> 2020 (AAP guidance). M-CHAT-R/F (Robins DL et al., Pediatrics 2014).</p>
+<p>Christian CW et al. Abusive head trauma in infants and children — AAP technical report (Pediatrics 2015, updated).</p>
+</div>
+
+<footer>Module 16 — Developmental &amp; Paediatric Neurology · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>

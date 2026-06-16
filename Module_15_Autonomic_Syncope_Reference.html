@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 15 — Autonomic Disorders &amp; Syncope (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#1e7a6d; --accent-2:#3aa595; --soft:#e6f3f0;
+    --line:#d9e8e4; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#e6f3f0; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#f7fbfa; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(30,122,109,0.06)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#155c52; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#1d6e62}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#d3e6e1; color:#155c52; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#e8f3ef; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#dfeee9; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 15 — Autonomic Disorders &amp; Syncope</h1>
+  <div class="sub">Syncope triage · orthostatic hypotension · POTS · autonomic failure syndromes · diabetic autonomic neuropathy · paroxysmal sympathetic hyperactivity</div>
+  <div class="meta">For the general physician · Reference · 2026 · Built from Adams &amp; Victor 12e (Ch 17, 25) and Merritt's 14e (Ch 116, 117) · 2022 ESC syncope, 2017 AAN OH, 2014 Baguley PSH</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — separate "cardiac killers" from benign reflex syncope</a></li>
+  <li><a href="#anat">Autonomic anatomy and physiology — what you need to remember</a></li>
+  <li><a href="#syncope">Syncope — definitions, classification, and triage</a></li>
+  <li><a href="#workup">Syncope workup, San Francisco &amp; Canadian risk scores</a></li>
+  <li><a href="#tilt">Tilt-table testing and other autonomic function tests</a></li>
+  <li><a href="#oh">Orthostatic hypotension — definition, neurogenic vs non-neurogenic</a></li>
+  <li><a href="#ohrx">Management of orthostatic hypotension &amp; supine hypertension</a></li>
+  <li><a href="#pots">Postural orthostatic tachycardia syndrome (POTS)</a></li>
+  <li><a href="#failure">Chronic autonomic failure: PAF, MSA-A, PD, DLB</a></li>
+  <li><a href="#aag">Autoimmune autonomic ganglionopathy &amp; acute pandysautonomia</a></li>
+  <li><a href="#diabetic">Diabetic autonomic neuropathy</a></li>
+  <li><a href="#otheraut">Other peripheral autonomic neuropathies (amyloid, Sjögren, paraneoplastic, hereditary)</a></li>
+  <li><a href="#psh">Paroxysmal sympathetic hyperactivity (PSH) after brain injury</a></li>
+  <li><a href="#gbs">GBS dysautonomia &amp; other acute settings</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — separate "cardiac killers" from benign reflex syncope</h2>
+<p>Syncope is one of the most common reasons for ED attendance — and one of the most over-investigated. The job at the front door is binary: is this likely <strong>reflex (vasovagal) syncope</strong> (benign, requiring reassurance and counselling) or is there a <strong>cardiac cause</strong> (potentially lethal, requiring monitoring and workup)? Orthostatic causes sit in between and are common in elderly and in patients with autonomic disease.</p>
+<p>Autonomic disorders are easy to miss because their features cross many systems — orthostatic dizziness, postprandial fatigue, urinary symptoms, erectile dysfunction, constipation, dry eyes/mouth, abnormal sweating — and are often dismissed as non-specific. A high index of suspicion in any patient with diabetes, Parkinson disease, multiple system atrophy, amyloidosis, Sjögren syndrome, or chronic GBS recovery is essential.</p>
+
+<div class="pearl"><strong>The single principle:</strong> in any transient loss of consciousness (TLoC), ask three questions before anything else — (1) was it true syncope (rapid onset, brief, complete recovery)? (2) any prodrome (vasovagal vs sudden = cardiac)? (3) any high-risk features (exertion, supine, structural heart disease, palpitation, family history of sudden death)? Investigate accordingly; do not pan-scan low-risk vasovagal patients.</div>
+
+<h2 id="anat">2. Autonomic anatomy and physiology</h2>
+
+<h3>Two arms, opposing functions</h3>
+<table>
+<tr><th></th><th>Sympathetic</th><th>Parasympathetic</th></tr>
+<tr><td>Origin</td><td>Thoracolumbar (T1–L2/3) intermediolateral column</td><td>Craniosacral (CN III, VII, IX, X + S2–S4)</td></tr>
+<tr><td>Preganglionic neurotransmitter</td><td>ACh (nicotinic)</td><td>ACh (nicotinic)</td></tr>
+<tr><td>Postganglionic neurotransmitter</td><td>NE (mainly); ACh for sweat glands</td><td>ACh (muscarinic)</td></tr>
+<tr><td>Ganglia</td><td>Paravertebral chain &amp; prevertebral (coeliac, SMA, IMA)</td><td>Near or within target organ</td></tr>
+<tr><td>Cardiac action</td><td>↑ HR, ↑ contractility, ↑ AV conduction (via β1)</td><td>↓ HR, ↓ AV conduction (via vagus)</td></tr>
+<tr><td>Vascular</td><td>α1 vasoconstriction; β2 vasodilation</td><td>Minimal direct vascular control</td></tr>
+</table>
+
+<h3>Central autonomic network</h3>
+<ul>
+  <li><strong>Hypothalamus</strong> (paraventricular, dorsomedial) — autonomic integration with endocrine, behavioural, thermoregulatory output.</li>
+  <li><strong>Insular cortex</strong> — interoception; right-sided in most → sympathetic; left-sided → parasympathetic (right insular stroke can cause arrhythmia, BP changes).</li>
+  <li><strong>Amygdala, anterior cingulate</strong> — autonomic responses to emotion.</li>
+  <li><strong>Brainstem nuclei</strong>: nucleus of the solitary tract (NTS — afferent baroreflex), nucleus ambiguus (cardiac vagal), rostral ventrolateral medulla (RVLM — sympathetic outflow), dorsal motor nucleus of vagus.</li>
+</ul>
+
+<h3>Baroreflex — the key circuit for postural BP</h3>
+<ol>
+  <li>Carotid sinus &amp; aortic arch baroreceptors → CN IX &amp; X afferents → NTS.</li>
+  <li>NTS → ↑ vagal output (nucleus ambiguus) ↓ HR; NTS → caudal VLM → inhibits RVLM ↓ sympathetic → vasodilation, ↓ HR, ↓ contractility.</li>
+  <li>Reverse with hypotension: ↑ sympathetic via RVLM → vasoconstriction, ↑ HR.</li>
+  <li>Failure anywhere in this loop → orthostatic hypotension.</li>
+</ol>
+
+<h2 id="syncope">3. Syncope — definitions, classification, triage</h2>
+<p><strong>Syncope</strong> is a transient, self-limited loss of consciousness due to <em>global cerebral hypoperfusion</em>, with rapid onset, short duration, and spontaneous complete recovery. Distinguish from non-syncopal TLoC (seizure, hypoglycaemia, intoxication, psychogenic).</p>
+
+<h3>Three big categories (ESC 2022)</h3>
+<table>
+<tr><th>Category</th><th>Mechanism</th><th>Hallmarks</th></tr>
+<tr><td><strong>Reflex (neurally mediated)</strong></td><td>Inappropriate vagal activation ± sympathetic withdrawal</td><td>Vasovagal (classic prodrome of warmth, nausea, sweating, tunnel vision; trigger like prolonged standing, pain, fear, blood); situational (cough, micturition, defecation, swallow); carotid sinus syndrome (older men, tight collars)</td></tr>
+<tr><td><strong>Orthostatic hypotension</strong></td><td>Inadequate vasoconstriction or volume on standing</td><td>Symptoms on rising; medication-related, hypovolaemia, or neurogenic (PD, MSA, PAF, neuropathy)</td></tr>
+<tr><td><strong>Cardiac</strong></td><td>Arrhythmia or structural disease compromising cardiac output</td><td>Sudden, exertional, supine; palpitations; structural disease; family history of sudden cardiac death; abnormal ECG</td></tr>
+</table>
+
+<h3>Differentiate syncope from a generalised tonic-clonic seizure</h3>
+<table>
+<tr><th>Feature</th><th>Syncope</th><th>Seizure</th></tr>
+<tr><td>Prodrome</td><td>Warmth, sweating, nausea, tunnel vision (vasovagal); palpitation (cardiac); positional (OH)</td><td>Aura (deja vu, epigastric rising, olfactory)</td></tr>
+<tr><td>Duration of LoC</td><td>Seconds (usually &lt; 20 s)</td><td>Often &gt; 1 min</td></tr>
+<tr><td>Movements</td><td><strong>Brief myoclonic jerks ("convulsive syncope") are common — do not equal seizure</strong>; no rhythmic clonus; eyes often open and rolled up</td><td>Sustained rhythmic clonic activity, tonic phase, lateral tongue bite, head turning</td></tr>
+<tr><td>Recovery</td><td>Rapid, oriented within seconds–minutes</td><td>Postictal confusion ~10–30 min</td></tr>
+<tr><td>Incontinence</td><td>Possible but less common</td><td>Common</td></tr>
+<tr><td>Tongue biting</td><td>Tip rarely</td><td>Lateral characteristic</td></tr>
+<tr><td>Lactate</td><td>Normal</td><td>Often raised within 2 h of seizure</td></tr>
+</table>
+
+<h2 id="workup">4. Syncope workup &amp; risk scores</h2>
+
+<h3>Core workup for any TLoC</h3>
+<ol>
+  <li><strong>Detailed history</strong> (patient + witness) — prodrome, trigger, posture, exertion, duration, recovery, prior episodes, family history of sudden death.</li>
+  <li><strong>Examination</strong> — orthostatic vitals at 1 &amp; 3 minutes (and 5 if delayed OH suspected); cardiac (murmurs, aortic stenosis, HCM); neurological screen.</li>
+  <li><strong>12-lead ECG</strong> in every patient — look for long QT, Brugada, HCM, WPW, AV block, ARVC pattern.</li>
+  <li><strong>Bedside glucose</strong>; pregnancy test in reproductive-age women.</li>
+  <li>Echocardiogram if abnormal exam, ECG, or clinical concern for structural heart disease.</li>
+  <li>Holter / event recorder / implantable loop recorder for recurrent syncope without diagnosis.</li>
+  <li>Tilt-table only after cardiac causes excluded (see below).</li>
+  <li>Reserve brain CT/MRI/EEG for clear neurological features (focal deficit, prolonged confusion, witnessed seizure).</li>
+</ol>
+
+<h3>Risk stratification</h3>
+
+<h4>San Francisco Syncope Rule (CHESS)</h4>
+<p>Any one of the following predicts 7-day serious outcome (sensitivity ~96%):</p>
+<ul>
+  <li><strong>C</strong>HF (history)</li>
+  <li><strong>H</strong>ematocrit &lt; 30%</li>
+  <li><strong>E</strong>CG abnormal (new changes or non-sinus rhythm)</li>
+  <li><strong>S</strong>hortness of breath (history)</li>
+  <li><strong>S</strong>ystolic BP &lt; 90 mmHg at triage</li>
+</ul>
+
+<h4>Canadian Syncope Risk Score (CSRS, Thiruganasambandamoorthy 2016)</h4>
+<table>
+<tr><th>Predictor</th><th>Points</th></tr>
+<tr><td>Predisposition to vasovagal (warm/crowded place, prolonged standing, fear/emotion/pain)</td><td>−1</td></tr>
+<tr><td>History of heart disease (CAD, valve, CHF, NS-VT/VT, congenital)</td><td>+1</td></tr>
+<tr><td>Systolic BP &lt; 90 or &gt; 180 mmHg in ED</td><td>+2</td></tr>
+<tr><td>Troponin elevated &gt; 99th percentile</td><td>+2</td></tr>
+<tr><td>Abnormal QRS axis</td><td>+1</td></tr>
+<tr><td>QRS duration &gt; 130 ms</td><td>+1</td></tr>
+<tr><td>QTc &gt; 480 ms</td><td>+2</td></tr>
+<tr><td>ED diagnosis of vasovagal syncope</td><td>−2</td></tr>
+<tr><td>ED diagnosis of cardiac syncope</td><td>+2</td></tr>
+</table>
+<p>Total: −3 to +11. 30-day serious adverse event risk: −3 to −2 → very low (~0.4%); −1 to 0 → low (~0.7%); 1–3 → medium (~3–8%); 4–5 → high (~12–20%); ≥ 6 → very high (~28%).</p>
+
+<div class="warn"><strong>Red flags that mandate admission / urgent cardiology referral:</strong>
+<ul>
+  <li>Syncope during exertion or in the supine position.</li>
+  <li>Preceding palpitation.</li>
+  <li>Family history of sudden cardiac death &lt; 40 years.</li>
+  <li>Structural heart disease (severe AS, HCM, severe MR, prior MI, CHF).</li>
+  <li>Abnormal ECG (long QT, Brugada, AV block, NSVT, pre-excitation, RBBB + LAFB).</li>
+  <li>Syncope with injury or no warning ("drop attacks").</li>
+  <li>New murmur or sign of CHF.</li>
+</ul>
+</div>
+
+<h2 id="tilt">5. Tilt-table testing and autonomic function tests</h2>
+<ul>
+  <li><strong>Tilt-table test</strong> (head-up tilt at 60–70° for 20–45 min, sometimes with provocation by isoproterenol or nitroglycerin): provokes reflex syncope or demonstrates OH/POTS. Best for recurrent syncope of unclear cause after cardiac workup negative.</li>
+  <li><strong>Active stand test</strong> (lying then standing, BP/HR at 1 and 3 minutes): cheaper and effective for orthostatic hypotension and POTS. Five-minute reading may capture delayed OH (PD).</li>
+  <li><strong>Heart-rate variability tests</strong>: deep breathing (vagal — parasympathetic), Valsalva ratio (combined), 30:15 ratio on standing (vagal).</li>
+  <li><strong>Sympathetic skin response</strong> and <strong>QSART (quantitative sudomotor axon reflex test)</strong> — small-fibre / sudomotor assessment.</li>
+  <li><strong>Plasma catecholamines</strong> (lying and standing): low standing NE → postganglionic failure (PAF, PD); normal/high lying NE with poor rise → central failure (MSA).</li>
+  <li><strong>123I-MIBG cardiac scintigraphy</strong> — reduced uptake in PD and PAF (postganglionic loss); normal in MSA (preganglionic). Useful when diagnosis between PD and MSA is unclear.</li>
+</ul>
+
+<h2 id="oh">6. Orthostatic hypotension (OH)</h2>
+
+<h3>Definition</h3>
+<ul>
+  <li><strong>Classic OH</strong>: sustained fall in systolic BP ≥ 20 mmHg or diastolic ≥ 10 mmHg within 3 minutes of standing or head-up tilt.</li>
+  <li>In supine hypertensive patients, drop in SBP ≥ 30 mmHg may be used.</li>
+  <li><strong>Initial OH</strong>: transient drop within 15 s of standing — younger people; resolves spontaneously by ~30 s.</li>
+  <li><strong>Delayed OH</strong>: drop after 3 minutes — common in PD; prolonged tilt required to detect.</li>
+</ul>
+
+<h3>Neurogenic vs non-neurogenic</h3>
+<table>
+<tr><th>Feature</th><th>Non-neurogenic (volume / drugs)</th><th>Neurogenic</th></tr>
+<tr><td>Heart-rate response</td><td>↑ HR by ≥ 15 bpm (compensatory)</td><td>Inadequate rise (&lt; 15 bpm increase) — sympathetic failure</td></tr>
+<tr><td>Causes</td><td>Volume depletion, anaemia, antihypertensives, diuretics, alcohol, vasodilators, antidepressants (TCAs, MAOIs, trazodone), antipsychotics, α-blockers, dopamine agonists</td><td>PAF, MSA, PD, DLB, diabetic / amyloid / paraneoplastic / Sjögren autonomic neuropathy, AAG, GBS, multiple sclerosis, spinal cord injury</td></tr>
+<tr><td>Standing plasma NE</td><td>Normal rise</td><td>Low NE rise; absolute low NE in PAF/PD; normal supine but low standing</td></tr>
+</table>
+
+<div class="pearl"><strong>The heart-rate-response trick</strong>: a HR increase &lt; 15 bpm (or HR-to-systolic-drop ratio &lt; 0.5) on a 20-mmHg systolic drop strongly suggests <strong>neurogenic OH</strong>. A compensatory tachycardia &gt; 15 bpm makes volume depletion or drug effect more likely.</div>
+
+<h2 id="ohrx">7. Management of OH &amp; supine hypertension</h2>
+
+<h3>Non-pharmacological (always first)</h3>
+<ul>
+  <li><strong>Review medications</strong>: discontinue or reduce diuretics, antihypertensives, α-blockers, TCAs, MAOIs, dopamine agonists where possible. Time antihypertensives differently if OH.</li>
+  <li><strong>Volume expansion</strong>: increase fluid intake to 2–2.5 L/day; salt intake ~ 6–10 g/day (unless contraindicated by HF/CKD). <strong>Bolus 0.5 L water in &lt; 5 min</strong> raises BP within 5–10 min (pressor effect of water).</li>
+  <li><strong>Physical counter-pressure manoeuvres</strong> at warning of symptoms: leg crossing with tensing, hand grip, squat, abdominal contraction. Sleep with head of bed up 10–20° (reduces nocturnal supine HTN and nocturnal natriuresis).</li>
+  <li><strong>Compression garments</strong>: thigh-high stockings or abdominal binders (binder more effective than stockings; both better than nothing).</li>
+  <li><strong>Avoid</strong> hot environments, hot showers, large carbohydrate-rich meals (postprandial hypotension), Valsalva.</li>
+  <li>Exercise: recumbent (rowing, swimming, recumbent cycling) initially; gradually progress to upright.</li>
+</ul>
+
+<h3>Pharmacotherapy</h3>
+<table>
+<tr><th>Drug</th><th>Dose</th><th>Comments</th></tr>
+<tr><td><strong>Midodrine</strong> (α1 agonist)</td><td>2.5–10 mg po TID (last dose by 6 pm to limit supine HTN)</td><td>First-line; effective in PD, MSA, PAF; piloerection, urinary retention, supine HTN are limitations; warn against lying down 4 hours after dose</td></tr>
+<tr><td><strong>Droxidopa</strong> (NE precursor)</td><td>100 mg TID titrated up to 600 mg TID; last dose 3 h before bedtime</td><td>FDA-approved for neurogenic OH; particularly useful in PAF and MSA; cardiac monitoring; supine HTN risk</td></tr>
+<tr><td><strong>Fludrocortisone</strong> (mineralocorticoid)</td><td>0.1–0.2 mg daily</td><td>Effective but hypokalaemia, supine HTN, oedema, CHF risk; monitor K and weight</td></tr>
+<tr><td><strong>Pyridostigmine</strong> (AChE inhibitor)</td><td>30–60 mg TID</td><td>Modest BP effect by enhancing residual sympathetic ganglion transmission; less supine HTN; useful adjunct</td></tr>
+<tr><td>Other (specialist) options</td><td>Octreotide for postprandial hypotension; atomoxetine; desmopressin for nocturia + morning OH; erythropoietin if anaemic</td><td>—</td></tr>
+</table>
+
+<h3>Managing coexistent supine hypertension</h3>
+<ul>
+  <li>Common in MSA, PAF, and PD — present in 50% of patients with neurogenic OH.</li>
+  <li>Avoid lying flat; head of bed up 10–20° at night.</li>
+  <li>Carbohydrate snack at bedtime (lowers BP by inducing postprandial response).</li>
+  <li>Short-acting evening antihypertensive if supine SBP &gt; 160–180 (losartan 50 mg, nifedipine immediate release, transdermal nitroglycerin removed in morning) — must NOT carry over to morning when patient stands.</li>
+  <li>Do NOT use long-acting antihypertensives — risk of morning OH.</li>
+</ul>
+
+<h2 id="pots">8. Postural orthostatic tachycardia syndrome (POTS)</h2>
+
+<h3>Diagnostic criteria (consensus)</h3>
+<ul>
+  <li>Sustained HR rise ≥ <strong>30 bpm</strong> within 10 minutes of standing or head-up tilt (≥ 40 bpm in adolescents aged 12–19).</li>
+  <li>Absence of orthostatic hypotension (no &gt; 20 mmHg systolic drop).</li>
+  <li>Chronic symptoms ≥ 3 months (lightheadedness, palpitations, fatigue, cognitive fog, headache).</li>
+  <li>Not explained by another cause (anaemia, dehydration, deconditioning, drugs, hyperthyroidism, pheochromocytoma, mast cell disease).</li>
+</ul>
+
+<h3>Clinical</h3>
+<ul>
+  <li>Predominantly young women (15–50); often after a trigger — viral illness, COVID-19, pregnancy, surgery, trauma.</li>
+  <li>Subtypes proposed: neuropathic (denervation in lower limbs), hyperadrenergic (high standing NE &gt; 600 pg/mL, hypertension), hypovolaemic.</li>
+  <li>Overlap conditions: Ehlers-Danlos (hypermobility), mast cell activation syndrome, chronic fatigue syndrome / ME, post-acute COVID-19 sequelae.</li>
+</ul>
+
+<h3>Treatment</h3>
+<ol>
+  <li><strong>Non-pharmacological first</strong>:
+    <ul>
+      <li>Increase salt 6–10 g/day + fluid 2–3 L/day.</li>
+      <li>Compression — abdominal binder + waist-high stockings.</li>
+      <li><strong>Structured graduated exercise programme</strong> — recumbent or seated exercise (rowing, recumbent bike, swimming) progressing to upright over months; THE most effective intervention long-term.</li>
+      <li>Avoid prolonged standing in heat; cool clothing.</li>
+    </ul>
+  </li>
+  <li><strong>Pharmacotherapy</strong>: low-dose <strong>propranolol 10–20 mg po TID/QID</strong> (small doses; large doses can worsen symptoms) or <strong>ivabradine 2.5–7.5 mg BID</strong> (selective HR reduction, no BP effect); fludrocortisone; midodrine (especially neuropathic POTS); pyridostigmine; methyldopa or clonidine for hyperadrenergic POTS; IV saline boluses can rescue acute flares.</li>
+  <li>Address comorbid mast cell symptoms (H1 + H2 antihistamines) and anxiety/depression as appropriate.</li>
+</ol>
+
+<h2 id="failure">9. Chronic autonomic failure — PAF, MSA, PD, DLB</h2>
+<table>
+<tr><th>Disease</th><th>Distinguishing features</th></tr>
+<tr><td><strong>Pure autonomic failure (PAF, Bradbury-Eggleston)</strong></td><td>Profound OH ± supine HTN, urinary symptoms, ED, hypohidrosis — <em>without</em> parkinsonism, cerebellar signs, or cognitive impairment for years. Postganglionic loss; low standing NE; <strong>reduced</strong> MIBG cardiac uptake. ~30% phenoconvert to PD or DLB over time → look for early signs over years.</td></tr>
+<tr><td><strong>Multiple system atrophy — autonomic predominant (MSA-A, formerly Shy-Drager)</strong></td><td>Early prominent OH + urogenital symptoms + parkinsonism (poor levodopa response) AND/OR cerebellar ataxia within years. Stridor (key clue). Preganglionic involvement; <em>normal</em> MIBG cardiac uptake (contrasts with PD/PAF). Median survival 6–9 years. Cross-ref Module 6.</td></tr>
+<tr><td><strong>Parkinson disease (PD) with dysautonomia</strong></td><td>OH usually develops later (mid-to-late disease); supine HTN common; constipation often the earliest autonomic symptom (often precedes motor by years). Reduced MIBG cardiac uptake (postganglionic). Cross-ref Module 6.</td></tr>
+<tr><td><strong>Dementia with Lewy bodies (DLB)</strong></td><td>Dysautonomia + parkinsonism + visual hallucinations + cognitive fluctuations + RBD. Reduced MIBG. Cross-ref Module 7.</td></tr>
+</table>
+
+<div class="pearl"><strong>MIBG cardiac scintigraphy</strong> is the single most discriminating test between MSA (normal MIBG, preganglionic failure) and PD/PAF/DLB (reduced MIBG, postganglionic failure). Useful when the diagnosis is unclear.</div>
+
+<h2 id="aag">10. Autoimmune autonomic ganglionopathy &amp; acute pandysautonomia</h2>
+<ul>
+  <li><strong>Acute autoimmune autonomic neuropathy (AAN) / acute pandysautonomia</strong>: subacute onset (days–weeks) of severe OH + anhidrosis + parasympathetic failure (dry eyes/mouth, dilated unreactive pupils, fixed heart rate, urinary retention, sexual dysfunction) + GI dysmotility, often after viral prodrome (HSV, EBV, rubella, post-vaccination). Monophasic. Slow incomplete recovery.</li>
+  <li><strong>Autoimmune autonomic ganglionopathy (AAG)</strong>: <strong>anti-α3-ganglionic acetylcholine receptor (gAChR) antibodies</strong> in ~50%; chronic or subacute course; selective autonomic failure; tonic pupils, sicca, severe OH, severe gastrointestinal dysmotility.</li>
+  <li>Other antibodies: amphiphysin, CRMP5 (paraneoplastic with small-cell lung cancer); occasionally limbic encephalitis overlap.</li>
+  <li>Treatment: IVIG, plasma exchange, corticosteroids, rituximab, mycophenolate. Address any underlying tumour (paraneoplastic) — cross-ref Module 12.</li>
+</ul>
+
+<h2 id="diabetic">11. Diabetic autonomic neuropathy</h2>
+<ul>
+  <li>The most common cause of autonomic neuropathy worldwide.</li>
+  <li>Long-standing T1DM or T2DM; concurrent length-dependent sensorimotor neuropathy in most.</li>
+  <li>Manifestations:
+    <ul>
+      <li><strong>Cardiovascular</strong>: resting tachycardia, exercise intolerance, OH, silent MI, blunted HR variability, increased mortality.</li>
+      <li><strong>GI</strong>: gastroparesis (early satiety, bloating, vomiting, erratic glycaemia), diabetic diarrhoea, constipation, faecal incontinence.</li>
+      <li><strong>Urogenital</strong>: erectile dysfunction (often the earliest sign), retrograde ejaculation, bladder dysfunction (atonic bladder, recurrent UTI), incomplete emptying.</li>
+      <li><strong>Sudomotor</strong>: distal anhidrosis + truncal hyperhidrosis; gustatory sweating after meals.</li>
+      <li><strong>Pupillary</strong>: small poorly reactive pupils.</li>
+      <li><strong>Hypoglycaemia unawareness</strong> from impaired counterregulatory sympathetic response.</li>
+    </ul>
+  </li>
+  <li>Treatment: <strong>tight glycaemic control</strong> (more effective in T1DM than T2DM for autonomic neuropathy); symptom-directed care (midodrine, fludrocortisone for OH; prokinetics — metoclopramide short courses (Module 6 caution), erythromycin, prucalopride; PDE5 inhibitors for ED; intermittent self-catheterisation for bladder; α-blockers for incomplete emptying); cardiology screening if cardiovascular autonomic neuropathy.</li>
+</ul>
+
+<h2 id="otheraut">12. Other peripheral autonomic neuropathies</h2>
+<table>
+<tr><th>Cause</th><th>Clues</th></tr>
+<tr><td>Amyloid (AL or hereditary transthyretin, hATTR)</td><td>Family history, carpal tunnel, cardiomyopathy, GI dysmotility, OH, distal SF neuropathy. hATTR: <strong>patisiran/inotersen/vutrisiran/tafamidis</strong> approved 2018+. AL: chemotherapy.</td></tr>
+<tr><td>Primary Sjögren syndrome</td><td>Sicca + small-fibre/autonomic neuropathy + anti-Ro/La; treat with immunotherapy.</td></tr>
+<tr><td>Paraneoplastic</td><td>Anti-Hu, CRMP5, ganglionic AChR; SCLC most common; cross-ref Module 12.</td></tr>
+<tr><td>HIV</td><td>OH, GI dysmotility, gustatory sweating; check viral load and ART regimen.</td></tr>
+<tr><td>Hereditary sensory and autonomic neuropathies (HSAN I–V; familial dysautonomia/Riley-Day = HSAN III)</td><td>HSAN III: Ashkenazi Jewish heritage, autosomal recessive (IKBKAP/ELP1), severe autonomic crises with HTN, lacrimal deficiency, absent fungiform papillae; supportive care</td></tr>
+<tr><td>Hereditary porphyrias (Module 13)</td><td>Acute attacks with autonomic features; haemin therapy</td></tr>
+</table>
+
+<h2 id="psh">13. Paroxysmal sympathetic hyperactivity (PSH)</h2>
+<ul>
+  <li>"Sympathetic storms" after severe acquired brain injury — most commonly traumatic brain injury (5–30%), anoxia, stroke, encephalitis.</li>
+  <li>Episodic, simultaneous, transient increases in HR, BP, respiratory rate, temperature, sweating, plus motor features (dystonic posturing).</li>
+  <li>Misdiagnosed as sepsis, seizures, PE, withdrawal.</li>
+</ul>
+
+<h3>Baguley diagnostic criteria (2014)</h3>
+<p>Two components: <strong>Clinical Feature Scale</strong> (severity of HR, BP, RR, temperature, sweating, posturing) + <strong>Diagnosis Likelihood Tool</strong> (clinical features and antecedent brain injury). PSH probability is combined diagnostic + clinical: total 8–16 = unlikely; 17–26 = possible; ≥ 27 = probable.</p>
+
+<h3>Triggers and management</h3>
+<ul>
+  <li>Triggers: pain, position changes, suctioning, environmental stimuli, urinary retention, constipation.</li>
+  <li>Reduce noxious stimuli; treat underlying triggers (catheterise full bladder, give analgesia, treat constipation).</li>
+  <li><strong>Abortive</strong>: morphine 1–2 mg IV (gold standard), benzodiazepine, propofol, dexmedetomidine.</li>
+  <li><strong>Prevention</strong>: scheduled propranolol (non-selective β-blocker, blood-brain-barrier-penetrating), gabapentin, clonidine, baclofen (especially with posturing), bromocriptine; combinations often needed.</li>
+  <li>Avoid haloperidol (can worsen dystonic features).</li>
+  <li>Improves over weeks to months as brain recovers.</li>
+</ul>
+
+<h2 id="gbs">14. GBS dysautonomia &amp; other acute settings</h2>
+<ul>
+  <li><strong>GBS (Module 9)</strong>: autonomic instability in &gt; 50% — labile BP, sinus tachy/brady, arrhythmias, ileus, urinary retention. Major mortality driver in severe GBS. <strong>Monitor on telemetry</strong>; avoid pushed boluses of cardioactive drugs.</li>
+  <li><strong>Spinal cord injury</strong>: <em>autonomic dysreflexia</em> in lesions above T6 — surge of HTN, headache, bradycardia, sweating above the lesion, triggered by noxious stimulus below (distended bladder, faecal impaction, pressure ulcer). Treatment: sit patient up, loosen restrictive clothing, identify and remove trigger; nifedipine immediate-release or topical/sublingual nitrate if BP persists. Cross-ref Module 10.</li>
+  <li><strong>Tetanus</strong>: severe autonomic instability is the major killer in modern tetanus — magnesium infusion + benzodiazepines + α-blockade.</li>
+  <li><strong>NMS, serotonin syndrome, MH, sympathomimetic toxidromes</strong>: cross-ref Module 13.</li>
+  <li><strong>Pheochromocytoma</strong>: episodic catecholamine surge — sustained or paroxysmal HTN + headache + sweating + palpitations. α-blockade (phenoxybenzamine, doxazosin) BEFORE β-blockade to avoid unopposed α-vasoconstriction. Surgical removal definitive.</li>
+</ul>
+
+<h2 id="refer">15. When to refer</h2>
+<ul>
+  <li><strong>Same day</strong>: high-risk syncope (CSRS ≥ 4, abnormal ECG, exertional, structural heart disease, family history of sudden death); paroxysmal sympathetic hyperactivity in acute brain injury; autonomic dysreflexia; suspected pheochromocytoma crisis; severe GBS dysautonomia.</li>
+  <li><strong>Within 1–2 weeks</strong>: recurrent unexplained syncope after low-risk workup; suspected autonomic neuropathy; suspected MSA / PAF / DLB; new POTS; severe diabetic autonomic neuropathy.</li>
+  <li><strong>Routine</strong>: chronic OH stable on therapy; established PAF / PD with autonomic features on regular review.</li>
+  <li><strong>Always involve</strong>: cardiology for cardiac causes of syncope; movement disorders for MSA/PD; autonomic clinic for tilt-table, MIBG, complex polypharmacy.</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources</h3>
+<p>Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Chapter 17 (Faintness and Syncope) and Chapter 25 (Disorders of the Autonomic Nervous System, Respiration, and Swallowing).</p>
+<p>Merritt's <em>Neurology</em> 14e, Chapter 116 (Autonomic Failure, Autonomic Neuropathy, and Orthostatic Intolerance) and Chapter 117 (Paroxysmal Sympathetic Hyperactivity After Acute Brain Injury).</p>
+<p>Brignole M et al. 2018 ESC Guidelines for the diagnosis and management of syncope. <em>Eur Heart J</em> 2018; 39: 1883–1948 (with 2022 updates).</p>
+<p>Thiruganasambandamoorthy V et al. Canadian Syncope Risk Score to identify patients at risk for serious adverse events after emergency department assessment for syncope. <em>CMAJ</em> 2016; 188: E289–E298.</p>
+<p>Quinn JV et al. Derivation of the San Francisco Syncope Rule. <em>Ann Emerg Med</em> 2004; 43: 224–232.</p>
+<p>Freeman R et al. Consensus statement on the definition of orthostatic hypotension, neurally mediated syncope and the postural tachycardia syndrome. <em>Auton Neurosci</em> 2011; 161: 46–48 (foundational; ongoing iterations).</p>
+<p>Sheldon RS et al. 2015 Heart Rhythm Society expert consensus statement on POTS, IST, and vasovagal syncope. <em>Heart Rhythm</em> 2015; 12: e41–e63.</p>
+<p>Gibbons CH et al. The recommendations of the consensus committee of the American Autonomic Society and the American Academy of Neurology for OH: 2017. <em>Clin Auton Res</em> 2017; 27: 263–270.</p>
+<p>Baguley IJ et al. Paroxysmal sympathetic hyperactivity after acquired brain injury: consensus on conceptual definition, nomenclature, and diagnostic criteria. <em>J Neurotrauma</em> 2014; 31: 1515–1520.</p>
+</div>
+
+<footer>Module 15 — Autonomic Disorders &amp; Syncope · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>

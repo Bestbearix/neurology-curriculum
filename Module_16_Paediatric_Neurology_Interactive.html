@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 16 — Developmental &amp; Paediatric Neurology (Interactive)</title>
+<style>
+  :root{
+    --bg:#1a0e15; --panel:#26161f; --panel-2:#321d2a; --line:#4a2d3f;
+    --ink:#f0e0e8; --muted:#c298ad; --accent:#ff79b0; --accent-2:#ffaccf;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#3a223080; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#150910,#1a0e15 35%,#1a0e15); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(255,121,176,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#2a0d1c; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#ffd6e6}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(255,121,176,.10); border-color:var(--accent); color:#ffd6e6}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#2a0d1c; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(255,121,176,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* Red-flag checker */
+  .rf{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .rf .agehead{font-size:1.0rem; color:var(--accent-2); font-weight:600; margin:10px 0 6px}
+  .rf .row{padding:8px 0; border-bottom:1px dashed var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  .rf .row:last-child{border-bottom:none}
+  .rf .lbl{flex:1; font-size:.92rem}
+  .rf .opts{display:flex; gap:6px}
+  .rf .opts button{background:var(--panel-2); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.82rem; color:var(--ink)}
+  .rf .opts button.sel{background:var(--accent); color:#2a0d1c; border-color:var(--accent); font-weight:600}
+  .rf-summary{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .rf-summary h4{margin:0 0 6px; color:var(--accent-2)}
+  .rf-summary .verdict{font-size:1.2rem; font-weight:700; color:var(--accent-2); margin:6px 0}
+  .rf-summary .detail{margin-top:8px; font-size:.92rem}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 16</span>
+    <span class="badge">General physician</span>
+    <h1>Developmental &amp; Paediatric Neurology — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 27, 37) and Merritt's <em>Neurology</em> (14e, Ch. 137–152). Sarnat staging, therapeutic hypothermia (CoolCap, NICHD, TOBY), HELIX 2021 caveat, NEOLEV2 (phenobarbital vs levetiracetam), CAE trial (ethosuximide for absence), SMA gene therapy era (nusinersen 2016, onasemnogene 2019, risdiplam 2020), Dravet stiripentol/CBD/fenfluramine, paediatric MOGAD/MS, M-CHAT-R for ASD.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="milestones">Milestones Red-Flag Checker</button>
+    <button data-tab="floppy">Floppy Infant Classifier</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Paediatric neurology happens against active development. Disease is often expressed not as a focal sign but as delay, regression, or unexplained behaviour. The general physician's job is to recognise emergencies (neonatal HIE inside the 6-hour cooling window, infantile spasms, status epilepticus, paediatric stroke, raised ICP, suspected non-accidental injury), identify red flags on milestones, distinguish a floppy infant's central from peripheral pattern, and route children into specialist multidisciplinary care quickly enough to make a difference.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Use milestones as a vital sign and recognise red flags by age.</li>
+      <li>Recognise and respond to neonatal HIE within the 6-hour therapeutic-hypothermia window.</li>
+      <li>Identify infantile spasms / hypsarrhythmia urgently — outcome depends on early treatment.</li>
+      <li>Use the Sarnat staging, GMFCS, and the floppy-infant central-vs-peripheral split fluently.</li>
+      <li>Apply the modern SMA gene-therapy framework (nusinersen, onasemnogene, risdiplam).</li>
+      <li>Recognise and treat Dravet syndrome (avoid sodium-channel blockers; reach for stiripentol/CBD/fenfluramine).</li>
+      <li>Triage paediatric headaches, distinguishing migraine from raised ICP / posterior-fossa tumour.</li>
+      <li>Recognise non-accidental head injury patterns and act on safeguarding concerns.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle that prevents disasters:</strong> when a young child presents with unexplained encephalopathy, seizure, or rapid neurological decline, run a fast checklist — glucose, electrolytes, ammonia, lactate, infection, structural cause, non-accidental injury, metabolic emergency. The "treatable" diagnoses (hypoglycaemia, electrolytes, meningitis, urea-cycle defects, NAI, raised ICP) come before the rarer ones.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Milestones — use them as a vital sign</summary>
+      <div class="body">
+        <p>Four streams: gross motor, fine motor / vision, speech / language / hearing, social / behaviour. The "rule of one" memory aid: 1 mo lifts head, 6 mo sits with support, 12 mo walks (one foot), 18 mo climbs, 2 y runs; for language: 1 word at 12 mo, 10–25 at 18 mo, phrases at 2 y, sentences at 3 y.</p>
+        <table>
+          <tr><th>Age</th><th>Gross motor</th><th>Language</th><th>Social</th></tr>
+          <tr><td>6 wk</td><td>Lifts head briefly</td><td>Vocalises</td><td>Social smile</td></tr>
+          <tr><td>6 mo</td><td>Sits with support, no head lag</td><td>Babbles consonants</td><td>Stranger awareness</td></tr>
+          <tr><td>12 mo</td><td>Cruises, first steps</td><td>1–3 words; understands "no"</td><td>Plays peekaboo, points</td></tr>
+          <tr><td>18 mo</td><td>Walks well</td><td>10–25 words</td><td>Imitates housework</td></tr>
+          <tr><td>2 y</td><td>Runs</td><td>2-word phrases; ~50 words</td><td>Parallel play</td></tr>
+          <tr><td>3 y</td><td>Pedals tricycle</td><td>3-word sentences</td><td>Symbolic play</td></tr>
+        </table>
+        <p>Primitive reflexes appear and disappear on a predictable timetable. Persistence past 6 months and absence of postural reflexes (parachute at 8–10 mo) point to CNS pathology — core features of cerebral palsy.</p>
+        <div class="warn">Always refer urgently for: regression, abnormal HC trajectory, focal neurology, parental concern. Parental concern is one of the most sensitive screening tools.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Neonatal HIE and therapeutic hypothermia</summary>
+      <div class="body">
+        <table>
+          <tr><th>Sarnat stage</th><th>Features</th><th>Outcome</th></tr>
+          <tr><td>I (mild)</td><td>Hyperalert, normal tone, mydriasis, no seizure</td><td>Normal in &gt; 48 h</td></tr>
+          <tr><td>II (moderate)</td><td>Lethargic, hypotonic, miosis, seizures common 24–48 h</td><td>~25–50% disability</td></tr>
+          <tr><td>III (severe)</td><td>Coma, flaccid, suppressed brainstem reflexes, multi-organ failure</td><td>~75% mortality/major disability</td></tr>
+        </table>
+        <div class="refer"><strong>Therapeutic hypothermia</strong>:
+          <ul>
+            <li>Eligibility: ≥ 36 weeks; &lt; 6 hours of age; moderate–severe encephalopathy (Sarnat II/III); evidence of asphyxia (10-min Apgar ≤ 5, cord pH ≤ 7.0 or BD ≥ 16, resuscitation at 10 min).</li>
+            <li>Core temp 33.5 °C × 72 h, slow rewarming over 6–12 h.</li>
+            <li>NNT ~7 to prevent death or disability (CoolCap, NICHD, TOBY).</li>
+            <li>HELIX (2021): limited benefit in low/middle-income settings — context matters.</li>
+            <li>Continuous video / aEEG; MRI day 4–7 (DWI) + day 10–14; injury patterns: BGT (acute profound) worst prognosis; parasagittal (partial prolonged); PVL (preterm → spastic diplegia).</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Neonatal seizures</summary>
+      <div class="body">
+        <ul>
+          <li>Often subtle: lip-smacking, cycling, sustained gaze deviation, apnoea, autonomic. Many electrographic-only — <strong>continuous video EEG essential</strong>; electroclinical dissociation common.</li>
+          <li>Causes: HIE (50–60%), ICH, stroke, meningitis, electrolytes (glucose, Ca, Mg, Na), inborn errors (pyridoxine-dependent — PNPO, ALDH7A1; NKH; urea cycle), channelopathies (KCNQ2/3 benign familial; SCN2A).</li>
+        </ul>
+        <ol>
+          <li>Correct electrolytes (glucose 2 mL/kg D10W; Ca gluconate; Mg; Na).</li>
+          <li><strong>Phenobarbital 20 mg/kg IV</strong>, repeat to 40 mg/kg.</li>
+          <li>Second-line: <strong>levetiracetam 40–60 mg/kg IV</strong> (NEOLEV2: PB more effective acutely; LEV often preferred for safety).</li>
+          <li>Third-line: phenytoin, midazolam infusion, lidocaine infusion.</li>
+          <li>Refractory: <strong>pyridoxine 100 mg IV under EEG</strong> trial; pyridoxal-5-phosphate (PNPO); biotin; folinic acid.</li>
+          <li>Targeted: carbamazepine / oxcarbazepine for KCNQ2 / SCN2A gain-of-function.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Cerebral palsy</summary>
+      <div class="body">
+        <p>Permanent, non-progressive disorder of movement and posture from a developmental brain insult, with associated cognitive/behavioural/seizure comorbidities. ~2/1000 live births.</p>
+        <table>
+          <tr><th>Type</th><th>Lesion</th><th>Cause</th></tr>
+          <tr><td>Spastic diplegia</td><td>PVL</td><td>Prematurity</td></tr>
+          <tr><td>Spastic hemiplegia</td><td>Unilateral lesion</td><td>Perinatal stroke / malformation</td></tr>
+          <tr><td>Spastic quadriplegia</td><td>Diffuse cortical injury</td><td>Severe term HIE</td></tr>
+          <tr><td>Dyskinetic</td><td>BGT</td><td>Acute profound HIE; kernicterus</td></tr>
+          <tr><td>Ataxic</td><td>Cerebellar</td><td>Hypoplasia / malformation</td></tr>
+        </table>
+        <p><strong>GMFCS I–V</strong>: walks without limitation → wheelchair-dependent.</p>
+        <div class="warn">A child labelled CP with normal MRI, progressive features, or family history needs metabolic/genetic workup. <strong>Always trial L-dopa</strong> in unexplained childhood dystonia (dopa-responsive dystonia / Segawa is dramatically responsive).</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Paediatric epilepsy syndromes</summary>
+      <div class="body">
+        <table>
+          <tr><th>Syndrome</th><th>Age</th><th>Hallmarks</th><th>Treatment</th></tr>
+          <tr><td>IESS (West)</td><td>3–12 mo</td><td>Spasms + regression + hypsarrhythmia</td><td>ACTH or prednisolone; <strong>vigabatrin first-line in TS</strong></td></tr>
+          <tr><td>Lennox-Gastaut</td><td>1–8 y</td><td>Multiple types, drop attacks; slow SW</td><td>Valproate, lamotrigine, rufinamide, CBD; corpus callosotomy for drops; VNS</td></tr>
+          <tr><td>Dravet</td><td>From 6 mo</td><td>Prolonged febrile/hemiclonic → multiple types; SCN1A LoF; <strong>AVOID sodium-channel blockers</strong></td><td>Valproate + clobazam, then <strong>stiripentol</strong>, <strong>cannabidiol</strong>, <strong>fenfluramine</strong>, keto diet</td></tr>
+          <tr><td>SeLECTS (BECTS)</td><td>3–10 y</td><td>Nocturnal focal, centrotemporal spikes</td><td>Often none; LEV or CBZ</td></tr>
+          <tr><td>Childhood absence</td><td>4–10 y</td><td>3 Hz SW; provoked by hyperventilation</td><td><strong>Ethosuximide first (CAE trial)</strong>; valproate; lamotrigine</td></tr>
+          <tr><td>JME</td><td>12–18 y</td><td>Morning myoclonus + GTC + absence; 4–6 Hz polyspike-wave</td><td>Valproate (males), levetiracetam (females); avoid SCBs as mono</td></tr>
+          <tr><td>Febrile seizures</td><td>6 m–5 y</td><td>Simple vs complex; usually benign</td><td>Treat fever; LP only if meningitis signs; antipyretics don't prevent recurrence</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Floppy infant — structured approach</summary>
+      <div class="body">
+        <table>
+          <tr><th></th><th>Central (UMN)</th><th>Peripheral (LMN)</th></tr>
+          <tr><td>Alertness</td><td>Depressed</td><td>Alert</td></tr>
+          <tr><td>Strength</td><td>Preserved</td><td>Markedly reduced</td></tr>
+          <tr><td>Reflexes</td><td>Brisk</td><td>Absent</td></tr>
+          <tr><td>Tongue fasciculations</td><td>Absent</td><td>Present in SMA</td></tr>
+          <tr><td>Dysmorphism</td><td>Often present</td><td>Usually absent</td></tr>
+        </table>
+        <h3>Causes</h3>
+        <ul>
+          <li><strong>Central</strong>: HIE, ICH, congenital malformation, congenital infection, chromosomal (T21, Prader-Willi), inborn errors (Zellweger, urea cycle, mitochondrial).</li>
+          <li><strong>Peripheral</strong>: anterior horn (SMA — type 1 Werdnig-Hoffmann); nerve (CMT in infancy); NMJ (congenital myasthenic, transient neonatal MG, infantile botulism); muscle (congenital MD/LAMA2/FKRP, congenital myopathies — nemaline/central core/myotubular, myotonic dystrophy type 1 congenital).</li>
+        </ul>
+        <p><strong>Workup</strong>: CK, lactate, ammonia, acylcarnitines, urine organic acids, plasma amino acids, chromosomal microarray, <strong>SMN1 deletion testing immediately</strong> in hypotonia + areflexia + tongue fasciculations, EMG/NCS, muscle biopsy, MRI, trio whole-exome / genome sequencing.</p>
+        <div class="pearl"><strong>SMA newborn screening</strong> is now standard in many countries. Pre-symptomatic treatment with nusinersen (intrathecal), onasemnogene abeparvovec (IV gene therapy 2019), or risdiplam (oral 2020) dramatically improves outcomes — milestones not previously possible.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Paediatric stroke</summary>
+      <div class="body">
+        <ul>
+          <li>~2–13 per 100,000 children/year; neonates highest rate (perinatal arterial ischaemic stroke, often presents with focal seizures day 1–3).</li>
+          <li>Causes: cardioembolic (CHD, endocarditis), arteriopathy (focal cerebral arteriopathy post-VZV, moyamoya, sickle cell, dissection, NF1), prothrombotic (sickle cell, leukaemia, factor V Leiden, antiphospholipid), infection/inflammation, trauma (dissection), metabolic (MELAS).</li>
+          <li><strong>Sickle cell</strong>: transcranial Doppler screening (STOP trial); regular transfusion or hydroxyurea; bone marrow transplant for selected.</li>
+          <li>Acute: urgent MRI; tPA and EVT in selected paediatric centres (AHA 2019); aspirin for most AIS; anticoagulation for cardiac embolism, dissection, CVST.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. ADEM &amp; paediatric demyelinating disease</summary>
+      <div class="body">
+        <ul>
+          <li><strong>ADEM</strong>: monophasic, encephalopathy + multifocal CNS deficits + multifocal T2 lesions; 5–10 days post viral / vaccine. Treat: high-dose IV methylprednisolone 30 mg/kg/d × 3–5 days, then oral taper; IVIG or PLEX if refractory.</li>
+          <li>Paediatric ADEM is strongly <strong>MOGAD</strong>-associated (2023 international criteria — cross-ref Module 8); recurrence common.</li>
+          <li><strong>Paediatric MS</strong>: 3–5% of all MS; defer diagnosis if first event &lt; 12 y (may be MOGAD); McDonald 2017 with caveats. DMTs from interferons/glatiramer to fingolimod (paediatric phase III), increasingly natalizumab and ocrelizumab in adolescents.</li>
+          <li><strong>NMOSD</strong> with AQP4 antibody — rarer; eculizumab / inebilizumab / satralizumab in adolescents.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Paediatric movement disorders</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Sydenham chorea</strong>: post-strep autoimmune; major Jones criterion. Treat infection; symptomatic valproate/CBZ/risperidone; steroids/IVIG severe; long-term penicillin prophylaxis.</li>
+          <li><strong>PANDAS / PANS</strong>: abrupt OCD/tics/anxiety after infection; treat infection; CBT/SSRI; immunotherapy selected severe (controversial).</li>
+          <li><strong>Tics / Tourette</strong>: onset 5–7 y; wax/wane; comorbid OCD/ADHD. First-line CBIT behavioural therapy; α2 agonists (clonidine, guanfacine); dopamine antagonists for severe (Module 6).</li>
+          <li><strong>Dopa-responsive dystonia (Segawa)</strong>: childhood dystonia with diurnal worsening; GCH1; <strong>dramatic L-dopa response</strong>.</li>
+          <li><strong>Stereotypies</strong>: hand-flapping etc — common in ASD/ID and in typical children; no urge, no suppressibility (vs tics).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Paediatric headache</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Migraine</strong>: most common recurrent headache; shorter (1–72 h) and bilateral OK in &lt; 15. Childhood periodic syndromes (cyclical vomiting, abdominal migraine, BPV of childhood).</li>
+          <li><strong>Tension-type</strong>: common; less disabling.</li>
+          <li><strong>Secondary</strong>: posterior-fossa tumour (worst on waking + vomiting + gait + papilloedema + CN VI), IIH (obese teen girls; cross-ref Module 4), CVST, hydrocephalus / shunt malfunction, meningitis, post-traumatic, medication overuse.</li>
+          <li><strong>Red flags for imaging</strong>: occipital, awakening from sleep, increasing pattern, focal neurology, papilloedema, &lt; 6 y, abnormal HC, vomiting without other migraine features, new pattern.</li>
+          <li>Treatment: paracetamol / ibuprofen + triptan (sumatriptan nasal, almotriptan, rizatriptan, zolmitriptan); preventive (topiramate, propranolol, amitriptyline, riboflavin, magnesium, behavioural). CGRP mAbs / gepants — limited adolescent data.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Autism spectrum &amp; intellectual disability</summary>
+      <div class="body">
+        <p>DSM-5: persistent social communication deficits + restricted/repetitive behaviours + sensory abnormalities, onset in developmental period. Prevalence ~2%, male predominant.</p>
+        <p><strong>Screen</strong>: M-CHAT-R at 18 and 24 months; refer if positive. <strong>Always test hearing</strong> in language-delayed children.</p>
+        <p><strong>Workup</strong>: hearing, chromosomal microarray + Fragile X (~5–7% yield), whole-exome sequencing if syndromic. Identify treatable mimics — Rett (girls, regression + stereotypies, MECP2), PKU (newborn screen), congenital hypothyroidism, lead.</p>
+        <p>Management: early behavioural intervention (ABA / NDBI), speech/OT, education planning, family support. Pharmacotherapy targets comorbidities (risperidone/aripiprazole for irritability; methylphenidate for ADHD; SSRI for anxiety/OCD).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. Non-accidental head injury &amp; safeguarding</summary>
+      <div class="body">
+        <div class="refer">Suspect in any infant/young child with:
+          <ul>
+            <li>Subdural haemorrhages (multiple ages, bilateral, posterior).</li>
+            <li>Retinal haemorrhages (multilayer, peripheral).</li>
+            <li>Inconsistent or evolving history; injury inconsistent with developmental ability.</li>
+            <li>Delay seeking medical care.</li>
+            <li>Long bone / rib fractures of different ages; metaphyseal corner fractures.</li>
+            <li>Coexisting neglect / psychosocial concerns.</li>
+          </ul>
+          Investigate without delay: skeletal survey, ophthalmology retinal exam, CT brain acutely + MRI, bloods + bleeding screen; involve safeguarding teams.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="milestones">
+    <h2>Developmental Milestones Red-Flag Checker</h2>
+    <p class="muted">Pick the child's age band, then tick "yes" for any milestone they have <em>not</em> yet achieved (or have lost). The tool flags the level of concern and suggests next steps.</p>
+    <div class="rf" id="rfBox"></div>
+    <div class="rf-summary" id="rf-summary">
+      <h4>Concern level</h4>
+      <div class="verdict" id="rf-verdict">Choose an age band and tick items to see a summary.</div>
+      <div class="detail" id="rf-detail"></div>
+    </div>
+    <button class="reset" onclick="resetRf()" style="margin-top:10px">Reset</button>
+  </section>
+
+  <section class="tab-panel" id="floppy">
+    <h2>Floppy Infant Classifier</h2>
+    <p class="muted">Answer about alertness, exam, and key features to receive a central-vs-peripheral split with the targeted workup.</p>
+    <div class="tool" id="fiTool">
+      <div class="q">1. Mental status / alertness?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="alert">Alert and engaged</button>
+        <button class="opt" data-val="depressed">Lethargic / depressed conscious level</button>
+      </div>
+      <div id="fi-rest"></div>
+      <div class="result" id="fi-result"></div>
+      <button class="reset" onclick="resetFi()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 38-week newborn born after a cord-prolapse emergency, 10-min Apgar 4, cord pH 6.9. At 30 minutes: hypotonic, lethargic, miosis, seizures begin at 12 hours</summary>
+      <div class="body">
+        <p>Sarnat II (moderate). Continuous aEEG shows discontinuous background. No congenital anomalies.</p>
+        <p><strong>Diagnosis:</strong> Neonatal hypoxic-ischaemic encephalopathy, moderate (Sarnat II).</p>
+        <p><strong>Plan within 6 hours:</strong></p>
+        <ol>
+          <li><strong>Therapeutic hypothermia</strong>: core temperature 33.5 °C for 72 hours, then slow rewarming over 6–12 hours.</li>
+          <li>Continuous video EEG / aEEG.</li>
+          <li>Treat seizures: phenobarbital 20 mg/kg IV (repeat to 40 mg/kg); second-line levetiracetam 40–60 mg/kg IV.</li>
+          <li>Correct electrolytes (glucose, Ca, Mg, Na).</li>
+          <li>Multiorgan support (renal, hepatic, coagulation, cardiac).</li>
+          <li>Brain MRI day 4–7 (DWI) and day 10–14 (conventional) — assess injury pattern (BGT = acute profound; PVL; parasagittal).</li>
+          <li>Family communication and multidisciplinary follow-up (developmental paediatrics, neurology, audiology, ophthalmology, physiotherapy).</li>
+        </ol>
+        <div class="warn">The 6-hour window matters. HELIX trial (2021) shows the benefit of cooling may be limited in low/middle-income settings — context-specific decisions.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 7-month-old has clusters of brief flexor spasms 20–30 times per cluster, particularly on waking. Now has lost the social smile she had at 4 months. EEG: chaotic high-voltage slow waves with multifocal spikes. Skin: 4 hypopigmented macules on the trunk</summary>
+      <div class="body">
+        <p>Wood's lamp accentuates the macules. MRI: cortical tubers and subependymal nodules.</p>
+        <p><strong>Diagnosis:</strong> Infantile epileptic spasms syndrome (IESS, West syndrome) with hypsarrhythmia, in the context of tuberous sclerosis complex.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Urgent treatment — outcome depends on speed of control.</strong></li>
+          <li><strong>Vigabatrin first-line because of tuberous sclerosis</strong>: 50 mg/kg/day titrated to 150 mg/kg/day; monitor for visual field constriction (ERG, baseline ophthalmology).</li>
+          <li>If non-TS or non-responsive: ACTH or oral prednisolone (typically 40–60 mg/m²/day prednisolone or high-dose ACTH).</li>
+          <li>EEG to confirm hypsarrhythmia resolution (the treatment target).</li>
+          <li>Tuberous sclerosis workup (cross-ref Module 12): TSC1/TSC2 genetic testing, echocardiogram (cardiac rhabdomyomas), renal ultrasound (angiomyolipomas), retinal exam, dermatology.</li>
+          <li>Consider <strong>everolimus</strong> (mTOR inhibitor) for SEGA / refractory seizures / renal AML.</li>
+          <li>Family support; multidisciplinary follow-up; cognitive surveillance.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 14-month-old has had prolonged febrile hemiclonic seizures since 6 months. New short tonic-clonic seizures and myoclonic jerks. Carbamazepine started — seizures dramatically worse</summary>
+      <div class="body">
+        <p>Developmental progress now plateaued. Genetic testing: <em>SCN1A</em> loss-of-function variant confirmed.</p>
+        <p><strong>Diagnosis:</strong> Dravet syndrome.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Stop carbamazepine immediately</strong> — sodium-channel blockers (carbamazepine, lamotrigine, phenytoin, oxcarbazepine) worsen seizures in Dravet because SCN1A is on inhibitory interneurons.</li>
+          <li>First-line: <strong>valproate + clobazam</strong>.</li>
+          <li>Add <strong>stiripentol</strong> (EMA/FDA approved with valproate + clobazam), <strong>cannabidiol</strong> (FDA-approved 2018 for Dravet and LGS), or <strong>fenfluramine</strong> (FDA 2020 — striking efficacy in trials).</li>
+          <li><strong>Ketogenic diet</strong> for refractory cases.</li>
+          <li>Aggressive fever management (paracetamol/ibuprofen with any illness; cooling measures); avoid known triggers.</li>
+          <li>Sudden Unexpected Death in Epilepsy (SUDEP) counselling; rescue medication (buccal midazolam or rectal diazepam) at home.</li>
+          <li>Multidisciplinary care: paediatric neurology, developmental paediatrics, speech/OT, school planning.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 2-month-old has profound hypotonia, never controls his head, alert and engaged, no movement against gravity, areflexia, and tongue fasciculations</summary>
+      <div class="body">
+        <p>SMN1 deletion test positive. SMN2 copy number = 2.</p>
+        <p><strong>Diagnosis:</strong> Spinal muscular atrophy type 1 (Werdnig-Hoffmann).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Disease-modifying treatment as soon as possible</strong> (outcome depends on timing):
+            <ul>
+              <li><strong>Onasemnogene abeparvovec (Zolgensma)</strong>: single IV gene therapy if &lt; 2 years and weight ≤ 21 kg; AAV9-SMN1; transformative if given early; very high cost.</li>
+              <li><strong>Nusinersen (Spinraza)</strong>: intrathecal antisense oligonucleotide; 4 loading doses then every 4 months.</li>
+              <li><strong>Risdiplam (Evrysdi)</strong>: oral, daily, SMN2 splicing modifier; convenient for outpatient.</li>
+            </ul>
+          </li>
+          <li>Multidisciplinary care: respiratory (NIV, cough assist), nutrition (gastrostomy if needed), physiotherapy, orthotics, palliative care discussions.</li>
+          <li>Family counselling and genetic counselling (autosomal recessive; carrier screening for siblings and future pregnancies).</li>
+          <li>SMA newborn screening for at-risk siblings (pre-symptomatic treatment dramatically improves outcomes).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 4-year-old presents with 3 weeks of progressively worsening morning headaches and vomiting on rising. New ataxia and abducens palsy</summary>
+      <div class="body">
+        <p>Fundoscopy: bilateral papilloedema. MRI: 4 cm cystic-solid posterior-fossa mass with hydrocephalus.</p>
+        <p><strong>Diagnosis:</strong> Posterior-fossa tumour (likely medulloblastoma or pilocytic astrocytoma) with obstructive hydrocephalus.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Urgent neurosurgery consultation — likely need for hydrocephalus management (external ventricular drain or endoscopic third ventriculostomy) followed by tumour resection.</li>
+          <li>Dexamethasone for peritumoural oedema.</li>
+          <li>MRI total spine (for CSF dissemination — medulloblastoma).</li>
+          <li>Tissue diagnosis at resection; molecular subgrouping for medulloblastoma (WNT — best prognosis; SHH; group 3; group 4).</li>
+          <li>Combined paediatric neuro-oncology team — resection + craniospinal RT (in older children) + chemotherapy per protocol; pilocytic astrocytoma may be curable with resection alone (BRAF fusion).</li>
+          <li>Cross-ref Module 12 for paediatric brain tumour orientation.</li>
+          <li>Long-term: neurocognitive, endocrine, hearing surveillance; secondary tumour risk after RT.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 4-month-old, primary caregiver brings him in for "vomiting and seizures". He has retinal haemorrhages, bilateral subdural haemorrhages of different signal intensities, and a poorly healing humeral fracture from a "rolling off the sofa" history given 2 days ago</summary>
+      <div class="body">
+        <p>Examination: bulging fontanelle; encephalopathic; bruising in unusual locations. Coagulation screen normal.</p>
+        <p><strong>Diagnosis:</strong> Highly suspicious abusive head trauma (non-accidental injury) — multiple ages of bleeding, retinal haemorrhages, inconsistent history (4-month-old cannot roll), unexplained fracture.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Stabilise — airway, breathing, circulation; treat raised ICP / seizures.</li>
+          <li>CT brain acutely; MRI brain and spine within 24–72 hours.</li>
+          <li>Skeletal survey within 24 hours; repeat at 10–14 days (occult fractures).</li>
+          <li>Ophthalmology for dilated fundus examination (retinal haemorrhages — multilayer, peripheral, dome-shaped retinoschisis support shaking mechanism).</li>
+          <li>Full bloods, coagulation, urine and serum tox, urine organic acids (exclude metabolic), Ca/PO₄ (exclude osteogenesis imperfecta or rickets).</li>
+          <li><strong>Involve safeguarding / child-protection team without delay</strong>; document carefully (timing, history, photos).</li>
+          <li>Notify police as required by local mandatory reporting laws.</li>
+          <li>Multidisciplinary discussion; social-work assessment; protection of siblings.</li>
+        </ol>
+        <div class="warn">Do not delay safeguarding referral pending further investigations. Document accurately and use professional language; pre-judgement of guilt is not your role, but child safety is.</div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 16 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 27, 37; Merritt's <em>Neurology</em> 14e Ch. 137, 138, 141, 142, 143, 145, 146, 147, 150. Sarnat 1976; CoolCap/NICHD/TOBY; HELIX 2021; NEOLEV2; CAE trial; nusinersen (CHERISH, NURTURE), onasemnogene abeparvovec (Mendell NEJM 2017), risdiplam (FIREFISH); STOP (sickle cell); AAP / AAN guidance; M-CHAT-R; AAP NAI 2015.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Milestones', q:'"Rule of one" mnemonic for gross-motor milestones?', a:'1 month — lifts head briefly. 6 months — sits with support, no head lag. 12 months — walks (one foot or first steps). 18 months — climbs. 2 years — runs. For language: 1 word at 12 mo, 10–25 words at 18 mo, phrases at 2 y, sentences at 3 y.'},
+  {tag:'Red flags', q:'Which milestone misses at 18 months mandate urgent referral?', a:'Not walking; fewer than 6 words; no eye contact or joint attention; loss of any previously acquired skill; persistent ATNR; parental concern. Persistence of primitive reflexes and absence of postural reflexes (parachute at 8–10 mo) point to cerebral palsy.'},
+  {tag:'HIE', q:'Therapeutic hypothermia eligibility for neonatal HIE?', a:'≥ 36 weeks; < 6 hours of age; moderate-to-severe encephalopathy (Sarnat II or III); evidence of perinatal asphyxia (any: 10-min Apgar ≤ 5, cord pH ≤ 7.0 or base deficit ≥ 16, continued resuscitation at 10 min). Cool to 33.5 °C × 72 h then slow rewarm. NNT ~7 (CoolCap, NICHD, TOBY).'},
+  {tag:'HELIX', q:'HELIX 2021 — what did it show?', a:'Therapeutic hypothermia did NOT improve outcomes (and possibly worsened mortality) in neonatal HIE in low- and middle-income settings. Reminds us that intervention benefits are context-dependent — supportive care quality matters. Continue cooling in high-resource NICUs per existing guidelines, but adapt regional approaches.'},
+  {tag:'BGT', q:'BGT injury pattern on neonatal HIE MRI — significance?', a:'BGT = basal ganglia + thalami + perirolandic cortex involvement on DWI / T2. Reflects acute profound hypoxia in a term infant; worst neurodevelopmental prognosis. Other patterns: parasagittal cortex (partial prolonged); watershed (partial prolonged in preterm); PVL (preterm — classic for spastic diplegia).'},
+  {tag:'Neonatal seiz', q:'First-line treatment of neonatal seizures?', a:'Phenobarbital 20 mg/kg IV loading dose; repeat to 40 mg/kg if no response. Second-line: levetiracetam 40–60 mg/kg IV (NEOLEV2 showed PB superior acutely; LEV often preferred for safety where efficacy comparable). Always correct electrolytes (glucose, Ca, Mg, Na) and trial pyridoxine 100 mg IV under EEG for refractory cases.'},
+  {tag:'IESS', q:'EEG hallmark of infantile epileptic spasms and treatment principles?', a:'HYPSARRHYTHMIA — chaotic high-voltage slow waves with multifocal independent spikes. Treat urgently — early control predicts better outcome. First-line: ACTH or oral prednisolone. <strong>Vigabatrin is first-line in tuberous sclerosis</strong> (monitor for visual-field constriction). Workup for underlying cause (TS, structural, metabolic, genetic).'},
+  {tag:'Dravet', q:'Drug classes to AVOID in Dravet syndrome?', a:'Sodium-channel blockers — carbamazepine, lamotrigine, phenytoin, oxcarbazepine — can WORSEN seizures because SCN1A is expressed predominantly on inhibitory interneurons. Use valproate + clobazam first; add stiripentol, cannabidiol (FDA 2018), or fenfluramine (FDA 2020). Ketogenic diet for refractory.'},
+  {tag:'CAE', q:'First-line drug for childhood absence epilepsy?', a:'ETHOSUXIMIDE — best efficacy AND tolerability per the CAE trial (Glauser NEJM 2010). Valproate equally effective but worse attention/cognition. Lamotrigine less effective but better tolerability. Provoked by hyperventilation; 3 Hz generalised spike-and-wave on EEG. Most remit by adolescence.'},
+  {tag:'JME', q:'Treatment of juvenile myoclonic epilepsy and drug preference in females?', a:'Valproate is most effective overall but teratogenic — avoid in females of childbearing age. Levetiracetam preferred in females and increasingly first-line. Avoid sodium-channel blocker monotherapy (can worsen myoclonus). Lifelong treatment usually required. Sleep deprivation precipitates seizures.'},
+  {tag:'Floppy', q:'How does the floppy-infant exam differentiate central from peripheral causes?', a:'CENTRAL (UMN): depressed alertness, preserved strength against gravity, brisk reflexes, often dysmorphic. PERIPHERAL (LMN): alert, markedly reduced strength, areflexia, tongue fasciculations in SMA, often "frog-leg" posture. Workup: SMN1 deletion testing immediately if hypotonia + areflexia + tongue fasciculations; CK, lactate, ammonia, acylcarnitines, microarray, trio whole-exome.'},
+  {tag:'SMA Rx', q:'Three FDA-approved disease-modifying treatments for SMA and their delivery?', a:'(1) Nusinersen (Spinraza, 2016) — intrathecal antisense oligonucleotide; loading then 4-monthly. (2) Onasemnogene abeparvovec (Zolgensma, 2019) — single IV AAV9 gene therapy < 2 years and ≤ 21 kg. (3) Risdiplam (Evrysdi, 2020) — oral daily SMN2 splicing modifier. Earlier treatment is dramatically better; many countries now screen at birth.'},
+  {tag:'CP cause', q:'When should you reconsider the cerebral palsy diagnosis and pursue further workup?', a:'Normal MRI; progressive features (CP is non-progressive); positive family history; striking diurnal variation (suspect dopa-responsive dystonia/Segawa — ALWAYS trial L-dopa); metabolic clues (encephalopathy with viral illness — glutaric aciduria, urea-cycle). Send appropriate metabolic / genetic workup; cross-ref Module 13.'},
+  {tag:'Stroke', q:'Most important treatable cause of paediatric stroke and screening test?', a:'Sickle cell disease. Transcranial Doppler screening (STOP trial); regular transfusion or hydroxyurea reduces stroke risk substantially. Bone marrow transplant for selected. Other paediatric stroke causes: focal cerebral arteriopathy (post-VZV vasculopathy), moyamoya, cardioembolic from congenital heart disease, dissection from trauma, prothrombotic states, MELAS.'},
+  {tag:'ADEM', q:'Treatment of acute disseminated encephalomyelitis?', a:'High-dose IV methylprednisolone 30 mg/kg/day × 3–5 days followed by oral prednisolone taper. IVIG or plasma exchange in refractory disease. Paediatric ADEM is strongly MOG-IgG–associated (2023 international criteria) — test MOG-IgG; cross-ref Module 8 for paediatric MOGAD and MS considerations.'},
+  {tag:'Segawa', q:'Why trial L-dopa in any unexplained childhood dystonia?', a:'Dopa-responsive dystonia (Segawa syndrome; GCH1 deficiency in most) is dramatically and durably responsive to low-dose L-dopa. Classic features: childhood-onset lower-limb dystonia with diurnal worsening (worse in the evening), gait disturbance. Often misdiagnosed as cerebral palsy. Failure to trial L-dopa misses a treatable cause.'},
+  {tag:'Sydenham', q:'Diagnosis and management of Sydenham chorea?', a:'Post-streptococcal autoimmune chorea (major Jones criterion for rheumatic fever). Subacute chorea + hypotonia + emotional lability; "milkmaid grip", "darting tongue". Treat infection (penicillin); symptomatic valproate/CBZ/risperidone; steroids or IVIG if severe; long-term penicillin prophylaxis to prevent recurrence and cardiac valve damage.'},
+  {tag:'Headache', q:'Red flags in paediatric headache that mandate imaging?', a:'Occipital location, awakening from sleep, progressively increasing pattern, focal neurology, papilloedema, age < 6 y, abnormal HC, vomiting without other migraine features, new headache pattern, behavioural change, gait disturbance. Posterior-fossa tumour presents classically with morning headache + vomiting + ataxia + CN VI palsy + papilloedema.'},
+  {tag:'ASD', q:'M-CHAT-R screening — when and what next?', a:'M-CHAT-R (Modified Checklist for Autism in Toddlers, Revised) at 18 and 24 months. Positive screen → comprehensive developmental assessment. Workup: hearing test, chromosomal microarray + Fragile X (~5–7% yield); whole-exome sequencing if syndromic. Identify treatable mimics (Rett — girls, MECP2; PKU; hypothyroidism; lead). Early behavioural intervention dramatically improves outcomes.'},
+  {tag:'NAI', q:'Red flags for non-accidental head injury in an infant?', a:'Subdural haemorrhages (multiple ages, bilateral, posterior); retinal haemorrhages (multilayer, extending peripherally); inconsistent or evolving history; injury inconsistent with developmental ability ("rolled off the sofa" at 2 months); delay in seeking medical care; long-bone or rib fractures of different ages; metaphyseal corner fractures. Skeletal survey, dilated fundus exam, CT + MRI brain, bleeding screen, urgent safeguarding referral.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 38-week newborn after cord prolapse has 10-min Apgar 4, cord pH 6.9, and on exam is hypotonic and lethargic at 30 minutes with miosis. He develops a focal seizure at 12 hours. Best next step within 6 hours of birth?',
+   choices:['Watchful observation','Start therapeutic hypothermia (33.5 °C × 72 h) — Sarnat II with perinatal asphyxia, < 6 h old','Wait for MRI before any intervention','Empirical aciclovir alone'],
+   ans:1,
+   why:'Moderate HIE (Sarnat II) with documented perinatal asphyxia in a term infant within the 6-hour window — start therapeutic hypothermia (33.5 °C × 72 h, slow rewarming). Treat seizures with phenobarbital first-line. Continuous video / aEEG. MRI day 4–7 and 10–14. The 6-hour window is critical; NNT ~7 to prevent death or major disability.'},
+  {q:'A 7-month-old with tuberous sclerosis develops clusters of brief flexor spasms 20–30 per cluster on waking, with EEG showing hypsarrhythmia. Best first-line treatment?',
+   choices:['Carbamazepine','Vigabatrin (first-line in TS-associated infantile spasms)','Levetiracetam','Diphenhydramine'],
+   ans:1,
+   why:'Infantile epileptic spasms syndrome (West syndrome) in TS. Vigabatrin is first-line in TS-associated IESS due to particularly good response; monitor for visual-field constriction with ophthalmology. For non-TS IESS, ACTH or prednisolone are first-line. Early control predicts better developmental outcome. Workup TS — TSC1/TSC2, echo, renal US, retinal exam, dermatology. Consider everolimus for SEGA / refractory seizures.'},
+  {q:'A 14-month-old with SCN1A loss-of-function has prolonged febrile hemiclonic seizures since 6 months, then multiple seizure types. Carbamazepine was started and seizures dramatically worsened. Best next steps?',
+   choices:['Increase carbamazepine','Stop carbamazepine — sodium-channel blockers worsen Dravet syndrome; switch to valproate + clobazam, add stiripentol/cannabidiol/fenfluramine, consider ketogenic diet','Add lamotrigine','Phenytoin loading'],
+   ans:1,
+   why:'Dravet syndrome (SCN1A LoF). Sodium-channel blockers (carbamazepine, lamotrigine, phenytoin, oxcarbazepine) worsen seizures because SCN1A is expressed predominantly on inhibitory interneurons. Use valproate + clobazam first-line; add stiripentol, cannabidiol (FDA 2018), or fenfluramine (FDA 2020); ketogenic diet for refractory. Aggressive fever management; SUDEP counselling; rescue medication at home.'},
+  {q:'A 2-month-old has profound proximal hypotonia, alert, no anti-gravity movement, areflexia, and tongue fasciculations. SMN1 deletion test positive; SMN2 copy number = 2. Most appropriate management framework?',
+   choices:['Comfort care only','Disease-modifying therapy as soon as possible with onasemnogene abeparvovec (gene therapy IV), nusinersen (intrathecal), or risdiplam (oral) + multidisciplinary supportive care','Long-term β-blocker','Begin pyridostigmine'],
+   ans:1,
+   why:'SMA type 1 (Werdnig-Hoffmann). Three FDA-approved DMTs have transformed outcomes; earlier treatment is dramatically better. Onasemnogene abeparvovec (Zolgensma, 2019) — single IV AAV9 gene therapy < 2 y and ≤ 21 kg. Nusinersen (Spinraza, 2016) — intrathecal ASO. Risdiplam (Evrysdi, 2020) — oral. Combine with multidisciplinary care (respiratory, nutrition, physiotherapy). SMA newborn screening enables pre-symptomatic treatment.'},
+  {q:'A 4-year-old has 3 weeks of progressively worsening morning headaches and vomiting on rising, new ataxia, bilateral papilloedema, and abducens palsy. MRI shows a 4 cm posterior-fossa mass with hydrocephalus. Best next step?',
+   choices:['Outpatient follow-up in 6 weeks','Urgent neurosurgical consultation — manage hydrocephalus (EVD or ETV) and resect tumour; staging MRI of total spine; tissue diagnosis with molecular subgrouping','Empirical antibiotics','Migraine prophylaxis'],
+   ans:1,
+   why:'Posterior-fossa tumour with obstructive hydrocephalus — emergency. Likely medulloblastoma or pilocytic astrocytoma in this age. Neurosurgery for hydrocephalus management (EVD or ETV) + tumour resection. Whole-spine MRI to look for CSF dissemination (medulloblastoma). Molecular subgrouping for medulloblastoma (WNT best, SHH, group 3, group 4). Pilocytic astrocytoma often curable with resection alone. Cross-ref Module 12.'},
+  {q:'A 4-month-old presents with vomiting, encephalopathy, retinal haemorrhages, and bilateral subdural haemorrhages of different signal intensities. The caregiver says the baby rolled off the sofa 2 days ago. What is the most important immediate action?',
+   choices:['Discharge with safety advice','Stabilise + skeletal survey + ophthalmology + neuroimaging + URGENT safeguarding referral — the history is inconsistent with the injury','Reassure the family','Bone profile alone'],
+   ans:1,
+   why:'Highly suspicious abusive head trauma. A 4-month-old cannot roll, the bleeds are of multiple ages, retinal haemorrhages are typical of shaking. Stabilise (manage raised ICP / seizures); CT brain acutely + MRI; skeletal survey + repeat at 10–14 days; dilated fundus exam; bleeding screen; metabolic screen. Involve safeguarding without delay; notify police as required; protect siblings. Document carefully and use professional language.'},
+  {q:'A 6-year-old has 6 weeks of involuntary jerky movements affecting face and limbs after a sore throat 6 weeks ago. Mood is labile. Anti-streptolysin O elevated. Cardiac exam normal. Best initial treatment?',
+   choices:['No treatment','Penicillin to eradicate streptococcus + symptomatic treatment for chorea (valproate or carbamazepine, or risperidone); add steroids/IVIG if severe; long-term penicillin prophylaxis','High-dose chemotherapy','Surgical intervention'],
+   ans:1,
+   why:'Sydenham chorea — post-streptococcal autoimmune chorea (major Jones criterion for rheumatic fever). Treat infection (penicillin) to prevent further attacks and rheumatic carditis. Symptomatic chorea: valproate, carbamazepine, or risperidone. Severe disease: steroids or IVIG. Long-term penicillin prophylaxis is critical to prevent recurrence and valve damage. Echocardiogram to screen for carditis.'},
+  {q:'A 6-year-old with normal early development now has wide-based gait, increased lower-limb tone, no MRI abnormality, and the symptoms are markedly worse in the evening. Mother reports clumsiness only in the afternoons. Best next step?',
+   choices:['Diagnose cerebral palsy and refer for therapies','Trial low-dose L-dopa — likely dopa-responsive dystonia (Segawa syndrome, GCH1 deficiency); dramatic response confirms diagnosis','Start baclofen','Long-term sedative-hypnotic'],
+   ans:1,
+   why:'Dopa-responsive dystonia (Segawa syndrome): childhood-onset dystonia with characteristic diurnal worsening (worse in the evening). GCH1 deficiency in most. Dramatically responsive to low-dose L-dopa — always trial in unexplained childhood dystonia/spasticity, especially with normal MRI and no clear birth history. Failure to trial misses a highly treatable cause and mislabels as cerebral palsy.'},
+  {q:'A 24-month-old has fewer than 6 words, no two-word phrases, reduced eye contact, hand-flapping, and intense interest in lining up toys. M-CHAT-R positive. Best initial workup beyond developmental assessment?',
+   choices:['MRI alone','Hearing test + chromosomal microarray + Fragile X testing; consider whole-exome sequencing if syndromic features; identify treatable mimics (Rett in girls — MECP2; PKU; hypothyroidism; lead) — and start early behavioural intervention','Long-term sedative-hypnotic','Start risperidone as first-line'],
+   ans:1,
+   why:'Autism spectrum disorder workup: ALL language-delayed children need a hearing test. Chromosomal microarray + Fragile X yield ~5–7%. Whole-exome sequencing if syndromic. Treatable mimics: Rett (girls, MECP2), PKU (newborn screen), congenital hypothyroidism, lead. Early behavioural intervention (ABA / NDBI) + speech/OT + family support dramatically improves outcomes. Pharmacotherapy is for specific comorbidities (irritability, ADHD, anxiety) only.'},
+  {q:'A 2-year-old presents with bilateral large white-matter T2 lesions, encephalopathy, optic neuritis, and a history of viral infection 1 week ago. CSF: lymphocytic pleocytosis. MOG-IgG positive. Best treatment?',
+   choices:['Aciclovir','High-dose IV methylprednisolone 30 mg/kg/day × 3–5 days followed by oral taper; IVIG or PLEX if refractory; counsel about MOGAD recurrence risk and surveillance','Empirical IV antibiotics alone','Long-term oral steroids'],
+   ans:1,
+   why:'ADEM, MOG-IgG–associated (paediatric ADEM is strongly MOGAD-associated; 2023 international MOGAD criteria — cross-ref Module 8). Treat with high-dose IV methylprednisolone (30 mg/kg/day × 3–5 days, then oral taper). IVIG or PLEX for refractory disease. Counsel about MOGAD recurrence; consider maintenance immunotherapy (rituximab, mycophenolate, IVIG, azathioprine) if recurrent. Differentiate from paediatric MS (defer MS diagnosis before age 12).'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Milestones Red-Flag Checker */
+const rfAges = [
+  {age:'6 weeks', items:[
+    ['smile6w','No social smile'],
+    ['fix6w','Not fixing on face'],
+    ['tone6w','Persistent fisting or markedly increased / decreased tone']
+  ]},
+  {age:'6 months', items:[
+    ['headlag6m','Persistent head lag on pull-to-sit'],
+    ['reach6m','Not reaching for objects'],
+    ['babble6m','No babble (consonants)'],
+    ['atnr6m','Persistent ATNR (asymmetric tonic neck reflex)']
+  ]},
+  {age:'12 months', items:[
+    ['nosit12m','Not sitting independently'],
+    ['nopoint12m','Not pointing at objects of interest'],
+    ['nowords12m','No specific words'],
+    ['stand12m','Not pulling to stand or cruising']
+  ]},
+  {age:'18 months', items:[
+    ['nowalk18m','Not walking independently'],
+    ['fewer6w18m','Fewer than 6 words'],
+    ['joint18m','No joint attention / eye contact'],
+    ['regression18m','Loss of previously acquired skills (regression)']
+  ]},
+  {age:'24 months', items:[
+    ['norun24m','Not running'],
+    ['nophrase24m','No two-word phrases'],
+    ['no1step24m','Cannot follow 1-step commands'],
+    ['regression24m','Loss of words / social skills (regression)']
+  ]},
+  {age:'3 years', items:[
+    ['speech3y','Speech not intelligible to family'],
+    ['toewalk3y','Persistent toe-walking with calf tightness'],
+    ['sym3y','No symbolic / pretend play']
+  ]},
+];
+const rfBox = document.getElementById('rfBox');
+let rfState = {};
+rfAges.forEach((band, idx) => {
+  const h = document.createElement('div');
+  h.className = 'agehead';
+  h.textContent = band.age;
+  rfBox.appendChild(h);
+  band.items.forEach(([id,label]) => {
+    rfState[id] = false;
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `<div class="lbl">${label}</div>
+      <div class="opts">
+        <button class="sel" data-id="${id}" data-val="0">No</button>
+        <button data-id="${id}" data-val="1">Yes (concern)</button>
+      </div>`;
+    rfBox.appendChild(row);
+  });
+});
+rfBox.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = +b.dataset.val;
+  rfState[id] = !!val;
+  rfBox.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreRf();
+}));
+
+function scoreRf() {
+  const flags = Object.keys(rfState).filter(k => rfState[k]);
+  const regression = flags.some(f => f.startsWith('regression'));
+  const total = flags.length;
+  let verdict, detail;
+  if (total === 0) {
+    verdict = 'No flags selected';
+    detail = 'Tick the items not yet achieved (or lost) to see a concern level and next steps.';
+  } else if (regression) {
+    verdict = 'URGENT — regression is a red flag at any age';
+    detail = '<ul>' +
+      '<li>Refer urgently to paediatric neurology + developmental paediatrics.</li>' +
+      '<li>Workup as for a likely neurodegenerative or encephalopathic process: brain MRI, metabolic screen (lactate, ammonia, acylcarnitines, urine organic acids, plasma amino acids), TSH, lead level, chromosomal microarray, Fragile X; whole-exome sequencing increasingly first-line.</li>' +
+      '<li>Consider treatable mimics: hearing loss (test EVERY language-delayed child); ASD with regression; Rett syndrome (girls — MECP2); Landau-Kleffner syndrome (acquired epileptic aphasia); inborn errors of metabolism (Module 13); raised ICP / structural lesion; chronic encephalopathy from epilepsy.</li>' +
+      '<li>Safeguarding screen if the picture is at all atypical.</li>' +
+      '</ul>';
+  } else if (total >= 3) {
+    verdict = 'MODERATE — multi-stream concern';
+    detail = '<ul>' +
+      '<li>Refer to paediatric neurology or developmental paediatrics within 1–2 weeks.</li>' +
+      '<li>Hearing test (universal newborn screen + repeat) — should be done in every child with language delay.</li>' +
+      '<li>Vision assessment.</li>' +
+      '<li>Plot head circumference, weight, height on standard charts; investigate any centile crossing.</li>' +
+      '<li>Consider chromosomal microarray + Fragile X; whole-exome if syndromic features.</li>' +
+      '<li>Parental concern is itself one of the most sensitive predictors of developmental disorder — take it seriously.</li>' +
+      '</ul>';
+  } else {
+    verdict = 'MILD — single-stream delay';
+    detail = '<ul>' +
+      '<li>Targeted assessment: speech and language therapy if language stream; physiotherapy if motor; OT for fine motor; behavioural / developmental assessment if social.</li>' +
+      '<li>Hearing test in language-delayed children regardless of perception.</li>' +
+      '<li>Recheck at next scheduled visit. Refer earlier if no progress, new concern, or parental anxiety.</li>' +
+      '<li>Document the milestone status; use a structured tool (ASQ, M-CHAT-R for ASD risk) as appropriate.</li>' +
+      '</ul>';
+  }
+  document.getElementById('rf-verdict').textContent = verdict;
+  document.getElementById('rf-detail').innerHTML = detail;
+}
+scoreRf();
+
+function resetRf() {
+  Object.keys(rfState).forEach(k => { rfState[k] = false; });
+  rfBox.querySelectorAll('.opts button').forEach(o => {
+    o.classList.toggle('sel', o.dataset.val === '0');
+  });
+  scoreRf();
+}
+
+/* Floppy Infant Classifier */
+const fiRest = document.getElementById('fi-rest');
+const fiResult = document.getElementById('fi-result');
+let fiState = {};
+
+function fiAns(step, val) {
+  fiState[step] = val;
+  Object.keys(fiState).forEach(k => { if (+k > step) delete fiState[k]; });
+  document.querySelectorAll(`#fiTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#fiTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderFi();
+}
+
+function renderFi() {
+  fiRest.innerHTML = '';
+  fiResult.classList.remove('show');
+  const s0 = fiState[0];
+  if (!s0) return;
+
+  addFi(1, '2. Strength against gravity?',
+    [['weak','Markedly reduced (frog-leg posture, no anti-gravity movement)'],['preserved','Relatively preserved against gravity']]);
+  const s1 = fiState[1];
+  if (!s1) return;
+
+  addFi(2, '3. Deep tendon reflexes?',
+    [['areflex','Absent / very reduced'],['brisk','Normal or brisk']]);
+  const s2 = fiState[2];
+  if (!s2) return;
+
+  addFi(3, '4. Key bedside features?',
+    [['tongue','Tongue fasciculations'],['dysmorph','Dysmorphism (syndromic appearance)'],['ptosis','Ptosis ± weak cry / poor suck (NMJ pattern)'],['arthro','Arthrogryposis / fixed joint contractures'],['matmd','Maternal myotonia (myotonic dystrophy type 1 congenital)'],['none','None of the above']]);
+  const s3 = fiState[3];
+  if (!s3) return;
+
+  // Synthesise
+  const items = [];
+  let title = '';
+
+  if (s0 === 'depressed' && s2 === 'brisk') {
+    title = 'CENTRAL (UMN) hypotonia';
+    items.push('<strong>Differential</strong>: HIE, intracranial haemorrhage, congenital malformation, congenital infection (TORCH), chromosomal (Down syndrome, Prader-Willi — characteristic facies, hypogonadism, hyperphagia later), inborn errors (Zellweger spectrum, urea cycle, mitochondrial), peroxisomal disorders.');
+    items.push('<strong>Workup</strong>: MRI brain; chromosomal microarray + methylation studies (Prader-Willi); TORCH screen; metabolic screen (lactate, ammonia, acylcarnitines, urine organic acids, plasma amino acids, very-long-chain fatty acids for peroxisomal); whole-exome sequencing.');
+    items.push('Cross-ref Module 13 for inborn errors of metabolism; Module 11 for congenital infection; Module 12 for any structural lesion.');
+  } else if (s0 === 'alert' && s1 === 'weak' && s2 === 'areflex') {
+    if (s3 === 'tongue') {
+      title = 'Spinal muscular atrophy (anterior horn) — likely';
+      items.push('<strong>SMN1 deletion testing immediately</strong>. SMN2 copy number determines severity.');
+      items.push('<strong>Disease-modifying therapy ASAP</strong>:');
+      items.push('— Onasemnogene abeparvovec (Zolgensma, 2019) — single IV AAV9 gene therapy < 2 years and ≤ 21 kg.');
+      items.push('— Nusinersen (Spinraza, 2016) — intrathecal antisense oligonucleotide.');
+      items.push('— Risdiplam (Evrysdi, 2020) — oral daily SMN2 splicing modifier.');
+      items.push('Multidisciplinary care: respiratory (NIV, cough assist), nutrition (gastrostomy as needed), physiotherapy, orthotics, palliative care discussions for severe cases.');
+      items.push('Genetic counselling; sibling carrier screening; SMA newborn screening for at-risk pregnancies — pre-symptomatic treatment dramatically improves outcomes.');
+    } else if (s3 === 'ptosis') {
+      title = 'Neuromuscular junction disease';
+      items.push('Possibilities: congenital myasthenic syndrome (genetic — CHRNE, CHAT, RAPSN, DOK7, COLQ, MUSK), transient neonatal MG (transplacental AChR antibody from mother with MG), infantile botulism (constipation, descending weakness, dilated unreactive pupils — treat with human botulism immune globulin BIG-IV).');
+      items.push('Workup: maternal MG history; AChR / MuSK antibodies (in infant); CMS gene panel; edrophonium / pyridostigmine trial; EMG with RNS / single-fibre; stool botulism toxin / culture.');
+      items.push('Treatment: pyridostigmine for CMS / transient MG; targeted therapy by CMS subtype (fluoxetine for slow-channel CMS, salbutamol for DOK7); BIG-IV for infantile botulism.');
+    } else if (s3 === 'matmd') {
+      title = 'Congenital myotonic dystrophy type 1';
+      items.push('Severe hypotonia + facial diplegia + club feet + arthrogryposis + feeding difficulty + respiratory failure; maternal transmission with genetic anticipation (CTG repeat expansion).');
+      items.push('Workup: DMPK CTG repeat analysis in infant and mother.');
+      items.push('Care: respiratory and feeding support; multidisciplinary care; high mortality in severe forms; survivors have intellectual disability + late myotonia.');
+    } else if (s3 === 'arthro') {
+      title = 'Congenital muscular dystrophy or congenital myopathy';
+      items.push('Possibilities: congenital muscular dystrophies (LAMA2 — merosin-deficient with white-matter changes on MRI; FKRP — dystroglycanopathies; SEPN1); congenital myopathies (nemaline — bar-shaped rods on biopsy; central core — RYR1, malignant hyperthermia risk; X-linked myotubular — severe in boys).');
+      items.push('Workup: CK (variably elevated); muscle MRI; muscle biopsy with histochemistry + electron microscopy; targeted gene panels / whole-exome sequencing.');
+      items.push('Care: respiratory support, orthotics, physiotherapy; specific gene therapies emerging (MTM1 — resamirigene bilparvovec under investigation).');
+    } else {
+      title = 'Peripheral (LMN) hypotonia — broaden differential';
+      items.push('Order targeted workup: SMN1 deletion testing first, then CK, EMG/NCS, muscle biopsy, gene panel / whole-exome sequencing.');
+      items.push('Hereditary motor and sensory neuropathies (CMT in infancy — slow conduction in demyelinating forms); congenital hypomyelinating neuropathy.');
+      items.push('Consider CMS, congenital muscular dystrophy / myopathy, congenital myotonic dystrophy as outlined in other branches.');
+    }
+  } else if (s0 === 'alert' && s1 === 'preserved' && s2 === 'brisk') {
+    title = 'Mild central hypotonia or possibly benign / familial';
+    items.push('Examine for primitive reflex persistence and postural reflex emergence; check parents — familial benign joint hypermobility / Down syndrome may present this way.');
+    items.push('Plot HC; check parents\' head sizes; chromosomal microarray if dysmorphic.');
+    items.push('Refer to developmental paediatrics for serial assessment.');
+  } else {
+    title = 'Mixed pattern — broaden workup';
+    items.push('Combine workup for central + peripheral causes: MRI brain; SMN1; CK, lactate, ammonia, acylcarnitines, organic acids, amino acids; chromosomal microarray; trio whole-exome sequencing.');
+    items.push('Refer urgently to paediatric neurology + metabolic / genetics.');
+  }
+  if (s3 === 'dysmorph') items.push('Dysmorphism noted — pursue chromosomal microarray + targeted syndromic workup + clinical genetics referral.');
+
+  showFi(title, items);
+}
+
+function addFi(step, q, opts) {
+  if (document.querySelector(`#fi-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  fiRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => fiAns(step, b.dataset.val)));
+  if (fiState[step]) {
+    const t = wrap.querySelector(`[data-val="${fiState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showFi(title, items) {
+  fiResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  fiResult.classList.add('show');
+}
+
+function resetFi() {
+  fiState = {};
+  fiRest.innerHTML = '';
+  fiResult.classList.remove('show');
+  document.querySelectorAll('#fiTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#fiTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => fiAns(0, b.dataset.val)));
+</script>
+</body>
+</html>

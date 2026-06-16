@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 11 — CNS Infections (Interactive)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#181d2c; --panel-2:#1f2638; --line:#2a3148;
+    --ink:#e7ecf5; --muted:#9aa4ba; --accent:#ff6b6b; --accent-2:#ffb1b1;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#222a3e; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(255,107,107,.15); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#1a0808; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#ffd6d6}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(255,107,107,.10); border-color:var(--accent); color:#ffd6d6}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#1a0808; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(255,107,107,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* CSF input */
+  .csf{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .csf .row{padding:10px 0; border-bottom:1px dashed var(--line)}
+  .csf .row:last-child{border-bottom:none}
+  .csf .label{color:var(--accent-2); font-weight:600; margin-bottom:6px}
+  .csf .desc{color:var(--muted); font-size:.85rem; margin-bottom:6px}
+  .csf select, .csf input{background:var(--panel-2); color:var(--ink); border:1px solid var(--line); padding:6px 10px; border-radius:6px; font:inherit; font-size:.92rem; width:100%; max-width:520px}
+  .csf-result{position:sticky; bottom:8px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:12px 18px; margin-top:14px; font-size:.95rem; color:var(--ink)}
+  .csf-result h4{margin:0 0 6px; color:var(--accent-2); font-size:1.05rem}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 11</span>
+    <span class="badge">General physician</span>
+    <h1>CNS Infections — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 31, 32) and Merritt's <em>Neurology</em> (14e, Ch. 55, 64–70, 74). Includes the AMBITION-cm cryptococcal regimen (2022), updated IDSA bacterial meningitis empirical regimens, and autoimmune encephalitis cross-references.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="csf">CSF Pattern Interpreter</button>
+    <button data-tab="empiric">Empiric Therapy Selector</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>CNS infections are the most time-sensitive group of neurological diagnoses. Bacterial meningitis kills within hours; HSV encephalitis destroys temporal lobes within days. Both have effective treatments. The general physician must suspect them early and act before microbiology confirms.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Recognise the two major syndromes — meningitis vs encephalitis — at the bedside.</li>
+      <li>Read a CSF profile and assign a likely category.</li>
+      <li>Choose empirical antibiotics + dexamethasone + aciclovir within the first hour.</li>
+      <li>Know when to image before LP and what counts as a contraindication.</li>
+      <li>Distinguish HSV encephalitis on MRI and start aciclovir empirically.</li>
+      <li>Manage the high-stakes differential of ring-enhancing lesions in HIV.</li>
+      <li>Diagnose TB and cryptococcal meningitis and start appropriate therapy.</li>
+      <li>Recognise autoimmune encephalitis as a treatable cause of cognitive / psychiatric decline.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle that prevents disasters:</strong> when you can't exclude bacterial meningitis or HSV encephalitis with confidence, give empirical antimicrobials + dexamethasone + aciclovir within 60 minutes — <em>before</em> the LP if necessary. Outcome is dictated by time to first dose, not by waiting for confirmation.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Meningitis vs encephalitis — the bedside split</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Meningitis</strong>: fever + headache + meningismus ± altered mentation. The brain parenchyma is relatively spared (no focal deficits usually).</li>
+          <li><strong>Encephalitis</strong>: altered mental status + fever ± seizures ± focal deficits. The brain parenchyma is involved.</li>
+          <li><strong>Brain abscess</strong>: behaves like a mass lesion with infection on top — headache (~70%) + focal deficits ± fever (only 50%).</li>
+        </ul>
+        <p>Classic bacterial meningitis triad (fever + headache + neck stiffness) is present in only 41% of adults. <em>Two or more</em> of fever (≥ 38.5 °C), headache, nuchal rigidity, and altered mental status are present in &gt; 95%.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. CSF interpretation</summary>
+      <div class="body">
+        <table>
+          <tr><th>Pattern</th><th>WBC</th><th>Differential</th><th>Glucose</th><th>Protein</th><th>Examples</th></tr>
+          <tr><td>Bacterial</td><td>1,000–10,000+</td><td>Neutrophils</td><td>↓↓</td><td>↑↑</td><td>S. pneumoniae, N. meningitidis</td></tr>
+          <tr><td>Viral meningitis</td><td>10–500</td><td>Lymphocytes</td><td>Normal</td><td>↑</td><td>Enterovirus, HSV-2</td></tr>
+          <tr><td>HSV encephalitis</td><td>10–500 + RBCs</td><td>Lymphocytes</td><td>Normal</td><td>↑</td><td>HSV-1</td></tr>
+          <tr><td>TB / fungal</td><td>50–500</td><td>Lymphocytes</td><td>↓</td><td>↑↑</td><td>TB, Cryptococcus</td></tr>
+          <tr><td>Drug-induced "aseptic"</td><td>Variable</td><td>Neutrophils or lymphocytes</td><td>Variable</td><td>Variable</td><td>NSAIDs, TMP-SMX, IVIG</td></tr>
+        </table>
+        <p>Use the CSF Pattern Interpreter tab to enter numbers and get a working differential.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Approach in the first hour</summary>
+      <div class="body">
+        <ol>
+          <li>Blood cultures × 2.</li>
+          <li><strong>Empirical antibiotics + dexamethasone + aciclovir within 60 min.</strong></li>
+          <li>CT head first if IDSA criteria present: immunocompromised · CNS disease history · new-onset seizure · papilloedema · altered LOC · focal deficit. Otherwise LP first.</li>
+          <li>LP with opening pressure + cell count + glucose (+ serum glucose) + protein + Gram stain + culture + PCR panel + HSV PCR + cryptococcal antigen + AFB if at-risk.</li>
+          <li>Add doxycycline during tick season.</li>
+        </ol>
+        <div class="warn">Antibiotic-induced CSF sterilisation takes longer than people think; cultures can be negative within 2–4 h of antibiotics but cell count / protein / glucose remain abnormal for days. PCR panels remain useful regardless. <em>Never delay treatment for the LP.</em></div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Bacterial meningitis empirical therapy</summary>
+      <div class="body">
+        <table>
+          <tr><th>Patient</th><th>Empirical regimen</th></tr>
+          <tr><td>Neonate</td><td>Cefotaxime + ampicillin</td></tr>
+          <tr><td>Child / adult ≤ 50, community-acquired</td><td><strong>Ceftriaxone 2 g IV q12h + vancomycin 15–20 mg/kg q8–12h + dexamethasone 10 mg IV q6h</strong></td></tr>
+          <tr><td>Adult &gt; 50 / immunocompromised</td><td>+ <strong>ampicillin 2 g IV q4h</strong> (Listeria)</td></tr>
+          <tr><td>Otitis / sinusitis source</td><td>+ <strong>metronidazole 500 mg IV q8h</strong></td></tr>
+          <tr><td>Postneurosurgical / device</td><td>Vancomycin + (meropenem or ceftazidime or cefepime) ± metronidazole</td></tr>
+          <tr><td>Suspected encephalitis (HSV)</td><td>+ aciclovir 10 mg/kg IV q8h</td></tr>
+        </table>
+        <p>Dexamethasone is given <strong>before or with the first antibiotic dose</strong> (not afterwards) for 4 days. Mortality benefit in pneumococcal meningitis; favourable trend in meningococcal.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. HSV encephalitis</summary>
+      <div class="body">
+        <p>The treatable encephalitis you must never miss. Most common encephalitis with a specific therapy.</p>
+        <ul>
+          <li>HSV-1 reactivation; bilateral asymmetric temporal-lobe involvement.</li>
+          <li>Fever + altered mentation + behavioural change + aphasia + complex partial seizures.</li>
+          <li>MRI: T2/FLAIR hyperintensity in <strong>medial temporal lobes</strong>, insula, cingulate; haemorrhage; gyriform enhancement.</li>
+          <li>CSF: lymphocytic + often RBCs + ↑ protein + normal glucose. HSV PCR 95–99% sensitive.</li>
+          <li><strong>Aciclovir 10 mg/kg IV q8h × 14–21 days.</strong> Start empirically — delay is the strongest predictor of poor outcome.</li>
+          <li>If CSF HSV PCR negative within first 72 h, repeat at 72–96 h.</li>
+          <li><strong>Post-HSE autoimmune encephalitis</strong> (often anti-NMDA-R) develops in 5–27% of patients 1–6 weeks after acute illness, especially children.</li>
+        </ul>
+        <div class="warn">Triad: fever + altered mentation + temporal-lobe MRI changes = HSE until proven otherwise. Aciclovir is cheap and safe (renal hydration is the main concern); delay costs brain.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Brain abscess</summary>
+      <div class="body">
+        <p>Triad (headache + fever + focal deficit) in only ~20%. Fever in only 50%. Most common feature: <strong>persistent progressive headache</strong>.</p>
+        <p>Sources: contiguous (sinusitis → frontal; otitis → temporal/cerebellar; dental), haematogenous (endocarditis, cyanotic heart disease, pulmonary AVM), direct (trauma, neurosurgery).</p>
+        <p>MRI: ring-enhancing lesion with <strong>central restricted diffusion</strong> (vs tumour which doesn't), thin smooth wall, surrounding oedema.</p>
+        <p><strong>Treatment:</strong> aspiration / drainage by neurosurgery PLUS empirical IV antibiotics — <strong>vancomycin + ceftriaxone (or cefepime) + metronidazole</strong> for 6–8 weeks; steroids only if significant mass effect.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. TB meningitis</summary>
+      <div class="body">
+        <p>Subacute (weeks) presentation: fever, headache, weight loss → cranial-nerve palsies (esp. CN VI), confusion, seizures, hydrocephalus. Basal meningitis with hydrocephalus and basal-ganglia vasculitic strokes on imaging.</p>
+        <p>CSF: lymphocytic (sometimes early neutrophilic), ↓ glucose, ↑↑ protein (very high). Xpert MTB/RIF Ultra ~70–80% sensitive; AFB smear low yield; culture takes weeks.</p>
+        <p><strong>Treatment:</strong> RIPE (rifampicin + isoniazid + pyrazinamide + ethambutol) for 2 months → continuation phase RH for 7–10 months (total ≥ 9–12 months). Adjunctive <strong>dexamethasone</strong> for 6–8 weeks reduces mortality.</p>
+        <p>HIV-coinfected: delay ART 2–4 weeks after TB therapy starts (longer than for pulmonary TB) to reduce IRIS.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Cryptococcal meningitis (2022 update)</summary>
+      <div class="body">
+        <p>HIV (CD4 &lt; 100 usually), transplant, or immunocompetent (C. gattii). Subacute headache, confusion, raised ICP (a major killer).</p>
+        <p>CSF: lymphocytic (often surprisingly low in AIDS), ↓ glucose, ↑ protein. India ink ~80%. <strong>Cryptococcal antigen (lateral flow) &gt; 95% sensitive</strong>.</p>
+        <p><strong>AMBITION-cm regimen (2022, WHO/IDSA)</strong>:</p>
+        <ul>
+          <li><strong>Induction (14 days)</strong>: single-dose liposomal amphotericin B 10 mg/kg + flucytosine 100 mg/kg/day + fluconazole 1200 mg/day. (Or amphotericin B deoxycholate + flucytosine × 2 weeks if liposomal not available.)</li>
+          <li><strong>Consolidation</strong>: fluconazole 800 mg/day × 8 weeks.</li>
+          <li><strong>Maintenance</strong>: fluconazole 200 mg/day until CD4 &gt; 100 for 6 months on ART.</li>
+        </ul>
+        <p><strong>Manage raised ICP with serial therapeutic LPs</strong> — drain to OP &lt; 20 cm H₂O. This is the single most important manoeuvre for survival. Lumbar drain or VP shunt if needed.</p>
+        <p>HIV: delay ART by 4–6 weeks to reduce IRIS.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. HIV CNS — ring-enhancing lesions</summary>
+      <div class="body">
+        <table>
+          <tr><th>Diagnosis</th><th>Clues</th><th>Action</th></tr>
+          <tr><td>Cerebral toxoplasmosis</td><td>Multiple ring lesions; basal ganglia / grey-white junction; positive toxo IgG</td><td>Empirical pyrimethamine + sulfadiazine + leucovorin (or TMP-SMX) × 2 weeks → radiological response confirms</td></tr>
+          <tr><td>Primary CNS lymphoma</td><td>Single periventricular; restricted diffusion; FDG-PET hypermetabolic; EBV DNA in CSF</td><td>FDG-PET; brain biopsy if toxo trial fails</td></tr>
+          <tr><td>Tuberculoma</td><td>± basal meningitis</td><td>TB workup; biopsy if uncertain</td></tr>
+          <tr><td>PML</td><td>Asymmetric subcortical white-matter T2 hyperintensity, NO enhancement usually</td><td>JCV PCR in CSF; reverse immunosuppression</td></tr>
+          <tr><td>Bacterial abscess</td><td>Restricted diffusion centrally</td><td>Aspiration + antibiotics</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Neurocysticercosis</summary>
+      <div class="body">
+        <p>Larval Taenia solium. Most common parasitic CNS infection worldwide. Endemic in Latin America, sub-Saharan Africa, South/Southeast Asia.</p>
+        <p>Most common cause of new-onset adult seizures in endemic countries. Also chronic headache, raised ICP, hydrocephalus.</p>
+        <p>MRI: parenchymal cysts at different stages (vesicular → colloidal → granular → calcified); "starry sky" pattern; scolex sign.</p>
+        <p><strong>Treatment depends on cyst stage and location</strong>:</p>
+        <ul>
+          <li>Single viable cyst + seizures: albendazole + steroids + antiseizure medication.</li>
+          <li>Multiple cysts: albendazole + praziquantel + steroids + longer course.</li>
+          <li>Intraventricular: endoscopic surgical removal.</li>
+          <li>Calcified inactive: antiseizure medication only.</li>
+          <li>Subarachnoid (racemose): aggressive long-course antiparasitic + steroids + CSF diversion.</li>
+        </ul>
+        <p>Counsel that antiparasitic drugs may transiently worsen symptoms (treatment-induced inflammation).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Autoimmune encephalitis (cross-reference Module 7)</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Anti-NMDA-R</strong>: young women; teratoma in 50% of women 18–45; psychiatric prodrome → seizures → orofacial dyskinesias and choreoathetosis → autonomic instability. First-line steroids + IVIG/PLEX + tumour removal; second-line rituximab + cyclophosphamide if needed.</li>
+          <li><strong>LGI1</strong>: older men; <em>faciobrachial dystonic seizures</em> (very brief, &lt; 3 s); hyponatraemia; limbic encephalitis MRI.</li>
+          <li><strong>GABA-B, AMPA</strong>: limbic, often paraneoplastic (SCLC).</li>
+          <li><strong>Anti-Hu, Ma2, CRMP5</strong>: paraneoplastic, intracellular targets, less treatment-responsive.</li>
+        </ul>
+        <p><strong>Always think:</strong> subacute (weeks) cognitive/psychiatric/seizure picture + lymphocytic CSF ± OCBs + ± temporal-lobe T2 hyperintensity. Test specific antibodies in CSF and serum. Search for tumour.</p>
+        <p><strong>Post-HSE autoimmune encephalitis</strong>: monitor HSE survivors for new behavioural change, movement disorder, or seizures 1–6 weeks after acute illness.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. When to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li>Emergency: suspected bacterial meningitis or HSV encephalitis — antibiotics + aciclovir + dexamethasone within 1 hour.</li>
+            <li>Brain abscess with mass effect or new neurological deterioration.</li>
+            <li>Raised ICP in cryptococcal meningitis requiring serial therapeutic LPs.</li>
+            <li>Status epilepticus in any encephalitis.</li>
+            <li>Suspected autoimmune encephalitis with severe presentation.</li>
+          </ul>
+        </div>
+        <div class="warn">
+          Public health: notify suspected bacterial meningitis (esp. meningococcal); chemoprophylaxis for close contacts; contact tracing for syphilis, HIV, TB.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="csf">
+    <h2>CSF Pattern Interpreter</h2>
+    <p class="muted">Enter values; the tool suggests a likely category and next steps.</p>
+    <div class="csf" id="csfBox"></div>
+  </section>
+
+  <section class="tab-panel" id="empiric">
+    <h2>Empiric Therapy Selector</h2>
+    <p class="muted">Answer about syndrome, host, and source; the tool suggests an empirical regimen.</p>
+    <div class="tool" id="empTool">
+      <div class="q">1. Most likely clinical syndrome?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="men">Bacterial meningitis suspected</button>
+        <button class="opt" data-val="enc">Viral / HSV encephalitis suspected</button>
+        <button class="opt" data-val="abs">Brain abscess suspected</button>
+        <button class="opt" data-val="chr">Chronic meningitis (weeks, lymphocytic CSF)</button>
+        <button class="opt" data-val="hiv">HIV+ with ring-enhancing lesion(s)</button>
+      </div>
+      <div id="emp-rest"></div>
+      <div class="result" id="emp-result"></div>
+      <button class="reset" onclick="resetEmp()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 22-year-old college student with 12 hours of fever, severe headache, neck stiffness, and a petechial rash</summary>
+      <div class="body">
+        <p>Temp 39.5, BP 100/60, HR 110. GCS 14 (mild confusion). Photophobia, nuchal rigidity. Petechiae on trunk and extremities. WBC 22,000. CRP 320.</p>
+        <p><strong>Diagnosis:</strong> Meningococcal meningitis (with meningococcaemia) until proven otherwise.</p>
+        <p><strong>Plan within 60 minutes:</strong></p>
+        <ol>
+          <li>Blood cultures × 2.</li>
+          <li><strong>Ceftriaxone 2 g IV + vancomycin 15–20 mg/kg IV + dexamethasone 10 mg IV</strong> (give dexamethasone with first dose).</li>
+          <li>Aciclovir 10 mg/kg IV q8h (until encephalitis features excluded).</li>
+          <li>No CT needed before LP (no IDSA criteria — GCS 14, no focal deficit, no papilloedema, no immunocompromise) — proceed to LP.</li>
+          <li>Isolation (droplet precautions × 24 h after first effective antibiotic dose).</li>
+          <li>Public health notification; chemoprophylaxis for close contacts: <strong>ciprofloxacin 500 mg PO once</strong> for household + kissing contacts + HCW with mouth-to-mouth exposure.</li>
+          <li>ICU monitoring for septic shock, raised ICP.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 45-year-old with 3 days of fever, behavioural change, and a complex partial seizure</summary>
+      <div class="body">
+        <p>Found wandering. Confused, dysphasic. Temp 38.6. No focal weakness. MRI: bilateral asymmetric T2/FLAIR hyperintensity in the medial temporal lobes and right insula with some haemorrhage. EEG: temporal lobe slowing with intermittent epileptiform discharges. CSF: 120 WBC/µL (90% lymphocytes), RBCs 40, glucose 60 (normal), protein 95.</p>
+        <p><strong>Diagnosis:</strong> HSV-1 encephalitis.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Start <strong>aciclovir 10 mg/kg IV q8h × 14–21 days</strong> empirically (do not wait for HSV PCR).</li>
+          <li>Continue empirical bacterial meningitis cover until PCR confirms and CSF Gram stain / culture negative.</li>
+          <li>HSV PCR in CSF — if negative within first 72 h, repeat at 72–96 h.</li>
+          <li>Antiseizure medication (levetiracetam loading dose).</li>
+          <li>Monitor renal function (aciclovir nephrotoxicity); maintain hydration.</li>
+          <li>Counsel family about post-HSE autoimmune encephalitis risk — monitor for relapse 1–6 weeks after acute recovery (new behaviour change, movement disorder, seizures).</li>
+        </ol>
+        <div class="warn">Delay in starting aciclovir is the single strongest predictor of poor outcome in HSE. The drug is cheap, safe, and the diagnosis is missed at the cost of brain — start empirically when temporal-lobe MRI + fever + altered mentation come together.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 30-year-old HIV-positive man (CD4 65) with 2 weeks of headache, fever, and now confusion</summary>
+      <div class="body">
+        <p>Initially mild headache; now worsening, with low-grade fever and reduced consciousness. CT: hydrocephalus. LP after CT: OP 35 cm H₂O, 60 WBC/µL (lymphocytes), glucose 30, protein 80. India ink positive. CSF cryptococcal antigen positive at high titre.</p>
+        <p><strong>Diagnosis:</strong> Cryptococcal meningitis (HIV-associated).</p>
+        <p><strong>Plan (AMBITION-cm 2022 regimen):</strong></p>
+        <ol>
+          <li>Induction: single-dose <strong>liposomal amphotericin B 10 mg/kg</strong> + flucytosine 100 mg/kg/day + fluconazole 1200 mg/day × 14 days. (If liposomal not available: amphotericin B deoxycholate + flucytosine.)</li>
+          <li>Consolidation: fluconazole 800 mg/day × 8 weeks.</li>
+          <li>Maintenance: fluconazole 200 mg/day until CD4 &gt; 100 for 6 months on ART.</li>
+          <li><strong>Serial therapeutic LPs to keep OP &lt; 20 cm H₂O</strong> (single most important survival manoeuvre). VP shunt or lumbar drain if needed.</li>
+          <li>Delay ART by 4–6 weeks after starting antifungal therapy (to reduce IRIS).</li>
+          <li>Avoid corticosteroids unless IRIS or symptomatic raised ICP refractory to LP.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 60-year-old with cardiac vegetations, fever, and a new focal deficit</summary>
+      <div class="body">
+        <p>Mitral valve endocarditis confirmed (S. aureus). Has new right-sided weakness and persistent headache for 4 days. Afebrile now on antibiotics. MRI brain: 2.5 cm ring-enhancing lesion in left frontal lobe with central restricted diffusion on DWI, surrounding oedema.</p>
+        <p><strong>Diagnosis:</strong> Brain abscess (septic embolic from endocarditis).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Continue endocarditis antibiotic regimen with adequate CNS penetration; add metronidazole if not already on it (anaerobic cover).</li>
+          <li>Neurosurgery referral for stereotactic aspiration / drainage (also gives microbiology).</li>
+          <li>Empirical: vancomycin + ceftriaxone (or cefepime) + metronidazole; tailor to culture.</li>
+          <li>6–8 weeks total IV antibiotic duration; serial MRI to monitor response.</li>
+          <li>Antiseizure prophylaxis for supratentorial abscess (high seizure risk).</li>
+          <li>Steroids only if significant mass effect / midline shift (otherwise blunt host response).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 35-year-old woman with 3 weeks of bizarre behaviour, seizures, and now orofacial dyskinesias</summary>
+      <div class="body">
+        <p>Initially anxiety and insomnia; then psychotic features; admitted to psychiatry; had a seizure; now has prominent orofacial dyskinesias and autonomic instability. CSF: 60 WBC/µL (lymphocytes), normal glucose, normal-to-mildly elevated protein. MRI mostly normal. EEG: extreme delta brush. CSF anti-NMDA-R antibody positive. Pelvic US: 4 cm ovarian mass.</p>
+        <p><strong>Diagnosis:</strong> Anti-NMDA receptor encephalitis (paraneoplastic from ovarian teratoma).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>First-line immunotherapy: <strong>high-dose IV methylprednisolone + IVIG or plasma exchange</strong>.</li>
+          <li><strong>Surgical removal of the ovarian teratoma</strong> — early tumour removal dramatically improves outcome.</li>
+          <li>ICU monitoring for autonomic instability (BP swings, arrhythmias, hypoventilation).</li>
+          <li>Antiseizure medication for seizures.</li>
+          <li>If inadequate response by 2 weeks: <strong>second-line rituximab + cyclophosphamide</strong>.</li>
+          <li>Recovery is typically slow (months) but full or near-full in ~80% with adequate treatment.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 50-year-old man from rural Mexico with new-onset focal seizure</summary>
+      <div class="body">
+        <p>Otherwise healthy. CT shows a single 1 cm cystic lesion with a small bright spot inside ("scolex sign") and surrounding mild oedema in the parietal lobe, plus a couple of small calcifications elsewhere.</p>
+        <p><strong>Diagnosis:</strong> Neurocysticercosis with a viable parenchymal cyst (responsible for seizures) plus inactive calcified cysts.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Antiseizure medication (levetiracetam, valproate, or carbamazepine).</li>
+          <li>For the viable parenchymal cyst with surrounding oedema: <strong>albendazole 15 mg/kg/day × 7–14 days + corticosteroids</strong> (dexamethasone or prednisone) starting before/with the antiparasitic to control treatment-induced inflammation.</li>
+          <li>Counsel about transient symptom worsening at start of treatment.</li>
+          <li>Family screening for taeniasis (stool examination for proglottids / eggs); public health education about handwashing and pork hygiene.</li>
+          <li>Follow-up imaging at 3–6 months to assess cyst resolution.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 11 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 31, 32; Merritt's <em>Neurology</em> 14e Ch. 55, 64–70, 74. IDSA 2004 bacterial meningitis guidelines + 2008 EFNS updates. AMBITION-cm trial 2022 for cryptococcal meningitis. Aciclovir for HSV encephalitis: Whitley 1986. Autoimmune encephalitis criteria: Graus et al., Lancet Neurol 2016.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Tabs ===== */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ===== Flashcards ===== */
+const cards = [
+  {tag:'Triad', q:'Why is the classic meningitis triad (fever + headache + meningismus) not the working clinical definition?', a:'Present in only 41% of adults with bacterial meningitis. Use "≥ 2 of fever ≥ 38.5 °C, headache, nuchal rigidity, altered mentation" — present in > 95%.'},
+  {tag:'Empirical', q:'Empirical regimen for community-acquired bacterial meningitis in an immunocompetent adult ≤ 50?', a:'Ceftriaxone 2 g IV q12h + vancomycin 15–20 mg/kg IV q8–12h + dexamethasone 10 mg IV q6h × 4 days, started with or before the first antibiotic dose.'},
+  {tag:'Empirical', q:'When do you add ampicillin to bacterial meningitis empirical therapy?', a:'When Listeria is a possibility: age > 50, immunosuppression, alcoholism, diabetes, pregnancy. Ampicillin 2 g IV q4h.'},
+  {tag:'Empirical', q:'When do you add metronidazole?', a:'When otitis, mastoiditis, or sinusitis is the source — anaerobic cover. Or for brain abscess.'},
+  {tag:'Dexamethasone', q:'When to give dexamethasone in suspected bacterial meningitis?', a:'10 mg IV q6h × 4 days, given BEFORE or WITH the first antibiotic dose. Mortality benefit demonstrated for pneumococcal; favourable trend for meningococcal.'},
+  {tag:'IDSA CT', q:'Six criteria for CT before LP (IDSA 2004)?', a:'(1) Immunocompromised; (2) history of CNS disease; (3) new-onset seizure (within 1 week); (4) papilloedema; (5) altered LOC; (6) focal neurological deficit. If none — LP can be done first.'},
+  {tag:'HSV', q:'MRI hallmark of HSV encephalitis?', a:'Bilateral asymmetric T2/FLAIR hyperintensity in medial temporal lobes (and insula, cingulate gyrus), often with haemorrhage and gyriform enhancement.'},
+  {tag:'HSV', q:'Treatment for HSV encephalitis?', a:'Aciclovir 10 mg/kg IV q8h × 14–21 days. Start empirically — delay is the strongest predictor of poor outcome. If CSF HSV PCR negative initially, repeat at 72–96 h.'},
+  {tag:'Post-HSE', q:'What complication can develop 1–6 weeks after recovery from HSV encephalitis?', a:'Autoimmune encephalitis (most commonly anti-NMDA-R), seen in 5–27% of HSE patients, especially children. Monitor for new behaviour change, movement disorder, or seizures.'},
+  {tag:'Crypto', q:'AMBITION-cm regimen for HIV-associated cryptococcal meningitis induction?', a:'Single high-dose liposomal amphotericin B 10 mg/kg + flucytosine 100 mg/kg/day + fluconazole 1200 mg/day for 14 days. Followed by 8 weeks fluconazole 800 mg/day (consolidation) then 200 mg/day maintenance until CD4 > 100 for 6 months on ART.'},
+  {tag:'Crypto', q:'Most important manoeuvre for survival in cryptococcal meningitis?', a:'Serial therapeutic lumbar punctures to keep opening pressure < 20 cm H₂O. Lumbar drain or VP shunt if needed. Reduces mortality more than any single antifungal regimen change.'},
+  {tag:'TB', q:'CSF profile and key test for TB meningitis?', a:'Lymphocytic pleocytosis (50–500), ↓ glucose, ↑↑ protein (often very high, spider-web pellicle). Xpert MTB/RIF Ultra sensitive ~70–80% and rapid. Culture takes weeks.'},
+  {tag:'TB', q:'Adjunctive treatment that reduces mortality in TB meningitis?', a:'Dexamethasone for 6–8 weeks alongside RIPE (rifampicin + isoniazid + pyrazinamide + ethambutol × 2 months then RH for 7–10 months).'},
+  {tag:'Abscess', q:'MRI feature distinguishing brain abscess from a tumour?', a:'Central restricted diffusion on DWI (pus restricts; tumour usually does not) + thin smooth ring + central low T1 / high T2 + surrounding oedema. Classic location depends on source (sinusitis → frontal; otitis → temporal/cerebellar).'},
+  {tag:'Abscess', q:'Empirical antibiotic regimen for brain abscess?', a:'Vancomycin + ceftriaxone (or cefepime) + metronidazole for 6–8 weeks; combine with surgical drainage. Steroids only if significant mass effect.'},
+  {tag:'HIV', q:'Most common cause of ring-enhancing brain lesion(s) in HIV with CD4 < 100?', a:'Cerebral toxoplasmosis. Multiple lesions, basal ganglia / grey-white junction. Empirical pyrimethamine + sulfadiazine + leucovorin (or TMP-SMX) for 2 weeks; radiological response confirms diagnosis. If no response or single periventricular lesion → primary CNS lymphoma (FDG-PET, EBV DNA in CSF, biopsy).'},
+  {tag:'Prophylaxis', q:'Chemoprophylaxis for close contacts of meningococcal meningitis?', a:'Ciprofloxacin 500 mg PO once (preferred for adults); alternatives: ceftriaxone 250 mg IM once, or rifampin 600 mg PO BID × 2 days. For household, kissing contacts, healthcare workers with mouth-to-mouth exposure.'},
+  {tag:'NCC', q:'Treatment of single viable parenchymal neurocysticercosis cyst with seizures?', a:'Albendazole 15 mg/kg/day × 7–14 days + corticosteroids (start with antiparasitic, manage treatment-induced inflammation) + antiseizure medication.'},
+  {tag:'Autoimmune', q:'Classic clinical picture of anti-NMDA-R encephalitis?', a:'Young woman; psychiatric prodrome → seizures → orofacial dyskinesias and choreoathetosis → autonomic instability; teratoma in 50% of women 18–45. Treat with steroids + IVIG/PLEX + tumour removal; second-line rituximab + cyclophosphamide.'},
+  {tag:'CJD', q:'Best CSF test for sporadic CJD?', a:'CSF RT-QuIC — > 95% sensitive and specific. MRI DWI shows cortical "ribboning" and basal-ganglia hyperintensity. EEG: periodic sharp wave complexes (1 Hz). Universally fatal within months.'},
+];
+
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* ===== Quiz ===== */
+const quiz = [
+  {q:'A 19-year-old college student presents with 8 hours of fever, severe headache, neck stiffness, photophobia, and a petechial rash. BP 90/55, GCS 15, no focal deficits. CT scan is not immediately available. What is the best next step?',
+   choices:['Wait for CT before any treatment','Give ceftriaxone + vancomycin + dexamethasone immediately and proceed to LP','Start oral antibiotics and outpatient follow-up','LP first, then antibiotics based on Gram stain'],
+   ans:1,
+   why:'Suspected meningococcal meningitis. No IDSA criteria for CT before LP (GCS 15, no focal deficit, no papilloedema, no immunocompromise). Antibiotics + dexamethasone within 60 minutes. CT is not required. Always blood cultures × 2 first; isolation; public health notification; contact chemoprophylaxis.'},
+  {q:'A 50-year-old presents with 3 days of fever, behavioural change, and a complex partial seizure. MRI shows bilateral asymmetric medial temporal-lobe T2/FLAIR hyperintensity with petechial haemorrhage. Best next step?',
+   choices:['Wait for CSF HSV PCR before starting therapy','Start IV aciclovir 10 mg/kg every 8 hours immediately and proceed with LP','Start ceftriaxone alone','Lumbar puncture and observe'],
+   ans:1,
+   why:'Classic HSV encephalitis triad: fever + altered mentation + temporal-lobe MRI changes. Start aciclovir empirically — delay is the strongest predictor of poor outcome. Aciclovir 10 mg/kg IV q8h × 14–21 days. If initial HSV PCR negative within 72 h, repeat at 72–96 h.'},
+  {q:'A 65-year-old immunocompetent man presents with classic features of bacterial meningitis. Beyond ceftriaxone, vancomycin, and dexamethasone, what should you add to empirical therapy and why?',
+   choices:['Aciclovir for HSV cover','Ampicillin for Listeria cover','Rifampin','Metronidazole'],
+   ans:1,
+   why:'Listeria monocytogenes is a key pathogen in adults > 50, immunocompromised, alcoholic, pregnant. Add ampicillin 2 g IV q4h. Aciclovir is added if encephalitis features (altered mentation prominent or temporal-lobe changes). Metronidazole is for otitis/sinusitis source or abscess.'},
+  {q:'A 35-year-old with HIV (CD4 55) presents with 2 weeks of headache and confusion. CSF cryptococcal antigen positive. Opening pressure 38 cm H₂O. Beyond antifungal induction therapy, what is the single most important intervention for survival?',
+   choices:['Add corticosteroids','Start ART immediately','Serial therapeutic lumbar punctures to keep OP < 20 cm H₂O','Switch to amphotericin B deoxycholate'],
+   ans:2,
+   why:'Raised ICP is a major killer in cryptococcal meningitis. Serial therapeutic LPs (drain to OP < 20 cm H₂O) reduce mortality more than any antifungal regimen variation. Steroids are not routinely added (only for severe IRIS or refractory ICP). ART is delayed 4–6 weeks to reduce IRIS. AMBITION-cm regimen (single-dose liposomal amphotericin B + flucytosine + fluconazole) is the 2022 standard.'},
+  {q:'A 28-year-old woman has 3 weeks of severe psychiatric symptoms, then seizures, then prominent orofacial dyskinesias and autonomic instability. CSF: 60 lymphocytes/µL, normal glucose, mildly elevated protein. CSF anti-NMDA-R antibody positive. Pelvic US: 4 cm ovarian mass. Best treatment combination?',
+   choices:['Aciclovir alone','Methylprednisolone + IVIG + surgical removal of ovarian teratoma','Antipsychotics and observation','Antibiotics for occult infection'],
+   ans:1,
+   why:'Anti-NMDA-R encephalitis with ovarian teratoma. First-line: high-dose steroids + IVIG (or PLEX) + tumour removal. Early tumour removal dramatically improves outcome. Second-line rituximab + cyclophosphamide if inadequate response. ICU monitoring for autonomic instability is essential.'},
+  {q:'A 60-year-old presents with 4 weeks of progressive headache and now confusion. CSF: 80 lymphocytes/µL, glucose 30 mg/dL (serum 110), protein 250. AFB smear negative. The patient was born in India. Best next step?',
+   choices:['Wait for mycobacterial culture','Start RIPE + dexamethasone empirically','Treat as viral meningitis','High-dose steroids alone'],
+   ans:1,
+   why:'Subacute lymphocytic CSF with low glucose and very high protein in a patient from a TB-endemic region = TB meningitis until proven otherwise. AFB smear is insensitive; culture takes weeks. Xpert MTB/RIF Ultra is useful but treatment should not wait. Empirical RIPE + adjunctive dexamethasone (reduces mortality, especially in HIV-negative).'},
+  {q:'A 70-year-old develops bacterial meningitis after recent neurosurgical drainage of a chronic subdural haematoma. What empirical regimen is most appropriate?',
+   choices:['Ceftriaxone + vancomycin','Vancomycin + meropenem (or ceftazidime / cefepime)','Doxycycline','Ampicillin alone'],
+   ans:1,
+   why:'Postneurosurgical / device-related meningitis is most often caused by Staphylococcus aureus, coagulase-negative staphylococci, and gram-negative bacilli (including Pseudomonas). Vancomycin + meropenem (or ceftazidime or cefepime) covers both gram-positive and Pseudomonas. Add metronidazole if anaerobic cover needed.'},
+  {q:'A 40-year-old man with HIV (CD4 80) has 2 weeks of headache and now a focal seizure. MRI: multiple ring-enhancing lesions in basal ganglia and grey-white junction with surrounding oedema. Toxoplasma IgG positive. Best approach?',
+   choices:['Stereotactic brain biopsy now','Empirical pyrimethamine + sulfadiazine + leucovorin for 2 weeks and reassess MRI','Whole-brain radiotherapy','High-dose methotrexate'],
+   ans:1,
+   why:'In HIV with CD4 < 100, multiple ring-enhancing lesions in classic locations + positive toxo IgG = cerebral toxoplasmosis until proven otherwise. Empirical pyrimethamine + sulfadiazine + leucovorin (or TMP-SMX) for 2 weeks; radiological response confirms diagnosis. If no improvement → biopsy for primary CNS lymphoma. Note: negative toxo IgG makes toxoplasmosis very unlikely.'},
+  {q:'Close household contact prophylaxis after confirmed meningococcal meningitis includes which of the following?',
+   choices:['No prophylaxis needed','Single-dose ciprofloxacin 500 mg PO (adults)','Vancomycin','TMP-SMX'],
+   ans:1,
+   why:'Close contacts (household, kissing partners, healthcare workers with mouth-to-mouth exposure) should receive chemoprophylaxis: ciprofloxacin 500 mg PO once (preferred adult regimen); alternatives include ceftriaxone 250 mg IM once, or rifampin 600 mg PO BID × 2 days. Not needed for pneumococcal or Listeria contacts.'},
+  {q:'A 45-year-old male from rural Mexico presents with new-onset focal seizure. CT shows a single ring-enhancing cystic lesion in the parietal cortex with a small eccentric bright dot inside (scolex), plus a few small parenchymal calcifications elsewhere. Best treatment?',
+   choices:['Surgical resection','Antiseizure medication only','Albendazole + corticosteroids + antiseizure medication','High-dose praziquantel alone'],
+   ans:2,
+   why:'Neurocysticercosis with one viable cyst (responsible for seizures) and calcified inactive cysts. Standard treatment: albendazole 15 mg/kg/day × 7–14 days + corticosteroids (manage treatment-induced inflammation) + antiseizure medication. Counsel about transient symptom worsening with antiparasitic. Calcified cysts need no antiparasitic.'},
+];
+
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* ===== CSF Pattern Interpreter ===== */
+const csfBox = document.getElementById('csfBox');
+const csfFields = [
+  {id:'wbc', label:'White cell count (/µL)', desc:'Normal < 5', type:'number'},
+  {id:'pmn', label:'Predominant cell type', desc:'',
+    opts:[{v:'-', l:'Select'}, {v:'pmn', l:'Neutrophils (PMNs) > 50%'}, {v:'lymph', l:'Lymphocytes > 50%'}, {v:'mixed', l:'Mixed / early lymphocytic'}]},
+  {id:'glu', label:'CSF glucose / serum ratio', desc:'Normal ≥ 0.6',
+    opts:[{v:'-', l:'Select'}, {v:'normal', l:'Normal (≥ 0.6)'}, {v:'low', l:'Reduced (0.3–0.6)'}, {v:'verylow', l:'Very low (< 0.3)'}]},
+  {id:'prot', label:'Protein (mg/dL)', desc:'Normal 15–45', type:'number'},
+  {id:'rbc', label:'RBCs present?', desc:'',
+    opts:[{v:'-', l:'Select'}, {v:'no', l:'No'}, {v:'yes', l:'Yes (not traumatic tap)'}]},
+  {id:'op', label:'Opening pressure (cm H₂O)', desc:'Normal 6–25', type:'number'},
+];
+const csfVals = {};
+csfFields.forEach(f => {
+  const div = document.createElement('div');
+  div.className = 'row';
+  if (f.type === 'number') {
+    div.innerHTML = `<div class="label">${f.label}</div><div class="desc">${f.desc}</div><input type="number" id="csf-${f.id}" placeholder="${f.desc}">`;
+  } else {
+    div.innerHTML = `<div class="label">${f.label}</div><div class="desc">${f.desc}</div><select id="csf-${f.id}">${f.opts.map(o => `<option value="${o.v}">${o.l}</option>`).join('')}</select>`;
+  }
+  csfBox.appendChild(div);
+  csfVals[f.id] = document.getElementById('csf-'+f.id);
+  csfVals[f.id].addEventListener('input', interpretCsf);
+  csfVals[f.id].addEventListener('change', interpretCsf);
+});
+const csfRes = document.createElement('div');
+csfRes.className = 'csf-result';
+csfRes.innerHTML = '<h4>Interpretation</h4>Enter values above to see a category and next-step suggestions.';
+csfBox.appendChild(csfRes);
+
+function interpretCsf() {
+  const wbc = parseFloat(csfVals.wbc.value);
+  const pmn = csfVals.pmn.value;
+  const glu = csfVals.glu.value;
+  const prot = parseFloat(csfVals.prot.value);
+  const rbc = csfVals.rbc.value;
+  const op = parseFloat(csfVals.op.value);
+
+  if (isNaN(wbc) && pmn === '-' && glu === '-') {
+    csfRes.innerHTML = '<h4>Interpretation</h4>Enter values above to see a category and next-step suggestions.';
+    return;
+  }
+
+  let category = '', next = [];
+
+  // Bacterial pattern
+  if (!isNaN(wbc) && wbc > 500 && pmn === 'pmn' && (glu === 'low' || glu === 'verylow') && (isNaN(prot) || prot > 100)) {
+    category = 'Acute bacterial meningitis (high probability)';
+    next = [
+      '<strong>Start empirical antibiotics + dexamethasone IMMEDIATELY</strong> if not already given.',
+      'Adult community-acquired: ceftriaxone 2 g IV + vancomycin 15–20 mg/kg IV + dexamethasone 10 mg IV.',
+      'Add ampicillin 2 g IV q4h if age > 50, immunocompromised, alcoholic, pregnant (Listeria).',
+      'Send Gram stain, culture, multiplex bacterial PCR panel.',
+      'Public health notification (especially meningococcal); chemoprophylaxis for close contacts.',
+      'Manage raised ICP; ICU monitoring.',
+    ];
+  }
+  // Viral meningitis / encephalitis
+  else if (!isNaN(wbc) && wbc < 1000 && pmn === 'lymph' && glu === 'normal') {
+    if (rbc === 'yes' || (op > 25)) {
+      category = 'Likely viral encephalitis — consider HSV';
+      next = [
+        '<strong>Start aciclovir 10 mg/kg IV q8h empirically</strong> (do not wait for PCR).',
+        'CSF HSV PCR — repeat at 72–96 h if negative initially.',
+        'MRI brain for medial temporal lobe T2/FLAIR hyperintensity.',
+        'EEG to assess for seizures and characteristic temporal slowing / PLEDs.',
+        'Continue empirical bacterial cover until ruled out.',
+      ];
+    } else {
+      category = 'Likely viral (aseptic) meningitis';
+      next = [
+        'Most likely enteroviral (peak summer/autumn). Other causes: HSV-2, VZV, mumps, HIV seroconversion, LCMV, arboviruses.',
+        'Send multiplex meningitis/encephalitis PCR panel; consider HSV PCR.',
+        'Once bacterial meningitis excluded → supportive care; usually self-limiting.',
+        'Differential includes drug-induced "aseptic" meningitis (NSAIDs, TMP-SMX, IVIG) — review medications.',
+      ];
+    }
+  }
+  // TB / fungal / neoplastic chronic pattern
+  else if (!isNaN(wbc) && wbc < 1000 && pmn === 'lymph' && (glu === 'low' || glu === 'verylow')) {
+    category = 'Chronic / subacute pattern (lymphocytic + low glucose)';
+    next = [
+      'Top differentials: <strong>TB meningitis</strong>, <strong>cryptococcal</strong>, <strong>other fungal</strong>, <strong>neoplastic</strong> (leptomeningeal metastasis, primary CNS lymphoma), neurosarcoidosis, neurosyphilis, Lyme.',
+      'Send: <strong>Xpert MTB/RIF Ultra + AFB smear + mycobacterial culture</strong>; <strong>cryptococcal antigen</strong> (lateral flow on CSF and serum); India ink; fungal culture; cytology + flow cytometry; ACE; FTA-ABS/VDRL; Lyme antibody index.',
+      'MRI brain with gadolinium: TB shows basal meningitis ± hydrocephalus ± basal-ganglia lacunes; neoplastic shows leptomeningeal enhancement.',
+      'Empirical TB therapy + dexamethasone reasonable if high suspicion (TB-endemic region, HIV, classic picture) — do not wait for culture.',
+    ];
+  }
+  // Albuminocytologic dissociation
+  else if (!isNaN(wbc) && wbc < 10 && pmn === 'lymph' && !isNaN(prot) && prot > 60) {
+    category = 'Albuminocytologic dissociation';
+    next = [
+      'Classic for Guillain-Barr&eacute; syndrome / CIDP (Module 9).',
+      'Sensitivity rises after week 1 of GBS.',
+      'Confirm with EMG/NCS; cross-reference Module 9 for management (IVIG or PLEX).',
+    ];
+  }
+  // RBCs with no infection
+  else if (rbc === 'yes' && (isNaN(wbc) || wbc < 50)) {
+    category = 'Bloody CSF — consider SAH or traumatic tap';
+    next = [
+      'If onset thunderclap headache and same RBC count across all tubes / xanthochromia → SAH (Module 4).',
+      'If RBC counts decline across sequential tubes → likely traumatic tap.',
+      'Correct WBC for traumatic tap: subtract 1 WBC per 700–1000 RBCs.',
+    ];
+  } else {
+    category = 'Non-specific or incomplete pattern';
+    next = [
+      'Combine all five parameters (cells, differential, glucose, protein, RBCs, opening pressure) to refine category.',
+      'Consider partially treated bacterial meningitis (recent antibiotics) — Gram stain may be falsely negative, but cell count, protein, and glucose remain abnormal for days.',
+      'Always check serum glucose simultaneously for accurate CSF/serum glucose ratio.',
+      'If autoimmune encephalitis suspected: order specific antibodies (NMDA-R, LGI1, CASPR2, etc.) in CSF and serum.',
+    ];
+  }
+
+  csfRes.innerHTML = `<h4>${category}</h4><ul>${next.map(n => `<li>${n}</li>`).join('')}</ul>`;
+}
+
+/* ===== Empiric Therapy Selector ===== */
+const empTool = document.getElementById('empTool');
+const empRest = document.getElementById('emp-rest');
+const empResult = document.getElementById('emp-result');
+let empState = {};
+
+function empAns(step, val) {
+  empState[step] = val;
+  Object.keys(empState).forEach(k => { if (+k > step) delete empState[k]; });
+  document.querySelectorAll(`[data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`[data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderEmp();
+}
+
+function renderEmp() {
+  empRest.innerHTML = '';
+  empResult.classList.remove('show');
+  const s0 = empState[0];
+  if (!s0) return;
+
+  if (s0 === 'men') {
+    addEmp(1, '2. Host / age / source?',
+      [['neonate','Neonate'],['young','Immunocompetent child / adult ≤ 50, community-acquired'],['older','Adult > 50, immunocompromised, alcoholic, pregnant'],['otitis','Source: otitis / mastoiditis / sinusitis'],['post','Postneurosurgical or ventricular device']]);
+    const s1 = empState[1];
+    if (s1 === 'neonate') return showEmp('Neonate empirical regimen',
+      ['<strong>Cefotaxime + ampicillin</strong> (covers GBS, E. coli, Listeria).',
+       'Add aciclovir 60 mg/kg/day IV in 3 divided doses if neonatal HSV suspected.',
+       'Dexamethasone NOT routinely used in neonates.',
+       'Public health notification depending on organism.']);
+    if (s1 === 'young') return showEmp('Immunocompetent adult community-acquired',
+      ['<strong>Ceftriaxone 2 g IV q12h + vancomycin 15–20 mg/kg IV q8–12h + dexamethasone 10 mg IV q6h × 4 days</strong> (give dex before or with first antibiotic dose).',
+       'Add <strong>aciclovir 10 mg/kg IV q8h</strong> if encephalitis features.',
+       'Add <strong>doxycycline 100 mg IV q12h</strong> during tick season.',
+       'Blood cultures × 2; Gram stain; culture; multiplex PCR panel.',
+       'Public health notification (meningococcal); chemoprophylaxis for close contacts (ciprofloxacin 500 mg PO once for adults).']);
+    if (s1 === 'older') return showEmp('Adult > 50 / immunocompromised / alcoholic / pregnant',
+      ['<strong>Ceftriaxone 2 g IV q12h + vancomycin 15–20 mg/kg IV q8–12h + ampicillin 2 g IV q4h + dexamethasone 10 mg IV q6h</strong>.',
+       'Ampicillin covers Listeria monocytogenes (key in this group).',
+       'Add aciclovir if encephalitis features.',
+       'In severely ill suspected Listeria, add gentamicin synergy first 7 days.']);
+    if (s1 === 'otitis') return showEmp('Otitis / sinusitis source',
+      ['<strong>Ceftriaxone + vancomycin + metronidazole 500 mg IV q8h + dexamethasone</strong>.',
+       'Metronidazole covers anaerobic flora associated with contiguous spread.',
+       'Source control: ENT consultation for drainage of primary infection (sinus, mastoid).']);
+    if (s1 === 'post') return showEmp('Postneurosurgical / device-related',
+      ['<strong>Vancomycin + (meropenem 2 g IV q8h OR ceftazidime 2 g IV q8h OR cefepime 2 g IV q8h)</strong>.',
+       'Add metronidazole if anaerobic concern.',
+       'Pathogens: Staphylococcus aureus (incl. MRSA), CoNS, Pseudomonas, Enterobacteriaceae, anaerobes.',
+       'Device removal often required; intraventricular antibiotics in selected cases (vancomycin or aminoglycoside).',
+       'Dexamethasone less clearly beneficial in this group.']);
+  }
+
+  if (s0 === 'enc') return showEmp('Encephalitis empirical regimen',
+    ['<strong>Aciclovir 10 mg/kg IV q8h × 14–21 days</strong> — start empirically; do not wait for PCR. The triad of fever + altered mentation + temporal-lobe MRI changes is HSE until proven otherwise.',
+     'Continue empirical bacterial meningitis cover (ceftriaxone + vancomycin + dexamethasone) until bacterial meningitis ruled out.',
+     'Doxycycline during tick season.',
+     'CSF HSV PCR — if negative within first 72 h, repeat at 72–96 h.',
+     'MRI brain to confirm temporal-lobe involvement; EEG for seizures.',
+     'Send arboviral PCRs (West Nile, JE, etc.) by region/season.',
+     'Test for autoimmune encephalitis antibodies (NMDA-R, LGI1, GABA-B, etc.) in CSF and serum.',
+     'Watch for post-HSE autoimmune encephalitis (anti-NMDA-R) 1–6 weeks after acute illness.']);
+
+  if (s0 === 'abs') return showEmp('Brain abscess empirical regimen',
+    ['<strong>Vancomycin 15–20 mg/kg IV q8–12h + ceftriaxone 2 g IV q12h (or cefepime 2 g IV q8h) + metronidazole 500 mg IV q8h</strong> for 6–8 weeks.',
+     'Neurosurgical aspiration / drainage when possible — gives microbiology and reduces mass effect.',
+     'Steroids only if significant mass effect / midline shift / impending herniation.',
+     'Antiseizure prophylaxis for supratentorial abscess (high seizure risk).',
+     'Search for source: dental, sinus, otitis, lung, endocarditis, cyanotic heart disease.',
+     'For immunocompromised: also cover toxoplasmosis (TMP-SMX), Nocardia (TMP-SMX), fungal.',
+     'Serial MRI to monitor response.']);
+
+  if (s0 === 'chr') return showEmp('Chronic meningitis (weeks, lymphocytic CSF)',
+    ['Differentials: TB, cryptococcal, other fungal, neurosyphilis, Lyme, brucella, neoplastic (leptomeningeal metastasis, primary CNS lymphoma), neurosarcoidosis, autoimmune.',
+     '<strong>Workup:</strong> Xpert MTB/RIF Ultra, AFB smear, mycobacterial culture; cryptococcal antigen (CSF + serum); India ink; fungal culture; cytology + flow cytometry; ACE; FTA-ABS/VDRL; Lyme antibody index; HIV; paraneoplastic panel; brain MRI with gadolinium; chest CT for sarcoid / TB / malignancy.',
+     '<strong>Empirical TB therapy</strong> (RIPE + dexamethasone) is reasonable when high suspicion (TB-endemic region, HIV, classic CSF profile) — do not wait for culture.',
+     '<strong>Empirical cryptococcal therapy</strong> if CrAg positive — AMBITION-cm regimen (single-dose liposomal amphotericin B 10 mg/kg + flucytosine + fluconazole 1200 mg/day for 14 days).',
+     'Manage raised ICP — serial therapeutic LPs.']);
+
+  if (s0 === 'hiv') return showEmp('HIV+ with ring-enhancing brain lesion(s)',
+    ['<strong>Empirical toxoplasmosis treatment:</strong> pyrimethamine 200 mg load then 50–75 mg/day + sulfadiazine 1–1.5 g q6h + leucovorin 10–20 mg/day × 2 weeks. (Or TMP-SMX 5 mg/kg IV/PO q12h.)',
+     '<strong>Radiological response by 2 weeks</strong> confirms toxoplasmosis. If no improvement → consider biopsy for primary CNS lymphoma.',
+     'CD4 count, toxo IgG, EBV PCR in CSF (positive in ~80% of CNS lymphoma), JCV PCR if PML suspected.',
+     'TB workup (Xpert MTB/RIF Ultra) if any meningitic features.',
+     'Start ART when stable (delay 2 weeks if cryptococcal or TB to reduce IRIS).',
+     'Brain biopsy reserved for non-responders or single periventricular lesion (lymphoma-favouring).',
+     'FDG-PET differentiates lymphoma (hypermetabolic) from toxo (hypometabolic) in equivocal cases.']);
+}
+
+function addEmp(step, q, opts) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  empRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => empAns(step, b.dataset.val)));
+  if (empState[step]) {
+    const t = wrap.querySelector(`[data-val="${empState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showEmp(title, items) {
+  empResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  empResult.classList.add('show');
+}
+
+function resetEmp() {
+  empState = {};
+  empRest.innerHTML = '';
+  empResult.classList.remove('show');
+  document.querySelectorAll('#empTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('[data-step="0"] .opt').forEach(b => b.addEventListener('click', () => empAns(0, b.dataset.val)));
+</script>
+</body>
+</html>

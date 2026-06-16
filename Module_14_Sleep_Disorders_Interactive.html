@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 14 — Sleep Disorders (Interactive)</title>
+<style>
+  :root{
+    --bg:#0c1326; --panel:#161e36; --panel-2:#1d2747; --line:#2b375a;
+    --ink:#e4ecf8; --muted:#8fa1c4; --accent:#7fb0ff; --accent-2:#b7d4ff;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#1c2747; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#080d1c,#0c1326 35%,#0c1326); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(127,176,255,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#08152e; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#d6e6ff}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(127,176,255,.10); border-color:var(--accent); color:#d6e6ff}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#08152e; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(127,176,255,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* Calculator rows */
+  .calc{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .calc .row{padding:10px 0; border-bottom:1px dashed var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  .calc .row:last-child{border-bottom:none}
+  .calc .lbl{flex:1; font-size:.94rem}
+  .calc .opts{display:flex; gap:6px}
+  .calc .opts button{background:var(--panel-2); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; color:var(--ink)}
+  .calc .opts button.sel{background:var(--accent); color:#08152e; border-color:var(--accent); font-weight:600}
+  .scorebar{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .scorebar h4{margin:0 0 6px; color:var(--accent-2)}
+  .scorebar .big{font-size:2rem; font-weight:700; color:var(--accent-2)}
+  .scorebar .interp{margin-top:8px; font-size:.95rem; color:var(--ink)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 14</span>
+    <span class="badge">General physician</span>
+    <h1>Sleep Disorders — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 18) and Merritt's <em>Neurology</em> (14e, Ch. 30, 118). Aligned with ICSD-3-TR (2023). AASM treatment guidelines for hypersomnolence (2021), RBD (2023), and RLS (2024 — α2δ ligands first-line over dopamine agonists). SERVE-HF caveat for ASV in HFrEF.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="eds">EDS Classifier</button>
+    <button data-tab="stopbang">STOP-BANG Calculator</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Sleep complaints are everywhere in primary care and frequently overlooked. Untreated obstructive sleep apnea silently drives hypertension, atrial fibrillation, stroke, and crashes. REM sleep behaviour disorder is a window into pre-clinical Parkinson disease. Insomnia and circadian disorders are highly treatable with non-pharmacological strategies many clinicians under-utilise.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Take a structured sleep history and decide on a working diagnosis at the bedside.</li>
+      <li>Use Epworth, STOP-BANG, ISI, and the IRLSSG criteria fluently.</li>
+      <li>Diagnose and treat OSA, central sleep apnea, and Cheyne-Stokes; know the ASV caveat.</li>
+      <li>Recognise narcolepsy type 1 and arrange MSLT ± CSF orexin.</li>
+      <li>Counsel patients with RBD about synucleinopathy risk and treat safely.</li>
+      <li>Treat RLS with iron and gabapentinoids first, avoiding dopamine-agonist augmentation.</li>
+      <li>Recommend CBT-I first-line for insomnia and prescribe hypnotics rationally.</li>
+      <li>Diagnose and treat circadian rhythm disorders.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle that prevents missed diagnoses:</strong> always ask about (1) snoring and witnessed apnoeas, (2) cataplexy on laughter, (3) dream enactment, and (4) restless leg sensations. Plus an Epworth. These five things take 60 seconds and surface the four most-missed sleep diagnoses in primary care: OSA, narcolepsy, RBD, and RLS.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Sleep architecture and the two-process model</summary>
+      <div class="body">
+        <table>
+          <tr><th>Stage</th><th>% night</th><th>EEG hallmarks</th></tr>
+          <tr><td>N1</td><td>~5%</td><td>Low voltage mixed; slow rolling eyes; hypnic jerks</td></tr>
+          <tr><td>N2</td><td>~45%</td><td>Sleep spindles (12–16 Hz) + K-complexes</td></tr>
+          <tr><td>N3 (SWS)</td><td>~25%</td><td>Delta ≥ 20% epoch; most restorative; NREM parasomnias</td></tr>
+          <tr><td>REM</td><td>~25%</td><td>Sawtooth waves, atonia (chin EMG silent), dreams; second half of night</td></tr>
+        </table>
+        <ul>
+          <li><strong>Process C</strong> (circadian): SCN → melatonin (peaks ~3 am); entrained by light.</li>
+          <li><strong>Process S</strong> (homeostatic): adenosine accumulation during wake.</li>
+          <li><strong>Wake-promoting</strong>: orexin (lateral hypothalamus — lost in narcolepsy type 1), histamine, NE, ACh, 5-HT, DA.</li>
+          <li><strong>Sleep-promoting</strong>: VLPO (GABA + galanin), adenosine, melatonin.</li>
+          <li><strong>REM atonia</strong>: subcoeruleus → glycinergic inhibition of α-motor neurons; loss → RBD.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Bedside approach — 8 questions + key exam findings</summary>
+      <div class="body">
+        <ol>
+          <li>Main problem — onset, maintenance, EDS, or abnormal behaviour?</li>
+          <li>Sleep schedule weekdays vs days off (circadian, social jet lag).</li>
+          <li>Sleep latency, awakenings, total sleep time (insomnia phenotype).</li>
+          <li>Snoring, witnessed apnoeas, gasping/choking (OSA).</li>
+          <li>Urge to move legs, evening worsening, relief with movement (RLS).</li>
+          <li>Falling asleep at the wheel / in conversation (EDS — Epworth).</li>
+          <li>Dream enactment — punching, kicking, shouting (RBD).</li>
+          <li>Caffeine, alcohol, drugs (Rx/OTC/recreational), shift work, electronics, naps.</li>
+        </ol>
+        <p>Exam: BP, BMI, <strong>neck circumference</strong> (&gt; 17 in / 43 cm men; &gt; 16 in / 41 cm women), modified Mallampati, tonsil size, retrognathia, nasal patency; parkinsonism / cognition / autonomic exam; PHQ-9.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Tools — Epworth, STOP-BANG, ISI, PSG, MSLT, actigraphy</summary>
+      <div class="body">
+        <table>
+          <tr><th>Tool</th><th>Cut-offs</th></tr>
+          <tr><td>Epworth ESS</td><td>0–24; > 10 sleepy; > 16 high suspicion narcolepsy / severe OSA</td></tr>
+          <tr><td>STOP-BANG</td><td>≥ 3 of 8 intermediate; ≥ 5 high probability moderate-severe OSA</td></tr>
+          <tr><td>ISI</td><td>0–7 none, 8–14 subthreshold, 15–21 moderate, 22–28 severe insomnia</td></tr>
+          <tr><td>PSG</td><td>OSA, CSA, RBD (REM without atonia + dream enactment), parasomnias</td></tr>
+          <tr><td>HSAT</td><td>Uncomplicated suspected moderate-severe OSA; not for CSA, hypoventilation, complex picture</td></tr>
+          <tr><td>MSLT</td><td>Narcolepsy: ≤ 8 min mean SL + ≥ 2 SOREMPs (one can be on prior PSG)</td></tr>
+          <tr><td>CSF orexin-A</td><td>&lt; 110 pg/mL = narcolepsy type 1</td></tr>
+          <tr><td>Actigraphy</td><td>≥ 7 days; circadian disorders, paradoxical insomnia</td></tr>
+        </table>
+        <p><strong>OSA definitions</strong>: apnea = &gt; 90% airflow drop ≥ 10 s; hypopnea = ≥ 30% drop + ≥ 3% (AASM) / ≥ 4% (Medicare) desat or arousal. <strong>AHI</strong>: 5–14 mild, 15–29 moderate, ≥ 30 severe.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Insomnia — CBT-I first, hypnotics second</summary>
+      <div class="body">
+        <p>Diagnosis: difficulty falling/staying asleep ≥ 3 nights/week ≥ 3 months despite adequate opportunity + daytime consequences. Exclude OSA, RLS, depression, drugs, hyperthyroid, GORD, prostate.</p>
+        <div class="pearl"><strong>CBT-I components</strong>:
+          <ul>
+            <li>Stimulus control: bed for sleep + sex only; leave bed after ~20 min not asleep; consistent wake time.</li>
+            <li>Sleep restriction: limit time in bed to actual sleep time → expand as efficiency &gt; 85–90%.</li>
+            <li>Cognitive restructuring + relaxation; sleep hygiene as adjunct.</li>
+            <li>Digital CBT-I apps and brief 4-session CBT-I are evidence-based.</li>
+          </ul>
+        </div>
+        <table>
+          <tr><th>Drug class</th><th>Examples</th><th>Comments</th></tr>
+          <tr><td>Dual orexin antagonists</td><td>Suvorexant, lemborexant, daridorexant (2022)</td><td>Maintenance + onset; less morning grogginess; do not use in narcolepsy</td></tr>
+          <tr><td>Melatonin receptor agonist</td><td>Ramelteon, melatonin SR</td><td>Onset insomnia, especially elderly; safer profile</td></tr>
+          <tr><td>Low-dose doxepin</td><td>3 or 6 mg</td><td>FDA approved for maintenance; minimal anticholinergic at low dose</td></tr>
+          <tr><td>Z-drugs</td><td>Zolpidem, eszopiclone, zaleplon</td><td>Short-term; falls, parasomnia, dependence; avoid in elderly</td></tr>
+          <tr><td>Benzodiazepines</td><td>Temazepam, lorazepam</td><td>Avoid long-term; falls in elderly</td></tr>
+          <tr><td>Sedating antihistamines</td><td>Diphenhydramine</td><td>Anticholinergic burden; tolerance; avoid in elderly</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Obstructive sleep apnea</summary>
+      <div class="body">
+        <p>~14% men, ~5% women in midlife (likely higher). Drives HTN, AF, stroke, T2DM, MVA. STOP-BANG ≥ 3 → diagnostic test. HSAT for uncomplicated; PSG for complex.</p>
+        <ol>
+          <li><strong>CPAP</strong> first-line for moderate-severe; adherence = key challenge (≥ 4 h/night ≥ 70% nights).</li>
+          <li><strong>BiPAP</strong> for CPAP intolerance, high pressures, hypoventilation.</li>
+          <li><strong>Mandibular advancement device</strong> for mild-moderate or CPAP-intolerant.</li>
+          <li><strong>Weight loss</strong>: 10% body weight → ~25–30% AHI reduction.</li>
+          <li>Positional therapy for supine-related disease.</li>
+          <li>Surgery: T&amp;A in children (first-line); UPPP, MMA, septoplasty in adults; tracheostomy last resort.</li>
+          <li><strong>Hypoglossal nerve stimulation</strong> (Inspire) for selected moderate-severe CPAP-intolerant patients (BMI &lt; 32, no concentric palatal collapse).</li>
+          <li>Modafinil/armodafinil/pitolisant/solriamfetol for residual EDS despite adherent CPAP.</li>
+        </ol>
+        <div class="warn">SAVE/ISAACC: CPAP did NOT reduce cardiovascular events in non-sleepy OSA + CV disease. Most benefit is in sleepy patients, severe OSA, treatment-resistant HTN.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Central sleep apnea, Cheyne-Stokes &amp; hypoventilation</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Cheyne-Stokes in HF</strong>: crescendo-decrescendo; treat HF; CPAP often helps. <strong>ASV is contraindicated if LVEF ≤ 45%</strong> (SERVE-HF: increased CV mortality).</li>
+          <li><strong>High-altitude periodic breathing</strong>: physiological; acetazolamide effective.</li>
+          <li><strong>Opioid-induced CSA</strong>: ataxic / Biot pattern; reduce opioid; CPAP/ASV variable.</li>
+          <li><strong>Treatment-emergent CSA</strong>: on CPAP initiation; often resolves spontaneously; ASV if persistent.</li>
+          <li><strong>OHS</strong>: BMI ≥ 30 + daytime PaCO₂ ≥ 45 mmHg; BiPAP + weight loss.</li>
+          <li><strong>Neuromuscular hypoventilation</strong> (ALS, dystrophies): nocturnal NIV improves survival; trigger criteria orthopnea, FVC &lt; 50%, SNIP &lt; 40 cm H₂O.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Narcolepsy and idiopathic hypersomnia</summary>
+      <div class="body">
+        <p><strong>Type 1</strong>: orexin loss; HLA-DQB1*06:02 in &gt; 95%; tetrad EDS + cataplexy (pathognomonic) + sleep paralysis + hypnagogic/hypnopompic hallucinations; disrupted nocturnal sleep; refreshing naps; vivid dreams in short naps. MSLT mean SL ≤ 8 + ≥ 2 SOREMPs; CSF orexin &lt; 110 pg/mL.</p>
+        <p><strong>Type 2</strong>: no cataplexy; MSLT criteria same; CSF orexin usually normal; some later develop cataplexy and reclassify.</p>
+        <p><strong>Idiopathic hypersomnia</strong>: long unrefreshing naps, severe sleep inertia, long total sleep; MSLT ≤ 8 min + &lt; 2 SOREMPs OR documented ≥ 11 h/24 h sleep.</p>
+        <table>
+          <tr><th>Symptom</th><th>Drug</th></tr>
+          <tr><td>EDS</td><td>Modafinil, armodafinil, pitolisant, solriamfetol, methylphenidate, sodium oxybate</td></tr>
+          <tr><td>Cataplexy</td><td>Sodium oxybate (Xyrem; low-Na Xywav 2020; once-nightly Lumryz 2023); pitolisant; venlafaxine, fluoxetine (off-label)</td></tr>
+          <tr><td>Sleep paralysis/hypnagogic hallucinations</td><td>SNRI/SSRI; sodium oxybate</td></tr>
+          <tr><td>Disrupted nocturnal sleep</td><td>Sodium oxybate</td></tr>
+        </table>
+        <p>Behavioural: scheduled 15–20 min naps (refreshing), driving counselling, school/work accommodations.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. REM sleep behaviour disorder and the synucleinopathy prodrome</summary>
+      <div class="body">
+        <ul>
+          <li>Dream enactment — punching, kicking, shouting, jumping; bed-partner reports; injuries common; older males predominate.</li>
+          <li>PSG: REM sleep without atonia + clinical history.</li>
+          <li>Distinguish from NREM parasomnias (first half, no recall, confused arousal), nocturnal seizures (stereotyped, brief), severe OSA (respiratory arousals).</li>
+        </ul>
+        <div class="refer"><strong>Isolated RBD ≈ prodromal synucleinopathy.</strong>
+          <ul>
+            <li>Up to ~80% convert to PD / DLB / MSA over 10–15 years.</li>
+            <li>Counsel sensitively; offer annual surveillance (cognitive, motor, autonomic); enable research participation.</li>
+            <li>Secondary RBD: SSRIs, SNRIs, mirtazapine, TCAs, narcolepsy, brainstem lesions.</li>
+          </ul>
+        </div>
+        <p>Treatment: <strong>bedroom safety first</strong> (pad corners, move tables, partner sleeps separately if injury risk). Then <strong>melatonin 3–12 mg at bedtime</strong> first-line (better tolerability) or <strong>clonazepam 0.25–1 mg</strong> (historically first-line; falls, daytime sedation, worsens OSA). Reduce/stop SSRI if implicated.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. Restless legs syndrome / PLMD</summary>
+      <div class="body">
+        <p>IRLSSG criteria (all 5 — URGE mnemonic): <strong>U</strong>rge to move legs; <strong>R</strong>est worsens; <strong>G</strong>ets better with movement; <strong>E</strong>vening/night worse; not solely explained by another condition.</p>
+        <p>Workup: <strong>ferritin + TSAT</strong>; pregnancy; ESRD; neuropathy; drugs (antihistamines, antidepressants esp. mirtazapine and SSRIs/SNRIs, dopamine antagonists, lithium).</p>
+        <table>
+          <tr><th>Step</th><th>Detail</th></tr>
+          <tr><td>Iron</td><td>Replace if ferritin &lt; 75 ng/mL or TSAT &lt; 20%; oral ferrous sulfate + vitamin C (or alternate-day); IV ferric carboxymaltose for severe/refractory</td></tr>
+          <tr><td>First-line drug</td><td><strong>α2δ ligand</strong>: gabapentin enacarbil 600 mg, gabapentin 300–1200 mg, pregabalin 75–300 mg at bedtime — preferred over dopamine agonists (no augmentation)</td></tr>
+          <tr><td>Second-line</td><td>Pramipexole, ropinirole, rotigotine patch — augmentation common; ICDs risk</td></tr>
+          <tr><td>Refractory</td><td>Low-dose opioids (oxycodone, methadone, tramadol) under specialist care</td></tr>
+        </table>
+        <div class="warn"><strong>Augmentation</strong>: dopamine agonist paradoxical worsening — earlier onset, more severe, spread to upper limbs. Reduce / rotate / discontinue dopamine agonist; switch to gabapentinoid; treat any iron deficit.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Parasomnias — NREM vs REM</summary>
+      <div class="body">
+        <p><strong>NREM (disorders of arousal — from N3)</strong>: sleepwalking, sleep terrors, confusional arousals. First third of night; no recall; sit up confused; family history common. Triggers: sleep deprivation, alcohol, fever, OSA, stress. Management: safety, trigger avoidance, treat OSA; clonazepam for high-injury risk.</p>
+        <p><strong>REM</strong>:</p>
+        <ul>
+          <li>RBD (above).</li>
+          <li>Sleep paralysis: hypnagogic/hypnopompic; reassure; regularise sleep; treat OSA.</li>
+          <li>Nightmare disorder (PTSD): image rehearsal therapy first-line; prazosin can reduce trauma-related nightmares.</li>
+        </ul>
+        <p><strong>Other</strong>: sleep-related eating disorder, sexsomnia, exploding head syndrome, hypnic jerks.</p>
+        <div class="pearl"><strong>NREM vs RBD differentiation</strong>: NREM = first half + no recall + confused; RBD = second half + vivid recall + dream content matches movement + REM without atonia.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Circadian rhythm sleep-wake disorders</summary>
+      <div class="body">
+        <table>
+          <tr><th>Disorder</th><th>Clinical</th><th>Treatment</th></tr>
+          <tr><td>DSWPD ("night owl")</td><td>Cannot fall asleep till late; hard to wake; adolescents</td><td>Morning bright light 10,000 lux × 30–60 min; evening blue-light avoidance; low-dose melatonin 0.3–0.5 mg ~5–6 h before desired sleep</td></tr>
+          <tr><td>ASWPD (elderly)</td><td>Early evening sleep + early morning waking</td><td>Evening bright light; avoid morning bright light</td></tr>
+          <tr><td>Non-24 (blind)</td><td>Free-running rhythm; common in totally blind</td><td>Tasimelteon (FDA-approved 0.5–1 mg)</td></tr>
+          <tr><td>Shift work</td><td>EDS / insomnia with non-traditional hours</td><td>Strategic napping; light at start of shift; melatonin before day sleep; modafinil/armodafinil for excessive sleepiness</td></tr>
+          <tr><td>Jet lag</td><td>Transient after time-zone change</td><td>Pre-adapt; destination-evening melatonin; short hypnotic in selected travellers</td></tr>
+          <tr><td>Irregular sleep-wake</td><td>Advanced dementia, severe brain injury</td><td>Structured day, daylight, social cues, evening melatonin</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>12. Sleep in neurological disease &amp; when to refer</summary>
+      <div class="body">
+        <ul>
+          <li><strong>PD</strong>: RBD often predates motor onset; insomnia, EDS, "sleep attacks" on dopamine agonists, RLS, OSA; cross-ref Module 6.</li>
+          <li><strong>Dementia</strong>: sundowning, fragmented sleep, irregular sleep-wake rhythm; non-pharmacological first; avoid benzodiazepines.</li>
+          <li><strong>Stroke</strong>: OSA in ~50%; CPAP improves selected outcomes; post-stroke fatigue distinct from EDS.</li>
+          <li><strong>MS</strong>: RLS more common; fatigue vs EDS; nocturnal spasms.</li>
+          <li><strong>Epilepsy</strong>: sleep deprivation precipitates seizures; nocturnal frontal-lobe seizures misdiagnosed as parasomnia — video EEG helps; many AEDs affect sleep.</li>
+        </ul>
+        <div class="refer"><strong>When to refer</strong>: suspected narcolepsy/IH; significant cataplexy; suspected RBD; OSA with resistant HTN/AF/stroke/MVA risk; severe RLS with augmentation; nocturnal events suggestive of seizures (video EEG); CSA in heart failure (cardiology + sleep medicine).</div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="eds">
+    <h2>Excessive Daytime Sleepiness Classifier</h2>
+    <p class="muted">Answer about Epworth, snoring, cataplexy, sleep schedule, and night events to get a likely working diagnosis and the right next test.</p>
+    <div class="tool" id="edsTool">
+      <div class="q">1. Epworth Sleepiness Scale category?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="normal">≤ 10 (normal)</button>
+        <button class="opt" data-val="mild">11–14 (mild)</button>
+        <button class="opt" data-val="mod">15–17 (moderate)</button>
+        <button class="opt" data-val="severe">18–24 (severe)</button>
+      </div>
+      <div id="eds-rest"></div>
+      <div class="result" id="eds-result"></div>
+      <button class="reset" onclick="resetEds()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="stopbang">
+    <h2>STOP-BANG OSA Risk Calculator</h2>
+    <p class="muted">Tick each criterion that applies. Live score and interpretation update below.</p>
+    <div class="calc" id="sbCalc"></div>
+    <div class="scorebar" id="sbResult">
+      <h4>STOP-BANG score</h4>
+      <div><span class="big" id="sb-score">0</span> / 8</div>
+      <div class="interp" id="sb-interp">No criteria selected.</div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 55-year-old male, BMI 34, hypertensive on three antihypertensives, presents with morning headache, fatigue, and his wife reports loud snoring and witnessed apneas</summary>
+      <div class="body">
+        <p>Neck 44 cm, Mallampati IV. ESS 15. STOP-BANG: snore + tired + observed apnea + BP + BMI &gt; 35 (just) + age &gt; 50 + neck &gt; 40 + male = 7/8.</p>
+        <p><strong>Diagnosis:</strong> High probability moderate-to-severe obstructive sleep apnea.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Arrange home sleep apnea test (HSAT) — uncomplicated middle-aged adult.</li>
+          <li>If HSAT positive (AHI ≥ 15): <strong>CPAP titration</strong>; mask fitting; humidification; behavioural support — target adherence ≥ 4 h/night ≥ 70% nights.</li>
+          <li>Weight loss counselling (10% body weight → ~25–30% AHI reduction); bariatric surgery discussion if BMI rises &gt; 35–40.</li>
+          <li>Optimise hypertension management — OSA is a treatable cause of resistant hypertension.</li>
+          <li>Driving counselling: do not drive when sleepy; legal reporting obligations vary by jurisdiction.</li>
+          <li>If CPAP intolerant: mandibular advancement device, hypoglossal nerve stimulation (if BMI &lt; 32, no concentric palatal collapse on DISE), UPPP / MMA in select cases.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 17-year-old girl with falling asleep in school, vivid dreams, episodes where her knees buckle when she laughs hard, and a sense of being unable to move on waking</summary>
+      <div class="body">
+        <p>ESS 22. Daytime naps are refreshing and short, with vivid dreams. Knee buckling lasts seconds, consciousness preserved, triggered by laughter. Sometimes feels paralysed at sleep onset for 30 seconds. HLA-DQB1*06:02 positive.</p>
+        <p><strong>Diagnosis:</strong> Narcolepsy type 1 (with cataplexy).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Confirm: overnight PSG (rule out OSA — common mimic) + next-day MSLT (mean SL ≤ 8 min + ≥ 2 SOREMPs). CSF orexin-A &lt; 110 pg/mL if equivocal.</li>
+          <li>Schedule: regular sleep–wake schedule, planned 15–20 min naps (refreshing).</li>
+          <li><strong>EDS</strong>: modafinil 200 mg morning, titrate; pitolisant or solriamfetol as alternatives.</li>
+          <li><strong>Cataplexy</strong>: <strong>pitolisant</strong> (also helps EDS) or low-dose SNRI/SSRI (venlafaxine, fluoxetine) initially; <strong>sodium oxybate</strong> (Xyrem, low-Na Xywav, or once-nightly Lumryz) for severe cataplexy or fragmented sleep.</li>
+          <li>Driving and school accommodations; tell about the safety implications.</li>
+          <li>Sleep paralysis / hypnagogic hallucinations: usually improve with SNRI/oxybate; reassurance.</li>
+          <li>Multidisciplinary support; patient education; address mood/psychosocial impact.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 68-year-old man's wife reports he has been "fighting in his sleep" — punching, kicking, shouting — over the past 2 years. He has fallen out of bed twice with minor injuries. Awake exam shows mild bradykinesia and reduced arm swing on the right</summary>
+      <div class="body">
+        <p>Dream content involves attackers; he recalls fragments on waking. No daytime sleepiness, no snoring. PSG: REM sleep without atonia + observed dream-enactment behaviour during REM.</p>
+        <p><strong>Diagnosis:</strong> REM sleep behaviour disorder + emerging Parkinson disease — isolated RBD is a prodromal synucleinopathy in up to 80% over 10–15 years.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Bedroom safety first</strong>: pad sharp corners, move bedside tables, mattress on the floor or bed rails; partner sleeps separately if injury risk persists.</li>
+          <li><strong>Melatonin 3–12 mg at bedtime</strong> — first-line per 2023 AASM RBD guideline (better tolerability than clonazepam).</li>
+          <li>Alternative: <strong>clonazepam 0.25–1 mg at bedtime</strong> — historically first-line; falls, daytime sedation, worsens OSA, cognitive effects.</li>
+          <li>Stop / reduce any SSRI / SNRI / mirtazapine if implicated.</li>
+          <li>Counsel about the synucleinopathy prodrome — sensitively and honestly. Annual surveillance: motor (UPDRS), cognitive (MoCA, RBANS), autonomic (orthostatic vitals, constipation, urinary, sexual symptoms), olfactory (UPSIT), DaTscan if appropriate.</li>
+          <li>Refer to movement-disorders neurology; offer research participation in prodromal Parkinson disease cohorts.</li>
+          <li>Cross-ref Module 6 (PD) and Module 7 (DLB).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 42-year-old woman has an urge to move her legs in the evening relieved by walking; lying down makes it worse. Her sleep is disrupted. She is on mirtazapine for depression. Ferritin 28 ng/mL, TSAT 14%</summary>
+      <div class="body">
+        <p>All 5 IRLSSG criteria met. Mirtazapine is a known RLS exacerbator.</p>
+        <p><strong>Diagnosis:</strong> Restless legs syndrome (RLS), iron-deficient, exacerbated by mirtazapine.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Iron repletion</strong>: oral ferrous sulfate 325 mg with vitamin C, ideally alternate-day to improve absorption; target ferritin ≥ 75 ng/mL and TSAT &gt; 20%. If severe, refractory, or oral intolerant: IV ferric carboxymaltose 1000 mg.</li>
+          <li>Discuss alternative antidepressant — bupropion does not worsen RLS; SSRIs / SNRIs / mirtazapine can worsen.</li>
+          <li>Sleep hygiene; reduce caffeine, alcohol, nicotine.</li>
+          <li><strong>First-line drug if needed (post-AASM 2024)</strong>: <strong>α2δ ligand</strong> — gabapentin enacarbil 600 mg, gabapentin 300–600 mg, or pregabalin 75–150 mg at bedtime.</li>
+          <li>Avoid starting dopamine agonist as first-line (augmentation risk). Reserve for refractory cases at the lowest effective dose, with ICD warnings.</li>
+          <li>Refractory / severe: low-dose opioid (oxycodone, methadone, tramadol) under specialist supervision.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 28-year-old presents with 9 months of difficulty falling asleep (latency &gt; 60 minutes), multiple awakenings, ISI 19, no snoring, no leg symptoms, mild work stress, drinks 4 cups of coffee per day, evening alcohol "to relax"</summary>
+      <div class="body">
+        <p>No cataplexy, no dream enactment. PHQ-9 mild. Sleep diary shows variable bedtime, daytime naps to compensate.</p>
+        <p><strong>Diagnosis:</strong> Chronic insomnia disorder (ISI moderate clinical), with behavioural maintaining factors.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Education: caffeine half-life and evening alcohol disrupt sleep architecture (alcohol shortens REM and fragments second half of night).</li>
+          <li><strong>CBT-I as first-line</strong> — refer to therapist or digital CBT-I (Sleepio, SHUTi); brief 4-session CBT-I works.</li>
+          <li>Stimulus control: bed only for sleep + sex; leave bed if not asleep ~20 min; consistent wake time.</li>
+          <li>Sleep restriction: limit time in bed to actual sleep + 30 min; expand as efficiency rises.</li>
+          <li>Sleep hygiene: cut caffeine after noon; no evening alcohol; reduce screens before bed.</li>
+          <li>If pharmacotherapy desired short-term: <strong>dual orexin antagonist</strong> (lemborexant, daridorexant, suvorexant) or <strong>low-dose doxepin 3 mg</strong> for maintenance; avoid Z-drugs and benzodiazepines as long-term agents.</li>
+          <li>Address depression/anxiety if PHQ-9/GAD-7 elevated.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 16-year-old "cannot fall asleep" until 3 am and "cannot wake" before noon. School performance is suffering. On weekends he sleeps from 3 am to noon and feels well. Tries melatonin 5 mg at 10 pm without effect</summary>
+      <div class="body">
+        <p>Sleep quality good when allowed his preferred schedule. No snoring, no cataplexy, no leg symptoms, no dream enactment. Examination unremarkable.</p>
+        <p><strong>Diagnosis:</strong> Delayed sleep-wake phase disorder (DSWPD).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Two-week sleep diary + actigraphy to confirm phase delay and rule out chronic insufficient sleep.</li>
+          <li><strong>Morning bright-light therapy</strong>: 10,000 lux for 30–60 min on waking (light box) — entrains the SCN earlier.</li>
+          <li><strong>Low-dose melatonin 0.3–0.5 mg ~5–6 hours before desired sleep onset</strong> (NOT at bedtime, NOT high-dose — high doses are ineffective for phase shift and can be sedating). The 5 mg at 10 pm timing was too late and too high.</li>
+          <li>Evening blue-light avoidance; screen filters; consistent wake time including weekends (no &gt; 1 hour later).</li>
+          <li>Gradual advance of sleep schedule by 15 min every 2–3 days.</li>
+          <li>School accommodation for later start when possible.</li>
+          <li>Avoid sedative-hypnotics (often refractory in DSWPD and don't fix the underlying phase delay).</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 14 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 18; Merritt's <em>Neurology</em> 14e Ch. 30, 118; ICSD-3-TR 2023; AASM guidelines for hypersomnolence 2021, RBD 2023, RLS 2024; European insomnia guideline (Riemann 2017/2023); SAVE/SERVE-HF trials.</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Architecture', q:'Five sleep stages and their EEG hallmarks?', a:'W (low-voltage fast; alpha when eyes closed); N1 (low-voltage mixed; vertex sharps; slow rolling eyes); N2 (sleep spindles 12–16 Hz + K-complexes); N3 (delta ≥ 20% of epoch); REM (sawtooth waves, atonia, rapid eye movements). N3 dominates first third; REM dominates last third.'},
+  {tag:'Neuro', q:'Wake-promoting and sleep-promoting neurotransmitter systems?', a:'Wake-promoting: orexin/hypocretin (lost in narcolepsy type 1), histamine (TMN), NE (LC), ACh (PPT/LDT), 5-HT (raphe), DA. Sleep-promoting: GABA + galanin (VLPO), adenosine, melatonin. REM atonia: subcoeruleus → glycinergic inhibition of α-motor neurons (loss = RBD).'},
+  {tag:'Tools', q:'Epworth Sleepiness Scale cut-offs?', a:'0–24; ≤ 10 normal; 11–14 mild; 15–17 moderate; 18–24 severe. Over 16 raises high suspicion for narcolepsy or severe OSA.'},
+  {tag:'Tools', q:'STOP-BANG threshold for high OSA probability?', a:'≥ 3 of 8 intermediate; ≥ 5 of 8 high probability of moderate-severe OSA. Components: Snore, Tired, Observed apnea, Pressure (BP), BMI > 35, Age > 50, Neck > 40 cm, Gender male.'},
+  {tag:'OSA', q:'AHI cut-offs for mild, moderate, severe OSA?', a:'AHI 5–14 mild; 15–29 moderate; ≥ 30 severe. Apnea = > 90% airflow drop ≥ 10 s; hypopnea = ≥ 30% airflow drop ≥ 10 s with ≥ 3% desat (AASM) or ≥ 4% (Medicare) or arousal.'},
+  {tag:'OSA Rx', q:'First-line treatment for moderate-severe OSA and the adherence target?', a:'CPAP titrated to abolish events; adherence target ≥ 4 hours/night for ≥ 70% of nights. Weight loss adjunct (10% body weight ≈ 25–30% AHI reduction). Mandibular advancement device for mild-moderate or CPAP-intolerant. Hypoglossal nerve stimulation for selected CPAP-intolerant patients (BMI < 32, no concentric palatal collapse).'},
+  {tag:'SAVE', q:'SAVE / ISAACC trials — what did they show about CPAP and CV events?', a:'In non-sleepy OSA patients with existing cardiovascular disease, CPAP did NOT reduce cardiovascular events. Most clear benefits of CPAP are in SLEEPY patients, severe OSA, and treatment-resistant hypertension (and symptomatic improvement, mood, BP, MVA risk). Patient-selection and adherence matter.'},
+  {tag:'ASV', q:'Why is adaptive servo-ventilation (ASV) contraindicated in heart failure with reduced EF?', a:'SERVE-HF trial (NEJM 2015): ASV in HFrEF with LVEF ≤ 45% and predominant central sleep apnea / Cheyne-Stokes was associated with INCREASED cardiovascular mortality. Treat the heart failure; CPAP often helps; do not use ASV in HFrEF with EF ≤ 45%.'},
+  {tag:'Narcolepsy', q:'Narcolepsy type 1 tetrad and the pathognomonic feature?', a:'EDS (universal), CATAPLEXY (sudden brief loss of muscle tone triggered by emotion, especially laughter, consciousness preserved — pathognomonic), sleep paralysis, hypnagogic / hypnopompic hallucinations. Also: disrupted nocturnal sleep, refreshing short naps, vivid dreams in brief naps.'},
+  {tag:'Narcolepsy', q:'MSLT criteria for narcolepsy and confirmatory CSF test?', a:'MSLT: mean sleep latency ≤ 8 minutes + ≥ 2 sleep-onset REM periods (SOREMPs; one can be on the preceding overnight PSG). CSF orexin-A (hypocretin-1) < 110 pg/mL confirms narcolepsy type 1.'},
+  {tag:'Narco Rx', q:'Pharmacotherapy for cataplexy?', a:'Sodium oxybate (Xyrem; low-sodium Xywav 2020; once-nightly Lumryz 2023) — most effective but tightly REMS-monitored; pitolisant (H3 inverse agonist, also helps EDS); SNRI/SSRI (venlafaxine, fluoxetine, off-label); historically clomipramine and protriptyline.'},
+  {tag:'RBD', q:'Prognostic significance of isolated REM sleep behaviour disorder?', a:'Isolated (idiopathic) RBD is a PRODROMAL SYNUCLEINOPATHY — up to ~80% of patients convert to Parkinson disease, dementia with Lewy bodies, or multiple system atrophy over 10–15 years. Counsel sensitively; offer annual surveillance (motor, cognitive, autonomic, olfactory); enable research participation.'},
+  {tag:'RBD Rx', q:'First-line drug for RBD per 2023 AASM guideline?', a:'Melatonin 3–12 mg at bedtime is now preferred (better tolerability). Clonazepam 0.25–1 mg historically first-line but has falls, daytime sedation, cognitive effects, and worsens OSA. Bedroom safety FIRST — pad corners, move bedside tables, partner sleeps separately if injury risk. Stop/reduce SSRI / SNRI / mirtazapine if implicated.'},
+  {tag:'RLS', q:'IRLSSG diagnostic criteria for RLS?', a:'All 5 — URGE mnemonic: Urge to move legs; Rest worsens; Gets better with movement; Evening/night worse; not solely explained by another condition.'},
+  {tag:'RLS Rx', q:'2024 AASM RLS guideline — first-line pharmacotherapy and why?', a:'α2δ ligands (gabapentin enacarbil 600 mg, gabapentin 300–1200 mg, pregabalin 75–300 mg at bedtime) are preferred over dopamine agonists because of high rates of AUGMENTATION on dopamine agonists. Always check iron (target ferritin ≥ 75 ng/mL or TSAT > 20%) and treat first.'},
+  {tag:'RLS aug', q:'What is augmentation and how is it managed?', a:'Paradoxical worsening of RLS on dopamine agonist therapy — earlier onset, more severe symptoms, spread to upper limbs. Manage by reducing / rotating / discontinuing the dopamine agonist; switch to gabapentinoid; correct iron deficit; refer if severe.'},
+  {tag:'Parasomnias', q:'How do you differentiate NREM parasomnias from RBD?', a:'NREM (sleepwalking, sleep terrors, confusional arousals) — first half of night, no recall, sit-up confused, family history common, triggers include sleep deprivation/alcohol/OSA. RBD — second half / REM-dense periods, vivid dream recall, dream content matches movements, older male, PSG: REM without atonia.'},
+  {tag:'DSWPD', q:'Treatment of delayed sleep-wake phase disorder?', a:'Morning bright light (10,000 lux × 30–60 min on waking) — entrains earlier. Low-dose melatonin 0.3–0.5 mg ~5–6 hours BEFORE desired sleep onset (NOT bedtime, NOT high-dose). Evening blue-light avoidance, consistent wake time, gradual schedule advance. Avoid hypnotics — often refractory and do not fix the phase delay.'},
+  {tag:'CBT-I', q:'Core components of CBT-I?', a:'Stimulus control (bed for sleep/sex only; leave if not asleep ~20 min; consistent wake time); sleep restriction (limit time in bed to actual sleep then expand as efficiency rises > 85–90%); cognitive restructuring; relaxation; sleep hygiene as adjunct. Digital CBT-I and brief 4-session CBT-I are evidence-based.'},
+  {tag:'Insomnia Rx', q:'Modern insomnia pharmacotherapy preferences and what to avoid?', a:'Prefer dual orexin antagonists (suvorexant, lemborexant, daridorexant), melatonin receptor agonist (ramelteon), or low-dose doxepin 3 mg for maintenance. Avoid long-term Z-drugs and benzodiazepines (falls, parasomnias incl. sleep-driving, dependence — especially elderly). Avoid diphenhydramine in elderly (anticholinergic burden, delirium).'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 55-year-old man with BMI 34, hypertension on three antihypertensives, ESS 15, and witnessed apneas. STOP-BANG = 6. What is the most appropriate next step?',
+   choices:['Brain MRI','Home sleep apnea test (HSAT) — or in-lab PSG if complex','Empirical CPAP without testing','Start trazodone'],
+   ans:1,
+   why:'STOP-BANG ≥ 5 indicates high probability of moderate-severe OSA. HSAT is appropriate for uncomplicated suspected moderate-severe OSA in an otherwise healthy adult. In-lab PSG is needed for complex cases (heart failure, suspected CSA or hypoventilation, neuromuscular disease, prior negative HSAT with high suspicion).'},
+  {q:'A 17-year-old girl with EDS (ESS 22), knee-buckling triggered by laughter (consciousness preserved), and hypnagogic hallucinations. HLA-DQB1*06:02 positive. Best confirmatory test?',
+   choices:['Brain MRI alone','Genetic panel only','Overnight PSG followed by MSLT (mean sleep latency ≤ 8 min + ≥ 2 SOREMPs) ± CSF orexin-A','Routine bloods'],
+   ans:2,
+   why:'Narcolepsy type 1 (cataplexy is pathognomonic). Confirm with overnight PSG (rule out OSA — common mimic) + next-day MSLT. CSF orexin-A < 110 pg/mL confirms type 1 when needed. HLA-DQB1*06:02 supports but is non-diagnostic alone (present in ~20% of general population).'},
+  {q:'A 68-year-old man punches and kicks during sleep, with dream enactment. PSG: REM without atonia + observed dream enactment. He has subtle bradykinesia on exam. Best counselling about prognosis?',
+   choices:['Isolated RBD is benign and self-limiting','Isolated RBD is a prodromal synucleinopathy — up to 80% develop PD/DLB/MSA over 10–15 years; offer annual surveillance','Isolated RBD always means Alzheimer disease','RBD has no link to Parkinson disease'],
+   ans:1,
+   why:'Idiopathic RBD is the strongest known prodromal marker of synucleinopathy. Counsel sensitively, arrange annual motor / cognitive / autonomic / olfactory surveillance, enable research participation. Treat with bedroom safety + melatonin (first-line 2023 AASM) or clonazepam.'},
+  {q:'A 42-year-old woman has RLS by IRLSSG criteria, ferritin 28 ng/mL, and is on mirtazapine. According to the 2024 AASM RLS guideline, what is the preferred first-line pharmacotherapy if needed?',
+   choices:['Pramipexole','α2δ ligand (gabapentin enacarbil 600 mg, gabapentin, or pregabalin)','Levodopa','Diphenhydramine'],
+   ans:1,
+   why:'2024 AASM RLS guideline favours α2δ ligands over dopamine agonists because of high augmentation rates with dopamine agonists. Always check and treat iron deficiency first (target ferritin ≥ 75 ng/mL or TSAT > 20%) and review exacerbating drugs — mirtazapine and SSRIs/SNRIs commonly worsen RLS. Bupropion is RLS-neutral.'},
+  {q:'A 60-year-old man with HF (EF 30%) has Cheyne-Stokes respiration on PSG and CSA. Which treatment is contraindicated?',
+   choices:['Optimisation of heart failure therapy','CPAP','Adaptive servo-ventilation (ASV) — contraindicated in HFrEF with LVEF ≤ 45% per SERVE-HF (increased CV mortality)','Nocturnal oxygen'],
+   ans:2,
+   why:'SERVE-HF (NEJM 2015) showed increased cardiovascular mortality with ASV in HFrEF with EF ≤ 45% and predominant CSA. Treat the heart failure; CPAP often helps; consider nocturnal O₂; reserve ASV for non-HFrEF central sleep apnea or treatment-emergent CSA.'},
+  {q:'A 28-year-old with 9 months of chronic insomnia, ISI 19, no comorbidities. Best first-line treatment?',
+   choices:['Long-term zolpidem','Diphenhydramine nightly','Cognitive behavioural therapy for insomnia (CBT-I), including stimulus control and sleep restriction','Lorazepam'],
+   ans:2,
+   why:'CBT-I is first-line for chronic insomnia per all major guidelines and the only treatment with durable benefit after discontinuation. Components: stimulus control, sleep restriction, cognitive restructuring, relaxation, sleep hygiene. Digital and brief 4-session CBT-I are effective. Pharmacotherapy is adjunctive — prefer dual orexin antagonists, ramelteon, or low-dose doxepin 3 mg.'},
+  {q:'A 16-year-old "cannot fall asleep until 3 am" but sleeps soundly 3 am – noon on weekends. School performance is suffering. Tried 5 mg melatonin at 10 pm without effect. Best plan?',
+   choices:['Zolpidem at bedtime','Morning bright light (10,000 lux × 30–60 min) + low-dose melatonin 0.3–0.5 mg ~5–6 h before desired sleep + gradual schedule advance','Long-term diazepam','Stimulants at noon'],
+   ans:1,
+   why:'Delayed sleep-wake phase disorder. Treatment: morning bright light entrains earlier; LOW-DOSE melatonin (0.3–0.5 mg) at the right time (5–6 h before desired sleep) phase-shifts; gradual advance + consistent wake time. High-dose melatonin at bedtime is ineffective for phase shift. Hypnotics often fail and don\'t fix the underlying phase delay.'},
+  {q:'A 50-year-old man with severe OSA has been adherent to CPAP for 6 months (verified by data card) and now has normal AHI on therapy but still scores ESS 17 with residual EDS. Which agent is appropriate for residual EDS?',
+   choices:['Diphenhydramine','Modafinil, armodafinil, pitolisant, or solriamfetol','Pramipexole','Clonazepam'],
+   ans:1,
+   why:'Residual EDS despite adherent CPAP and resolved AHI is an indication for wake-promoting agents: modafinil, armodafinil, pitolisant, or solriamfetol (FDA approvals). Always verify CPAP adherence and AHI on therapy first; consider comorbid depression, RLS, or unrecognised narcolepsy.'},
+  {q:'A 70-year-old with advanced Parkinson disease has new agitation and dream enactment at night. The team is considering clonazepam for RBD. What additional caveat should be considered?',
+   choices:['Clonazepam is universally first-line and safe in elderly PD','Clonazepam worsens OSA, increases fall risk, and worsens cognition — melatonin 3–12 mg is now first-line per 2023 AASM RBD guideline; bedroom safety FIRST','Always start sodium oxybate','Diphenhydramine is safe in PD'],
+   ans:1,
+   why:'2023 AASM RBD guideline now favours melatonin (3–12 mg) as first-line for RBD due to better tolerability. Clonazepam carries significant falls, cognitive, and OSA-worsening risks in elderly PD. Bedroom safety (padding, mattress on floor, partner separation) is the first intervention. Avoid antihistamines in PD (anticholinergic burden).'},
+  {q:'A 30-year-old male reports "sleepwalking" and "sleep terrors" — he sits up confused, opens eyes, mumbles, sometimes walks around, with no recollection in the morning. Episodes are in the first third of the night. He was recently diagnosed with severe OSA but is not yet on CPAP. Best initial step?',
+   choices:['Start clonazepam','Treat OSA with CPAP (often resolves NREM parasomnias triggered by respiratory arousals) + bedroom safety','Brain MRI','Long-term zolpidem'],
+   ans:1,
+   why:'NREM parasomnia in an adult with severe OSA — respiratory arousals from N3 commonly trigger sleepwalking and confusional arousals. Treating the underlying OSA with CPAP often resolves the parasomnia. Add bedroom safety (lock doors, alarms). Reserve clonazepam for residual high-injury risk. Other triggers to address: sleep deprivation, alcohol, fever, stress.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* EDS Classifier */
+const edsRest = document.getElementById('eds-rest');
+const edsResult = document.getElementById('eds-result');
+let edsState = {};
+
+function edsAns(step, val) {
+  edsState[step] = val;
+  Object.keys(edsState).forEach(k => { if (+k > step) delete edsState[k]; });
+  document.querySelectorAll(`#edsTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#edsTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderEds();
+}
+
+function renderEds() {
+  edsRest.innerHTML = '';
+  edsResult.classList.remove('show');
+  const s0 = edsState[0];
+  if (!s0) return;
+
+  if (s0 === 'normal') return showEds('Epworth ≤ 10 — not pathological sleepiness', [
+    'Consider fatigue (distinct from EDS — see post-stroke fatigue, MS fatigue, depression-related fatigue).',
+    'Recheck after a 2-week sleep diary and habitual sleep ≥ 7 h.',
+    'Rule out depression (PHQ-9) and thyroid disease.',
+    'No need for MSLT or PSG unless additional concerning features.'
+  ]);
+
+  // For mild/mod/severe, branch by features
+  addEds(1, '2. Snoring, witnessed apneas, neck > 40 cm, BMI > 35, HTN, age > 50?',
+    [['osa_high','≥ 3 STOP-BANG features (high OSA risk)'],['osa_low','< 3 STOP-BANG features']]);
+  const s1 = edsState[1];
+  if (!s1) return;
+
+  addEds(2, '3. Cataplexy (sudden brief loss of muscle tone triggered by emotion, especially laughter)?',
+    [['catap','Yes — clear cataplexy'],['nocatap','No clear cataplexy']]);
+  const s2 = edsState[2];
+  if (!s2) return;
+
+  addEds(3, '4. Sleep schedule pattern?',
+    [['short','Insufficient sleep (< 6 h on workdays; catches up on weekends)'],['shift','Shift work / irregular hours'],['delay','Cannot fall asleep till very late + cannot wake in morning'],['regular','Adequate regular sleep schedule']]);
+  const s3 = edsState[3];
+  if (!s3) return;
+
+  addEds(4, '5. Night-time events?',
+    [['enact','Dream enactment — punching, kicking, shouting (older adult)'],['nremp','Confused arousals / sleepwalking / sleep terrors (first third of night, no recall)'],['rls','Urge to move legs in the evening relieved by movement'],['none','None of the above']]);
+  const s4 = edsState[4];
+  if (!s4) return;
+
+  // Synthesise
+  const items = [];
+  let title = 'Likely contributing diagnoses';
+
+  if (s2 === 'catap') {
+    title = 'Narcolepsy type 1 — high suspicion';
+    items.push('<strong>Cataplexy is pathognomonic of narcolepsy type 1</strong> (orexin loss).');
+    items.push('Confirm with overnight PSG + next-day MSLT (mean SL ≤ 8 min + ≥ 2 SOREMPs). CSF orexin-A < 110 pg/mL diagnostic.');
+    items.push('Treat: modafinil/armodafinil/solriamfetol/pitolisant for EDS; sodium oxybate (Xyrem/Xywav/Lumryz), pitolisant, or SNRI/SSRI for cataplexy.');
+    items.push('Behavioural: scheduled 15–20 min refreshing naps; regular sleep–wake schedule; driving counselling; school/work accommodations.');
+  } else {
+    if (s1 === 'osa_high') {
+      items.push('<strong>OSA workup first</strong>: STOP-BANG ≥ 3 — arrange HSAT (or in-lab PSG if complex). OSA mimics narcolepsy, RBD, and insomnia — always exclude before rarer diagnoses.');
+    }
+    if (s3 === 'short') {
+      items.push('<strong>Chronic insufficient sleep syndrome</strong>: most common cause of EDS in young adults. 2-week sleep diary; ensure ≥ 7–9 h on workdays before MSLT — chronic short sleep produces false-positive narcolepsy-like MSLT.');
+    }
+    if (s3 === 'shift') {
+      items.push('<strong>Shift work disorder</strong>: strategic naps, bright light at start of shift, melatonin before day sleep, modafinil/armodafinil for excessive shift-related sleepiness.');
+    }
+    if (s3 === 'delay') {
+      items.push('<strong>Delayed sleep-wake phase disorder</strong>: morning bright light (10,000 lux × 30–60 min); low-dose melatonin 0.3–0.5 mg ~5–6 h before desired sleep; consistent wake time; gradual schedule advance.');
+    }
+    if (s4 === 'enact') {
+      items.push('<strong>REM sleep behaviour disorder</strong>: PSG confirmation (REM without atonia); bedroom safety; melatonin 3–12 mg first-line per 2023 AASM (alternative clonazepam 0.25–1 mg). Counsel about synucleinopathy prodrome (up to 80% convert to PD/DLB/MSA over 10–15 years).');
+    }
+    if (s4 === 'nremp') {
+      items.push('<strong>NREM parasomnia</strong>: address triggers (sleep deprivation, alcohol, OSA, fever, stress); safety measures (lock doors, alarms); clonazepam for high-injury risk only.');
+    }
+    if (s4 === 'rls') {
+      items.push('<strong>RLS</strong>: check ferritin (target ≥ 75) + TSAT (> 20%); review drugs (mirtazapine, SSRIs, antihistamines); α2δ ligand first-line (gabapentin enacarbil, gabapentin, pregabalin); avoid first-line dopamine agonist (augmentation risk).');
+    }
+    if (s2 === 'nocatap' && s1 === 'osa_low' && s3 === 'regular' && s4 === 'none') {
+      items.push('Consider narcolepsy type 2 or idiopathic hypersomnia — PSG + MSLT after at least 2 weeks of adequate sleep (sleep diary/actigraphy). Differentiate from depression-related fatigue.');
+      items.push('Idiopathic hypersomnia: long unrefreshing naps + severe sleep inertia + long total sleep; MSLT ≤ 8 min + < 2 SOREMPs or ≥ 11 h/24 h sleep.');
+    }
+  }
+  if (items.length === 0) items.push('Combine the features selected above to refine — consider 2-week sleep diary + actigraphy as the next step in all cases.');
+
+  showEds(title, items);
+}
+
+function addEds(step, q, opts) {
+  if (document.querySelector(`#eds-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  edsRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => edsAns(step, b.dataset.val)));
+  if (edsState[step]) {
+    const t = wrap.querySelector(`[data-val="${edsState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showEds(title, items) {
+  edsResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  edsResult.classList.add('show');
+}
+
+function resetEds() {
+  edsState = {};
+  edsRest.innerHTML = '';
+  edsResult.classList.remove('show');
+  document.querySelectorAll('#edsTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#edsTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => edsAns(0, b.dataset.val)));
+
+/* STOP-BANG Calculator */
+const sbItems = [
+  ['snore','Snore (loud enough to be heard through closed doors, or partner elbows you at night)'],
+  ['tired','Tired / fatigued / sleepy during the day frequently'],
+  ['obs','Observed apneas / gasping / choking during sleep'],
+  ['bp','Blood pressure — hypertension (treated or untreated)'],
+  ['bmi','BMI > 35 kg/m²'],
+  ['age','Age > 50 years'],
+  ['neck','Neck circumference > 40 cm (16 in)'],
+  ['male','Male sex'],
+];
+const sbCalc = document.getElementById('sbCalc');
+let sbState = {};
+sbItems.forEach(([id,label]) => {
+  sbState[id] = false;
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = `<div class="lbl">${label}</div>
+    <div class="opts">
+      <button class="sel" data-id="${id}" data-val="0">No</button>
+      <button data-id="${id}" data-val="1">Yes</button>
+    </div>`;
+  sbCalc.appendChild(row);
+});
+sbCalc.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = +b.dataset.val;
+  sbState[id] = !!val;
+  sbCalc.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreSb();
+}));
+
+function scoreSb() {
+  const total = Object.values(sbState).filter(Boolean).length;
+  document.getElementById('sb-score').textContent = total;
+  let interp = '';
+  if (total === 0) interp = 'No criteria selected.';
+  else if (total <= 2) interp = '<strong>Low risk</strong> of moderate-severe OSA. Reassess if new symptoms or risk factors develop.';
+  else if (total <= 4) interp = '<strong>Intermediate risk</strong> of OSA. Consider home sleep apnea test, especially if any of: tired, observed apneas, HTN, male sex, BMI > 35, or neck > 40 — these "specific" combinations raise probability further.';
+  else interp = '<strong>High risk</strong> of moderate-severe OSA. Arrange home sleep apnea test (or in-lab PSG if complex — heart failure, suspected CSA, neuromuscular disease, hypoventilation, prior negative HSAT with high suspicion). High specificity for moderate-severe OSA.';
+  document.getElementById('sb-interp').innerHTML = interp;
+}
+scoreSb();
+</script>
+</body>
+</html>

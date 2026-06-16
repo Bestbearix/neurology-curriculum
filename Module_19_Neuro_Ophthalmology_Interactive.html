@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 19 — Neuro-Ophthalmology (Interactive)</title>
+<style>
+  :root{
+    --bg:#0a0f24; --panel:#141b3a; --panel-2:#1b2549; --line:#2e3a64;
+    --ink:#e4e8fa; --muted:#9aa3cf; --accent:#7a92ff; --accent-2:#b0bcff;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#202a52; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#070b1c,#0a0f24 35%,#0a0f24); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(122,146,255,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#0a1130; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#ced5fb}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(122,146,255,.10); border-color:var(--accent); color:#ced5fb}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#0a1130; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(122,146,255,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 19</span>
+    <span class="badge">General physician</span>
+    <h1>Neuro-Ophthalmology — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 12, 13) and Merritt's <em>Neurology</em> (14e, Ch. 29). ONTT, NMOSD IPND 2015, MOGAD 2023 international criteria, GCA EULAR 2018 + GiACTA (NEJM 2017), IIH Friedman 2013 + IIHTT (JAMA Neurol 2014), teprotumumab for thyroid eye disease.</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="vf">Visual Field Localizer</button>
+    <button data-tab="pupil">Pupillary Disorder Classifier</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Neuro-ophthalmology is the most localising part of clinical neurology. A 30-second eye exam — visual acuity, fields, pupils, fundoscopy, motility — anchors the diagnosis in most cases. The general physician's job is to recognise the four classes of emergency (GCA, pupil-involving CN III, sudden bilateral disc swelling, pituitary apoplexy), to localise visual field defects accurately, and to refer the rest fast.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Use the afferent/efferent + sidedness framework to localise any visual or motility problem.</li>
+      <li>Match visual field defects to lesion sites along the entire visual pathway.</li>
+      <li>Differentiate typical MS-type optic neuritis from NMOSD and MOGAD using clinical and antibody features.</li>
+      <li>Treat suspected GCA empirically before biopsy — and request the right workup.</li>
+      <li>Distinguish papilloedema from optic disc oedema of other causes and run the IIH workup.</li>
+      <li>Recognise Horner, Adie, Argyll-Robertson, and CN III palsy pupil patterns at the bedside.</li>
+      <li>Triage diplopia, isolated CN III/IV/VI palsies, INO, and dorsal midbrain syndrome.</li>
+      <li>Identify pupil-involving CN III palsy as a posterior communicating artery aneurysm until proven otherwise.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> three questions answer most patients — afferent or efferent? one eye or both? acute, subacute, or chronic? Then add a fourth — any pupil involvement? — and you have the diagnosis nearly cornered.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Framework and visual pathway anatomy</summary>
+      <div class="body">
+        <ul>
+          <li>Afferent = retina → optic nerve → chiasm → tract → LGN → optic radiations → occipital cortex; produces visual loss / field defects.</li>
+          <li>Efferent = cortical/subcortical gaze centres → MLF → CN III, IV, VI → muscles, or pupillary motor pathway; produces diplopia / nystagmus / anisocoria / gaze palsy.</li>
+          <li>Sidedness: monocular (in front of chiasm) vs binocular (chiasm or behind).</li>
+        </ul>
+        <p>Pathway components:</p>
+        <ol>
+          <li>Retina → ganglion cells → 1.2 M axons per optic nerve.</li>
+          <li>Optic nerve (CN II — CNS structure, oligodendrocyte myelin).</li>
+          <li>Chiasm — nasal fibres cross; temporal stay ipsilateral.</li>
+          <li>Optic tract — contralateral hemifield from both eyes.</li>
+          <li>LGN — 6-layered thalamic relay.</li>
+          <li>Radiations: parietal (inferior field representation), temporal Meyer's loop (superior field).</li>
+          <li>V1 calcarine cortex — retinotopic; macula at occipital pole with MCA collateral → macular sparing in PCA stroke.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Visual field defects and localisation</summary>
+      <div class="body">
+        <table>
+          <tr><th>Lesion</th><th>Field defect</th></tr>
+          <tr><td>Retina (focal)</td><td>Scotoma matching lesion</td></tr>
+          <tr><td>Optic nerve</td><td>Central / centrocaecal scotoma; altitudinal in AION</td></tr>
+          <tr><td>Chiasm</td><td><strong>Bitemporal hemianopia</strong></td></tr>
+          <tr><td>Optic tract</td><td>Incongruous contralateral homonymous hemianopia</td></tr>
+          <tr><td>Meyer's loop (temporal)</td><td>Contralateral superior homonymous quadrantanopia ("pie in the sky")</td></tr>
+          <tr><td>Parietal radiation</td><td>Contralateral inferior homonymous quadrantanopia ("pie on the floor")</td></tr>
+          <tr><td>Occipital cortex</td><td>Congruous contralateral homonymous hemianopia with macular sparing</td></tr>
+          <tr><td>Bilateral occipital</td><td>Cortical blindness; Anton syndrome (denial)</td></tr>
+        </table>
+        <div class="pearl">Congruity rule: more posterior = more congruous. Macular sparing = cortical (calcarine cortex with MCA collateral).</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Transient visual loss</summary>
+      <div class="body">
+        <p><strong>Monocular</strong>: amaurosis fugax → TIA pathway (Module 2); branch retinal artery occlusion → TIA workup; TVOs (seconds, posture-related, bilateral in raised ICP); retinal migraine; acute angle-closure glaucoma (painful red eye, halos, N/V).</p>
+        <p><strong>Binocular</strong>: migraine aura (slow build, positive scintillations); vertebrobasilar TIA (with brainstem features); top-of-basilar (cortical blindness, Anton); occipital seizure; bilateral simultaneous AION (GCA).</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Optic neuritis — MS vs NMOSD vs MOGAD</summary>
+      <div class="body">
+        <table>
+          <tr><th>Feature</th><th>Typical (MS)</th><th>NMOSD</th><th>MOGAD</th></tr>
+          <tr><td>Age / sex</td><td>15–45, F&gt;M</td><td>Any, F&gt;&gt;M</td><td>Any incl. children</td></tr>
+          <tr><td>Severity</td><td>Mild–moderate, recovers</td><td>Severe, less recovery</td><td>Severe but better recovery; recurrent</td></tr>
+          <tr><td>Bilateral</td><td>Uncommon</td><td>More common</td><td>Common, esp children</td></tr>
+          <tr><td>Disc</td><td>Usually normal</td><td>Often swollen</td><td>Markedly swollen ± peripapillary haemorrhages</td></tr>
+          <tr><td>MRI</td><td>Short-segment mid-orbital</td><td>Long-segment + chiasm</td><td>Long-segment + perineural</td></tr>
+          <tr><td>Antibody</td><td>None</td><td>AQP4 (IPND 2015)</td><td>MOG (2023 criteria)</td></tr>
+          <tr><td>Treatment</td><td>IV methylpred 1 g × 3–5 d (per ONTT)</td><td>IV methylpred + PLEX; long-term DMT</td><td>IV methylpred + slow oral taper</td></tr>
+        </table>
+        <p>ONTT: IV methylpred speeds recovery but no effect on final acuity. <strong>Oral prednisolone alone contraindicated</strong> — increased recurrence. MRI brain at presentation predicts MS conversion. Cross-ref Module 8.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. AION — non-arteritic vs arteritic (GCA)</summary>
+      <div class="body">
+        <table>
+          <tr><th></th><th>NA-AION</th><th>A-AION (GCA)</th></tr>
+          <tr><td>Age</td><td>50–70</td><td>&gt; 50, often &gt; 70</td></tr>
+          <tr><td>Risk</td><td>HTN, DM, OSA, "crowded disc"</td><td>GCA features: temporal tenderness, jaw claudication, scalp tenderness, PMR, weight loss, fever</td></tr>
+          <tr><td>Disc</td><td>Hyperaemic or pale swelling</td><td>Pallid (chalky-white) swelling</td></tr>
+          <tr><td>ESR/CRP</td><td>Normal</td><td>Usually high (ESR &gt; 50, CRP &gt; 5)</td></tr>
+        </table>
+        <div class="refer">Suspected GCA: <strong>IV methylprednisolone 1 g/day × 3 days then 1 mg/kg/day oral</strong> immediately; temporal artery biopsy within 1–2 weeks (steroid does not nullify yield) or temporal artery ultrasound (halo sign — EULAR 2018); tocilizumab steroid-sparing (GiACTA NEJM 2017); aspirin 75 mg; PCP prophylaxis + bisphosphonate.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Papilloedema, disc swelling differential, IIH</summary>
+      <div class="body">
+        <p>Papilloedema = optic disc swelling from raised ICP (bilateral). Distinguish from other disc oedema (papillitis, AION, hypertensive retinopathy, CRVO, infiltration, toxic, drusen).</p>
+        <p>Workup: <strong>MRI brain + MRV first</strong> (mass + CVST), then LP with opening pressure if imaging unremarkable.</p>
+        <div class="pearl"><strong>IIH Friedman 2013 criteria</strong>: papilloedema + no localising signs (except CN VI) + normal MRI+MRV (may show empty sella, ONS enlargement, posterior globe flattening, TS stenosis) + opening pressure &gt; 25 cm H₂O (28 children) with normal CSF + no other cause. Treat with weight loss (primary), <strong>acetazolamide</strong> 250 mg BD → 1–2 g/day (IIHTT 2014), topiramate alternative; surgery (ONSF, CSF shunt, venous sinus stenting) for fulminant or progressive vision loss. Cross-ref Module 4.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Pupillary disorders</summary>
+      <div class="body">
+        <ul>
+          <li>RAPD (Marcus Gunn) — afferent disease anterior to chiasm.</li>
+          <li>Anisocoria worse in <strong>dark</strong> → poorly-dilating pupil abnormal (Horner, atropine-blocked).</li>
+          <li>Anisocoria worse in <strong>light</strong> → poorly-constricting pupil abnormal (CN III, Adie, pharmacologic).</li>
+        </ul>
+        <table>
+          <tr><th>Pattern</th><th>Diagnosis</th><th>Action</th></tr>
+          <tr><td>Miosis + ptosis + ipsilateral anhidrosis</td><td>Horner — 1st-order brainstem/cord, 2nd-order Pancoast/cervical, 3rd-order ICA dissection</td><td>Apraclonidine reverses; cocaine fails to dilate; hydroxyamphetamine localises 3rd-order; <strong>CTA neck</strong> if acute (dissection); CT chest (Pancoast)</td></tr>
+          <tr><td>Dilated pupil + light-near dissociation + tonic vermiform constriction</td><td>Adie tonic pupil; ± hyporeflexia = Holmes-Adie</td><td>Dilute pilocarpine 0.05–0.125% constricts; reassurance</td></tr>
+          <tr><td>Bilateral small + light-near dissociation</td><td>Argyll-Robertson — neurosyphilis; also DM/MS/sarcoid/dorsal midbrain</td><td>RPR/VDRL + FTA; HIV; LP if neurosyphilis suspected</td></tr>
+          <tr><td>Dilated unreactive + ptosis + eye down-out + diplopia</td><td>CN III palsy — <strong>pupil-involving = PCommA aneurysm until proven otherwise</strong></td><td>Urgent CTA/MRA</td></tr>
+          <tr><td>Pinpoint reactive</td><td>Pontine lesion / opioids / cholinergic toxidrome</td><td>Naloxone trial; imaging</td></tr>
+          <tr><td>Pharmacologic</td><td>Atropine drops, scopolamine patch contamination</td><td>Pilocarpine 1% fails to constrict atropine-blocked pupil (vs Adie which does)</td></tr>
+          <tr><td>Physiologic</td><td>Up to 20% normals; ≤ 0.4 mm; preserved reactions</td><td>Reassure</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Diplopia and isolated CN III, IV, VI palsies</summary>
+      <div class="body">
+        <p>Three questions: monocular or binocular? horizontal/vertical/oblique? constant or variable (MG fatigable, painful with dissection/orbit/GCA, pupil with CN III + PCommA)?</p>
+        <ul>
+          <li><strong>CN III</strong>: ptosis + eye down-out + dilated unreactive pupil (compressive). <strong>Pupil-involving = PCommA aneurysm</strong> → urgent CTA/MRA. <strong>Pupil-sparing in vasculopathic patient</strong> (DM, HTN, &gt; 50) = ischaemic; recovers ~3 months; image if atypical or &lt; 50.</li>
+          <li><strong>CN IV</strong>: superior oblique; longest intracranial course → most vulnerable to head trauma. Bielschowsky head tilt test (head tilted away from affected side compensates).</li>
+          <li><strong>CN VI</strong>: longest extracranial course; vulnerable to raised ICP → <strong>false-localising sign</strong> in IIH. Painful CN VI → consider GCA in elderly, cavernous sinus, Tolosa-Hunt.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. INO and gaze palsies</summary>
+      <div class="body">
+        <p><strong>INO</strong>: lesion of MLF → ipsilateral failure of adduction + contralateral abducting nystagmus + preserved convergence. Bilateral INO in young → MS (Module 8); unilateral in older → stroke. "One-and-a-half syndrome": INO + ipsilateral horizontal gaze palsy (abducens nucleus or PPRF lesion).</p>
+        <p>PPRF → horizontal gaze palsy. Dorsal midbrain (riMLF/INC) → Parinaud syndrome: upgaze palsy + light-near dissociation + lid retraction (Collier) + convergence-retraction nystagmus → pineal tumour, hydrocephalus, MS, stroke.</p>
+        <p>Supranuclear: PSP vertical gaze palsy + axial rigidity + early falls (Module 6); Niemann-Pick C in young patient; frontal eye fields stroke → contralateral conjugate gaze paresis ("look toward the lesion").</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>10. Nystagmus and chiasmal/cavernous sinus syndromes</summary>
+      <div class="body">
+        <table>
+          <tr><th>Pattern</th><th>Implication</th></tr>
+          <tr><td>Horizontal-torsional, unidirectional, suppressed by fixation</td><td>Peripheral vestibular (Module 18)</td></tr>
+          <tr><td>Bidirectional / direction-changing</td><td>Central</td></tr>
+          <tr><td>Pure vertical (downbeat) or torsional</td><td>Craniocervical (Chiari I), cerebellum, drugs</td></tr>
+          <tr><td>Convergence-retraction</td><td>Parinaud (dorsal midbrain)</td></tr>
+          <tr><td>Periodic alternating</td><td>Cerebellar nodulus — baclofen often helps</td></tr>
+          <tr><td>See-saw</td><td>Parasellar / chiasmal</td></tr>
+          <tr><td>Opsoclonus</td><td>Paraneoplastic Ri / neuroblastoma children; post-viral (Module 12)</td></tr>
+        </table>
+        <p><strong>Chiasm</strong>: bitemporal hemianopia from pituitary macroadenoma (compresses from below — superior temporal fibres first), craniopharyngioma (above — lower fibres), meningioma. <strong>Pituitary apoplexy</strong> (Module 12): thunderclap headache + ophthalmoplegia (cavernous sinus involvement) + bitemporal hemianopia + panhypopituitarism → <strong>hydrocortisone 100 mg IV stat</strong> + urgent MRI + neurosurgery.</p>
+        <p><strong>Cavernous sinus syndrome</strong>: CN III, IV, VI, V1 (± V2) + ipsilateral Horner. Causes: tumour, thrombosis (proptosis + chemosis + fever + IV antibiotics + anticoagulation), carotid-cavernous fistula (pulsatile proptosis + bruit), Tolosa-Hunt (painful, steroid-responsive). Superior orbital fissure spares CN II; orbital apex involves CN II.</p>
+        <p><strong>Thyroid eye disease</strong>: lid retraction + proptosis + restrictive ophthalmoplegia (IMSLO: inferior rectus first) + optic nerve compression severe; smoking cessation, selenium, IV methylpred, <strong>teprotumumab (FDA 2020 — IGF-1R mAb)</strong> transformative for active moderate-severe disease.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>11. Neuro-ophthalmic emergencies and when to refer</summary>
+      <div class="body">
+        <div class="refer">
+          <ul>
+            <li>Suspected GCA — IV methylprednisolone immediately, biopsy/US within 1–2 weeks.</li>
+            <li>Pupil-involving CN III — urgent CTA/MRA for PCommA aneurysm.</li>
+            <li>Pituitary apoplexy — hydrocortisone IV stat + urgent MRI + neurosurgery (Module 12).</li>
+            <li>Sudden bilateral disc swelling — MRI + MRV first, then LP (IIH workup).</li>
+            <li>Sudden monocular visual loss in older patient — GCA workup; in younger — optic neuritis or TIA (Module 2).</li>
+            <li>Cavernous sinus thrombosis — IV antibiotics + anticoagulation + ENT/ophthalmology/neurosurgery.</li>
+            <li>Acute angle-closure glaucoma — IOP lowering + iridotomy.</li>
+            <li>Severe AQP4/MOG optic neuritis — IV methylprednisolone + plasma exchange early.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="vf">
+    <h2>Visual Field Defect Localizer</h2>
+    <p class="muted">Choose the field defect pattern; the tool returns the lesion site, anatomical explanation, and common causes.</p>
+    <div class="tool" id="vfTool">
+      <div class="q">Field defect pattern?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="scotoma">Central / centrocaecal scotoma in one eye + RAPD</button>
+        <button class="opt" data-val="altit">Altitudinal monocular field loss</button>
+        <button class="opt" data-val="bitemp">Bitemporal hemianopia</button>
+        <button class="opt" data-val="hh_in">Incongruous contralateral homonymous hemianopia</button>
+        <button class="opt" data-val="hh_co">Congruous contralateral homonymous hemianopia with macular sparing</button>
+        <button class="opt" data-val="sup_quad">Contralateral superior homonymous quadrantanopia ("pie in the sky")</button>
+        <button class="opt" data-val="inf_quad">Contralateral inferior homonymous quadrantanopia ("pie on the floor")</button>
+        <button class="opt" data-val="cortical">Bilateral visual loss with denial / preserved pupils</button>
+      </div>
+      <div class="result" id="vf-result"></div>
+      <button class="reset" onclick="resetVf()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="pupil">
+    <h2>Pupillary Disorder Classifier</h2>
+    <p class="muted">Answer about anisocoria, light/near responses, and other features to receive the diagnosis with workup.</p>
+    <div class="tool" id="puTool">
+      <div class="q">1. Anisocoria worse in dark or in light?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="dark">Worse in dark — poorly-DILATING pupil abnormal (smaller pupil pathological)</button>
+        <button class="opt" data-val="light">Worse in light — poorly-CONSTRICTING pupil abnormal (larger pupil pathological)</button>
+        <button class="opt" data-val="equal">Equal in dark and light (≤ 0.4 mm, no other signs)</button>
+        <button class="opt" data-val="bilatsmall">Bilateral small pupils — light-near dissociation</button>
+        <button class="opt" data-val="pinpoint">Pinpoint reactive pupils</button>
+      </div>
+      <div id="pu-rest"></div>
+      <div class="result" id="pu-result"></div>
+      <button class="reset" onclick="resetPu()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 30-year-old woman has 4 days of left eye pain on movement and progressive blurred vision. Acuity 6/24 left, 6/6 right. Left RAPD. Colour vision markedly reduced left. Disc normal on fundoscopy</summary>
+      <div class="body">
+        <p>MRI orbits/brain with gadolinium and fat suppression: short-segment mid-orbital optic nerve enhancement on the left + 2 small periventricular T2 lesions in the brain.</p>
+        <p><strong>Diagnosis:</strong> Typical (MS-type) retrobulbar optic neuritis.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>IV methylprednisolone 1 g/day × 3–5 days</strong> (speeds recovery; no effect on final visual acuity per ONTT). <strong>Do not give oral prednisolone alone</strong> — increases recurrence.</li>
+          <li>Anti-AQP4 and anti-MOG serology (clinical picture is typical MS-type, but exclude NMOSD and MOGAD given longer-term implications).</li>
+          <li>MRI confirms ≥ 1 typical lesion → discuss MS conversion risk; ~50% over 15 years. Refer to MS clinic for DMT discussion (cross-ref Module 8 — McDonald 2017).</li>
+          <li>LP for OCBs if MS workup needed.</li>
+          <li>OCT (RNFL + GCL) — baseline for follow-up; thinning develops over weeks.</li>
+          <li>Counsel about Uhthoff phenomenon (transient blurring with heat/exercise) and Pulfrich phenomenon (motion perception illusion).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 75-year-old has 2 days of dull bitemporal headache, scalp tenderness when combing hair, jaw pain when chewing, and now sudden visual loss in the right eye to perception of light only. ESR 95, CRP 110</summary>
+      <div class="body">
+        <p>Examination: pallid disc swelling on the right; visual acuity 6/6 left, perception of light right. Temporal artery palpable and tender, no pulsation.</p>
+        <p><strong>Diagnosis:</strong> Giant cell arteritis with arteritic AION; emergency.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>IV methylprednisolone 1 g/day × 3 days, then oral prednisolone 1 mg/kg/day</strong> immediately — do not wait for biopsy. The opposite eye is at imminent risk.</li>
+          <li>Temporal artery biopsy within 1–2 weeks (yield preserved up to 2 weeks of steroid) — adequate length (≥ 1 cm); request skip lesions awareness from pathology. Temporal artery ultrasound (halo sign) is an alternative or supplement per EULAR 2018.</li>
+          <li>Add aspirin 75 mg daily — reduces ischaemic events in GCA.</li>
+          <li>Add tocilizumab (IL-6 receptor antagonist; GiACTA NEJM 2017) for steroid-sparing in selected patients.</li>
+          <li>Bone protection (calcium + vitamin D + bisphosphonate); PCP prophylaxis; PPI; blood-glucose monitoring.</li>
+          <li>Long taper over 12–24 months; monitor ESR/CRP and symptoms; relapse common.</li>
+          <li>Rheumatology referral.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 25-year-old obese woman has 3 months of daily headache, worse on bending and on waking, with episodes of transient blackouts of vision lasting seconds when she stands. Pulsatile tinnitus. Fundoscopy: bilateral papilloedema</summary>
+      <div class="body">
+        <p>Examination otherwise normal. MRI brain + MRV: partially empty sella, flattened posterior globes, optic nerve sheath dilation, mild transverse sinus stenosis bilaterally; no mass or thrombosis. LP opening pressure 32 cm H₂O in lateral decubitus; normal CSF analysis.</p>
+        <p><strong>Diagnosis:</strong> Idiopathic intracranial hypertension (Friedman 2013 modified Dandy criteria met).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Weight loss</strong> — primary treatment; aim for 6–10% body weight reduction (often resolves IIH). Refer to dietitian; consider bariatric surgery in selected.</li>
+          <li><strong>Acetazolamide 250 mg BD titrated to 1–2 g/day</strong> (IIHTT 2014); monitor electrolytes (K), paraesthesiae, taste disturbance; pregnancy contraindication.</li>
+          <li>Topiramate as alternative or adjunct (weight-loss benefit).</li>
+          <li><strong>Formal perimetry</strong> — protect vision; serial fields.</li>
+          <li>Headache management (Module 4); avoid medication-overuse.</li>
+          <li>Review medications that can cause secondary IIH: tetracyclines, vitamin A / retinoids, growth hormone, lithium.</li>
+          <li>If fulminant or progressive vision loss: optic nerve sheath fenestration or CSF shunting (VP or LP); venous sinus stenting in selected cases with transverse sinus stenosis.</li>
+          <li>Counsel: IIH is sight-threatening — adherence to follow-up is essential.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 55-year-old man develops sudden severe headache, droopy right eyelid, and double vision. Examination: complete right ptosis; right eye "down and out"; right pupil dilated 7 mm, poorly reactive to light. The left pupil is 3 mm and brisk</summary>
+      <div class="body">
+        <p>CTA head and neck: 8 mm right posterior communicating artery aneurysm.</p>
+        <p><strong>Diagnosis:</strong> Pupil-involving right CN III palsy due to PCommA aneurysm — emergency.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Urgent neurosurgical / neuro-interventional consultation — endovascular coiling or surgical clipping.</li>
+          <li>Manage BP carefully; analgesia.</li>
+          <li>ICU monitoring for SAH (cross-ref Module 4 / Module 2): nimodipine prophylaxis for vasospasm.</li>
+          <li>Counsel: parasympathetic fibres ride on the surface of CN III, most vulnerable to external compression. Pupil-involving CN III palsy is PCommA aneurysm until proven otherwise — must image urgently with CTA / MRA / DSA.</li>
+          <li>Compare with: pupil-sparing CN III palsy in vasculopathic patient (DM, HTN, &gt; 50) → usually ischaemic (microvascular), recovers ~3 months; still image if any atypical features, age &lt; 50, or no recovery.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 32-year-old woman has 3 days of horizontal diplopia worse on left gaze. Examination: failure of adduction of the right eye on left gaze + abducting nystagmus of the left eye; convergence preserved. Acuity normal; no other deficits</summary>
+      <div class="body">
+        <p>Symptoms suggestive of MS — 3 years ago she had a 4-week episode of right leg weakness that recovered.</p>
+        <p><strong>Diagnosis:</strong> Right internuclear ophthalmoplegia from a right MLF lesion — likely MS (Module 8).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>MRI brain and spine with gadolinium — look for periventricular, juxtacortical, infratentorial, and spinal cord T2/FLAIR lesions; apply McDonald 2017 criteria.</li>
+          <li>LP for OCBs and IgG index.</li>
+          <li>Bloods: full panel + anti-AQP4, anti-MOG, vitamin B12, TFT, HIV, syphilis serology.</li>
+          <li>If MS confirmed: IV methylprednisolone for relapses; high-efficacy DMT discussion (ocrelizumab, natalizumab, ofatumumab, etc.).</li>
+          <li>Counsel: bilateral INO in a young patient is highly suggestive of MS; unilateral INO in older patient → stroke. Watch for "one-and-a-half" syndrome (INO + ipsilateral horizontal gaze palsy).</li>
+          <li>Refer to MS clinic and ophthalmology.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 38-year-old woman 1 week after a minor neck strain develops sudden right-sided ptosis, miosis, and facial sweating reduction. Severe right-sided neck pain</summary>
+      <div class="body">
+        <p>Examination: right ptosis 2 mm; right pupil 3 mm, left pupil 5 mm; anisocoria worse in dark; ipsilateral facial anhidrosis. No other neurology.</p>
+        <p><strong>Diagnosis:</strong> Right Horner syndrome — suspect right internal carotid artery dissection (third-order neuron) until proven otherwise.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Urgent CT angiography of head and neck</strong> — look for string sign, intramural haematoma, double lumen, pseudoaneurysm at the carotid.</li>
+          <li>If confirmed dissection: antiplatelet (aspirin) or anticoagulation per CADISS-style decision; cross-ref Module 2 for stroke prevention.</li>
+          <li>Pharmacologic confirmation if needed: apraclonidine 0.5% reverses the anisocoria (denervation supersensitivity of α1 on dilator). Cocaine 4–10% fails to dilate a Horner pupil; hydroxyamphetamine localises to third-order if fails to dilate.</li>
+          <li>Stroke unit monitoring for early ischaemic events (vessel wall haematoma can occlude; watch for hemispheric or retinal ischaemia).</li>
+          <li>Other Horner causes to consider if no dissection: 1st-order brainstem/cord (lateral medullary stroke, syringomyelia); 2nd-order Pancoast tumour or cervical disease (CXR/CT chest).</li>
+          <li>Refer to stroke neurology.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 19 of an ongoing neurology curriculum. Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e Ch. 12, 13; Merritt's <em>Neurology</em> 14e Ch. 29. ONTT (Beck NEJM 1992; Neurology 1997); NMOSD IPND 2015 (Wingerchuk Neurology); MOGAD international criteria 2023 (Banwell Lancet Neurol); EULAR LVV 2018 (Hellmich); GiACTA tocilizumab GCA 2017 (Stone NEJM); IIH Friedman 2013 (Neurology); IIHTT 2014 (Wall JAMA Neurol); teprotumumab thyroid eye disease (Smith NEJM 2017/2020).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Framework', q:'Three questions that answer most neuro-ophthalmology presentations?', a:'(1) Afferent or efferent? (visual loss/field vs diplopia/gaze/pupil). (2) One eye or both? (cover one eye to test — monocular = in front of chiasm; binocular = chiasm or behind). (3) Acute, subacute, or chronic? Add a fourth — any pupil involvement? — and the diagnosis is nearly cornered.'},
+  {tag:'Anatomy', q:'Why does the macula often spare in PCA strokes?', a:'The macular representation is at the occipital pole, where the calcarine cortex has dual blood supply from the PCA + MCA. PCA infarct often leaves macular vision intact ("macular sparing"). Macular sparing implies a cortical lesion.'},
+  {tag:'Fields', q:'Field defect from a temporal lobe lesion?', a:'Contralateral SUPERIOR homonymous quadrantanopia — "pie in the sky" — from Meyer\'s loop (lower optic radiation in the temporal lobe, representing superior visual field).'},
+  {tag:'Fields', q:'Field defect from a parietal lobe lesion?', a:'Contralateral INFERIOR homonymous quadrantanopia — "pie on the floor" — from upper optic radiation in the parietal lobe (representing inferior visual field).'},
+  {tag:'Fields', q:'Field defect from a chiasmal lesion (pituitary tumour)?', a:'Bitemporal hemianopia — pituitary macroadenoma compresses from below first affecting SUPERIOR temporal fibres (upper outer fields first); craniopharyngioma compresses from above (lower outer fields first). Pathognomonic when formally tested.'},
+  {tag:'TVL', q:'Amaurosis fugax — what is the workup?', a:'Treat as a TIA: antiplatelet, statin, BP, carotid imaging within 24 hours, echocardiogram, ECG/Holter for AF; refer to TIA/stroke pathway (cross-ref Module 2). Source is usually carotid embolus from ipsilateral ICA disease or cardiac.'},
+  {tag:'ONTT', q:'Key lessons from the Optic Neuritis Treatment Trial (ONTT)?', a:'(1) IV methylprednisolone speeds recovery of vision but does NOT improve final visual acuity. (2) ORAL prednisolone alone is CONTRAINDICATED — increases recurrence. (3) MRI brain at presentation predicts MS conversion (~50% over 15 years with ≥ 1 typical lesion vs ~25% with normal MRI).'},
+  {tag:'NMOSD/MOGAD', q:'How does paediatric / atypical optic neuritis change your antibody workup?', a:'Send anti-AQP4 (NMOSD) and anti-MOG (MOGAD) in bilateral, severe, recurrent optic neuritis, or with concurrent myelitis/brain involvement, paediatric onset. Paediatric ADEM is strongly MOGAD-associated. Treatment differs: NMOSD needs IV methylpred + PLEX + long-term DMT (eculizumab, inebilizumab, satralizumab); MOGAD needs IV methylpred + slow oral taper to reduce relapse.'},
+  {tag:'GCA Rx', q:'Suspected GCA — first step?', a:'IV methylprednisolone 1 g/day × 3 days then oral prednisolone 1 mg/kg/day IMMEDIATELY — do not wait for biopsy. ESR + CRP. Temporal artery biopsy within 1–2 weeks (yield preserved). Temporal artery ultrasound (halo sign) per EULAR 2018. Add tocilizumab as steroid-sparing (GiACTA NEJM 2017); aspirin 75 mg; PCP prophylaxis + bisphosphonate.'},
+  {tag:'AION', q:'Distinguish non-arteritic from arteritic AION?', a:'NA-AION: 50–70, vasculopathic risks, "crowded disc", hyperaemic or pale swelling, ESR/CRP normal. A-AION (GCA): > 50 often > 70, temporal tenderness, jaw claudication, scalp tenderness, PMR, weight loss, fever; pallid (chalky-white) swelling; ESR > 50, CRP > 5; OPPOSITE eye lost within days if untreated.'},
+  {tag:'IIH', q:'Modified Dandy / Friedman 2013 criteria for IIH?', a:'(1) Signs/symptoms of raised ICP (headache, TVOs, papilloedema, pulsatile tinnitus). (2) No localising signs except CN VI. (3) Normal MRI + MRV (may show empty sella, ONS dilation, posterior globe flattening, TS stenosis). (4) Elevated opening pressure > 25 cm H₂O adults (28 children) with normal CSF. (5) No other cause. Treatment: weight loss primary; acetazolamide first-line drug (IIHTT 2014); topiramate alternative; surgery for fulminant / progressive vision loss.'},
+  {tag:'CN III', q:'Pupil-involving vs pupil-sparing CN III palsy?', a:'PUPIL-INVOLVING (dilated unreactive): posterior communicating artery aneurysm until proven otherwise → URGENT CTA/MRA. Parasympathetic fibres ride on the surface of CN III, most vulnerable to external compression. PUPIL-SPARING in vasculopathic patient (DM, HTN, > 50): usually ischaemic microvascular; recovers ~3 months. Image if atypical or < 50 years.'},
+  {tag:'Horner', q:'Horner syndrome — three-order localisation and key emergency?', a:'1st-order = brainstem/cord (lateral medullary stroke, syringomyelia); 2nd-order = Pancoast tumour or cervical sympathetic chain; 3rd-order = INTERNAL CAROTID ARTERY DISSECTION (often with neck pain) — urgent CTA. Apraclonidine reverses the anisocoria; cocaine fails to dilate the Horner pupil; hydroxyamphetamine localises to 3rd-order.'},
+  {tag:'Adie', q:'Adie tonic pupil — features and bedside test?', a:'Larger pupil + light-near dissociation (poor light, slow tonic constriction to near) + "vermiform" sectoral movement; often young women; idiopathic; sometimes bilateral over years. Holmes-Adie = Adie + hyporeflexia. Dilute pilocarpine 0.05–0.125% constricts the Adie pupil (denervation supersensitivity); normal pupil does not. Reassurance.'},
+  {tag:'Argyll-Robertson', q:'Argyll-Robertson pupils — definition and classic cause?', a:'Bilateral small pupils with light-near dissociation (constrict to near but not light). Classic for neurosyphilis (Module 11); also seen in DM, MS, sarcoid, dorsal midbrain syndrome. Investigate: RPR/VDRL + FTA-ABS; HIV; LP for CSF VDRL if neurosyphilis suspected.'},
+  {tag:'INO', q:'INO — clinical features and most likely cause by age?', a:'Lesion of MLF → on attempted horizontal gaze toward the contralateral side, failure of ADDUCTION of the ipsilateral eye + abducting nystagmus of the contralateral eye; convergence usually preserved. Bilateral INO in young = MS (Module 8); unilateral INO in older = stroke. "One-and-a-half" syndrome = INO + ipsilateral horizontal gaze palsy (abducens nucleus or PPRF lesion).'},
+  {tag:'Parinaud', q:'Dorsal midbrain (Parinaud) syndrome — features?', a:'(1) Upgaze palsy. (2) Light-near dissociation. (3) Lid retraction (Collier sign). (4) Convergence-retraction nystagmus. Causes: pineal tumour (especially in young patients), hydrocephalus, MS plaque, stroke. Investigate with MRI.'},
+  {tag:'False local', q:'Why is CN VI palsy a false-localising sign in IIH?', a:'CN VI has the longest extracranial course, traveling along the base of the skull. Raised ICP can stretch and compress it bilaterally or unilaterally → abducens palsy with horizontal diplopia, which does NOT indicate a focal pontine lesion. Common in IIH and other raised-ICP states.'},
+  {tag:'Pituitary apoplexy', q:'Pituitary apoplexy — first step and main components?', a:'HYDROCORTISONE 100 mg IV STAT for adrenal crisis, then 50 mg IV q6h. Urgent pituitary MRI. Full pituitary hormone panel. Formal visual fields. Urgent neurosurgical referral for transsphenoidal decompression if visual or oculomotor compromise. Presentation: thunderclap headache + ophthalmoplegia (CN III then IV/VI from cavernous sinus) + bitemporal hemianopia + acute panhypopituitarism. Cross-ref Module 12.'},
+  {tag:'Thyroid eye', q:'Thyroid eye disease (Graves orbitopathy) — features and modern therapy?', a:'Lid retraction + proptosis + restrictive ophthalmoplegia ("IMSLO" — inferior rectus first, then medial/superior/lateral/oblique); optic nerve compression in severe cases. Smoking cessation, selenium, IV methylprednisolone for active disease. TEPROTUMUMAB (FDA 2020 — IGF-1R mAb) is transformative for active moderate-severe TED, reducing proptosis and diplopia substantially.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 30-year-old woman has 4 days of left eye pain on movement, blurred central vision, an RAPD, and reduced colour vision. MRI orbits/brain: short-segment mid-orbital optic nerve enhancement on the left + 2 small periventricular brain T2 lesions. Best treatment and what should NOT be done?',
+   choices:['Oral prednisolone alone','IV methylprednisolone 1 g/day × 3–5 days (speeds recovery per ONTT); avoid oral prednisolone alone (increased recurrence); refer to MS clinic for DMT discussion','Long-term aciclovir','Empirical antibiotics'],
+   ans:1,
+   why:'Typical (MS-type) optic neuritis. ONTT: IV methylpred speeds recovery but no effect on final acuity; ORAL prednisolone alone is contraindicated (increased recurrence). MRI shows ≥ 1 typical brain lesion → discuss MS conversion risk (~50% over 15 years). Refer to MS clinic and cross-ref Module 8. Send anti-AQP4 and anti-MOG to exclude NMOSD / MOGAD given long-term implications.'},
+  {q:'A 75-year-old has scalp tenderness, jaw claudication, and sudden right eye visual loss to perception of light. ESR 95. CRP 110. Pallid disc swelling. Best immediate action?',
+   choices:['Outpatient ophthalmology in 2 weeks','IV methylprednisolone 1 g/day × 3 days then oral prednisolone 1 mg/kg/day IMMEDIATELY; biopsy within 1–2 weeks; add aspirin, consider tocilizumab','Aspirin alone','Wait for temporal artery biopsy first'],
+   ans:1,
+   why:'Suspected GCA with arteritic AION. The opposite eye is at imminent risk. Start IV methylpred IMMEDIATELY — do not wait for biopsy (yield preserved up to 2 weeks of steroid). Add aspirin 75 mg (reduces ischaemic events), tocilizumab as steroid-sparing (GiACTA NEJM 2017), PCP prophylaxis, bisphosphonate. Temporal artery biopsy within 1–2 weeks or temporal artery ultrasound (halo sign — EULAR 2018).'},
+  {q:'A 25-year-old obese woman has daily headache + transient visual obscurations + pulsatile tinnitus + bilateral papilloedema. MRI + MRV normal except partially empty sella and posterior globe flattening. LP opening pressure 32 cm H₂O, normal CSF. Best initial management?',
+   choices:['Long-term opioid','Weight loss (primary) + acetazolamide 250 mg BD titrated to 1–2 g/day (IIHTT 2014) + formal perimetry; topiramate alternative; surgery if fulminant or progressive vision loss','Long-term steroid','Triptan as preventive'],
+   ans:1,
+   why:'IIH (Friedman 2013 criteria met). Weight loss is the primary intervention (6–10% body weight reduction often resolves IIH). Acetazolamide is the first-line drug (IIHTT 2014); topiramate as alternative or adjunct. Formal perimetry to protect vision. Surgery (ONSF, CSF shunt, venous sinus stenting) for fulminant or progressive vision loss. Review and stop any secondary IIH drugs (tetracyclines, vitamin A / retinoids, growth hormone, lithium).'},
+  {q:'A 55-year-old has sudden right ptosis, eye "down and out", dilated unreactive pupil, and severe headache. Best next step?',
+   choices:['Outpatient neurology in 2 weeks','Urgent CT angiography (or MRA) of head and neck for posterior communicating artery aneurysm; emergent neurosurgical / endovascular consultation','Aspirin and observe','EMG'],
+   ans:1,
+   why:'Pupil-INVOLVING CN III palsy is PCommA aneurysm until proven otherwise. Parasympathetic fibres ride on the surface of CN III, most vulnerable to external compression. Urgent CTA/MRA/DSA + neurosurgical or endovascular coiling/clipping. Watch for SAH (cross-ref Module 4). Compare with pupil-SPARING CN III in vasculopathic patient (DM/HTN/>50) — usually ischaemic microvascular, recovers in ~3 months; image if atypical or < 50.'},
+  {q:'A 38-year-old woman 1 week after neck strain has right ptosis, miosis, ipsilateral facial anhidrosis, and severe right neck pain. Best workup?',
+   choices:['Reassurance','Urgent CT angiography of head and neck for INTERNAL CAROTID ARTERY DISSECTION; stroke unit; antiplatelet or anticoagulation per institutional protocol','Long-term antihistamine','Pilocarpine 1% trial'],
+   ans:1,
+   why:'Right Horner syndrome with neck pain after minor neck strain — internal carotid artery dissection (3rd-order neuron) until proven otherwise. Urgent CTA; stroke unit monitoring; antiplatelet (aspirin) or anticoagulation per CADISS-style decision (cross-ref Module 2). Pharmacologic confirmation: apraclonidine reverses anisocoria; cocaine fails to dilate; hydroxyamphetamine localises to 3rd-order if fails to dilate.'},
+  {q:'A 32-year-old has failure of right eye adduction on left gaze + abducting nystagmus of the left eye + preserved convergence. Most likely cause?',
+   choices:['Myasthenia gravis','Right INO from a right MLF lesion — in this age group, MS (Module 8) most likely; bilateral INO especially supportive','CN III palsy','Conversion disorder'],
+   ans:1,
+   why:'Internuclear ophthalmoplegia (INO): lesion of the medial longitudinal fasciculus. "Adduction failure on the side of the lesion." Bilateral INO in a young patient is highly suggestive of MS. Unilateral INO in older patient → stroke. Workup: MRI brain + spine, McDonald 2017 (Module 8), LP for OCBs, NMO/MOG antibodies, bloods including B12. Watch for one-and-a-half syndrome (INO + ipsilateral horizontal gaze palsy).'},
+  {q:'A 60-year-old with diabetes has new ptosis and eye "down and out" but the pupil is preserved (3 mm, brisk to light). Best approach?',
+   choices:['Urgent CTA for PCommA aneurysm — pupil involvement is unreliable in DM','Vasculopathic CN III palsy is likely microvascular ischaemic in this group; observe with neuro-ophthalmology review; recovery expected over ~3 months; image if atypical features, no recovery, age < 50, or pupil becomes involved','Long-term steroid','EMG'],
+   ans:1,
+   why:'Pupil-SPARING CN III palsy in a vasculopathic patient (DM, HTN, > 50) is usually ischaemic (microvascular) and recovers over ~3 months. However, image if atypical features (multiple cranial nerves, partial pupil involvement, pain, no recovery, age < 50). Pupil-INVOLVING CN III always demands urgent CTA/MRA for PCommA aneurysm.'},
+  {q:'A 14-year-old with a pineal mass has upgaze palsy, light-near dissociation, lid retraction (Collier sign), and convergence-retraction nystagmus. What is the syndrome?',
+   choices:['Wallenberg','Dorsal midbrain (Parinaud) syndrome from pineal compression of the pretectal area','Cavernous sinus syndrome','Horner'],
+   ans:1,
+   why:'Dorsal midbrain (Parinaud) syndrome: upgaze palsy + light-near dissociation + lid retraction (Collier sign) + convergence-retraction nystagmus. Causes: pineal tumour (especially in young patients), hydrocephalus, MS plaque, stroke. Manage hydrocephalus (EVD/ETV/shunt), tumour resection per pathology, MRI surveillance. Cross-ref Module 12.'},
+  {q:'A 45-year-old with subacute behavioural change, dysarthria, wing-beating tremor has bilateral small pupils with light-near dissociation (constrict to near but not light). What is the pupil pattern and a key differential?',
+   choices:['Adie tonic pupils','Argyll-Robertson pupils — classic for neurosyphilis; also DM, MS, sarcoid, dorsal midbrain syndrome','Horner','CN III palsy'],
+   ans:1,
+   why:'Argyll-Robertson pupils: bilateral small pupils with light-near dissociation. Classic association is neurosyphilis (Module 11); also seen in DM, MS, sarcoid, dorsal midbrain syndrome. Workup: RPR/VDRL + FTA-ABS, HIV, LP with CSF VDRL if neurosyphilis suspected. The other features (behavioural change + dysarthria + wing-beating tremor) might also raise Wilson disease (Module 13) — slit-lamp KF rings + ceruloplasmin + 24-h urinary copper + ATP7B mutation.'},
+  {q:'A 50-year-old has subacute bilateral disc swelling, headache, transient visual obscurations, pulsatile tinnitus, and weight loss but no other neurological signs. Imaging shows hemispheric CVST. Best management approach?',
+   choices:['Treat as IIH alone','Anticoagulate for CVST (cross-ref Module 2), then re-assess for IIH; treat secondary intracranial hypertension; identify any prothrombotic cause; ophthalmology follow-up for sight protection','Lumbar shunt without anticoagulation','Long-term steroid alone'],
+   ans:1,
+   why:'Bilateral disc swelling workup requires MRI + MRV to exclude cerebral venous sinus thrombosis (Module 2). CVST can present with the same clinical picture as IIH and is a leading mimic. Anticoagulation is mainstay for CVST (LMWH then warfarin / DOACs in selected cases); workup for prothrombotic cause; manage ICP if elevated; ophthalmology follow-up for sight protection. Vision-threatening features warrant ONSF or CSF shunt.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Visual Field Defect Localizer */
+const vfResult = document.getElementById('vf-result');
+const vfMap = {
+  scotoma:{title:'Optic nerve disease', items:[
+    '<strong>Localises to the optic nerve</strong> (anterior to chiasm) → producing a central or centrocaecal scotoma + RAPD.',
+    'Differential: optic neuritis (typical MS-type vs NMOSD vs MOGAD — bilateral, severe, recurrent, paediatric → send AQP4 + MOG); AION (arteritic GCA emergency vs non-arteritic vasculopathic; altitudinal field defect classic); compressive optic neuropathy (meningioma, glioma); toxic-nutritional (methanol — Module 13; ethambutol; B12; B1; tobacco-alcohol amblyopia); hereditary (LHON — young men, sequential bilateral central scotomas, mtDNA m.11778/14484/3460); traumatic.',
+    'Workup: visual acuity + colour vision (Ishihara) + RAPD + dilated fundoscopy + MRI orbits/brain with gadolinium and fat suppression; ESR/CRP if &gt; 50 (GCA); AQP4/MOG; OCT for RNFL/GCL; LP if MS workup needed.',
+    'Treatment depends on cause — IV methylprednisolone for ON / GCA; address compressive lesion; treat toxic exposure.'
+  ]},
+  altit:{title:'Anterior ischaemic optic neuropathy (AION)', items:[
+    '<strong>Localises to the optic nerve head</strong> — altitudinal field defect is classic.',
+    'A-AION (GCA) vs NA-AION — see GCA emergency protocol above.',
+    'ESR/CRP urgently. If GCA suspected, IV methylprednisolone 1 g/day × 3 days then oral prednisolone 1 mg/kg/day IMMEDIATELY; biopsy within 1–2 weeks (or US halo sign).',
+    'NA-AION: manage vasculopathic risk, sleep study for OSA, aspirin sometimes used; no proven specific treatment; recovery limited.'
+  ]},
+  bitemp:{title:'Chiasmal lesion', items:[
+    '<strong>Localises to the optic chiasm</strong> — bitemporal hemianopia from interruption of crossing nasal fibres.',
+    'Differential: pituitary adenoma (Module 12 — macroadenoma compresses chiasm from below, affecting superior temporal fibres first → bitemporal SUPERIOR hemianopia worsens first); craniopharyngioma (above — inferior temporal fibres first); tuberculum sellae meningioma; rarely aneurysm of internal carotid; metastasis.',
+    'Workup: dedicated pituitary MRI + full pituitary hormone panel + formal visual fields (Module 12).',
+    'Treatment: prolactinoma → cabergoline first-line (medical); other adenomas → transsphenoidal resection. Pituitary apoplexy → hydrocortisone IV stat + urgent neurosurgery.'
+  ]},
+  hh_in:{title:'Optic tract or LGN lesion', items:[
+    '<strong>Localises to the optic tract (or LGN)</strong> — INCONGRUOUS contralateral homonymous hemianopia + sometimes a contralateral RAPD even with intact acuity (relatively rare to find).',
+    'Differential: stroke, demyelination, tumour, infection at the level of tract / LGN.',
+    'Workup: MRI brain with gadolinium; vascular workup if vascular.'
+  ]},
+  hh_co:{title:'Occipital cortex lesion', items:[
+    '<strong>Localises to the visual cortex (V1, calcarine)</strong> — congruous contralateral homonymous hemianopia with macular sparing (MCA collateral to occipital pole).',
+    'Most common cause: PCA stroke (Module 2).',
+    'Other: migraine aura (transient); tumour; abscess; trauma.',
+    'Workup: MRI brain ± MRA; cardio-embolic workup if stroke; cross-ref Module 2.'
+  ]},
+  sup_quad:{title:'Temporal lobe lesion (Meyer\'s loop)', items:[
+    '<strong>Localises to Meyer\'s loop in the temporal lobe</strong> — contralateral SUPERIOR homonymous quadrantanopia ("pie in the sky").',
+    'Causes: tumour (Module 12); stroke; post-temporal-lobectomy for epilepsy; infection.',
+    'Workup: MRI brain; identify and treat underlying cause.'
+  ]},
+  inf_quad:{title:'Parietal lobe lesion', items:[
+    '<strong>Localises to the upper optic radiation in the parietal lobe</strong> — contralateral INFERIOR homonymous quadrantanopia ("pie on the floor").',
+    'Causes: tumour, stroke, trauma.',
+    'Workup: MRI brain; consider parietal-lobe symptoms (neglect, apraxia, Gerstmann if dominant).'
+  ]},
+  cortical:{title:'Bilateral occipital lesion / cortical blindness', items:[
+    '<strong>Bilateral occipital lobe involvement</strong> — pupils preserved (afferent pathway intact); patient may deny blindness (Anton syndrome).',
+    'Causes: top-of-basilar stroke (cross-ref Module 2); hypoperfusion (cardiac arrest); PRES (Module 13); bilateral PCA infarct.',
+    'Workup: urgent imaging — MRI/MRA + cardiac workup; manage stroke pathway; treat PRES (control BP, correct triggers).'
+  ]}
+};
+document.querySelectorAll('#vfTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#vfTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = vfMap[b.dataset.val];
+  if (m) {
+    vfResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    vfResult.classList.add('show');
+  }
+}));
+
+function resetVf() {
+  document.querySelectorAll('#vfTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  vfResult.classList.remove('show');
+}
+
+/* Pupillary Disorder Classifier */
+const puRest = document.getElementById('pu-rest');
+const puResult = document.getElementById('pu-result');
+let puState = {};
+
+function puAns(step, val) {
+  puState[step] = val;
+  Object.keys(puState).forEach(k => { if (+k > step) delete puState[k]; });
+  document.querySelectorAll(`#puTool [data-step="${step}"] .opt`).forEach(o => o.classList.remove('sel'));
+  const t = document.querySelector(`#puTool [data-step="${step}"] [data-val="${val}"]`); if (t) t.classList.add('sel');
+  renderPu();
+}
+
+function renderPu() {
+  puRest.innerHTML = '';
+  puResult.classList.remove('show');
+  const s0 = puState[0];
+  if (!s0) return;
+
+  if (s0 === 'dark') {
+    addPu(1, '2. Associated features?',
+      [['ptosis_anhid','Ipsilateral ptosis (1–2 mm) ± facial anhidrosis ± neck pain'],['none','None — isolated miosis']]);
+    const s1 = puState[1];
+    if (s1 === 'ptosis_anhid') return showPu('Horner syndrome', [
+      '<strong>Localisation</strong>: 1st-order = brainstem/cord (lateral medullary stroke, syringomyelia); 2nd-order = preganglionic (Pancoast tumour, cervical sympathetic chain, thyroid surgery); 3rd-order = postganglionic — <strong>INTERNAL CAROTID ARTERY DISSECTION</strong> (often with ipsilateral neck pain) or cavernous sinus disease.',
+      'Pharmacologic confirmation: <strong>apraclonidine 0.5%</strong> reverses anisocoria (denervation supersensitivity of α1 on dilator); <strong>cocaine 4–10%</strong> fails to dilate the Horner pupil (vs both dilating normally); <strong>hydroxyamphetamine</strong> localises to 3rd-order (fails to dilate if 3rd-order, dilates if 1st/2nd-order).',
+      'Workup: <strong>CTA head and neck urgently</strong> if acute (carotid dissection). CT chest if Pancoast suspected.',
+      'Treatment: depends on cause — antiplatelet or anticoagulation for dissection (cross-ref Module 2); manage underlying cause.'
+    ]);
+    if (s1 === 'none') return showPu('Atypical — broaden differential', [
+      'Consider early Horner (anhidrosis may not yet be obvious); pharmacologic miosis (pilocarpine drops); pontine lesion (pinpoint reactive pupils — opioid, lithium toxicity, cholinergic toxidrome); simple anisocoria with iris pathology.',
+      'Workup: detailed history of medications, drops, contact lens use; pharmacologic testing as above; consider imaging if any localising features.'
+    ]);
+  }
+
+  if (s0 === 'light') {
+    addPu(1, '2. Light vs near response?',
+      [['light_near','Light reaction poor + near reaction PRESENT (light-near dissociation) + slow tonic constriction ± "vermiform" sectoral movement'],['cn3','Light reaction absent; eye also "down and out" with ptosis (CN III pattern)'],['pharm','Light and near both poor; no other neurology']]);
+    const s1 = puState[1];
+    if (s1 === 'light_near') return showPu('Adie tonic pupil', [
+      '<strong>Localisation</strong>: ciliary ganglion (parasympathetic). Often young women; idiopathic; sometimes bilateral over years. <strong>Holmes-Adie syndrome</strong> = Adie pupil + hyporeflexia.',
+      'Pharmacologic confirmation: <strong>dilute pilocarpine 0.05–0.125%</strong> constricts the Adie pupil (denervation supersensitivity); normal pupil does not respond at this low concentration.',
+      'Reassurance; no treatment needed for the pupil itself; spectacles for accommodation issues if present.',
+      'Differential: rule out giant cell arteritis in elderly with new unilateral tonic pupil (rare but reported).'
+    ]);
+    if (s1 === 'cn3') return showPu('CN III palsy — assess pupil involvement', [
+      '<strong>Pupil-INVOLVING CN III palsy</strong> (dilated unreactive): <strong>POSTERIOR COMMUNICATING ARTERY ANEURYSM until proven otherwise</strong> → urgent CTA/MRA. Parasympathetic fibres ride on the surface of CN III → most vulnerable to external compression.',
+      '<strong>Pupil-SPARING CN III palsy</strong> in vasculopathic patient (DM, HTN, &gt; 50) — usually ischaemic microvascular; recovers ~3 months. Image if atypical features, age &lt; 50, multiple cranial nerves, partial pupil involvement, pain, or no recovery.',
+      'Other CN III causes: midbrain stroke (Weber syndrome — contralateral hemiparesis), cavernous sinus / superior orbital fissure / orbital apex syndromes, basal meningitis (Module 11), trauma, uncal herniation, GCA (rare).'
+    ]);
+    if (s1 === 'pharm') return showPu('Pharmacologic mydriasis', [
+      'Atropine, scopolamine patch contamination, cyclopentolate, tropicamide, jimson weed contact — pupil dilated and unreactive.',
+      'Pharmacologic test: <strong>pilocarpine 1%</strong> FAILS to constrict an atropine-blocked pupil (vs the Adie pupil, which constricts at this concentration).',
+      'Take a careful history (eye drops, scopolamine patch, recent procedures, occupational exposure). Reassure; effect resolves over hours to days.'
+    ]);
+  }
+
+  if (s0 === 'equal') return showPu('Physiologic (simple) anisocoria', [
+    'Up to ~20% of healthy individuals have anisocoria ≤ 0.4 mm with preserved light and near reactions and no other neurology.',
+    'Compare with old photographs; reassurance.',
+    'If new, asymmetric, or with other features → re-classify by light/dark test and proceed.'
+  ]);
+
+  if (s0 === 'bilatsmall') return showPu('Argyll-Robertson pupils', [
+    '<strong>Classic for neurosyphilis</strong> (Module 11) but also seen in DM, MS, sarcoid, dorsal midbrain (Parinaud) syndrome.',
+    'Bilateral small pupils with light-near dissociation (constrict to NEAR but not LIGHT).',
+    'Workup: <strong>RPR/VDRL + FTA-ABS</strong>; HIV; LP with CSF VDRL if neurosyphilis suspected; HbA1c; MRI brain for MS / sarcoid / midbrain pathology.',
+    'Treatment: penicillin for neurosyphilis (Module 11); manage underlying cause for other associations.'
+  ]);
+
+  if (s0 === 'pinpoint') return showPu('Pinpoint reactive pupils', [
+    'Localising to: pontine lesion (haemorrhage, infarct — Module 2); opioid intoxication (naloxone trial); cholinergic toxidrome (organophosphate poisoning); cocaine eye drops in ophthalmology testing.',
+    'Workup: detailed history (opioids, drops, organophosphate exposure); naloxone 0.4 mg IV/IM trial; urgent brainstem imaging if no clear toxic cause; consider cholinesterase activity if organophosphate suspected.',
+    'Treat the cause: naloxone for opioid overdose; atropine + pralidoxime for organophosphate; stroke pathway for pontine haemorrhage (cross-ref Module 2).'
+  ]);
+}
+
+function addPu(step, q, opts) {
+  if (document.querySelector(`#pu-rest [data-step="${step}"]`)) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="q">${q}</div><div class="opts" data-step="${step}">
+    ${opts.map(([v,l]) => `<button class="opt" data-val="${v}">${l}</button>`).join('')}
+  </div>`;
+  puRest.appendChild(wrap);
+  wrap.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => puAns(step, b.dataset.val)));
+  if (puState[step]) {
+    const t = wrap.querySelector(`[data-val="${puState[step]}"]`); if (t) t.classList.add('sel');
+  }
+}
+
+function showPu(title, items) {
+  puResult.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  puResult.classList.add('show');
+}
+
+function resetPu() {
+  puState = {};
+  puRest.innerHTML = '';
+  puResult.classList.remove('show');
+  document.querySelectorAll('#puTool .opt.sel').forEach(o => o.classList.remove('sel'));
+}
+
+document.querySelectorAll('#puTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => puAns(0, b.dataset.val)));
+</script>
+</body>
+</html>

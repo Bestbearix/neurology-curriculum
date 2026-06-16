@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 24 — Neurological Aspects of Psychiatric Illness (Interactive)</title>
+<style>
+  :root{
+    --bg:#0e0a26; --panel:#181238; --panel-2:#1f1846; --line:#352a65;
+    --ink:#ece5f7; --muted:#a99ccf; --accent:#9078e8; --accent-2:#b5a3f0;
+    --good:#5fd28a; --bad:#ff6b6b; --warn:#ffb95c; --refer:#ff8a7a;
+    --soft:#251c52; --time:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif; background:linear-gradient(180deg,#0a061a,#0e0a26 35%,#0e0a26); color:var(--ink); min-height:100vh}
+  .wrap{max-width:960px; margin:0 auto; padding:32px 22px 80px}
+  header{border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+  header h1{margin:0 0 4px; font-size:1.7rem; letter-spacing:.3px}
+  header .sub{color:var(--muted); font-size:.95rem}
+  header .badge{display:inline-block; padding:2px 10px; border-radius:10px; background:rgba(144,120,232,.18); color:var(--accent-2); font-size:.78rem; margin-right:6px}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 24px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:6px}
+  nav.tabs button{background:transparent; color:var(--muted); border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font:inherit; font-size:.92rem; transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink); background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent); color:#0c0820; font-weight:600}
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  h2{font-size:1.3rem; margin:1.6em 0 .6em; color:var(--accent-2)}
+  h3{font-size:1.07rem; margin:1.2em 0 .4em; color:#d5c8f2}
+  p{line-height:1.6}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  details.acc{background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; color:var(--ink); display:flex; justify-content:space-between; align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+"; color:var(--accent); font-size:1.3rem; margin-left:10px}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px; color:var(--ink)}
+  table{width:100%; border-collapse:collapse; margin:.8em 0; font-size:.94rem}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--soft); color:var(--accent-2); font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px; border-radius:8px; margin:.8em 0; border-left:4px solid}
+  .pearl{background:rgba(144,120,232,.10); border-color:var(--accent); color:#d5c8f2}
+  .warn{background:rgba(255,185,92,.10); border-color:var(--warn); color:#ffe2b8}
+  .refer{background:rgba(255,138,122,.10); border-color:var(--refer); color:#ffd0c8}
+  .time{background:rgba(95,176,255,.10); border-color:var(--time); color:#d5e8ff}
+  .deck{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0 6px}
+  .flashcard{perspective:1000px; min-height:170px; cursor:pointer}
+  .flashcard .face{position:relative; width:100%; height:170px; transition:transform .55s; transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front, .flashcard .back{position:absolute; inset:0; backface-visibility:hidden; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center}
+  .flashcard .front{color:var(--accent-2); font-size:1.0rem; font-weight:600}
+  .flashcard .back{transform:rotateY(180deg); background:var(--panel-2); color:var(--ink); font-size:.9rem; line-height:1.45}
+  .flashcard .tag{position:absolute; top:8px; left:10px; font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+  .quiz{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; margin:14px 0}
+  .quiz h4{margin:0 0 8px; color:var(--accent-2); font-size:1.0rem}
+  .quiz .stem{margin:0 0 12px; line-height:1.5}
+  .quiz .choices{display:flex; flex-direction:column; gap:8px}
+  .quiz .choice{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; cursor:pointer; text-align:left; color:var(--ink); font:inherit; transition:background .15s, border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15); border-color:var(--good); color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12); border-color:var(--bad); color:#ffd8d8}
+  .quiz .feedback{margin-top:10px; padding:10px 14px; border-radius:8px; font-size:.94rem; display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12); color:#dffce9; border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10); color:#ffd8d8; border:1px solid var(--bad)}
+  .tool{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px; margin:14px 0}
+  .tool .q{font-weight:600; color:var(--accent-2); margin:14px 0 8px}
+  .tool .opts{display:flex; flex-wrap:wrap; gap:8px}
+  .tool .opt{background:var(--panel-2); border:1px solid var(--line); color:var(--ink); padding:8px 14px; border-radius:20px; cursor:pointer; font:inherit; font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent); color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent); color:#0c0820; border-color:var(--accent); font-weight:600}
+  .tool .result{margin-top:18px; padding:14px 16px; border-radius:10px; background:rgba(144,120,232,.08); border:1px solid var(--accent); display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px; color:var(--accent-2); font-size:1.05rem}
+  .tool .result ul{margin:.4em 0 .4em 1.2em}
+  .tool button.reset{background:transparent; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.85rem; margin-top:12px}
+  .tool button.reset:hover{color:var(--ink); border-color:var(--accent)}
+  /* Catatonia checker */
+  .cat-grid{display:grid; grid-template-columns:1fr; gap:8px; margin:14px 0}
+  .cat-row{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
+  .cat-row .label{flex:1; font-size:.92rem}
+  .cat-row .opts{display:flex; gap:6px}
+  .cat-row .opt{background:var(--panel); border:1px solid var(--line); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; font-size:.82rem; color:var(--ink)}
+  .cat-row .opt.sel{background:var(--accent); color:#0c0820; border-color:var(--accent); font-weight:600}
+  .cat-summary{position:sticky; bottom:10px; background:var(--panel-2); border:2px solid var(--accent); border-radius:10px; padding:14px 18px; margin-top:14px}
+  .cat-summary h4{margin:0 0 6px; color:var(--accent-2)}
+  .cat-summary .big{font-size:1.6rem; font-weight:700; color:var(--accent-2)}
+  .cat-summary .interp{margin-top:8px; font-size:.92rem; color:var(--ink)}
+  #scoreboard{position:sticky; top:8px; z-index:5; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 14px; display:flex; gap:18px; align-items:center; justify-content:space-between; margin-bottom:18px; font-size:.9rem}
+  #scoreboard .stats{display:flex; gap:18px; color:var(--muted)}
+  #scoreboard .stats strong{color:var(--accent-2)}
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+  @media (max-width:560px){.wrap{padding:18px 12px 60px} header h1{font-size:1.35rem} nav.tabs{flex-direction:column} nav.tabs button{text-align:left} .deck{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+  <header>
+    <span class="badge">Module 24</span>
+    <span class="badge">General physician</span>
+    <h1>Neurological Aspects of Psychiatric Illness — Interactive Course</h1>
+    <div class="sub">Built from Adams &amp; Victor's <em>Principles of Neurology</em> (12e, Ch. 47–49) and Merritt's <em>Neurology</em> (14e, Ch. 153–156). Graus 2016 autoimmune encephalitis criteria; Bush-Francis catatonia; modern dementia agitation therapy with brexpiprazole 2023; VMAT2 inhibitors for TD (valbenazine + deutetrabenazine 2017).</div>
+  </header>
+
+  <div id="scoreboard">
+    <div><strong>Progress</strong></div>
+    <div class="stats">
+      <span>Cards: <strong id="stat-cards">0</strong></span>
+      <span>Quiz: <strong id="stat-score">0</strong> / <strong id="stat-total">0</strong></span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="overview">Overview</button>
+    <button data-tab="lessons">Lessons</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="quiz">Quiz</button>
+    <button data-tab="workup">Psychiatric Syndrome Workup</button>
+    <button data-tab="catatonia">Catatonia Recognition</button>
+    <button data-tab="cases">Cases</button>
+  </nav>
+
+  <section class="tab-panel active" id="overview">
+    <h2>Why this module?</h2>
+    <p>Many neurological diseases present first as psychiatric syndromes. Anti-NMDA-R encephalitis opens with psychosis; Huntington disease opens with mood disturbance and irritability; frontotemporal dementia opens with disinhibition and apathy; Wilson disease in a young patient opens with personality change. A primary psychiatric diagnosis made too quickly can postpone treatable diagnoses by years. The general physician's job is to keep an open differential, particularly in atypical presentations.</p>
+
+    <h3>After this module you will:</h3>
+    <ul>
+      <li>Run a structured workup for new psychiatric presentations to exclude treatable neurological / medical mimics.</li>
+      <li>Recognise anti-NMDA-R encephalitis and other autoimmune encephalitides at the bedside (Graus 2016 criteria).</li>
+      <li>Identify catatonia using Bush-Francis features and use the lorazepam challenge as both diagnostic and therapeutic.</li>
+      <li>Differentiate post-stroke depression, PD depression, MS depression, and TBI mood disturbances from primary psychiatric illness.</li>
+      <li>Recognise neuroleptic malignant syndrome, serotonin syndrome, tardive dyskinesia, and the VMAT2 inhibitor option.</li>
+      <li>Apply the FDA boxed warning for antipsychotics in elderly with dementia-related psychosis; choose appropriate alternatives.</li>
+      <li>Manage BPSD in dementia with non-pharmacological strategies first; use brexpiprazole (FDA 2023) or careful low-dose alternatives when needed.</li>
+    </ul>
+
+    <div class="pearl"><strong>The single principle:</strong> a new psychiatric syndrome with any of the following demands a neurological / medical workup before settling on a primary psychiatric diagnosis — age &gt; 40 at first presentation; atypical features (movement disorder, autonomic instability, seizures, focal neurology, cognitive decline); rapid onset; refractoriness to standard psychiatric treatment; family history of neurological disease.</div>
+  </section>
+
+  <section class="tab-panel" id="lessons">
+    <h2>Lessons</h2>
+
+    <details class="acc">
+      <summary>1. Treatable mimics of psychiatric disease</summary>
+      <div class="body">
+        <table>
+          <tr><th>Mimic</th><th>Clue</th></tr>
+          <tr><td>Anti-NMDA-R encephalitis</td><td>Young woman + psychiatric prodrome + seizures + orofacial dyskinesias + autonomic + teratoma</td></tr>
+          <tr><td>Other autoimmune encephalitis (LGI1, GABA-B, AMPA-R, CASPR2)</td><td>Subacute cognitive + seizures + LGI1 FBDS + hyponatraemia</td></tr>
+          <tr><td>SREAT (Hashimoto)</td><td>Confusion + seizures + myoclonus + anti-TPO + dramatic steroid response</td></tr>
+          <tr><td>Lupus cerebritis (NPSLE)</td><td>Psychosis + seizures + headache in known/new SLE</td></tr>
+          <tr><td>Wilson disease</td><td>Young patient + personality change + tremor + dystonia + KF rings</td></tr>
+          <tr><td>B12 deficiency</td><td>Cognitive + psychosis + paraesthesiae + N₂O or vegan or bariatric</td></tr>
+          <tr><td>Neurosyphilis</td><td>General paresis + Argyll-Robertson</td></tr>
+          <tr><td>HIV (HAND)</td><td>Subcortical pattern + apathy + risk factors</td></tr>
+          <tr><td>Hyperthyroidism + hypothyroidism</td><td>Mania / anxiety + tremor vs depression / slowing</td></tr>
+          <tr><td>Cushing</td><td>Depression + psychosis + characteristic features</td></tr>
+          <tr><td>Neurosarcoidosis</td><td>Cranial neuropathies + DI + cognitive + basal meningitis</td></tr>
+          <tr><td>Whipple disease</td><td>Cognitive decline + <strong>oculomasticatory myorhythmia pathognomonic</strong></td></tr>
+          <tr><td>Acute intermittent porphyria</td><td>Psychiatric + abdominal pain + autonomic + neuropathy + hyponatraemia</td></tr>
+          <tr><td>Coeliac</td><td>Cognitive + mood + gluten ataxia</td></tr>
+          <tr><td>FTD bvFTD</td><td>Disinhibition + apathy + change in eating + loss of empathy</td></tr>
+          <tr><td>Chronic SDH</td><td>Cognitive decline in elderly on anticoag</td></tr>
+          <tr><td>NPH</td><td>Gait + cognitive + urinary triad</td></tr>
+          <tr><td>Drug-induced</td><td>Steroids → psychosis; DA agonists → ICD + hallucinations; opioids → confusion; chemo</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>2. Autoimmune encephalitis — anti-NMDA-R and beyond</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Anti-NMDA-R</strong>: most common autoimmune encephalitis; young women predominantly; teratoma in 50% aged 18-45. Course: viral prodrome → psychiatric (mood + psychosis with bizarre delusions) → seizures → orofacial dyskinesias → autonomic instability → coma.</li>
+          <li>Workup: CSF anti-NMDA-R antibody + EEG <strong>extreme delta brush</strong> in adults + pelvic / testicular imaging.</li>
+          <li>Treatment: IV methylprednisolone + IVIG / PLEX + <strong>tumour removal</strong>; second-line rituximab + cyclophosphamide; ICU for autonomic instability; recovery slow (months) but ~80% good outcome.</li>
+        </ul>
+        <table>
+          <tr><th>Antibody</th><th>Features</th></tr>
+          <tr><td>LGI1</td><td><strong>Faciobrachial dystonic seizures &lt; 3 s</strong> + amnesia + hyponatraemia SIADH; older men; usually non-paraneoplastic; dramatic steroid response</td></tr>
+          <tr><td>CASPR2</td><td>Morvan: neuromyotonia + insomnia + autonomic + psychiatric</td></tr>
+          <tr><td>GABA-B / AMPA-R</td><td>Limbic encephalitis + SCLC association</td></tr>
+          <tr><td>Glycine-R</td><td>PERM stiff-person spectrum</td></tr>
+          <tr><td>Intracellular (Hu, Yo, Ma2, CRMP5)</td><td>Paraneoplastic; treatment-resistant (Module 12)</td></tr>
+        </table>
+        <p>Graus 2016 (Lancet Neurology): clinical criteria for "possible autoimmune encephalitis" allow empirical immunotherapy when antibody testing is delayed.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>3. Catatonia recognition and management</summary>
+      <div class="body">
+        <p>Bush-Francis common features: stupor + mutism + negativism + posturing/catalepsy + waxy flexibility + stereotypy + mannerisms + echolalia / echopraxia + excitement (excited catatonia) + autonomic instability (malignant catatonia).</p>
+        <div class="refer"><strong>Management</strong>:
+          <ul>
+            <li><strong>Lorazepam challenge</strong> 1–2 mg IV/IM; dramatic improvement within minutes → diagnostic + therapeutic. Continue 3–24 mg/day scheduled.</li>
+            <li>Address underlying cause: <strong>rule out anti-NMDA-R encephalitis in young woman</strong>, other autoimmune, metabolic, infectious, hepatic, hyponatraemia, drug-induced.</li>
+            <li><strong>ECT</strong> for lorazepam-refractory or malignant catatonia (mortality up to 20% untreated).</li>
+            <li><strong>AVOID antipsychotics</strong> — they can worsen catatonia and precipitate NMS.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>4. Parkinson disease neuropsychiatry</summary>
+      <div class="body">
+        <table>
+          <tr><th>Symptom</th><th>Treatment</th></tr>
+          <tr><td>Depression (~40%)</td><td>SSRI / SNRI; pramipexole (antidepressant property); ECT in severe</td></tr>
+          <tr><td>Anxiety + apathy</td><td>Rivastigmine for apathy; dopaminergic adjustment</td></tr>
+          <tr><td><strong>PD psychosis</strong> (visual hallucinations)</td><td><strong>Pimavanserin</strong> (5-HT2A inverse agonist, FDA 2016) or <strong>clozapine</strong>; quetiapine commonly used (evidence weaker); reduce dopaminergic. <strong>AVOID typical antipsychotics + risperidone + olanzapine + aripiprazole</strong> (worsen parkinsonism)</td></tr>
+          <tr><td>ICDs (dopamine agonist-related)</td><td>Pathological gambling + hypersexuality + binge eating + shopping; reduce / rotate DA agonist; counsel pre-prescription</td></tr>
+          <tr><td>PD dementia</td><td>Rivastigmine</td></tr>
+          <tr><td>RBD</td><td>Synucleinopathy prodrome (Module 14); melatonin first-line per 2023 AASM</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>5. Huntington, Wilson, FTD, other movement disorders</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Huntington</strong>: psychiatric symptoms can precede motor by years — irritability, depression, apathy, OCD, psychosis, <strong>high suicide risk</strong>. Treat depression (SSRI); psychosis (tiapride / olanzapine); avoid haloperidol long-term (TD risk).</li>
+          <li><strong>Wilson disease</strong> (Module 13): psychiatric prodrome in young; KF rings; trientine + zinc.</li>
+          <li><strong>Tourette + tics</strong>: comorbid OCD + ADHD; CBIT first-line; α2 agonists; dopamine antagonists for severe.</li>
+          <li><strong>FTD</strong> (Module 7): bvFTD disinhibition + apathy + change in eating + loss of empathy — frequently misdiagnosed as primary psychiatric.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>6. Dementia BPSD &amp; sundowning</summary>
+      <div class="body">
+        <p>BPSD in &gt; 90% of dementia at some point. Drive caregiver burden + institutionalisation + mortality.</p>
+        <h4>Non-pharmacological first</h4>
+        <ul>
+          <li>Identify causes: pain + infection (UTI common) + medication side effects + sensory deficits + dehydration + electrolytes + sleep + environmental triggers.</li>
+          <li>Structured daily routine; physical activity; music + reminiscence; bright light + dark night for sundowning; calm low-stimulus environment; caregiver education.</li>
+        </ul>
+        <h4>Pharmacological when necessary</h4>
+        <ul>
+          <li>Cholinesterase inhibitors for cognition; may modestly improve BPSD; first-line in DLB.</li>
+          <li>SSRIs for depression / anxiety (sertraline, citalopram — QT caution).</li>
+          <li><strong>Antipsychotics</strong>: <strong>brexpiprazole</strong> (FDA-approved 2023 for AD agitation); risperidone elsewhere but boxed warning; <strong>AVOID typicals in elderly dementia</strong>.</li>
+          <li><strong>DLB neuroleptic sensitivity</strong>: even single dose can cause severe parkinsonism + NMS; use quetiapine or clozapine cautiously.</li>
+          <li>AVOID benzodiazepines, anticholinergics, opioids unless necessary.</li>
+        </ul>
+        <div class="warn"><strong>FDA black box warning</strong> for all antipsychotics in elderly with dementia-related psychosis: increased mortality (CV + infection). Lowest dose, shortest duration, regular review.</div>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>7. Post-stroke, MS, epilepsy, TBI neuropsychiatry</summary>
+      <div class="body">
+        <ul>
+          <li><strong>Post-stroke depression</strong> ~30%; SSRI + CBT. Mania (rare, right hemisphere lesions; mood stabiliser). Psychosis (rare; right hemisphere; quetiapine cautiously). Anxiety + PTSD + post-stroke fatigue + <strong>pseudobulbar affect → dextromethorphan-quinidine</strong>.</li>
+          <li><strong>MS depression</strong> ~50% lifetime; suicide risk increased; SSRI/SNRI + CBT. Fatigue 80%; amantadine, modafinil. Cognitive impairment 40-60% subcortical. Pseudobulbar affect.</li>
+          <li><strong>Epilepsy depression</strong> ~2× general; SSRIs safe; <strong>AVOID bupropion, tramadol, maprotiline</strong> (lower seizure threshold). LEV "Keppra rage" 10%. Postictal psychosis 24-72h after cluster + lucid interval. Interictal psychosis (temporal lobe). PNES Module 21.</li>
+          <li><strong>TBI</strong>: ~50% psychiatric in first year. Depression + anxiety + PTSD + irritability + impulsivity + executive dysfunction. Post-concussion: CBT + gradual return to activity. AVOID benzodiazepines + typical antipsychotics. CTE in repeated head injury.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>8. Neurological complications of psychiatric drugs</summary>
+      <div class="body">
+        <table>
+          <tr><th>Syndrome</th><th>Drug</th><th>Treatment</th></tr>
+          <tr><td>NMS</td><td>Dopamine antagonists or dopaminergic withdrawal (Module 13)</td><td>Stop; cool; fluids; <strong>dantrolene</strong>; bromocriptine</td></tr>
+          <tr><td>Serotonin syndrome</td><td>Serotonergic combinations</td><td>Stop; benzos; <strong>cyproheptadine</strong>; AVOID bromocriptine</td></tr>
+          <tr><td>EPS</td><td>Antipsychotics</td><td>Acute dystonia → procyclidine/benztropine; akathisia → propranolol; parkinsonism → reduce; <strong>TD → VMAT2 inhibitors valbenazine + deutetrabenazine FDA 2017</strong></td></tr>
+          <tr><td>Lithium toxicity</td><td>Level &gt; 1.5 acute or chronic with renal</td><td>Tremor → ataxia → confusion → seizures; IV fluids; <strong>haemodialysis severe</strong></td></tr>
+          <tr><td>Anticholinergic toxidrome</td><td>TCAs + antihistamines + antipsychotics</td><td>"Hot dry red blind mad"; benzos; <strong>physostigmine pure anticholinergic NOT TCA</strong></td></tr>
+          <tr><td>SSRI/SNRI discontinuation</td><td>Sudden withdrawal</td><td>FINISH mnemonic; slow taper</td></tr>
+          <tr><td>VPA hyperammonaemic encephalopathy</td><td>Valproate (Module 13)</td><td>Stop VPA; L-carnitine 100 mg/kg IV bolus + 50 mg/kg q6h</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>9. ECT, DBS, suicide risk</summary>
+      <div class="body">
+        <ul>
+          <li><strong>ECT</strong>: severe depression + psychosis + suicide risk; <strong>catatonia after lorazepam trial</strong>; mania; refractory NMS; status epilepticus refractory; PD selected for severe depression / motor. Side effects: transient post-ictal confusion + autobiographical memory loss around treatment period.</li>
+          <li><strong>DBS in psychiatric disease</strong>: OCD (NAc / ALIC for refractory); MDD investigational (subcallosal cingulate, ventral capsule); Tourette (CM thalamus / GPi). Established neurological: PD (STN, GPi), ET (VIM), dystonia (GPi), epilepsy.</li>
+          <li><strong>Suicide risk</strong>: increased in HD, ALS, MS, epilepsy, stroke, TBI, PD, chronic pain. Screen routinely; safety plan; family involvement; treat depression aggressively; ECT in severe / refractory; address access to means.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards <span class="muted" style="font-size:.85rem;font-weight:400">— click to flip</span></h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section class="tab-panel" id="quiz">
+    <h2>Quiz <span class="muted" style="font-size:.85rem;font-weight:400">— 10 questions with explanations</span></h2>
+    <div id="quiz-list"></div>
+  </section>
+
+  <section class="tab-panel" id="workup">
+    <h2>Psychiatric Syndrome Workup Differentiator</h2>
+    <p class="muted">Choose the dominant clinical pattern; the tool returns the most likely neurological / medical mimic with workup + treatment.</p>
+    <div class="tool" id="wuTool">
+      <div class="q">Dominant clinical pattern?</div>
+      <div class="opts" data-step="0">
+        <button class="opt" data-val="young_psychosis">Young woman with new psychosis + seizures + orofacial dyskinesias + autonomic instability ± viral prodrome</button>
+        <button class="opt" data-val="older_amnesia">Older man with limbic encephalitis + brief faciobrachial dystonic seizures + hyponatraemia</button>
+        <button class="opt" data-val="young_personality">Young patient (5–35 y) with personality change + tremor + dystonia + dysarthria + ± hepatic dysfunction</button>
+        <button class="opt" data-val="middle_disinhibition">Middle-aged patient with disinhibition + apathy + change in eating habits + loss of empathy</button>
+        <button class="opt" data-val="elderly_cognitive">Elderly patient on anticoagulant with fluctuating cognitive decline + headache</button>
+        <button class="opt" data-val="triad">Older patient with gait apraxia + cognitive decline + urinary incontinence</button>
+        <button class="opt" data-val="confusion_seizures_TPO">Confusion + seizures + myoclonus + stroke-like episodes + anti-TPO antibodies</button>
+        <button class="opt" data-val="abdominal_psych">Acute psychiatric symptoms + abdominal pain + autonomic features + neuropathy + hyponatraemia</button>
+        <button class="opt" data-val="psych_vegan">Cognitive decline + psychosis + paraesthesiae in vegan / N₂O abuse / post-bariatric patient</button>
+        <button class="opt" data-val="cognitive_arthralgia">Cognitive decline + oculomasticatory myorhythmia + malabsorption + arthralgia</button>
+      </div>
+      <div class="result" id="wu-result"></div>
+      <button class="reset" onclick="resetWu()">Reset</button>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="catatonia">
+    <h2>Catatonia Recognition + Lorazepam Challenge</h2>
+    <p class="muted">Tick Bush-Francis features present. The tool tallies and gives a Rx pathway.</p>
+    <div class="cat-grid" id="cat-grid"></div>
+    <div class="cat-summary" id="cat-summary">
+      <h4>Bush-Francis features present</h4>
+      <div class="big" id="cat-count">0</div>
+      <div class="interp" id="cat-interp">Tick features to see interpretation.</div>
+    </div>
+    <button class="reset" onclick="resetCat()" style="margin-top:10px">Reset</button>
+  </section>
+
+  <section class="tab-panel" id="cases">
+    <h2>Case Vignettes</h2>
+
+    <details class="acc">
+      <summary>Case 1 — A 22-year-old woman presents with 2 weeks of psychosis, bizarre delusions, and now seizures + orofacial dyskinesias + autonomic instability. CSF: lymphocytic pleocytosis. EEG: extreme delta brush. Pelvic US: 4 cm ovarian mass</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Anti-NMDA-R encephalitis with ovarian teratoma.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>First-line immunotherapy</strong>: IV methylprednisolone 1 g/day × 5 days + IVIG or plasma exchange.</li>
+          <li><strong>Surgical removal of ovarian teratoma</strong> — early tumour removal dramatically improves outcome.</li>
+          <li>ICU monitoring for autonomic instability (BP swings, arrhythmias, hypoventilation).</li>
+          <li>Antiseizure medication (LEV preferred).</li>
+          <li>If inadequate response by 2 weeks: <strong>second-line rituximab + cyclophosphamide</strong>.</li>
+          <li>Slow recovery (months); ~80% good outcome with adequate treatment.</li>
+          <li>AVOID antipsychotics where possible (can worsen autonomic + extrapyramidal features).</li>
+          <li>Counsel family about long course; psychological support after recovery (PTSD common).</li>
+          <li>Cross-ref Module 12 (paraneoplastic).</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 2 — A 70-year-old has been on long-term haloperidol. He develops involuntary tongue and oral movements that persist despite dose reduction. He has Alzheimer disease and mild parkinsonism</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Tardive dyskinesia.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Stop offending antipsychotic if possible</strong>; switch to clozapine if antipsychotic still needed (lowest TD risk; also for AD agitation but boxed warning for elderly dementia mortality).</li>
+          <li><strong>VMAT2 inhibitor</strong>: <strong>valbenazine</strong> (KINECT-3) or <strong>deutetrabenazine</strong> (AIM-TD) — FDA 2017; modestly effective; expensive.</li>
+          <li>Avoid anticholinergics (worsen TD).</li>
+          <li>Counsel patient + family: TD may persist after drug withdrawal; long-term management.</li>
+          <li>Consider non-pharmacological strategies for BPSD (Module 7).</li>
+          <li>AD agitation: brexpiprazole FDA-approved 2023 — alternative to clozapine; risperidone elsewhere with boxed warning consideration.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 3 — A 45-year-old with Parkinson disease develops visual hallucinations and paranoid delusions. Dopaminergic dose has been escalated for motor symptoms</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Parkinson disease psychosis.</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Review and reduce dopaminergic medication where possible (especially dopamine agonists if any; can also reduce anticholinergic + amantadine which contribute).</li>
+          <li>Rule out infection (UTI common) and metabolic causes; treat any precipitant.</li>
+          <li>If antipsychotic needed: <strong>pimavanserin</strong> (5-HT2A inverse agonist, FDA 2016 for PD psychosis — does not worsen parkinsonism) or <strong>clozapine</strong> (lowest EPS but blood monitoring); <strong>quetiapine</strong> commonly used (weaker evidence).</li>
+          <li><strong>AVOID typical antipsychotics + risperidone + olanzapine + aripiprazole</strong> — worsen parkinsonism.</li>
+          <li>Cholinesterase inhibitor (rivastigmine) may help if PD dementia present.</li>
+          <li>Multidisciplinary movement disorders + neuropsychiatry input.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 4 — A 28-year-old woman with new severe depression and bizarre delusions becomes stuporous, mute, with waxy flexibility and bilateral fixed posturing for 24 hours. Antipsychotic given by ED produced no improvement</summary>
+      <div class="body">
+        <p>Bush-Francis features: stupor + mutism + posturing + waxy flexibility + negativism — &gt; 5 features. Mild autonomic instability.</p>
+        <p><strong>Diagnosis:</strong> Catatonia (likely malignant catatonia).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li><strong>Stop antipsychotic</strong> (can worsen catatonia and precipitate NMS).</li>
+          <li><strong>Lorazepam challenge</strong>: 1–2 mg IV — observe for dramatic improvement within minutes to an hour. Continue scheduled lorazepam 6–24 mg/day.</li>
+          <li><strong>Critical: rule out anti-NMDA-R encephalitis</strong> in a young woman with new catatonia — send CSF NMDA-R antibody; pelvic ultrasound; EEG; MRI; LP.</li>
+          <li>Other workup: rule out NMS (CK), metabolic causes (Na, glucose, ammonia, ABG, infection, hepatic), other autoimmune encephalitis antibodies, lupus.</li>
+          <li><strong>ECT</strong> if lorazepam-refractory or malignant catatonia features worsen (mortality up to 20% untreated).</li>
+          <li>Multidisciplinary: psychiatry + neurology + ICU + autoimmune neurology consultation.</li>
+          <li>Treat any underlying psychiatric disorder once acute episode resolves.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 5 — A 56-year-old man's family report 18 months of personality change, disinhibition, change in eating preferences (now craving sweets and bingeing), loss of empathy, and minor impulsivity. He has been working but his behaviour has become embarrassing in social situations. MRI: bilateral frontal atrophy. FDG-PET: bifrontal hypometabolism</summary>
+      <div class="body">
+        <p><strong>Diagnosis:</strong> Behavioural variant frontotemporal dementia (bvFTD).</p>
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Confirm diagnosis: detailed cognitive assessment (executive function affected); informant history is critical; rule out alternative causes — psychiatric (depression, mania), metabolic, autoimmune, structural.</li>
+          <li>Differentiate from primary psychiatric illness: bvFTD often misdiagnosed as primary psychiatric — late-onset bipolar / personality disorder; INSIGHT typically reduced in bvFTD.</li>
+          <li>Consider genetic testing (C9orf72, MAPT, GRN) — family history; counselling for relatives.</li>
+          <li>Symptom-targeted management:
+            <ul>
+              <li>SSRI for disinhibition (citalopram, sertraline) — modest evidence.</li>
+              <li><strong>AVOID antipsychotics</strong> where possible — bvFTD patients can have dopamine receptor sensitivity (MAPT, dopaminergic neuron involvement).</li>
+              <li>Trazodone for sleep / agitation.</li>
+              <li>Caregiver education + support is the foundation.</li>
+            </ul>
+          </li>
+          <li>Multidisciplinary: cognitive neurology + psychiatry + speech and language therapy + occupational therapy + social work + financial planning + driving assessment.</li>
+          <li>Cross-ref Module 7.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Case 6 — A 65-year-old has Alzheimer disease and severe agitation that has not responded to non-pharmacological strategies. Care home reports increasing aggression endangering staff and other residents</summary>
+      <div class="body">
+        <p><strong>Plan:</strong></p>
+        <ol>
+          <li>Comprehensive review: rule out reversible causes — pain (treat empirically with paracetamol scheduled), infection (UTI common — urinalysis), constipation, dehydration, medication side effects, sensory deficits, sleep disturbance, environmental.</li>
+          <li>Optimise non-pharmacological strategies: structured routine, music therapy, reminiscence therapy, bright light + dark night for sundowning, calm low-stimulus environment, caregiver education, scheduled physical activity, person-centred care plan.</li>
+          <li>If pharmacological needed:
+            <ul>
+              <li><strong>Brexpiprazole</strong> (FDA-approved 2023 for AD agitation) — alternative to off-label antipsychotics.</li>
+              <li>Risperidone widely used outside US; boxed warning for elderly dementia.</li>
+              <li>Citalopram modest evidence for AD agitation.</li>
+            </ul>
+          </li>
+          <li><strong>FDA black box warning</strong>: all antipsychotics in elderly with dementia-related psychosis carry increased mortality (CV + infection); use only when necessary at lowest dose for shortest duration; review regularly; discontinue if possible.</li>
+          <li><strong>AVOID</strong>: benzodiazepines (falls, paradoxical disinhibition, delirium); anticholinergics; long-term opioids unless necessary for pain.</li>
+          <li>If DLB suspected (Module 7): even single antipsychotic dose can cause severe neuroleptic sensitivity reaction with parkinsonism + autonomic + NMS; use quetiapine or clozapine cautiously if absolutely needed.</li>
+          <li>Multidisciplinary: geriatric psychiatry + dementia care team + care home staff training + family meeting + advance care planning.</li>
+          <li>Cross-ref Module 7.</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p>Module 24 of an ongoing neurology curriculum. Sources: Adams &amp; Victor 12e Ch 47–49; Merritt's 14e Ch 153–156. Graus 2016 Lancet Neurol autoimmune encephalitis criteria; Bush-Francis catatonia rating; Titulaer 2013 anti-NMDA-R outcome; Cummings 2024 JAMA Neurology brexpiprazole AD agitation; KINECT-3 valbenazine + AIM-TD deutetrabenazine for TD; APA ECT guidelines; cross-references to Modules 6 (PD/HD), 7 (Dementia), 8 (MS), 11 (CNS infection), 12 (Tumour/paraneoplastic), 13 (Toxic/metabolic), 14 (Sleep), 21 (FND), 23 (Systemic).</p>
+    <p>Educational material; does not replace local protocols or clinical judgement.</p>
+  </footer>
+</div>
+
+<script>
+/* Tabs */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+const tabPanels = document.querySelectorAll('section.tab-panel');
+tabBtns.forEach(b => b.addEventListener('click', () => {
+  tabBtns.forEach(x => x.classList.remove('active'));
+  tabPanels.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* Flashcards */
+const cards = [
+  {tag:'Framework', q:'Red flags that demand a neurological/medical workup before diagnosing primary psychiatric illness?', a:'(1) Age > 40 at first presentation; (2) atypical features (movement disorder, autonomic instability, seizures, focal neurology, cognitive decline); (3) rapid onset; (4) refractoriness to standard psychiatric treatment; (5) family history of neurological disease (HD, Wilson, FTD). Run a structured medical mimic workup before settling on a primary psychiatric diagnosis.'},
+  {tag:'NMDA-R', q:'Anti-NMDA-R encephalitis — classic clinical course?', a:'Viral-like prodrome → psychiatric symptoms (anxiety, mood, psychosis with bizarre delusions) within ~2 weeks → seizures → movement disorder (orofacial dyskinesias, choreoathetosis) → autonomic instability → reduced consciousness → coma. Young women predominantly; teratoma in 50% aged 18–45. Children may present with seizures first.'},
+  {tag:'NMDA-R Rx', q:'Anti-NMDA-R encephalitis treatment?', a:'First-line: IV methylprednisolone + IVIG or plasma exchange + TUMOUR REMOVAL if teratoma found (early removal dramatically improves outcome). Second-line: rituximab + cyclophosphamide for non-responders. ICU support for autonomic instability. Recovery slow (months) but full or near-full in ~80% with adequate treatment. AVOID antipsychotics where possible.'},
+  {tag:'Graus 2016', q:'Graus 2016 criteria — what do they enable?', a:'Clinical criteria for "possible autoimmune encephalitis" allow EMPIRICAL IMMUNOTHERAPY when antibody testing is delayed or unavailable. Particularly useful in young patients with new psychosis + atypical features (seizures, movement disorder, autonomic instability). Treatment delay worsens outcome — do not wait weeks for antibodies if criteria met.'},
+  {tag:'LGI1', q:'LGI1 limbic encephalitis — distinctive features?', a:'FACIOBRACHIAL DYSTONIC SEIZURES (brief < 3 seconds, brief facial + arm dystonia) + subacute amnesia + HYPONATRAEMIA from SIADH. Older men predominantly. Usually NOT paraneoplastic. Dramatic steroid response (and IVIG response).'},
+  {tag:'Catatonia', q:'Bush-Francis common features?', a:'Stupor + mutism + negativism + posturing/catalepsy + waxy flexibility (cerea flexibilitas) + stereotypy + mannerisms + echolalia/echopraxia + excitement (excited catatonia) + autonomic instability (malignant catatonia, life-threatening).'},
+  {tag:'Lorazepam', q:'Catatonia management — first step?', a:'LORAZEPAM CHALLENGE 1–2 mg IV/IM — dramatic improvement within minutes to an hour is both diagnostic and therapeutic. Continue scheduled lorazepam 3–24 mg/day. Rule out anti-NMDA-R encephalitis in young woman with new catatonia. ECT if lorazepam-refractory or malignant catatonia. AVOID antipsychotics (can worsen catatonia + precipitate NMS).'},
+  {tag:'Wilson', q:'Wilson disease — psychiatric features and patient profile?', a:'Young patient (5–35 y) with personality change + psychosis + depression + tremor (wing-beating) + dystonia + dysarthria + Kayser-Fleischer rings (>95% with neurological Wilson). Slit-lamp KF rings; ceruloplasmin < 0.2 g/L; 24-h urinary copper > 100 µg; ATP7B mutation. Trientine + zinc preferred (penicillamine can transiently worsen neurological).'},
+  {tag:'FTD', q:'Behavioural variant FTD — distinctive features that lead to misdiagnosis as psychiatric?', a:'Disinhibition + apathy + change in eating habits (sweet craving, bingeing) + loss of empathy + impulsivity + reduced insight in middle-aged patient. Frequently misdiagnosed as late-onset bipolar, personality disorder, or depression. MRI: bifrontal atrophy; FDG-PET: bifrontal hypometabolism. Consider C9orf72, MAPT, GRN genetic testing.'},
+  {tag:'PD psychosis', q:'Treatment of Parkinson disease psychosis?', a:'(1) Reduce or rotate dopaminergic medication if possible (especially dopamine agonists, amantadine, anticholinergics); (2) rule out infection / metabolic causes; (3) if antipsychotic needed: PIMAVANSERIN (5-HT2A inverse agonist, FDA 2016 — does not worsen parkinsonism) or CLOZAPINE (lowest EPS but blood monitoring); quetiapine commonly used. AVOID typical antipsychotics + risperidone + olanzapine + aripiprazole — worsen parkinsonism. Add rivastigmine if PDD.'},
+  {tag:'DLB', q:'Why is neuroleptic sensitivity reaction critical in DLB?', a:'Even single doses of antipsychotic can cause SEVERE PARKINSONISM + AUTONOMIC DYSFUNCTION + NMS in DLB. Avoid antipsychotics where possible; use quetiapine or clozapine cautiously if absolutely needed. This is one of the supportive features of DLB diagnosis (cross-ref Module 7).'},
+  {tag:'BPSD', q:'FDA black box warning for antipsychotics in dementia-related psychosis?', a:'All antipsychotics (typical + atypical) in elderly with dementia-related psychosis carry INCREASED MORTALITY (cardiovascular + infection). Use only when necessary at lowest dose for shortest duration; review regularly; discontinue if possible. Non-pharmacological strategies first. BREXPIPRAZOLE FDA-approved 2023 for AD agitation as alternative.'},
+  {tag:'Tardive dyskinesia', q:'Modern treatment of tardive dyskinesia?', a:'Stop offending antipsychotic if possible; switch to CLOZAPINE (lowest TD risk; agranulocytosis monitoring). VMAT2 INHIBITORS — valbenazine (KINECT-3 Am J Psychiatry 2017) and deutetrabenazine (AIM-TD Lancet Psychiatry 2017) — FDA-approved 2017; modestly effective; expensive. AVOID anticholinergics (worsen TD).'},
+  {tag:'Post-stroke', q:'Post-stroke depression — prevalence and treatment?', a:'~30% of stroke survivors. Underdiagnosed. Impairs functional recovery + increases mortality. Screen routinely. Treat with SSRI (sertraline, citalopram) + CBT. Pseudobulbar affect (disproportionate laughing / crying) → DEXTROMETHORPHAN-QUINIDINE (Nuedexta FDA-approved) or SSRI. Post-stroke fatigue distinct — modafinil sometimes helpful.'},
+  {tag:'MS', q:'Neuropsychiatric features of MS?', a:'Depression ~50% lifetime + suicide risk increased + underdiagnosed; SSRI/SNRI + CBT. Anxiety common. Bipolar increased. Cognitive impairment 40–60% subcortical pattern. Fatigue 80% — distinct from depression; amantadine, modafinil. Pseudobulbar affect → dextromethorphan-quinidine. Sexual dysfunction common.'},
+  {tag:'Epilepsy', q:'Drugs to AVOID in patients with epilepsy needing antidepressants?', a:'BUPROPION + TRAMADOL + MAPROTILINE substantially lower seizure threshold. SSRIs (sertraline, citalopram) are generally safe. LEV "Keppra rage" 10%; consider brivaracetam alternative if mood effects.'},
+  {tag:'NMS vs SS', q:'Single bedside feature that best distinguishes NMS from serotonin syndrome?', a:'Reflexes: NMS = lead-pipe rigidity with BRADYREFLEXIA; serotonin syndrome = CLONUS (especially ocular and lower-limb) with HYPERREFLEXIA. Onset also: NMS over days–weeks; SS over hours. Cross-ref Module 13.'},
+  {tag:'Lithium', q:'Lithium toxicity — when to dialyse?', a:'Tremor → ataxia → dysarthria → confusion → seizures. HAEMODIALYSIS if level > 4 mmol/L OR severe symptoms OR renal failure with high level. Lithium has very small therapeutic index. Acute on chronic toxicity worse. IV fluids; correct hyponatraemia / volume depletion which raise lithium.'},
+  {tag:'ECT', q:'ECT indications relevant to neurology?', a:'Severe depression (especially with psychosis, suicide risk, refractory); CATATONIA after lorazepam trial; mania; refractory NMS; very refractory status epilepticus; PD selected (severe depression or motor symptoms). Side effects: transient post-ictal confusion + autobiographical memory loss around treatment period. Relative contraindications: recent MI < 3 months, raised ICP, unstable cervical spine.'},
+  {tag:'Suicide', q:'Neurological conditions with substantially increased suicide risk?', a:'Huntington disease (very high — counsel families); ALS; MS; epilepsy; stroke (early post-stroke); TBI; PD; chronic pain. Screen routinely; safety plan; family involvement; treat depression aggressively; ECT in severe / refractory; address access to means.'},
+];
+const deck = document.getElementById('deck');
+let flipCount = 0;
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'flashcard';
+  el.innerHTML = `<div class="face">
+    <div class="front"><span class="tag">${c.tag}</span><div>${c.q}</div></div>
+    <div class="back"><span class="tag">Answer</span><div>${c.a}</div></div>
+  </div>`;
+  el.addEventListener('click', () => {
+    el.classList.toggle('flipped');
+    if (!el.dataset.counted) { el.dataset.counted='1'; flipCount++; document.getElementById('stat-cards').textContent=flipCount; }
+  });
+  deck.appendChild(el);
+});
+
+/* Quiz */
+const quiz = [
+  {q:'A 22-year-old woman has 2 weeks of psychosis with bizarre delusions, then develops seizures + orofacial dyskinesias + autonomic instability. CSF: lymphocytic pleocytosis. EEG: extreme delta brush. Pelvic US: 4 cm ovarian mass. Best diagnosis and treatment?',
+   choices:['Schizophrenia; risperidone','Anti-NMDA-R encephalitis with ovarian teratoma; IV methylprednisolone + IVIG or PLEX + surgical removal of teratoma; AVOID antipsychotics; consider rituximab + cyclophosphamide if non-responsive','Bipolar mania; lithium','Conversion disorder'],
+   ans:1,
+   why:'Anti-NMDA-R encephalitis. Classic course: psychiatric prodrome → seizures → movement disorder → autonomic instability. Extreme delta brush on EEG is characteristic in adults. 50% of women 18–45 have ovarian teratoma. Treatment: first-line IV methylprednisolone + IVIG/PLEX + TUMOUR REMOVAL (dramatic improvement with early removal); second-line rituximab + cyclophosphamide. AVOID antipsychotics (worsen autonomic + EPS). Recovery slow (months) but ~80% good outcome.'},
+  {q:'A 28-year-old woman with new severe depression becomes stuporous + mute + waxy flexibility + posturing for 24 hours. Antipsychotic given by ED produced no improvement. Best initial intervention?',
+   choices:['Increase antipsychotic dose','STOP antipsychotic; lorazepam 1–2 mg IV challenge (diagnostic + therapeutic); rule out anti-NMDA-R encephalitis (young woman with new catatonia); ECT if refractory','Long-term benzodiazepine alone','tPA'],
+   ans:1,
+   why:'Catatonia. Stop antipsychotic (can worsen catatonia + precipitate NMS). LORAZEPAM CHALLENGE 1–2 mg IV — dramatic improvement within minutes confirms diagnosis and starts treatment; continue scheduled 3–24 mg/day. Critical: rule out anti-NMDA-R encephalitis in young woman with new catatonia — CSF antibody, pelvic ultrasound, EEG, MRI. ECT if lorazepam-refractory or malignant catatonia (mortality up to 20% untreated).'},
+  {q:'A 45-year-old with Parkinson disease on levodopa develops visual hallucinations and paranoid delusions. Best approach?',
+   choices:['Haloperidol','Reduce dopaminergic if possible + rule out infection/metabolic; if antipsychotic needed: PIMAVANSERIN (FDA 2016 for PD psychosis) or CLOZAPINE; AVOID typical antipsychotics + risperidone + olanzapine + aripiprazole','Long-term lithium','Valproate'],
+   ans:1,
+   why:'PD psychosis. Reduce dopaminergic (especially dopamine agonists, amantadine, anticholinergics) if possible; rule out precipitants. If antipsychotic needed: pimavanserin (5-HT2A inverse agonist, FDA 2016, does not worsen parkinsonism) or clozapine (lowest EPS but agranulocytosis monitoring); quetiapine commonly used (weaker evidence). AVOID typicals + risperidone + olanzapine + aripiprazole (worsen parkinsonism). Cross-ref Module 6.'},
+  {q:'A 65-year-old with Alzheimer disease has severe agitation refractory to non-pharmacological strategies. Which option has FDA approval (2023) for AD agitation?',
+   choices:['Long-term benzodiazepine','Brexpiprazole (FDA-approved 2023 for AD agitation); review reversible causes (pain/UTI/medications/sleep); FDA boxed warning still applies for all antipsychotics in elderly dementia — increased mortality; lowest dose shortest duration','Long-term opioid','Aripiprazole'],
+   ans:1,
+   why:'Brexpiprazole was FDA-approved in 2023 for agitation associated with Alzheimer disease (Cummings JAMA Neurology 2024). FDA boxed warning for ALL antipsychotics in elderly with dementia-related psychosis (increased CV + infection mortality) still applies — lowest dose, shortest duration, regular review. Non-pharmacological strategies first; rule out reversible causes. Risperidone widely used outside US with boxed warning. AVOID benzodiazepines (falls, delirium); AVOID typical antipsychotics. DLB neuroleptic sensitivity caveat.'},
+  {q:'A 70-year-old on long-term haloperidol develops persistent oral tongue movements that do not resolve despite dose reduction. Best modern treatment?',
+   choices:['Increase haloperidol','Stop offending antipsychotic where possible; switch to clozapine if antipsychotic still needed; VMAT2 INHIBITOR (valbenazine — KINECT-3, or deutetrabenazine — AIM-TD) FDA 2017 for TD; AVOID anticholinergics (worsen TD)','Long-term lithium','Pyridostigmine'],
+   ans:1,
+   why:'Tardive dyskinesia. Stop offending drug if possible; switch to clozapine (lowest TD risk but agranulocytosis monitoring). VMAT2 inhibitors valbenazine (KINECT-3 Am J Psychiatry 2017) and deutetrabenazine (AIM-TD Lancet Psychiatry 2017) were FDA-approved 2017 — modestly effective; expensive. AVOID anticholinergics (worsen TD; commonly mistaken for treatment of "EPS"). Long-term management.'},
+  {q:'A 56-year-old man has 18 months of personality change, disinhibition, change in eating preferences (sweet craving + bingeing), loss of empathy, and impulsivity. MRI: bifrontal atrophy. Most likely diagnosis and management caveat?',
+   choices:['Late-onset bipolar; lithium','Behavioural variant frontotemporal dementia (bvFTD); SSRI for disinhibition + caregiver education; AVOID antipsychotics where possible; cross-ref Module 7; consider genetic testing C9orf72/MAPT/GRN','Lupus cerebritis; corticosteroid','Schizophrenia; risperidone'],
+   ans:1,
+   why:'Behavioural variant FTD — disinhibition + apathy + change in eating + loss of empathy + reduced insight + bifrontal atrophy. Frequently misdiagnosed as late-onset bipolar, personality disorder, or depression. Modest SSRI evidence for disinhibition (citalopram, sertraline). AVOID antipsychotics where possible (dopaminergic neuron involvement in some FTLD subtypes, hypersensitivity). Caregiver education is the foundation. Genetic testing (C9orf72, MAPT, GRN) — counsel family. Cross-ref Module 7.'},
+  {q:'A patient with epilepsy and depression needs an antidepressant. Which agents should be AVOIDED due to lowering seizure threshold?',
+   choices:['SSRIs','Bupropion + tramadol + maprotiline — substantially lower seizure threshold; SSRIs (sertraline, citalopram) are generally safe in epilepsy; SNRIs reasonable; treat seizure control optimally; LEV "Keppra rage" 10% — consider brivaracetam alternative if mood effects','Sertraline','Citalopram'],
+   ans:1,
+   why:'Bupropion, tramadol, and maprotiline substantially lower seizure threshold and should be avoided in epilepsy patients. SSRIs (sertraline, citalopram) are generally safe and first-line for depression in epilepsy. LEV "Keppra rage" (irritability, depression) in ~10% — brivaracetam is an alternative. Optimise seizure control which itself improves mood. Cross-ref Module 3.'},
+  {q:'A 75-year-old develops confusion + seizures + myoclonus + stroke-like episodes with elevated anti-TPO antibodies. Trial of high-dose IV methylprednisolone produces dramatic improvement. Most likely diagnosis?',
+   choices:['Alzheimer disease','SREAT (Steroid-Responsive Encephalopathy Associated with Autoimmune Thyroiditis — Hashimoto encephalopathy); dramatic STEROID RESPONSE is both diagnostic and therapeutic; most patients clinically euthyroid','Vascular dementia','HIV'],
+   ans:1,
+   why:'SREAT (Hashimoto encephalopathy) — anti-TPO + clinical features + dramatic steroid response. Diagnosis of exclusion. Most patients are clinically euthyroid. Cross-ref Module 23.'},
+  {q:'A 65-year-old man develops stupor + mutism + waxy flexibility + autonomic instability with low-grade fever. He had been started on haloperidol 5 days ago for delirium. CK markedly elevated. Best management?',
+   choices:['Increase haloperidol','Stop haloperidol; aggressive cooling + IV fluids; dantrolene; bromocriptine; ICU monitoring; consider catatonia overlap (lorazepam may help); avoid further antipsychotics','Long-term lithium','Add risperidone'],
+   ans:1,
+   why:'Neuroleptic malignant syndrome (NMS) from haloperidol. Stop offending drug; aggressive cooling; IV fluids; DANTROLENE for severe rigidity/hyperthermia; bromocriptine or amantadine for dopaminergic support; ICU. Watch for rhabdomyolysis. NMS and malignant catatonia can overlap — lorazepam trial sometimes helps. AVOID further dopamine antagonists. ECT for refractory cases. Cross-ref Module 13.'},
+  {q:'A 25-year-old has chronic pain treated with tramadol. She is started on fluoxetine for depression. Within hours: agitation + diaphoresis + hyperreflexia with sustained ankle clonus + hyperthermia + tremor. Best management?',
+   choices:['Bromocriptine','Stop serotonergic drugs (tramadol + fluoxetine); benzodiazepines; CYPROHEPTADINE 12 mg po loading → 2 mg q2h; supportive cooling; AVOID bromocriptine (worsens)','Dantrolene alone','Physostigmine'],
+   ans:1,
+   why:'Serotonin syndrome (Hunter criteria: clonus + hyperreflexia + agitation + diaphoresis + mydriasis + hyperthermia). Stop serotonergic combination (tramadol + fluoxetine — classic). Benzodiazepines + cyproheptadine (5-HT2A antagonist) 12 mg po loading then 2 mg q2h up to 32 mg/day. AVOID bromocriptine (worsens — pro-serotonergic). Distinguish from NMS by clonus + hyperreflexia (vs NMS rigidity + bradyreflexia) and hours-onset (vs days). Cross-ref Module 13.'},
+];
+const qList = document.getElementById('quiz-list');
+let score = 0;
+document.getElementById('stat-total').textContent = quiz.length;
+quiz.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'quiz';
+  div.innerHTML = `
+    <h4>Question ${idx+1} of ${quiz.length}</h4>
+    <p class="stem">${q.q}</p>
+    <div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div>
+    <div class="feedback"></div>`;
+  qList.appendChild(div);
+  const fb = div.querySelector('.feedback');
+  div.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (div.dataset.answered) return;
+      div.dataset.answered = '1';
+      const chosen = +btn.dataset.i;
+      if (chosen === q.ans) {
+        btn.classList.add('correct'); fb.className='feedback good show';
+        fb.innerHTML='<strong>Correct.</strong> '+q.why; score++;
+      } else {
+        btn.classList.add('wrong'); div.querySelectorAll('.choice')[q.ans].classList.add('correct');
+        fb.className='feedback bad show'; fb.innerHTML='<strong>Not quite.</strong> '+q.why;
+      }
+      document.getElementById('stat-score').textContent = score;
+    });
+  });
+});
+
+/* Psychiatric Syndrome Workup */
+const wuResult = document.getElementById('wu-result');
+const wuMap = {
+  young_psychosis:{title:'Anti-NMDA receptor encephalitis', items:[
+    'Young woman + viral-like prodrome → psychiatric (mood + psychosis with bizarre delusions) → seizures → orofacial dyskinesias + choreoathetosis → autonomic instability → coma.',
+    'Workup: CSF anti-NMDA-R antibody (most sensitive); EEG <strong>extreme delta brush</strong> in adults; MRI often normal or non-specific; pelvic ultrasound / MRI (teratoma in 50% women 18–45); testicular ultrasound in young men.',
+    'Treatment: <strong>IV methylprednisolone 1 g/day × 5 d + IVIG or PLEX + tumour removal</strong>; second-line rituximab + cyclophosphamide; ICU for autonomic instability.',
+    '<strong>AVOID antipsychotics</strong> where possible (worsen autonomic + EPS).',
+    'Recovery slow (months) but ~80% good outcome with adequate treatment.',
+    'Cross-ref Module 12.'
+  ]},
+  older_amnesia:{title:'LGI1 limbic encephalitis', items:[
+    'Older men predominantly; subacute amnesia + <strong>faciobrachial dystonic seizures &lt; 3 s</strong> (brief facial + arm dystonia, very characteristic) + hyponatraemia from SIADH.',
+    'Usually NOT paraneoplastic; exclude thymoma + SCLC at baseline.',
+    'MRI: medial temporal T2/FLAIR.',
+    'Workup: serum anti-LGI1 (often more sensitive than CSF for LGI1).',
+    'Treatment: <strong>IV methylprednisolone + IVIG often dramatically responsive</strong>; rituximab for refractory. Recovery good with early treatment.'
+  ]},
+  young_personality:{title:'Wilson disease', items:[
+    'Young patient (5–35 y) with personality change + psychosis + depression + tremor (wing-beating) + dystonia + dysarthria + KF rings.',
+    'Workup: slit-lamp <strong>Kayser-Fleischer rings</strong> (&gt; 95% with neurological Wilson) + <strong>ceruloplasmin &lt; 0.2 g/L</strong> + <strong>24-h urinary copper &gt; 100 µg/24 h</strong> + ATP7B mutation analysis + liver biopsy if needed.',
+    'MRI: "face of the giant panda" sign in midbrain; basal ganglia and thalamic T2 changes.',
+    'Treatment: <strong>trientine + zinc</strong> preferred (penicillamine can transiently worsen neurological); low-copper diet; liver transplant for fulminant.',
+    'Screen all first-degree relatives.',
+    'Cross-ref Module 13.'
+  ]},
+  middle_disinhibition:{title:'Behavioural variant frontotemporal dementia (bvFTD)', items:[
+    'Middle-aged patient (50–60s) with disinhibition + apathy + change in eating habits (sweet craving + bingeing) + loss of empathy + impulsivity + reduced insight.',
+    'Frequently misdiagnosed as late-onset bipolar, personality disorder, or depression.',
+    'Workup: MRI bifrontal atrophy + FDG-PET bifrontal hypometabolism + detailed cognitive assessment (executive function); informant history is critical.',
+    'Genetic testing: C9orf72, MAPT, GRN — family history; counselling for relatives.',
+    'Treatment: SSRI for disinhibition (citalopram, sertraline — modest evidence); trazodone for sleep / agitation; <strong>AVOID antipsychotics</strong> where possible; caregiver education foundation.',
+    'Cross-ref Module 7.'
+  ]},
+  elderly_cognitive:{title:'Chronic subdural haematoma', items:[
+    'Elderly patient (especially on anticoagulant or with falls) + cognitive decline + headache + fluctuating mental status.',
+    'Workup: <strong>CT brain</strong> (subdural collection often layering, sometimes bilateral); MRI for older / multilocular collections.',
+    'Treatment: reverse anticoagulation if applicable; <strong>neurosurgical drainage</strong> (burr hole + irrigation) for symptomatic; conservative management for small asymptomatic.',
+    'Cross-ref Module 22.'
+  ]},
+  triad:{title:'Normal pressure hydrocephalus (NPH)', items:[
+    'Older patient with classic triad: <strong>gait apraxia + cognitive decline + urinary incontinence</strong> ("wet, wobbly, weird").',
+    'Workup: MRI (ventriculomegaly without atrophy; ± Evans index); large-volume lumbar tap (30–50 mL) + assess gait improvement; external lumbar drain trial if uncertain.',
+    'Treatment: <strong>VP shunt</strong> if responsive to tap test; not all patients respond; multidisciplinary discussion.',
+    'Cross-ref Module 7.'
+  ]},
+  confusion_seizures_TPO:{title:'SREAT (Steroid-Responsive Encephalopathy Associated with Autoimmune Thyroiditis — Hashimoto encephalopathy)', items:[
+    'Confusion + seizures + myoclonus + stroke-like episodes + tremor + cognitive impairment.',
+    'Anti-TPO antibodies (often very high); anti-thyroglobulin antibodies often present.',
+    'Most patients clinically euthyroid (not relating to thyroid hormone level).',
+    'Diagnosis of exclusion (rule out infection, autoimmune encephalitis, vascular, drug-induced).',
+    'Treatment: <strong>trial of high-dose IV methylprednisolone 1 g × 5 days</strong> — dramatic response is both diagnostic and therapeutic.',
+    'Slow oral taper of prednisolone; steroid-sparing if relapse (MMF, azathioprine, rituximab).',
+    'Cross-ref Module 23.'
+  ]},
+  abdominal_psych:{title:'Acute intermittent porphyria (AIP)', items:[
+    'Acute psychiatric symptoms (psychosis, anxiety, depression) + severe abdominal pain (no peritonism) + autonomic features (tachycardia, hypertension) + peripheral neuropathy + hyponatraemia + tachycardia + back pain.',
+    'Triggers: many drugs (CYP inducers — barbiturates, sulfonamides, oestrogens, anti-epileptics), fasting, alcohol, infection, surgery, hormones.',
+    'Diagnose: <strong>urinary porphobilinogen elevated during attack</strong>; quantitative porphobilinogen + delta-ALA.',
+    'Treatment: stop precipitants + IV glucose 300–500 g/day + <strong>IV haemin</strong> 3–4 mg/kg/day × 4 days; pain control (avoid barbiturates + porphyrinogenic drugs — check porphyria-safe drug list).',
+    'Cross-ref Module 13.'
+  ]},
+  psych_vegan:{title:'Vitamin B12 deficiency', items:[
+    'Cognitive decline + psychosis + paraesthesiae + ataxia + macrocytosis (may be absent) + peripheral neuropathy + subacute combined degeneration.',
+    'Risk factors: vegan diet, N₂O (whippets) abuse, post-bariatric surgery, ileal resection / Crohn disease, pernicious anaemia, long-term metformin/PPI use, elderly.',
+    'Workup: <strong>B12 + methylmalonic acid + homocysteine</strong>; consider intrinsic factor antibody for pernicious anaemia.',
+    'Treatment: hydroxocobalamin 1000 µg IM daily × 5 days → weekly × 4 → monthly for life (or until cause corrected); check folate AFTER starting B12 (folate alone in B12 deficiency precipitates myelopathy).',
+    'Cross-ref Module 13.'
+  ]},
+  cognitive_arthralgia:{title:'Whipple disease', items:[
+    'Cognitive decline + <strong>oculomasticatory myorhythmia is pathognomonic</strong> (slow rhythmic ocular convergence-divergence with synchronous masseter contraction) + ataxia + dementia + malabsorption + arthralgia + fever + weight loss.',
+    'Caused by <em>Tropheryma whipplei</em>.',
+    'Workup: <strong>PCR for T. whipplei</strong> on CSF and jejunal biopsy (PAS-positive macrophages with bacilli).',
+    'Treatment: <strong>ceftriaxone 2 g IV q12h × 2 weeks → oral TMP-SMX double-strength BID × 12 months</strong>.',
+    'Cross-ref Module 23.'
+  ]}
+};
+document.querySelectorAll('#wuTool [data-step="0"] .opt').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#wuTool [data-step="0"] .opt').forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  const m = wuMap[b.dataset.val];
+  if (m) {
+    wuResult.innerHTML = `<h4>${m.title}</h4><ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    wuResult.classList.add('show');
+  }
+}));
+function resetWu() {
+  document.querySelectorAll('#wuTool .opt.sel').forEach(o => o.classList.remove('sel'));
+  wuResult.classList.remove('show');
+}
+
+/* Catatonia Recognition */
+const catSigns = [
+  ['stupor','Stupor — extreme hypoactivity, immobile, minimally responsive'],
+  ['mutism','Mutism — minimal verbal response'],
+  ['negativism','Negativism — opposing or not responding to instructions'],
+  ['posturing','Posturing / catalepsy — maintaining unusual postures'],
+  ['waxy','Waxy flexibility (cerea flexibilitas) — limbs maintained in passively placed posture'],
+  ['stereotypy','Stereotypy — non-goal-directed repetitive movements'],
+  ['mannerisms','Mannerisms — odd purposeful movements'],
+  ['echo','Echolalia / echopraxia — imitation of others\' speech / movements'],
+  ['excite','Excitement — extreme hyperactivity (excited catatonia)'],
+  ['auto','Autonomic instability — fever + BP swings + tachycardia (malignant catatonia)']
+];
+const catBox = document.getElementById('cat-grid');
+let catState = {};
+catSigns.forEach(([id,label]) => {
+  catState[id] = false;
+  const row = document.createElement('div');
+  row.className = 'cat-row';
+  row.innerHTML = `<div class="label">${label}</div>
+    <div class="opts">
+      <button class="sel" data-id="${id}" data-val="0">Absent</button>
+      <button data-id="${id}" data-val="1">Present</button>
+    </div>`;
+  catBox.appendChild(row);
+});
+catBox.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.id; const val = +b.dataset.val;
+  catState[id] = !!val;
+  catBox.querySelectorAll(`button[data-id="${id}"]`).forEach(o => o.classList.remove('sel'));
+  b.classList.add('sel');
+  scoreCat();
+}));
+
+function scoreCat() {
+  const present = catSigns.filter(([id]) => catState[id]);
+  const total = present.length;
+  document.getElementById('cat-count').textContent = total;
+  let interp = '';
+  if (total === 0) {
+    interp = 'Tick the Bush-Francis features present.';
+  } else {
+    const malignant = catState.auto;
+    let intro;
+    if (total >= 3) {
+      intro = '<strong>Likely catatonia</strong> — Bush-Francis criteria typically use ≥ 2 features for ≥ 24 hours.';
+    } else if (total === 2) {
+      intro = '<strong>Possible catatonia</strong> — observe and reassess; check if features persist for ≥ 24 hours.';
+    } else {
+      intro = '<strong>Single feature</strong> — broaden differential; observe; check if more features develop.';
+    }
+    interp = `<p>${intro}</p>
+      ${malignant ? '<p style="color:#ff8a7a;font-weight:600;">⚠ Autonomic instability present — MALIGNANT CATATONIA likely; mortality up to 20% untreated.</p>' : ''}
+      <p><strong>Management</strong>:</p>
+      <ul>
+        <li>STOP any antipsychotic (can worsen catatonia + precipitate NMS).</li>
+        <li><strong>Lorazepam challenge</strong>: 1–2 mg IV/IM; dramatic improvement within minutes confirms diagnosis and starts treatment. Continue scheduled lorazepam ${malignant ? '8-24 mg/day' : '3-24 mg/day'}.</li>
+        <li><strong>Rule out medical causes</strong>:
+          <ul>
+            <li><strong>Anti-NMDA-R encephalitis</strong> in young patient — CSF antibody + pelvic / testicular ultrasound + EEG (extreme delta brush) + MRI.</li>
+            <li>Other autoimmune encephalitis (LGI1, GABA-B, AMPA-R, CASPR2) — antibody panel CSF + serum.</li>
+            <li>NMS — check CK, history of dopamine antagonist.</li>
+            <li>Metabolic — Na, glucose, ammonia, ABG, B12, ammonia, hepatic.</li>
+            <li>Infection — LP, blood cultures, viral encephalitis screen.</li>
+            <li>Lupus cerebritis (Module 23).</li>
+            <li>Drug-induced — review medications.</li>
+          </ul>
+        </li>
+        <li><strong>ECT</strong> if lorazepam-refractory or malignant catatonia${malignant ? ' (urgent in this case)' : ''}.</li>
+        <li>Treat underlying neurological / medical cause when identified.</li>
+        <li>Treat any underlying psychiatric disorder once acute episode resolves.</li>
+        <li>Multidisciplinary: psychiatry + neurology + ICU (if autonomic instability) + autoimmune neurology consultation.</li>
+      </ul>`;
+  }
+  document.getElementById('cat-interp').innerHTML = interp;
+}
+scoreCat();
+
+function resetCat() {
+  catSigns.forEach(([id]) => { catState[id] = false; });
+  catBox.querySelectorAll('.opts button').forEach(o => {
+    o.classList.toggle('sel', o.dataset.val === '0');
+  });
+  scoreCat();
+}
+</script>
+</body>
+</html>

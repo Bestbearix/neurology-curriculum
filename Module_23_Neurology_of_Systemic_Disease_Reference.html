@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 23 — Neurology of Systemic Disease (Reference)</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#5c6577; --accent:#5a4a98; --accent-2:#7a6db5; --soft:#ede8f5;
+    --line:#dcd4eb; --good:#2e7d4f; --warn:#a06b00; --bad:#a82a2a;
+    --pearl:#ede8f5; --warnbg:#fff7e2; --referbg:#ffefef; --timebg:#e9f3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Source Serif Pro','Times New Roman',Georgia,serif; background:#f9f8fc; color:var(--ink); line-height:1.65; font-size:16px}
+  .wrap{max-width:880px; margin:0 auto; padding:36px 28px 80px; background:#fff; min-height:100vh; box-shadow:0 0 18px rgba(90,74,152,0.06)}
+  header{border-bottom:2px solid var(--accent); padding-bottom:14px; margin-bottom:22px}
+  header h1{margin:0 0 6px; font-size:1.95rem; color:var(--accent); letter-spacing:.2px}
+  header .sub{color:var(--muted); font-size:.95rem; font-style:italic}
+  header .meta{margin-top:8px; font-size:.85rem; color:var(--muted)}
+  nav.toc{background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:14px 18px 14px 36px; margin:18px 0 30px}
+  nav.toc h3{margin:0 0 8px; color:var(--accent); font-size:1.05rem; font-family:'Inter',sans-serif}
+  nav.toc ol{margin:0; padding-left:18px}
+  nav.toc a{color:var(--ink); text-decoration:none}
+  nav.toc a:hover{color:var(--accent); text-decoration:underline}
+  h2{font-size:1.45rem; color:var(--accent); margin:2em 0 .5em; border-bottom:1px solid var(--line); padding-bottom:4px}
+  h3{font-size:1.15rem; color:#3e3470; margin:1.4em 0 .4em}
+  h4{font-size:1.0rem; margin:1.1em 0 .3em; color:#4d4282}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em; padding-left:24px}
+  ul li, ol li{margin:.2em 0}
+  table{width:100%; border-collapse:collapse; margin:1em 0; font-size:.94rem; font-family:'Inter',sans-serif}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#ddd5ed; color:#3e3470; font-weight:600}
+  .pearl,.warn,.refer,.time{padding:10px 14px 10px 16px; border-radius:6px; margin:1em 0; border-left:4px solid; font-size:.95rem}
+  .pearl{background:var(--pearl); border-color:var(--accent)}
+  .warn{background:var(--warnbg); border-color:var(--warn)}
+  .refer{background:var(--referbg); border-color:var(--bad)}
+  .time{background:var(--timebg); border-color:#3a78c2}
+  .pearl strong, .warn strong, .refer strong, .time strong{color:#000}
+  .src{margin-top:30px; padding:14px 18px; background:#e8e0f4; border-left:4px solid var(--accent); font-size:.85rem; color:var(--muted); border-radius:4px}
+  .src h3{color:var(--accent); margin-top:0; font-family:'Inter',sans-serif}
+  code{background:#e2d8f1; padding:1px 5px; border-radius:3px; font-family:'Consolas',monospace; font-size:.92em}
+  footer{margin-top:40px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem; text-align:center}
+
+  .back-button{
+    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
+    background:#667eea; color:white; text-decoration:none; border-radius:4px;
+    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
+    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  .back-button:hover{background:#5568d3}
+
+  @media print{ body{background:#fff} .wrap{max-width:none; box-shadow:none; padding:0} nav.toc{break-after:page} h2{break-before:auto; break-after:avoid} .pearl,.warn,.refer,.time{break-inside:avoid} }
+  @media (max-width:600px){ .wrap{padding:20px 14px} header h1{font-size:1.55rem} h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<div class="wrap">
+
+<header>
+  <h1>Module 23 — Neurology of Systemic Disease</h1>
+  <div class="sub">Cardiac · renal · endocrine · haematological · rheumatological / autoimmune · GI · respiratory · transplantation · radiation · HIV — and how each invades the nervous system</div>
+  <div class="meta">For the general physician · Reference · 2026 · Built from Merritt's 14e (Ch 119, 122–127, 130, 133, 134) and relevant Adams &amp; Victor chapters · Modern guidelines for AF stroke, infective endocarditis, dialysis, transplant, sickle cell stroke, antiphospholipid, GCA</div>
+</header>
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#frame">Framework — the body is the brain's environment</a></li>
+  <li><a href="#cardiac">Cardiac disease and the brain</a></li>
+  <li><a href="#renal">Renal disease, dialysis, and electrolytes</a></li>
+  <li><a href="#endo">Endocrine disease — thyroid, adrenal, pituitary, diabetes, parathyroid</a></li>
+  <li><a href="#haem">Haematological disease — sickle cell, polycythaemia, thrombocytopenia, TTP, DIC, APS</a></li>
+  <li><a href="#hep">Hepatic disease (cross-ref Module 13)</a></li>
+  <li><a href="#auto">Rheumatological / autoimmune disease — SLE, Sjögren, vasculitides, sarcoid, Behçet</a></li>
+  <li><a href="#gi">Gastrointestinal disease — coeliac, IBD, bariatric, gluten ataxia</a></li>
+  <li><a href="#resp">Respiratory disease — sleep apnea, sarcoidosis, neuromuscular respiratory failure</a></li>
+  <li><a href="#hiv">HIV and neurosyphilis (cross-ref Module 11)</a></li>
+  <li><a href="#tx">Solid organ transplantation</a></li>
+  <li><a href="#rad">Radiation injury</a></li>
+  <li><a href="#refer">When to refer</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</nav>
+
+<h2 id="frame">1. Framework — the body is the brain's environment</h2>
+<p>The brain is exquisitely sensitive to systemic disease. Every primary internal medicine problem — heart failure, AKI, hyperthyroidism, sickle cell, lupus, coeliac disease, HIV, organ transplantation — can present as a neurological syndrome <em>before</em> the systemic diagnosis is suspected. This module organises neurological complications by organ system. The principle: ask what the patient's organs are doing every time you see a confused, weak, ataxic, or seizing patient — many "primary neurology" presentations turn out to be the cardiac arrhythmia, the thyroid storm, the antiphospholipid syndrome, or the lupus flare.</p>
+
+<div class="pearl"><strong>The single principle:</strong> in any new neurological syndrome, do a systems review and basic systemic workup. Many neurological emergencies (TTP, GCA, eclampsia, lupus cerebritis, antiphospholipid catastrophic syndrome, sickle cell stroke, IE-related cerebral embolus, hepatic encephalopathy) declare themselves only when the systemic clues are sought.</div>
+
+<h2 id="cardiac">2. Cardiac disease and the brain</h2>
+
+<h3>Cardioembolic stroke</h3>
+<ul>
+  <li><strong>Atrial fibrillation</strong>: ~5× increased stroke risk; strokes tend to be larger and more disabling than non-cardioembolic. <strong>CHA₂DS₂-VASc</strong> guides anticoagulation. Modern preference: DOAC (apixaban, rivaroxaban, dabigatran, edoxaban) over warfarin except in mechanical valves (warfarin) and rheumatic mitral stenosis (warfarin). Cross-ref Module 2.</li>
+  <li><strong>Acute MI / LV thrombus</strong>: anticoagulate for 3 months minimum.</li>
+  <li><strong>Atrial myxoma</strong>: rare; cardiac echo; surgery.</li>
+  <li><strong>Patent foramen ovale (PFO)</strong>: paradoxical embolus in cryptogenic stroke in young patients (RoPE score). Three RCTs (CLOSE, REDUCE, RESPECT extended follow-up) showed reduced stroke recurrence with PFO closure in selected patients &lt; 60 years with high-risk PFO features.</li>
+  <li><strong>Cardiac surgery</strong>: peri-operative stroke (~2% in CABG; higher in valve surgery + redo); post-pump cognitive decline; perioperative AF.</li>
+</ul>
+
+<h3>Infective endocarditis (IE)</h3>
+<ul>
+  <li>Up to 35% of patients with IE develop neurological complications.</li>
+  <li>Septic embolic stroke (commonest), <strong>mycotic aneurysm</strong> (distal MCA branches; risk of haemorrhage 5%), brain abscess, meningitis, encephalopathy.</li>
+  <li><strong>Anticoagulation in IE</strong> is controversial — increases ICH risk; usually held in active IE with neurological involvement; restart after stabilisation.</li>
+  <li>Cardiac surgery timing: early surgery (within days) is reasonable for ischaemic stroke without haemorrhagic conversion or major neurological deficit; delay 2–4 weeks for haemorrhagic complications.</li>
+  <li>Cross-ref Module 11 (CNS infection differential).</li>
+</ul>
+
+<h3>Cardiac arrest and hypoxic-ischaemic encephalopathy</h3>
+<p>See Module 22 — post-cardiac-arrest care and multimodal neuroprognostication ≥ 72 hours; TTM2 targeted normothermia.</p>
+
+<h3>Takotsubo cardiomyopathy and neurogenic stress</h3>
+<ul>
+  <li>"Apical ballooning"; precipitated by severe emotional or physical stress, severe acute neurological insult (especially SAH and ICH).</li>
+  <li>Catecholamine-mediated myocardial stunning; LV apical ballooning; ST changes mimic MI; troponin moderate.</li>
+  <li>Usually reverses in 1–4 weeks; supportive ICU care.</li>
+</ul>
+
+<h3>Heart failure and the brain</h3>
+<ul>
+  <li>Low-output state → cognitive impairment, increased dementia risk; depression common.</li>
+  <li>Cardio-renal-cerebral interactions; manage HF, treat sleep apnea (Module 14 — Cheyne-Stokes in HFrEF; ASV contraindicated if EF ≤ 45 per SERVE-HF), avoid anticholinergics, screen for cognitive decline.</li>
+</ul>
+
+<h2 id="renal">3. Renal disease, dialysis, electrolytes</h2>
+
+<h3>Uraemic encephalopathy (Module 13)</h3>
+<ul>
+  <li>GFR usually &lt; 10 mL/min; cognitive slowing → asterixis, multifocal myoclonus, seizures, coma.</li>
+  <li>EEG: diffuse slowing ± triphasic waves. BUN/urea correlates more closely than creatinine.</li>
+  <li>Reverses with dialysis or transplant over days.</li>
+</ul>
+
+<h3>Dialysis disequilibrium syndrome</h3>
+<ul>
+  <li>Headache, nausea, seizures, encephalopathy during or just after dialysis (especially first dialysis with high BUN).</li>
+  <li>Aggressive urea clearance produces an osmotic gradient → cerebral oedema.</li>
+  <li>Prevent with short gentle initial sessions; treat with mannitol if severe.</li>
+</ul>
+
+<h3>Dialysis dementia (now rare)</h3>
+<p>Subacute progressive dementia, dysarthria, myoclonus, seizures from aluminium accumulation. Disappeared after removal of aluminium from dialysate.</p>
+
+<h3>Renal transplant neurology</h3>
+<ul>
+  <li>Calcineurin inhibitor (tacrolimus, ciclosporin) neurotoxicity: tremor, PRES (Module 13), seizures, neuropathy.</li>
+  <li>Opportunistic infections (PML, Listeria, CMV, toxoplasmosis); reactivation of HBV/HCV.</li>
+  <li>Post-transplant lymphoproliferative disorder with CNS involvement.</li>
+  <li>Manage electrolytes, BP carefully; avoid drug interactions.</li>
+</ul>
+
+<h3>Electrolyte and osmolar disturbances (Module 13)</h3>
+<p>Hyponatraemia (acute: seizures, coma; correct ≤ 8 mmol/L/24 h to avoid CPM); hypernatraemia (lethargy, coma; risk of ICH in severe); hypercalcaemia (drowsiness, confusion, psychosis); hypocalcaemia (tetany, seizures, prolonged QT); hypomagnesaemia (refractory hypocalcaemia/hypokalaemia, seizures); hypoglycaemia and hyperglycaemia; hyperammonaemia (also valproate, urea-cycle defects, post-bariatric).</p>
+
+<h2 id="endo">4. Endocrine disease</h2>
+
+<h3>Thyroid disease</h3>
+<table>
+<tr><th>Condition</th><th>Neurology</th></tr>
+<tr><td><strong>Thyrotoxicosis</strong></td><td>Postural tremor, proximal myopathy, anxiety, irritability, sleep disturbance, periodic paralysis (thyrotoxic — especially East Asian men with hypokalaemia), <strong>thyroid storm</strong> (delirium, fever, tachycardia, agitation, multi-organ failure); ophthalmopathy (Graves — IGF-1R antibodies; <strong>teprotumumab</strong> FDA 2020 — Module 19); thyroid eye disease + optic nerve compression.</td></tr>
+<tr><td><strong>Myxoedema</strong></td><td>Cognitive slowing, depression, ataxia (Hashimoto cerebellar ataxia), proximal myopathy with elevated CK, carpal tunnel; <strong>myxoedema coma</strong> with hypothermia + bradycardia + altered mental status — IV levothyroxine + hydrocortisone + supportive ICU; Hashimoto encephalopathy (steroid-responsive encephalopathy associated with autoimmune thyroiditis — SREAT) with seizures, confusion, myoclonus, anti-TPO antibodies, dramatic steroid response.</td></tr>
+</table>
+
+<h3>Adrenal disease</h3>
+<ul>
+  <li><strong>Addison disease / adrenal crisis</strong>: lethargy → coma, hyperpigmentation, hyponatraemia, hyperkalaemia, hypoglycaemia, hypotension; treat with <strong>hydrocortisone 100 mg IV stat</strong> + fluids; adrenoleukodystrophy (X-linked, VLCFA elevated) can present with adrenal insufficiency in young men.</li>
+  <li><strong>Cushing syndrome</strong>: cognitive impairment, depression, psychosis, proximal myopathy, hippocampal atrophy.</li>
+  <li><strong>Phaeochromocytoma</strong>: paroxysmal hypertension with headache + sweating + palpitations (Module 15). <strong>α-blockade BEFORE β-blockade</strong> — avoid unopposed α-vasoconstriction.</li>
+</ul>
+
+<h3>Pituitary (cross-ref Module 12)</h3>
+<ul>
+  <li>Macroadenoma — bitemporal hemianopia; hormone excess (prolactinoma, GH, ACTH, TSH) or hypopituitarism; <strong>pituitary apoplexy</strong> = emergency (hydrocortisone 100 mg IV stat).</li>
+  <li>Sheehan syndrome — postpartum pituitary necrosis (Module 20).</li>
+</ul>
+
+<h3>Diabetes mellitus</h3>
+<ul>
+  <li><strong>Cerebrovascular</strong>: large vessel disease, lacunar stroke, silent infarcts; control glycaemia + CV risk (Module 2).</li>
+  <li><strong>Neuropathies</strong>: length-dependent symmetric (Module 9); diabetic autonomic neuropathy (Module 15); diabetic amyotrophy (lumbosacral radiculoplexus neuropathy — painful thigh wasting); third nerve palsy usually pupil-sparing (Module 19); mononeuropathies (CTS, ulnar, peroneal).</li>
+  <li><strong>Hypoglycaemia unawareness</strong>: from cardiovascular autonomic neuropathy (Module 15).</li>
+  <li><strong>Hyperosmolar hyperglycaemic state</strong>: focal motor seizures characteristic — resolve with glucose normalisation, not ASMs (Module 13).</li>
+  <li><strong>Diabetic ketoacidosis</strong>: cerebral oedema in children — emergency.</li>
+</ul>
+
+<h3>Parathyroid</h3>
+<ul>
+  <li><strong>Hyperparathyroidism</strong>: hypercalcaemia neurology (depression, fatigue, confusion, proximal weakness, peptic ulcer, renal stones — "stones, bones, abdominal moans, psychic groans").</li>
+  <li><strong>Hypoparathyroidism</strong>: hypocalcaemia neurology (tetany, Chvostek, Trousseau, seizures, basal ganglia calcification — Fahr disease).</li>
+</ul>
+
+<h2 id="haem">5. Haematological disease</h2>
+
+<h3>Sickle cell disease</h3>
+<ul>
+  <li>~10% of children with sickle cell have a clinical stroke by age 20 if untreated.</li>
+  <li><strong>Transcranial Doppler screening</strong> annually from age 2 (STOP trial, Adams NEJM 1998); TCD velocity &gt; 200 cm/s indicates high stroke risk.</li>
+  <li><strong>Primary prevention</strong>: chronic transfusion to keep HbS &lt; 30% — substantially reduces first stroke. Hydroxyurea also reduces stroke risk and many programmes have replaced indefinite transfusion with hydroxyurea after stabilisation (TWiTCH trial 2016).</li>
+  <li><strong>Acute stroke</strong>: exchange transfusion + standard stroke care; cross-ref Module 2.</li>
+  <li><strong>Bone marrow transplant</strong> for selected severe cases.</li>
+  <li>Silent cerebral infarcts cause cognitive impairment even without overt stroke.</li>
+</ul>
+
+<h3>Polycythaemia, leukaemia, thrombocytopenia</h3>
+<ul>
+  <li><strong>Polycythaemia vera</strong> (high haematocrit + JAK2 V617F): stroke risk increased; venesection to keep haematocrit &lt; 45%.</li>
+  <li><strong>Leukaemia</strong>: leptomeningeal infiltration (cranial neuropathies, headache, cauda equina), CNS involvement of ALL (intrathecal methotrexate); hyperviscosity (AML blast crisis with WBC &gt; 100,000); chemotherapy neurotoxicity (vincristine neuropathy, methotrexate leukoencephalopathy, ifosfamide encephalopathy).</li>
+  <li><strong>Thrombocytopenia and bleeding</strong>: ICH risk increases at platelet &lt; 20–50; transfusion thresholds vary by clinical context.</li>
+</ul>
+
+<h3>TTP, HUS, DIC</h3>
+<ul>
+  <li><strong>Thrombotic thrombocytopenic purpura (TTP)</strong>: classic pentad (only in 40%) — microangiopathic haemolytic anaemia (schistocytes) + thrombocytopenia + fever + renal injury + neurological symptoms (confusion, seizures, focal deficit, headache). <strong>ADAMTS13 deficiency</strong> (acquired antibody more common than congenital). Emergency: <strong>plasma exchange daily</strong> until response; <strong>caplacizumab</strong> (anti-vWF nanobody — TITAN/HERCULES trials NEJM) reduces relapse + time to response; corticosteroids; rituximab for refractory.</li>
+  <li><strong>HUS</strong>: shiga-toxin–producing E. coli; supportive care; eculizumab for atypical HUS.</li>
+  <li><strong>DIC</strong>: ICH risk; treat underlying cause; replace components.</li>
+</ul>
+
+<h3>Antiphospholipid syndrome</h3>
+<ul>
+  <li>Venous + arterial thromboses; recurrent fetal loss; livedo reticularis; thrombocytopenia.</li>
+  <li>Lupus anticoagulant + anti-cardiolipin + anti-β2-glycoprotein-I (Sapporo criteria).</li>
+  <li><strong>Catastrophic antiphospholipid syndrome (CAPS)</strong>: multi-organ thrombosis with high mortality; treat with anticoagulation + corticosteroid + plasma exchange / IVIG.</li>
+  <li><strong>Anticoagulation</strong>: warfarin INR 2–3 (or higher for arterial / recurrent); <strong>DOACs less effective than warfarin in APS</strong> (TRAPS trial — rivaroxaban inferior; AAN/EAN guidance avoid DOAC in APS especially "triple-positive").</li>
+  <li>Cross-ref Module 2 stroke recurrence prevention.</li>
+</ul>
+
+<h3>Paraneoplastic and immune haematological causes</h3>
+<p>Paraneoplastic syndromes (Module 12), POEMS syndrome (Polyneuropathy, Organomegaly, Endocrinopathy, M-protein, Skin), Waldenström macroglobulinaemia hyperviscosity, multiple myeloma (cord compression — Module 10), MGUS-associated neuropathy.</p>
+
+<h2 id="hep">6. Hepatic disease (cross-ref Module 13)</h2>
+<p>Hepatic encephalopathy (West Haven; HEPATICS precipitants; lactulose + rifaximin; titrate to 2–3 soft stools/day, not ammonia); Wilson disease (KF rings; ATP7B; trientine preferred over penicillamine in neurological; zinc; Module 13); acquired hepatocerebral degeneration; alcohol-related neurology (Wernicke-Korsakoff; cerebellar degeneration; Marchiafava-Bignami; CPM/ODS).</p>
+
+<h2 id="auto">7. Rheumatological / autoimmune disease</h2>
+
+<h3>Systemic lupus erythematosus (SLE)</h3>
+<ul>
+  <li>"Neuropsychiatric SLE" (ACR 19 syndromes): cognitive dysfunction, depression, mood disorder, psychosis, seizures, stroke (often APS-mediated), demyelinating syndrome, aseptic meningitis, transverse myelitis, headache, chorea (especially with APS), mononeuritis multiplex.</li>
+  <li>Workup: ANA, ds-DNA, complement (C3/C4 — low in active flare), APS antibodies; MRI brain; LP for cells, OCBs.</li>
+  <li>Treat lupus + immunosuppression (high-dose steroid, IV cyclophosphamide for severe CNS lupus, mycophenolate, rituximab); anti-APS thrombosis with anticoagulation.</li>
+</ul>
+
+<h3>Sjögren syndrome</h3>
+<ul>
+  <li>Sicca + small-fibre / autonomic neuropathy + sensory ganglionopathy (anti-Hu-like but not paraneoplastic) + cranial neuropathies (V) + transverse myelitis / NMO-like + cognitive impairment.</li>
+  <li>Anti-Ro/SSA + anti-La/SSB; minor salivary gland biopsy.</li>
+  <li>Treat with immunosuppression (cyclophosphamide for severe CNS); rituximab.</li>
+</ul>
+
+<h3>Rheumatoid arthritis</h3>
+<ul>
+  <li><strong>Cervical myelopathy from atlantoaxial subluxation</strong> — pannus erodes transverse ligament → C1-2 instability; high-risk surgical patient (intubation, anaesthesia positioning). Pre-op flexion/extension cervical spine films or MRI.</li>
+  <li>Entrapment neuropathies (CTS, ulnar at elbow); rheumatoid vasculitis with mononeuritis multiplex.</li>
+</ul>
+
+<h3>Vasculitides</h3>
+<table>
+<tr><th>Vasculitis</th><th>Neurology</th></tr>
+<tr><td><strong>Giant cell arteritis (GCA)</strong></td><td>Headache, jaw claudication, visual loss (arteritic AION — Module 19), ischaemic stroke (vertebrobasilar territory). <strong>Empirical IV methylpred immediately</strong> in suspected GCA + visual loss; biopsy or US within 1–2 weeks; tocilizumab.</td></tr>
+<tr><td><strong>Granulomatosis with polyangiitis (GPA, Wegener)</strong></td><td>cANCA / anti-PR3. CNS pachymeningitis; cranial neuropathies; mononeuritis multiplex; orbital pseudotumour. Rituximab or cyclophosphamide + steroid.</td></tr>
+<tr><td><strong>Eosinophilic granulomatosis with polyangiitis (EGPA, Churg-Strauss)</strong></td><td>pANCA / anti-MPO; asthma + eosinophilia. Mononeuritis multiplex prominent (75% of patients); CNS rare. Steroid; mepolizumab (IL-5).</td></tr>
+<tr><td><strong>Polyarteritis nodosa (PAN)</strong></td><td>Medium-vessel; mononeuritis multiplex; hepatitis B association historically; CNS involvement uncommon. Steroid + cyclophosphamide.</td></tr>
+<tr><td><strong>Primary angiitis of CNS (PACNS)</strong></td><td>Diagnosis of exclusion; multi-focal stepwise stroke + encephalopathy + headache. CSF inflammation (mild pleocytosis, elevated protein). MRI: multifocal infarcts in different vascular territories + leptomeningeal enhancement. DSA: beaded segmental narrowing (may be negative in small-vessel PACNS). Brain biopsy is gold standard but low yield. Steroid + cyclophosphamide.</td></tr>
+<tr><td><strong>RCVS</strong> (Module 13, 20)</td><td>Recurrent thunderclap headache + segmental vasoconstriction REVERSING in 1–3 months. Differs from PACNS (RCVS reverses; CSF usually normal; thunderclap headache central).</td></tr>
+<tr><td><strong>Takayasu arteritis</strong></td><td>Large-vessel arteritis in young women; stroke from carotid / vertebral involvement; "pulseless disease".</td></tr>
+</table>
+
+<h3>Sarcoidosis</h3>
+<ul>
+  <li>Neurosarcoidosis in ~5% of sarcoidosis patients. Cranial neuropathies (facial — Bell-like; optic neuritis); chronic basal meningitis; hypothalamic / pituitary involvement (diabetes insipidus); myelopathy; peripheral neuropathy; muscle involvement.</li>
+  <li>MRI: leptomeningeal enhancement particularly basal; spinal cord involvement.</li>
+  <li>CSF: lymphocytic pleocytosis, elevated protein, low glucose mimicking TB or fungal (Module 11).</li>
+  <li>Workup: ACE (raised but non-specific); chest CT for hilar adenopathy; PET-CT; tissue biopsy (transbronchial, lymph node, skin).</li>
+  <li>Treatment: corticosteroid; methotrexate, mycophenolate, infliximab (TNF-α) for refractory.</li>
+</ul>
+
+<h3>Behçet disease</h3>
+<ul>
+  <li>Recurrent oral + genital ulcers + uveitis + skin lesions.</li>
+  <li>Neuro-Behçet: brainstem syndrome (parenchymal) and CVST (vascular); MRI brainstem T2 hyperintensity; CSF inflammation.</li>
+  <li>Treatment: steroid + immunosuppression (cyclophosphamide, azathioprine, biologics — infliximab, adalimumab).</li>
+</ul>
+
+<h3>IgG4-related disease</h3>
+<p>Hypertrophic pachymeningitis; orbital pseudotumour; hypophysitis; cranial neuropathies; mimics neurosarcoidosis. Serum IgG4 + biopsy; corticosteroid + rituximab.</p>
+
+<h3>Connective tissue overlap and other rheumatological</h3>
+<p>Mixed connective tissue disease (Raynaud + sclerodactyly + polymyositis); systemic sclerosis (myopathy; rarely CNS); polymyositis / dermatomyositis (Module 9); anti-synthetase syndrome.</p>
+
+<h2 id="gi">8. Gastrointestinal disease</h2>
+<ul>
+  <li><strong>Coeliac disease</strong>: peripheral neuropathy, gluten ataxia (anti-gliadin / TG6 / TG2 antibodies; cerebellar atrophy; gluten-free diet), epilepsy with bilateral occipital calcifications, B12 deficiency (Module 13), vitamin E deficiency, peripheral neuropathy. Always check coeliac serology in unexplained ataxia or neuropathy.</li>
+  <li><strong>Inflammatory bowel disease</strong>: thromboembolic stroke (hypercoagulable state); CVST; CNS demyelination (TNF inhibitors can unmask MS — switch DMT); peripheral neuropathy (vitamin B12 deficiency after ileal resection — Module 13).</li>
+  <li><strong>Bariatric surgery</strong>: Wernicke encephalopathy from thiamine deficiency (Module 13, 20); B12 deficiency; copper deficiency myeloneuropathy; vitamin D / calcium / vitamin E deficiencies.</li>
+  <li><strong>Whipple disease</strong> (Tropheryma whipplei): malabsorption + arthralgia + neurological (oculomasticatory myorhythmia is pathognomonic — slow rhythmic ocular convergence-divergence with synchronous masseter contraction); ataxia, dementia; PCR + jejunal biopsy; ceftriaxone + TMP-SMX long-term.</li>
+</ul>
+
+<h2 id="resp">9. Respiratory disease</h2>
+<ul>
+  <li><strong>Sleep apnea (Module 14)</strong>: stroke / AF / HTN / cognitive impairment; CPAP improves daytime symptoms and BP.</li>
+  <li><strong>CO₂ narcosis</strong> (Module 13): chronic hypercapnia → asterixis, drowsiness, papilloedema.</li>
+  <li><strong>Hypoxia / pulmonary embolus</strong>: cerebral hypoxia in massive PE.</li>
+  <li><strong>Pulmonary sarcoidosis</strong>: see above for neurosarcoidosis.</li>
+  <li><strong>Respiratory failure in neuromuscular disease</strong>: GBS, MG, ALS, muscular dystrophy — Module 9. 20/30/40 rule and NIV.</li>
+</ul>
+
+<h2 id="hiv">10. HIV and neurosyphilis (cross-ref Module 11)</h2>
+<ul>
+  <li><strong>HIV-associated neurocognitive disorders (HAND)</strong>: asymptomatic neurocognitive impairment, mild NCD, HIV-associated dementia; ART reduces incidence; cognitive screening; treat opportunistic infections.</li>
+  <li><strong>Opportunistic infections in HIV</strong> (Module 11): cerebral toxoplasmosis (multiple ring-enhancing in basal ganglia / grey-white junction; pyrimethamine + sulfadiazine + leucovorin); primary CNS lymphoma (single periventricular; defer steroids; high-dose methotrexate); cryptococcal meningitis (AMBITION-cm 2022 single-dose liposomal amphotericin B + flucytosine + fluconazole); PML (JCV); CMV ventriculitis; CNS TB.</li>
+  <li><strong>Immune reconstitution inflammatory syndrome (IRIS)</strong>: paradoxical worsening after ART initiation; manage with steroids.</li>
+  <li><strong>Neurosyphilis</strong>: tabes dorsalis (lightning pain, ataxia, Argyll-Robertson pupils, areflexia, Charcot joints), general paresis (dementia, psychosis), meningovascular syphilis (stroke in young patients), gummata. Treat with IV penicillin G 18–24 MU daily × 14 days.</li>
+</ul>
+
+<h2 id="tx">11. Solid organ transplantation</h2>
+<ul>
+  <li><strong>Calcineurin inhibitor neurotoxicity</strong> (tacrolimus, ciclosporin): tremor, headache, encephalopathy, seizures, PRES (Module 13), peripheral neuropathy. Reduce or rotate; switch to mTOR inhibitor (sirolimus, everolimus) or belatacept.</li>
+  <li><strong>Opportunistic infections</strong>: CMV, PML (JCV), Listeria, Nocardia, toxoplasmosis, fungal, TB; check IgG status and prophylaxis (TMP-SMX for PCP/Toxo; valganciclovir for CMV).</li>
+  <li><strong>Post-transplant lymphoproliferative disorder (PTLD)</strong>: EBV-driven; CNS involvement; reduce immunosuppression; rituximab; chemotherapy if needed.</li>
+  <li><strong>Neuropathies</strong>: critical-illness PN (Module 22); peri-operative compression; uraemic / hepatic neuropathy pre-transplant.</li>
+  <li><strong>Centrally pontine myelinolysis (osmotic demyelination)</strong>: after rapid sodium correction (Module 13).</li>
+  <li><strong>Bone marrow transplant</strong>: graft-versus-host disease (CNS rare); CNS infections; chemotherapy / radiation effects.</li>
+</ul>
+
+<h2 id="rad">12. Radiation injury</h2>
+<ul>
+  <li><strong>Acute (during / immediately after RT)</strong>: tumour-related symptoms worsen from oedema → steroids.</li>
+  <li><strong>Early-delayed (1–6 months)</strong>: somnolence syndrome; transient demyelination; usually reversible.</li>
+  <li><strong>Late-delayed (months to years)</strong>: radiation necrosis (mimics tumour recurrence — MR perfusion/spectroscopy + PET help differentiate; <strong>bevacizumab</strong> often used; resection in selected); leukoencephalopathy with cognitive decline; cavernous malformations developing decades later; radiation-induced tumour (meningioma, glioma after decades); endocrinopathy if pituitary in field; cranial neuropathies.</li>
+  <li><strong>Spinal radiation myelopathy</strong>: progressive myelopathy at irradiated cord segment; difficult to treat; bevacizumab + supportive.</li>
+  <li><strong>Radiation plexopathy</strong>: brachial / lumbosacral — slowly progressive, painless (vs malignant infiltration which is painful); myokymia on EMG suggests radiation.</li>
+</ul>
+
+<h2 id="refer">13. When to refer</h2>
+<ul>
+  <li><strong>Same day</strong>: any new neurological syndrome with systemic features suggesting catastrophic antiphospholipid syndrome / TTP / GCA with visual loss / lupus cerebritis / adrenal crisis / myxoedema coma / thyroid storm / DKA cerebral oedema / suspected cardiac source of embolus with active stroke.</li>
+  <li><strong>Within 1–2 weeks</strong>: new SLE / Sjögren / vasculitis workup for CNS involvement; suspected neurosarcoidosis; HIV-positive patient with new neurological symptoms; transplant patient with new neurological symptoms.</li>
+  <li><strong>Routine</strong>: established cardiac, renal, endocrine, haematological, autoimmune conditions with stable neurological complications; chronic radiation effects.</li>
+  <li><strong>Always involve</strong>: relevant subspecialist (cardiology, nephrology, endocrinology, haematology, rheumatology, gastroenterology, ID, transplant team, radiation oncology, ophthalmology) plus neurology; multidisciplinary planning is essential.</li>
+</ul>
+
+<div class="src" id="sources">
+<h3>Sources</h3>
+<p>Merritt's <em>Neurology</em> 14e, Chapter 119 (Heart-Brain Interactions), 122 (Endocrine Diseases and the Brain), 123 (Hematologic Diseases and the Brain), 124 (Hepatic Disease and the Brain), 125 (Renal Disease, Electrolyte Disorders, and the Nervous System), 127 (Bone Diseases and the CNS), 130 (Neurologic Complications of Organ Transplantation), 133 (Neurotoxicology), 134 (Radiation Injury). Adams &amp; Victor 12e relevant sections.</p>
+<p>Adams RJ et al. (STOP) Prevention of a first stroke by transfusions in children with sickle cell anemia and abnormal results on transcranial Doppler ultrasonography. <em>NEJM</em> 1998; 339: 5–11. Ware RE et al. (TWiTCH) Hydroxycarbamide versus chronic transfusion for maintenance of transcranial Doppler flow velocities in children with sickle cell anaemia. <em>Lancet</em> 2016; 387: 661–670.</p>
+<p>Pengo V et al. (TRAPS) Rivaroxaban vs warfarin in high-risk patients with antiphospholipid syndrome. <em>Blood</em> 2018; 132: 1365–1371. Tektonidou MG et al. EULAR recommendations for the management of antiphospholipid syndrome in adults. <em>Ann Rheum Dis</em> 2019; 78: 1296–1304.</p>
+<p>Scully M et al. (HERCULES) Caplacizumab treatment for acquired thrombotic thrombocytopenic purpura. <em>NEJM</em> 2019; 380: 335–346.</p>
+<p>Stam J. CADASIL: from history to diagnosis. <em>Lancet Neurology</em> 2005; 4: 643–653 (for stroke-prone heritable conditions).</p>
+<p>Saver JL et al. (CLOSE) Patent foramen ovale closure or anticoagulation vs antiplatelets after stroke. <em>NEJM</em> 2017; 377: 1011–1021. Søndergaard L et al. (REDUCE) Patent foramen ovale closure or antiplatelet therapy for cryptogenic stroke. <em>NEJM</em> 2017; 377: 1033–1042.</p>
+<p>Kapoor M et al. Sarcoidosis. <em>Lancet</em> 2014; 383: 1155–1167; Stern BJ et al. Neurosarcoidosis: pathophysiology, diagnosis, and treatment. <em>Neurology Clinical Practice</em> 2020.</p>
+<p>Hellmich B et al. 2018 update of the EULAR recommendations for the management of large vessel vasculitis. <em>Ann Rheum Dis</em> 2020 (Module 19).</p>
+<p>HIV neurocognitive: Antinori A et al. Updated research nosology for HIV-associated neurocognitive disorders. <em>Neurology</em> 2007; 69: 1789–1799.</p>
+<p>Neurology of pregnancy: see Module 20. Hepatic, electrolyte, alcohol, drug: see Module 13. CNS infections: see Module 11. Cross-references throughout.</p>
+</div>
+
+<footer>Module 23 — Neurology of Systemic Disease · Educational material; does not replace local protocols or clinical judgement.</footer>
+</div>
+</body>
+</html>
