@@ -1,784 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neurology Curriculum — Self-Study Modules</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neurology Curriculum — Two-Track Modules</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:2rem 1rem}
+  .container{max-width:1080px;margin:0 auto}
+  header{text-align:center;color:white;margin-bottom:2rem}
+  header h1{font-size:2.5rem;margin-bottom:.5rem;text-shadow:0 2px 4px rgba(0,0,0,.2)}
+  header p{font-size:1.1rem;opacity:.95}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 2rem 1rem;
-        }
+  .info-banner{background:rgba(255,255,255,.96);border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:1.5rem;box-shadow:0 4px 6px rgba(0,0,0,.1)}
+  .info-banner h2{color:#667eea;font-size:1.2rem;margin-bottom:.6rem}
+  .info-banner p{color:#555;line-height:1.6;margin-bottom:.4rem}
+  .legend{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:.9rem;font-size:.88rem}
+  .legend span{display:flex;align-items:center;gap:.45rem;color:#444}
+  .dot{width:14px;height:14px;border-radius:4px;display:inline-block}
+  .dot.gen{background:#667eea}.dot.res{background:#0f766e}
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+  .residency-hub-link{display:inline-block;margin-top:.9rem;background:#0f766e;color:white;text-decoration:none;padding:.6rem 1.1rem;border-radius:6px;font-weight:600;font-size:.9rem}
+  .residency-hub-link:hover{background:#0d5f59}
 
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 3rem;
-        }
+  .controls{display:flex;justify-content:flex-end;margin-bottom:1rem}
+  .controls input{width:100%;max-width:340px;padding:.6rem .9rem;border:none;border-radius:6px;font-size:.95rem;box-shadow:0 2px 4px rgba(0,0,0,.1)}
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+  .modules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.4rem;margin-bottom:2rem}
+  .module-card{background:white;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.15);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+  .module-card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.22)}
+  .module-header{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:1.1rem 1.3rem}
+  .module-number{font-size:.78rem;opacity:.9;text-transform:uppercase;letter-spacing:1px;margin-bottom:.3rem}
+  .module-title{font-size:1.18rem;font-weight:600;line-height:1.3}
+  .module-body{padding:1.1rem 1.3rem 1.3rem;flex:1;display:flex;flex-direction:column}
+  .module-description{color:#555;font-size:.9rem;line-height:1.55;margin-bottom:.9rem}
 
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
+  .track{border:1px solid #eee;border-radius:8px;padding:.75rem .85rem;margin-bottom:.7rem}
+  .track.gen{border-left:4px solid #667eea}
+  .track.res{border-left:4px solid #0f766e}
+  .track-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:.55rem;display:flex;align-items:center;gap:.4rem}
+  .track.gen .track-label{color:#667eea}
+  .track.res .track-label{color:#0f766e}
+  .track-label .soon{font-size:.62rem;background:#fef3c7;color:#92400e;padding:.1rem .4rem;border-radius:10px;letter-spacing:.4px}
+  .track-links{display:flex;gap:.5rem}
+  .btn{flex:1;display:inline-block;padding:.55rem .6rem;border-radius:5px;text-decoration:none;font-size:.83rem;font-weight:600;text-align:center;transition:all .2s;border:1px solid transparent}
+  .track.gen .btn-ref{background:#667eea;color:white}
+  .track.gen .btn-ref:hover{background:#5568d3}
+  .track.gen .btn-int{background:#eef0fd;color:#667eea;border-color:#d9def8}
+  .track.gen .btn-int:hover{background:#e3e7fb}
+  .track.res .btn-ref{background:#0f766e;color:white}
+  .track.res .btn-ref:hover{background:#0d5f59}
+  .track.res .btn-int{background:#e7f6f4;color:#0f766e;border-color:#c9ebe7}
+  .track.res .btn-int:hover{background:#d7f0ec}
+  .btn.disabled{background:#f3f4f6;color:#9ca3af;border-color:#e5e7eb;cursor:not-allowed;pointer-events:none}
 
-        .info-banner {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .info-banner h2 {
-            color: #667eea;
-            font-size: 1.2rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .info-banner p {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
-        }
-
-        .source-list {
-            margin: 1rem 0 0 1.5rem;
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .source-list li {
-            margin: 0.25rem 0;
-        }
-
-        .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .module-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .module-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .module-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-        }
-
-        .module-number {
-            font-size: 0.85rem;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .module-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .module-body {
-            padding: 1.5rem;
-        }
-
-        .module-description {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .module-sources {
-            font-size: 0.85rem;
-            color: #888;
-            margin-bottom: 1.5rem;
-            padding: 0.75rem;
-            background: #f5f5f5;
-            border-radius: 4px;
-            border-left: 3px solid #667eea;
-        }
-
-        .module-sources strong {
-            display: block;
-            margin-bottom: 0.25rem;
-            color: #666;
-        }
-
-        .module-links {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.25rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-            flex: 1;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #667eea;
-            flex: 1;
-            border: 1px solid #ddd;
-        }
-
-        .btn-secondary:hover {
-            background: #e8e8e8;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-        }
-
-        .status-complete {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-planned {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        footer {
-            text-align: center;
-            color: white;
-            font-size: 0.9rem;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.8rem;
-            }
-
-            .modules-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  footer{text-align:center;color:white;font-size:.9rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.2)}
+  @media(max-width:600px){header h1{font-size:1.8rem}.modules-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🧠 Neurology Curriculum</h1>
-            <p>Self-Study Modules for General Physicians</p>
-        </header>
+<div class="container">
+  <header>
+    <h1>🧠 Neurology Curriculum</h1>
+    <p>Two learning tracks per topic — General Physician &amp; Neurology Residency</p>
+  </header>
 
-        <div class="info-banner">
-            <h2>About This Curriculum</h2>
-            <p>A comprehensive clinical-reasoning-focused self-study series built from two authoritative texts:</p>
-            <ul class="source-list">
-                <li><strong>Adams & Victor's Principles of Neurology</strong> (12th Edition)</li>
-                <li><strong>Merritt's Neurology</strong> (14th Edition)</li>
-            </ul>
-            <p style="margin-top: 0.75rem;">27 modules covering core neurology topics for general physicians seeking refresher material, recognition of key presentations, red flags, and when-to-refer guidance. Not intended as neurology residency preparation.</p>
-        </div>
-
-        <div class="modules-grid">
-            <!-- Module 1 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 1</div>
-                    <div class="module-title">Neurologic Exam & Localization</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Master the core neurologic examination and learn systematic anatomic localization from bedside findings.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 1 | Merritt's Ch 3, 4
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_01_Exam_Localization_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_01_Exam_Localization_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 2 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 2</div>
-                    <div class="module-title">Stroke & Cerebrovascular Disease</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Recognition of acute stroke, classification, management pathways, and decision tools for acute reperfusion therapy.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 33 | Merritt's Ch 16, 36–41, 45
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_02_Stroke_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_02_Stroke_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 3 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 3</div>
-                    <div class="module-title">Epilepsy & Seizure Disorders</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Seizure types, classification, red flags, management principles, and when to refer to neurology.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 15 | Merritt's Ch 8–11
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_03_Epilepsy_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_03_Epilepsy_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 4 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 4</div>
-                    <div class="module-title">Headache & Facial Pain</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Differential diagnosis of headache, red flags for secondary causes, and initial management strategies.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 10 | Merritt's Ch 4–6
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_04_Headache_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_04_Headache_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 5 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 5</div>
-                    <div class="module-title">Coma & Altered Mental Status</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Approach to the comatose patient, differential diagnosis, localizing signs, and prognosis.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 17 | Merritt's Ch 7
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_05_Coma_AMS_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_05_Coma_AMS_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 6 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 6</div>
-                    <div class="module-title">Movement Disorders</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Recognition of tremor, rigidity, bradykinesia, and movement disorders; Parkinson's disease and other common presentations.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 6, 39 | Merritt's Ch 27–31
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_06_Movement_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_06_Movement_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 7 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 7</div>
-                    <div class="module-title">Dementia & Cognitive Disorders</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Dementia types, cognitive assessment, red flags for treatable causes, and mild cognitive impairment.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 21 | Merritt's Ch 34–35
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_07_Dementia_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_07_Dementia_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 8 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 8</div>
-                    <div class="module-title">MS, NMOSD & MOGAD</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Inflammatory demyelinating disorders: MS, NMOSD, and MOGAD; clinical recognition, diagnostic criteria, and when to refer.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 35 | Merritt's Ch 71–73
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_08_MS_NMOSD_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_08_MS_NMOSD_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 9 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 9</div>
-                    <div class="module-title">Neuromuscular Disorders</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Neuromuscular junction disorders, peripheral neuropathies, myopathies, motor neuron disease, and muscle weakness diagnosis.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 38, 43 | Merritt's Ch 14, 88, 90–97, 99
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_09_Neuromuscular_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_09_Neuromuscular_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 10 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 10</div>
-                    <div class="module-title">Spinal Cord Disorders</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Acute spinal cord syndromes, trauma, myelitis, tumors, disk disease, stenosis, and myelopathies.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 42 | Merritt's Ch 17, 48, 72, 107, 113–115
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_10_Spinal_Cord_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_10_Spinal_Cord_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 11 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 11</div>
-                    <div class="module-title">CNS Infections</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Bacterial, viral, fungal, and parasitic infections of the CNS; meningitis, encephalitis, and management strategies.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 31, 32 | Merritt's Ch 55, 64–70, 74
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_11_CNS_Infections_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_11_CNS_Infections_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 12 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 12</div>
-                    <div class="module-title">Neuro-Oncology</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Primary CNS tumors, brain metastases, leptomeningeal disease, and paraneoplastic syndromes.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 31 | Merritt's Ch 76–85
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_12_Neuro_Oncology_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_12_Neuro_Oncology_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 13 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 13</div>
-                    <div class="module-title">Toxic, Metabolic & Nutritional Disorders</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Drug toxicity, metabolic encephalopathies, nutritional deficiencies, and their neurological manifestations.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 40, 41 | Merritt's Ch 100–106
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_13_Toxic_Metabolic_Nutritional_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_13_Toxic_Metabolic_Nutritional_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 14 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 14</div>
-                    <div class="module-title">Sleep Disorders</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Insomnia, sleep apnea, narcolepsy, parasomnias, and sleep-related movement disorders.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 7 | Merritt's Ch 37–41
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_14_Sleep_Disorders_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_14_Sleep_Disorders_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 15 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 15</div>
-                    <div class="module-title">Autonomic Disorders & Syncope</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Autonomic dysfunction, orthostatic intolerance, syncope, and falls in the elderly.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 26 | Merritt's Ch 18–20
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_15_Autonomic_Syncope_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_15_Autonomic_Syncope_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 16 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 16</div>
-                    <div class="module-title">Developmental & Paediatric Neurology</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Developmental milestones, congenital disorders, cerebral palsy, and child neurology essentials for adult practitioners.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 28 | Merritt's Ch 119–127
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_16_Paediatric_Neurology_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_16_Paediatric_Neurology_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 17 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 17</div>
-                    <div class="module-title">Pain Syndromes & Neuropathic Pain</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Neuropathic pain mechanisms, chronic pain syndromes, CRPS, and pain management principles.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 8, 9 | Merritt's Ch 22–26
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_17_Pain_Syndromes_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_17_Pain_Syndromes_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 18 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 18</div>
-                    <div class="module-title">Dizziness, Vertigo & Equilibrium</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Peripheral vs central vertigo, BPPV, vestibular dysfunction, and approach to dizziness.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 14 | Merritt's Ch 21
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_18_Dizziness_Vertigo_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_18_Dizziness_Vertigo_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 19 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 19</div>
-                    <div class="module-title">Neuro-Ophthalmology</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Visual loss, diplopia, pupil disorders, eye movement abnormalities, and optic nerve disease.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 12, 13 | Merritt's Ch 9–16
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_19_Neuro_Ophthalmology_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_19_Neuro_Ophthalmology_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 20 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 20</div>
-                    <div class="module-title">Neurology of Pregnancy</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Neurological complications in pregnancy, eclampsia, medication safety, and postpartum issues.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 29 | Merritt's Ch 118
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_20_Neurology_of_Pregnancy_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_20_Neurology_of_Pregnancy_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 21 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 21</div>
-                    <div class="module-title">Functional Neurological Disorders</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Functional neurological symptom disorder (FND), conversion disorder, and non-organic neurological signs.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 9 | Merritt's Ch 128–130
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_21_Functional_Neurological_Disorders_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_21_Functional_Neurological_Disorders_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 22 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 22</div>
-                    <div class="module-title">Neuro-Critical Care & Emergencies</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Neurological emergencies, critical care management, brain herniation, and ICU-specific issues.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 17, 19 | Merritt's Ch 131–147
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_22_Neuro_Critical_Care_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_22_Neuro_Critical_Care_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 23 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 23</div>
-                    <div class="module-title">Neurology of Systemic Disease</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Neurological manifestations of cancer, lupus, diabetes, liver disease, and systemic conditions.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 31, 37 | Merritt's Ch 148–150
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_23_Neurology_of_Systemic_Disease_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_23_Neurology_of_Systemic_Disease_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 24 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 24</div>
-                    <div class="module-title">Neurological Aspects of Psychiatric Illness</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Neuropsychiatric manifestations, psychotropic medication effects, and psychiatric-neurological overlap.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 57 | Merritt's Ch 151–155
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_24_Neuropsychiatry_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_24_Neuropsychiatry_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 25 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 25</div>
-                    <div class="module-title">Neurorehabilitation & Recovery</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Stroke recovery, neuroplasticity, rehabilitation principles, and outcomes after neurological injury.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 3, 47 | Merritt's Ch 156–160
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_25_Neurorehabilitation_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_25_Neurorehabilitation_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 26 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 26</div>
-                    <div class="module-title">Approach to Weakness</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Systematic approach to muscle weakness; upper/lower motor neuron, neuromuscular junction and muscle disorders.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 5, 38, 43–46 | Merritt's Ch 2–3, 88–99
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_26_Approach_to_Weakness_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_26_Approach_to_Weakness_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Module 27 -->
-            <div class="module-card">
-                <div class="module-header">
-                    <div class="module-number">Module 27</div>
-                    <div class="module-title">Approach to the Comatose Patient</div>
-                </div>
-                <div class="module-body">
-                    <span class="status-badge status-complete">Complete</span>
-                    <p class="module-description">Differential diagnosis of coma, neurological assessment, brain death criteria, and prognostication.</p>
-                    <div class="module-sources">
-                        <strong>Sources:</strong>
-                        Adams & Victor Ch 17, 19 | Merritt's Ch 7, 131–133
-                    </div>
-                    <div class="module-links">
-                        <a href="Module_27_Approach_to_Coma_Reference.html" class="btn btn-primary">📖 Reference</a>
-                        <a href="Module_27_Approach_to_Coma_Interactive.html" class="btn btn-secondary">⚡ Interactive</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>Last updated: June 16, 2026</p>
-            <p>27 complete modules built from Adams & Victor's Principles of Neurology (12e) and Merritt's Neurology (14e)</p>
-        </footer>
+  <div class="info-banner">
+    <h2>About This Curriculum</h2>
+    <p>A clinical-reasoning library built from <strong>Adams &amp; Victor's Principles of Neurology</strong> (12e) and <strong>Merritt's Neurology</strong> (14e). Every topic is offered in two tracks, each with a printable <em>Reference</em> and an <em>Interactive</em> lesson:</p>
+    <div class="legend">
+      <span><span class="dot gen"></span><strong>General Physician</strong> — recognition, red flags, when to refer</span>
+      <span><span class="dot res"></span><strong>Neurology Residency</strong> — mechanism, trials, algorithms, board depth</span>
     </div>
+    <p style="margin-top:.7rem">The residency track is rolling out module by module. Where a residency lesson is still <em>In development</em>, the General track covers the topic in the meantime.</p>
+  </div>
+
+  <div class="controls"><input type="text" id="search" placeholder="Filter modules…"></div>
+  <div class="modules-grid" id="grid"></div>
+
+  <footer>
+    <p id="foot-count"></p>
+    <p>Built from Adams &amp; Victor's Principles of Neurology (12e) and Merritt's Neurology (14e)</p>
+  </footer>
+</div>
+
+<script>
+  // base = filename stem shared by general Reference/Interactive (Module_NN_<base>_Reference.html etc.)
+  // genInt:false → no general interactive exists (e.g., Module 28)
+  // res:true → residency Reference+Interactive exist with names Module_NN_<base>_Residency_Reference/Interactive.html
+  const M=[
+    {n:1, t:'Neurologic Exam & Localization', base:'Module_01_Exam_Localization', d:'Core neurologic examination and systematic anatomic localization from bedside findings.', genInt:true, res:'complete'},
+    {n:2, t:'Stroke & Cerebrovascular Disease', base:'Module_02_Stroke', d:'Acute stroke recognition, classification, reperfusion decision-making, and prevention.', genInt:true, res:'complete'},
+    {n:3, t:'Epilepsy & Seizure Disorders', base:'Module_03_Epilepsy', d:'Seizure types, classification, status epilepticus, and management principles.', genInt:true, res:false},
+    {n:4, t:'Headache & Facial Pain', base:'Module_04_Headache', d:'Differential of headache, red flags for secondary causes, and initial management.', genInt:true, res:false},
+    {n:5, t:'Coma & Altered Mental Status', base:'Module_05_Coma_AMS', d:'Approach to the comatose patient, localizing signs, and prognosis.', genInt:true, res:false},
+    {n:6, t:'Movement Disorders', base:'Module_06_Movement', d:'Tremor, rigidity, bradykinesia; Parkinson disease and related presentations.', genInt:true, res:false},
+    {n:7, t:'Dementia & Cognitive Disorders', base:'Module_07_Dementia', d:'Dementia subtypes, cognitive assessment, and treatable causes.', genInt:true, res:false},
+    {n:8, t:'MS, NMOSD & MOGAD', base:'Module_08_MS_NMOSD', d:'Inflammatory demyelinating disorders: criteria, recognition, and referral.', genInt:true, res:false},
+    {n:9, t:'Neuromuscular Disorders', base:'Module_09_Neuromuscular', d:'NMJ disorders, neuropathies, myopathies, and motor neuron disease.', genInt:true, res:false},
+    {n:10, t:'Spinal Cord Disorders', base:'Module_10_Spinal_Cord', d:'Acute cord syndromes, trauma, myelitis, tumors, and myelopathies.', genInt:true, res:false},
+    {n:11, t:'CNS Infections', base:'Module_11_CNS_Infections', d:'Meningitis, encephalitis, abscess; bacterial, viral, fungal, parasitic.', genInt:true, res:false},
+    {n:12, t:'Neuro-Oncology', base:'Module_12_Neuro_Oncology', d:'Primary CNS tumors, metastases, and paraneoplastic syndromes.', genInt:true, res:false},
+    {n:13, t:'Toxic, Metabolic & Nutritional', base:'Module_13_Toxic_Metabolic_Nutritional', d:'Drug toxicity, metabolic encephalopathies, and nutritional deficiency.', genInt:true, res:false},
+    {n:14, t:'Sleep Disorders', base:'Module_14_Sleep_Disorders', d:'Insomnia, apnea, narcolepsy, parasomnias, and movement-related disorders.', genInt:true, res:false},
+    {n:15, t:'Autonomic Disorders & Syncope', base:'Module_15_Autonomic_Syncope', d:'Autonomic failure, orthostatic intolerance, and syncope.', genInt:true, res:false},
+    {n:16, t:'Developmental & Paediatric Neurology', base:'Module_16_Paediatric_Neurology', d:'Milestones, congenital disorders, and child-neurology essentials.', genInt:true, res:false},
+    {n:17, t:'Pain Syndromes & Neuropathic Pain', base:'Module_17_Pain_Syndromes', d:'Neuropathic pain mechanisms, chronic pain, CRPS, and management.', genInt:true, res:false},
+    {n:18, t:'Dizziness, Vertigo & Equilibrium', base:'Module_18_Dizziness_Vertigo', d:'Peripheral vs central vertigo, BPPV, and the dizzy-patient approach.', genInt:true, res:false},
+    {n:19, t:'Neuro-Ophthalmology', base:'Module_19_Neuro_Ophthalmology', d:'Visual loss, diplopia, pupils, and eye-movement abnormalities.', genInt:true, res:false},
+    {n:20, t:'Neurology of Pregnancy', base:'Module_20_Neurology_of_Pregnancy', d:'Neurologic complications in pregnancy and medication safety.', genInt:true, res:false},
+    {n:21, t:'Functional Neurological Disorders', base:'Module_21_Functional_Neurological_Disorders', d:'FND: positive rule-in signs and diagnosis delivery.', genInt:true, res:false},
+    {n:22, t:'Neuro-Critical Care & Emergencies', base:'Module_22_Neuro_Critical_Care', d:'Neurologic emergencies, raised ICP, herniation, and ICU care.', genInt:true, res:false},
+    {n:23, t:'Neurology of Systemic Disease', base:'Module_23_Neurology_of_Systemic_Disease', d:'Neurologic manifestations of systemic and organ disease.', genInt:true, res:false},
+    {n:24, t:'Neurological Aspects of Psychiatric Illness', base:'Module_24_Neuropsychiatry', d:'Neuropsychiatric overlap, autoimmune encephalitis, and medication effects.', genInt:true, res:false},
+    {n:25, t:'Neurorehabilitation & Recovery', base:'Module_25_Neurorehabilitation', d:'Neuroplasticity, rehabilitation principles, and recovery outcomes.', genInt:true, res:false},
+    {n:26, t:'Approach to Weakness', base:'Module_26_Approach_to_Weakness', d:'Cross-module synthesis: localizing and working up weakness.', genInt:true, res:false},
+    {n:27, t:'Approach to the Comatose Patient', base:'Module_27_Approach_to_Coma', d:'Cross-module synthesis: coma differential and prognostication.', genInt:true, res:false},
+    {n:28, t:'Approach to Sensory Disorders', base:'Module_28_Approach_to_Sensory_Disorders', d:'Cross-module synthesis: localizing sensory loss.', genInt:false, res:false}
+  ];
+
+  const pad=n=>String(n).padStart(2,'0');
+  function trackBtns(cls,refHref,intHref,intExists){
+    const ref=`<a class="btn btn-ref" href="${refHref}">📖 Reference</a>`;
+    const int=intExists?`<a class="btn btn-int" href="${intHref}">⚡ Interactive</a>`:`<span class="btn btn-int disabled">⚡ Interactive</span>`;
+    return `<div class="track-links">${ref}${int}</div>`;
+  }
+  function card(m){
+    const genRef=`${m.base}_Reference.html`, genInt=`${m.base}_Interactive.html`;
+    const resRef=`${m.base}_Residency_Reference.html`, resInt=`${m.base}_Residency_Interactive.html`;
+    const genBlock=`<div class="track gen"><div class="track-label"><span class="dot gen"></span>General Physician</div>${trackBtns('gen',genRef,genInt,m.genInt)}</div>`;
+    let resBlock;
+    if(m.res){
+      resBlock=`<div class="track res"><div class="track-label"><span class="dot res"></span>Neurology Residency</div>${trackBtns('res',resRef,resInt,true)}</div>`;
+    }else{
+      resBlock=`<div class="track res"><div class="track-label"><span class="dot res"></span>Neurology Residency <span class="soon">In development</span></div><div class="track-links"><span class="btn btn-ref disabled">📖 Reference</span><span class="btn btn-int disabled">⚡ Interactive</span></div></div>`;
+    }
+    return `<div class="module-card" data-search="${(m.t+' '+m.d).toLowerCase()}">
+      <div class="module-header"><div class="module-number">Module ${m.n}</div><div class="module-title">${m.t}</div></div>
+      <div class="module-body"><p class="module-description">${m.d}</p>${genBlock}${resBlock}</div></div>`;
+  }
+  const grid=document.getElementById('grid');
+  grid.innerHTML=M.map(card).join('');
+  const resCount=M.filter(m=>m.res===true||m.res==='complete').length;
+  document.getElementById('foot-count').textContent=`${M.length} topics · General track complete · Residency track ${resCount}/${M.length} built`;
+
+  // search
+  document.getElementById('search').addEventListener('input',e=>{
+    const q=e.target.value.toLowerCase().trim();
+    document.querySelectorAll('.module-card').forEach(c=>{
+      c.style.display=(!q||c.dataset.search.includes(q))?'':'none';
+    });
+  });
+</script>
 </body>
 </html>
