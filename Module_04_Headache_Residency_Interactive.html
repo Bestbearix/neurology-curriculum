@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residency Deep-Dive — Headache & Facial Pain</title>
+<style>
+  :root{
+    --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
+    --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
+    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);color:var(--ink);min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 22px 80px}
+  .top-link{color:var(--time);text-decoration:none;font-size:.85rem}
+  .top-link:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin:14px 0 20px}
+  header h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:.3px}
+  header .sub{color:var(--muted);font-size:.95rem}
+  header .badge{display:inline-block;padding:2px 10px;border-radius:10px;background:rgba(14,165,164,.16);color:var(--accent-2);font-size:.78rem;margin:8px 6px 0 0}
+  header .badge.lvl{background:rgba(95,176,255,.16);color:#cfe6ff}
+
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px}
+  nav.tabs button{background:transparent;color:var(--muted);border:none;padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit;font-size:.9rem;transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent);color:#04201f;font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  h2{font-size:1.3rem;margin:1.3em 0 .5em;color:var(--accent-2)}
+  h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
+  p{line-height:1.65}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
+
+  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+";color:var(--accent);font-size:1.3rem;margin-left:10px;transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px;color:var(--ink)}
+  details.acc .body p{margin:.4em 0}
+  details.acc .body ul{margin:.3em 0 .6em 1.2em}
+
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--accent-2);font-weight:600}
+
+  .pearl,.warn,.trial,.time{padding:10px 14px;border-radius:8px;margin:.8em 0;border-left:4px solid}
+  .pearl{background:rgba(14,165,164,.10);border-color:var(--accent);color:#c8f3f0}
+  .warn{background:rgba(255,185,92,.10);border-color:var(--warn);color:#ffe2b8}
+  .trial{background:rgba(95,210,138,.10);border-color:var(--good);color:#d6f6e3}
+  .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
+  .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
+  .obj ol{margin:.3em 0 .2em 1.2em}
+
+  /* SNOOP checker */
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .checkitem{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .checkitem:last-child{border-bottom:none}
+  .checkitem input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+  .checkitem label{cursor:pointer;line-height:1.45}
+  .verdict{position:sticky;bottom:8px;margin-top:14px;padding:12px 16px;border-radius:10px;font-weight:600;text-align:center;border:2px solid var(--good);background:rgba(95,210,138,.12);color:#dffce9}
+  .verdict.flag{border-color:var(--bad);background:rgba(255,107,107,.12);color:#ffd8d8}
+
+  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
+  .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
+  .flashcard .face{position:relative;width:100%;height:180px;transition:transform .55s;transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front,.flashcard .back{position:absolute;inset:0;backface-visibility:hidden;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .flashcard .front{color:var(--accent-2);font-size:1rem;font-weight:600}
+  .flashcard .back{transform:rotateY(180deg);background:var(--panel-2);color:var(--ink);font-size:.86rem;line-height:1.45}
+  .flashcard .tag{position:absolute;top:8px;left:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+  .quiz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .quiz h4{margin:0 0 8px;color:var(--accent-2);font-size:1rem}
+  .quiz .stem{margin:0 0 12px;line-height:1.55}
+  .quiz .choices{display:flex;flex-direction:column;gap:8px}
+  .quiz .choice{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:background .15s,border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15);border-color:var(--good);color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12);border-color:var(--bad);color:#ffd8d8}
+  .quiz .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.92rem;display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12);color:#dffce9;border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10);color:#ffd8d8;border:1px solid var(--bad)}
+
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
+
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
+  <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
+  <a href="Module_04_Headache_Residency_Reference.html" class="top-link">📖 Reference version</a>
+  <header>
+    <h1>Headache &amp; Facial Pain</h1>
+    <div class="sub">Residency deep-dive · PGY-1/2 · exclude danger, diagnose by ICHD-3, build acute + preventive regimens</div>
+    <span class="badge lvl">Resident level</span>
+    <span class="badge">SNOOP red flags</span>
+    <span class="badge">ICHD-3</span>
+    <span class="badge">CGRP era</span>
+    <span class="badge">Cluster / TTH / MOH</span>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="obj">Objectives</button>
+    <button data-tab="redflags">Red Flags</button>
+    <button data-tab="classify">Classification</button>
+    <button data-tab="acute">Acute Migraine</button>
+    <button data-tab="prevent">Prevention</button>
+    <button data-tab="other">Cluster / TTH / MOH</button>
+    <button data-tab="library">Evidence Library</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="cases">Cases</button>
+    <button data-tab="quiz">Self-Assessment</button>
+  </nav>
+
+  <!-- OBJECTIVES -->
+  <section class="tab-panel active" id="obj">
+    <h2>Beyond "probably a migraine"</h2>
+    <p class="lead">The general-physician Module 4 teaches recognition and red flags. This version assumes you exclude the dangerous secondary causes cold, diagnose primary headaches by ICHD-3 criteria, and construct acute and preventive regimens across the modern CGRP era.</p>
+    <div class="obj">
+      <strong>By the end you should be able to:</strong>
+      <ol>
+        <li>Apply SNOOP to decide who needs imaging/workup.</li>
+        <li>Diagnose migraine, cluster, and tension-type headache by ICHD-3 criteria.</li>
+        <li>Explain migraine's trigeminovascular/CGRP pathophysiology and use it to choose therapy.</li>
+        <li>Build acute regimens (triptans, gepants, ditans) with the right contraindications.</li>
+        <li>Select prevention including anti-CGRP mAbs, onabotulinumtoxinA, and topiramate — and recognize/treat medication-overuse headache.</li>
+      </ol>
+    </div>
+    <div class="warn"><strong>Educational use only.</strong> Verify drugs, doses, and contraindications against current guidelines and product labeling at the point of care.</div>
+  </section>
+
+  <!-- RED FLAGS (interactive) -->
+  <section class="tab-panel" id="redflags">
+    <h2>SNOOP red-flag checker</h2>
+    <p class="muted">Tick anything present. Any flag → pursue imaging/workup before assigning a primary-headache label.</p>
+    <div class="tool" id="snoop">
+      <div class="checkitem"><input type="checkbox" id="c1"><label for="c1"><strong>S</strong> — Systemic symptoms (fever, weight loss) or secondary risk (cancer, HIV, immunosuppression, pregnancy)</label></div>
+      <div class="checkitem"><input type="checkbox" id="c2"><label for="c2"><strong>N</strong> — Neurologic deficit or altered level of consciousness</label></div>
+      <div class="checkitem"><input type="checkbox" id="c3"><label for="c3"><strong>O</strong> — Onset sudden / thunderclap (maximal &lt; 1 minute)</label></div>
+      <div class="checkitem"><input type="checkbox" id="c4"><label for="c4"><strong>O</strong> — Older: new headache after age 50</label></div>
+      <div class="checkitem"><input type="checkbox" id="c5"><label for="c5"><strong>P</strong> — Pattern change / Positional / Precipitated by Valsalva / Papilloedema</label></div>
+      <div class="verdict" id="verdict">No red flags ticked — primary headache more likely; still diagnose by ICHD-3.</div>
+    </div>
+    <div class="warn"><strong>Thunderclap:</strong> non-contrast CT → if negative &amp; suspicious, LP for xanthochromia (SAH); consider CVST (venography) and RCVS. <strong>New headache &gt;50 with jaw claudication/scalp tenderness:</strong> ESR/CRP + treat suspected giant cell arteritis at once to save vision.</div>
+  </section>
+
+  <!-- CLASSIFY -->
+  <section class="tab-panel" id="classify">
+    <h2>ICHD-3 &amp; migraine criteria</h2>
+    <p>ICHD-3 divides disorders into <strong>primary</strong> (migraine, tension-type, trigeminal autonomic cephalalgias, other), <strong>secondary</strong> (attributed to another disorder), and <strong>painful cranial neuropathies</strong>. Diagnosis is operational — count attacks and features.</p>
+    <table>
+      <thead><tr><th>Diagnosis</th><th>Key ICHD-3 criteria</th></tr></thead>
+      <tbody>
+        <tr><td>Migraine without aura</td><td>≥5 attacks, 4–72 h; ≥2 of (unilateral, pulsating, moderate–severe, worse with activity) + (nausea/vomiting OR photo- &amp; phonophobia)</td></tr>
+        <tr><td>Migraine with aura</td><td>Reversible aura (visual/sensory/speech/motor/brainstem/retinal), each 5–60 min, ± headache within 60 min</td></tr>
+        <tr><td>Chronic migraine</td><td>≥15 headache days/month &gt;3 months, ≥8 with migraine features</td></tr>
+        <tr><td>Tension-type</td><td>Bilateral, pressing/tightening, mild–moderate, not worsened by routine activity, no migrainous features</td></tr>
+        <tr><td>Cluster (TAC)</td><td>Severe unilateral orbital pain 15–180 min, up to 8/day, ipsilateral autonomic features + restlessness</td></tr>
+      </tbody>
+    </table>
+    <h3>Pathophysiology (why CGRP matters)</h3>
+    <p>Migraine is a disorder of brain excitability: aura reflects <strong>cortical spreading depression</strong>; pain arises from <strong>trigeminovascular activation</strong> with <strong>CGRP</strong> release and neurogenic inflammation, plus central sensitization (allodynia). This is the target of gepants and anti-CGRP monoclonal antibodies.</p>
+  </section>
+
+  <!-- ACUTE -->
+  <section class="tab-panel" id="acute">
+    <h2>Acute migraine treatment</h2>
+    <p>Treat early, adequate dose, cap frequency to prevent MOH.</p>
+    <table>
+      <thead><tr><th>Class</th><th>Examples</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>NSAIDs / analgesics</td><td>Naproxen, ibuprofen, aspirin</td><td>Mild–moderate</td></tr>
+        <tr><td>Triptans (5-HT₁B/₁D)</td><td>Sumatriptan, rizatriptan, eletriptan</td><td>Mainstay; avoid in coronary/cerebrovascular disease</td></tr>
+        <tr><td>Gepants</td><td>Ubrogepant, rimegepant</td><td>No vasoconstriction — use when triptans contraindicated/ineffective</td></tr>
+        <tr><td>Ditans (5-HT₁F)</td><td>Lasmiditan</td><td>No vasoconstriction; sedation/driving caution</td></tr>
+      </tbody>
+    </table>
+    <div class="trial"><strong>Ubrogepant (ACHIEVE).</strong> Oral CGRP-receptor antagonist; met co-primary <strong>2-hour pain freedom</strong> and <strong>most-bothersome-symptom</strong> freedom vs placebo — acute relief without triptan vasoconstriction.</div>
+    <div class="trial"><strong>Rimegepant.</strong> Gepant effective for <strong>both acute (75 mg) and preventive (every other day)</strong> use; provided data support combining with anti-CGRP mAbs in selected patients.</div>
+  </section>
+
+  <!-- PREVENT -->
+  <section class="tab-panel" id="prevent">
+    <h2>Preventive treatment</h2>
+    <p>Offer when attacks are frequent/disabling or acute therapy is contraindicated/overused. Success ≈ 50% reduction; trial oral agents ~8 weeks at target dose.</p>
+    <table>
+      <thead><tr><th>Option</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Topiramate</td><td>Evidence-based (Cochrane); cognitive effects, paresthesia, weight loss, teratogenic</td></tr>
+        <tr><td>Beta-blockers, candesartan, amitriptyline, valproate</td><td>Choose by comorbidity; avoid valproate in pregnancy</td></tr>
+        <tr><td>Anti-CGRP mAbs</td><td>Erenumab, fremanezumab, galcanezumab, eptinezumab</td></tr>
+        <tr><td>OnabotulinumtoxinA</td><td><strong>Chronic migraine only</strong> (PREEMPT: 155 U / 31 sites q12wk)</td></tr>
+      </tbody>
+    </table>
+    <div class="trial"><strong>Anti-CGRP monoclonal antibodies.</strong> RCTs across episodic and chronic migraine — including FOCUS (fremanezumab in patients with 2–4 prior preventive failures) — reduce monthly migraine days with good tolerability, even in difficult-to-treat populations.</div>
+    <div class="trial"><strong>EHF 2022 guideline.</strong> Moderate-to-high evidence to recommend <strong>eptinezumab, erenumab, fremanezumab, galcanezumab</strong> for prevention; increasingly positioned as a <strong>first-line</strong> preventive option.</div>
+    <div class="trial"><strong>OnabotulinumtoxinA (PREEMPT).</strong> For chronic migraine (≥15 headache days/month): <strong>155 U across 31 fixed sites</strong> q12wk reduces headache days vs placebo. Not for episodic migraine.</div>
+    <div class="pearl"><strong>Non-response ≠ class failure.</strong> Some initial non-responders convert with continued therapy or a switch between mAbs; reassess at ~3 months.</div>
+  </section>
+
+  <!-- OTHER -->
+  <section class="tab-panel" id="other">
+    <h2>Cluster, tension-type &amp; medication-overuse headache</h2>
+    <h3>Cluster headache (a TAC)</h3>
+    <table>
+      <thead><tr><th>Phase</th><th>Treatment</th></tr></thead>
+      <tbody>
+        <tr><td>Acute</td><td><strong>High-flow 100% O₂</strong> (12–15 L/min) + <strong>subcutaneous sumatriptan</strong></td></tr>
+        <tr><td>Bridge</td><td>Greater occipital nerve block; short steroid course</td></tr>
+        <tr><td>Preventive</td><td><strong>Verapamil</strong> (ECG monitoring); lithium, topiramate; galcanezumab (episodic cluster)</td></tr>
+      </tbody>
+    </table>
+    <div class="pearl"><strong>Indomethacin-responsive</strong> paroxysmal hemicrania must be distinguished from cluster — a therapeutic and diagnostic test.</div>
+    <h3>Tension-type headache</h3>
+    <p>Bilateral, pressing, mild–moderate, no migrainous features. Episodic: simple analgesics. Chronic/frequent: <strong>amitriptyline</strong> first-line; address sleep, stress, posture, and analgesic frequency.</p>
+    <h3>Medication-overuse headache</h3>
+    <p>Headache ≥15 days/month with acute-medication overuse (triptans/ergots/opioids/combinations ≥10 days/mo; simple analgesics ≥15 days/mo) &gt;3 months. Manage with education, withdrawal, and an effective preventive. Provided evidence: onabotulinumtoxinA and anti-CGRP mAbs help transition out of overuse.</p>
+    <div class="warn"><strong>Butalbital and opioids</strong> carry the highest MOH/chronification risk — avoid for migraine.</div>
+  </section>
+
+  <!-- EVIDENCE LIBRARY -->
+  <section class="tab-panel" id="library">
+    <h2>Evidence library — provided sources</h2>
+    <p class="muted">The Module 4 resource set used to build this module, grouped by theme.</p>
+    <details class="acc"><summary>Classification, pathophysiology &amp; risk</summary><div class="body"><ul>
+      <li>ICHD-3 Pocket Version</li>
+      <li>Neurogenic Inflammation and Its Role in Migraine</li>
+      <li>Time and Headache — timing processes in primary headache</li>
+      <li>Endocannabinoid Modulation in Headache</li>
+      <li>Framingham-Based Cardiovascular Risk in Episodic Migraine (AMPP)</li>
+      <li>Migraine (overview); Management of Acute and Chronic Migraine</li>
+    </ul></div></details>
+    <details class="acc"><summary>Acute migraine — gepants</summary><div class="body"><ul>
+      <li>Ubrogepant vs Placebo (ACHIEVE)</li>
+      <li>Rimegepant for Acute and Preventive Treatment</li>
+      <li>Comparative Efficacy of Oral CGRP Antagonists (acute)</li>
+      <li>Adding Acute Medications to a Triptan Regimen</li>
+      <li>Safety of Rimegepant + CGRP mAbs</li>
+    </ul></div></details>
+    <details class="acc"><summary>Prevention — CGRP mAbs, botox, orals</summary><div class="body"><ul>
+      <li>EHF Guideline on CGRP mAbs — 2022 update</li>
+      <li>CGRP therapies as first-line; CGRP ligand &amp; receptor mAbs</li>
+      <li>Fremanezumab (episodic, chronic, FOCUS, subgroups)</li>
+      <li>Galcanezumab (episodic, persistence, non-responders, prior failures)</li>
+      <li>Erenumab (2–4 prior failures)</li>
+      <li>Comparative efficacy/safety of five anti-CGRP agents; safety of mAbs &amp; gepants</li>
+      <li>OnabotulinumtoxinA (PREEMPT), injection method, MOH</li>
+      <li>Topiramate prophylaxis; chronic-migraine preventive reviews</li>
+      <li>Transition out of medication overuse after anti-CGRP mAbs</li>
+    </ul></div></details>
+    <details class="acc"><summary>Cluster &amp; tension-type</summary><div class="body"><ul>
+      <li>Cluster Headache; Cluster Headache — An Update; Cluster treatment (Taiwan)</li>
+      <li>Update on Tension-type Headache</li>
+    </ul></div></details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards — tap to flip</h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case-based reasoning</h2>
+
+    <div class="case">
+      <div class="vig"><strong>Case 1.</strong> A 48-year-old with episodic unilateral throbbing headaches, nausea and photophobia, 3 days/month, wants acute therapy but has stable coronary artery disease.</div>
+      <details class="acc"><summary>Acute choice?</summary>
+        <div class="body"><p>Migraine without aura. Triptans and ergots are contraindicated with coronary disease → use a <strong>gepant (ubrogepant or rimegepant)</strong> or <strong>lasmiditan</strong> (no vasoconstriction), plus an NSAID/antiemetic. Counsel to cap acute-medication days to avoid MOH.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 2.</strong> A 35-year-old man with bouts of excruciating strictly left orbital pain lasting ~1 hour, several times daily for weeks, with left tearing, nasal congestion, and pacing agitation.</div>
+      <details class="acc"><summary>Diagnosis and treatment?</summary>
+        <div class="body"><p><strong>Cluster headache.</strong> Acute: <strong>high-flow 100% oxygen</strong> + <strong>subcutaneous sumatriptan</strong>. Bridge with occipital nerve block/steroids; start <strong>verapamil</strong> for prevention (monitor ECG). Galcanezumab is an option for episodic cluster.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 3.</strong> A 40-year-old with 20 headache days/month, taking a triptan ~12 days/month and combination analgesics on others for over a year.</div>
+      <details class="acc"><summary>What's going on and what do you do?</summary>
+        <div class="body"><p><strong>Chronic migraine with medication-overuse headache.</strong> Educate, withdraw the overused acute medication, and start an effective preventive — <strong>onabotulinumtoxinA (PREEMPT)</strong> or an <strong>anti-CGRP mAb</strong>, both of which can help transition out of overuse. Avoid butalbital/opioids.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Self-assessment</h2>
+    <p class="muted">Pick an answer to reveal the explanation.</p>
+    <div id="quizHost"></div>
+  </section>
+
+  <footer>
+    Residency deep-dive · Headache &amp; Facial Pain. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 9), ICHD-3, the CGRP-era migraine trials, the EHF 2022 CGRP-mAb guideline, PREEMPT, and topiramate/cluster/TTH/MOH evidence. Educational reference — verify against current guidelines at the point of care.
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  // SNOOP checker
+  const boxes=['c1','c2','c3','c4','c5'].map(id=>document.getElementById(id));
+  const verdict=document.getElementById('verdict');
+  function updateSnoop(){
+    const n=boxes.filter(b=>b.checked).length;
+    if(n===0){verdict.className='verdict';verdict.textContent='No red flags ticked — primary headache more likely; still diagnose by ICHD-3.';}
+    else{verdict.className='verdict flag';verdict.textContent=`${n} red flag${n>1?'s':''} present → pursue imaging/workup before labeling a primary headache.`;}
+  }
+  boxes.forEach(b=>b.addEventListener('change',updateSnoop));
+
+  const cards=[
+    ['Red flag','Thunderclap onset (<1 min) means','Rule out SAH (CT→LP), CVST, RCVS'],
+    ['Red flag','New headache >50 + jaw claudication','Giant cell arteritis — ESR/CRP, treat now'],
+    ['ICHD-3','Migraine without aura duration','4–72 hours, ≥5 attacks'],
+    ['ICHD-3','Chronic migraine threshold','≥15 headache days/mo, ≥8 migrainous, >3 mo'],
+    ['Pathophys','Migraine aura corresponds to','Cortical spreading depression'],
+    ['Pathophys','Key peptide target in migraine','CGRP (calcitonin gene-related peptide)'],
+    ['Acute','Acute option without vasoconstriction','Gepant (ubrogepant/rimegepant) or lasmiditan'],
+    ['Acute','Ubrogepant co-primary endpoints','2-h pain freedom + most bothersome symptom'],
+    ['Prevent','CGRP mAbs','Erenumab, fremanezumab, galcanezumab, eptinezumab'],
+    ['Prevent','OnabotulinumtoxinA PREEMPT protocol','155 U, 31 sites, q12wk — chronic migraine only'],
+    ['Cluster','Acute cluster treatment','High-flow O₂ + subcutaneous sumatriptan'],
+    ['Cluster','First-line cluster prevention','Verapamil (monitor ECG)'],
+    ['MOH','Highest-risk agents for overuse headache','Butalbital and opioids']
+  ];
+  const deck=document.getElementById('deck');
+  cards.forEach(c=>{
+    const d=document.createElement('div');d.className='flashcard';
+    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
+    d.addEventListener('click',()=>d.classList.toggle('flipped'));
+    deck.appendChild(d);
+  });
+
+  const qs=[
+    {q:'A 55-year-old with migraine and stable coronary artery disease needs acute therapy. The best option is:',
+     a:['Sumatriptan','Ergotamine','Ubrogepant (a gepant)','Dihydroergotamine'],c:2,
+     e:'Triptans and ergots cause vasoconstriction and are contraindicated in coronary disease. Gepants (ubrogepant, rimegepant) and the ditan lasmiditan lack vasoconstriction.'},
+    {q:'Which is the correct onabotulinumtoxinA (PREEMPT) paradigm, and for whom?',
+     a:['100 U, episodic migraine','155 U over 31 sites, chronic migraine','200 U, cluster headache','50 U, tension-type headache'],c:1,
+     e:'PREEMPT: 155 units across 31 fixed injection sites every 12 weeks, indicated for chronic migraine (≥15 headache days/month), not episodic migraine.'},
+    {q:'The EHF 2022 guideline concluded that anti-CGRP monoclonal antibodies:',
+     a:['Should only be used after 5 failed orals','Are recommended for migraine prevention (moderate–high evidence)','Are ineffective in chronic migraine','Are contraindicated with gepants'],c:1,
+     e:'The EHF found moderate-to-high evidence to recommend eptinezumab, erenumab, fremanezumab, and galcanezumab; they are increasingly positioned as first-line prevention.'},
+    {q:'A patient has severe unilateral orbital pain for 45 minutes with ipsilateral lacrimation and restlessness, several times a day. Best acute treatment:',
+     a:['Oral sumatriptan tablet','High-flow oxygen + subcutaneous sumatriptan','Indomethacin','Amitriptyline'],c:1,
+     e:'Cluster headache: acute treatment is high-flow 100% oxygen plus subcutaneous sumatriptan. Verapamil is first-line prevention; indomethacin defines paroxysmal hemicrania.'},
+    {q:'Medication-overuse headache from which agents carries the highest risk?',
+     a:['Simple NSAIDs','Butalbital and opioids','Gepants','Topiramate'],c:1,
+     e:'Butalbital-containing combinations and opioids carry the highest risk of MOH and chronification and should be avoided for migraine.'}
+  ];
+  const host=document.getElementById('quizHost');
+  qs.forEach((item,i)=>{
+    const box=document.createElement('div');box.className='quiz';
+    let ch='';item.a.forEach((opt,j)=>ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`);
+    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
+    host.appendChild(box);
+  });
+  host.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i],parent=btn.closest('.quiz');
+    if(parent.dataset.done)return;parent.dataset.done='1';
+    parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
+    if(j===item.c)btn.classList.add('correct');
+    else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
+    const fb=document.getElementById('fb'+i);fb.className='feedback show '+(j===item.c?'good':'bad');
+    fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
+  }));
+</script>
+</body>
+</html>

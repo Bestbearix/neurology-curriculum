@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 — Coma & Altered Mental Status (Residency Reference)</title>
+<style>
+  :root{
+    --ink:#15211f;--muted:#51635f;--line:#dfe7e5;--accent:#0f766e;--soft:#f1faf8;
+    --warn-bg:#fff4e8;--warn-bd:#e29a4c;--warn-ink:#7a4a10;
+    --pearl-bg:#ecfdf7;--pearl-bd:#0f766e;--pearl-ink:#0a4f49;
+    --trial-bg:#eefcf3;--trial-bd:#1f9d57;--trial-ink:#125a32;
+    --time-bg:#eef7ff;--time-bd:#3a86b0;--time-ink:#163a6a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif;color:var(--ink);background:#fff;line-height:1.58;max-width:880px;margin:0 auto;padding:48px 28px 96px}
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;color:var(--ink);line-height:1.25}
+  h1{font-size:2rem;margin:0 0 .2em;border-bottom:3px solid var(--accent);padding-bottom:.3em}
+  h2{font-size:1.4rem;margin-top:2.3em;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:.25em}
+  h3{font-size:1.16rem;margin-top:1.7em;color:#123c38}
+  h4{font-size:1.0rem;margin-top:1.3em;color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em;padding:0}
+  li{margin:.28em 0}
+  .meta{color:var(--muted);font-style:italic;margin:.2em 0 1.6em}
+  .lvl{display:inline-block;font-family:'Helvetica Neue',sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;background:var(--accent);color:#fff;padding:.18em .6em;border-radius:10px;margin-left:.4em}
+  .toc{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:14px 22px;margin:22px 0}
+  .toc h3{margin:0 0 .4em;color:var(--accent);font-size:1.05rem}
+  .toc ol{margin:.2em 0 .2em 1.3em}
+  .toc a{color:var(--ink);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.93rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:600;font-family:'Helvetica Neue','Segoe UI',sans-serif;color:#0d5f59}
+  tbody tr:nth-child(even){background:#fafdfc}
+  .pearl,.warn,.trial,.time{border-left:4px solid;padding:10px 14px;margin:.9em 0;border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg);border-color:var(--pearl-bd);color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-ink)}
+  .trial{background:var(--trial-bg);border-color:var(--trial-bd);color:var(--trial-ink)}
+  .time{background:var(--time-bg);border-color:var(--time-bd);color:var(--time-ink)}
+  .src{font-size:.8rem;color:var(--muted)}
+  hr{border:none;border-top:1px dashed var(--line);margin:2.2em 0}
+  .back-button{display:inline-block;margin-bottom:1.4em;padding:.55em 1.1em;background:var(--accent);color:#fff;text-decoration:none;border-radius:5px;font-size:.92rem;font-weight:600;font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif}
+  .back-button:hover{background:#0d5f59}
+  .alt-link{display:inline-block;margin:0 0 1.4em .5em;font-family:'Helvetica Neue',sans-serif;font-size:.85rem;color:var(--accent);text-decoration:none}
+  .alt-link:hover{text-decoration:underline}
+  @media print{body{max-width:100%;padding:24px}.toc{break-inside:avoid}h2{break-after:avoid}.back-button,.alt-link{display:none}}
+</style>
+</head>
+<body>
+
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<a href="Module_05_Coma_AMS_Residency_Interactive.html" class="alt-link">⚡ Open the interactive version</a>
+
+<h1>Module 5 — Coma &amp; Altered Mental Status <span class="lvl">Residency</span></h1>
+<p class="meta">Resident-depth reference · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 16, Coma and Related Disorders of Consciousness) and the curated Module 5 resource library (a stepwise coma-workup strategy, the 2023 adult &amp; pediatric brain-death/death-by-neurologic-criteria consensus guideline, the disorders-of-consciousness literature incl. cognitive-motor dissociation, post-cardiac-arrest temperature/prognostication trials, delirium prevention, and the toxic-metabolic/autoimmune encephalopathies). Companion to the general-physician Module 5 — this version assumes you run the coma resuscitation, localize, prognosticate, and lead the brain-death determination.</p>
+
+<div class="pearl"><strong>Updated with the provided evidence library.</strong> Brain-death content follows the 2023 consensus guideline; post-arrest care cites the TTM and hypothermia trials; disorders-of-consciousness content integrates the covert-consciousness literature. A full annotated <a href="#evidence">evidence library</a> is in §9.</div>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#define">The spectrum of consciousness &amp; its anatomy</a></li>
+  <li><a href="#approach">The comatose patient: resuscitate while you localize</a></li>
+  <li><a href="#exam">Coma examination — GCS, FOUR, brainstem reflexes</a></li>
+  <li><a href="#structural">Structural vs toxic-metabolic; herniation syndromes</a></li>
+  <li><a href="#doc">Disorders of consciousness &amp; cognitive-motor dissociation</a></li>
+  <li><a href="#arrest">Post-cardiac-arrest care &amp; neuroprognostication</a></li>
+  <li><a href="#braindeath">Brain death / death by neurologic criteria (2023)</a></li>
+  <li><a href="#encephalopathy">Delirium &amp; the toxic-metabolic encephalopathies</a></li>
+  <li><a href="#evidence">Evidence library (provided sources)</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</div>
+
+<h2 id="define">1. The spectrum of consciousness &amp; its anatomy</h2>
+<p>Consciousness has two components: <strong>arousal/wakefulness</strong> (driven by the ascending reticular activating system of the upper brainstem and thalamus) and <strong>awareness/content</strong> (the cortex and its connections). Coma — unarousable unresponsiveness with eyes closed — therefore requires either <strong>diffuse bilateral hemispheric dysfunction</strong> or a lesion of the <strong>brainstem ARAS</strong> (or both). A unilateral hemispheric lesion does not cause coma unless it compresses the brainstem. This anatomy is the engine of localization: it tells you a comatose patient has a structural brainstem/bihemispheric process or a global metabolic one.</p>
+<table>
+<thead><tr><th>State</th><th>Arousal</th><th>Awareness</th></tr></thead>
+<tbody>
+<tr><td>Coma</td><td>Absent (eyes closed)</td><td>Absent</td></tr>
+<tr><td>Vegetative / unresponsive wakefulness</td><td>Present (sleep–wake cycles)</td><td>Absent (only reflexive behavior)</td></tr>
+<tr><td>Minimally conscious state (MCS)</td><td>Present</td><td>Inconsistent but reproducible signs (command-following, visual pursuit)</td></tr>
+<tr><td>Cognitive-motor dissociation (covert)</td><td>Present</td><td>No behavioral output but command-following detectable on fMRI/EEG</td></tr>
+<tr><td>Locked-in syndrome (mimic)</td><td>Present</td><td>Fully aware; only vertical gaze/blink (ventral pons lesion)</td></tr>
+</tbody>
+</table>
+<div class="warn"><strong>Do not mistake locked-in syndrome for coma.</strong> A ventral pontine lesion (basilar thrombosis) leaves the patient conscious with preserved vertical eye movements and blinking — always test vertical gaze and ask the patient to blink to command.</div>
+
+<h2 id="approach">2. The comatose patient: resuscitate while you localize</h2>
+<p>Coma is a "treat-and-diagnose-simultaneously" emergency. Stabilize airway/breathing/circulation, then move through reversible causes in parallel with the neurologic exam. A pragmatic stepwise strategy integrates clinical examination, EEG, neuroimaging, and laboratory findings with iterative reassessment.</p>
+<ol>
+  <li><strong>ABCs</strong> and immobilize the cervical spine if trauma is possible.</li>
+  <li><strong>Fingerstick glucose</strong>; give <strong>IV thiamine before/with glucose</strong> and dextrose if hypoglycemic.</li>
+  <li><strong>Naloxone</strong> for suspected opioid toxidrome; consider other antidotes by toxidrome.</li>
+  <li>Draw labs: glucose, electrolytes, calcium, renal/hepatic function, ammonia, ABG, osmolality/osmolar gap, toxicology, TSH, cortisol, cultures.</li>
+  <li><strong>Neuro exam</strong> (below) to localize and to grade depth; <strong>non-contrast CT head</strong> early.</li>
+  <li><strong>LP</strong> if meningitis/encephalitis or SAH suspected (after imaging as needed); <strong>EEG</strong> to detect nonconvulsive status epilepticus.</li>
+  <li>Iterate — re-examine as data return and as treatment is given.</li>
+</ol>
+<div class="pearl"><strong>Thiamine is a high-value reflex.</strong> Wernicke encephalopathy is not limited to alcohol misuse (malnutrition, bariatric surgery, hyperemesis, malignancy); serum levels and MRI are insensitive early, so give empiric parenteral thiamine to any patient with unexplained altered mental status.</div>
+
+<h2 id="exam">3. Coma examination — GCS, FOUR, brainstem reflexes</h2>
+<p>Quantify depth and localize the lesion. The <strong>Glasgow Coma Scale</strong> (eye/verbal/motor, 3–15) is the common language but cannot be scored fully in an intubated patient and omits brainstem reflexes. The <strong>FOUR score</strong> (Full Outline of UnResponsiveness; eye, motor, brainstem, respiration, each 0–4) adds brainstem and respiratory assessment and works in intubated patients.</p>
+<table>
+<thead><tr><th>Brainstem reflex</th><th>Tests</th><th>Localizes</th></tr></thead>
+<tbody>
+<tr><td>Pupillary light</td><td>Midbrain (CN II→III)</td><td>Fixed mid-position = midbrain; pinpoint reactive = pons/opioids; fixed dilated = CN III/uncal</td></tr>
+<tr><td>Corneal</td><td>Pons (CN V→VII)</td><td>Pontine function</td></tr>
+<tr><td>Oculocephalic / oculovestibular (caloric)</td><td>Pons–midbrain (VOR)</td><td>Intact "doll's eyes"/tonic deviation = brainstem intact</td></tr>
+<tr><td>Gag/cough</td><td>Medulla (IX/X)</td><td>Lower brainstem</td></tr>
+<tr><td>Respiratory pattern</td><td>Cheyne-Stokes → apneustic → ataxic</td><td>Descending level of brainstem dysfunction</td></tr>
+</tbody>
+</table>
+<p><strong>Motor responses</strong> also localize: purposeful localization implies relatively preserved cortex; <strong>decorticate</strong> (flexor) posturing suggests above the red nucleus; <strong>decerebrate</strong> (extensor) suggests midbrain/upper pons; flaccidity suggests deep/pontomedullary dysfunction or metabolic depression.</p>
+
+<h2 id="structural">4. Structural vs toxic-metabolic; herniation</h2>
+<p>The single most useful bedside dichotomy: <strong>structural</strong> coma (focal or asymmetric findings, asymmetric or fixed pupils, gaze deviation, posturing suggestive of a level) versus <strong>toxic-metabolic</strong> coma (symmetric findings, preserved and reactive pupils even when deeply unresponsive, tremor/asterixis/myoclonus, often a gradual course). Preserved pupillary light reflexes in a deeply comatose patient strongly favor a metabolic cause (opioids give pinpoint reactive pupils; anticholinergics dilate).</p>
+<table>
+<thead><tr><th>Herniation syndrome</th><th>Mechanism</th><th>Signs</th></tr></thead>
+<tbody>
+<tr><td>Uncal (transtentorial)</td><td>Medial temporal lobe over the tentorium</td><td>Ipsilateral fixed dilated pupil (CN III) → contralateral hemiparesis → coma</td></tr>
+<tr><td>Central</td><td>Diencephalon downward</td><td>Progressive rostrocaudal deterioration; small then mid-position pupils</td></tr>
+<tr><td>Tonsillar</td><td>Cerebellar tonsils through foramen magnum</td><td>Medullary failure — apnea, hemodynamic collapse</td></tr>
+</tbody>
+</table>
+<div class="warn"><strong>The blown pupil is an emergency.</strong> A new fixed dilated pupil with declining consciousness signals uncal herniation — urgent osmotherapy (hypertonic saline/mannitol), head-of-bed elevation, brief hyperventilation as a bridge, and immediate neurosurgical consultation.</div>
+
+<h2 id="doc">5. Disorders of consciousness &amp; cognitive-motor dissociation</h2>
+<p>Among survivors of severe brain injury, distinguishing the vegetative/unresponsive-wakefulness state from the minimally conscious state matters for prognosis and care decisions, and behavioral scales alone misclassify a meaningful minority. <strong>Cognitive-motor dissociation (CMD)</strong> — also called covert consciousness — describes patients with no behavioral response who nonetheless reliably follow commands detectable on <strong>task-based fMRI or EEG</strong> (e.g., "imagine playing tennis"). The resource set surveys multimodal assessment (fMRI, EEG meta-state dynamics, effective connectivity, heartbeat-evoked responses) and emerging interventions (e.g., vagus nerve stimulation) aimed at detecting and promoting recovery of consciousness.</p>
+<div class="pearl"><strong>Prognostic humility.</strong> Because covert consciousness exists, avoid over-confident early prognostication in disorders of consciousness; multimodal assessment and serial re-evaluation outperform a single bedside behavioral exam.</div>
+
+<h2 id="arrest">6. Post-cardiac-arrest care &amp; neuroprognostication</h2>
+<p>After return of spontaneous circulation in a patient who remains comatose, targeted temperature management and multimodal prognostication are central.</p>
+<div class="trial"><strong>HACA (NEJM 2002).</strong> In comatose survivors of out-of-hospital VF arrest, <strong>mild therapeutic hypothermia (32–34 °C for 24 h)</strong> improved the rate of favorable neurologic outcome versus normothermia — establishing temperature management after arrest.</div>
+<div class="trial"><strong>TTM trial (NEJM 2013).</strong> Targeting <strong>33 °C vs 36 °C</strong> made <strong>no difference</strong> in mortality (HR 1.06, 95% CI 0.89–1.28) or neurologic outcome — shifting practice toward <em>targeted temperature management</em> with strict fever avoidance rather than deep hypothermia per se.</div>
+<div class="pearl"><strong>Neuroprognostication is multimodal and delayed.</strong> Avoid early nihilism (and confounding by sedation/hypothermia). Combine the clinical exam (pupillary/corneal reflexes, myoclonus), <strong>EEG</strong> (very-early EEG patterns and burst-suppression predict poor outcome), somatosensory evoked potentials (bilateral N20 loss), neuron-specific enolase, and MRI — no single test should decide.</div>
+
+<h2 id="braindeath">7. Brain death / death by neurologic criteria (2023 consensus)</h2>
+<p>The 2023 consensus practice guideline harmonizes <strong>adult and pediatric</strong> "brain death / death by neurologic criteria" (BD/DNC) into a single framework: irreversible cessation of all functions of the entire brain, including the brainstem. Determination is fundamentally a <strong>clinical</strong> diagnosis.</p>
+<h4>Prerequisites</h4>
+<ul>
+  <li>An established, <strong>irreversible cause</strong> (catastrophic brain injury) consistent with BD/DNC.</li>
+  <li>Exclude confounders: <strong>correct hypotension, hypothermia, severe metabolic/endocrine disturbance</strong>, and clear <strong>CNS-depressant drugs/neuromuscular blockade</strong>; observe an adequate interval (special guidance after targeted temperature management).</li>
+</ul>
+<h4>Clinical examination</h4>
+<ul>
+  <li>Coma with <strong>no responsiveness</strong>; <strong>absent brainstem reflexes</strong> (pupillary, corneal, oculocephalic/oculovestibular, gag, cough); no motor response to noxious stimuli (spinal reflexes may persist and do <em>not</em> exclude BD/DNC).</li>
+  <li><strong>Apnea test:</strong> pre-oxygenate and normalize ABG (PaCO₂ 35–45, pH 7.35–7.45), disconnect the ventilator with oxygen delivery, and confirm no respiratory effort with a target <strong>PaCO₂ ≥ 60 mm Hg (or ≥ 20 mm Hg above baseline)</strong>.</li>
+</ul>
+<h4>Ancillary testing</h4>
+<p>Required <strong>only</strong> when components of the clinical exam or apnea test cannot be completed or are confounded (e.g., high cervical injury, severe facial trauma, ECMO). Options include cerebral blood-flow studies and electrophysiology; the guideline addresses special situations (ECMO, targeted temperature management, primary infratentorial injury).</p>
+<div class="warn"><strong>Know your local policy.</strong> The provided literature documents persistent variability in institutional brain-death policies and a transatlantic conceptual divide; the 2023 guideline aims to reduce this, but you must follow your institution's protocol and legal requirements, including number of examiners and observation periods.</div>
+
+<h2 id="encephalopathy">8. Delirium &amp; the toxic-metabolic encephalopathies</h2>
+<p><strong>Delirium</strong> is an acute, fluctuating disturbance of attention and awareness — the most common cause of altered mental status in hospitalized and critically ill patients. Screen with validated tools (CAM-ICU/ICDSC), and prioritize <strong>non-pharmacologic prevention</strong>: the provided ICU meta-review supports multicomponent bundles (early mobilization, sleep, orientation, sensory aids, sedation minimization — the ABCDEF bundle) over routine antipsychotics, which have limited efficacy for prevention/treatment.</p>
+<table>
+<thead><tr><th>Encephalopathy</th><th>Clues / workup</th><th>Key treatment</th></tr></thead>
+<tbody>
+<tr><td>Hepatic</td><td>Asterixis, elevated ammonia, precipitants (GI bleed, infection, constipation)</td><td>Treat precipitant; lactulose; rifaximin</td></tr>
+<tr><td>Sepsis-associated</td><td>Encephalopathy without direct CNS infection; diagnosis of exclusion; EEG changes; ↑ delirium/long-term cognitive impairment</td><td>Source control, supportive care; watch for seizures</td></tr>
+<tr><td>Wernicke / nutritional</td><td>Ophthalmoplegia, ataxia, confusion; MRI insensitive early</td><td>Empiric high-dose parenteral <strong>thiamine</strong></td></tr>
+<tr><td>Autoimmune encephalitis</td><td>Subacute memory/behavioral change, seizures, dyskinesias; CSF/antibody testing, MRI, EEG</td><td>Early immunotherapy; tumor search (e.g., NMDA-R/teratoma)</td></tr>
+<tr><td>Other metabolic (uremic, hypoxic, osmotic)</td><td>Characteristic MRI/CT patterns aid diagnosis</td><td>Correct the underlying derangement</td></tr>
+</tbody>
+</table>
+<div class="pearl"><strong>Nonconvulsive status epilepticus</strong> is an underdiagnosed, reversible cause of unexplained coma or fluctuating encephalopathy — obtain an EEG in any patient whose depressed consciousness is out of proportion to the apparent cause, particularly in sepsis and after cardiac arrest.</div>
+
+<hr>
+<h2 id="evidence">9. Evidence library (provided sources)</h2>
+<p>Papers from the <em>Module 5 resource</em> folder used to build this module, grouped by theme.</p>
+<h4>Coma approach &amp; disorders of consciousness</h4>
+<ul>
+  <li>Stepwise Clinical and Diagnostic Strategy for Coma of Unknown Origin.</li>
+  <li>Multimodal Assessment of Minimally Conscious State and Cognitive-Motor Dissociation.</li>
+  <li>Neural Correlates of Consciousness (two reviews); Mapping fMRI Research in Disorders of Consciousness.</li>
+  <li>Altered Electrophysiological Meta-state Dynamics in DoC; Lateral Frontoparietal Effective Connectivity.</li>
+  <li>Neural Responses to Heartbeats Detect Residual Signs of Consciousness; IPD Meta-analysis of Vagal Nerve Stimulation for DoC.</li>
+</ul>
+<h4>Post-cardiac-arrest &amp; prognostication</h4>
+<ul>
+  <li>Mild Therapeutic Hypothermia to Improve Neurologic Outcome after Cardiac Arrest (HACA).</li>
+  <li>Targeted Temperature Management at 33 °C vs 36 °C after Cardiac Arrest (TTM).</li>
+  <li>Very-early EEG Most Predictive for Poor Neurological Outcome in Postanoxic Coma.</li>
+  <li>Early Neuro-prognostication with Patient State Index and Suppression Ratio.</li>
+</ul>
+<h4>Brain death / DNC</h4>
+<ul>
+  <li>Pediatric and Adult Brain Death / Death by Neurologic Criteria Consensus Practice Guideline (2023).</li>
+  <li>Determining Brain Death in Adults; Comprehensive Systematic Review Update Summary.</li>
+  <li>Improving Uniformity in Brain-Death Determination Policies; Variability of Brain-Death Policies in the US; The Transatlantic Divide over Brain-Death Determination.</li>
+</ul>
+<h4>Delirium &amp; encephalopathies</h4>
+<ul>
+  <li>Systematic Meta-review of Interventions to Prevent/Manage ICU Delirium.</li>
+  <li>Sepsis-associated Encephalopathy (two papers); Decoding Sepsis-associated Encephalopathy; Seizures and Sepsis; Neuropsychological Outcome of Critically Ill Patients with Severe Infection.</li>
+  <li>Hepatic Encephalopathy; The Management of Hepatic Encephalopathy from Ward to Domiciliary Care.</li>
+  <li>Thiamine for Altered Mental Status — a High-value Strategy beyond Alcohol.</li>
+  <li>Autoimmune Encephalitis in Acute Care; MRI and CT Appearances in Metabolic Encephalopathies.</li>
+</ul>
+
+<hr>
+<h2 id="sources">Sources</h2>
+<p class="src">Adams &amp; Victor's Principles of Neurology, 12th ed., Ch. 16 (Coma and Related Disorders of Consciousness). Brain death: Pediatric and Adult BD/DNC Consensus Practice Guideline (2023) and supporting reviews. Post-arrest care: HACA (NEJM 2002) and the TTM trial (NEJM 2013); postanoxic EEG prognostication literature. Disorders of consciousness: multimodal assessment and cognitive-motor-dissociation literature. Delirium and encephalopathies: ICU delirium meta-review, sepsis-associated and hepatic encephalopathy reviews, thiamine perspective, autoimmune encephalitis and metabolic-encephalopathy imaging, all as provided in the Module 5 resource folder. Educational reference for residency training — confirm all management, and especially brain-death determination, against current guidelines and institutional/legal policy at the point of care.</p>
+
+</body>
+</html>

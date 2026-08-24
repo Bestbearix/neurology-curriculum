@@ -89,6 +89,7 @@
 </style>
 </head>
 <body>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
 <div class="wrap">
   <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
   <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
@@ -408,71 +409,4 @@
   const cards=[
     ['Territory','Leg > arm weakness + abulia','ACA infarct'],
     ['Syndrome','Ipsilateral CN III palsy + contralateral hemiparesis','Weber (midbrain)'],
-    ['Syndrome','Ipsilateral face / contralateral body sensory loss, Horner, dysphagia','Wallenberg (lateral medulla, PICA)'],
-    ['Window','IV thrombolysis standard window','0–4.5 h (ECASS III extends 3–4.5 h)'],
-    ['Window','Thrombectomy late window with mismatch','6–24 h (DAWN / DEFUSE-3)'],
-    ['Trial','Pooled thrombectomy RCTs, NNT ~2.6','HERMES (2015)'],
-    ['BP target','ICH acute SBP goal','~140 (INTERACT2)'],
-    ['Prevention','Intracranial stenosis: medical vs stent','Medical wins (SAMMPRIS)'],
-    ['Reversal','Dabigatran-associated ICH','Idarucizumab'],
-    ['Lacune','5 classic lacunar syndromes share what','NO cortical signs'],
-    ['ESUS','Anticoagulation vs antiplatelet','Antiplatelet (NAVIGATE/RE-SPECT ESUS)'],
-    ['Mimic','Always check before thrombolysis','Fingerstick glucose (hypoglycemia)']
-  ];
-  const deck=document.getElementById('deck');
-  cards.forEach(c=>{
-    const d=document.createElement('div');d.className='flashcard';
-    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
-    d.addEventListener('click',()=>d.classList.toggle('flipped'));
-    deck.appendChild(d);
-  });
-
-  // Quiz
-  const qs=[
-    {q:'A patient with an anterior-circulation LVO presents 9 hours after last-known-well. Perfusion imaging shows a small core and large penumbra. The single best next step is:',
-     a:['IV alteplase alone','Mechanical thrombectomy','Aspirin and admit','Repeat CT in 24 h'],c:1,
-     e:'Beyond the thrombolysis window, but DAWN/DEFUSE-3 support thrombectomy in the 6–24 h window when imaging shows a salvageable mismatch.'},
-    {q:'Which deficit pattern is LEAST consistent with a lacunar (small-vessel) stroke?',
-     a:['Pure motor hemiparesis','Dysarthria–clumsy hand','Aphasia with right hemiparesis','Ataxic hemiparesis'],c:2,
-     e:'Aphasia is a cortical sign and excludes a pure lacune — look for a large-vessel or embolic source.'},
-    {q:'For acute intracerebral hemorrhage, the best-supported acute systolic BP target is approximately:',
-     a:['~110','~140','~180','No BP treatment'],c:1,
-     e:'INTERACT2 supports lowering toward ~140; ATACH-2 showed no added benefit (and more renal events) going below ~120.'},
-    {q:'A 40-year-old has a cryptogenic embolic-appearing stroke and a PFO. Best initial secondary-prevention strategy class for ESUS is:',
-     a:['Anticoagulation','Antiplatelet therapy','No therapy','Immediate PFO closure for all'],c:1,
-     e:'In ESUS trials anticoagulation was not superior to antiplatelet therapy; PFO closure is selectively beneficial in younger patients after specialist evaluation.'},
-    {q:'Before giving IV thrombolysis, BP must be lowered to below:',
-     a:['220/120','185/110','160/90','140/90'],c:1,
-     e:'Pre-thrombolysis BP must be <185/110, then maintained <180/105 for 24 h. Permissive hypertension (treat only >220/120) applies when NOT reperfusing.'},
-    {q:'In the HERMES individual-patient meta-analysis, the number-needed-to-treat with thrombectomy to reduce disability by ≥1 mRS level was approximately:',
-     a:['1.3','2.6','7','15'],c:1,
-     e:'HERMES: adjusted common OR 2.49 (1.76–3.53), NNT ≈ 2.6 — one of the largest treatment effects in vascular neurology.'},
-    {q:'A patient with AF and stable coronary atherosclerosis has had an ischemic stroke. Compared with anticoagulant monotherapy, adding an antiplatelet agent in the provided RCTs:',
-     a:['Reduced ischemic events without added bleeding','Did not reduce the composite outcome and increased bleeding','Was clearly superior overall','Eliminated recurrent stroke'],c:1,
-     e:'Adding antiplatelet to anticoagulation did not lower the composite (17.8% vs 19.6%) and increased bleeding; edoxaban monotherapy was favored — anticoagulant monotherapy is generally preferred.'},
-    {q:'Per the INTREPID trial, prophylactic fever prevention (targeting 37 °C) in acute vascular brain injury:',
-     a:['Improved 3-month function','Reduced fever burden but did not improve functional outcome','Increased mortality','Had no effect on temperature'],c:1,
-     e:'INTREPID: prophylactic normothermia lowered fever burden but did not improve functional outcomes — treat fever and find the cause rather than relying on routine aggressive cooling.'}
-  ];
-  const host=document.getElementById('quizHost');
-  qs.forEach((item,i)=>{
-    const box=document.createElement('div');box.className='quiz';
-    let ch='';item.a.forEach((opt,j)=>{ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`;});
-    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
-    host.appendChild(box);
-  });
-  host.querySelectorAll('.choice').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i];
-      const parent=btn.closest('.quiz');
-      parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
-      if(j===item.c){btn.classList.add('correct');}
-      else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
-      const fb=document.getElementById('fb'+i);
-      fb.className='feedback show '+(j===item.c?'good':'bad');
-      fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
-    });
-  });
-</script>
-</body>
-</html>
+    ['Syndrome','Ipsilateral face / contralateral body s

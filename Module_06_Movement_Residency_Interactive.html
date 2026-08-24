@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residency Deep-Dive — Movement Disorders</title>
+<style>
+  :root{
+    --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
+    --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
+    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);color:var(--ink);min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 22px 80px}
+  .top-link{color:var(--time);text-decoration:none;font-size:.85rem}
+  .top-link:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin:14px 0 20px}
+  header h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:.3px}
+  header .sub{color:var(--muted);font-size:.95rem}
+  header .badge{display:inline-block;padding:2px 10px;border-radius:10px;background:rgba(14,165,164,.16);color:var(--accent-2);font-size:.78rem;margin:8px 6px 0 0}
+  header .badge.lvl{background:rgba(95,176,255,.16);color:#cfe6ff}
+
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px}
+  nav.tabs button{background:transparent;color:var(--muted);border:none;padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit;font-size:.9rem;transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent);color:#04201f;font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  h2{font-size:1.3rem;margin:1.3em 0 .5em;color:var(--accent-2)}
+  h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
+  p{line-height:1.65}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
+
+  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+";color:var(--accent);font-size:1.3rem;margin-left:10px;transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px;color:var(--ink)}
+  details.acc .body p{margin:.4em 0}
+  details.acc .body ul{margin:.3em 0 .6em 1.2em}
+
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--accent-2);font-weight:600}
+
+  .pearl,.warn,.trial,.time{padding:10px 14px;border-radius:8px;margin:.8em 0;border-left:4px solid}
+  .pearl{background:rgba(14,165,164,.10);border-color:var(--accent);color:#c8f3f0}
+  .warn{background:rgba(255,185,92,.10);border-color:var(--warn);color:#ffe2b8}
+  .trial{background:rgba(95,210,138,.10);border-color:var(--good);color:#d6f6e3}
+  .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
+  .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
+  .obj ol{margin:.3em 0 .2em 1.2em}
+
+  /* Phenomenology classifier */
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .tool .q{font-weight:600;color:var(--accent-2);margin:14px 0 8px;font-size:1rem}
+  .tool .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .tool .opt{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:20px;cursor:pointer;font:inherit;font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent);color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent);color:#04201f;border-color:var(--accent);font-weight:600}
+  .tool .result{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(14,165,164,.08);border:1px solid var(--accent);display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px;color:var(--accent-2);font-size:1.05rem}
+  .tool button.reset{background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit;font-size:.85rem;margin-top:12px}
+  .tool button.reset:hover{color:var(--ink);border-color:var(--accent)}
+
+  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
+  .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
+  .flashcard .face{position:relative;width:100%;height:180px;transition:transform .55s;transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front,.flashcard .back{position:absolute;inset:0;backface-visibility:hidden;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .flashcard .front{color:var(--accent-2);font-size:1rem;font-weight:600}
+  .flashcard .back{transform:rotateY(180deg);background:var(--panel-2);color:var(--ink);font-size:.86rem;line-height:1.45}
+  .flashcard .tag{position:absolute;top:8px;left:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+  .quiz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .quiz h4{margin:0 0 8px;color:var(--accent-2);font-size:1rem}
+  .quiz .stem{margin:0 0 12px;line-height:1.55}
+  .quiz .choices{display:flex;flex-direction:column;gap:8px}
+  .quiz .choice{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:background .15s,border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15);border-color:var(--good);color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12);border-color:var(--bad);color:#ffd8d8}
+  .quiz .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.92rem;display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12);color:#dffce9;border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10);color:#ffd8d8;border:1px solid var(--bad)}
+
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
+
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
+  <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
+  <a href="Module_06_Movement_Residency_Reference.html" class="top-link">📖 Reference version</a>
+  <header>
+    <h1>Movement Disorders</h1>
+    <div class="sub">Residency deep-dive · PGY-3 subspecialty · classify by phenomenology, then treat on the evidence</div>
+    <span class="badge lvl">Resident level</span>
+    <span class="badge">Phenomenology</span>
+    <span class="badge">Parkinson trials</span>
+    <span class="badge">VMAT2 / botox</span>
+    <span class="badge">Focused ultrasound</span>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="obj">Objectives</button>
+    <button data-tab="approach">Approach</button>
+    <button data-tab="classifier">Classifier</button>
+    <button data-tab="pd">Parkinson</button>
+    <button data-tab="hyper">Hyperkinetic</button>
+    <button data-tab="atypical">Atypical / Functional</button>
+    <button data-tab="library">Evidence Library</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="cases">Cases</button>
+    <button data-tab="quiz">Self-Assessment</button>
+  </nav>
+
+  <!-- OBJECTIVES -->
+  <section class="tab-panel active" id="obj">
+    <h2>Name the movement, then reason to a cause</h2>
+    <p class="lead">The general-physician Module 6 teaches recognition of common presentations. This version assumes you fix the phenomenology, separate hypo- from hyperkinetic disorders, diagnose PD and its mimics, and prescribe on the trial evidence.</p>
+    <div class="obj">
+      <strong>By the end you should be able to:</strong>
+      <ol>
+        <li>Classify a movement disorder by phenomenology (tremor, chorea, dystonia, tics, myoclonus, parkinsonism).</li>
+        <li>Diagnose Parkinson disease and flag "parkinson-plus" red flags.</li>
+        <li>Build PD therapy and cite LEAP, ADAGIO, and EARLYSTIM; screen for impulse-control disorders.</li>
+        <li>Treat tremor (incl. focused-ultrasound thalamotomy), dystonia (botulinum toxin), chorea/TD (VMAT2 inhibitors), and tics (CBIT).</li>
+        <li>Rule in functional movement disorders on positive signs.</li>
+      </ol>
+    </div>
+    <div class="warn"><strong>Educational use only.</strong> Verify drugs, doses, and device indications against current guidelines and product labeling at the point of care.</div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="tab-panel" id="approach">
+    <h2>Phenomenology first</h2>
+    <table>
+      <thead><tr><th>Phenomenology</th><th>Defining features</th><th>Prototype</th></tr></thead>
+      <tbody>
+        <tr><td>Rest tremor + bradykinesia + rigidity</td><td>Slowness with decrement; 4–6 Hz pill-rolling</td><td>Parkinson disease</td></tr>
+        <tr><td>Action tremor</td><td>Postural/kinetic, bilateral, alcohol-responsive</td><td>Essential tremor</td></tr>
+        <tr><td>Chorea</td><td>Brief, random, flowing, unpredictable</td><td>Huntington disease</td></tr>
+        <tr><td>Dystonia</td><td>Sustained/patterned twisting; sensory trick</td><td>Cervical dystonia</td></tr>
+        <tr><td>Tics</td><td>Stereotyped, suppressible, premonitory urge</td><td>Tourette syndrome</td></tr>
+        <tr><td>Myoclonus</td><td>Sudden shock-like jerk</td><td>Cortical myoclonus</td></tr>
+      </tbody>
+    </table>
+    <div class="pearl"><strong>Bedside discriminators:</strong> rest tremor damping with action → parkinsonism; action tremor absent at rest → ET; suppressible + premonitory urge → tic; distractible/variable/entrainable → functional.</div>
+  </section>
+
+  <!-- CLASSIFIER (interactive) -->
+  <section class="tab-panel" id="classifier">
+    <h2>Interactive phenomenology classifier</h2>
+    <p class="muted">Pick the two features that best fit; get the most likely category.</p>
+    <div class="tool" id="cls">
+      <div class="q">1 · Overall amount of movement?</div>
+      <div class="opts" data-group="kinesis">
+        <button class="opt" data-v="hypo">Too little (slow, stiff)</button>
+        <button class="opt" data-v="hyper">Too much (extra movements)</button>
+      </div>
+      <div class="q">2 · Dominant feature?</div>
+      <div class="opts" data-group="feat">
+        <button class="opt" data-v="rest">Rest tremor + bradykinesia</button>
+        <button class="opt" data-v="action">Action tremor, alcohol-responsive</button>
+        <button class="opt" data-v="flow">Brief, random, flowing movements</button>
+        <button class="opt" data-v="twist">Sustained twisting posture + sensory trick</button>
+        <button class="opt" data-v="urge">Suppressible, preceded by an urge</button>
+        <button class="opt" data-v="variable">Distractible / variable / entrainable</button>
+      </div>
+      <div class="result" id="clsResult"><h4>Most likely category</h4><p id="clsText"></p></div>
+      <button class="reset" id="clsReset">Reset</button>
+    </div>
+  </section>
+
+  <!-- PARKINSON -->
+  <section class="tab-panel" id="pd">
+    <h2>Parkinson disease</h2>
+    <p>Parkinsonism = bradykinesia + rest tremor and/or rigidity. Idiopathic PD: asymmetric onset, 4–6 Hz pill-rolling rest tremor, robust levodopa response; non-motor prodrome (hyposmia, REM sleep behavior disorder, constipation). Pathology = α-synuclein Lewy disease with nigrostriatal loss (LRRK2/GBA/PRKN and polygenic contributions).</p>
+    <div class="warn"><strong>Parkinson-plus red flags:</strong> early falls, early autonomic failure, symmetric onset, poor levodopa response, early dementia/hallucinations, vertical gaze palsy, cerebellar signs.</div>
+    <h3>Therapy &amp; landmark trials</h3>
+    <div class="trial"><strong>LEAP (early vs delayed levodopa).</strong> No disease-modifying effect — levodopa is symptomatic, does not accelerate progression, and there's no benefit to withholding it when symptoms warrant.</div>
+    <div class="trial"><strong>ADAGIO (delayed-start rasagiline).</strong> Dose-inconsistent (1 mg met, 2 mg failed the hierarchical endpoints) → disease modification <em>not</em> established; MAO-B inhibitors are symptomatic/adjunctive.</div>
+    <div class="trial"><strong>EARLYSTIM.</strong> Subthalamic DBS added at the stage of <em>early</em> motor complications improved quality of life and motor disability vs best medical therapy.</div>
+    <div class="warn"><strong>Dopamine-agonist impulse-control disorders</strong> (gambling, hypersexuality, shopping/eating) — screen every visit; reduce/rotate the agonist if they appear.</div>
+  </section>
+
+  <!-- HYPERKINETIC -->
+  <section class="tab-panel" id="hyper">
+    <h2>Hyperkinetic disorders &amp; therapy</h2>
+    <h3>Tremor / essential tremor</h3>
+    <p>First-line: <strong>propranolol, primidone</strong>. Refractory: <strong>MRI-guided focused-ultrasound thalamotomy (VIM)</strong> or DBS.</p>
+    <div class="trial"><strong>Focused ultrasound (RCT + 3-yr follow-up).</strong> Unilateral incisionless VIM thalamotomy durably reduces medication-refractory hand tremor vs sham; gait/sensory effects are the main risks — treat one side.</div>
+    <h3>Dystonia</h3>
+    <p><strong>Botulinum toxin</strong> first-line for focal dystonia (daxi-/abobotulinumtoxinA evidence provided); oral agents and <strong>GPi DBS</strong> for generalized/refractory. <strong>Always trial levodopa</strong> in young-onset dystonia (dopa-responsive dystonia).</p>
+    <h3>Chorea / Huntington / tardive dyskinesia</h3>
+    <div class="trial"><strong>VMAT2 inhibitors.</strong> Tetrabenazine/deutetrabenazine reduce Huntington chorea (deutetrabenazine better tolerated); <strong>valbenazine &amp; deutetrabenazine</strong> are the approved treatments for tardive dyskinesia.</div>
+    <div class="warn"><strong>Tetrabenazine:</strong> depression/suicidality and parkinsonism are dose-limiting — screen mood. Consider hyperglycemic chorea (striatal T1 hyperintensity) in acute unilateral chorea.</div>
+    <h3>Tics / Tourette &amp; RLS</h3>
+    <div class="trial"><strong>CBIT / habit-reversal therapy</strong> gives sustained tic reduction and is first-line; add alpha-2 agonists (clonidine/guanfacine), VMAT2 inhibitors, or antipsychotics for impairing tics.</div>
+    <p><strong>RLS:</strong> correct iron deficiency (ferritin), then <strong>alpha-2-delta ligands (gabapentin/pregabalin)</strong> first-line; dopamine agonists second-line due to <strong>augmentation</strong>.</p>
+  </section>
+
+  <!-- ATYPICAL / FUNCTIONAL -->
+  <section class="tab-panel" id="atypical">
+    <h2>Atypical parkinsonism &amp; functional disorders</h2>
+    <table>
+      <thead><tr><th>Disorder</th><th>Discriminator</th></tr></thead>
+      <tbody>
+        <tr><td>PSP</td><td>Early backward falls, vertical supranuclear gaze palsy, axial rigidity, levodopa-poor</td></tr>
+        <tr><td>MSA</td><td>Early autonomic failure + cerebellar (MSA-C) or parkinsonian (MSA-P); "hot cross bun" pons</td></tr>
+        <tr><td>Corticobasal syndrome</td><td>Asymmetric apraxia, alien limb, cortical sensory loss, dystonia/myoclonus</td></tr>
+        <tr><td>Drug-induced</td><td>Dopamine-blocker exposure — the commonest reversible mimic</td></tr>
+      </tbody>
+    </table>
+    <div class="pearl"><strong>Functional movement disorders:</strong> diagnose <em>positively</em> on inconsistency — distractibility, variability, and tremor <strong>entrainment</strong> — not by exclusion. Deliver the diagnosis clearly and refer to FND-informed physiotherapy/psychology.</div>
+  </section>
+
+  <!-- EVIDENCE LIBRARY -->
+  <section class="tab-panel" id="library">
+    <h2>Evidence library — provided sources</h2>
+    <p class="muted">The Module 6 resource set used to build this module, grouped by theme.</p>
+    <details class="acc"><summary>Parkinson disease — therapy &amp; genetics</summary><div class="body"><ul>
+      <li>LEAP long-term follow-up (early vs delayed levodopa); "Does delaying levodopa prevent motor complications?"</li>
+      <li>ADAGIO delayed-start rasagiline; Rasagiline neuroprotection &amp; delayed-start trials</li>
+      <li>EARLYSTIM neurostimulation for early motor complications; DBS RCT</li>
+      <li>Impulse-control disorders in PD; Global genetic basis of PD</li>
+    </ul></div></details>
+    <details class="acc"><summary>Tremor &amp; focused ultrasound</summary><div class="body"><ul>
+      <li>Randomized FUS thalamotomy for ET; 3-year follow-up</li>
+      <li>FUS thalamotomy for tremor-dominant PD; FUS therapy for movement disorders</li>
+      <li>Treatment for essential tremor; Essential tremor-plus</li>
+    </ul></div></details>
+    <details class="acc"><summary>Dystonia, chorea &amp; tardive dyskinesia</summary><div class="body"><ul>
+      <li>Diagnosis &amp; pathogenesis of dystonia; DaxibotulinumtoxinA &amp; AbobotulinumtoxinA in cervical dystonia</li>
+      <li>Deutetrabenazine/tetrabenazine for HD chorea; Deutetrabenazine vs valbenazine for TD; VMAT2 inhibitors</li>
+      <li>Rare choreas; Cerebellar ataxia &amp; chorea; Hyperglycemic chorea; Hyperkinetic movement disorder treatment; Flapping tremor</li>
+    </ul></div></details>
+    <details class="acc"><summary>Tics, RLS, atypical &amp; functional</summary><div class="body"><ul>
+      <li>Behavioural therapy for tics; Managing Tourette syndrome; Tic disorders of childhood; Functional tics; PANDAS</li>
+      <li>Restless legs syndrome; RLS &amp; PLMD treatment</li>
+      <li>Cognitive/behavioural disturbances in PSP &amp; MSA; Functional MRI in MSA</li>
+      <li>Functional movement disorders; Cannabinoids</li>
+    </ul></div></details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards — tap to flip</h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case-based reasoning</h2>
+
+    <div class="case">
+      <div class="vig"><strong>Case 1.</strong> A 68-year-old has an asymmetric 5 Hz rest tremor, bradykinesia, and cogwheel rigidity, with a strong response to levodopa. Six months later he develops new compulsive gambling.</div>
+      <details class="acc"><summary>Diagnosis + what caused the new behavior?</summary>
+        <div class="body"><p>Idiopathic <strong>Parkinson disease</strong>. The gambling is a <strong>dopamine-agonist impulse-control disorder</strong> — reduce or rotate off the agonist and counsel the family. LEAP tells us levodopa itself isn't disease-modifying but is appropriate for symptom control.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 2.</strong> A 72-year-old has a bilateral action tremor of the hands and voice, relieved by wine, unresponsive to propranolol and primidone, severely limiting writing and eating.</div>
+      <details class="acc"><summary>Next options?</summary>
+        <div class="body"><p><strong>Medication-refractory essential tremor.</strong> Offer <strong>MRI-guided focused-ultrasound thalamotomy (VIM)</strong> — a randomized sham-controlled trial and 3-year follow-up show durable benefit — or VIM DBS. Treat one side to limit gait/sensory adverse effects.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 3.</strong> A 45-year-old with a family history of a neurodegenerative illness develops brief, random, flowing movements, irritability, and declining cognition.</div>
+      <details class="acc"><summary>Diagnosis + symptomatic chorea treatment?</summary>
+        <div class="body"><p><strong>Huntington disease</strong> (autosomal-dominant CAG expansion in <em>HTT</em>). For disabling chorea use a <strong>VMAT2 inhibitor</strong> — deutetrabenazine (better tolerated) or tetrabenazine — while screening for depression/suicidality. Provide genetic counseling and psychiatric support.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Self-assessment</h2>
+    <p class="muted">Pick an answer to reveal the explanation.</p>
+    <div id="quizHost"></div>
+  </section>
+
+  <footer>
+    Residency deep-dive · Movement Disorders. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 4) and the LEAP, ADAGIO, EARLYSTIM, focused-ultrasound, VMAT2-inhibitor, botulinum-toxin, and CBIT literature. Educational reference — verify against current guidelines at the point of care.
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  // Phenomenology classifier
+  const sel={kinesis:null,feat:null};
+  document.querySelectorAll('#cls .opts').forEach(g=>{
+    const grp=g.dataset.group;
+    g.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{
+      g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');sel[grp]=o.dataset.v;evalCls();
+    }));
+  });
+  function evalCls(){
+    if(!sel.feat)return;
+    let out;
+    switch(sel.feat){
+      case 'rest':out='<strong>Parkinsonism / Parkinson disease.</strong> Rest tremor + bradykinesia = hypokinetic. Confirm asymmetry and levodopa response; screen for parkinson-plus red flags.';break;
+      case 'action':out='<strong>Essential tremor.</strong> Bilateral action tremor, alcohol-responsive. First-line propranolol/primidone; refractory → focused-ultrasound thalamotomy or DBS.';break;
+      case 'flow':out='<strong>Chorea.</strong> Brief, random, flowing movements. Consider Huntington disease, autoimmune/Sydenham, hyperglycemic, drug-induced. VMAT2 inhibitors for symptomatic chorea.';break;
+      case 'twist':out='<strong>Dystonia.</strong> Sustained/patterned twisting with a sensory trick. Botulinum toxin for focal disease; trial levodopa in young-onset (dopa-responsive dystonia).';break;
+      case 'urge':out='<strong>Tics / Tourette syndrome.</strong> Suppressible movements with a premonitory urge. First-line CBIT/habit-reversal therapy.';break;
+      case 'variable':out='<strong>Functional movement disorder.</strong> Distractibility, variability, and tremor entrainment are positive rule-in signs. Deliver the diagnosis clearly; FND-informed therapy.';break;
+    }
+    if(sel.kinesis==='hypo'&&sel.feat!=='rest')out='Note: you chose "too little movement" but a hyperkinetic feature. Re-check — parkinsonism is the hypokinetic category.<br><br>'+out;
+    document.getElementById('clsText').innerHTML=out;
+    document.getElementById('clsResult').classList.add('show');
+  }
+  document.getElementById('clsReset').addEventListener('click',()=>{
+    sel.kinesis=sel.feat=null;
+    document.querySelectorAll('#cls .opt').forEach(x=>x.classList.remove('sel'));
+    document.getElementById('clsResult').classList.remove('show');
+  });
+
+  const cards=[
+    ['Phenomenology','Rest tremor damping with action','Parkinsonism'],
+    ['Phenomenology','Action tremor, absent at rest, alcohol-responsive','Essential tremor'],
+    ['Phenomenology','Suppressible movement + premonitory urge','Tic (Tourette)'],
+    ['PD trial','LEAP: early vs delayed levodopa','No disease modification; levodopa is symptomatic'],
+    ['PD trial','ADAGIO delayed-start rasagiline','Disease modification NOT established'],
+    ['PD trial','EARLYSTIM','STN-DBS helps early motor complications (QoL, motor)'],
+    ['PD safety','Dopamine-agonist class effect to screen for','Impulse-control disorders'],
+    ['Tremor','Refractory ET incisionless option','MRI-guided focused-ultrasound VIM thalamotomy'],
+    ['Dystonia','First-line for focal dystonia','Botulinum toxin (trial levodopa if young-onset)'],
+    ['Chorea/TD','Evidence-based drug class','VMAT2 inhibitors (deutetrabenazine, valbenazine)'],
+    ['Tics','First-line therapy','CBIT / habit-reversal training'],
+    ['RLS','First check, then first-line drug','Ferritin/iron; then alpha-2-delta ligand (avoid DA augmentation)']
+  ];
+  const deck=document.getElementById('deck');
+  cards.forEach(c=>{
+    const d=document.createElement('div');d.className='flashcard';
+    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
+    d.addEventListener('click',()=>d.classList.toggle('flipped'));
+    deck.appendChild(d);
+  });
+
+  const qs=[
+    {q:'The LEAP study of early versus delayed levodopa in Parkinson disease showed that levodopa:',
+     a:['Slows disease progression','Has no disease-modifying effect and does not accelerate progression','Accelerates neurodegeneration','Only helps tremor'],c:1,
+     e:'LEAP found no disease-modifying effect either way — levodopa is symptomatic and should not be withheld when a patient needs symptom control.'},
+    {q:'A patient with Parkinson disease on a dopamine agonist develops new compulsive gambling. The best step is:',
+     a:['Increase the agonist','Reduce/rotate off the dopamine agonist','Add an anticholinergic','Reassure — unrelated'],c:1,
+     e:'Impulse-control disorders are a dose-related class effect of dopamine agonists; reduce or switch the agonist and counsel the patient/family.'},
+    {q:'Which is an established option for medication-refractory essential tremor?',
+     a:['Levodopa','MRI-guided focused-ultrasound thalamotomy (VIM)','Deutetrabenazine','Botulinum toxin to the flexors only'],c:1,
+     e:'A randomized sham-controlled trial and 3-year follow-up support unilateral MRI-guided focused-ultrasound VIM thalamotomy; DBS is the other device option.'},
+    {q:'The evidence-based, FDA-approved drug class for tardive dyskinesia (and Huntington chorea) is:',
+     a:['Anticholinergics','VMAT2 inhibitors (valbenazine, deutetrabenazine)','Dopamine agonists','SSRIs'],c:1,
+     e:'VMAT2 inhibitors — valbenazine and deutetrabenazine for tardive dyskinesia; tetrabenazine/deutetrabenazine for Huntington chorea.'},
+    {q:'Which finding best supports a FUNCTIONAL (rather than organic) tremor?',
+     a:['Pill-rolling rest tremor','Entrainment of the tremor to a tapped rhythm','Alcohol responsiveness','A sensory trick relieving posture'],c:1,
+     e:'Entrainment, distractibility, and variability are positive rule-in signs of a functional movement disorder. Sensory trick suggests dystonia; pill-rolling suggests PD.'}
+  ];
+  const host=document.getElementById('quizHost');
+  qs.forEach((item,i)=>{
+    const box=document.createElement('div');box.className='quiz';
+    let ch='';item.a.forEach((opt,j)=>ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`);
+    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
+    host.appendChild(box);
+  });
+  host.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i],parent=btn.closest('.quiz');
+    if(parent.dataset.done)return;parent.dataset.done='1';
+    parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
+    if(j===item.c)btn.classList.add('correct');
+    else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
+    const fb=document.getElementById('fb'+i);fb.className='feedback show '+(j===item.c?'good':'bad');
+    fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
+  }));
+</script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residency Deep-Dive — Coma & Altered Mental Status</title>
+<style>
+  :root{
+    --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
+    --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
+    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);color:var(--ink);min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 22px 80px}
+  .top-link{color:var(--time);text-decoration:none;font-size:.85rem}
+  .top-link:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin:14px 0 20px}
+  header h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:.3px}
+  header .sub{color:var(--muted);font-size:.95rem}
+  header .badge{display:inline-block;padding:2px 10px;border-radius:10px;background:rgba(14,165,164,.16);color:var(--accent-2);font-size:.78rem;margin:8px 6px 0 0}
+  header .badge.lvl{background:rgba(95,176,255,.16);color:#cfe6ff}
+
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px}
+  nav.tabs button{background:transparent;color:var(--muted);border:none;padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit;font-size:.9rem;transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent);color:#04201f;font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  h2{font-size:1.3rem;margin:1.3em 0 .5em;color:var(--accent-2)}
+  h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
+  p{line-height:1.65}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
+
+  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+";color:var(--accent);font-size:1.3rem;margin-left:10px;transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px;color:var(--ink)}
+  details.acc .body p{margin:.4em 0}
+  details.acc .body ul{margin:.3em 0 .6em 1.2em}
+
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--accent-2);font-weight:600}
+
+  .pearl,.warn,.trial,.time{padding:10px 14px;border-radius:8px;margin:.8em 0;border-left:4px solid}
+  .pearl{background:rgba(14,165,164,.10);border-color:var(--accent);color:#c8f3f0}
+  .warn{background:rgba(255,185,92,.10);border-color:var(--warn);color:#ffe2b8}
+  .trial{background:rgba(95,210,138,.10);border-color:var(--good);color:#d6f6e3}
+  .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
+  .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
+  .obj ol{margin:.3em 0 .2em 1.2em}
+
+  /* Brain-death checklist */
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .checkitem{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .checkitem:last-child{border-bottom:none}
+  .checkitem input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+  .checkitem label{cursor:pointer;line-height:1.45}
+  .grouphdr{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--time);margin:14px 0 4px}
+  .verdict{position:sticky;bottom:8px;margin-top:14px;padding:12px 16px;border-radius:10px;font-weight:600;text-align:center;border:2px solid var(--warn);background:rgba(255,185,92,.12);color:#ffe2b8}
+  .verdict.done{border-color:var(--good);background:rgba(95,210,138,.12);color:#dffce9}
+
+  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
+  .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
+  .flashcard .face{position:relative;width:100%;height:180px;transition:transform .55s;transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front,.flashcard .back{position:absolute;inset:0;backface-visibility:hidden;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .flashcard .front{color:var(--accent-2);font-size:1rem;font-weight:600}
+  .flashcard .back{transform:rotateY(180deg);background:var(--panel-2);color:var(--ink);font-size:.86rem;line-height:1.45}
+  .flashcard .tag{position:absolute;top:8px;left:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+  .quiz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .quiz h4{margin:0 0 8px;color:var(--accent-2);font-size:1rem}
+  .quiz .stem{margin:0 0 12px;line-height:1.55}
+  .quiz .choices{display:flex;flex-direction:column;gap:8px}
+  .quiz .choice{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:background .15s,border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15);border-color:var(--good);color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12);border-color:var(--bad);color:#ffd8d8}
+  .quiz .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.92rem;display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12);color:#dffce9;border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10);color:#ffd8d8;border:1px solid var(--bad)}
+
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
+
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
+  <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
+  <a href="Module_05_Coma_AMS_Residency_Reference.html" class="top-link">📖 Reference version</a>
+  <header>
+    <h1>Coma &amp; Altered Mental Status</h1>
+    <div class="sub">Residency deep-dive · PGY-2 core · resuscitate, localize, prognosticate, determine brain death</div>
+    <span class="badge lvl">Resident level</span>
+    <span class="badge">GCS / FOUR</span>
+    <span class="badge">Herniation</span>
+    <span class="badge">Brain death 2023</span>
+    <span class="badge">Post-arrest TTM</span>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="obj">Objectives</button>
+    <button data-tab="approach">Approach</button>
+    <button data-tab="exam">Exam &amp; Localization</button>
+    <button data-tab="doc">Consciousness Spectrum</button>
+    <button data-tab="arrest">Post-Arrest</button>
+    <button data-tab="braindeath">Brain Death</button>
+    <button data-tab="library">Evidence Library</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="cases">Cases</button>
+    <button data-tab="quiz">Self-Assessment</button>
+  </nav>
+
+  <!-- OBJECTIVES -->
+  <section class="tab-panel active" id="obj">
+    <h2>Own the comatose patient</h2>
+    <p class="lead">The general-physician Module 5 teaches the approach and prognosis. This version assumes you run the resuscitation, localize by brainstem exam, prognosticate after arrest with multimodal data, and lead a guideline-concordant brain-death determination.</p>
+    <div class="obj">
+      <strong>By the end you should be able to:</strong>
+      <ol>
+        <li>Resuscitate and work up coma in parallel (glucose, thiamine, naloxone, labs, CT, EEG).</li>
+        <li>Grade depth (GCS/FOUR) and localize the lesion by brainstem reflexes and motor pattern.</li>
+        <li>Separate structural from toxic-metabolic coma and recognize herniation.</li>
+        <li>Distinguish the disorders-of-consciousness states, including cognitive-motor dissociation.</li>
+        <li>Apply post-arrest temperature management and multimodal prognostication.</li>
+        <li>Perform the 2023-consensus brain-death/DNC determination.</li>
+      </ol>
+    </div>
+    <div class="warn"><strong>Educational use only.</strong> Brain-death determination must follow current guidelines and your institution's/jurisdiction's legal policy.</div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="tab-panel" id="approach">
+    <h2>Treat and diagnose simultaneously</h2>
+    <p>Coma requires either diffuse bilateral hemispheric dysfunction or a brainstem ARAS lesion. Stabilize while working through reversible causes with iterative reassessment.</p>
+    <ol>
+      <li><strong>ABCs</strong>; C-spine precautions if trauma possible.</li>
+      <li><strong>Fingerstick glucose</strong>; <strong>thiamine before/with glucose</strong>; dextrose if low.</li>
+      <li><strong>Naloxone</strong> for opioid toxidrome.</li>
+      <li>Labs: electrolytes, Ca, renal/hepatic, <strong>ammonia</strong>, ABG, osmolar gap, tox screen, TSH, cortisol, cultures.</li>
+      <li><strong>Non-contrast CT</strong> early; <strong>LP</strong> if CNS infection/SAH; <strong>EEG</strong> for nonconvulsive status.</li>
+      <li>Re-examine as data return.</li>
+    </ol>
+    <div class="pearl"><strong>Empiric thiamine for any unexplained AMS</strong> — Wernicke is not just an alcohol disease, and serum levels/MRI are insensitive early.</div>
+    <div class="pearl"><strong>Consider nonconvulsive status epilepticus</strong> whenever depressed consciousness is out of proportion to the apparent cause (especially in sepsis, post-arrest).</div>
+  </section>
+
+  <!-- EXAM -->
+  <section class="tab-panel" id="exam">
+    <h2>Exam &amp; localization</h2>
+    <p><strong>GCS</strong> (3–15) is the common language but omits brainstem and can't be fully scored when intubated; the <strong>FOUR score</strong> adds brainstem and respiration and works in intubated patients.</p>
+    <table>
+      <thead><tr><th>Brainstem reflex</th><th>Level</th><th>Interpretation</th></tr></thead>
+      <tbody>
+        <tr><td>Pupillary light</td><td>Midbrain</td><td>Fixed dilated = CN III / uncal; pinpoint reactive = pons/opioid; preserved reactive in deep coma = metabolic</td></tr>
+        <tr><td>Corneal</td><td>Pons</td><td>Pontine integrity</td></tr>
+        <tr><td>Oculocephalic / caloric</td><td>Pons–midbrain</td><td>Intact VOR = brainstem intact</td></tr>
+        <tr><td>Gag / cough</td><td>Medulla</td><td>Lower brainstem</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Motor:</strong> localizing = cortex relatively spared; <strong>decorticate</strong> (flexor) = above red nucleus; <strong>decerebrate</strong> (extensor) = midbrain/upper pons; flaccid = deep/metabolic.</p>
+    <div class="warn"><strong>Structural vs metabolic:</strong> asymmetric/focal signs, fixed or asymmetric pupils, gaze deviation, posturing → structural. Symmetric exam with <em>preserved reactive pupils</em> despite deep coma, asterixis/myoclonus → metabolic.</div>
+    <div class="warn"><strong>Blown pupil + declining GCS = uncal herniation:</strong> hyperosmolar therapy, head up, brief hyperventilation bridge, emergent neurosurgery.</div>
+  </section>
+
+  <!-- DOC -->
+  <section class="tab-panel" id="doc">
+    <h2>The consciousness spectrum</h2>
+    <table>
+      <thead><tr><th>State</th><th>Arousal</th><th>Awareness</th></tr></thead>
+      <tbody>
+        <tr><td>Coma</td><td>Absent</td><td>Absent</td></tr>
+        <tr><td>Vegetative / UWS</td><td>Present (sleep–wake)</td><td>Absent (reflexive only)</td></tr>
+        <tr><td>Minimally conscious (MCS)</td><td>Present</td><td>Inconsistent but reproducible (command-following, pursuit)</td></tr>
+        <tr><td>Cognitive-motor dissociation</td><td>Present</td><td>No behavior, but command-following on fMRI/EEG</td></tr>
+        <tr><td>Locked-in (mimic)</td><td>Present</td><td>Fully aware; vertical gaze/blink only</td></tr>
+      </tbody>
+    </table>
+    <div class="pearl"><strong>Covert consciousness is real.</strong> Behavioral scales misclassify some conscious patients; multimodal assessment (task fMRI/EEG, connectivity, heartbeat-evoked responses) detects cognitive-motor dissociation — so avoid overconfident early prognostication in disorders of consciousness.</div>
+    <div class="warn"><strong>Always exclude locked-in syndrome</strong> before calling a patient comatose — test vertical gaze and blink to command (ventral pontine/basilar lesion).</div>
+  </section>
+
+  <!-- POST-ARREST -->
+  <section class="tab-panel" id="arrest">
+    <h2>Post-cardiac-arrest care &amp; prognostication</h2>
+    <div class="trial"><strong>HACA (NEJM 2002).</strong> Mild hypothermia <strong>32–34 °C for 24 h</strong> after out-of-hospital VF arrest improved favorable neurologic outcome — established temperature management.</div>
+    <div class="trial"><strong>TTM trial (NEJM 2013).</strong> <strong>33 °C vs 36 °C</strong> — no difference in mortality (HR 1.06, 95% CI 0.89–1.28) or neurologic outcome. Practice shifted to <em>targeted temperature management</em> with strict fever avoidance.</div>
+    <div class="pearl"><strong>Prognostication is multimodal &amp; delayed.</strong> Avoid early nihilism and sedation confounding. Combine exam (pupil/corneal reflexes, malignant myoclonus), <strong>EEG</strong> (very-early patterns, burst-suppression), SSEP (bilateral N20 loss), NSE, and MRI — no single test decides.</div>
+  </section>
+
+  <!-- BRAIN DEATH (interactive) -->
+  <section class="tab-panel" id="braindeath">
+    <h2>Brain death / DNC — 2023 consensus checklist</h2>
+    <p class="muted">Work the determination in order. Tick each item; the verdict updates when all are satisfied. (Teaching aid — follow your institutional/legal protocol.)</p>
+    <div class="tool" id="bd">
+      <div class="grouphdr">Prerequisites</div>
+      <div class="checkitem"><input type="checkbox" class="bdc"><label>Established <strong>irreversible</strong> catastrophic brain injury of known cause</label></div>
+      <div class="checkitem"><input type="checkbox" class="bdc"><label>Confounders corrected: normotension, <strong>normothermia</strong>, no severe metabolic/endocrine derangement</label></div>
+      <div class="checkitem"><input type="checkbox" class="bdc"><label>No confounding <strong>CNS depressants / neuromuscular blockade</strong>; adequate observation interval</label></div>
+      <div class="grouphdr">Clinical examination</div>
+      <div class="checkitem"><input type="checkbox" class="bdc"><label>Coma with <strong>no responsiveness</strong> to noxious stimuli (spinal reflexes allowed)</label></div>
+      <div class="checkitem"><input type="checkbox" class="bdc"><label><strong>Absent brainstem reflexes</strong> (pupillary, corneal, oculocephalic/oculovestibular, gag, cough)</label></div>
+      <div class="checkitem"><input type="checkbox" class="bdc"><label><strong>Apnea test positive</strong>: no respiratory effort with PaCO₂ ≥ 60 mm Hg (or ≥ 20 above baseline)</label></div>
+      <div class="checkitem"><input type="checkbox" class="bdc"><label>Ancillary test performed <em>only if</em> exam/apnea cannot be completed or is confounded</label></div>
+      <div class="verdict" id="bdVerdict">0 / 7 completed — determination not yet satisfied.</div>
+    </div>
+  </section>
+
+  <!-- EVIDENCE LIBRARY -->
+  <section class="tab-panel" id="library">
+    <h2>Evidence library — provided sources</h2>
+    <p class="muted">The Module 5 resource set used to build this module, grouped by theme.</p>
+    <details class="acc"><summary>Coma approach &amp; disorders of consciousness</summary><div class="body"><ul>
+      <li>Stepwise Clinical &amp; Diagnostic Strategy for Coma of Unknown Origin</li>
+      <li>Multimodal Assessment of MCS and Cognitive-Motor Dissociation</li>
+      <li>Neural Correlates of Consciousness (reviews); Mapping fMRI Research in DoC</li>
+      <li>Meta-state Dynamics; Frontoparietal Effective Connectivity; Heartbeat-evoked Responses; VNS IPD meta-analysis</li>
+    </ul></div></details>
+    <details class="acc"><summary>Post-cardiac-arrest &amp; prognostication</summary><div class="body"><ul>
+      <li>Mild Therapeutic Hypothermia after Cardiac Arrest (HACA)</li>
+      <li>Targeted Temperature Management 33 °C vs 36 °C (TTM)</li>
+      <li>Very-early EEG for Poor Outcome in Postanoxic Coma</li>
+      <li>Early Neuro-prognostication with Patient State Index / Suppression Ratio</li>
+    </ul></div></details>
+    <details class="acc"><summary>Brain death / DNC</summary><div class="body"><ul>
+      <li>Pediatric &amp; Adult BD/DNC Consensus Practice Guideline (2023)</li>
+      <li>Determining Brain Death in Adults; Comprehensive Systematic Review Update</li>
+      <li>Improving Uniformity in Policies; Variability of US Policies; The Transatlantic Divide</li>
+    </ul></div></details>
+    <details class="acc"><summary>Delirium &amp; encephalopathies</summary><div class="body"><ul>
+      <li>Meta-review of ICU Delirium Interventions</li>
+      <li>Sepsis-associated Encephalopathy (×2 + decoding); Seizures and Sepsis; Neuropsychological Outcome after Severe Infection</li>
+      <li>Hepatic Encephalopathy (×2)</li>
+      <li>Thiamine for Altered Mental Status; Autoimmune Encephalitis in Acute Care; Metabolic Encephalopathy Imaging</li>
+    </ul></div></details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards — tap to flip</h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case-based reasoning</h2>
+
+    <div class="case">
+      <div class="vig"><strong>Case 1.</strong> A deeply unresponsive patient has symmetric, small, briskly reactive pupils, roving eye movements, and asterixis. No focal weakness.</div>
+      <details class="acc"><summary>Structural or metabolic?</summary>
+        <div class="body"><p><strong>Toxic-metabolic coma</strong> — symmetric exam with <em>preserved reactive pupils</em> despite deep unresponsiveness, plus asterixis. Pursue glucose, electrolytes, ammonia, ABG, tox screen, and give empiric thiamine; get an EEG for nonconvulsive status.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 2.</strong> A patient with a large hemispheric hemorrhage develops a new fixed, dilated right pupil and left hemiparesis, then declining consciousness.</div>
+      <details class="acc"><summary>What is happening and what do you do?</summary>
+        <div class="body"><p><strong>Uncal (transtentorial) herniation</strong> — CN III compression (blown pupil) with contralateral hemiparesis. Emergent hyperosmolar therapy (hypertonic saline/mannitol), head-of-bed up, brief hyperventilation as a bridge, and immediate neurosurgery.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 3.</strong> 48 h after resuscitation from VF arrest, a patient remains comatose off sedation. The team asks for prognosis.</div>
+      <details class="acc"><summary>How do you prognosticate?</summary>
+        <div class="body"><p><strong>Multimodal and not too early.</strong> Ensure temperature management and no sedation confounding; combine exam (pupil/corneal reflexes, malignant myoclonus), EEG, SSEP (bilateral N20 loss), NSE, and MRI. TTM showed 33 °C is not superior to 36 °C — the priority is targeted temperature control and fever avoidance, then delayed multimodal prognostication.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Self-assessment</h2>
+    <p class="muted">Pick an answer to reveal the explanation.</p>
+    <div id="quizHost"></div>
+  </section>
+
+  <footer>
+    Residency deep-dive · Coma &amp; Altered Mental Status. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 16), the 2023 BD/DNC consensus guideline, the HACA and TTM trials, and the disorders-of-consciousness, delirium, and encephalopathy literature. Educational reference — verify all management and brain-death determination against current guidelines and institutional/legal policy.
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  // Brain-death checklist
+  const bdBoxes=Array.from(document.querySelectorAll('#bd .bdc'));
+  const bdVerdict=document.getElementById('bdVerdict');
+  function updateBD(){
+    const n=bdBoxes.filter(b=>b.checked).length,t=bdBoxes.length;
+    if(n===t){bdVerdict.className='verdict done';bdVerdict.textContent=`${n} / ${t} — all criteria satisfied per the checklist. Document per institutional/legal policy (examiner number, observation period).`;}
+    else{bdVerdict.className='verdict';bdVerdict.textContent=`${n} / ${t} completed — determination not yet satisfied.`;}
+  }
+  bdBoxes.forEach(b=>b.addEventListener('change',updateBD));
+
+  const cards=[
+    ['Anatomy','Coma requires dysfunction of','Both hemispheres diffusely OR the brainstem ARAS'],
+    ['Mimic','Aware, only vertical gaze/blink','Locked-in syndrome (ventral pons/basilar)'],
+    ['Score','Advantage of FOUR over GCS','Adds brainstem + respiration; usable if intubated'],
+    ['Localize','Fixed dilated pupil + contralateral weakness','Uncal (transtentorial) herniation'],
+    ['Localize','Preserved reactive pupils in deep coma','Favors a metabolic cause'],
+    ['Reflex','Empiric drug for unexplained AMS','Parenteral thiamine (before/with glucose)'],
+    ['Trial','TTM 33 °C vs 36 °C result','No difference — target temperature control, avoid fever'],
+    ['Trial','HACA (2002) showed','Mild hypothermia 32–34 °C improves outcome after VF arrest'],
+    ['DoC','No behavior but follows commands on fMRI/EEG','Cognitive-motor dissociation (covert consciousness)'],
+    ['Brain death','Apnea-test PaCO₂ target','≥60 mm Hg (or ≥20 above baseline)'],
+    ['Brain death','When is ancillary testing required','Only if clinical exam/apnea can’t be completed/are confounded'],
+    ['ICU','Best delirium strategy','Multicomponent non-pharmacologic bundle (ABCDEF)']
+  ];
+  const deck=document.getElementById('deck');
+  cards.forEach(c=>{
+    const d=document.createElement('div');d.className='flashcard';
+    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
+    d.addEventListener('click',()=>d.classList.toggle('flipped'));
+    deck.appendChild(d);
+  });
+
+  const qs=[
+    {q:'A deeply comatose patient has symmetric, briskly reactive pupils and asterixis with no focal signs. The most likely category is:',
+     a:['Structural brainstem lesion','Toxic-metabolic encephalopathy','Uncal herniation','Subdural hematoma'],c:1,
+     e:'Preserved reactive pupils and symmetric findings despite deep coma, with asterixis, point to a metabolic cause. Structural lesions usually give focal/asymmetric signs or pupillary abnormalities.'},
+    {q:'In the TTM trial, targeting 33 °C compared with 36 °C after cardiac arrest resulted in:',
+     a:['Lower mortality at 33 °C','No significant difference in mortality or neurologic outcome','Higher mortality at 33 °C','Better outcome only in women'],c:1,
+     e:'TTM (2013) found no difference (HR 1.06, 95% CI 0.89–1.28). Practice shifted to targeted temperature management with fever avoidance rather than deep hypothermia.'},
+    {q:'During apnea testing for brain death, the accepted PaCO₂ threshold confirming no respiratory drive is:',
+     a:['≥45 mm Hg','≥50 mm Hg','≥60 mm Hg (or ≥20 above baseline)','≥80 mm Hg'],c:2,
+     e:'The consensus threshold is PaCO₂ ≥60 mm Hg (or ≥20 mm Hg above baseline), after normalizing the pre-test ABG.'},
+    {q:'A patient with severe brain injury shows no behavioral response but reliably activates motor cortex on fMRI when asked to imagine moving. This is:',
+     a:['Vegetative state','Cognitive-motor dissociation (covert consciousness)','Brain death','Locked-in syndrome'],c:1,
+     e:'Command-following detectable only on fMRI/EEG without behavioral output defines cognitive-motor dissociation — a reason to avoid overconfident early prognostication.'},
+    {q:'Which finding does NOT exclude brain death?',
+     a:['Spontaneous breathing','Persistent spinal-mediated reflex movements','Intact corneal reflexes','A confounding sedative level'],c:1,
+     e:'Spinally mediated reflexes can persist and do not exclude brain death. Spontaneous breathing, intact brainstem reflexes, or uncorrected confounders all preclude the determination.'}
+  ];
+  const host=document.getElementById('quizHost');
+  qs.forEach((item,i)=>{
+    const box=document.createElement('div');box.className='quiz';
+    let ch='';item.a.forEach((opt,j)=>ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`);
+    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
+    host.appendChild(box);
+  });
+  host.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i],parent=btn.closest('.quiz');
+    if(parent.dataset.done)return;parent.dataset.done='1';
+    parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
+    if(j===item.c)btn.classList.add('correct');
+    else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
+    const fb=document.getElementById('fb'+i);fb.className='feedback show '+(j===item.c?'good':'bad');
+    fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
+  }));
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 — Headache & Facial Pain (Residency Reference)</title>
+<style>
+  :root{
+    --ink:#15211f;--muted:#51635f;--line:#dfe7e5;--accent:#0f766e;--soft:#f1faf8;
+    --warn-bg:#fff4e8;--warn-bd:#e29a4c;--warn-ink:#7a4a10;
+    --pearl-bg:#ecfdf7;--pearl-bd:#0f766e;--pearl-ink:#0a4f49;
+    --trial-bg:#eefcf3;--trial-bd:#1f9d57;--trial-ink:#125a32;
+    --time-bg:#eef7ff;--time-bd:#3a86b0;--time-ink:#163a6a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif;color:var(--ink);background:#fff;line-height:1.58;max-width:880px;margin:0 auto;padding:48px 28px 96px}
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;color:var(--ink);line-height:1.25}
+  h1{font-size:2rem;margin:0 0 .2em;border-bottom:3px solid var(--accent);padding-bottom:.3em}
+  h2{font-size:1.4rem;margin-top:2.3em;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:.25em}
+  h3{font-size:1.16rem;margin-top:1.7em;color:#123c38}
+  h4{font-size:1.0rem;margin-top:1.3em;color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em;padding:0}
+  li{margin:.28em 0}
+  .meta{color:var(--muted);font-style:italic;margin:.2em 0 1.6em}
+  .lvl{display:inline-block;font-family:'Helvetica Neue',sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;background:var(--accent);color:#fff;padding:.18em .6em;border-radius:10px;margin-left:.4em}
+  .toc{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:14px 22px;margin:22px 0}
+  .toc h3{margin:0 0 .4em;color:var(--accent);font-size:1.05rem}
+  .toc ol{margin:.2em 0 .2em 1.3em}
+  .toc a{color:var(--ink);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.93rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:600;font-family:'Helvetica Neue','Segoe UI',sans-serif;color:#0d5f59}
+  tbody tr:nth-child(even){background:#fafdfc}
+  .pearl,.warn,.trial,.time{border-left:4px solid;padding:10px 14px;margin:.9em 0;border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg);border-color:var(--pearl-bd);color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-ink)}
+  .trial{background:var(--trial-bg);border-color:var(--trial-bd);color:var(--trial-ink)}
+  .time{background:var(--time-bg);border-color:var(--time-bd);color:var(--time-ink)}
+  .src{font-size:.8rem;color:var(--muted)}
+  hr{border:none;border-top:1px dashed var(--line);margin:2.2em 0}
+  .back-button{display:inline-block;margin-bottom:1.4em;padding:.55em 1.1em;background:var(--accent);color:#fff;text-decoration:none;border-radius:5px;font-size:.92rem;font-weight:600;font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif}
+  .back-button:hover{background:#0d5f59}
+  .alt-link{display:inline-block;margin:0 0 1.4em .5em;font-family:'Helvetica Neue',sans-serif;font-size:.85rem;color:var(--accent);text-decoration:none}
+  .alt-link:hover{text-decoration:underline}
+  @media print{body{max-width:100%;padding:24px}.toc{break-inside:avoid}h2{break-after:avoid}.back-button,.alt-link{display:none}}
+</style>
+</head>
+<body>
+
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<a href="Module_04_Headache_Residency_Interactive.html" class="alt-link">⚡ Open the interactive version</a>
+
+<h1>Module 4 — Headache &amp; Facial Pain <span class="lvl">Residency</span></h1>
+<p class="meta">Resident-depth reference · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 9, Headache and Other Craniofacial Pains) and the curated Module 4 resource library (ICHD-3 criteria, the CGRP-era migraine trials and the EHF 2022 monoclonal-antibody guideline, PREEMPT onabotulinumtoxinA, topiramate, cluster- and tension-type-headache reviews, and medication-overuse-headache evidence). Companion to the general-physician Module 4 — this version assumes you diagnose by ICHD-3, exclude the dangerous secondary causes, and build acute + preventive regimens including the CGRP therapies.</p>
+
+<div class="pearl"><strong>Updated with the provided evidence library.</strong> Classification follows ICHD-3; migraine treatment integrates the CGRP monoclonal antibodies and gepants with the EHF 2022 guidance; a full annotated <a href="#evidence">evidence library</a> is in §9.</div>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#redflags">First, exclude danger: SNOOP red flags</a></li>
+  <li><a href="#classify">ICHD-3: primary vs secondary headache</a></li>
+  <li><a href="#migraine">Migraine: diagnosis &amp; pathophysiology</a></li>
+  <li><a href="#acute">Migraine — acute treatment (incl. gepants &amp; ditans)</a></li>
+  <li><a href="#prevent">Migraine — preventive treatment (incl. CGRP mAbs &amp; botox)</a></li>
+  <li><a href="#cluster">Cluster headache &amp; the TACs</a></li>
+  <li><a href="#tth">Tension-type headache</a></li>
+  <li><a href="#moh">Medication-overuse headache</a></li>
+  <li><a href="#evidence">Evidence library (provided sources)</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</div>
+
+<h2 id="redflags">1. First, exclude danger: SNOOP red flags</h2>
+<p>Before assigning a primary-headache label, actively exclude secondary causes. The <strong>SNOOP</strong> mnemonic captures the high-yield red flags; any positive should prompt imaging and/or further workup.</p>
+<table>
+<thead><tr><th>Flag</th><th>Concern</th></tr></thead>
+<tbody>
+<tr><td><strong>S</strong> — Systemic symptoms/signs (fever, weight loss); Secondary risk (cancer, HIV, immunosuppression, pregnancy)</td><td>Meningitis, metastasis, opportunistic infection, CVST</td></tr>
+<tr><td><strong>N</strong> — Neurologic deficit or altered consciousness</td><td>Mass, stroke, encephalitis</td></tr>
+<tr><td><strong>O</strong> — Onset sudden/thunderclap (maximal &lt;1 min)</td><td>Subarachnoid hemorrhage, RCVS, CVST, pituitary apoplexy</td></tr>
+<tr><td><strong>O</strong> — Older age of onset (&gt;50)</td><td>Giant cell arteritis, mass lesion</td></tr>
+<tr><td><strong>P</strong> — Pattern change / Positional / Precipitated by Valsalva / Papilloedema</td><td>Raised or low ICP, posterior-fossa lesion, IIH</td></tr>
+</tbody>
+</table>
+<div class="warn"><strong>Thunderclap headache</strong> demands non-contrast CT and, if negative with ongoing suspicion, LP for xanthochromia (SAH), plus consideration of CVST (venography) and RCVS. <strong>New headache &gt;50 with jaw claudication/scalp tenderness</strong> → check ESR/CRP and treat suspected giant cell arteritis immediately to protect vision.</div>
+
+<h2 id="classify">2. ICHD-3: primary vs secondary headache</h2>
+<p>The International Classification of Headache Disorders, 3rd edition (ICHD-3) is the diagnostic standard. It divides disorders into <strong>primary</strong> (migraine, tension-type, trigeminal autonomic cephalalgias, other primary), <strong>secondary</strong> (attributed to trauma, vascular, non-vascular intracranial, substance/withdrawal, infection, homeostasis, structures of the head/neck, psychiatric), and <strong>painful cranial neuropathies</strong> (e.g., trigeminal neuralgia). Diagnosis is operational — a defined number of attacks meeting specific feature criteria — which is why counting attacks, duration, and associated symptoms matters.</p>
+
+<h2 id="migraine">3. Migraine: diagnosis &amp; pathophysiology</h2>
+<p><strong>Migraine without aura (ICHD-3 1.1):</strong> ≥5 attacks lasting 4–72 h with ≥2 of (unilateral, pulsating, moderate–severe, aggravated by routine activity) AND ≥1 of (nausea/vomiting, or photophobia <em>and</em> phonophobia), not better explained by another diagnosis. <strong>Migraine with aura (1.2):</strong> recurrent fully reversible aura (visual, sensory, speech/language, motor, brainstem, retinal), each aura symptom 5–60 min, followed within 60 min by headache. <strong>Chronic migraine (1.3):</strong> ≥15 headache days/month for &gt;3 months, of which ≥8 have migraine features.</p>
+<p><strong>Pathophysiology (resident depth):</strong> migraine is a disorder of brain excitability, not a "vascular headache." The aura corresponds to <strong>cortical spreading depression</strong>. Pain is generated by activation of the <strong>trigeminovascular system</strong> with release of <strong>calcitonin gene-related peptide (CGRP)</strong> and neurogenic inflammation, and involves the trigeminocervical complex and central sensitization (clinically, cutaneous allodynia). This CGRP biology is the rationale for the gepants and anti-CGRP monoclonal antibodies. Timing/chronobiology and endocannabinoid modulation are areas of active study represented in the resource set.</p>
+<div class="pearl"><strong>Migraine is a systemic risk marker too.</strong> The provided AMPP analysis notes elevated Framingham-based cardiovascular risk estimates among people with episodic migraine — relevant when choosing therapies (e.g., avoid triptans/ergots in uncontrolled vascular disease).</div>
+
+<h2 id="acute">4. Migraine — acute treatment</h2>
+<p>Treat early and at adequate dose; match agent to severity and comorbidity, and cap frequency to prevent medication-overuse headache.</p>
+<table>
+<thead><tr><th>Class</th><th>Examples</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Simple analgesics/NSAIDs</td><td>Aspirin, ibuprofen, naproxen, acetaminophen</td><td>First step for mild–moderate</td></tr>
+<tr><td>Triptans (5-HT₁B/₁D)</td><td>Sumatriptan, rizatriptan, eletriptan</td><td>Mainstay for moderate–severe; contraindicated in coronary/cerebrovascular disease, uncontrolled HTN</td></tr>
+<tr><td>Gepants (CGRP-receptor antagonists)</td><td><strong>Ubrogepant</strong>, <strong>rimegepant</strong></td><td>No vasoconstriction — usable when triptans contraindicated or ineffective</td></tr>
+<tr><td>Ditans (5-HT₁F)</td><td>Lasmiditan</td><td>No vasoconstriction; CNS side effects, driving caution</td></tr>
+<tr><td>Antiemetics/adjuncts</td><td>Metoclopramide, prochlorperazine</td><td>Aid absorption and nausea</td></tr>
+</tbody>
+</table>
+<div class="trial"><strong>Ubrogepant (ACHIEVE program).</strong> An oral CGRP-receptor antagonist; in the placebo-controlled single-attack trials, ubrogepant (e.g., 50 mg) met the co-primary endpoints of <strong>2-hour pain freedom</strong> and freedom from the <strong>most bothersome associated symptom</strong> (photophobia, phonophobia, or nausea). Offers an acute option without triptan-type vasoconstriction.</div>
+<div class="trial"><strong>Rimegepant.</strong> A gepant effective for <strong>both acute and preventive</strong> use (acute 75 mg; preventive every-other-day dosing) — a useful dual-purpose agent, and the provided safety data support combining it with anti-CGRP mAbs in selected patients.</div>
+
+<h2 id="prevent">5. Migraine — preventive treatment</h2>
+<p>Offer prevention when attacks are frequent (broadly ≥4 migraine days/month with impairment), long, disabling, or when acute therapy is contraindicated/overused. Set expectations (≈50% reduction is a success), titrate slowly, and give each oral agent an adequate trial (~8 weeks at target dose).</p>
+<h4>Established oral preventives</h4>
+<ul>
+  <li><strong>Topiramate</strong> — Cochrane-level evidence of efficacy for episodic migraine (≥50%-responder benefit vs placebo); watch cognitive effects, paresthesia, weight loss, nephrolithiasis, and teratogenicity.</li>
+  <li><strong>Beta-blockers</strong> (propranolol, metoprolol), <strong>candesartan</strong>, <strong>amitriptyline</strong>, and <strong>valproate</strong> (avoid in pregnancy) — choose by comorbidity.</li>
+</ul>
+<h4>CGRP-targeted prevention (the practice-changing class)</h4>
+<div class="trial"><strong>Anti-CGRP monoclonal antibodies</strong> — <strong>erenumab</strong> (receptor), <strong>fremanezumab</strong>, <strong>galcanezumab</strong>, <strong>eptinezumab</strong> (ligand). RCTs across episodic and chronic migraine (e.g., fremanezumab and galcanezumab pivotal trials, and the FOCUS trial in patients with 2–4 prior preventive failures) show reduced monthly migraine days with favorable tolerability, including in difficult-to-treat and multiple-prior-failure populations.</div>
+<div class="trial"><strong>EHF 2022 guideline.</strong> The European Headache Federation found <strong>moderate-to-high-quality evidence to recommend eptinezumab, erenumab, fremanezumab, and galcanezumab</strong> for migraine prevention. Increasingly these are argued to be a <strong>first-line</strong> preventive option rather than reserved after multiple oral failures.</div>
+<div class="trial"><strong>OnabotulinumtoxinA (PREEMPT).</strong> For <strong>chronic migraine</strong> (≥15 headache days/month), the PREEMPT paradigm — <strong>155 units across 31 fixed injection sites</strong> every 12 weeks — reduces headache days versus placebo. It is a chronic-migraine treatment (not indicated for episodic migraine).</div>
+<div class="pearl"><strong>Sequencing &amp; response.</strong> Non-response to one CGRP mAb does not preclude response to another or to switching class; the provided galcanezumab non-responder analyses show some initial non-responders convert with continued therapy. Reassess at ~3 months.</div>
+
+<h2 id="cluster">6. Cluster headache &amp; the TACs</h2>
+<p>Cluster headache is the prototypical <strong>trigeminal autonomic cephalalgia (TAC)</strong>: severe strictly unilateral orbital/temporal pain lasting 15–180 min, occurring up to several times daily in bouts, with ipsilateral cranial autonomic features (lacrimation, conjunctival injection, rhinorrhea, ptosis/miosis) and a sense of restlessness/agitation (distinguishing it from migraine, where patients seek stillness).</p>
+<table>
+<thead><tr><th>Phase</th><th>Treatment</th></tr></thead>
+<tbody>
+<tr><td>Acute attack</td><td><strong>High-flow 100% oxygen</strong> (12–15 L/min via non-rebreather) and <strong>subcutaneous sumatriptan</strong></td></tr>
+<tr><td>Transitional (bridge)</td><td>Greater occipital nerve block; short oral corticosteroid course</td></tr>
+<tr><td>Preventive</td><td><strong>Verapamil</strong> (first-line; monitor ECG/PR interval); lithium, topiramate; <strong>galcanezumab</strong> for episodic cluster</td></tr>
+</tbody>
+</table>
+<p>Other TACs — paroxysmal hemicrania (absolutely responsive to <strong>indomethacin</strong>) and SUNCT/SUNA — must be distinguished, as management differs.</p>
+
+<h2 id="tth">7. Tension-type headache</h2>
+<p>The most prevalent primary headache: bilateral, pressing/tightening (non-pulsatile), mild–moderate, not aggravated by routine activity, without the migrainous associated-symptom burden. Managed with simple analgesics/NSAIDs for episodic disease; for frequent/chronic TTH, <strong>amitriptyline</strong> is first-line preventive, alongside addressing sleep, stress, posture, and limiting analgesic frequency to avoid overuse.</p>
+
+<h2 id="moh">8. Medication-overuse headache</h2>
+<p>MOH is headache present ≥15 days/month developing in a patient with a pre-existing primary headache who overuses acute medication (≥10 days/month for triptans, ergots, opioids, or combination analgesics; ≥15 days/month for simple analgesics) for &gt;3 months. Management combines <strong>patient education, withdrawal of the overused agent, and starting an effective preventive</strong>. The provided evidence shows onabotulinumtoxinA and anti-CGRP monoclonal antibodies can help patients transition out of overuse without a mandatory prior detoxification in many cases.</p>
+<div class="warn"><strong>Butalbital and opioids</strong> are the highest-risk agents for MOH and chronification — avoid them for migraine and taper carefully when overused.</div>
+
+<hr>
+<h2 id="evidence">9. Evidence library (provided sources)</h2>
+<p>Papers from the <em>Module 4 resource</em> folder used to build this module, grouped by theme.</p>
+<h4>Classification, pathophysiology &amp; risk</h4>
+<ul>
+  <li>ICHD-3 Pocket Version (classification criteria).</li>
+  <li>Neurogenic Inflammation and Its Role in Migraine.</li>
+  <li>Time and Headache / Insights into Timing Processes in Primary Headache Disorders.</li>
+  <li>Endocannabinoid Modulation in Headache — Mechanisms, Models, Translational Therapies.</li>
+  <li>Framingham-Based Cardiovascular Risk Among People with Episodic Migraine (AMPP study).</li>
+  <li>Migraine (overview); Management of Acute and Chronic Migraine.</li>
+</ul>
+<h4>Acute migraine — gepants</h4>
+<ul>
+  <li>Effect of Ubrogepant vs Placebo on Pain and Most Bothersome Symptom (ACHIEVE).</li>
+  <li>Efficacy and Safety of Rimegepant for Acute and Preventive Treatment.</li>
+  <li>Comparative Efficacy of Oral CGRP Antagonists for Acute Migraine.</li>
+  <li>Adding Additional Acute Medications to a Triptan Regimen — disability outcomes.</li>
+  <li>Safety of Rimegepant Plus CGRP Monoclonal Antibodies.</li>
+</ul>
+<h4>Preventive migraine — CGRP mAbs, botox, orals</h4>
+<ul>
+  <li>EHF Guideline on CGRP-pathway Monoclonal Antibodies — 2022 update.</li>
+  <li>CGRP-targeting Therapies Are a First-line Option for Prevention; CGRP Ligand &amp; Receptor mAbs for Prevention.</li>
+  <li>Fremanezumab — episodic and chronic migraine; FOCUS (2–4 prior failures); age/sex subgroup.</li>
+  <li>Galcanezumab — episodic prevention, persistence, non-responder analyses, prior-failure population.</li>
+  <li>Erenumab in episodic migraine with 2–4 prior preventive failures.</li>
+  <li>Comparative Efficacy/Safety of Five Anti-CGRP Agents; Safety/Tolerability of mAbs and Gepants.</li>
+  <li>OnabotulinumtoxinA for Chronic Migraine (PREEMPT); Method of Injection; Onabotulinumtoxin in MOH.</li>
+  <li>Topiramate for Prophylaxis of Episodic Migraine; Preventive/Clinical-effectiveness reviews for chronic migraine.</li>
+  <li>Transition of Medication-overuse Status After Anti-CGRP mAbs.</li>
+</ul>
+<h4>Cluster &amp; tension-type headache</h4>
+<ul>
+  <li>Cluster Headache; Cluster Headache — An Update; Acute and Preventive Treatment of Cluster Headache (Taiwan).</li>
+  <li>Update on Tension-type Headache.</li>
+</ul>
+
+<hr>
+<h2 id="sources">Sources</h2>
+<p class="src">Adams &amp; Victor's Principles of Neurology, 12th ed., Ch. 9 (Headache and Other Craniofacial Pains). International Classification of Headache Disorders, 3rd edition (ICHD-3). Migraine acute therapy: ubrogepant (ACHIEVE) and rimegepant trials. Migraine prevention: anti-CGRP monoclonal-antibody trials (erenumab, fremanezumab incl. FOCUS, galcanezumab, eptinezumab), the European Headache Federation 2022 CGRP-mAb guideline, onabotulinumtoxinA PREEMPT program, and topiramate (Cochrane review). Cluster headache and tension-type headache reviews and the medication-overuse-headache/anti-CGRP transition literature as provided in the Module 4 resource folder. Educational reference for residency training — confirm all management against current guidelines and product labeling at the point of care.</p>
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residency Deep-Dive — MS, NMOSD, MOGAD & Neuroimmunology</title>
+<style>
+  :root{
+    --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
+    --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
+    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);color:var(--ink);min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 22px 80px}
+  .top-link{color:var(--time);text-decoration:none;font-size:.85rem}
+  .top-link:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin:14px 0 20px}
+  header h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:.3px}
+  header .sub{color:var(--muted);font-size:.95rem}
+  header .badge{display:inline-block;padding:2px 10px;border-radius:10px;background:rgba(14,165,164,.16);color:var(--accent-2);font-size:.78rem;margin:8px 6px 0 0}
+  header .badge.lvl{background:rgba(95,176,255,.16);color:#cfe6ff}
+
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px}
+  nav.tabs button{background:transparent;color:var(--muted);border:none;padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit;font-size:.9rem;transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent);color:#04201f;font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  h2{font-size:1.3rem;margin:1.3em 0 .5em;color:var(--accent-2)}
+  h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
+  p{line-height:1.65}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
+
+  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+";color:var(--accent);font-size:1.3rem;margin-left:10px;transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px;color:var(--ink)}
+  details.acc .body p{margin:.4em 0}
+  details.acc .body ul{margin:.3em 0 .6em 1.2em}
+
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--accent-2);font-weight:600}
+
+  .pearl,.warn,.trial,.time{padding:10px 14px;border-radius:8px;margin:.8em 0;border-left:4px solid}
+  .pearl{background:rgba(14,165,164,.10);border-color:var(--accent);color:#c8f3f0}
+  .warn{background:rgba(255,185,92,.10);border-color:var(--warn);color:#ffe2b8}
+  .trial{background:rgba(95,210,138,.10);border-color:var(--good);color:#d6f6e3}
+  .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
+  .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
+  .obj ol{margin:.3em 0 .2em 1.2em}
+
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .tool .q{font-weight:600;color:var(--accent-2);margin:14px 0 8px;font-size:1rem}
+  .tool .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .tool .opt{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:20px;cursor:pointer;font:inherit;font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent);color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent);color:#04201f;border-color:var(--accent);font-weight:600}
+  .tool .result{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(14,165,164,.08);border:1px solid var(--accent);display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px;color:var(--accent-2);font-size:1.05rem}
+  .tool button.reset{background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit;font-size:.85rem;margin-top:12px}
+  .tool button.reset:hover{color:var(--ink);border-color:var(--accent)}
+
+  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
+  .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
+  .flashcard .face{position:relative;width:100%;height:180px;transition:transform .55s;transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front,.flashcard .back{position:absolute;inset:0;backface-visibility:hidden;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .flashcard .front{color:var(--accent-2);font-size:1rem;font-weight:600}
+  .flashcard .back{transform:rotateY(180deg);background:var(--panel-2);color:var(--ink);font-size:.86rem;line-height:1.45}
+  .flashcard .tag{position:absolute;top:8px;left:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+  .quiz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .quiz h4{margin:0 0 8px;color:var(--accent-2);font-size:1rem}
+  .quiz .stem{margin:0 0 12px;line-height:1.55}
+  .quiz .choices{display:flex;flex-direction:column;gap:8px}
+  .quiz .choice{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:background .15s,border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15);border-color:var(--good);color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12);border-color:var(--bad);color:#ffd8d8}
+  .quiz .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.92rem;display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12);color:#dffce9;border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10);color:#ffd8d8;border:1px solid var(--bad)}
+
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
+
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
+  <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
+  <a href="Module_08_MS_NMOSD_Residency_Reference.html" class="top-link">📖 Reference version</a>
+  <header>
+    <h1>MS, NMOSD, MOGAD &amp; Neuroimmunology</h1>
+    <div class="sub">Residency deep-dive · PGY-3 subspecialty · get the antibody right before you commit to therapy</div>
+    <span class="badge lvl">Resident level</span>
+    <span class="badge">2024 McDonald</span>
+    <span class="badge">NMOSD biologics</span>
+    <span class="badge">MOGAD 2023</span>
+    <span class="badge">Autoimmune encephalitis</span>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="obj">Objectives</button>
+    <button data-tab="differ">Differentiator</button>
+    <button data-tab="msdx">MS Diagnosis</button>
+    <button data-tab="msrx">MS Therapy</button>
+    <button data-tab="nmo">NMOSD / MOGAD</button>
+    <button data-tab="ae">Autoimmune Encephalitis</button>
+    <button data-tab="mimics">Mimics</button>
+    <button data-tab="library">Evidence Library</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="cases">Cases</button>
+    <button data-tab="quiz">Self-Assessment</button>
+  </nav>
+
+  <!-- OBJECTIVES -->
+  <section class="tab-panel active" id="obj">
+    <h2>Three diseases that look alike and are treated differently</h2>
+    <p class="lead">The general-physician Module 8 teaches recognition and referral. This version assumes you apply current criteria, know why an MS drug can harm an NMOSD patient, interpret antibody titres critically, and run the autoimmune-encephalitis workup.</p>
+    <div class="obj">
+      <strong>By the end you should be able to:</strong>
+      <ol>
+        <li>Diagnose MS using the 2024 McDonald criteria — and articulate the overdiagnosis critique.</li>
+        <li>Select and monitor disease-modifying therapy by efficacy tier and risk.</li>
+        <li>Recognise NMOSD and prescribe from the approved biologic classes.</li>
+        <li>Apply the 2023 MOGAD criteria and resist over-reading low-positive MOG-IgG.</li>
+        <li>Identify the major antibody syndromes and treat autoimmune encephalitis early.</li>
+        <li>Work up paraneoplastic disease, CNS vasculitis, and neurosarcoidosis.</li>
+      </ol>
+    </div>
+    <div class="warn"><strong>Educational use only.</strong> Verify criteria, drugs, and monitoring against current guidelines and product labeling at the point of care.</div>
+  </section>
+
+  <!-- DIFFERENTIATOR -->
+  <section class="tab-panel" id="differ">
+    <h2>Interactive demyelinating differentiator</h2>
+    <p class="muted">Choose the most striking feature; get the leading entity and the antibody to send.</p>
+    <div class="tool" id="dx">
+      <div class="q">Most striking feature?</div>
+      <div class="opts" data-group="feat">
+        <button class="opt" data-v="typical">Young adult, short-segment cord/periventricular lesions, OCB positive</button>
+        <button class="opt" data-v="letm">Longitudinally extensive myelitis (≥3 segments) ± severe bilateral optic neuritis</button>
+        <button class="opt" data-v="postrema">Intractable hiccups, nausea and vomiting</button>
+        <button class="opt" data-v="mog">Bilateral optic neuritis with marked disc oedema, steroid-responsive, relapses on withdrawal</button>
+        <button class="opt" data-v="adem">Child, encephalopathy + large poorly demarcated multifocal lesions after infection</button>
+        <button class="opt" data-v="limbic">Subacute memory loss, seizures, psychiatric change</button>
+      </div>
+      <div class="result" id="dxResult"><h4>Leading entity</h4><p id="dxText"></p></div>
+      <button class="reset" id="dxReset">Reset</button>
+    </div>
+  </section>
+
+  <!-- MS DIAGNOSIS -->
+  <section class="tab-panel" id="msdx">
+    <h2>MS diagnosis &amp; the 2024 McDonald criteria</h2>
+    <p>Demonstrate <strong>dissemination in space (DIS)</strong> and <strong>time (DIT)</strong>, excluding better explanations. Phenotypes: relapsing-remitting, secondary progressive, primary progressive.</p>
+    <div class="trial"><strong>2024 revisions.</strong> (1) <strong>Optic nerve added as a fifth DIS site</strong> (with periventricular, cortical/juxtacortical, infratentorial, spinal cord); (2) <strong>DIT no longer required in selected circumstances</strong>; (3) new paraclinical markers — <strong>central vein sign</strong>, <strong>paramagnetic rim lesions</strong>, and the <strong>CSF kappa free light chain index</strong> as an alternative to CSF-specific oligoclonal bands.</div>
+    <div class="trial"><strong>Real-world effect.</strong> In a 306-patient multicentre Korean cohort, the 2024 criteria diagnosed MS <strong>earlier and in more patients</strong> than 2017 — mainly via the optic-nerve DIS site (~6.7% additional).</div>
+    <div class="warn"><strong>Overdiagnosis caveat.</strong> Critiques warn that relaxing DIT and broadening substitutions reduce specificity and invite confirmation bias — especially if applied to <strong>nonspecific symptoms or incidental white-matter findings/RIS</strong>. The criteria assume a <em>typical demyelinating presentation</em>.</div>
+    <div class="pearl"><strong>Red flags against MS:</strong> normal MRI, LETM, severe bilateral optic neuritis, area postrema syndrome, meningeal enhancement, prominent systemic features, progressive myelopathy without dissemination.</div>
+    <h3>MRI standards</h3>
+    <p>Follow standardised protocols (German neuroradiology consensus): consistent sequences/geometry, appropriate gadolinium, reproducible intervals so <strong>new/enlarging T2 lesions</strong> are reliably detected. Typical lesions: ovoid, periventricular (Dawson fingers), juxtacortical/cortical, infratentorial, short-segment cord.</p>
+  </section>
+
+  <!-- MS THERAPY -->
+  <section class="tab-panel" id="msrx">
+    <h2>MS therapy</h2>
+    <h3>Acute relapse</h3>
+    <p>High-dose corticosteroids speed recovery (no long-term disability change); <strong>plasma exchange</strong> for severe steroid-refractory attacks. Exclude <strong>pseudo-relapse</strong> (infection/fever, Uhthoff) first.</p>
+    <h3>Disease-modifying therapy</h3>
+    <table>
+      <thead><tr><th>Tier</th><th>Agents</th><th>Key risks / monitoring</th></tr></thead>
+      <tbody>
+        <tr><td>Modest–moderate</td><td>Interferon-β, glatiramer, teriflunomide, dimethyl fumarate</td><td>LFTs, lymphopenia (PML if severe), teriflunomide teratogenicity</td></tr>
+        <tr><td>Higher</td><td>S1P modulators (fingolimod, siponimod), cladribine</td><td>First-dose bradycardia, macular oedema, infection; <strong>rebound</strong> after S1P stop</td></tr>
+        <tr><td>High (monoclonals)</td><td>Natalizumab, anti-CD20 (ocrelizumab, ofatumumab, rituximab), alemtuzumab</td><td><strong>Natalizumab PML</strong> (JCV serostatus/duration); anti-CD20 hypogammaglobulinaemia/vaccine blunting; alemtuzumab secondary autoimmunity</td></tr>
+      </tbody>
+    </table>
+    <p>Ocrelizumab is also used in <strong>primary progressive MS</strong>. Trend favours <strong>early high-efficacy therapy</strong> in active/poor-prognosis disease. Don't neglect symptomatic care: spasticity, fatigue, bladder, neuropathic pain, mood, rehabilitation.</p>
+    <div class="warn"><strong>Before any DMT:</strong> confirm it's not a mimic, check antibodies if atypical, screen HBV/TB/JCV, update vaccines, plan pregnancy.</div>
+  </section>
+
+  <!-- NMOSD / MOGAD -->
+  <section class="tab-panel" id="nmo">
+    <h2>NMOSD &amp; MOGAD</h2>
+    <h3>NMOSD (AQP4-IgG astrocytopathy)</h3>
+    <p>Core syndromes: severe/bilateral optic neuritis, <strong>LETM (≥3 segments)</strong>, <strong>area postrema syndrome</strong> (intractable hiccups/nausea/vomiting), acute brainstem, diencephalic, cerebral. Disability is <strong>attack-related</strong> → prevention is everything. Test AQP4-IgG by <strong>cell-based assay</strong>.</p>
+    <div class="trial"><strong>Approved biologics.</strong> Complement inhibitors (<strong>eculizumab, ravulizumab</strong>), anti-IL-6R (<strong>satralizumab</strong>, tocilizumab), anti-CD19 (<strong>inebilizumab</strong>), plus rituximab and older agents (azathioprine, mycophenolate) — relapse-risk reductions on the order of 60–90% in trial programmes.</div>
+    <div class="warn"><strong>Two hard rules:</strong> complement inhibitors require <strong>meningococcal vaccination</strong>; and <strong>MS drugs (interferon-β, natalizumab) can severely worsen NMOSD</strong> — get antibody status first.</div>
+    <h3>MOGAD</h3>
+    <p>Bilateral optic neuritis with marked disc oedema, myelitis (often longitudinally extensive, conus), ADEM-like presentations, cortical encephalitis with seizures. Steroid-responsive but relapses on withdrawal.</p>
+    <div class="trial"><strong>MOG-IgG positivity ≠ MOGAD.</strong> Applying the <strong>2023 international criteria</strong> at a referral centre, only ~68% of patients labelled MOGAD actually met criteria — misapplication from testing without a compatible phenotype and over-reading <strong>low-positive titres</strong>. Require a compatible syndrome + clear-positive cell-based assay (or supporting features if low-positive).</div>
+    <h3>ADEM</h3>
+    <p>Monophasic post-infectious demyelination of childhood; <strong>encephalopathy</strong> + multifocal large poorly demarcated lesions is the discriminator from a first MS attack. Many are <strong>MOG-IgG positive</strong>. Steroids first; IVIG/PLEX if refractory.</p>
+  </section>
+
+  <!-- AUTOIMMUNE ENCEPHALITIS -->
+  <section class="tab-panel" id="ae">
+    <h2>Autoimmune encephalitis &amp; antibody syndromes</h2>
+    <p>Recognise the syndrome → test <strong>serum AND CSF</strong> (CSF essential for NMDA-R) → image/EEG → <strong>hunt for a tumour</strong> → treat early and empirically.</p>
+    <table>
+      <thead><tr><th>Antibody</th><th>Phenotype</th><th>Association</th></tr></thead>
+      <tbody>
+        <tr><td>NMDA receptor</td><td>Psychiatric prodrome → seizures, orofacial dyskinesias, dysautonomia, catatonia</td><td>Ovarian teratoma; <strong>post-HSV trigger</strong></td></tr>
+        <tr><td>LGI1</td><td>Limbic encephalitis, <strong>faciobrachial dystonic seizures</strong>, <strong>hyponatraemia</strong></td><td>Usually non-paraneoplastic; treat fast</td></tr>
+        <tr><td>CASPR2</td><td>Morvan syndrome, neuromyotonia, neuropathic pain, insomnia</td><td>Thymoma</td></tr>
+        <tr><td>GABA-B</td><td>Limbic encephalitis with <strong>early prominent seizures/status</strong></td><td><strong>Small-cell lung cancer</strong></td></tr>
+        <tr><td>AMPA receptor</td><td>Limbic encephalitis, psychiatric features, relapsing</td><td>Lung/breast/thymus</td></tr>
+        <tr><td>GAD65 / amphiphysin</td><td>Stiff-person spectrum, cerebellar ataxia, epilepsy</td><td>Amphiphysin → breast cancer</td></tr>
+      </tbody>
+    </table>
+    <div class="trial"><strong>NMDA-R treatment (provided cohort).</strong> First-line = steroids + IVIG or plasma exchange <em>plus tumour removal</em>; escalate to <strong>rituximab/cyclophosphamide</strong> in non-responders. Early treatment and tumour removal predict better outcome; recovery continues over many months.</div>
+    <div class="pearl"><strong>Post-HSV autoimmune encephalitis:</strong> new movement disorder/psychiatric decline weeks after HSE with negative repeat HSV PCR → test NMDA-R and give immunotherapy, not more acyclovir.</div>
+    <div class="warn"><strong>Normal MRI doesn't exclude it</strong> — MRI is frequently normal in NMDA-R encephalitis; EEG may show extreme delta brush.</div>
+  </section>
+
+  <!-- MIMICS -->
+  <section class="tab-panel" id="mimics">
+    <h2>Paraneoplastic, CNS vasculitis &amp; neurosarcoidosis</h2>
+    <div class="trial"><strong>PNS-CARE (2021).</strong> Combines phenotype risk + antibody risk + cancer presence into a score; <strong>≥6 = probable/definite</strong> paraneoplastic neurologic syndrome. Validated well in the provided cohort, though some convincing cases scored ≤5 — judgement still required. Classic phenotypes: rapidly progressive cerebellar syndrome, limbic encephalitis, opsoclonus-myoclonus, sensory neuronopathy.</div>
+    <p><strong>Immune checkpoint inhibitors</strong> are a growing cause of antibody-positive neurologic complications — recognise, stop the drug, immunosuppress.</p>
+    <p><strong>Primary CNS vasculitis:</strong> headache, cognitive change, multi-territory strokes, seizures; angiography may be normal in small-vessel disease — <strong>biopsy is the gold standard</strong>. Distinguish from <strong>RCVS</strong> (thunderclap, reversible string-of-beads) — opposite treatments.</p>
+    <p><strong>Neurosarcoidosis:</strong> cranial neuropathies (especially facial), basal <strong>leptomeningeal enhancement</strong>, hypothalamic-pituitary dysfunction, myelopathy. Steroids → methotrexate/mycophenolate → <strong>infliximab</strong> if refractory.</p>
+    <div class="pearl"><strong>The neuroimmunology habit:</strong> <em>Is there an antibody? Is there a tumour? Is there a systemic disease?</em></div>
+  </section>
+
+  <!-- EVIDENCE LIBRARY -->
+  <section class="tab-panel" id="library">
+    <h2>Evidence library — provided sources</h2>
+    <p class="muted">The Module 8 resource set used to build this module, grouped by theme.</p>
+    <details class="acc"><summary>MS — criteria &amp; imaging</summary><div class="body"><ul>
+      <li>Application of the 2024 and 2017 McDonald Criteria (Korean cohort)</li>
+      <li>Concerns Regarding the 2024 Revisions; Scharf et al. — 2024 criteria in nonspecific symptoms/incidental findings</li>
+      <li>German Society of Neuroradiology MRI Consensus Guidelines</li>
+      <li>Update on Pathology of CNS Inflammatory Demyelinating Diseases</li>
+    </ul></div></details>
+    <details class="acc"><summary>NMOSD, MOGAD &amp; ADEM</summary><div class="body"><ul>
+      <li>Immunotherapies in Neuromyelitis Optica</li>
+      <li>MOG-IgG Positivity Does Not Equal MOGAD (2023 criteria misapplication)</li>
+      <li>MOGAD vs AQP4-IgG NMOSD in Children</li>
+      <li>Update on ADEM in Children and Adolescents</li>
+    </ul></div></details>
+    <details class="acc"><summary>Autoimmune encephalitis</summary><div class="body"><ul>
+      <li>Clinical Approach to Diagnosis of AE; Antibodies and Neuronal Autoimmune Disorders; MRI Findings in AE</li>
+      <li>NMDA-R: treatment/prognostic factors; differences in treatment; HSV-1 trigger; post-HSE autoimmune encephalitis</li>
+      <li>LGI1 encephalitis; CASPR2 neurobiology/immunology; GABA-B encephalitis (+SPECT); AMPA-R (×2)</li>
+      <li>Temporal lobe seizures with limbic-encephalitis features; Predictive models in autoimmune epilepsy</li>
+      <li>Stiff Person Spectrum Disorder outcomes; Immune dysregulation in pediatric tics</li>
+    </ul></div></details>
+    <details class="acc"><summary>Paraneoplastic &amp; mimics</summary><div class="body"><ul>
+      <li>PNS-CARE analysis; Zekeridou — Paraneoplastic Neurologic Disorders</li>
+      <li>Checkpoint-inhibitor paraneoplastic syndromes</li>
+      <li>Heterogeneity of Primary CNS Vasculitis</li>
+      <li>Neurosarcoidosis; Pawate — Sarcoidosis and the Nervous System</li>
+    </ul></div></details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards — tap to flip</h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case-based reasoning</h2>
+
+    <div class="case">
+      <div class="vig"><strong>Case 1.</strong> A 34-year-old woman has severe bilateral optic neuritis and a cord lesion spanning T4–T8, with intractable hiccups for a week beforehand.</div>
+      <details class="acc"><summary>Diagnosis, test, and the therapy trap?</summary>
+        <div class="body"><p><strong>NMOSD</strong> — LETM + severe bilateral optic neuritis + area postrema syndrome. Send <strong>AQP4-IgG by cell-based assay</strong>. Treat the attack (steroids ± plasma exchange) and start a preventive biologic (eculizumab/ravulizumab, satralizumab, or inebilizumab; rituximab an option). <strong>Trap:</strong> do <em>not</em> start interferon-β or natalizumab — MS drugs can worsen NMOSD.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 2.</strong> A 24-year-old develops psychiatric symptoms, then seizures, orofacial dyskinesias, and autonomic instability. MRI brain is normal.</div>
+      <details class="acc"><summary>Diagnosis and management?</summary>
+        <div class="body"><p><strong>Anti-NMDA receptor encephalitis</strong> — a normal MRI is common. Send <strong>CSF</strong> NMDA-R antibodies (CSF essential), EEG (extreme delta brush), and <strong>screen for ovarian teratoma</strong>. Give first-line immunotherapy (steroids + IVIG or PLEX) with <strong>tumour removal</strong>; escalate to rituximab/cyclophosphamide if no response. Recovery is often slow but substantial.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 3.</strong> A patient with chronic headache and incidental scattered white-matter T2 lesions is referred with "possible MS." No prior clinical attack; optic nerves normal.</div>
+      <details class="acc"><summary>Do the 2024 McDonald criteria apply?</summary>
+        <div class="body"><p><strong>No — this is where the criteria are misused.</strong> The 2024 McDonald criteria are validated for patients with a <em>typical demyelinating presentation</em>. Applying them to nonspecific symptoms or incidental findings risks <strong>overdiagnosis</strong>. Consider radiologically isolated syndrome, pursue mimics (migraine, vascular, systemic inflammatory), and follow clinically/radiologically rather than labelling MS.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Self-assessment</h2>
+    <p class="muted">Pick an answer to reveal the explanation.</p>
+    <div id="quizHost"></div>
+  </section>
+
+  <footer>
+    Residency deep-dive · MS, NMOSD, MOGAD &amp; Neuroimmunology. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 35), the 2024 McDonald criteria and critiques, NMOSD immunotherapy trials, the 2023 MOGAD criteria, and the autoimmune-encephalitis/paraneoplastic literature. Educational reference — verify against current guidelines at the point of care.
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  const sel={feat:null};
+  document.querySelectorAll('#dx .opts').forEach(g=>{
+    g.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{
+      g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');sel.feat=o.dataset.v;evalDx();
+    }));
+  });
+  function evalDx(){
+    let out;
+    switch(sel.feat){
+      case 'typical':out='<strong>Multiple sclerosis.</strong> Apply the 2024 McDonald criteria (optic nerve = 5th DIS site; CVS/PRL and kappa free light chain index available). Confirm it is a typical demyelinating presentation before applying criteria.';break;
+      case 'letm':out='<strong>NMOSD (AQP4-IgG).</strong> Send AQP4-IgG by cell-based assay. Treat attacks aggressively and start a preventive biologic. <em>Avoid interferon-β/natalizumab — they can worsen NMOSD.</em>';break;
+      case 'postrema':out='<strong>NMOSD — area postrema syndrome.</strong> Intractable hiccups/nausea/vomiting is a core NMOSD syndrome. Send AQP4-IgG.';break;
+      case 'mog':out='<strong>MOGAD.</strong> Send MOG-IgG by cell-based assay and apply the 2023 criteria — require a compatible phenotype and a clear-positive titre; low-positive titres are frequently over-read.';break;
+      case 'adem':out='<strong>ADEM.</strong> Encephalopathy is the discriminator from a first MS attack. Many paediatric cases are MOG-IgG positive. Steroids first; IVIG/PLEX if refractory.';break;
+      case 'limbic':out='<strong>Autoimmune (limbic) encephalitis.</strong> Send serum AND CSF antibodies (LGI1, NMDA-R, GABA-B, AMPA-R, CASPR2), image/EEG, hunt for a tumour, and start empiric immunotherapy early.';break;
+    }
+    document.getElementById('dxText').innerHTML=out;
+    document.getElementById('dxResult').classList.add('show');
+  }
+  document.getElementById('dxReset').addEventListener('click',()=>{
+    sel.feat=null;document.querySelectorAll('#dx .opt').forEach(x=>x.classList.remove('sel'));
+    document.getElementById('dxResult').classList.remove('show');
+  });
+
+  const cards=[
+    ['McDonald 2024','New fifth DIS location','The optic nerve'],
+    ['McDonald 2024','New paraclinical markers','Central vein sign, paramagnetic rim lesions, CSF kappa free light chain index'],
+    ['McDonald 2024','Main criticism','Reduced specificity / overdiagnosis if applied to nonspecific or incidental findings'],
+    ['NMOSD','Core syndrome triad','Optic neuritis, LETM (≥3 segments), area postrema syndrome'],
+    ['NMOSD','Approved biologic classes','Complement (eculizumab/ravulizumab), IL-6R (satralizumab), CD19 (inebilizumab)'],
+    ['NMOSD','Drugs that can WORSEN it','Interferon-β, natalizumab (MS drugs)'],
+    ['NMOSD','Complement inhibitor prerequisite','Meningococcal vaccination'],
+    ['MOGAD','Key interpretive rule','MOG-IgG positivity ≠ MOGAD — need compatible phenotype + clear-positive titre'],
+    ['ADEM','Discriminator from first MS attack','Encephalopathy'],
+    ['AE','LGI1 triad','Faciobrachial dystonic seizures, memory loss, hyponatraemia'],
+    ['AE','GABA-B encephalitis association','Small-cell lung cancer (early prominent seizures)'],
+    ['AE','NMDA-R: essential specimen + tumour','CSF antibodies; ovarian teratoma'],
+    ['Paraneoplastic','PNS-CARE score threshold','≥6 = probable/definite PNS']
+  ];
+  const deck=document.getElementById('deck');
+  cards.forEach(c=>{
+    const d=document.createElement('div');d.className='flashcard';
+    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
+    d.addEventListener('click',()=>d.classList.toggle('flipped'));
+    deck.appendChild(d);
+  });
+
+  const qs=[
+    {q:'Which is a major revision introduced by the 2024 McDonald criteria?',
+     a:['Removal of MRI from diagnosis','Recognition of the optic nerve as a fifth dissemination-in-space location','Requiring two clinical attacks','Mandatory spinal cord biopsy'],c:1,
+     e:'The 2024 revisions add the optic nerve as a fifth DIS site, allow DIT to be omitted in selected circumstances, and incorporate the central vein sign, paramagnetic rim lesions, and the CSF kappa free light chain index.'},
+    {q:'A patient with AQP4-IgG–positive NMOSD is about to start therapy. Which drug should be AVOIDED?',
+     a:['Eculizumab','Satralizumab','Interferon-β','Inebilizumab'],c:2,
+     e:'Interferon-β (and natalizumab) are MS therapies that can precipitate severe NMOSD attacks. Approved NMOSD options include complement inhibitors, anti-IL-6R, and anti-CD19 agents.'},
+    {q:'A referral centre audit applying the 2023 international MOGAD criteria found that among patients previously labelled MOGAD:',
+     a:['All met criteria','Only about two-thirds actually met criteria','None met criteria','MOG-IgG testing was unnecessary'],c:1,
+     e:'Only ~68% met criteria on re-evaluation — misapplication came from testing without a compatible phenotype and over-reading low-positive titres. MOG-IgG positivity does not equal MOGAD.'},
+    {q:'A 24-year-old with psychiatric symptoms, seizures and orofacial dyskinesias has a normal brain MRI. The best diagnostic step is:',
+     a:['Conclude it is primary psychiatric illness','Send CSF NMDA-receptor antibodies and screen for ovarian teratoma','Repeat MRI in 6 months','Start an antipsychotic only'],c:1,
+     e:'Anti-NMDA receptor encephalitis frequently has a normal MRI; CSF antibody testing is essential and a teratoma search is mandatory. Treat with first-line immunotherapy plus tumour removal.'},
+    {q:'Which antibody-associated encephalitis is most strongly linked to small-cell lung cancer with early prominent seizures?',
+     a:['LGI1','GABA-B receptor','CASPR2','MOG'],c:1,
+     e:'GABA-B receptor encephalitis presents with prominent early seizures/status and has a strong small-cell lung cancer association — image the chest.'}
+  ];
+  const host=document.getElementById('quizHost');
+  qs.forEach((item,i)=>{
+    const box=document.createElement('div');box.className='quiz';
+    let ch='';item.a.forEach((opt,j)=>ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`);
+    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
+    host.appendChild(box);
+  });
+  host.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i],parent=btn.closest('.quiz');
+    if(parent.dataset.done)return;parent.dataset.done='1';
+    parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
+    if(j===item.c)btn.classList.add('correct');
+    else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
+    const fb=document.getElementById('fb'+i);fb.className='feedback show '+(j===item.c?'good':'bad');
+    fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
+  }));
+</script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residency Deep-Dive — Neuromuscular Disorders</title>
+<style>
+  :root{
+    --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
+    --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
+    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);color:var(--ink);min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 22px 80px}
+  .top-link{color:var(--time);text-decoration:none;font-size:.85rem}
+  .top-link:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin:14px 0 20px}
+  header h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:.3px}
+  header .sub{color:var(--muted);font-size:.95rem}
+  header .badge{display:inline-block;padding:2px 10px;border-radius:10px;background:rgba(14,165,164,.16);color:var(--accent-2);font-size:.78rem;margin:8px 6px 0 0}
+  header .badge.lvl{background:rgba(95,176,255,.16);color:#cfe6ff}
+
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px}
+  nav.tabs button{background:transparent;color:var(--muted);border:none;padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit;font-size:.9rem;transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent);color:#04201f;font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  h2{font-size:1.3rem;margin:1.3em 0 .5em;color:var(--accent-2)}
+  h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
+  p{line-height:1.65}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
+
+  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+";color:var(--accent);font-size:1.3rem;margin-left:10px;transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px;color:var(--ink)}
+  details.acc .body p{margin:.4em 0}
+  details.acc .body ul{margin:.3em 0 .6em 1.2em}
+
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--accent-2);font-weight:600}
+
+  .pearl,.warn,.trial,.time{padding:10px 14px;border-radius:8px;margin:.8em 0;border-left:4px solid}
+  .pearl{background:rgba(14,165,164,.10);border-color:var(--accent);color:#c8f3f0}
+  .warn{background:rgba(255,185,92,.10);border-color:var(--warn);color:#ffe2b8}
+  .trial{background:rgba(95,210,138,.10);border-color:var(--good);color:#d6f6e3}
+  .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
+  .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
+  .obj ol{margin:.3em 0 .2em 1.2em}
+
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .tool .q{font-weight:600;color:var(--accent-2);margin:14px 0 8px;font-size:1rem}
+  .tool .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .tool .opt{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:20px;cursor:pointer;font:inherit;font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent);color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent);color:#04201f;border-color:var(--accent);font-weight:600}
+  .tool .result{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(14,165,164,.08);border:1px solid var(--accent);display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px;color:var(--accent-2);font-size:1.05rem}
+  .tool button.reset{background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit;font-size:.85rem;margin-top:12px}
+  .tool button.reset:hover{color:var(--ink);border-color:var(--accent)}
+
+  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
+  .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
+  .flashcard .face{position:relative;width:100%;height:180px;transition:transform .55s;transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front,.flashcard .back{position:absolute;inset:0;backface-visibility:hidden;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .flashcard .front{color:var(--accent-2);font-size:1rem;font-weight:600}
+  .flashcard .back{transform:rotateY(180deg);background:var(--panel-2);color:var(--ink);font-size:.86rem;line-height:1.45}
+  .flashcard .tag{position:absolute;top:8px;left:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+  .quiz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .quiz h4{margin:0 0 8px;color:var(--accent-2);font-size:1rem}
+  .quiz .stem{margin:0 0 12px;line-height:1.55}
+  .quiz .choices{display:flex;flex-direction:column;gap:8px}
+  .quiz .choice{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:background .15s,border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15);border-color:var(--good);color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12);border-color:var(--bad);color:#ffd8d8}
+  .quiz .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.92rem;display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12);color:#dffce9;border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10);color:#ffd8d8;border:1px solid var(--bad)}
+
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
+
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
+  <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
+  <a href="Module_09_Neuromuscular_Residency_Reference.html" class="top-link">📖 Reference version</a>
+  <header>
+    <h1>Neuromuscular Disorders</h1>
+    <div class="sub">Residency deep-dive · PGY-3 subspecialty · localize along the motor unit, read the EDX, treat the modern way</div>
+    <span class="badge lvl">Resident level</span>
+    <span class="badge">Motor-unit localization</span>
+    <span class="badge">ALS / tofersen</span>
+    <span class="badge">MG biologics</span>
+    <span class="badge">NM respiratory failure</span>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="obj">Objectives</button>
+    <button data-tab="localizer">Localizer</button>
+    <button data-tab="ahc">Anterior Horn / ALS</button>
+    <button data-tab="nerve">Nerve</button>
+    <button data-tab="nmj">NMJ</button>
+    <button data-tab="muscle">Muscle</button>
+    <button data-tab="emerg">Emergencies</button>
+    <button data-tab="library">Evidence Library</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="cases">Cases</button>
+    <button data-tab="quiz">Self-Assessment</button>
+  </nav>
+
+  <!-- OBJECTIVES -->
+  <section class="tab-panel active" id="obj">
+    <h2>Own the whole motor unit</h2>
+    <p class="lead">The general-physician Module 9 teaches recognition and referral. This version assumes you localize along the motor unit, order and interpret EDX, prescribe modern immunotherapy and gene-targeted drugs, and manage the neuromuscular airway.</p>
+    <div class="obj">
+      <strong>By the end you should be able to:</strong>
+      <ol>
+        <li>Localize weakness to anterior horn, nerve, NMJ, or muscle — and predict the EDX.</li>
+        <li>Diagnose ALS, exclude its treatable mimics (MMN, IBM, Kennedy), and use riluzole/tofersen.</li>
+        <li>Manage GBS, CIDP and MMN by the EAN/PNS guidelines (and never give GBS steroids).</li>
+        <li>Treat MG with pyridostigmine, immunotherapy, thymectomy, and the new biologics; recognise LEMS and botulism.</li>
+        <li>Classify myopathies and channelopathies; monitor and act on neuromuscular respiratory failure.</li>
+      </ol>
+    </div>
+    <div class="warn"><strong>Educational use only.</strong> Verify EDX interpretation, drugs, and monitoring against current guidelines and product labeling at the point of care.</div>
+  </section>
+
+  <!-- LOCALIZER -->
+  <section class="tab-panel" id="localizer">
+    <h2>Interactive motor-unit localizer</h2>
+    <p class="muted">Pick the two most informative features; get the level and the confirmatory test.</p>
+    <div class="tool" id="loc">
+      <div class="q">1 · Weakness pattern?</div>
+      <div class="opts" data-group="pat">
+        <button class="opt" data-v="fatig">Fatigable, fluctuating, ocular/bulbar</button>
+        <button class="opt" data-v="proximal">Symmetric proximal, high CK</button>
+        <button class="opt" data-v="length">Length-dependent distal, sensory loss</button>
+        <button class="opt" data-v="asym-motor">Asymmetric pure-motor, cramps/fasciculations</button>
+        <button class="opt" data-v="ascending">Acute ascending areflexic</button>
+      </div>
+      <div class="q">2 · Key associated finding?</div>
+      <div class="opts" data-group="fx">
+        <button class="opt" data-v="umn">Mixed UMN + LMN signs</button>
+        <button class="opt" data-v="block">Motor conduction block on NCS</button>
+        <button class="opt" data-v="decr">Decrement on repetitive stimulation</button>
+        <button class="opt" data-v="incr">Increment after exercise; dry mouth</button>
+        <button class="opt" data-v="csf">Albuminocytologic dissociation</button>
+        <button class="opt" data-v="none">None of these</button>
+      </div>
+      <div class="result" id="locResult"><h4>Most likely level / diagnosis</h4><p id="locText"></p></div>
+      <button class="reset" id="locReset">Reset</button>
+    </div>
+  </section>
+
+  <!-- ANTERIOR HORN / ALS -->
+  <section class="tab-panel" id="ahc">
+    <h2>Anterior horn cell: ALS &amp; mimics</h2>
+    <p><strong>ALS</strong> = combined UMN + LMN degeneration, no sensory loss, contiguous spread, EMG active + chronic denervation across regions. Exclude mimics: cervical myelopathy, <strong>MMN with conduction block</strong>, inclusion-body myositis, <strong>Kennedy disease</strong>, thyroid/parathyroid disease.</p>
+    <div class="trial"><strong>Therapy.</strong> <strong>Riluzole</strong> (modest survival benefit) is standard. <strong>Tofersen</strong> — intrathecal antisense oligonucleotide lowering SOD1 — is the <strong>first gene-targeted ALS drug</strong>, only for <strong>SOD1-variant</strong> disease (VALOR/OLE: neurofilament reduction). Test genes early. Edaravone and pipeline agents (siRNA, PrimeC) evolving.</div>
+    <div class="warn"><strong>Multidisciplinary care drives survival:</strong> early NIV, nutrition/PEG, secretion/spasticity control, communication aids, goals of care; screen for frontotemporal dysfunction (~15%).</div>
+    <div class="pearl"><strong>Treatable look-alikes:</strong> SMA (SMN-directed therapy now available) and Kennedy disease (X-linked androgen-receptor CAG expansion; perioral fasciculations, gynecomastia, sensory neuronopathy).</div>
+  </section>
+
+  <!-- NERVE -->
+  <section class="tab-panel" id="nerve">
+    <h2>Peripheral nerve</h2>
+    <h3>Framework</h3>
+    <p>Characterize by fibre type, distribution (length-dependent vs multifocal vs ganglionopathy), tempo, and axonal-vs-demyelinating on NCS.</p>
+    <h3>GBS</h3>
+    <div class="trial"><strong>IVIG (0.4 g/kg/day ×5) and plasma exchange are equally effective; steroids do NOT work.</strong> Monitor vital capacity and telemetry — ~20–30% need ventilation and autonomic instability can be lethal. Miller Fisher = ophthalmoplegia/ataxia/areflexia, anti-GQ1b.</div>
+    <h3>CIDP &amp; MMN</h3>
+    <div class="trial"><strong>CIDP (EAN/PNS):</strong> first-line IVIG or corticosteroids; PLEX if refractory; IVIG first-line for motor CIDP. "CIDP variants" replaced "atypical CIDP". efgartigimod (ADHERE) newer; confirm diagnosis — CIDP is overdiagnosed.</div>
+    <div class="trial"><strong>MMN (EFNS/PNS):</strong> pure-motor, asymmetric, conduction block at non-compressible sites, ±anti-GM1, cold paresis. <strong>IVIG first-line; steroids/PLEX can WORSEN it.</strong> A key treatable ALS mimic.</div>
+    <h3>Focal &amp; plexus</h3>
+    <p>Carpal tunnel (surgery &gt; injection/splint for durable relief — DISTRICTS); ulnar (elbow); fibular (footdrop, spared inversion vs L5); neuralgic amyotrophy (Parsonage-Turner); diabetic lumbosacral radiculoplexus neuropathy (amyotrophy); radiation (painless, myokymia) vs neoplastic (painful) plexopathy.</p>
+    <div class="pearl"><strong>Chemo-induced neuropathy:</strong> no agent firmly recommended for prevention; <strong>duloxetine</strong> has best evidence for painful CIPN (ASCO).</div>
+  </section>
+
+  <!-- NMJ -->
+  <section class="tab-panel" id="nmj">
+    <h2>Neuromuscular junction</h2>
+    <table>
+      <thead><tr><th></th><th>Myasthenia gravis</th><th>LEMS</th><th>Botulism</th></tr></thead>
+      <tbody>
+        <tr><td>Site</td><td>Postsynaptic (AChR/MuSK/LRP4)</td><td>Presynaptic (P/Q VGCC)</td><td>Presynaptic (toxin blocks ACh release)</td></tr>
+        <tr><td>Pattern</td><td>Fatigable ocular/bulbar/limb</td><td>Proximal legs, autonomic, hyporeflexia</td><td><strong>Descending</strong> flaccid, cranial-first</td></tr>
+        <tr><td>NCS/RNS</td><td>Decrement (low rate)</td><td>Low CMAP, <strong>increment</strong> post-exercise</td><td>Low CMAP, increment (high rate)</td></tr>
+        <tr><td>Reflexes / pupils</td><td>Normal / normal</td><td>↑ after exercise / spared</td><td>Depressed / <strong>dilated</strong></td></tr>
+        <tr><td>Tumour</td><td>Thymoma</td><td>Small-cell lung ca (~50%)</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="trial"><strong>MG treatment (ABN 2025 + new biologics).</strong> Pyridostigmine; corticosteroids + steroid-sparing agents; <strong>thymectomy</strong> (thymoma; early in AChR+ generalised). Crisis: <strong>IVIG or PLEX</strong>. Targeted biologics: complement (eculizumab/ravulizumab/zilucoplan), FcRn (efgartigimod/rozanolixizumab), anti-IL-6 (satralizumab), anti-CD19 (inebilizumab), siRNA (cemdisiran), and BCMA CAR-T for refractory disease.</div>
+    <div class="warn"><strong>Avoid MG-worsening drugs</strong> (aminoglycosides, fluoroquinolones, macrolides, magnesium). <strong>LEMS:</strong> treat the tumour + amifampridine. <strong>Botulism:</strong> give antitoxin early, don't await confirmation; support the airway.</div>
+  </section>
+
+  <!-- MUSCLE -->
+  <section class="tab-panel" id="muscle">
+    <h2>Muscle disease</h2>
+    <h3>Inflammatory myopathies (5 subtypes)</h3>
+    <ul>
+      <li><strong>Dermatomyositis</strong> — proximal weakness + heliotrope/Gottron; MDA5 → rapidly progressive ILD; malignancy screen.</li>
+      <li><strong>Immune-mediated necrotizing myopathy</strong> — very high CK; anti-HMGCR (statin) / anti-SRP.</li>
+      <li><strong>Antisynthetase syndrome</strong> — anti-Jo-1, ILD, mechanic's hands.</li>
+      <li><strong>Overlap myositis</strong>; <strong>Inclusion-body myositis</strong> — older men, finger-flexor + quadriceps, treatment-refractory (ALS/CIDP mimic).</li>
+    </ul>
+    <h3>Dystrophies &amp; genetic</h3>
+    <p><strong>Duchenne</strong> — corticosteroids + cardiorespiratory surveillance; exon-skipping, gene therapy, <strong>givinostat (EPIDYS)</strong>. Becker, limb-girdle, FSHD, myotonic, oculopharyngodistal (GIPC1/RILPL1 repeat expansions), dystroglycanopathies.</p>
+    <h3>Metabolic / toxic / channelopathy</h3>
+    <p>Mitochondrial myopathy (ophthalmoplegia, exercise intolerance); <strong>statin myopathy</strong> (incl. persistent HMGCR necrotizing form). <strong>Channelopathies:</strong> non-dystrophic myotonias &amp; periodic paralyses — SCN4A, CLCN1, CACNA1S, KCNJ2 (Andersen-Tawil); mexiletine for myotonia.</p>
+  </section>
+
+  <!-- EMERGENCIES -->
+  <section class="tab-panel" id="emerg">
+    <h2>Neuromuscular emergencies &amp; respiratory failure</h2>
+    <div class="time"><strong>The "20/30/40 rule":</strong> impending respiratory failure at <strong>FVC &lt; 20 mL/kg</strong>, <strong>MIP less negative than −30 cm H₂O</strong>, or <strong>MEP &lt; 40 cm H₂O</strong>. Rising RR, weak cough, staccato speech, orthopnea, paradoxical breathing, falling single-breath count = red flags. <strong>Intubate on the trajectory.</strong></div>
+    <div class="warn"><strong>Oxygen saturation is a LATE sign</strong> — never rely on it in neuromuscular failure. NIV is for selected chronic/slow disease; avoid in rapidly worsening GBS/MG crisis with bulbar/secretion burden.</div>
+    <p><strong>ICU-acquired weakness</strong> (critical-illness polyneuropathy/myopathy) and diaphragmatic dysfunction impair weaning. <strong>Envenomation</strong> (cobra/krait/Russell's viper) causes descending neuromuscular paralysis — support ventilation and give <strong>antivenom</strong>.</p>
+  </section>
+
+  <!-- EVIDENCE LIBRARY -->
+  <section class="tab-panel" id="library">
+    <h2>Evidence library — provided sources</h2>
+    <p class="muted">The Module 9 folder is large (~110 papers). Key sources, grouped by theme.</p>
+    <details class="acc"><summary>Motor neuron disease</summary><div class="body"><ul>
+      <li>ALS reviews; Recent advances in diagnosis/prognosis; Plasma proteomics (prodromal)</li>
+      <li>Long-Term Tofersen in SOD1 ALS (VALOR/OLE); RAG-17 siRNA; PARADIGM (PrimeC); TARDBP/TDP-43</li>
+      <li>High-dose nusinersen for SMA; Kennedy disease reviews &amp; CAG-repeat studies</li>
+    </ul></div></details>
+    <details class="acc"><summary>Peripheral nerve — immune &amp; focal</summary><div class="body"><ul>
+      <li>GBS in Ten Steps; EAN/PNS GBS guideline; SID-GBS; GBS &amp; SARS-CoV-2/vaccination; anti-GQ1b</li>
+      <li>EAN/PNS CIDP guideline; distinguishing CIDP from mimics; efgartigimod (ADHERE); FORCIDP</li>
+      <li>EFNS/PNS MMN guideline; MMN reviews/controversies</li>
+      <li>Carpal tunnel (DISTRICTS; open vs endoscopic; splint/steroid); ulnar; fibular; neuralgic amyotrophy; diabetic radiculoplexus; plexopathies; sensory ganglionopathy; RFC1-CANVAS; CIPN (ASCO); EDX/NCS interpretation</li>
+    </ul></div></details>
+    <details class="acc"><summary>Neuromuscular junction</summary><div class="body"><ul>
+      <li>Autoimmune MG; ABN 2025 MG guideline; gMG assessment consensus; ice-pack test</li>
+      <li>FcRn (efgartigimod/rozanolixizumab); complement (eculizumab/ravulizumab/zilucoplan); satralizumab (LUMINESCE); inebilizumab; cemdisiran (NIMBLE); vemircopan; BCMA CAR-T; MG pregnancy</li>
+      <li>LEMS reviews; Botulism (guidelines, endopeptidase-MS, outbreaks)</li>
+    </ul></div></details>
+    <details class="acc"><summary>Muscle, emergencies &amp; envenomation</summary><div class="body"><ul>
+      <li>Inflammatory myopathies; Duchenne management &amp; givinostat (EPIDYS); muscular dystrophy therapies; oculopharyngodistal myopathy; dystroglycanopathy; mitochondrial biomarkers; statin myopathy; channelopathies</li>
+      <li>Acute NM respiratory failure; Neuromuscular emergencies; COVID-19 NM syndromes; NIV; ICU-acquired weakness; diaphragmatic dysfunction</li>
+      <li>Snakebite envenoming mechanisms/standards; venom proteomics; antivenom/varespladib</li>
+    </ul></div></details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards — tap to flip</h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case-based reasoning</h2>
+
+    <div class="case">
+      <div class="vig"><strong>Case 1.</strong> A 58-year-old has 6 months of progressive asymmetric hand weakness with cramps and fasciculations, brisk reflexes in a wasted limb, and no sensory symptoms. NCS shows motor conduction block in one forearm; anti-GM1 is positive.</div>
+      <details class="acc"><summary>Diagnosis and why it matters?</summary>
+        <div class="body"><p>Pure-motor asymmetric weakness with <strong>conduction block</strong> and anti-GM1 = <strong>multifocal motor neuropathy</strong>, not ALS. This is <strong>treatable</strong>: give <strong>IVIG</strong> (first-line) and <strong>avoid steroids/PLEX</strong>, which can worsen it. Always look for conduction block before finalizing an ALS diagnosis.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 2.</strong> A 26-year-old develops ascending areflexic weakness over 5 days after diarrheal illness; CSF shows high protein with normal cells. FVC is falling on serial checks.</div>
+      <details class="acc"><summary>Treatment and the key monitoring?</summary>
+        <div class="body"><p><strong>Guillain-Barré syndrome.</strong> Treat with <strong>IVIG (0.4 g/kg/day ×5) or plasma exchange</strong> — equally effective; <strong>no steroids</strong>. Monitor <strong>vital capacity</strong> and telemetry; with a falling FVC toward the 20/30/40 thresholds, <strong>intubate electively</strong> and watch for autonomic instability. Don't wait for desaturation.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 3.</strong> A 45-year-old man with a SOD1 pathogenic variant has confirmed ALS. He asks whether any drug targets his genetics.</div>
+      <details class="acc"><summary>What do you offer?</summary>
+        <div class="body"><p><strong>Tofersen</strong> — an intrathecal antisense oligonucleotide lowering SOD1 — is approved specifically for <strong>SOD1-variant ALS</strong> and reduces neurofilament (VALOR/OLE). Add <strong>riluzole</strong>, consider edaravone, and wrap in multidisciplinary care (NIV, nutrition, goals of care). This case is why early genetic testing matters.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Self-assessment</h2>
+    <p class="muted">Pick an answer to reveal the explanation.</p>
+    <div id="quizHost"></div>
+  </section>
+
+  <footer>
+    Residency deep-dive · Neuromuscular Disorders. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 38/43/45), ALS trials (tofersen), the EAN/PNS GBS/CIDP/MMN guidelines, the ABN 2025 MG guideline and new MG biologics, and the myopathy/channelopathy and NM-respiratory-failure literature. Educational reference — verify against current guidelines at the point of care.
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  // Localizer
+  const sel={pat:null,fx:null};
+  document.querySelectorAll('#loc .opts').forEach(g=>{
+    const grp=g.dataset.group;
+    g.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{
+      g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');sel[grp]=o.dataset.v;evalLoc();
+    }));
+  });
+  function evalLoc(){
+    if(!sel.pat)return;
+    let out;
+    if(sel.fx==='incr'||sel.pat==='fatig'&&sel.fx==='decr'){
+      out=sel.fx==='incr'?'<strong>LEMS (presynaptic NMJ).</strong> Low CMAP with post-exercise increment, autonomic features, hyporeflexia that facilitates. Hunt for small-cell lung cancer; treat tumour + amifampridine.'
+      :'<strong>Myasthenia gravis (postsynaptic NMJ).</strong> Fatigable ocular/bulbar weakness with RNS decrement. Send AChR/MuSK, CT chest for thymoma; pyridostigmine + immunotherapy ± thymectomy.';
+    }
+    else if(sel.pat==='fatig'){out='<strong>Neuromuscular junction (myasthenia gravis).</strong> Fatigable ocular/bulbar weakness — confirm with antibodies + RNS/SFEMG and CT chest.';}
+    else if(sel.pat==='asym-motor'&&sel.fx==='umn'){out='<strong>Anterior horn cell — ALS.</strong> Mixed UMN+LMN, no sensory loss. Confirm multiregional denervation on EMG and exclude mimics (MMN, IBM, Kennedy).';}
+    else if(sel.pat==='asym-motor'&&sel.fx==='block'){out='<strong>Multifocal motor neuropathy.</strong> Pure-motor asymmetric with conduction block — treat with IVIG, avoid steroids/PLEX. A treatable ALS mimic.';}
+    else if(sel.pat==='asym-motor'){out='<strong>Anterior horn vs MMN.</strong> Look for UMN signs (→ ALS) vs conduction block (→ MMN). The distinction is treatment-defining.';}
+    else if(sel.pat==='ascending'||sel.fx==='csf'){out='<strong>Guillain-Barré syndrome (nerve roots/peripheral).</strong> Acute ascending areflexic weakness + albuminocytologic dissociation. IVIG or PLEX (no steroids); monitor vital capacity.';}
+    else if(sel.pat==='proximal'){out='<strong>Muscle (myopathy).</strong> Symmetric proximal weakness with high CK. Characterize with antibodies, MRI, biopsy; consider inflammatory, dystrophic, metabolic, toxic causes.';}
+    else if(sel.pat==='length'){out='<strong>Peripheral nerve (polyneuropathy).</strong> Length-dependent distal sensorimotor loss — classify axonal vs demyelinating on NCS and pursue the metabolic/toxic/immune causes.';}
+    else{out='Refine the features — decide the pattern first, then the confirmatory finding (UMN signs, conduction block, RNS decrement/increment, or albuminocytologic dissociation).';}
+    document.getElementById('locText').innerHTML=out;
+    document.getElementById('locResult').classList.add('show');
+  }
+  document.getElementById('locReset').addEventListener('click',()=>{
+    sel.pat=sel.fx=null;document.querySelectorAll('#loc .opt').forEach(x=>x.classList.remove('sel'));
+    document.getElementById('locResult').classList.remove('show');
+  });
+
+  const cards=[
+    ['EDX','Axonal vs demyelinating on NCS','Axonal = low amplitude; demyelinating = slow velocity, block, dispersion'],
+    ['ALS','First gene-targeted ALS drug (and for whom)','Tofersen — SOD1-variant ALS only'],
+    ['ALS mimic','Treatable pure-motor mimic of ALS','MMN with conduction block (IVIG)'],
+    ['GBS','Effective treatments (and what to avoid)','IVIG or PLEX; steroids do NOT work'],
+    ['GBS','Life-threatening complications','Respiratory failure + autonomic instability'],
+    ['CIDP','First-line therapy','IVIG or corticosteroids (PLEX if refractory)'],
+    ['MMN','First-line; what worsens it','IVIG first-line; steroids/PLEX can worsen'],
+    ['MG','New biologic classes','Complement, FcRn, anti-IL-6, anti-CD19, CAR-T'],
+    ['LEMS','Antibody + tumour + facilitation','P/Q VGCC; small-cell lung ca; post-exercise increment'],
+    ['Botulism','Pattern + treatment','Descending flaccid, dilated pupils; early antitoxin'],
+    ['Myositis','IBM signature','Older men; finger-flexor + quadriceps; refractory'],
+    ['Respiratory','20/30/40 rule','FVC<20 mL/kg, MIP>−30, MEP<40 → intubate on trajectory']
+  ];
+  const deck=document.getElementById('deck');
+  cards.forEach(c=>{
+    const d=document.createElement('div');d.className='flashcard';
+    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
+    d.addEventListener('click',()=>d.classList.toggle('flipped'));
+    deck.appendChild(d);
+  });
+
+  const qs=[
+    {q:'Which treatment is INEFFECTIVE in Guillain-Barré syndrome and should not be used?',
+     a:['IVIG','Plasma exchange','Corticosteroids','Supportive respiratory care'],c:2,
+     e:'IVIG and plasma exchange are equally effective; corticosteroids are not effective in GBS. Monitor vital capacity and autonomic status closely.'},
+    {q:'Tofersen is approved for amyotrophic lateral sclerosis in patients who:',
+     a:['Have any form of ALS','Carry a SOD1 pathogenic variant','Have bulbar-onset disease','Are C9orf72 carriers'],c:1,
+     e:'Tofersen is an intrathecal antisense oligonucleotide against SOD1 mRNA, indicated specifically for SOD1-variant ALS (VALOR/OLE showed neurofilament reduction).'},
+    {q:'A patient has asymmetric pure-motor weakness with motor conduction block and anti-GM1 antibodies. The best therapy is:',
+     a:['High-dose corticosteroids','IVIG','Plasma exchange','Riluzole'],c:1,
+     e:'This is multifocal motor neuropathy — IVIG is first-line; corticosteroids and plasma exchange can worsen it. It is an important treatable ALS mimic.'},
+    {q:'Which repetitive-nerve-stimulation finding suggests a presynaptic disorder (LEMS or botulism) rather than myasthenia gravis?',
+     a:['Decrement at low rates','Increment after exercise / high-rate stimulation','Normal study','Myotonic discharges'],c:1,
+     e:'Presynaptic disorders (LEMS, botulism) show a low baseline CMAP with a marked increment after exercise or high-rate stimulation; MG shows a decrement at low rates.'},
+    {q:'Which is the most reliable way to detect impending neuromuscular respiratory failure?',
+     a:['Pulse oximetry','Serial forced vital capacity / inspiratory pressures (20/30/40 rule)','Chest X-ray','Arterial pH alone'],c:1,
+     e:'Oxygen saturation falls late. Trend the forced vital capacity and inspiratory/expiratory pressures (FVC<20 mL/kg, MIP>−30, MEP<40) and intubate on the trajectory.'}
+  ];
+  const host=document.getElementById('quizHost');
+  qs.forEach((item,i)=>{
+    const box=document.createElement('div');box.className='quiz';
+    let ch='';item.a.forEach((opt,j)=>ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`);
+    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
+    host.appendChild(box);
+  });
+  host.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i],parent=btn.closest('.quiz');
+    if(parent.dataset.done)return;parent.dataset.done='1';
+    parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
+    if(j===item.c)btn.classList.add('correct');
+    else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
+    const fb=document.getElementById('fb'+i);fb.className='feedback show '+(j===item.c?'good':'bad');
+    fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
+  }));
+</script>
+</body>
+</html>

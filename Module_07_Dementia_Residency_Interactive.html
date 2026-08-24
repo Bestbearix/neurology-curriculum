@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residency Deep-Dive — Dementia & Cognitive Disorders</title>
+<style>
+  :root{
+    --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
+    --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
+    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);color:var(--ink);min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 22px 80px}
+  .top-link{color:var(--time);text-decoration:none;font-size:.85rem}
+  .top-link:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin:14px 0 20px}
+  header h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:.3px}
+  header .sub{color:var(--muted);font-size:.95rem}
+  header .badge{display:inline-block;padding:2px 10px;border-radius:10px;background:rgba(14,165,164,.16);color:var(--accent-2);font-size:.78rem;margin:8px 6px 0 0}
+  header .badge.lvl{background:rgba(95,176,255,.16);color:#cfe6ff}
+
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px}
+  nav.tabs button{background:transparent;color:var(--muted);border:none;padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit;font-size:.9rem;transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent);color:#04201f;font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  h2{font-size:1.3rem;margin:1.3em 0 .5em;color:var(--accent-2)}
+  h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
+  p{line-height:1.65}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
+
+  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+";color:var(--accent);font-size:1.3rem;margin-left:10px;transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px;color:var(--ink)}
+  details.acc .body p{margin:.4em 0}
+  details.acc .body ul{margin:.3em 0 .6em 1.2em}
+
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--accent-2);font-weight:600}
+
+  .pearl,.warn,.trial,.time{padding:10px 14px;border-radius:8px;margin:.8em 0;border-left:4px solid}
+  .pearl{background:rgba(14,165,164,.10);border-color:var(--accent);color:#c8f3f0}
+  .warn{background:rgba(255,185,92,.10);border-color:var(--warn);color:#ffe2b8}
+  .trial{background:rgba(95,210,138,.10);border-color:var(--good);color:#d6f6e3}
+  .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
+  .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
+  .obj ol{margin:.3em 0 .2em 1.2em}
+
+  /* Differentiator tool */
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .tool .q{font-weight:600;color:var(--accent-2);margin:14px 0 8px;font-size:1rem}
+  .tool .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .tool .opt{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:20px;cursor:pointer;font:inherit;font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent);color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent);color:#04201f;border-color:var(--accent);font-weight:600}
+  .tool .result{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(14,165,164,.08);border:1px solid var(--accent);display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px;color:var(--accent-2);font-size:1.05rem}
+  .tool button.reset{background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit;font-size:.85rem;margin-top:12px}
+  .tool button.reset:hover{color:var(--ink);border-color:var(--accent)}
+
+  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
+  .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
+  .flashcard .face{position:relative;width:100%;height:180px;transition:transform .55s;transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front,.flashcard .back{position:absolute;inset:0;backface-visibility:hidden;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .flashcard .front{color:var(--accent-2);font-size:1rem;font-weight:600}
+  .flashcard .back{transform:rotateY(180deg);background:var(--panel-2);color:var(--ink);font-size:.86rem;line-height:1.45}
+  .flashcard .tag{position:absolute;top:8px;left:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+  .quiz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .quiz h4{margin:0 0 8px;color:var(--accent-2);font-size:1rem}
+  .quiz .stem{margin:0 0 12px;line-height:1.55}
+  .quiz .choices{display:flex;flex-direction:column;gap:8px}
+  .quiz .choice{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:background .15s,border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15);border-color:var(--good);color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12);border-color:var(--bad);color:#ffd8d8}
+  .quiz .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.92rem;display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12);color:#dffce9;border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10);color:#ffd8d8;border:1px solid var(--bad)}
+
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
+
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
+  <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
+  <a href="Module_07_Dementia_Residency_Reference.html" class="top-link">📖 Reference version</a>
+  <header>
+    <h1>Dementia &amp; Cognitive Disorders</h1>
+    <div class="sub">Residency deep-dive · PGY-3 subspecialty · stage cognition, use the new biomarkers, counsel on anti-amyloid therapy</div>
+    <span class="badge lvl">Resident level</span>
+    <span class="badge">Revised AD criteria</span>
+    <span class="badge">p-tau217</span>
+    <span class="badge">Anti-amyloid / ARIA</span>
+    <span class="badge">RPD / CJD</span>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="obj">Objectives</button>
+    <button data-tab="approach">Approach</button>
+    <button data-tab="differ">Differentiator</button>
+    <button data-tab="ad">Alzheimer</button>
+    <button data-tab="other">Other Dementias</button>
+    <button data-tab="rpd">Rapidly Progressive</button>
+    <button data-tab="library">Evidence Library</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="cases">Cases</button>
+    <button data-tab="quiz">Self-Assessment</button>
+  </nav>
+
+  <!-- OBJECTIVES -->
+  <section class="tab-panel active" id="obj">
+    <h2>From "memory problems" to a staged diagnosis</h2>
+    <p class="lead">The general-physician Module 7 teaches recognition and treatable causes. This version assumes you stage cognitive disorders, deploy the revised Alzheimer criteria and blood biomarkers, counsel on anti-amyloid therapy and its ARIA risk, and run the rapidly-progressive-dementia workup.</p>
+    <div class="obj">
+      <strong>By the end you should be able to:</strong>
+      <ol>
+        <li>Separate MCI from dementia and profile the domain pattern and tempo.</li>
+        <li>Exclude reversible causes before diagnosing a neurodegenerative disease.</li>
+        <li>Apply the revised biological/clinical AD criteria and use plasma p-tau217 appropriately.</li>
+        <li>Counsel on lecanemab/donanemab benefit and ARIA monitoring; know EVOKE was negative.</li>
+        <li>Differentiate DLB, FTD, and vascular dementia; run the rapidly-progressive-dementia / CJD / autoimmune workup.</li>
+      </ol>
+    </div>
+    <div class="warn"><strong>Educational use only.</strong> Confirm diagnosis, biomarker use, and drug eligibility against current guidelines and product labeling at the point of care.</div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="tab-panel" id="approach">
+    <h2>The cognitive workup</h2>
+    <p><strong>Dementia</strong> = acquired decline in ≥1 domain impairing independence; <strong>MCI</strong> = decline without functional impairment. Profile <strong>domain pattern + tempo</strong>, then reach a syndromic and etiologic diagnosis.</p>
+    <ul>
+      <li>Collateral history; cognitive testing (MoCA/MMSE + domain tasks); focused neuro exam.</li>
+      <li>Labs: TSH, B12/folate, metabolic (± HIV/syphilis); <strong>structural MRI</strong>.</li>
+      <li>Add CSF/blood biomarkers, FDG-PET, amyloid PET, DaTscan, EEG, genetics by syndrome.</li>
+    </ul>
+    <div class="warn"><strong>Exclude reversible causes first:</strong> depression (pseudodementia), anticholinergic/sedative drugs, B12 deficiency, thyroid disease, normal-pressure hydrocephalus (wet-wobbly-wacky), OSA, chronic subdural, neurosyphilis/HIV, autoimmune encephalitis, alcohol.</div>
+    <div class="pearl"><strong>Tempo triages:</strong> years of amnestic decline → AD; stepwise/vascular → vascular; <em>weeks–months</em> → prion/autoimmune/neoplastic/infectious — urgent, treatable-until-proven-otherwise.</div>
+  </section>
+
+  <!-- DIFFERENTIATOR (interactive) -->
+  <section class="tab-panel" id="differ">
+    <h2>Interactive dementia differentiator</h2>
+    <p class="muted">Choose the most striking early feature; get the leading syndrome.</p>
+    <div class="tool" id="dx">
+      <div class="q">Most prominent early feature?</div>
+      <div class="opts" data-group="feat">
+        <button class="opt" data-v="amnestic">Insidious short-term memory loss over years</button>
+        <button class="opt" data-v="fluct">Fluctuating cognition + visual hallucinations + parkinsonism</button>
+        <button class="opt" data-v="behav">Early personality/behavior change, disinhibition, apathy</button>
+        <button class="opt" data-v="language">Progressive language (nonfluent / semantic / logopenic)</button>
+        <button class="opt" data-v="stepwise">Stepwise decline with vascular risk factors</button>
+        <button class="opt" data-v="rapid">Weeks–months decline ± myoclonus/ataxia/seizures</button>
+      </div>
+      <div class="result" id="dxResult"><h4>Leading syndrome</h4><p id="dxText"></p></div>
+      <button class="reset" id="dxReset">Reset</button>
+    </div>
+  </section>
+
+  <!-- ALZHEIMER -->
+  <section class="tab-panel" id="ad">
+    <h2>Alzheimer disease</h2>
+    <p>Pathology: amyloid-β plaques + tau tangles with neuronal loss; usually amnestic (atypical: posterior cortical atrophy, logopenic aphasia, dysexecutive). Risk: age, <strong>APOE ε4</strong>; rare autosomal-dominant <em>APP/PSEN1/PSEN2</em>.</p>
+    <div class="trial"><strong>Revised biological criteria.</strong> AD is defined by biomarkers and <strong>staged</strong> across preclinical → MCI → dementia. <strong>Core 1</strong> = amyloid-β pathway (amyloid PET, CSF, blood phospho-tau); tau/neurodegeneration markers add staging (ATN logic).</div>
+    <div class="warn"><strong>Biology ≠ symptoms.</strong> A positive amyloid biomarker in a cognitively normal person = AD pathology, not dementia — don't label asymptomatic people on biomarkers alone.</div>
+    <div class="trial"><strong>Plasma p-tau217.</strong> Detects AD pathology with AUC ~0.9 (PPV ~89–95% specialty, ~82%/accuracy ~85% primary care); a blood test is now cleared for primary care — use it to answer a management question, not to screen the worried well.</div>
+    <h3>Therapy</h3>
+    <p><strong>Symptomatic:</strong> cholinesterase inhibitors (mild–moderate); memantine (moderate–severe).</p>
+    <div class="trial"><strong>Anti-amyloid antibodies (lecanemab, donanemab).</strong> Remove plaques and modestly slow decline in early AD (lecanemab ~27% CDR-SB slowing over 18 mo). Require confirmed amyloid positivity and MRI surveillance.</div>
+    <div class="warn"><strong>ARIA:</strong> ARIA-E (edema) and ARIA-H (microhemorrhage), usually asymptomatic but potentially serious; highest risk in <strong>APOE ε4 homozygotes</strong>; needs serial MRI and anticoagulation caution. FDA approved; EMA more restrictive (donanemab refusal).</div>
+    <div class="trial"><strong>EVOKE / EVOKE+ (negative).</strong> Oral semaglutide (GLP-1) was <strong>not efficacious</strong> at slowing early-AD progression (CDR-SB) — epidemiologic signal ≠ trial benefit.</div>
+  </section>
+
+  <!-- OTHER -->
+  <section class="tab-panel" id="other">
+    <h2>Non-Alzheimer degenerative dementias</h2>
+    <table>
+      <thead><tr><th>Dementia</th><th>Signature</th><th>Key diagnostics</th></tr></thead>
+      <tbody>
+        <tr><td>Dementia with Lewy bodies</td><td>Fluctuations, visual hallucinations, parkinsonism, RBD; neuroleptic sensitivity</td><td>≥2 core = probable; indicative: low striatal DAT uptake (DaTscan), abnormal MIBG, PSG REM-without-atonia</td></tr>
+        <tr><td>bvFTD</td><td>Early behavior/personality change, disinhibition, apathy, hyperorality</td><td>Frontal/temporal atrophy; memory relatively spared early</td></tr>
+        <tr><td>Primary progressive aphasia</td><td>Nonfluent / semantic / logopenic (logopenic often AD)</td><td>Language-led; imaging by variant</td></tr>
+        <tr><td>Vascular</td><td>Stepwise/executive decline, vascular risk</td><td>MRI infarcts/white-matter disease; often mixed with AD</td></tr>
+      </tbody>
+    </table>
+    <div class="warn"><strong>DLB neuroleptic sensitivity</strong> can be severe — avoid typical antipsychotics; if needed use cautious low-dose quetiapine or pimavanserin.</div>
+  </section>
+
+  <!-- RPD -->
+  <section class="tab-panel" id="rpd">
+    <h2>Rapidly progressive dementia</h2>
+    <p>Decline over <strong>weeks–months</strong> = emergency; work the "VITAMINS" differential (Vascular, Infectious, Toxic-metabolic, Autoimmune, Metastatic/neoplastic, Iatrogenic, Neurodegenerative-prion, Systemic).</p>
+    <h3>Creutzfeldt-Jakob (prion)</h3>
+    <p>RPD with myoclonus, ataxia, mood/behavioral change (may precede cognition). Diagnostics: <strong>MRI DWI cortical ribboning + basal-ganglia signal</strong>, <strong>RT-QuIC</strong>/14-3-3 in CSF, EEG periodic sharp waves. Uniformly fatal, short survival.</p>
+    <h3>Autoimmune / limbic encephalitis</h3>
+    <div class="trial"><strong>Graus/Dalmau criteria.</strong> Subacute limbic encephalitis can be classed <strong>possible / probable (incl. antibody-negative) / definite</strong>, enabling <strong>empiric immunotherapy before antibodies return</strong>. Test NMDA-R, LGI1, CASPR2, GABA-B; search for tumor (NMDA-R/teratoma). Careful antibody-negative criteria avoid misdiagnosis.</div>
+    <div class="pearl"><strong>Never miss a treatable dementia:</strong> send autoimmune/paraneoplastic panels and consider immunotherapy in any subacute/rapidly progressive dementia.</div>
+  </section>
+
+  <!-- EVIDENCE LIBRARY -->
+  <section class="tab-panel" id="library">
+    <h2>Evidence library — provided sources</h2>
+    <p class="muted">The Module 7 resource set used to build this module, grouped by theme.</p>
+    <details class="acc"><summary>Alzheimer biology, criteria &amp; staging</summary><div class="body"><ul>
+      <li>Alzheimer's Disease (overview)</li>
+      <li>Application of the Revised Criteria for Diagnosis &amp; Staging; Evaluation of the Revised Biological/Clinical Staging</li>
+    </ul></div></details>
+    <details class="acc"><summary>Blood biomarkers &amp; detection</summary><div class="body"><ul>
+      <li>Plasma p-tau217 in Primary &amp; Secondary Care (automated platform); Blood Biomarkers to Detect AD</li>
+      <li>Plasma eMTBR-tau243 &amp; p-tau217 for Biological Staging</li>
+      <li>AD Blood Test Cleared for Primary Care (questions remain); Digital Cognitive Test + Blood Biomarkers</li>
+    </ul></div></details>
+    <details class="acc"><summary>Therapy — anti-amyloid &amp; other</summary><div class="body"><ul>
+      <li>Amyloid-lowering Immunotherapies; Lecanemab in a Specialty Memory Clinic</li>
+      <li>ARIA with Donanemab; Posttreatment Amyloid &amp; Outcomes (Donanemab); FDA green-lights donanemab; EMA refuses donanemab</li>
+      <li>Oral Semaglutide in Early AD (EVOKE / EVOKE+); Valacyclovir in Early AD</li>
+    </ul></div></details>
+    <details class="acc"><summary>Other dementias &amp; RPD</summary><div class="body"><ul>
+      <li>Biomarkers of Dementia with Lewy Bodies</li>
+      <li>Autoimmune Encephalitis diagnostic criteria; AE-associated Epilepsy; Beyond AE — Cross-Disciplinary Lessons</li>
+      <li>78-Year-Old with RPD; Precentral Gyrus Signals in CJD; Life Expectancy in Sporadic CJD; Prodromal Mood in CJD</li>
+      <li>Nottingham Consensus on Dementia Risk-Reduction Policy</li>
+    </ul></div></details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards — tap to flip</h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case-based reasoning</h2>
+
+    <div class="case">
+      <div class="vig"><strong>Case 1.</strong> A 70-year-old with 2 years of progressive short-term memory loss, MoCA 21, normal labs, and hippocampal-predominant atrophy on MRI. The family asks about anti-amyloid therapy.</div>
+      <details class="acc"><summary>How do you confirm and counsel?</summary>
+        <div class="body"><p>Amnestic MCI/early AD. Confirm <strong>amyloid positivity</strong> (plasma p-tau217, or CSF/amyloid PET) before offering <strong>lecanemab or donanemab</strong>. Counsel on <em>modest</em> slowing of decline, the need for serial MRI, and <strong>ARIA</strong> risk (higher if APOE ε4 homozygote). Continue symptomatic therapy and risk-factor management.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 2.</strong> A 68-year-old has fluctuating attention, recurrent detailed visual hallucinations, mild parkinsonism, and dream-enactment behavior. A prior antipsychotic caused marked rigidity.</div>
+      <details class="acc"><summary>Diagnosis + management caution?</summary>
+        <div class="body"><p><strong>Dementia with Lewy bodies</strong> (≥2 core features). Supportive: reduced striatal DAT uptake (DaTscan), PSG REM-without-atonia. <strong>Avoid typical antipsychotics</strong> (severe neuroleptic sensitivity); use cautious low-dose quetiapine or pimavanserin; a cholinesterase inhibitor often helps cognition/hallucinations.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 3.</strong> A 62-year-old declines cognitively over 3 months with new myoclonus and ataxia; MRI DWI shows cortical ribboning and basal-ganglia hyperintensity.</div>
+      <details class="acc"><summary>Diagnosis + confirmatory tests — and what must you exclude?</summary>
+        <div class="body"><p><strong>Rapidly progressive dementia, likely Creutzfeldt-Jakob disease.</strong> Confirm with CSF <strong>RT-QuIC</strong> (and 14-3-3), EEG periodic sharp waves. Crucially, exclude <strong>autoimmune/limbic encephalitis</strong> (Graus criteria; NMDA-R/LGI1 antibodies, tumor search) and other VITAMINS causes — because those are treatable.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Self-assessment</h2>
+    <p class="muted">Pick an answer to reveal the explanation.</p>
+    <div id="quizHost"></div>
+  </section>
+
+  <footer>
+    Residency deep-dive · Dementia &amp; Cognitive Disorders. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 20), the revised Alzheimer criteria and blood-biomarker literature, the lecanemab/donanemab (ARIA) and EVOKE trials, DLB biomarkers, the Graus autoimmune-encephalitis criteria, and the CJD literature. Educational reference — verify against current guidelines at the point of care.
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  // Differentiator
+  const sel={feat:null};
+  document.querySelectorAll('#dx .opts').forEach(g=>{
+    g.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{
+      g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');sel.feat=o.dataset.v;evalDx();
+    }));
+  });
+  function evalDx(){
+    let out;
+    switch(sel.feat){
+      case 'amnestic':out='<strong>Alzheimer disease.</strong> Insidious amnestic decline over years. Confirm amyloid biomarker (plasma p-tau217 / CSF / amyloid PET); consider anti-amyloid therapy with ARIA monitoring.';break;
+      case 'fluct':out='<strong>Dementia with Lewy bodies.</strong> Fluctuations + visual hallucinations + parkinsonism ± RBD. Avoid typical antipsychotics (neuroleptic sensitivity).';break;
+      case 'behav':out='<strong>Behavioral-variant FTD.</strong> Early personality/behavior change with relatively spared memory; frontotemporal atrophy.';break;
+      case 'language':out='<strong>Primary progressive aphasia (FTD spectrum).</strong> Language-led decline; logopenic variant is often Alzheimer pathology.';break;
+      case 'stepwise':out='<strong>Vascular cognitive impairment.</strong> Stepwise/executive decline with vascular risk; often mixed with AD. Control vascular risk factors.';break;
+      case 'rapid':out='<strong>Rapidly progressive dementia.</strong> Work VITAMINS urgently — prion (CJD: DWI ribboning, RT-QuIC) vs treatable autoimmune/limbic encephalitis (Graus criteria) and others.';break;
+    }
+    document.getElementById('dxText').innerHTML=out;
+    document.getElementById('dxResult').classList.add('show');
+  }
+  document.getElementById('dxReset').addEventListener('click',()=>{
+    sel.feat=null;document.querySelectorAll('#dx .opt').forEach(x=>x.classList.remove('sel'));
+    document.getElementById('dxResult').classList.remove('show');
+  });
+
+  const cards=[
+    ['Definition','MCI vs dementia','MCI = cognitive decline WITHOUT loss of independence'],
+    ['Reversible','"Wet, wobbly, wacky" triad','Normal-pressure hydrocephalus'],
+    ['AD criteria','Revised AD is defined by','Biomarkers (biological), then clinically staged'],
+    ['AD biomarker','Core 1 amyloid-pathway markers','Amyloid PET, CSF, blood phospho-tau (p-tau217)'],
+    ['Biomarker','Plasma p-tau217 accuracy','AUC ~0.9; primary-care accuracy ~85%'],
+    ['Therapy','Anti-amyloid antibodies','Lecanemab, donanemab — modest slowing, need amyloid+'],
+    ['Safety','ARIA highest risk group','APOE ε4 homozygotes (serial MRI, anticoag caution)'],
+    ['Trial','EVOKE / EVOKE+ (oral semaglutide)','NOT efficacious in early AD'],
+    ['DLB','2+ core features','Fluctuations, visual hallucinations, parkinsonism, RBD'],
+    ['DLB','Dangerous drug class','Typical antipsychotics (neuroleptic sensitivity)'],
+    ['RPD','CJD MRI + CSF tests','DWI cortical ribboning; RT-QuIC / 14-3-3'],
+    ['RPD','Treatable mimic of CJD','Autoimmune/limbic encephalitis (Graus criteria)']
+  ];
+  const deck=document.getElementById('deck');
+  cards.forEach(c=>{
+    const d=document.createElement('div');d.className='flashcard';
+    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
+    d.addEventListener('click',()=>d.classList.toggle('flipped'));
+    deck.appendChild(d);
+  });
+
+  const qs=[
+    {q:'Under the revised biological criteria, a cognitively unimpaired person with a positive amyloid biomarker should be described as having:',
+     a:['Alzheimer dementia','Alzheimer pathologic change / preclinical AD, not dementia','Mild cognitive impairment','No relation to Alzheimer disease'],c:1,
+     e:'A positive amyloid biomarker indicates AD pathology, not clinical dementia. Labeling asymptomatic people with "Alzheimer disease" on biomarkers alone is a key controversy.'},
+    {q:'Which blood biomarker most accurately detects Alzheimer pathology and is now used in the diagnostic pathway?',
+     a:['Plasma neurofilament light','Plasma p-tau217','Serum S100B','CRP'],c:1,
+     e:'Plasma p-tau217 detects AD pathology with AUC ~0.9 and good primary-care accuracy, reducing reliance on CSF/amyloid PET when used with appropriate pre-test probability.'},
+    {q:'A patient starting lecanemab is an APOE ε4 homozygote. Compared with non-carriers, they are at higher risk of:',
+     a:['Infusion-site cellulitis','ARIA (edema and microhemorrhage)','Hyponatremia','Neuroleptic malignant syndrome'],c:1,
+     e:'ARIA-E and ARIA-H risk is highest in APOE ε4 homozygotes; anti-amyloid therapy requires baseline and serial surveillance MRI and anticoagulation caution.'},
+    {q:'The EVOKE and EVOKE+ phase-3 trials of oral semaglutide in early Alzheimer disease showed that it:',
+     a:['Slowed decline by ~30%','Was not efficacious in slowing progression','Cleared amyloid faster than lecanemab','Reversed dementia'],c:1,
+     e:'EVOKE/EVOKE+ found oral semaglutide was not efficacious on the CDR-SB primary endpoint — a reminder that epidemiologic signals require trial confirmation.'},
+    {q:'A subacute limbic encephalitis is suspected but antibody results are pending. The Graus/Dalmau criteria allow you to:',
+     a:['Wait for antibodies before any treatment','Diagnose possible/probable autoimmune encephalitis and start empiric immunotherapy','Diagnose CJD','Exclude autoimmune causes'],c:1,
+     e:'The criteria permit a possible/probable (including antibody-negative) diagnosis on clinical/MRI/CSF/EEG grounds, enabling empiric immunotherapy before antibody confirmation.'}
+  ];
+  const host=document.getElementById('quizHost');
+  qs.forEach((item,i)=>{
+    const box=document.createElement('div');box.className='quiz';
+    let ch='';item.a.forEach((opt,j)=>ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`);
+    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
+    host.appendChild(box);
+  });
+  host.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i],parent=btn.closest('.quiz');
+    if(parent.dataset.done)return;parent.dataset.done='1';
+    parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
+    if(j===item.c)btn.classList.add('correct');
+    else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
+    const fb=document.getElementById('fb'+i);fb.className='feedback show '+(j===item.c?'good':'bad');
+    fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
+  }));
+</script>
+</body>
+</html>
