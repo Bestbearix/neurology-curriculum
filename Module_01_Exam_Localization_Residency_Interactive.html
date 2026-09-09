@@ -8,7 +8,7 @@
   :root{
     --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
     --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
-    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;
+    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;--key:#5fb0ff;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -31,12 +31,17 @@
   section.tab-panel.active{display:block;animation:fade .25s ease}
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-  h2{font-size:1.3rem;margin:1.3em 0 .5em;color:var(--accent-2)}
+  h2{font-size:1.3rem;margin:1.1em 0 .5em;color:var(--accent-2)}
   h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
   p{line-height:1.65}
   ul,ol{line-height:1.6}
   .muted{color:var(--muted)}
   .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
+
+  .key{background:rgba(95,176,255,.08);border:1px solid rgba(95,176,255,.3);border-left:4px solid var(--key);border-radius:8px;padding:12px 16px;margin:.5em 0 1.1em}
+  .key .kh{font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#a9d3ff;margin-bottom:.35em}
+  .key ul{margin:.2em 0 0 1.1em}
+  .key li{margin:.22em 0;color:#d5e8ff}
 
   details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
   details.acc[open]{background:var(--panel-2)}
@@ -48,7 +53,7 @@
   details.acc .body p{margin:.4em 0}
   details.acc .body ul{margin:.3em 0 .6em 1.2em}
 
-  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.92rem}
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.9rem}
   th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
   th{background:var(--soft);color:var(--accent-2);font-weight:600}
 
@@ -59,6 +64,18 @@
   .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
   .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
   .obj ol{margin:.3em 0 .2em 1.2em}
+
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .tool .q{font-weight:600;color:var(--accent-2);margin:14px 0 8px;font-size:1rem}
+  .tool .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .tool .opt{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:20px;cursor:pointer;font:inherit;font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent);color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent);color:#04201f;border-color:var(--accent);font-weight:600}
+  .tool .result{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(14,165,164,.08);border:1px solid var(--accent);display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px;color:var(--accent-2);font-size:1.05rem}
+  .tool button.reset{background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit;font-size:.85rem;margin-top:12px}
+  .tool button.reset:hover{color:var(--ink);border-color:var(--accent)}
 
   .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
   .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
@@ -85,19 +102,6 @@
   .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
   .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
 
-  /* Localizer tool */
-  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
-  .tool .q{font-weight:600;color:var(--accent-2);margin:14px 0 8px;font-size:1rem}
-  .tool .opts{display:flex;flex-wrap:wrap;gap:8px}
-  .tool .opt{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:20px;cursor:pointer;font:inherit;font-size:.9rem}
-  .tool .opt:hover{border-color:var(--accent);color:var(--accent-2)}
-  .tool .opt.sel{background:var(--accent);color:#04201f;border-color:var(--accent);font-weight:600}
-  .tool .result{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(14,165,164,.08);border:1px solid var(--accent);display:none}
-  .tool .result.show{display:block}
-  .tool .result h4{margin:0 0 8px;color:var(--accent-2);font-size:1.05rem}
-  .tool button.reset{background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit;font-size:.85rem;margin-top:12px}
-  .tool button.reset:hover{color:var(--ink);border-color:var(--accent)}
-
   footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 </style>
 </head>
@@ -108,18 +112,20 @@
   <a href="Module_01_Exam_Localization_Residency_Reference.html" class="top-link">📖 Reference version</a>
   <header>
     <h1>Neurologic Examination &amp; Localization</h1>
-    <div class="sub">Residency deep-dive · PGY-1 foundations · the exam as an instrument of localization</div>
+    <div class="sub">Residency deep-dive · enriched · the exam as an instrument of localization</div>
     <span class="badge lvl">Resident level</span>
-    <span class="badge">Exam technique</span>
+    <span class="badge">Localize → characterize</span>
     <span class="badge">UMN vs LMN</span>
-    <span class="badge">Neuraxis localization</span>
-    <span class="badge">Sensory syndromes</span>
+    <span class="badge">Neuraxis</span>
+    <span class="badge">Aphasia · gait · cord</span>
   </header>
 
   <nav class="tabs" id="tabs">
     <button class="active" data-tab="obj">Objectives</button>
     <button data-tab="method">The Method</button>
     <button data-tab="exam">Exam Systems</button>
+    <button data-tab="aphasia">Aphasia</button>
+    <button data-tab="gait">Gait</button>
     <button data-tab="umn">UMN vs LMN</button>
     <button data-tab="axis">Neuraxis</button>
     <button data-tab="localizer">Localizer Tool</button>
@@ -131,32 +137,52 @@
   <!-- OBJECTIVES -->
   <section class="tab-panel active" id="obj">
     <h2>From checklist to localization</h2>
-    <p class="lead">The general-physician Module 1 teaches a reliable screening exam. This version trains the exam as the experiment that tests a localization hypothesis. The history asks <strong>where</strong> and <strong>what</strong>; the examination answers <strong>where</strong>; tempo answers <strong>what</strong>.</p>
+    <p class="lead">The general-physician Module 1 teaches a reliable screening exam. This enriched version trains the exam as the experiment that tests a localization hypothesis. The history asks <strong>where</strong> and <strong>what</strong>; the examination answers <strong>where</strong>; tempo answers <strong>what</strong>.</p>
     <div class="obj">
       <strong>By the end you should be able to:</strong>
       <ol>
         <li>Run a structured top-down exam and justify what each manoeuvre localizes.</li>
+        <li>Classify aphasia and non-dominant-hemisphere syndromes.</li>
         <li>Separate upper- from lower-motor-neuron weakness at the bedside.</li>
-        <li>Place a lesion at a level of the neuraxis from the constellation of signs.</li>
-        <li>Use dissociated sensory loss and a sensory level to localize within the cord and brainstem.</li>
-        <li>Recognize crossed brainstem signs and the classic cord syndromes.</li>
+        <li>Read gait as a localizing sign; interpret Romberg correctly.</li>
+        <li>Place a lesion at a level of the neuraxis, including crossed brainstem signs and cord syndromes.</li>
         <li>Distinguish organic patterns from non-anatomical (functional) findings.</li>
       </ol>
     </div>
-    <div class="time"><strong>Localize first, then characterize.</strong> A precise location plus an accurate tempo (hyperacute → vascular/seizure; subacute → inflammatory/infectious/neoplastic; chronic → degenerative/hereditary/compressive) collapses a vast differential before any test is ordered.</div>
-    <div class="warn"><strong>Educational use only.</strong> Examination teaching reference; tailor depth to the clinical problem and follow institutional protocols at the point of care.</div>
+    <div class="key">
+      <div class="kh">How this module is organized</div>
+      <ul>
+        <li>Each tab opens with a <strong>Key points</strong> box — skim first, then read the detail.</li>
+        <li>Interactive: a <strong>localizer tool</strong>, comparison tables, flashcards, cases, and a scored quiz.</li>
+      </ul>
+    </div>
+    <div class="warn"><strong>Educational use only.</strong> Tailor exam depth to the clinical problem; follow institutional protocols at the point of care.</div>
   </section>
 
   <!-- METHOD -->
   <section class="tab-panel" id="method">
     <h2>The diagnostic method</h2>
-    <p>Neurologic diagnosis is two steps of reasoning: <strong>localize</strong> (which part of the nervous system would produce exactly these findings?) then <strong>characterize</strong> (given the site and the tempo, what disease is it?). History and examination are complementary — Merritt's frames the exam's job as to "accurately localize neurologic dysfunction and develop a differential diagnosis."</p>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>Two questions: <strong>localize</strong> (where?) then <strong>characterize</strong> (what?).</li>
+        <li><strong>Tempo is the best aetiology clue</strong> — hyperacute → vascular/seizure; subacute → inflammatory/infectious/neoplastic; chronic → degenerative/hereditary/compressive.</li>
+        <li>History and exam are complementary; the exam confirms or refutes the history's hypothesis.</li>
+      </ul>
+    </div>
+    <table>
+      <thead><tr><th>Tempo</th><th>Mechanism</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td>Hyperacute (secs–mins)</td><td>Vascular, seizure</td><td>Stroke, ICH, Todd paresis</td></tr>
+        <tr><td>Acute–subacute (hrs–weeks)</td><td>Inflammatory, infectious, neoplastic</td><td>GBS, encephalitis, abscess, tumour</td></tr>
+        <tr><td>Chronic (months–years)</td><td>Degenerative, hereditary, compressive</td><td>ALS, CMT, spondylosis</td></tr>
+      </tbody>
+    </table>
     <h3>Reading the history for localization</h3>
     <ul>
-      <li><strong>Tempo</strong> — interrogate "sudden": maximal-at-onset (vascular) vs marching over minutes (seizure, aura) vs progressive over days (mass, inflammation).</li>
-      <li><strong>Distribution</strong> — focal/multifocal/diffuse; proximal vs distal; length-dependent vs patchy; crossed.</li>
-      <li><strong>Positive vs negative symptoms</strong> — loss of function (destruction/conduction block) vs positive phenomena like tingling or jerking (abnormal excitation).</li>
-      <li><strong>Collateral history</strong> for any cognitive or episodic complaint.</li>
+      <li><strong>Interrogate "sudden":</strong> maximal-at-onset (vascular) vs march over minutes (seizure/aura) vs days (mass/inflammation).</li>
+      <li><strong>Distribution:</strong> focal/multifocal/diffuse; proximal vs distal; length-dependent vs patchy; crossed.</li>
+      <li><strong>Positive vs negative symptoms:</strong> loss of function (destruction) vs tingling/jerking (abnormal excitation).</li>
     </ul>
     <div class="pearl"><strong>If the exam contradicts the story, re-take the history</strong> rather than forcing the findings to fit.</div>
   </section>
@@ -164,49 +190,92 @@
   <!-- EXAM SYSTEMS -->
   <section class="tab-panel" id="exam">
     <h2>The examination — top-down</h2>
-    <p>Perform and record in a uniform order to avoid omissions; state any portions deliberately skipped. Sequence: mental status → cranial nerves → motor → reflexes → coordination → sensation → gait.</p>
-
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>Uniform order: mental status → cranial nerves → motor → reflexes → coordination → sensation → gait.</li>
+        <li>Cranial-nerve findings are localizing gold; forehead-sparing facial weakness = UMN, whole-hemiface = peripheral VII.</li>
+        <li>Find subtle weakness with <strong>pronator drift</strong>; the <strong>Babinski sign</strong> marks corticospinal damage.</li>
+      </ul>
+    </div>
     <details class="acc"><summary>Mental status &amp; higher cortical function</summary>
-      <div class="body">
-        <p>Cognitive screen: orientation, digit span forward/backward, serial 7s, three-item recall at 3 minutes. Characterize spontaneous speech (fluent vs non-fluent), then test comprehension, repetition, naming, reading, writing — the combination localizes aphasia type and hemisphere. Test praxis (commanded/imitated gesture), visuospatial ability (clock, figure copy, line bisection), and gnosis. Re-emergent primitive reflexes (grasp, snout, glabellar) suggest frontal disease.</p>
-      </div>
+      <div class="body"><p>Screen: orientation, digit span, serial 7s, three-item recall at 3 min. Characterize speech (fluent vs non-fluent), then comprehension, repetition, naming, reading, writing. Test praxis, visuospatial ability (clock/figure copy/line bisection), gnosis. Re-emergent primitive reflexes (grasp, snout, glabellar) → frontal disease.</p></div>
     </details>
-
     <details class="acc"><summary>Cranial nerves — localizing gold</summary>
-      <div class="body">
-        <ul>
-          <li><strong>Visual fields</strong> by confrontation, each eye separately: monocular = pre-chiasmal; bitemporal = chiasm; homonymous = retrochiasmal.</li>
-          <li><strong>Pupils, lids, eye movements</strong>; pursue perimetry if a field defect is found.</li>
-          <li><strong>Facial weakness:</strong> forehead-sparing = UMN (central VII); whole-hemiface = peripheral VII.</li>
-          <li><strong>Tongue</strong> deviates toward the weak (LMN) hypoglossal side; watch for atrophy/fasciculation.</li>
-        </ul>
-      </div>
+      <div class="body"><ul>
+        <li>Visual fields: monocular = pre-chiasmal; bitemporal = chiasm; homonymous = retrochiasmal.</li>
+        <li>Pupils/lids/eye movements; look for CN III palsy (down-and-out, dilated pupil), Horner, INO.</li>
+        <li>Facial: forehead-sparing = central (UMN) VII; whole-hemiface = peripheral VII.</li>
+        <li>Tongue deviates <em>toward</em> the weak (LMN) hypoglossal side; watch for atrophy/fasciculation.</li>
+      </ul></div>
     </details>
+    <details class="acc"><summary>Motor, tone &amp; reflexes</summary>
+      <div class="body"><p>Bulk, tone, power (MRC 0–5), involuntary movements. Tone: spasticity (velocity-dependent, corticospinal) vs rigidity (cogwheel, extrapyramidal). <strong>Pronator drift</strong> and forearm orbiting reveal mild pyramidal weakness. <strong>Babinski</strong> and slow <strong>triple-flexion</strong> both signify corticospinal damage. Root reflexes: biceps C5–6, triceps C7, patellar L3–4, Achilles S1.</p></div>
+    </details>
+    <details class="acc"><summary>Sensation &amp; coordination</summary>
+      <div class="body"><p>Dorsal columns = vibration/proprioception (ipsilateral); spinothalamic = pain/temperature (contralateral, crosses in 1–2 segments). Test sensation last and briefly; map deficits to dermatome, nerve, level, or hemibody. Coordination interpretable only with adequate power; cerebellar signs are ipsilateral.</p></div>
+    </details>
+  </section>
 
-    <details class="acc"><summary>Motor — find subtle weakness</summary>
-      <div class="body">
-        <p>Assess bulk, tone, power (MRC 0–5), and involuntary movements. Tone separates spasticity (velocity-dependent, corticospinal) from rigidity (cogwheel, extrapyramidal). Record the <em>pattern</em> of weakness, not just the grade.</p>
-        <p><strong>Pronator drift</strong> and asymmetric forearm <strong>orbiting</strong> reveal mild corticospinal weakness MRC testing misses; in the legs, resting hip external rotation and downward drift of the flexed prone leg betray a pyramidal lesion.</p>
-      </div>
-    </details>
+  <!-- APHASIA -->
+  <section class="tab-panel" id="aphasia">
+    <h2>Aphasia &amp; cortical syndromes</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>Classify by <strong>fluency → comprehension → repetition</strong>.</li>
+        <li><strong>Repetition is the discriminator:</strong> impaired → Broca/Wernicke/conduction; spared → a transcortical aphasia.</li>
+        <li>Non-dominant lesions cause <strong>neglect, extinction, anosognosia, dressing/constructional apraxia</strong> — not aphasia.</li>
+      </ul>
+    </div>
+    <table>
+      <thead><tr><th>Aphasia</th><th>Fluency</th><th>Comprehension</th><th>Repetition</th><th>Localization</th></tr></thead>
+      <tbody>
+        <tr><td>Broca</td><td>Non-fluent</td><td>Intact</td><td>Impaired</td><td>Dominant inferior frontal</td></tr>
+        <tr><td>Wernicke</td><td>Fluent</td><td>Impaired</td><td>Impaired</td><td>Dominant superior temporal</td></tr>
+        <tr><td>Conduction</td><td>Fluent</td><td>Intact</td><td>Impaired</td><td>Arcuate fasciculus</td></tr>
+        <tr><td>Global</td><td>Non-fluent</td><td>Impaired</td><td>Impaired</td><td>Large dominant MCA</td></tr>
+        <tr><td>Transcortical</td><td>Varies</td><td>Varies</td><td><strong>Spared</strong></td><td>Watershed (perisylvian spared)</td></tr>
+      </tbody>
+    </table>
+    <div class="pearl"><strong>Spared repetition</strong> = the language core is intact and the lesion is around it → a transcortical aphasia (often watershed infarct).</div>
+  </section>
 
-    <details class="acc"><summary>Reflexes — the Babinski and its mimics</summary>
-      <div class="body">
-        <p>Sample biceps, triceps, brachioradialis, patellar, Achilles; facilitate with Jendrassik. The <strong>Babinski sign</strong> (great-toe dorsiflexion + fanning) reliably marks corticospinal damage. Beware: brisk voluntary withdrawal is not pathological, but a slow <strong>triple-flexion</strong> response carries the same meaning as Babinski. Lost superficial (abdominal/cremasteric) reflexes support a corticospinal lesion.</p>
-      </div>
-    </details>
-
-    <details class="acc"><summary>Coordination, sensation &amp; gait</summary>
-      <div class="body">
-        <p>Coordination (finger–nose, heel–shin, rapid alternating movements) is interpretable only in limbs with adequate power. Sensation is performed last and briefly to limit fatigue and over-reporting; map any deficit to a dermatome, nerve territory, sensory level, or hemibody pattern. Gait integrates everything — hemiparetic circumduction, spastic scissoring, parkinsonian festination, cerebellar wide-based ataxia, sensory ataxia with a positive Romberg, steppage of foot drop, and waddling myopathic gait each have a signature.</p>
-      </div>
-    </details>
+  <!-- GAIT -->
+  <section class="tab-panel" id="gait">
+    <h2>Gait &amp; station</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>Gait integrates the whole motor + sensory system — often diagnostic at a glance.</li>
+        <li><strong>Romberg positive</strong> (falls only with eyes closed) = sensory/dorsal-column ataxia, <em>not</em> cerebellar.</li>
+      </ul>
+    </div>
+    <table>
+      <thead><tr><th>Gait</th><th>Signature</th><th>Localization</th></tr></thead>
+      <tbody>
+        <tr><td>Hemiparetic</td><td>Circumduction, flexed arm</td><td>Corticospinal</td></tr>
+        <tr><td>Spastic (scissoring)</td><td>Stiff, adducted legs</td><td>Bilateral corticospinal (cord)</td></tr>
+        <tr><td>Parkinsonian</td><td>Shuffling, festination</td><td>Basal ganglia</td></tr>
+        <tr><td>Cerebellar</td><td>Wide-based; can't tandem</td><td>Cerebellum</td></tr>
+        <tr><td>Sensory ataxic</td><td>Stamping, <strong>+Romberg</strong></td><td>Dorsal columns / proprioception</td></tr>
+        <tr><td>Steppage</td><td>High-stepping (foot drop)</td><td>Peroneal / L5 / neuropathy</td></tr>
+        <tr><td>Waddling</td><td>Pelvic drop</td><td>Proximal myopathy</td></tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- UMN vs LMN -->
   <section class="tab-panel" id="umn">
     <h2>The first decision: UMN vs LMN</h2>
-    <p>When weakness is present, this single distinction splits the neuraxis in two and drives everything downstream.</p>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>This single distinction splits the neuraxis in two and drives the workup.</li>
+        <li><strong>Acute caveat:</strong> early UMN lesions (stroke, "spinal shock") can be flaccid/areflexic before spasticity evolves.</li>
+        <li>Mixed UMN + LMN without sensory loss → motor neuron disease.</li>
+      </ul>
+    </div>
     <table>
       <thead><tr><th>Feature</th><th>Upper motor neuron</th><th>Lower motor neuron</th></tr></thead>
       <tbody>
@@ -217,42 +286,46 @@
         <tr><td>Weakness pattern</td><td>Pyramidal (arm extensors, leg flexors weaker)</td><td>Root / nerve / muscle pattern</td></tr>
       </tbody>
     </table>
-    <div class="warn"><strong>Acute caveat.</strong> Early in an acute UMN lesion (acute stroke, acute cord compression / "spinal shock") tone and reflexes may be reduced before spasticity evolves. Mixed UMN + LMN signs without sensory loss → suspect motor neuron disease.</div>
   </section>
 
   <!-- NEURAXIS -->
   <section class="tab-panel" id="axis">
     <h2>Localizing along the neuraxis</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li><strong>Crossed signs</strong> (ipsilateral face + contralateral body) = brainstem; CN III→midbrain, VI/VII→pons, IX–XII→medulla.</li>
+        <li><strong>Cortical sign present?</strong> Not a lacune. Equal face/arm/leg with no cortical signs → internal capsule.</li>
+        <li>A <strong>sensory level</strong> = spinal cord; <strong>fatigability</strong> = NMJ; <strong>symmetric proximal, sensation spared</strong> = muscle.</li>
+      </ul>
+    </div>
     <table>
       <thead><tr><th>Level</th><th>Signature findings</th></tr></thead>
       <tbody>
-        <tr><td>Cortex</td><td>Contralateral deficit + cortical signs (aphasia, neglect, apraxia), seizures, homonymous field cut</td></tr>
-        <tr><td>Internal capsule / subcortical</td><td>Dense contralateral hemiparesis, face=arm=leg, <em>no</em> cortical signs (lacune)</td></tr>
-        <tr><td>Brainstem</td><td>Crossed signs: ipsilateral CN palsy + contralateral long-tract signs; INO, gaze palsy</td></tr>
-        <tr><td>Cerebellum</td><td>Ipsilateral ataxia, dysmetria, intention tremor, nystagmus; no weakness</td></tr>
+        <tr><td>Cortex</td><td>Contralateral deficit + cortical signs, seizures, homonymous field cut</td></tr>
+        <tr><td>Internal capsule / subcortical</td><td>Dense hemiparesis, face=arm=leg, no cortical signs (lacune)</td></tr>
+        <tr><td>Brainstem</td><td>Crossed signs; INO, gaze palsy</td></tr>
+        <tr><td>Cerebellum</td><td>Ipsilateral ataxia, dysmetria, nystagmus; no weakness</td></tr>
         <tr><td>Spinal cord</td><td>Sensory level, bilateral long-tract signs, sphincter involvement</td></tr>
         <tr><td>Anterior horn</td><td>Pure motor LMN with fasciculations, no sensory loss</td></tr>
-        <tr><td>Root</td><td>Dermatomal sensory loss + myotomal weakness + lost root reflex + radiating pain</td></tr>
+        <tr><td>Root</td><td>Dermatomal loss + myotomal weakness + lost root reflex + radiating pain</td></tr>
         <tr><td>Plexus</td><td>Multiple roots/nerves in one limb</td></tr>
-        <tr><td>Peripheral nerve</td><td>Mononeuropathy (one nerve) or length-dependent stocking-glove polyneuropathy</td></tr>
-        <tr><td>NMJ</td><td>Fatigable, fluctuating weakness; ocular/bulbar; sensation &amp; reflexes normal</td></tr>
-        <tr><td>Muscle</td><td>Symmetric proximal weakness; sensation spared</td></tr>
+        <tr><td>Peripheral nerve</td><td>Mononeuropathy or length-dependent stocking-glove</td></tr>
+        <tr><td>NMJ</td><td>Fatigable, ocular/bulbar; sensation &amp; reflexes normal</td></tr>
+        <tr><td>Muscle</td><td>Symmetric proximal; sensation spared</td></tr>
       </tbody>
     </table>
-    <div class="pearl"><strong>Crossed-signs rule.</strong> Ipsilateral face + contralateral body (motor or sensory) = brainstem, because the long tracts have decussated (or are about to) while the cranial-nerve nucleus is ipsilateral. Pinpoint the level by the cranial nerve: CN III → midbrain; VI/VII → pons; IX–XII → medulla.</div>
-
     <h3>Dissociated sensory loss &amp; cord syndromes</h3>
     <table>
       <thead><tr><th>Syndrome</th><th>Findings</th></tr></thead>
       <tbody>
-        <tr><td>Brown-Séquard (hemicord)</td><td>Ipsilateral weakness &amp; dorsal-column loss; contralateral pain/temp loss below</td></tr>
-        <tr><td>Anterior cord (ASA infarct)</td><td>Bilateral weakness &amp; pain/temp loss; vibration/proprioception spared</td></tr>
-        <tr><td>Central cord (syrinx)</td><td>"Cape" suspended sensory loss; arms &gt; legs weakness</td></tr>
-        <tr><td>Posterior cord (B12, tabes)</td><td>Loss of vibration/proprioception; sensory ataxia, +Romberg</td></tr>
-        <tr><td>Cauda equina / conus</td><td>Saddle anaesthesia, sphincter loss, flaccid leg weakness — surgical emergency</td></tr>
+        <tr><td>Brown-Séquard</td><td>Ipsilateral weakness &amp; dorsal-column loss; contralateral pain/temp loss</td></tr>
+        <tr><td>Anterior cord</td><td>Bilateral weakness &amp; pain/temp loss; vibration/proprioception spared</td></tr>
+        <tr><td>Central cord</td><td>Suspended "cape" loss; arms &gt; legs</td></tr>
+        <tr><td>Posterior cord</td><td>Vibration/proprioception loss, +Romberg</td></tr>
+        <tr><td>Cauda equina/conus</td><td>Saddle anaesthesia, sphincter loss, flaccid legs — emergency</td></tr>
       </tbody>
     </table>
-    <div class="pearl"><strong>Romberg</strong> positive = sensory (dorsal-column) ataxia, not cerebellar — cerebellar patients are unsteady eyes open <em>and</em> closed.</div>
   </section>
 
   <!-- LOCALIZER TOOL -->
@@ -300,30 +373,30 @@
     <h2>Case-based localization</h2>
 
     <div class="case">
-      <div class="vig"><strong>Case 1.</strong> Right hand and arm weakness with a non-fluent, effortful speech but preserved comprehension. Face and arm more affected than leg. Brisk right reflexes, right Babinski.</div>
+      <div class="vig"><strong>Case 1.</strong> Right hand/arm weakness with non-fluent, effortful speech but preserved comprehension. Face and arm more than leg. Brisk right reflexes, right Babinski.</div>
       <details class="acc"><summary>Localize it.</summary>
-        <div class="body"><p>UMN pattern + a cortical sign (Broca aphasia) + face/arm-predominant deficit → <strong>left frontal cortex (superior-division MCA territory)</strong>. The cortical sign rules out a pure capsular lacune.</p></div>
+        <div class="body"><p>UMN + a cortical sign (Broca aphasia, impaired repetition) + face/arm-predominant deficit → <strong>left frontal cortex (superior-division MCA)</strong>. The cortical sign rules out a pure capsular lacune.</p></div>
       </details>
     </div>
 
     <div class="case">
       <div class="vig"><strong>Case 2.</strong> Vertigo and vomiting; left facial pinprick loss with right-body pinprick loss, left Horner, left limb ataxia, hoarseness.</div>
       <details class="acc"><summary>Localize it.</summary>
-        <div class="body"><p>Crossed sensory loss = brainstem; the constellation (Horner, ataxia, dysphagia, vertigo, ipsilateral facial / contralateral body pain-temp loss) is <strong>lateral medulla (Wallenberg)</strong>.</p></div>
+        <div class="body"><p>Crossed sensory loss = brainstem; the constellation is <strong>lateral medulla (Wallenberg)</strong> — PICA/vertebral territory. Watch airway/swallow; consider vertebral dissection in a younger patient.</p></div>
       </details>
     </div>
 
     <div class="case">
       <div class="vig"><strong>Case 3.</strong> Progressive leg weakness, a sensory level at the umbilicus, brisk leg reflexes with bilateral Babinski, and urinary retention.</div>
-      <details class="acc"><summary>Localize it — and what's the urgent step?</summary>
-        <div class="body"><p>Sensory level + bilateral UMN legs + sphincter involvement → <strong>spinal cord (~T10)</strong>. Image the cord <em>urgently</em> to exclude compression — this is a neurosurgical/time-critical pathway.</p></div>
+      <details class="acc"><summary>Localize it — and the urgent step?</summary>
+        <div class="body"><p>Sensory level + bilateral UMN legs + sphincter involvement → <strong>spinal cord (~T10)</strong>. Image the cord <em>urgently</em> to exclude compression.</p></div>
       </details>
     </div>
 
     <div class="case">
-      <div class="vig"><strong>Case 4.</strong> Symmetric proximal weakness (difficulty rising from a chair and lifting arms overhead), normal sensation, reflexes preserved, no fatigability.</div>
-      <details class="acc"><summary>Localize it.</summary>
-        <div class="body"><p>Symmetric proximal, sensory-sparing, non-fatigable → <strong>muscle (myopathy)</strong>. Fatigability would point to NMJ; distal length-dependent loss would point to polyneuropathy.</p></div>
+      <div class="vig"><strong>Case 4.</strong> A fluent patient produces jargon, cannot follow commands, and cannot repeat; no weakness.</div>
+      <details class="acc"><summary>Which aphasia, and where?</summary>
+        <div class="body"><p>Fluent + impaired comprehension + impaired repetition → <strong>Wernicke aphasia</strong> (dominant superior temporal, inferior-division MCA). Lack of weakness fits the inferior-division territory.</p></div>
       </details>
     </div>
   </section>
@@ -336,12 +409,11 @@
   </section>
 
   <footer>
-    Residency deep-dive · Neurologic Examination &amp; Localization. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 1) and Merritt's Neurology (14e, Ch. 3–4). Educational reference — tailor the exam to the clinical problem and verify management against current guidelines.
+    Residency deep-dive (enriched) · Neurologic Examination &amp; Localization. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 1) and Merritt's Neurology (14e, Ch. 3–4). Educational reference — tailor the exam to the clinical problem.
   </footer>
 </div>
 
 <script>
-  // Tabs
   document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
     document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
@@ -349,7 +421,6 @@
     window.scrollTo({top:0,behavior:'smooth'});
   }));
 
-  // Localizer logic
   const sel={motor:null,sensory:null,extra:null};
   document.querySelectorAll('#loc .opts').forEach(g=>{
     const grp=g.dataset.group;
@@ -361,16 +432,16 @@
   function evalLoc(){
     if(!sel.motor||!sel.sensory||!sel.extra)return;
     let out;
-    if(sel.extra==='crossed') out='<strong>Brainstem.</strong> Crossed findings (ipsilateral cranial nerve, contralateral long tracts) localize here. Identify the cranial nerve to pin the level: CN III → midbrain, VI/VII → pons, IX–XII → medulla.';
+    if(sel.extra==='crossed') out='<strong>Brainstem.</strong> Crossed findings (ipsilateral cranial nerve, contralateral long tracts). Identify the cranial nerve: CN III → midbrain, VI/VII → pons, IX–XII → medulla.';
     else if(sel.extra==='cortsign'||sel.sensory==='cortical') out='<strong>Cerebral cortex.</strong> Cortical signs (aphasia, neglect, field cut, cortical sensory loss) place the lesion in the contralateral hemisphere.';
-    else if(sel.extra==='fatig') out='<strong>Neuromuscular junction.</strong> Fatigable, fluctuating ocular/bulbar weakness with normal sensation and reflexes is the NMJ signature (e.g., myasthenia gravis).';
-    else if(sel.extra==='proximal'&&sel.sensory==='spared') out='<strong>Muscle (myopathy).</strong> Symmetric proximal, sensory-sparing weakness with reflexes preserved until late.';
-    else if(sel.extra==='sphincter'||sel.sensory==='level') out='<strong>Spinal cord.</strong> A sensory level (± sphincter involvement, bilateral UMN legs) is the cord’s fingerprint — image urgently to exclude compression.';
+    else if(sel.extra==='fatig') out='<strong>Neuromuscular junction.</strong> Fatigable ocular/bulbar weakness with normal sensation and reflexes (e.g., myasthenia gravis).';
+    else if(sel.extra==='proximal'&&sel.sensory==='spared') out='<strong>Muscle (myopathy).</strong> Symmetric proximal, sensory-sparing weakness, reflexes preserved until late.';
+    else if(sel.extra==='sphincter'||sel.sensory==='level') out='<strong>Spinal cord.</strong> A sensory level ± sphincter involvement is the cord’s fingerprint — image urgently to exclude compression.';
     else if(sel.motor==='mixed'&&sel.sensory==='spared') out='<strong>Anterior horn / motor neuron disease.</strong> Mixed UMN + LMN signs without sensory loss.';
-    else if(sel.motor==='lmn'&&sel.sensory==='stocking') out='<strong>Peripheral nerve (polyneuropathy).</strong> Length-dependent stocking-glove sensory loss with distal LMN weakness and lost ankle jerks.';
-    else if(sel.sensory==='derm') out='<strong>Nerve root (radiculopathy).</strong> Dermatomal sensory loss with myotomal weakness, a lost root reflex, and radiating pain.';
+    else if(sel.motor==='lmn'&&sel.sensory==='stocking') out='<strong>Peripheral nerve (polyneuropathy).</strong> Length-dependent stocking-glove loss with distal LMN weakness and lost ankle jerks.';
+    else if(sel.sensory==='derm') out='<strong>Nerve root (radiculopathy).</strong> Dermatomal loss + myotomal weakness + lost root reflex + radiating pain.';
     else if(sel.motor==='umn'&&sel.sensory==='spared'&&sel.extra==='none2') out='<strong>Internal capsule / subcortical (lacune).</strong> Dense contralateral hemiparesis (face=arm=leg) with no cortical signs.';
-    else out='Combination is non-specific — refine the findings. Decide UMN vs LMN first, then look for a localizing feature (crossed signs, cortical signs, a sensory level, fatigability, or proximal-symmetric pattern).';
+    else out='Combination is non-specific — refine the findings. Decide UMN vs LMN first, then look for a localizing feature (crossed signs, cortical signs, sensory level, fatigability, or proximal-symmetric pattern).';
     document.getElementById('locText').innerHTML=out;
     document.getElementById('locResult').classList.add('show');
   }
@@ -380,20 +451,22 @@
     document.getElementById('locResult').classList.remove('show');
   });
 
-  // Flashcards
   const cards=[
-    ['UMN vs LMN','Tongue deviates toward the weak side in which?','LMN (CN XII) lesion'],
+    ['Method','The two diagnostic questions','Where is the lesion? (localize) + What is it? (tempo)'],
+    ['UMN vs LMN','Tongue deviates toward the weak side in','LMN (CN XII) lesion'],
     ['Sign','Forehead-sparing facial weakness','Central (UMN) CN VII lesion'],
     ['Sign','Slow triple-flexion plantar response','Same significance as Babinski (corticospinal)'],
-    ['Localization','Crossed: ipsilateral face / contralateral body','Brainstem'],
+    ['Bedside','Outstretched arm drifts down + pronates','Pronator drift = subtle corticospinal weakness'],
+    ['Aphasia','Repetition is the discriminator','Spared = transcortical; impaired = Broca/Wernicke/conduction'],
+    ['Aphasia','Fluent + poor comprehension + poor repetition','Wernicke (dominant superior temporal)'],
+    ['Localize','Crossed: ipsilateral face / contralateral body','Brainstem'],
     ['Cord','Vibration/proprioception lost, pain/temp spared','Posterior cord (B12, tabes)'],
-    ['Cord','Ipsilateral weakness + contralateral pain/temp loss','Brown-Séquard (hemicord)'],
     ['Cord','Pain/temp + weakness, dorsal columns spared','Anterior cord (ASA infarct)'],
     ['Gait','Positive Romberg means','Sensory (dorsal-column) ataxia, not cerebellar'],
     ['Field','Bitemporal hemianopia localizes to','The optic chiasm'],
-    ['Pattern','Fatigable ocular/bulbar weakness, normal sensation','Neuromuscular junction'],
+    ['Pattern','Fatigable ocular/bulbar, normal sensation','Neuromuscular junction'],
     ['Pattern','Symmetric proximal weakness, sensation spared','Muscle (myopathy)'],
-    ['Bedside','Outstretched arm drifts down and pronates','Pronator drift = subtle corticospinal weakness']
+    ['Reflex','Lost ankle jerk localizes to','S1 root']
   ];
   const deck=document.getElementById('deck');
   cards.forEach(c=>{
@@ -403,23 +476,25 @@
     deck.appendChild(d);
   });
 
-  // Quiz
   const qs=[
-    {q:'A patient has a dense right hemiparesis affecting face, arm and leg equally, with no aphasia, neglect, or visual-field loss. The most likely localization is:',
+    {q:'A patient has a dense right hemiparesis affecting face, arm and leg equally, with no aphasia, neglect, or visual-field loss. Most likely localization:',
      a:['Left cerebral cortex','Left internal capsule (lacune)','Right brainstem','Cervical spinal cord'],c:1,
-     e:'Equal face/arm/leg weakness with NO cortical signs is the classic pure-motor lacunar pattern of the internal capsule. Cortical signs would shift the lesion to cortex.'},
+     e:'Equal face/arm/leg weakness with NO cortical signs is the classic pure-motor lacunar pattern of the internal capsule.'},
     {q:'Which finding most specifically localizes a lesion to the brainstem?',
-     a:['A homonymous hemianopia','Ipsilateral facial weakness with contralateral arm weakness','Stocking-glove sensory loss','Symmetric proximal weakness'],c:1,
+     a:['Homonymous hemianopia','Ipsilateral facial weakness with contralateral arm weakness','Stocking-glove sensory loss','Symmetric proximal weakness'],c:1,
      e:'Crossed deficits (ipsilateral cranial nerve, contralateral long tract) are the brainstem signature.'},
+    {q:'A fluent patient with intact comprehension but impaired repetition most likely has:',
+     a:['Broca aphasia','Conduction aphasia','Transcortical motor aphasia','Global aphasia'],c:1,
+     e:'Fluent + comprehension intact + repetition impaired = conduction aphasia (arcuate fasciculus). Spared repetition would indicate a transcortical aphasia.'},
     {q:'A positive Romberg sign indicates:',
      a:['Cerebellar dysfunction','Dorsal-column / proprioceptive (sensory) ataxia','A corticospinal lesion','A vestibular schwannoma'],c:1,
-     e:'Romberg is positive when imbalance appears only with eyes closed — a sensory ataxia. Cerebellar patients are unsteady with eyes open and closed.'},
-    {q:'Loss of pain and temperature with preserved vibration and proprioception below the lesion, plus bilateral weakness, suggests:',
+     e:'Romberg is positive when imbalance appears only with eyes closed — a sensory ataxia. Cerebellar patients are unsteady eyes open and closed.'},
+    {q:'Loss of pain/temperature with preserved vibration/proprioception below the lesion, plus bilateral weakness, suggests:',
      a:['Posterior cord syndrome','Anterior cord (anterior spinal artery) syndrome','Brown-Séquard syndrome','Polyneuropathy'],c:1,
-     e:'Anterior spinal artery infarction affects the spinothalamic and corticospinal tracts while sparing the dorsal columns.'},
+     e:'Anterior spinal artery infarction affects spinothalamic and corticospinal tracts while sparing the dorsal columns.'},
     {q:'Which combination best fits a primary muscle (myopathic) process?',
      a:['Distal weakness with stocking-glove sensory loss','Fatigable ptosis and diplopia','Symmetric proximal weakness with intact sensation','Mixed UMN and LMN signs with fasciculations'],c:2,
-     e:'Myopathy causes symmetric proximal, sensory-sparing weakness. Fatigability points to NMJ; mixed UMN+LMN to motor neuron disease; stocking-glove to neuropathy.'}
+     e:'Myopathy causes symmetric proximal, sensory-sparing weakness. Fatigability → NMJ; mixed UMN+LMN → motor neuron disease; stocking-glove → neuropathy.'}
   ];
   const host=document.getElementById('quizHost');
   qs.forEach((item,i)=>{

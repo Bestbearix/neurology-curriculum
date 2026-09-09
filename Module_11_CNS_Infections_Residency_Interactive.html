@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residency Deep-Dive — CNS Infections</title>
+<style>
+  :root{
+    --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
+    --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
+    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;--key:#5fb0ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);color:var(--ink);min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 22px 80px}
+  .top-link{color:var(--time);text-decoration:none;font-size:.85rem}
+  .top-link:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin:14px 0 20px}
+  header h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:.3px}
+  header .sub{color:var(--muted);font-size:.95rem}
+  header .badge{display:inline-block;padding:2px 10px;border-radius:10px;background:rgba(14,165,164,.16);color:var(--accent-2);font-size:.78rem;margin:8px 6px 0 0}
+  header .badge.lvl{background:rgba(95,176,255,.16);color:#cfe6ff}
+
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px}
+  nav.tabs button{background:transparent;color:var(--muted);border:none;padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit;font-size:.9rem;transition:all .15s ease}
+  nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
+  nav.tabs button.active{background:var(--accent);color:#04201f;font-weight:600}
+
+  section.tab-panel{display:none}
+  section.tab-panel.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  h2{font-size:1.3rem;margin:1.1em 0 .5em;color:var(--accent-2)}
+  h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
+  p{line-height:1.65}
+  ul,ol{line-height:1.6}
+  .muted{color:var(--muted)}
+  .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
+
+  .key{background:rgba(95,176,255,.08);border:1px solid rgba(95,176,255,.3);border-left:4px solid var(--key);border-radius:8px;padding:12px 16px;margin:.5em 0 1.1em}
+  .key .kh{font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#a9d3ff;margin-bottom:.35em}
+  .key ul{margin:.2em 0 0 1.1em}
+  .key li{margin:.22em 0;color:#d5e8ff}
+
+  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
+  details.acc[open]{background:var(--panel-2)}
+  details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::after{content:"+";color:var(--accent);font-size:1.3rem;margin-left:10px;transition:transform .2s}
+  details.acc[open] summary::after{content:"−"}
+  details.acc .body{padding:0 18px 16px;color:var(--ink)}
+  details.acc .body p{margin:.4em 0}
+  details.acc .body ul{margin:.3em 0 .6em 1.2em}
+
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.9rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--accent-2);font-weight:600}
+
+  .pearl,.warn,.trial,.time{padding:10px 14px;border-radius:8px;margin:.8em 0;border-left:4px solid}
+  .pearl{background:rgba(14,165,164,.10);border-color:var(--accent);color:#c8f3f0}
+  .warn{background:rgba(255,185,92,.10);border-color:var(--warn);color:#ffe2b8}
+  .trial{background:rgba(95,210,138,.10);border-color:var(--good);color:#d6f6e3}
+  .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
+  .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
+  .obj ol{margin:.3em 0 .2em 1.2em}
+
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .tool .q{font-weight:600;color:var(--accent-2);margin:14px 0 8px;font-size:1rem}
+  .tool .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .tool .opt{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:20px;cursor:pointer;font:inherit;font-size:.9rem}
+  .tool .opt:hover{border-color:var(--accent);color:var(--accent-2)}
+  .tool .opt.sel{background:var(--accent);color:#04201f;border-color:var(--accent);font-weight:600}
+  .tool .result{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(14,165,164,.08);border:1px solid var(--accent);display:none}
+  .tool .result.show{display:block}
+  .tool .result h4{margin:0 0 8px;color:var(--accent-2);font-size:1.05rem}
+  .tool button.reset{background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit;font-size:.85rem;margin-top:12px}
+  .tool button.reset:hover{color:var(--ink);border-color:var(--accent)}
+
+  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
+  .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
+  .flashcard .face{position:relative;width:100%;height:180px;transition:transform .55s;transform-style:preserve-3d}
+  .flashcard.flipped .face{transform:rotateY(180deg)}
+  .flashcard .front,.flashcard .back{position:absolute;inset:0;backface-visibility:hidden;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .flashcard .front{color:var(--accent-2);font-size:1rem;font-weight:600}
+  .flashcard .back{transform:rotateY(180deg);background:var(--panel-2);color:var(--ink);font-size:.86rem;line-height:1.45}
+  .flashcard .tag{position:absolute;top:8px;left:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+  .quiz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .quiz h4{margin:0 0 8px;color:var(--accent-2);font-size:1rem}
+  .quiz .stem{margin:0 0 12px;line-height:1.55}
+  .quiz .choices{display:flex;flex-direction:column;gap:8px}
+  .quiz .choice{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:background .15s,border-color .15s}
+  .quiz .choice:hover{border-color:var(--accent)}
+  .quiz .choice.correct{background:rgba(95,210,138,.15);border-color:var(--good);color:#dffce9}
+  .quiz .choice.wrong{background:rgba(255,107,107,.12);border-color:var(--bad);color:#ffd8d8}
+  .quiz .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.92rem;display:none}
+  .quiz .feedback.show{display:block}
+  .quiz .feedback.good{background:rgba(95,210,138,.12);color:#dffce9;border:1px solid var(--good)}
+  .quiz .feedback.bad{background:rgba(255,107,107,.10);color:#ffd8d8;border:1px solid var(--bad)}
+
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+  .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
+
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
+  <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
+  <a href="Module_11_CNS_Infections_Residency_Reference.html" class="top-link">📖 Reference version</a>
+  <header>
+    <h1>CNS Infections</h1>
+    <div class="sub">Residency deep-dive · enriched · treat-first emergencies — antibiotics &amp; aciclovir don't wait for the LP</div>
+    <span class="badge lvl">Resident level</span>
+    <span class="badge">CSF interpretation</span>
+    <span class="badge">Meningitis / encephalitis</span>
+    <span class="badge">TB · fungal · parasitic</span>
+    <span class="badge">PML / HIV</span>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="obj">Objectives</button>
+    <button data-tab="csftool">CSF Interpreter</button>
+    <button data-tab="bacterial">Bacterial</button>
+    <button data-tab="tb">TB Meningitis</button>
+    <button data-tab="viral">Viral / HSV</button>
+    <button data-tab="abscess">Brain Abscess</button>
+    <button data-tab="fungal">Fungal</button>
+    <button data-tab="parasitic">Parasitic</button>
+    <button data-tab="opportunistic">HIV / PML</button>
+    <button data-tab="library">Evidence Library</button>
+    <button data-tab="cards">Flashcards</button>
+    <button data-tab="cases">Cases</button>
+    <button data-tab="quiz">Self-Assessment</button>
+  </nav>
+
+  <!-- OBJECTIVES -->
+  <section class="tab-panel active" id="obj">
+    <h2>The infectious-neuro emergency mindset</h2>
+    <p class="lead">The general-physician Module 11 teaches recognition and referral. This enriched version assumes you interpret the CSF, start empiric therapy before results, and run the differential across bacterial, TB, viral, fungal, parasitic, and opportunistic disease.</p>
+    <div class="obj">
+      <strong>By the end you should be able to:</strong>
+      <ol>
+        <li>Read a CSF profile and name the most likely category.</li>
+        <li>Give empiric bacterial-meningitis therapy (vancomycin + ceftriaxone ± ampicillin + dexamethasone) without waiting for the LP.</li>
+        <li>Sequence CT-before-LP correctly while never delaying antibiotics.</li>
+        <li>Start empiric aciclovir for suspected encephalitis; know DexEnceph is investigational and post-HSV NMDA-R encephalitis.</li>
+        <li>Apply the TB-meningitis, brain-abscess, fungal, parasitic and PML/HIV evidence.</li>
+      </ol>
+    </div>
+    <div class="key">
+      <div class="kh">How this module is organized</div>
+      <ul>
+        <li>Each tab opens with a <strong>Key points</strong> box; the <strong>CSF Interpreter</strong> tab is an interactive decision aid.</li>
+        <li>Green boxes = landmark evidence; amber boxes = do-not-miss safety points.</li>
+      </ul>
+    </div>
+    <div class="warn"><strong>Educational use only.</strong> Confirm antimicrobial choices, doses, and durations against current guidelines and local resistance/epidemiology.</div>
+  </section>
+
+  <!-- CSF TOOL -->
+  <section class="tab-panel" id="csftool">
+    <h2>Interactive CSF interpreter</h2>
+    <p class="muted">Pick the dominant cell type and the glucose pattern; get the most likely category and next tests.</p>
+    <div class="tool" id="csf">
+      <div class="q">1 · Predominant cells?</div>
+      <div class="opts" data-group="cells">
+        <button class="opt" data-v="neut">Neutrophils (100s–1000s)</button>
+        <button class="opt" data-v="lymph">Lymphocytes (10s–100s)</button>
+      </div>
+      <div class="q">2 · CSF glucose (vs serum)?</div>
+      <div class="opts" data-group="glu">
+        <button class="opt" data-v="low">Low (&lt;0.4 ratio)</button>
+        <button class="opt" data-v="normal">Normal</button>
+      </div>
+      <div class="result" id="csfResult"><h4>Most likely category</h4><p id="csfText"></p></div>
+      <button class="reset" id="csfReset">Reset</button>
+    </div>
+    <table>
+      <thead><tr><th>Parameter</th><th>Bacterial</th><th>Viral</th><th>TB / Fungal</th></tr></thead>
+      <tbody>
+        <tr><td>Cells</td><td>↑↑ neutrophils</td><td>lymphocytes</td><td>lymphocytes</td></tr>
+        <tr><td>Protein</td><td>very high</td><td>mildly high</td><td>high (very high in TB)</td></tr>
+        <tr><td>Glucose</td><td>low</td><td>normal</td><td>low</td></tr>
+        <tr><td>Key test</td><td>Gram stain/culture, PCR</td><td>HSV/entero/VZV PCR</td><td>AFB/TB-PCR; crypto antigen</td></tr>
+      </tbody>
+    </table>
+    <div class="warn"><strong>Early HSV PCR can be negative</strong> — if suspicious, continue aciclovir and repeat the LP in 3–7 days.</div>
+  </section>
+
+  <!-- BACTERIAL -->
+  <section class="tab-panel" id="bacterial">
+    <h2>Bacterial meningitis</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>Adults: <strong>pneumococcus + meningococcus</strong>; add <strong>Listeria</strong> cover if &gt;50, pregnant, or immunocompromised.</li>
+        <li>Empiric: <strong>vancomycin + ceftriaxone</strong> (± ampicillin) + <strong>dexamethasone</strong> with/just before first dose.</li>
+        <li><strong>Dexamethasone</strong> helps chiefly pneumococcal disease; <strong>stop if Listeria</strong>.</li>
+        <li>Sequence: <strong>cultures → dexamethasone + antibiotics → CT (if indicated) → LP</strong>. Never delay drugs for imaging.</li>
+      </ul>
+    </div>
+    <table>
+      <thead><tr><th>Host</th><th>Likely pathogens</th><th>Empiric regimen</th></tr></thead>
+      <tbody>
+        <tr><td>Adult immunocompetent</td><td>Pneumococcus, meningococcus</td><td>Vancomycin + ceftriaxone + dexamethasone</td></tr>
+        <tr><td>&gt;50 / pregnant / immunocompromised</td><td>+ Listeria</td><td>Add ampicillin</td></tr>
+        <tr><td>Post-neurosurgery / shunt</td><td>Staph (MRSA), Gram-negatives (Pseudomonas)</td><td>Vancomycin + cefepime (or meropenem)</td></tr>
+      </tbody>
+    </table>
+    <div class="trial"><strong>Adjunctive dexamethasone.</strong> Given before/with the first antibiotic dose it reduces mortality and hearing loss in pneumococcal meningitis; contemporary cohorts (Danish nationwide 2015–2023) show falling mortality with protocolized empiric therapy. Stop if Listeria.</div>
+    <div class="warn"><strong>CT before LP</strong> for focal deficit, new seizure, papilledema, ↓consciousness, or immunocompromise — but antibiotics first. A normal CT doesn't guarantee LP is safe in fulminant disease.</div>
+  </section>
+
+  <!-- TB -->
+  <section class="tab-panel" id="tb">
+    <h2>Tuberculous meningitis</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>Subacute basal meningitis: cranial neuropathies, <strong>hydrocephalus</strong>, basal enhancement ± infarcts/tuberculomas. CSF lymphocytic, high protein, low glucose.</li>
+        <li>Diagnose with <strong>Xpert MTB/RIF Ultra</strong> + AFB smear/culture (large-volume CSF); <strong>treat empirically</strong> when suspected.</li>
+        <li>4-drug anti-TB + <strong>adjunctive corticosteroids</strong>; watch for hydrocephalus and paradoxical reactions/IRIS.</li>
+      </ul>
+    </div>
+    <div class="trial"><strong>Genotype-stratified dexamethasone (phase-3 RCT).</strong> In LTA4H CC/CT-genotype HIV-negative adults, dexamethasone did <strong>not</strong> show the expected survival benefit — challenging uniform steroid benefit. (Dexamethasone retains an established mortality benefit in HIV-positive TBM from prior trials.)</div>
+    <div class="trial"><strong>High-dose rifampin (RCT).</strong> Standard rifampin penetrates the CNS poorly; intensified dosing is under study — no clearly superior regimen yet ("new approaches needed").</div>
+  </section>
+
+  <!-- VIRAL -->
+  <section class="tab-panel" id="viral">
+    <h2>Viral encephalitis — HSV</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li><strong>HSV-1 encephalitis</strong> = the treatable can't-miss: fever, altered mentation, <strong>temporal/limbic</strong> signs, seizures.</li>
+        <li>Start <strong>IV aciclovir 10 mg/kg q8h empirically</strong>; confirm with CSF HSV PCR (repeat if early/negative) + MRI.</li>
+        <li>Adjunctive steroids (<strong>DexEnceph</strong>) are investigational; aciclovir is the established therapy. Delay worsens outcome.</li>
+      </ul>
+    </div>
+    <div class="trial"><strong>DexEnceph (UK RCT).</strong> Tested IV dexamethasone + aciclovir vs aciclovir alone in PCR-confirmed HSV encephalitis; the role of adjunctive steroids remains investigational.</div>
+    <div class="pearl"><strong>Post-HSV anti-NMDA-R encephalitis:</strong> new movement disorder/psychiatric decline weeks after HSE (negative repeat HSV PCR) → test NMDA-R antibodies + immunotherapy, not more aciclovir.</div>
+    <p>Weigh other viruses by epidemiology: VZV vasculopathy, enteroviruses, arboviruses (JE, West Nile), CMV, HIV. <strong>Enterovirus D68</strong> → acute flaccid myelitis (see HIV/PML tab).</p>
+  </section>
+
+  <!-- ABSCESS -->
+  <section class="tab-panel" id="abscess">
+    <h2>Brain abscess</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>Headache + focal deficit ± fever/seizures; <strong>ring-enhancing lesion with restricted diffusion</strong> on DWI (vs most tumours).</li>
+        <li>Source: contiguous (oto/sinus/dental), haematogenous (endocarditis, R→L shunt), post-neurosurgical.</li>
+        <li>Usually <strong>surgical aspiration/excision + prolonged targeted antibiotics</strong>; steroids only for major mass effect.</li>
+      </ul>
+    </div>
+    <div class="trial"><strong>Surgery vs medical (emulated-trial cohort).</strong> Nonoperative management was associated with <strong>higher mortality and rupture risk</strong>, and ~⅓ of nonoperative patients eventually needed surgery — favouring neurosurgical drainage in most abscesses.</div>
+    <div class="warn"><strong>Corticosteroids aren't benign</strong> in brain abscess — a target-trial emulation links steroid use to higher in-hospital mortality; reserve for life-threatening edema.</div>
+  </section>
+
+  <!-- FUNGAL -->
+  <section class="tab-panel" id="fungal">
+    <h2>Fungal CNS infection</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li><strong>Cryptococcal meningitis</strong> — very high opening pressure; <strong>cryptococcal antigen</strong>; <strong>amphotericin B + flucytosine</strong> induction, then fluconazole; <strong>manage ICP with serial LPs</strong>.</li>
+        <li><strong>Mucormycosis</strong> (diabetes/immunocompromise, rhino-orbital-cerebral) &amp; <strong>Aspergillus</strong> — angioinvasive; surgery + antifungals (isavuconazole/voriconazole; liposomal amphotericin for mucor).</li>
+        <li>Regional: histoplasmosis, <strong>talaromycosis</strong> (SE Asia; anti-IFN-γ autoantibodies), candida, nocardia.</li>
+      </ul>
+    </div>
+    <div class="pearl"><strong>In cryptococcus, ICP kills</strong> — repeated therapeutic LPs (or drainage) matter as much as the antifungal. Provided qPCR and risk-prediction tools refine diagnosis/prognosis in sub-Saharan Africa.</div>
+    <div class="warn"><strong>Acute invasive fungal rhinosinusitis</strong> in a neutropenic/DKA patient (facial pain, black eschar, cranial neuropathies) is a surgical emergency.</div>
+  </section>
+
+  <!-- PARASITIC -->
+  <section class="tab-panel" id="parasitic">
+    <h2>Parasitic CNS infection</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li><strong>Neurocysticercosis</strong> — leading cause of acquired epilepsy in endemic areas; <strong>albendazole ± praziquantel + steroids</strong> + antiseizure meds.</li>
+        <li><strong>Cerebral toxoplasmosis</strong> — ring-enhancing lesions in advanced HIV; empiric <strong>pyrimethamine + sulfadiazine</strong> (response = diagnosis).</li>
+        <li><strong>Cerebral malaria</strong> — coma + falciparum parasitaemia → <strong>IV artesunate</strong>; long-term cognitive sequelae.</li>
+      </ul>
+    </div>
+    <p>Neurocysticercosis therapy is staged by cyst location/viability/burden; toxoplasmosis is distinguished from primary CNS lymphoma by therapy response, serology, and thallium-SPECT/EBV-PCR; cerebral malaria has characteristic imaging/EEG features (provided studies) and is a medical emergency.</p>
+  </section>
+
+  <!-- OPPORTUNISTIC -->
+  <section class="tab-panel" id="opportunistic">
+    <h2>HIV, PML &amp; opportunistic disease</h2>
+    <div class="key">
+      <div class="kh">Key points</div>
+      <ul>
+        <li>In advanced HIV use <strong>CD4 + imaging pattern</strong>: toxoplasmosis, primary CNS lymphoma, cryptococcus, TB, PML, CMV.</li>
+        <li><strong>PML</strong> (JC virus) — subacute multifocal white-matter disease in immunosuppression (HIV, <strong>natalizumab</strong>); no specific antiviral → <strong>restore immunity</strong>, anticipate <strong>IRIS</strong>.</li>
+        <li><strong>HIV-associated neurocognitive disorder</strong> persists in the ART era.</li>
+      </ul>
+    </div>
+    <div class="trial"><strong>PML / JCV.</strong> ART cut HIV-related PML, but <strong>iatrogenic PML surged with natalizumab</strong> and other immunomodulators. No specific antiviral — immune restoration, tempered by IRIS risk.</div>
+    <h3>Acute flaccid myelitis (AFM)</h3>
+    <p>A polio-like anterior-horn syndrome of children linked to <strong>enterovirus D68</strong> (provided causality review; MFSD6 identified as the EV-D68 entry receptor). Acute flaccid weakness ± cranial-nerve signs after a viral prodrome; MRI shows longitudinal anterior-horn (grey-matter) cord signal. Supportive care (cross-links to Module 10).</p>
+  </section>
+
+  <!-- EVIDENCE LIBRARY -->
+  <section class="tab-panel" id="library">
+    <h2>Evidence library — provided sources</h2>
+    <p class="muted">The Module 11 resource set (~60 papers), grouped by theme.</p>
+    <details class="acc"><summary>Bacterial meningitis, ICP &amp; healthcare-associated</summary><div class="body"><ul>
+      <li>Progress and Challenges in Bacterial Meningitis; Danish nationwide cohort (2015–2023)</li>
+      <li>LP &amp; Brain Herniation review; Elevated ICP in ABM (systematic review); ICP-monitoring outcomes; Controlled lumbar drainage</li>
+      <li>Meningitis/encephalitis primer; ICU management; healthcare-associated ventriculitis/meningitis + CSF heparin-binding protein</li>
+    </ul></div></details>
+    <details class="acc"><summary>Tuberculous meningitis</summary><div class="body"><ul>
+      <li>Genotype-stratified dexamethasone (phase-3 RCT); dexamethasone in HIV-positive TBM; high-dose rifampin trial</li>
+      <li>CNS TB review; global morbidity/mortality meta-analysis; "new approaches needed"; spinal TB review</li>
+    </ul></div></details>
+    <details class="acc"><summary>Viral encephalitis</summary><div class="body"><ul>
+      <li>HSV-1 encephalitis reviews + prospective cohort; DexEnceph RCT; HSV immunobiology/post-viral autoimmunity; childhood HSE inborn immunity</li>
+      <li>Viral encephalitis update; EV-D68 &amp; acute flaccid myelitis; MFSD6 EV-D68 receptor</li>
+    </ul></div></details>
+    <details class="acc"><summary>Brain abscess &amp; fungal/parasitic/HIV</summary><div class="body"><ul>
+      <li>Brain abscess emulated trial (surgery vs medical); corticosteroid target-trial emulation</li>
+      <li>Cryptococcus (imaging/surgery, qPCR, risk prediction, endpoints, co-infection, TPT); Aspergillus (guideline, ESCAI); Mucormycosis; Invasive fungal rhinosinusitis; Candida; Histoplasmosis; Talaromycosis; Nocardiosis</li>
+      <li>Neurocysticercosis (Tanzania POC test; Belgium outbreak); Cerebral toxoplasmosis; Cerebral malaria (imaging/EEG/cognition)</li>
+      <li>PML/JCV; HIV-associated neurocognitive disorder; CSF viral escape</li>
+    </ul></div></details>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="tab-panel" id="cards">
+    <h2>Flashcards — tap to flip</h2>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="tab-panel" id="cases">
+    <h2>Case-based reasoning</h2>
+
+    <div class="case">
+      <div class="vig"><strong>Case 1.</strong> A 62-year-old with fever, headache, neck stiffness and confusion. Focal deficit present.</div>
+      <details class="acc"><summary>Order of actions?</summary>
+        <div class="body"><p>Suspected bacterial meningitis with a focal deficit → <strong>blood cultures, then dexamethasone + vancomycin + ceftriaxone + ampicillin (age &gt;50 → Listeria) immediately</strong>, <strong>then CT, then LP</strong>. Do not delay antibiotics for imaging. Add aciclovir if encephalitis is also possible.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 2.</strong> A 40-year-old with 4 days of fever, personality change and a seizure; MRI shows left temporal T2/FLAIR signal.</div>
+      <details class="acc"><summary>Diagnosis and treatment?</summary>
+        <div class="body"><p><strong>HSV-1 encephalitis.</strong> Start <strong>IV aciclovir 10 mg/kg q8h empirically</strong>; send CSF HSV PCR (repeat in 3–7 days if early/negative but suspicious). Adjunctive steroids remain investigational (DexEnceph). Watch for later post-HSV NMDA-R encephalitis.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 3.</strong> A patient with advanced HIV (CD4 30) has headache and a very high LP opening pressure; cryptococcal antigen positive.</div>
+      <details class="acc"><summary>Management priority?</summary>
+        <div class="body"><p><strong>Cryptococcal meningitis.</strong> Induction <strong>amphotericin B + flucytosine</strong> then fluconazole — but the outcome-defining step is <strong>aggressive ICP control with repeated therapeutic LPs</strong> (or drainage). Time ART start to reduce IRIS risk.</p></div>
+      </details>
+    </div>
+
+    <div class="case">
+      <div class="vig"><strong>Case 4.</strong> An MS patient on natalizumab develops subacute cognitive decline and hemianopia; MRI shows an expanding, non-enhancing subcortical white-matter lesion crossing to grey matter.</div>
+      <details class="acc"><summary>Diagnosis and management?</summary>
+        <div class="body"><p><strong>Progressive multifocal leukoencephalopathy (JC virus).</strong> Confirm with CSF JCV PCR. There is no specific antiviral — <strong>stop natalizumab and restore immunity</strong> (e.g., plasma exchange to clear drug), and anticipate <strong>IRIS</strong>, which can transiently worsen deficits.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="tab-panel" id="quiz">
+    <h2>Self-assessment</h2>
+    <p class="muted">Pick an answer to reveal the explanation.</p>
+    <div id="quizHost"></div>
+  </section>
+
+  <footer>
+    Residency deep-dive (enriched) · CNS Infections. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 31–32), bacterial-meningitis and ICP literature, the TB-meningitis and DexEnceph trials, the brain-abscess emulated-trial cohort, and fungal/parasitic/PML/HIV reviews. Educational reference — verify antimicrobials against current guidelines at the point of care.
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  // CSF interpreter
+  const sel={cells:null,glu:null};
+  document.querySelectorAll('#csf .opts').forEach(g=>{
+    const grp=g.dataset.group;
+    g.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{
+      g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');sel[grp]=o.dataset.v;evalCsf();
+    }));
+  });
+  function evalCsf(){
+    if(!sel.cells||!sel.glu)return;
+    let out;
+    if(sel.cells==='neut'&&sel.glu==='low') out='<strong>Bacterial meningitis.</strong> Neutrophils + low glucose + high protein. Empiric vancomycin + ceftriaxone (± ampicillin) + dexamethasone NOW; Gram stain/culture, PCR.';
+    else if(sel.cells==='lymph'&&sel.glu==='normal') out='<strong>Viral (aseptic) meningitis / encephalitis.</strong> Lymphocytes + normal glucose. Send HSV/entero/VZV PCR; start empiric aciclovir if encephalitis features. Consider autoimmune encephalitis in parallel.';
+    else if(sel.cells==='lymph'&&sel.glu==='low') out='<strong>TB or fungal meningitis.</strong> Lymphocytes + low glucose + high protein. Send TB-PCR/AFB and cryptococcal antigen; treat empirically for TBM when suspected.';
+    else out='<strong>Atypical / partially treated.</strong> Neutrophils with normal glucose can occur in early viral or partially treated bacterial meningitis — correlate with Gram stain, PCR and clinical course.';
+    document.getElementById('csfText').innerHTML=out;
+    document.getElementById('csfResult').classList.add('show');
+  }
+  document.getElementById('csfReset').addEventListener('click',()=>{
+    sel.cells=sel.glu=null;document.querySelectorAll('#csf .opt').forEach(x=>x.classList.remove('sel'));
+    document.getElementById('csfResult').classList.remove('show');
+  });
+
+  const cards=[
+    ['CSF','Neutrophils + low glucose','Bacterial meningitis'],
+    ['CSF','Lymphocytes + low glucose','TB or fungal meningitis'],
+    ['CSF','Lymphocytes + normal glucose','Viral meningitis/encephalitis'],
+    ['Bacterial','Empiric adult regimen','Vancomycin + ceftriaxone (± ampicillin) + dexamethasone'],
+    ['Bacterial','When to add ampicillin','Age >50, pregnant, immunocompromised (Listeria)'],
+    ['Bacterial','Dexamethasone timing / stop rule','With/before 1st dose; stop if Listeria'],
+    ['Sequencing','If CT needed first','Cultures → dexamethasone+antibiotics → CT → LP'],
+    ['TBM','Genotype-stratified dexamethasone RCT','No expected survival benefit in LTA4H CC/CT'],
+    ['HSV','Empiric therapy + dose','IV aciclovir 10 mg/kg q8h; repeat PCR if early-negative'],
+    ['HSV','Adjunctive steroids (DexEnceph)','Investigational — aciclovir is established'],
+    ['Abscess','Imaging clue vs tumour','Ring enhancement WITH restricted diffusion (DWI)'],
+    ['Abscess','Surgery vs medical','Surgery favored (nonoperative → higher mortality/rupture)'],
+    ['Cryptococcus','Outcome-defining step','Aggressive ICP control with serial LPs'],
+    ['Parasitic','Leading cause of acquired epilepsy (endemic)','Neurocysticercosis'],
+    ['PML','Cause + management','JC virus; restore immunity, anticipate IRIS (no antiviral)']
+  ];
+  const deck=document.getElementById('deck');
+  cards.forEach(c=>{
+    const d=document.createElement('div');d.className='flashcard';
+    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
+    d.addEventListener('click',()=>d.classList.toggle('flipped'));
+    deck.appendChild(d);
+  });
+
+  const qs=[
+    {q:'A 55-year-old with suspected bacterial meningitis has a focal deficit, so CT is planned before LP. What is the correct sequence?',
+     a:['CT → LP → antibiotics','Blood cultures → dexamethasone + antibiotics → CT → LP','LP first regardless','Antibiotics only after LP results'],c:1,e:'Never delay antibiotics for imaging: cultures, then dexamethasone + empiric antibiotics, then CT, then LP.'},
+    {q:'Adjunctive dexamethasone in bacterial meningitis should be:',
+     a:['Given after 24 h of antibiotics','Given with or just before the first antibiotic dose, and stopped if Listeria','Avoided in pneumococcal disease','Continued lifelong'],c:1,e:'Dexamethasone is most beneficial in pneumococcal meningitis when given with/before the first dose; stop it if Listeria is confirmed.'},
+    {q:'A patient has fever, confusion, a seizure, and left temporal MRI signal. The single most important immediate action is:',
+     a:['Await CSF HSV PCR before treating','Start IV aciclovir empirically','Start dexamethasone alone','Start broad antifungals'],c:1,e:'Suspected HSV encephalitis is treated with empiric IV aciclovir immediately; PCR can be negative early, so treat first and repeat the LP if needed.'},
+    {q:'In the genotype-stratified TB-meningitis trial, adjunctive dexamethasone in LTA4H CC/CT-genotype HIV-negative adults:',
+     a:['Clearly improved survival','Did not show the expected survival benefit','Increased mortality markedly','Was only tested in children'],c:1,e:'The trial did not demonstrate the anticipated survival benefit in that genotype stratum, challenging the idea of uniform steroid benefit in TBM.'},
+    {q:'A nationwide emulated trial of brain abscess found that nonoperative (medical-only) management compared with neurosurgery was associated with:',
+     a:['Lower mortality','Higher mortality and rupture risk','Identical outcomes','No need for later surgery'],c:1,e:'Nonoperative management had higher mortality and rupture risk, and ~⅓ eventually needed surgery — supporting neurosurgical drainage for most abscesses.'},
+    {q:'A cryptococcal meningitis patient with a very high opening pressure needs which outcome-defining intervention alongside antifungals?',
+     a:['High-dose steroids','Aggressive ICP control with repeated therapeutic LPs','Empiric anti-TB therapy','Immediate ART on day 1'],c:1,e:'Raised ICP is the leading preventable cause of death in cryptococcal meningitis — manage with serial therapeutic LPs (or drainage), not antifungals alone.'}
+  ];
+  const host=document.getElementById('quizHost');
+  qs.forEach((item,i)=>{
+    const box=document.createElement('div');box.className='quiz';
+    let ch='';item.a.forEach((opt,j)=>ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`);
+    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
+    host.appendChild(box);
+  });
+  host.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i],parent=btn.closest('.quiz');
+    if(parent.dataset.done)return;parent.dataset.done='1';
+    parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
+    if(j===item.c)btn.classList.add('correct');
+    else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
+    const fb=document.getElementById('fb'+i);fb.className='feedback show '+(j===item.c?'good':'bad');
+    fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
+  }));
+</script>
+</body>
+</html>

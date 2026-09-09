@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 11 — CNS Infections (Residency Reference)</title>
+<style>
+  :root{
+    --ink:#15211f;--muted:#51635f;--line:#dfe7e5;--accent:#0f766e;--soft:#f1faf8;
+    --warn-bg:#fff4e8;--warn-bd:#e29a4c;--warn-ink:#7a4a10;
+    --pearl-bg:#ecfdf7;--pearl-bd:#0f766e;--pearl-ink:#0a4f49;
+    --trial-bg:#eefcf3;--trial-bd:#1f9d57;--trial-ink:#125a32;
+    --time-bg:#eef7ff;--time-bd:#3a86b0;--time-ink:#163a6a;
+    --key-bg:#f0f9ff;--key-bd:#0284c7;--key-ink:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif;color:var(--ink);background:#fff;line-height:1.58;max-width:900px;margin:0 auto;padding:48px 28px 96px}
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;color:var(--ink);line-height:1.25}
+  h1{font-size:2rem;margin:0 0 .2em;border-bottom:3px solid var(--accent);padding-bottom:.3em}
+  h2{font-size:1.42rem;margin-top:2.2em;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:.25em}
+  h2 .num{display:inline-block;min-width:1.6em;color:#9fb8b4}
+  h3{font-size:1.16rem;margin-top:1.5em;color:#123c38}
+  h4{font-size:1.0rem;margin-top:1.2em;color:#444}
+  p{margin:.6em 0}
+  ul,ol{margin:.4em 0 .8em 1.2em;padding:0}
+  li{margin:.28em 0}
+  .meta{color:var(--muted);font-style:italic;margin:.2em 0 1.4em}
+  .lvl{display:inline-block;font-family:'Helvetica Neue',sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;background:var(--accent);color:#fff;padding:.18em .6em;border-radius:10px;margin-left:.4em}
+  .toc{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:14px 22px;margin:22px 0}
+  .toc h3{margin:0 0 .4em;color:var(--accent);font-size:1.05rem}
+  .toc ol{margin:.2em 0 .2em 1.3em;columns:2;column-gap:2rem}
+  .toc a{color:var(--ink);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .key{background:var(--key-bg);border:1px solid #bae6fd;border-left:4px solid var(--key-bd);border-radius:8px;padding:12px 16px 12px 18px;margin:.6em 0 1.1em}
+  .key .kh{font-family:'Helvetica Neue',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--key-bd);margin-bottom:.35em}
+  .key ul{margin:.2em 0 0 1.1em}
+  .key li{margin:.2em 0;color:#0c4a6e}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:600;font-family:'Helvetica Neue','Segoe UI',sans-serif;color:#0d5f59}
+  tbody tr:nth-child(even){background:#fafdfc}
+  td strong,li strong{color:#0a3b36}
+  .pearl,.warn,.trial,.time{border-left:4px solid;padding:10px 14px;margin:.9em 0;border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg);border-color:var(--pearl-bd);color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-ink)}
+  .trial{background:var(--trial-bg);border-color:var(--trial-bd);color:var(--trial-ink)}
+  .time{background:var(--time-bg);border-color:var(--time-bd);color:var(--time-ink)}
+  .src{font-size:.8rem;color:var(--muted)}
+  hr{border:none;border-top:1px dashed var(--line);margin:2.2em 0}
+  .back-button{display:inline-block;margin-bottom:1.4em;padding:.55em 1.1em;background:var(--accent);color:#fff;text-decoration:none;border-radius:5px;font-size:.92rem;font-weight:600;font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif}
+  .back-button:hover{background:#0d5f59}
+  .alt-link{display:inline-block;margin:0 0 1.4em .5em;font-family:'Helvetica Neue',sans-serif;font-size:.85rem;color:var(--accent);text-decoration:none}
+  .alt-link:hover{text-decoration:underline}
+  @media print{body{max-width:100%;padding:24px}.toc,.toc ol{columns:1}.key{break-inside:avoid}h2{break-after:avoid}.back-button,.alt-link{display:none}}
+  @media(max-width:620px){.toc ol{columns:1}}
+</style>
+</head>
+<body>
+
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<a href="Module_11_CNS_Infections_Residency_Interactive.html" class="alt-link">⚡ Open the interactive version</a>
+
+<h1>Module 11 — CNS Infections <span class="lvl">Residency · Enriched</span></h1>
+<p class="meta">Resident-depth reference · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 31–32, Infections of the Nervous System) and the curated Module 11 resource library (bacterial-meningitis reviews and cohorts, the LP-herniation and ICP literature, the genotype-stratified dexamethasone and high-dose rifampin TB-meningitis trials, the DexEnceph HSV trial, the brain-abscess emulated-trial cohort, and reviews of fungal, parasitic, PML/JCV and HIV-associated CNS infection).</p>
+
+<div class="key">
+  <div class="kh">▎How to use this module</div>
+  <ul>
+    <li>Every section opens with a <strong>Key points</strong> box — skim those first, then read the detail.</li>
+    <li>Use the <strong>CSF-profile table</strong> in §2 as your bedside decision anchor for bacterial vs viral vs TB vs fungal.</li>
+    <li>The theme: <em>bacterial meningitis and HSV encephalitis are treat-first emergencies — antibiotics/aciclovir do not wait for the LP.</em></li>
+  </ul>
+</div>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#approach">Approach: meningitis vs encephalitis</a></li>
+  <li><a href="#csf">CSF interpretation</a></li>
+  <li><a href="#bacterial">Bacterial meningitis</a></li>
+  <li><a href="#icp">ICP, LP timing &amp; herniation</a></li>
+  <li><a href="#tb">Tuberculous meningitis</a></li>
+  <li><a href="#viral">Viral encephalitis (HSV)</a></li>
+  <li><a href="#abscess">Brain abscess</a></li>
+  <li><a href="#fungal">Fungal CNS infection</a></li>
+  <li><a href="#parasitic">Parasitic CNS infection</a></li>
+  <li><a href="#opportunistic">HIV, PML &amp; opportunistic disease</a></li>
+  <li><a href="#evidence">Evidence library</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ol>
+</div>
+
+<h2 id="approach"><span class="num">1</span> Approach: meningitis vs encephalitis</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Meningitis</strong> = meningeal inflammation (fever, headache, neck stiffness, photophobia). <strong>Encephalitis</strong> = brain-parenchyma inflammation (altered mentation, seizures, focal deficits). They overlap (meningoencephalitis).</li>
+    <li><strong>Do not delay treatment for diagnostics.</strong> In suspected bacterial meningitis, give <strong>empiric antibiotics + dexamethasone</strong> immediately; in suspected encephalitis, start <strong>aciclovir</strong> empirically.</li>
+    <li>Sequence when CT is needed first: <strong>blood cultures → dexamethasone + antibiotics → CT → LP</strong> (don't let imaging delay drugs).</li>
+  </ul>
+</div>
+<p>The first fork is meningitis versus encephalitis, because it changes the empiric drug: predominant <strong>meningismus</strong> → bacterial meningitis pathway (antibiotics + steroid); predominant <strong>encephalopathy/seizures/focal signs</strong> → encephalitis pathway (aciclovir, and consider autoimmune encephalitis in parallel — cross-links to Modules 7 &amp; 8). Take a careful <strong>exposure/host history</strong>: immune status (HIV, transplant, biologics), travel and residence (TB, endemic mycoses, malaria, cysticercosis), animal/insect and food exposures, and vaccination.</p>
+
+<h2 id="csf"><span class="num">2</span> CSF interpretation</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Bacterial:</strong> ↑↑ neutrophils, very high protein, <strong>low glucose</strong> (CSF:serum &lt;0.4). <strong>Viral:</strong> lymphocytes, mildly high protein, normal glucose.</li>
+    <li><strong>TB / fungal:</strong> lymphocytes, high protein, <strong>low glucose</strong> — the "chronic lymphocytic with low glucose" pattern.</li>
+    <li>Always send <strong>opening pressure</strong>, cell count/differential, glucose (with paired serum), protein, Gram stain/culture, and targeted studies (PCR panel, cryptococcal antigen, AFB/TB-PCR, VDRL).</li>
+  </ul>
+</div>
+<table>
+<thead><tr><th>Parameter</th><th>Normal</th><th>Bacterial</th><th>Viral</th><th>TB / Fungal</th></tr></thead>
+<tbody>
+<tr><td>Opening pressure</td><td>&lt;20 cm H₂O</td><td>↑</td><td>Normal/↑</td><td>↑ (often very high in cryptococcus)</td></tr>
+<tr><td>Cells (predominant)</td><td>&lt;5 lymph</td><td>↑↑ <strong>neutrophils</strong> (100s–1000s)</td><td><strong>lymphocytes</strong> (10s–100s)</td><td><strong>lymphocytes</strong></td></tr>
+<tr><td>Protein</td><td>&lt;45 mg/dL</td><td>very high</td><td>mildly high</td><td>high (often very high in TB)</td></tr>
+<tr><td>Glucose (CSF:serum)</td><td>≥0.6</td><td><strong>low</strong> (&lt;0.4)</td><td>normal</td><td><strong>low</strong></td></tr>
+<tr><td>Key test</td><td>—</td><td>Gram stain/culture, PCR</td><td>viral PCR (HSV, entero, VZV)</td><td>AFB/TB-PCR/culture; cryptococcal antigen; India ink</td></tr>
+</tbody>
+</table>
+<div class="pearl"><strong>Reflex add-ons by host:</strong> in HIV/immunocompromised send <strong>cryptococcal antigen</strong> (serum + CSF) and toxoplasma serology; in the right epidemiology send <strong>TB-PCR (Xpert MTB/RIF Ultra)</strong> and endemic-fungal testing; in encephalitis send the <strong>HSV/VZV/enterovirus PCR</strong> panel plus autoimmune-encephalitis antibodies. Multiplex PCR panels speed diagnosis but have false negatives/positives — interpret with the CSF profile.</div>
+<div class="warn"><strong>A normal CSF does not exclude early HSV encephalitis</strong> — HSV PCR can be negative in the first 72 h. If suspicion is high, <strong>continue aciclovir and repeat the LP</strong> in 3–7 days.</div>
+
+<h2 id="bacterial"><span class="num">3</span> Bacterial meningitis</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Commonest adult pathogens: <strong>Streptococcus pneumoniae</strong> and <strong>Neisseria meningitidis</strong>; add <strong>Listeria</strong> cover in neonates, age &gt;50, pregnancy, and immunocompromise.</li>
+    <li>Empiric adult therapy: <strong>vancomycin + ceftriaxone</strong> (± <strong>ampicillin</strong> for Listeria) + <strong>dexamethasone</strong>.</li>
+    <li>Give <strong>dexamethasone with or just before the first antibiotic dose</strong>; continue only if pneumococcal, <strong>stop if Listeria</strong> is confirmed.</li>
+    <li>It is a true emergency — mortality and disability rise with every hour of delay.</li>
+  </ul>
+</div>
+<table>
+<thead><tr><th>Host</th><th>Likely pathogens</th><th>Empiric regimen</th></tr></thead>
+<tbody>
+<tr><td>Adult (immunocompetent)</td><td>Pneumococcus, meningococcus</td><td>Vancomycin + ceftriaxone + dexamethasone</td></tr>
+<tr><td>Age &gt;50 / pregnant / immunocompromised</td><td>+ <strong>Listeria</strong></td><td>Add <strong>ampicillin</strong></td></tr>
+<tr><td>Post-neurosurgery / shunt / penetrating trauma</td><td>Staph (incl. MRSA), Gram-negatives incl. <em>Pseudomonas</em></td><td>Vancomycin + <strong>cefepime</strong> (or meropenem)</td></tr>
+</tbody>
+</table>
+<div class="trial"><strong>Adjunctive dexamethasone (provided reviews/cohorts).</strong> Dexamethasone before/with the first antibiotic dose reduces mortality and hearing loss chiefly in <strong>pneumococcal</strong> meningitis; contemporary cohorts (e.g., the Danish nationwide 2015–2023 study) show falling mortality alongside protocolized empiric antibiotics + dexamethasone. Stop the steroid if <em>Listeria</em> is identified (no benefit).</div>
+<div class="warn"><strong>Don't forget the public-health &amp; prophylaxis steps:</strong> droplet precautions and post-exposure chemoprophylaxis for close contacts of meningococcal disease; notify public health.</div>
+
+<h2 id="icp"><span class="num">4</span> ICP, LP timing &amp; herniation</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>CT before LP</strong> if: focal deficit, new seizure, papilledema, reduced/altered consciousness, or immunocompromise — but <strong>never delay antibiotics</strong> for the CT.</li>
+    <li>A <strong>normal CT does not guarantee LP is safe</strong> in fulminant bacterial meningitis — clinical herniation risk still applies.</li>
+    <li>Raised ICP is a major driver of death; recognize and treat it (head-up, osmotherapy, treat seizures, consider ICP monitoring / lumbar drainage in selected refractory cases).</li>
+  </ul>
+</div>
+<div class="trial"><strong>LP and herniation (provided narrative review).</strong> The review of herniation shortly after LP in acute bacterial meningitis emphasizes that in a patient clinically at high risk of herniation, <strong>CT may not reliably exclude the risk</strong> — prioritize ICP-directed measures and antibiotics, and defer LP if the patient is deteriorating. Respiratory arrest or a tonic "seizure" can actually be early herniation.</div>
+<p>Severe community-acquired bacterial meningitis complicated by raised ICP has been managed with ICP monitoring and, in refractory intracranial hypertension with patent basal cisterns, <strong>controlled lumbar drainage</strong> (provided series) — specialized, ICU-level decisions.</p>
+
+<h2 id="tb"><span class="num">5</span> Tuberculous meningitis (TBM)</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Subacute basal meningitis with cranial neuropathies, <strong>hydrocephalus</strong>, and <strong>basal enhancement</strong> ± infarcts (vasculitis) ± tuberculomas. CSF: lymphocytic, high protein, low glucose.</li>
+    <li>Diagnose with <strong>TB-PCR (Xpert Ultra)</strong>, AFB smear/culture (large-volume CSF), and imaging; treatment is <strong>empiric</strong> when suspected — don't wait for culture.</li>
+    <li>Standard therapy = 4-drug anti-TB + <strong>adjunctive corticosteroids</strong>; high mortality/morbidity worldwide.</li>
+  </ul>
+</div>
+<div class="trial"><strong>Corticosteroids — genotype-stratified dexamethasone (provided phase-3 RCT).</strong> Adjunctive dexamethasone is recommended in TBM. This trial randomized <strong>LTA4H CC/CT-genotype</strong> HIV-negative adults and did <strong>not</strong> demonstrate the anticipated survival benefit in that genotype stratum — challenging the idea that steroid benefit is uniform and reopening how to target steroids. (Dexamethasone still has an established mortality benefit in HIV-positive TBM per prior trials.)</div>
+<div class="trial"><strong>High-dose rifampin (provided RCT).</strong> Standard rifampin penetrates the CNS poorly; a multicountry trial tested intensified rifampin dosing. Optimizing rifampin exposure is an active strategy, but the field still lacks a clearly superior regimen — "new approaches needed" (provided review).</div>
+<div class="warn"><strong>Watch for hydrocephalus and paradoxical worsening.</strong> TBM frequently causes obstructive hydrocephalus (may need CSF diversion) and paradoxical reactions/IRIS after starting therapy. Spinal TB (Pott disease) can cause cord compression.</div>
+
+<h2 id="viral"><span class="num">6</span> Viral encephalitis — HSV</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>HSV-1 encephalitis</strong> = the treatable can't-miss: fever, altered mentation, <strong>temporal/limbic</strong> involvement, seizures. Start <strong>IV aciclovir empirically</strong> in any suspected encephalitis.</li>
+    <li>Dose <strong>aciclovir 10 mg/kg IV q8h</strong>; confirm with <strong>CSF HSV PCR</strong> (repeat if early/negative but suspicious) and MRI (temporal/insular T2/FLAIR).</li>
+    <li>Delay in aciclovir worsens outcome — treat first, investigate in parallel.</li>
+  </ul>
+</div>
+<div class="trial"><strong>Adjunctive dexamethasone — DexEnceph (provided RCT).</strong> A UK multicentre trial randomized adults with PCR-confirmed HSV encephalitis to IV dexamethasone plus aciclovir versus aciclovir alone, testing whether steroids improve outcome. The role of adjunctive steroids in HSV encephalitis remains <strong>investigational</strong> — aciclovir is the established therapy.</div>
+<div class="pearl"><strong>Post-HSV autoimmune (anti-NMDA-R) encephalitis:</strong> new movement disorder/psychiatric decline <em>weeks after</em> HSV encephalitis, often with negative repeat HSV PCR → test NMDA-R antibodies and give immunotherapy, not more aciclovir (cross-links to Module 8). Recognized childhood HSV encephalitis has an inborn-immunity (TLR3 pathway) basis.</div>
+<p>Other viral encephalitides to weigh by epidemiology: VZV (vasculopathy), enteroviruses, arboviruses (e.g., Japanese encephalitis, West Nile), and — in the CSF/host context — CMV and HIV itself. <strong>Enterovirus D68</strong> is linked to <strong>acute flaccid myelitis</strong> (below).</p>
+
+<h2 id="abscess"><span class="num">7</span> Brain abscess</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Presents with headache, focal deficit, ± fever and seizures; ring-enhancing lesion with <strong>restricted diffusion</strong> on DWI (distinguishes from most tumours).</li>
+    <li>Source-directed: contiguous (otogenic/sinus/dental), haematogenous (endocarditis, right-to-left shunt), or post-neurosurgical.</li>
+    <li>Management usually combines <strong>neurosurgical aspiration/excision + prolonged targeted antibiotics</strong>; steroids only for significant mass effect/edema.</li>
+  </ul>
+</div>
+<div class="trial"><strong>Surgery vs medical therapy (provided emulated-trial cohort).</strong> In a nationwide population-based emulated trial, a <strong>nonoperative strategy was associated with higher mortality and rupture risk</strong> than neurosurgery, and about a third of nonoperatively managed patients ultimately required surgery — supporting neurosurgical drainage in most abscesses, with medical-only therapy reserved for selected small/deep/multiple lesions or poor surgical candidates.</div>
+<div class="warn"><strong>Corticosteroids in brain abscess</strong> are not benign — a target-trial-emulation study links steroid use to higher in-hospital mortality; reserve them for life-threatening edema/mass effect, not routine use.</div>
+
+<h2 id="fungal"><span class="num">8</span> Fungal CNS infection</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Cryptococcal meningitis</strong> (HIV/immunocompromised) — very high opening pressure; diagnose by <strong>cryptococcal antigen</strong>; treatment = <strong>amphotericin B + flucytosine</strong> induction then fluconazole, with <strong>aggressive ICP management by serial LP</strong>.</li>
+    <li><strong>Mould disease</strong> — <em>Aspergillus</em> and <strong>mucormycosis</strong> (rhino-orbital-cerebral, in diabetes/immunocompromise) are angioinvasive emergencies needing surgery + antifungals.</li>
+    <li>Endemic/regional fungi: histoplasmosis, and <strong>talaromycosis</strong> (Southeast Asia; linked to anti-IFN-γ autoantibodies), candida (healthcare-associated), nocardia (bacterial actinomycete but behaves like a mould-abscess).</li>
+  </ul>
+</div>
+<p><strong>Cryptococcus:</strong> the dominant preventable cause of death is <strong>raised ICP</strong> — manage with repeated therapeutic LPs (or drainage), not just antifungals; the provided risk-prediction and qPCR papers refine diagnosis and mortality stratification in sub-Saharan Africa. <strong>Aspergillus</strong> CNS disease is treated with <strong>voriconazole/isavuconazole</strong> (the provided ESCAI cohort supports isavuconazole). <strong>Mucormycosis</strong> demands early surgical debridement + <strong>liposomal amphotericin B</strong> and reversal of immunosuppression/acidosis. Candida, histoplasmosis, and nocardiosis are managed per the provided IDSA/ECMM/WHO guidance.</p>
+<div class="warn"><strong>Acute invasive fungal rhinosinusitis</strong> (mucor/aspergillus) in a neutropenic or diabetic-ketoacidotic patient is a surgical emergency — think of it with orbital/facial pain, black eschar, or cranial neuropathies.</div>
+
+<h2 id="parasitic"><span class="num">9</span> Parasitic CNS infection</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Neurocysticercosis</strong> (<em>Taenia solium</em>) — the leading cause of acquired epilepsy in endemic areas; cystic lesions at different stages; treat with <strong>albendazole ± praziquantel + corticosteroids</strong>, and antiseizure medication.</li>
+    <li><strong>Cerebral toxoplasmosis</strong> — ring-enhancing lesions in advanced HIV; empiric <strong>pyrimethamine + sulfadiazine</strong>, response confirms diagnosis.</li>
+    <li><strong>Cerebral malaria</strong> (<em>P. falciparum</em>) — coma + parasitaemia; a medical emergency treated with <strong>IV artesunate</strong>; long-term cognitive sequelae, especially in children.</li>
+  </ul>
+</div>
+<p><strong>Neurocysticercosis</strong> management is staged by cyst location (parenchymal vs extraparenchymal/racemose), viability, and burden — anti-parasitic therapy is paired with steroids to blunt the inflammatory reaction and with seizure control; point-of-care antigen testing (provided Tanzania study) aids diagnosis where imaging is limited. <strong>Cerebral toxoplasmosis</strong> is distinguished from primary CNS lymphoma in HIV by response to therapy, toxoplasma serology, and (if needed) thallium-SPECT/CSF EBV-PCR. <strong>Cerebral malaria</strong> carries characteristic imaging/EEG features (provided studies) and both cerebral malaria and severe malarial anaemia are associated with long-term cognitive impairment.</p>
+
+<h2 id="opportunistic"><span class="num">10</span> HIV, PML &amp; opportunistic disease</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>In advanced HIV, use the <strong>CD4 count + imaging pattern</strong> to frame the differential (toxoplasmosis, primary CNS lymphoma, cryptococcus, TB, PML, CMV).</li>
+    <li><strong>PML</strong> (JC virus) — subacute multifocal white-matter disease in immunosuppression (HIV, <strong>natalizumab</strong>); no specific antiviral — <strong>restore immunity</strong> (ART, stop the offending immunosuppressant), and anticipate <strong>IRIS</strong>.</li>
+    <li><strong>HIV-associated neurocognitive disorder</strong> persists in the ART era; optimize ART and manage comorbidities.</li>
+  </ul>
+</div>
+<div class="trial"><strong>PML / JCV (provided review).</strong> PML is caused by JC virus reactivation; ART has cut HIV-related PML, but <strong>iatrogenic PML has surged with natalizumab and other immunomodulators</strong>. There is no specific antiviral — management is immune restoration, tempered by the risk of <strong>immune reconstitution inflammatory syndrome (IRIS)</strong>, which can paradoxically worsen deficits.</div>
+<p>Note the emerging concept of <strong>CSF viral escape</strong> (detectable/active CNS virus despite peripheral control) relevant to HIV reservoirs and persistent symptoms. <strong>Healthcare-associated ventriculitis/meningitis</strong> (shunts, drains, post-op) is a distinct entity with its own microbiology and diagnostic markers (provided papers on CSF heparin-binding protein and PCR panels).</p>
+
+<h4>Acute flaccid myelitis (AFM)</h4>
+<p>A polio-like anterior-horn syndrome of children, temporally and mechanistically linked to <strong>enterovirus D68</strong> (the provided causality review and the recent identification of MFSD6 as an EV-D68 entry receptor). Presents with acute flaccid limb weakness ± cranial nerve involvement after a viral prodrome; MRI shows longitudinal grey-matter (anterior horn) cord signal. Management is supportive; recognize it as an infectious cord syndrome (cross-links to Module 10).</p>
+
+<hr>
+<h2 id="evidence"><span class="num">11</span> Evidence library (provided sources)</h2>
+<p>Papers from the <em>Module 11 resource</em> folder used to build this module, grouped by theme.</p>
+<h4>Bacterial meningitis, ICP &amp; healthcare-associated</h4>
+<ul>
+  <li>Progress and Challenges in Bacterial Meningitis — A Review; Community-Acquired Bacterial Meningitis in Adults in Denmark (2015–2023) cohort.</li>
+  <li>Lumbar Puncture and Brain Herniation in Acute Bacterial Meningitis (narrative review); Detection/Management of Elevated ICP in ABM (systematic review); ICP-monitoring outcomes cohort; Controlled Lumbar Drainage for intracranial hypertension.</li>
+  <li>Infectious Meningitis and Encephalitis — a primer; ICU Management of Meningitis and Encephalitis; Healthcare-associated ventriculitis/meningitis epidemiology + CSF heparin-binding protein thresholds.</li>
+</ul>
+<h4>Tuberculous meningitis</h4>
+<ul>
+  <li>Genotype-Stratified Adjunctive Dexamethasone for TBM (phase-3 RCT); Adjunctive Dexamethasone for TBM in HIV-Positive Adults; Trial of High-Dose Oral Rifampin.</li>
+  <li>Central Nervous System Tuberculosis; Global Morbidity/Mortality of CNS TB (meta-analysis); Tuberculous Meningitis — progress/remaining questions and "New Approaches Needed"; Spinal TB review.</li>
+</ul>
+<h4>Viral encephalitis</h4>
+<ul>
+  <li>HSV-1 Encephalitis in Adults (pathophysiology/diagnosis/management); HSV Type 1 Encephalitis prospective cohort; DexEnceph (adjunct dexamethasone RCT); HSV immunobiology &amp; post-viral autoimmunity; Genetic defects of brain immunity in childhood HSE.</li>
+  <li>Viral Encephalitis — pathogenesis/treatment update; Enterovirus D68 and Acute Flaccid Myelitis (causality); MFSD6 EV-D68 entry receptor.</li>
+</ul>
+<h4>Brain abscess &amp; spinal infection</h4>
+<ul>
+  <li>Nonoperative vs Neurosurgical Treatment of Brain Abscess (emulated trial); Corticosteroid Use and In-Hospital Mortality in Brain Abscess (target-trial emulation); Experimental animal models review.</li>
+  <li>Spinal epidural abscess — neurological recovery predictors; reoperation rates after evacuation.</li>
+</ul>
+<h4>Fungal, parasitic &amp; HIV/opportunistic</h4>
+<ul>
+  <li>Cryptococcal meningitis — neuroimaging/surgery outcomes, qPCR diagnosis, mortality risk-prediction, DOOR/win-ratio endpoints, EBV/CMV co-infection, TB preventive therapy in advanced HIV.</li>
+  <li>Aspergillus (ESCMID-ECMM-ERS guideline; ESCAI isavuconazole); Mucormycosis global guideline; Acute Invasive Fungal Rhinosinusitis consensus; Candidiasis (IDSA 2016; ECMM/ISHAM/ASM global); Histoplasmosis (IDSA 2025; WHO priority-pathogen review); Talaromycosis + anti-IFN-γ autoantibodies; Nocardiosis review.</li>
+  <li>Neurocysticercosis (Tanzania point-of-care test; Belgium school outbreak); Cerebral toxoplasmosis (multiple reviews); Cerebral malaria (imaging, EEG, cognitive outcomes).</li>
+  <li>PML and the spectrum of JC virus disease; HIV-Associated Neurocognitive Disorder; Symptomatic CSF escape and CNS viral reservoirs.</li>
+</ul>
+
+<hr>
+<h2 id="sources"><span class="num">12</span> Sources</h2>
+<p class="src">Adams &amp; Victor's Principles of Neurology, 12th ed., Ch. 31–32 (Infections of the Nervous System). Bacterial meningitis: contemporary reviews and the Danish nationwide cohort, plus the LP-herniation and ICP-management literature. Tuberculous meningitis: the genotype-stratified dexamethasone phase-3 RCT, the HIV-positive dexamethasone trial, and the high-dose rifampin trial. Viral encephalitis: HSV-1 reviews, the HSE prospective cohort, and the DexEnceph adjunctive-dexamethasone RCT; EV-D68/acute-flaccid-myelitis causality. Brain abscess: the nationwide emulated-trial cohort and the corticosteroid target-trial emulation. Fungal, parasitic and HIV/opportunistic CNS infection (cryptococcus, aspergillus, mucor, candida, histoplasma, talaromyces, nocardia; neurocysticercosis, toxoplasmosis, cerebral malaria; PML/JCV and HIV-associated neurocognitive disorder) as provided in the Module 11 resource folder. Educational reference for residency training — confirm all antimicrobial choices, doses, and durations against current guidelines and local resistance/epidemiology at the point of care.</p>
+
+</body>
+</html>

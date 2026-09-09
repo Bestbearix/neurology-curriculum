@@ -11,29 +11,36 @@
     --pearl-bg:#ecfdf7;--pearl-bd:#0f766e;--pearl-ink:#0a4f49;
     --trial-bg:#eefcf3;--trial-bd:#1f9d57;--trial-ink:#125a32;
     --time-bg:#eef7ff;--time-bd:#3a86b0;--time-ink:#163a6a;
+    --key-bg:#f0f9ff;--key-bd:#0284c7;--key-ink:#0c4a6e;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{font-family:'Charter','Iowan Old Style','Georgia',serif;color:var(--ink);background:#fff;line-height:1.58;max-width:880px;margin:0 auto;padding:48px 28px 96px}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif;color:var(--ink);background:#fff;line-height:1.58;max-width:900px;margin:0 auto;padding:48px 28px 96px}
   h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;color:var(--ink);line-height:1.25}
   h1{font-size:2rem;margin:0 0 .2em;border-bottom:3px solid var(--accent);padding-bottom:.3em}
-  h2{font-size:1.4rem;margin-top:2.3em;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:.25em}
-  h3{font-size:1.16rem;margin-top:1.7em;color:#123c38}
-  h4{font-size:1.0rem;margin-top:1.3em;color:#444}
+  h2{font-size:1.42rem;margin-top:2.2em;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:.25em}
+  h2 .num{display:inline-block;min-width:1.6em;color:#9fb8b4}
+  h3{font-size:1.16rem;margin-top:1.5em;color:#123c38}
+  h4{font-size:1.0rem;margin-top:1.2em;color:#444}
   p{margin:.6em 0}
   ul,ol{margin:.4em 0 .8em 1.2em;padding:0}
   li{margin:.28em 0}
-  .meta{color:var(--muted);font-style:italic;margin:.2em 0 1.6em}
+  .meta{color:var(--muted);font-style:italic;margin:.2em 0 1.4em}
   .lvl{display:inline-block;font-family:'Helvetica Neue',sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;background:var(--accent);color:#fff;padding:.18em .6em;border-radius:10px;margin-left:.4em}
   .toc{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:14px 22px;margin:22px 0}
   .toc h3{margin:0 0 .4em;color:var(--accent);font-size:1.05rem}
-  .toc ol{margin:.2em 0 .2em 1.3em}
+  .toc ol{margin:.2em 0 .2em 1.3em;columns:2;column-gap:2rem}
   .toc a{color:var(--ink);text-decoration:none}
   .toc a:hover{text-decoration:underline}
-  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.93rem}
+  .key{background:var(--key-bg);border:1px solid #bae6fd;border-left:4px solid var(--key-bd);border-radius:8px;padding:12px 16px 12px 18px;margin:.6em 0 1.1em}
+  .key .kh{font-family:'Helvetica Neue',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--key-bd);margin-bottom:.35em}
+  .key ul{margin:.2em 0 0 1.1em}
+  .key li{margin:.2em 0;color:#0c4a6e}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
   th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
   th{background:var(--soft);font-weight:600;font-family:'Helvetica Neue','Segoe UI',sans-serif;color:#0d5f59}
   tbody tr:nth-child(even){background:#fafdfc}
+  td strong,li strong{color:#0a3b36}
   .pearl,.warn,.trial,.time{border-left:4px solid;padding:10px 14px;margin:.9em 0;border-radius:0 4px 4px 0}
   .pearl{background:var(--pearl-bg);border-color:var(--pearl-bd);color:var(--pearl-ink)}
   .warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-ink)}
@@ -45,7 +52,8 @@
   .back-button:hover{background:#0d5f59}
   .alt-link{display:inline-block;margin:0 0 1.4em .5em;font-family:'Helvetica Neue',sans-serif;font-size:.85rem;color:var(--accent);text-decoration:none}
   .alt-link:hover{text-decoration:underline}
-  @media print{body{max-width:100%;padding:24px}.toc{break-inside:avoid}h2{break-after:avoid}.back-button,.alt-link{display:none}}
+  @media print{body{max-width:100%;padding:24px}.toc,.toc ol{columns:1}.key{break-inside:avoid}h2{break-after:avoid}.back-button,.alt-link{display:none}}
+  @media(max-width:620px){.toc ol{columns:1}}
 </style>
 </head>
 <body>
@@ -53,178 +61,420 @@
 <a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
 <a href="Module_02_Stroke_Residency_Interactive.html" class="alt-link">⚡ Open the interactive version</a>
 
-<h1>Module 2 — Stroke &amp; Cerebrovascular Disease <span class="lvl">Residency</span></h1>
-<p class="meta">Resident-depth reference · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 33), <em>Merritt's Neurology</em> (14e, Ch. 16, 36–41, 45), and the curated Module 2 resource library (25 papers: landmark trials, ESO/AHA-ASA/Canadian guidelines, minor-stroke DAPT, ICH and PFO evidence). Companion to the general-physician Module 2 — this version assumes you <em>are</em> the stroke service.</p>
+<h1>Module 2 — Stroke &amp; Cerebrovascular Disease <span class="lvl">Residency · Enriched</span></h1>
+<p class="meta">Resident-depth reference · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 33) and <em>Merritt's Neurology</em> (14e, Ch. 16, 36–41, 45), integrated with the curated Module 2 resource library (25 papers: landmark trials, ESO/AHA-ASA/Canadian guidelines, minor-stroke DAPT, ICH and PFO evidence). This version assumes you <em>are</em> the stroke service.</p>
 
-<div class="trial"><strong>Updated with the provided evidence library.</strong> Trial sections below now carry the specific numbers (effect sizes, windows, thresholds) drawn directly from the source papers in your <em>Module 2 resource</em> folder; a full annotated <a href="#evidence">evidence library</a> is listed in §11.</div>
+<div class="key">
+  <div class="kh">▎How to use this module</div>
+  <ul>
+    <li>Every section opens with a <strong>Key points</strong> box — skim those first, then read the detail.</li>
+    <li><strong>Green boxes</strong> are landmark trials (with the numbers you must quote); <strong>amber boxes</strong> are do-not-miss safety points.</li>
+    <li>Full annotated <a href="#evidence">evidence library</a> is in §11.</li>
+    <li>The engine of everything: <em>time is brain — localize, exclude hemorrhage, and reperfuse the salvageable penumbra fast.</em></li>
+  </ul>
+</div>
 
-<div class="pearl"><strong>How this differs from the General track.</strong> The general reference teaches recognition and when-to-refer. This version adds the mechanism you defend on rounds, the trial that changed practice, the eligibility numbers you must quote, and the management nuance that separates a resident from a screening physician.</div>
+<div class="time"><strong>Time is brain.</strong> ~1.9 million neurons are lost per minute in a typical untreated large-vessel ischemic stroke. Every workflow target — door-to-needle &lt;60 min, door-to-puncture &lt;90 min — exists to shrink that number.</div>
 
 <div class="toc">
 <h3>Contents</h3>
 <ol>
-  <li><a href="#anat">Vascular anatomy &amp; localizing syndromes</a></li>
-  <li><a href="#class">Mechanism &amp; the TOAST classification</a></li>
+  <li><a href="#anat">Vascular anatomy &amp; syndromes</a></li>
+  <li><a href="#class">Mechanism &amp; TOAST</a></li>
   <li><a href="#patho">Core, penumbra &amp; the tissue clock</a></li>
   <li><a href="#acute">Hyperacute ischemic management</a></li>
-  <li><a href="#thrombo">IV thrombolysis — evidence &amp; eligibility</a></li>
-  <li><a href="#evt">Mechanical thrombectomy — evidence &amp; windows</a></li>
+  <li><a href="#thrombo">IV thrombolysis</a></li>
+  <li><a href="#evt">Mechanical thrombectomy</a></li>
   <li><a href="#ich">Intracerebral hemorrhage</a></li>
   <li><a href="#sah">Subarachnoid hemorrhage</a></li>
-  <li><a href="#prev">Secondary prevention by mechanism</a></li>
-  <li><a href="#special">Special &amp; young-stroke considerations</a></li>
-  <li><a href="#evidence">Evidence library (provided sources)</a></li>
+  <li><a href="#prev">Secondary prevention</a></li>
+  <li><a href="#special">Special &amp; young stroke</a></li>
+  <li><a href="#criteria">Trial inclusion / exclusion criteria</a></li>
+  <li><a href="#evidence">Evidence library</a></li>
   <li><a href="#sources">Sources</a></li>
 </ol>
 </div>
 
-<div class="time"><strong>Time is brain.</strong> A typical untreated large-vessel ischemic stroke destroys roughly 1.9 million neurons per minute. Every workflow target — door-to-needle &lt;60 min, door-to-puncture &lt;90 min — exists to compress that loss. Treat the clock as a vital sign.</div>
-
-<h2 id="anat">1. Vascular anatomy &amp; localizing syndromes</h2>
-<p>Stroke localization is pattern recognition applied to arterial territories. The deficit names the territory; the territory narrows the mechanism; the mechanism dictates the workup and prevention. Anterior (carotid) circulation supplies most of the cerebral hemispheres; posterior (vertebrobasilar) circulation supplies the brainstem, cerebellum, thalami, and occipital lobes.</p>
-
+<h2 id="anat"><span class="num">1</span> Vascular anatomy &amp; localizing syndromes</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>The deficit names the territory; the territory predicts the mechanism and the workup.</li>
+    <li><strong>Anterior (carotid):</strong> MCA (face/arm &gt; leg, aphasia/neglect), ACA (leg &gt; arm), lenticulostriate lacunes (pure motor).</li>
+    <li><strong>Posterior (vertebrobasilar):</strong> PCA (hemianopia), brainstem <strong>crossed syndromes</strong>, cerebellar (ataxia — watch for swelling).</li>
+    <li><strong>Cortical sign present → not a lacune.</strong></li>
+  </ul>
+</div>
 <h3>Anterior circulation</h3>
-<p>The internal carotid feeds the anterior and middle cerebral arteries. The <strong>middle cerebral artery (MCA)</strong> is the most commonly affected vessel. Its superior division supplies the frontal operculum and motor cortex, producing contralateral face-and-arm-predominant weakness with sensory loss, and, in the dominant hemisphere, a Broca (expressive, non-fluent) aphasia with preserved comprehension. The inferior division supplies temporoparietal cortex; occlusion produces a Wernicke (fluent, comprehension-impaired) aphasia in the dominant hemisphere or hemineglect in the non-dominant hemisphere, often with little or no weakness — a presentation easily mistaken for delirium or a psychiatric event. Deep <strong>lenticulostriate</strong> perforators supply the internal capsule; their occlusion gives a pure motor hemiparesis affecting face, arm and leg equally.</p>
-<p>The <strong>anterior cerebral artery (ACA)</strong> supplies the medial frontal lobe and the leg area of the motor homunculus, so ACA infarcts cause contralateral leg-greater-than-arm weakness, sometimes with abulia and grasp reflexes. <strong>Border-zone (watershed)</strong> infarction between major territories arises from global hypoperfusion or proximal stenosis and can produce the "man-in-a-barrel" pattern of bilateral proximal arm weakness; a history of amaurosis fugax (transient monocular visual loss) points to an ipsilateral carotid source.</p>
-
-<h3>Posterior circulation</h3>
-<p>The <strong>posterior cerebral artery (PCA)</strong> supplies the occipital lobe and medial temporal structures; occlusion causes a contralateral homonymous hemianopia, classically with macular sparing, and in the dominant hemisphere can produce alexia without agraphia. Brainstem strokes produce the diagnostically powerful <strong>crossed syndromes</strong> — ipsilateral cranial-nerve signs with contralateral long-tract signs:</p>
 <table>
-<thead><tr><th>Syndrome</th><th>Territory</th><th>Hallmark findings</th></tr></thead>
+<thead><tr><th>Vessel / territory</th><th>Classic syndrome</th><th>Localizing pearls</th></tr></thead>
 <tbody>
-<tr><td>Lateral medullary (Wallenberg)</td><td>PICA / vertebral</td><td>Ipsilateral facial pain/temp loss, Horner, ataxia, dysphagia, vertigo; contralateral body pain/temp loss</td></tr>
-<tr><td>Medial midbrain (Weber)</td><td>PCA perforators</td><td>Ipsilateral CN III palsy; contralateral hemiparesis</td></tr>
-<tr><td>Basilar thrombosis</td><td>Pons</td><td>Quadriparesis, locked-in syndrome (preserved vertical gaze/blink), coma — angiographic emergency</td></tr>
-<tr><td>Cerebellar infarct</td><td>PICA/AICA/SCA</td><td>Ipsilateral ataxia, vertigo, vomiting; danger of swelling → 4th-ventricle compression and herniation</td></tr>
+<tr><td>MCA — superior division</td><td>Contralateral face/arm &gt; leg weakness &amp; sensory loss; Broca (dominant)</td><td>Gaze deviates <em>toward</em> the lesion; expressive aphasia, intact comprehension</td></tr>
+<tr><td>MCA — inferior division</td><td>Wernicke aphasia (dominant) or neglect (non-dominant); superior quadrantanopia</td><td>Little/no weakness — mistaken for delirium/psych</td></tr>
+<tr><td>MCA — deep (lenticulostriate)</td><td>Pure motor hemiparesis (face=arm=leg)</td><td>Lacunar pattern; internal capsule</td></tr>
+<tr><td>ACA</td><td>Contralateral leg &gt; arm weakness; abulia; grasp</td><td>Leg-predominant = ACA until proven otherwise</td></tr>
+<tr><td>Internal carotid / watershed</td><td>"Man-in-a-barrel" (bilateral proximal arm)</td><td>Hypotension/stenosis; amaurosis fugax = ipsilateral carotid</td></tr>
 </tbody>
 </table>
-<div class="warn"><strong>Cerebellar stroke is a structural trap.</strong> A "dizzy, vomiting" patient may harbor a cerebellar infarct that swells over 24–72 h, compresses the brainstem, and causes obstructive hydrocephalus. Low threshold for posterior-circulation imaging, admission, and neurosurgical awareness (suboccipital decompression can be life-saving).</div>
+<h3>Posterior circulation</h3>
+<table>
+<thead><tr><th>Vessel / territory</th><th>Classic syndrome</th><th>Localizing pearls</th></tr></thead>
+<tbody>
+<tr><td>PCA</td><td>Contralateral homonymous hemianopia (macular sparing); alexia w/o agraphia (dominant)</td><td>Often missed — pure field cut</td></tr>
+<tr><td>PICA (lateral medulla)</td><td><strong>Wallenberg:</strong> ipsilateral facial + contralateral body sensory loss, Horner, dysphagia, vertigo, ataxia</td><td>Crossed sensory = brainstem</td></tr>
+<tr><td>Midbrain (PCA perforators)</td><td><strong>Weber:</strong> ipsilateral CN III palsy + contralateral hemiparesis</td><td>Crossed motor + eye = brainstem</td></tr>
+<tr><td>Pons (basilar)</td><td>Locked-in (basilar thrombosis); one-and-a-half syndrome</td><td>Quadriplegia + preserved vertical gaze/blink → emergent angiography</td></tr>
+<tr><td>Cerebellum (PICA/AICA/SCA)</td><td>Ipsilateral ataxia, vertigo, vomiting</td><td>Watch swelling → 4th-ventricle compression → herniation</td></tr>
+</tbody>
+</table>
+<h3>The five lacunar syndromes</h3>
+<p>Small deep infarcts (&lt;15 mm) from lipohyalinosis of penetrating arteries, with <strong>no cortical signs</strong>: pure motor (internal capsule/pons), pure sensory (VPL thalamus), sensorimotor (thalamocapsular), ataxic hemiparesis, dysarthria–clumsy hand.</p>
+<div class="pearl"><strong>Cortical sign present?</strong> It is not a lacune — look for a large-vessel or embolic source.</div>
+<div class="warn"><strong>Cerebellar stroke is a structural trap:</strong> a "dizzy, vomiting" patient may swell over 24–72 h, compress the brainstem, and hydrocephalus/herniate. Low threshold for posterior-circulation imaging, admission, and neurosurgical awareness (suboccipital decompression can be life-saving).</div>
 
-<h3>Lacunar syndromes</h3>
-<p>Small deep infarcts (&lt;15 mm) from lipohyalinosis of single penetrating arteries produce five classic syndromes, all defined by the <em>absence</em> of cortical signs (no aphasia, neglect, or visual-field cut): pure motor hemiparesis (posterior limb of internal capsule or basis pontis), pure sensory stroke (VPL thalamus), sensorimotor stroke (thalamocapsular), ataxic hemiparesis, and dysarthria–clumsy-hand syndrome.</p>
-<div class="pearl"><strong>Rule of thumb:</strong> if any cortical sign is present, it is not a lacune — pursue a large-vessel or embolic source.</div>
-
-<h2 id="class">2. Mechanism &amp; the TOAST classification</h2>
-<p>Every ischemic stroke earns a mechanism, because mechanism — not territory alone — determines secondary prevention. The TOAST scheme organizes both the workup and the therapy.</p>
+<h2 id="class"><span class="num">2</span> Mechanism &amp; the TOAST classification</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Every ischemic stroke earns a <strong>mechanism</strong> — it drives both workup and secondary prevention.</li>
+    <li>Five TOAST categories: large-artery atherosclerosis, cardioembolism, small-vessel, other determined, undetermined/ESUS.</li>
+    <li>Match the workup to the suspected mechanism, not a blanket panel.</li>
+  </ul>
+</div>
 <table>
 <thead><tr><th>Category</th><th>Clues</th><th>Targeted workup</th><th>Prevention lever</th></tr></thead>
 <tbody>
-<tr><td>Large-artery atherosclerosis</td><td>≥50% stenosis of relevant artery; stuttering or border-zone pattern</td><td>Carotid duplex, CTA/MRA, vessel imaging</td><td>Antiplatelet + statin; revascularize symptomatic carotid 70–99%</td></tr>
+<tr><td>Large-artery atherosclerosis</td><td>≥50% stenosis; stuttering/border-zone</td><td>Carotid duplex, CTA/MRA, vessel imaging</td><td>Antiplatelet + statin; revascularize symptomatic carotid 70–99%</td></tr>
 <tr><td>Cardioembolism</td><td>Sudden maximal deficit, multiple territories, AF</td><td>ECG/telemetry, echo (TTE±TEE), prolonged rhythm monitoring</td><td>Anticoagulation</td></tr>
-<tr><td>Small-vessel (lacunar)</td><td>Lacunar syndrome, hypertension/diabetes, small deep infarct</td><td>Imaging confirms; aggressive risk-factor control</td><td>Single antiplatelet + BP/glucose control</td></tr>
-<tr><td>Other determined</td><td>Dissection, vasculitis, hypercoagulable state, RCVS</td><td>Vessel-wall MRI, hypercoagulable panel, age-appropriate testing</td><td>Cause-specific</td></tr>
-<tr><td>Undetermined / ESUS</td><td>Embolic-appearing, no source after workup</td><td>Extended cardiac monitoring; PFO evaluation in the young</td><td>Antiplatelet (anticoagulation not superior)</td></tr>
+<tr><td>Small-vessel (lacunar)</td><td>Lacunar syndrome, HTN/DM, small deep infarct</td><td>Risk-factor control; imaging confirms</td><td>Single antiplatelet + BP/glucose control</td></tr>
+<tr><td>Other determined</td><td>Dissection, vasculitis, hypercoagulable, RCVS</td><td>Vessel-wall MRI, hypercoagulable panel, age-appropriate</td><td>Cause-specific</td></tr>
+<tr><td>Undetermined / ESUS</td><td>Embolic-appearing, no source found</td><td>Extended cardiac monitoring; PFO in young</td><td>Antiplatelet (anticoagulation not superior)</td></tr>
 </tbody>
 </table>
 
-<h2 id="patho">3. Core, penumbra &amp; the tissue clock</h2>
-<p>Normal cerebral blood flow is roughly 50 mL/100 g/min. Below about 20 mL/100 g/min neurons become electrically silent but remain structurally viable — the <strong>ischemic penumbra</strong>, the target of reperfusion. Below about 10 mL/100 g/min tissue infarcts irreversibly — the <strong>core</strong>. The rate at which penumbra converts to core depends on collateral circulation, which is why a favorable imaging profile (small core, large mismatch) can extend the treatment window well beyond the rigid "time clock." This is the conceptual basis for perfusion-based and clinical-mismatch selection in the late window.</p>
+<h2 id="patho"><span class="num">3</span> Core, penumbra &amp; the tissue clock</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Normal cerebral blood flow ~50 mL/100 g/min. Below ~20 = <strong>penumbra</strong> (silent but salvageable); below ~10 = <strong>core</strong> (irreversible).</li>
+    <li><strong>Collaterals</strong> determine how fast penumbra converts to core — the basis for late-window, imaging-selected treatment.</li>
+  </ul>
+</div>
+<p>Reperfusion therapy exists to save penumbra before it becomes core. A favorable imaging profile (small core, large mismatch) can extend the "tissue clock" beyond the rigid "time clock" — which is why perfusion or clinical-mismatch selection opens the late window (§6).</p>
 
-<h2 id="acute">4. Hyperacute ischemic management</h2>
+<h2 id="acute"><span class="num">4</span> Hyperacute ischemic management</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Sequence: <strong>last-known-well + NIHSS + glucose → non-contrast CT (exclude blood) + CTA (LVO) ± perfusion → thrombolysis if eligible → thrombectomy if LVO.</strong></li>
+    <li><strong>BP depends on treatment:</strong> lysing → &lt;185/110 before, &lt;180/105 after; not reperfusing → permissive (treat only &gt;220/120).</li>
+    <li>Stroke-unit care itself lowers mortality; start the TOAST workup on admission.</li>
+  </ul>
+</div>
 <ol>
-<li>Establish <strong>last known well</strong>, compute the NIHSS, and check a fingerstick glucose to exclude a hypoglycemic mimic.</li>
-<li>Obtain a <strong>non-contrast CT</strong> to exclude hemorrhage, <strong>CT angiography</strong> of head and neck to identify a large-vessel occlusion, and CT/MR perfusion when operating in the late window.</li>
-<li>Deliver <strong>IV thrombolysis</strong> if eligible (≤4.5 h, or MRI mismatch for unknown-onset) — target door-to-needle &lt;60 min.</li>
-<li>Pursue <strong>mechanical thrombectomy</strong> for a large-vessel occlusion within the window — target door-to-puncture &lt;90 min.</li>
-<li>Admit to a dedicated <strong>stroke unit</strong> (an intervention with its own mortality benefit) and begin the TOAST workup.</li>
+  <li><strong>Last known well</strong>, NIHSS, fingerstick glucose (exclude hypoglycemic mimic).</li>
+  <li><strong>Non-contrast CT</strong> (hemorrhage), <strong>CTA</strong> head/neck (LVO); perfusion if late window.</li>
+  <li><strong>IV thrombolysis</strong> if eligible (≤4.5 h or MRI mismatch) — door-to-needle &lt;60 min.</li>
+  <li><strong>Thrombectomy</strong> if LVO within window (≤24 h with mismatch) — door-to-puncture &lt;90 min.</li>
+  <li>Admit to a <strong>stroke unit</strong>; begin the mechanism workup.</li>
 </ol>
-<div class="warn"><strong>Blood pressure depends on what you are doing.</strong> If giving thrombolysis, lower BP to <strong>&lt;185/110</strong> before treatment and maintain <strong>&lt;180/105</strong> for 24 h afterward. If <em>not</em> reperfusing, allow permissive hypertension and treat only when BP exceeds <strong>220/120</strong> or there is end-organ injury — abrupt lowering can extend the infarct by reducing penumbral perfusion.</div>
-<p>Also attend to glucose (treat hyperglycemia, avoid hypoglycemia), swallowing (NPO until a swallow screen passes to prevent aspiration), and early secondary-prevention initiation once hemorrhage is excluded.</p>
-<div class="trial"><strong>Fever — INTREPID (RCT, provided).</strong> Prophylactic fever <em>prevention</em> (targeting 37.0 °C for 14 days with an automated device) reduced fever burden but <strong>did not improve functional outcomes</strong> versus standard tiered treatment of temperature ≥38 °C. Practical message: treat fever and seek its cause, but routine aggressive prophylactic normothermia is not outcome-improving.</div>
+<div class="warn"><strong>Blood pressure rules differ by treatment.</strong> Thrombolysis: lower to <strong>&lt;185/110</strong> before, keep <strong>&lt;180/105</strong> for 24 h. Not reperfusing: permissive hypertension — treat only if <strong>&gt;220/120</strong> (or end-organ injury), because abrupt lowering can extend the infarct.</div>
+<p>Also attend to glucose, swallowing (NPO until a swallow screen passes), and — from the provided INTREPID trial — fever: prophylactic normothermia lowered fever burden but did <strong>not</strong> improve outcomes, so treat fever and find its cause rather than relying on routine aggressive cooling.</p>
 
-<h2 id="thrombo">5. IV thrombolysis — evidence &amp; eligibility</h2>
-<div class="trial"><strong>NINDS (NEJM 1995) — "Tissue Plasminogen Activator for Acute Ischemic Stroke."</strong> IV alteplase 0.9 mg/kg within 3 h gave a global odds ratio for a favorable outcome of <strong>1.7 (95% CI 1.2–2.6)</strong> — significantly more patients with minimal or no disability at 3 months. Symptomatic intracranial hemorrhage within 36 h occurred in <strong>6.4% vs 0.6%</strong> (alteplase vs placebo), yet overall outcome favored treatment. This established thrombolysis.</div>
-<div class="trial"><strong>ECASS III (NEJM 2008) — "Thrombolysis with Alteplase 3 to 4.5 Hours after Acute Ischemic Stroke."</strong> Alteplase 0.9 mg/kg given 3–4.5 h after onset improved 90-day disability (favorable mRS 0–1) versus placebo, extending the window in selected patients (original protocol excluded age &gt;80, NIHSS &gt;25, anticoagulant use, and prior stroke + diabetes).</div>
-<div class="trial"><strong>Tenecteplase.</strong> Higher fibrin specificity and a longer half-life than alteplase permit a <strong>single bolus</strong>. At <strong>0.25 mg/kg</strong> it achieves at least comparable reperfusion and is increasingly preferred, especially before thrombectomy; the provided review summarizes the randomized alteplase comparisons and dose-finding data.</div>
-<div class="trial"><strong>Wake-up / unknown-onset.</strong> Per the ESO thrombolysis guideline, MRI <strong>DWI–FLAIR mismatch</strong> identifies patients last-seen-well &gt;4.5 h who still benefit from thrombolysis.</div>
-<h4>Practical eligibility</h4>
-<p>Include: a disabling deficit, onset ≤4.5 h (or qualifying MRI mismatch), age ≥18. Key exclusions: hemorrhage on CT; recent intracranial surgery or significant head trauma within three months; active internal bleeding; BP that cannot be brought below 185/110; platelets &lt;100,000; INR &gt;1.7; therapeutic DOAC use within ~48 h (with normal renal function); and a glucose-correctable mimic. Many "relative" contraindications are individualized — the disabling nature of the deficit weighs against them.</p>
+<h2 id="thrombo"><span class="num">5</span> IV thrombolysis — evidence &amp; eligibility</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Standard window <strong>≤4.5 h</strong> (NINDS 0–3 h; ECASS III 3–4.5 h); MRI DWI–FLAIR mismatch selects wake-up/unknown-onset patients.</li>
+    <li><strong>Tenecteplase 0.25 mg/kg</strong> (single bolus) is increasingly preferred, especially pre-thrombectomy.</li>
+    <li>Get BP &lt;185/110 before treating; know the exclusions cold.</li>
+  </ul>
+</div>
+<div class="trial"><strong>NINDS (NEJM 1995).</strong> IV alteplase 0.9 mg/kg within 3 h: global OR for a favorable outcome <strong>1.7 (95% CI 1.2–2.6)</strong>; symptomatic ICH <strong>6.4% vs 0.6%</strong>, yet net benefit favors treatment. Established thrombolysis.</div>
+<div class="trial"><strong>ECASS III (NEJM 2008).</strong> Alteplase 3–4.5 h improved 90-day disability (mRS 0–1); original extra exclusions: age &gt;80, NIHSS &gt;25, anticoagulation, prior stroke + diabetes.</div>
+<div class="trial"><strong>Tenecteplase.</strong> Higher fibrin specificity, longer half-life, single bolus; ≥comparable reperfusion vs alteplase, increasingly preferred.</div>
+<div class="trial"><strong>Wake-up / unknown onset.</strong> Per the ESO IVT guideline, MRI <strong>DWI–FLAIR mismatch</strong> selects patients last-seen-well &gt;4.5 h who still benefit.</div>
+<h4>Eligibility at a glance</h4>
+<table>
+<thead><tr><th>Include</th><th>Key exclusions</th></tr></thead>
+<tbody>
+<tr><td>Disabling deficit, onset ≤4.5 h (or MRI mismatch), age ≥18</td><td>ICH on CT; recent intracranial surgery/major head trauma (3 mo); active bleeding; BP &gt;185/110 unresponsive; platelets &lt;100k; INR &gt;1.7; DOAC within ~48 h (normal renal); glucose-correctable mimic</td></tr>
+</tbody>
+</table>
 
-<h2 id="evt">6. Mechanical thrombectomy — evidence &amp; windows</h2>
-<div class="trial"><strong>HERMES (Lancet 2016) — individual-patient meta-analysis of MR CLEAN, ESCAPE, SWIFT PRIME, EXTEND-IA, REVASCAT.</strong> Thrombectomy for anterior-circulation LVO within ~6 h reduced 90-day disability with an <strong>adjusted common odds ratio of 2.49 (95% CI 1.76–3.53; p&lt;0.0001)</strong> and a <strong>number-needed-to-treat of 2.6</strong> to reduce disability by ≥1 mRS level. Benefit was consistent across age, stroke severity, and occlusion site — one of the largest effects in vascular neurology.</div>
-<div class="trial"><strong>Extended window — DAWN &amp; DEFUSE-3 (per the provided "Extended Window for Stroke Thrombectomy" review).</strong> Using perfusion- or clinical-core mismatch to select patients beyond 6 h, pooled 90-day functional-independence rates favored thrombectomy. <strong>DEFUSE-3: 6–16 h</strong> (perfusion–core mismatch); <strong>DAWN: 6–24 h</strong> (clinical–core mismatch). Together they created the modern late window.</div>
-<p><strong>Guideline anchor (ESO/ESMINT):</strong> for anterior-circulation LVO within 6 h, the recommendation is <em>mechanical thrombectomy plus best medical care</em>; selection extends to 6–24 h with perfusion/clinical mismatch imaging. Candidacy requires a proximal occlusion (intracranial ICA, M1, selected M2), a salvageable imaging profile, and reasonable pre-stroke function. Thrombolysis, when indicated, is given alongside and must not delay transfer.</p>
+<h2 id="evt"><span class="num">6</span> Mechanical thrombectomy — evidence &amp; windows</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>HERMES:</strong> anterior LVO ≤6 h — adjusted cOR <strong>2.49</strong>, <strong>NNT 2.6</strong> to reduce disability by ≥1 mRS level.</li>
+    <li><strong>Late window:</strong> DEFUSE-3 (6–16 h, perfusion mismatch) and DAWN (6–24 h, clinical–core mismatch).</li>
+    <li>Candidacy: proximal anterior occlusion (ICA, M1, selected M2), salvageable imaging, reasonable baseline function.</li>
+  </ul>
+</div>
+<div class="trial"><strong>HERMES (Lancet 2016, IPD meta-analysis).</strong> MR CLEAN, ESCAPE, SWIFT PRIME, EXTEND-IA, REVASCAT: adjusted common OR <strong>2.49 (1.76–3.53; p&lt;0.0001)</strong>, NNT <strong>2.6</strong> — consistent across age, severity, occlusion site. One of the largest effects in vascular neurology.</div>
+<div class="trial"><strong>Extended window — DAWN &amp; DEFUSE-3.</strong> Perfusion- or clinical-core mismatch selects patients beyond 6 h; pooled 90-day functional-independence favors thrombectomy. <strong>DEFUSE-3: 6–16 h; DAWN: 6–24 h.</strong></div>
+<p><strong>Guideline anchor (ESO/ESMINT):</strong> anterior-circulation LVO within 6 h → <em>thrombectomy + best medical care</em>; extend to 6–24 h with mismatch imaging. Thrombolysis, when indicated, is given alongside and must not delay transfer.</p>
 
-<h2 id="ich">7. Intracerebral hemorrhage</h2>
-<p>Spontaneous ICH is managed as a distinct emergency. The priorities are to stop the bleed, control pressure, and find the cause. Reverse anticoagulation immediately and agent-specifically: vitamin K plus 4-factor prothrombin complex concentrate for warfarin; idarucizumab for dabigatran; andexanet alfa (or 4-factor PCC where unavailable) for factor Xa inhibitors. Lower systolic blood pressure toward approximately 140 mmHg.</p>
-<div class="trial"><strong>INTERACT2 / ATACH-2</strong> — intensive BP lowering to a target around SBP 140 is safe and reasonable in acute ICH; the more aggressive target below ~120 (ATACH-2) did not improve outcomes and increased renal adverse events.</div>
-<div class="trial"><strong>BP <em>trajectory</em> matters (pooled INTERACT/ATACH-II analysis, provided).</strong> Moderate, smooth, <strong>sustained SBP within ~120–140 mm Hg</strong> in the first hours is associated with better outcomes, whereas <strong>large rapid drops within 1 h</strong> (e.g., &gt;200 to &lt;140) diminish or even reverse the benefit. Lower deliberately and steadily — not abruptly.</div>
-<div class="pearl"><strong>Against hematoma expansion (provided review).</strong> The proven levers are <strong>early BP control</strong> and <strong>emergent anticoagulant reversal</strong> (idarucizumab for dabigatran; andexanet alfa or 4-factor PCC for factor Xa inhibitors; vitamin K + PCC for warfarin). Tranexamic acid may modestly reduce expansion; rFVIIa has been studied within ~4 h. Identify expansion-risk markers (e.g., CT "spot sign," early presentation, large baseline volume).</div>
-<p>Manage raised intracranial pressure, and involve neurosurgery for cerebellar hemorrhage greater than ~3 cm or with brainstem compression, for obstructive hydrocephalus (external ventricular drain), and for selected accessible lobar clots. Characterize the etiology by location and patient profile: deep (basal ganglia, thalamus, pons) hemorrhage suggests hypertensive arteriopathy; lobar hemorrhage in an older patient suggests cerebral amyloid angiopathy; a younger patient warrants vascular imaging for an underlying malformation, aneurysm, or venous sinus thrombosis.</p>
+<h2 id="ich"><span class="num">7</span> Intracerebral hemorrhage</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Three priorities: <strong>stop the bleed</strong> (reverse anticoagulation immediately), <strong>control BP</strong> (smooth to ~SBP 140), <strong>find the cause</strong>.</li>
+    <li>Reversal: idarucizumab (dabigatran); andexanet/4-factor PCC (Xa inhibitors); vitamin K + PCC (warfarin).</li>
+    <li>Neurosurgery for cerebellar hemorrhage &gt;3 cm or brainstem compression, hydrocephalus (EVD), selected accessible clots.</li>
+  </ul>
+</div>
+<div class="trial"><strong>INTERACT2 / ATACH-2.</strong> Lowering to ~SBP 140 is safe and reasonable; the more aggressive target &lt;120 (ATACH-2) added no benefit and caused more renal events.</div>
+<div class="trial"><strong>BP <em>trajectory</em> (pooled INTERACT/ATACH-II).</strong> Moderate, smooth, <strong>sustained SBP 120–140</strong> in the first hours is best; <strong>large rapid drops within 1 h</strong> (e.g., &gt;200 to &lt;140) diminish or reverse benefit — lower deliberately, not abruptly.</div>
+<div class="pearl"><strong>Against hematoma expansion:</strong> proven levers are early BP control and emergent anticoagulant reversal; TXA may modestly reduce expansion; watch for the CT "spot sign." Characterize etiology by location: deep = hypertensive; lobar (elderly) = amyloid; young = vascular malformation / venous sinus thrombosis (CTA/MRA/MRV).</div>
 
-<h2 id="sah">8. Subarachnoid hemorrhage</h2>
-<p>A thunderclap headache ("worst of my life," maximal within seconds to a minute) mandates a non-contrast CT; if negative but suspicion remains high, perform a lumbar puncture looking for xanthochromia and a non-clearing red-cell count, because CT sensitivity declines after about six hours. Once aneurysmal SAH is confirmed by CTA or catheter angiography, secure the aneurysm early by endovascular coiling or surgical clipping. Give <strong>nimodipine</strong>, which improves neurological outcomes (a benefit mediated by neuroprotection rather than a measurable reduction in angiographic vasospasm). Monitor for delayed cerebral ischemia from vasospasm (typically days 4–14), hydrocephalus, seizures, and hyponatremia from cerebral salt wasting.</p>
+<h2 id="sah"><span class="num">8</span> Subarachnoid hemorrhage</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Thunderclap headache → non-contrast CT; if negative &amp; suspicious, <strong>LP for xanthochromia</strong> (CT sensitivity falls after ~6 h).</li>
+    <li>Secure the aneurysm early (coil/clip); give <strong>nimodipine</strong> (improves outcome via neuroprotection).</li>
+    <li>Monitor for vasospasm (days 4–14), hydrocephalus, seizures, hyponatremia (cerebral salt wasting).</li>
+  </ul>
+</div>
 
-<h2 id="prev">9. Secondary prevention by mechanism</h2>
+<h2 id="prev"><span class="num">9</span> Secondary prevention by mechanism</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Match the antithrombotic to the <strong>mechanism</strong>; layer universal measures on top.</li>
+    <li><strong>Minor stroke/high-risk TIA:</strong> short-course DAPT (~21 days) then single agent (CHANCE/POINT).</li>
+    <li><strong>AF + atherosclerosis / stable CAD:</strong> anticoagulant <em>monotherapy</em> — adding antiplatelet doesn't help and raises bleeding.</li>
+  </ul>
+</div>
 <table>
 <thead><tr><th>Mechanism</th><th>Antithrombotic strategy</th><th>Key evidence / adjuncts</th></tr></thead>
 <tbody>
-<tr><td>Atrial fibrillation</td><td>Anticoagulation; DOAC preferred over warfarin except for mechanical valves or moderate-to-severe mitral stenosis</td><td>Timing balanced against infarct size and hemorrhagic-transformation risk</td></tr>
-<tr><td>Large-artery atherosclerosis</td><td>Antiplatelet + high-intensity statin; short-course dual antiplatelet after minor stroke/high-risk TIA</td><td>CHANCE/POINT (DAPT 21–90 d); NASCET/ECST for carotid endarterectomy in symptomatic 70–99%</td></tr>
-<tr><td>Intracranial stenosis</td><td>Short-course dual then single antiplatelet; aggressive risk-factor control</td><td>SAMMPRIS: medical therapy superior to stenting</td></tr>
-<tr><td>Small-vessel disease</td><td>Single antiplatelet</td><td>Blood pressure and glucose control are the principal levers</td></tr>
-<tr><td>ESUS</td><td>Antiplatelet therapy</td><td>NAVIGATE-ESUS and RE-SPECT ESUS: empiric anticoagulation not superior; monitor for occult AF</td></tr>
+<tr><td>Atrial fibrillation</td><td>Anticoagulation; DOAC &gt; warfarin (except mechanical valve / mod-severe mitral stenosis)</td><td>Timing balanced against infarct size / hemorrhagic-transformation risk</td></tr>
+<tr><td>Large-artery atherosclerosis</td><td>Antiplatelet + high-intensity statin; short DAPT after minor stroke/TIA</td><td>CHANCE/POINT; NASCET/ECST carotid endarterectomy for symptomatic 70–99%</td></tr>
+<tr><td>Intracranial stenosis</td><td>Short DAPT then single; aggressive risk control</td><td><strong>SAMMPRIS:</strong> medical &gt; stenting</td></tr>
+<tr><td>Small-vessel</td><td>Single antiplatelet</td><td>BP + glucose control are the main levers</td></tr>
+<tr><td>ESUS</td><td>Antiplatelet</td><td>NAVIGATE-ESUS / RE-SPECT ESUS: anticoagulation not superior; monitor for occult AF</td></tr>
 </tbody>
 </table>
-<h3>Minor stroke / high-risk TIA — short-course dual antiplatelet</h3>
-<div class="trial"><strong>CHANCE + POINT pooled analysis (provided).</strong> Clopidogrel–aspirin started early after minor ischemic stroke or high-risk TIA reduces recurrent stroke. The benefit is concentrated in the <strong>first ~21 days</strong> while bleeding risk accrues with longer exposure, supporting a <strong>short course (≈21 days, up to 90)</strong> then single antiplatelet. The provided "Acute Treatment of Disabling and Nondisabling Minor Ischemic Stroke" guidance and the Canadian 2020 secondary-prevention update operationalize this.</div>
+<div class="trial"><strong>Minor stroke / high-risk TIA — CHANCE + POINT.</strong> Clopidogrel–aspirin early after minor stroke/high-risk TIA reduces recurrence; benefit concentrated in the first <strong>~21 days</strong> while bleeding accrues later → short course then single agent.</div>
+<div class="trial"><strong>AF + atherosclerosis / stable CAD.</strong> Adding an antiplatelet to anticoagulation did <strong>not</strong> reduce the composite (17.8% vs 19.6%) and raised bleeding; <strong>edoxaban monotherapy</strong> beat dual therapy — anticoagulant monotherapy preferred.</div>
+<div class="trial"><strong>PFO &amp; cryptogenic stroke.</strong> ~50% of cryptogenic strokes have a PFO; with good selection (young, large shunt/atrial septal aneurysm) transcatheter closure reduces recurrence vs medical therapy.</div>
+<div class="pearl"><strong>Universal measures, every ischemic stroke:</strong> high-intensity statin (low LDL target), BP control, diabetes/smoking management, and a documented TOAST mechanism that justifies the antithrombotic.</div>
+<div class="warn"><strong>AF + recent stroke timing:</strong> larger infarcts → higher hemorrhagic-transformation risk, so anticoagulation is delayed longer in big strokes and started sooner after TIA/small infarct (the "1–3–6–12-day" heuristic), individualized.</div>
 
-<h3>AF with concurrent atherosclerosis / stable CAD — anticoagulant monotherapy</h3>
-<div class="trial"><strong>OAC ± antiplatelet RCT (provided).</strong> In ischemic stroke with AF <em>and</em> atherosclerosis, adding an antiplatelet to anticoagulation did <strong>not</strong> reduce the composite of ischemic events and major bleeding (17.8% combination vs 19.6% monotherapy) while increasing bleeding — favoring <strong>anticoagulant monotherapy</strong>. The Edoxaban-in-AF-with-stable-CAD trial reached the same conclusion: <strong>edoxaban monotherapy</strong> gave a better net outcome than dual antithrombotic therapy.</div>
-
-<h3>PFO &amp; cryptogenic stroke</h3>
-<div class="trial"><strong>PFO closure (provided review).</strong> Roughly half of cryptogenic strokes have a PFO. With <strong>good patient selection</strong> — younger patients and high-risk anatomy (large shunt, associated atrial septal aneurysm) — transcatheter closure significantly reduces recurrent stroke versus medical therapy alone. Decisions are individualized after specialist (neurology + cardiology) evaluation.</div>
-
-<div class="pearl"><strong>Universal measures, every ischemic stroke:</strong> a high-intensity statin to a low LDL target, blood-pressure control, diabetes and smoking management, and a documented TOAST mechanism that justifies the chosen antithrombotic agent.</div>
-<div class="warn"><strong>Anticoagulation timing in AF-related stroke.</strong> Larger infarcts carry greater hemorrhagic-transformation risk, so anticoagulation is generally delayed in large strokes and started earlier after a TIA or small infarct. A common heuristic is the "1–3–6–12-day" rule, individualized to infarct size and bleeding risk.</div>
-
-<h2 id="special">10. Special &amp; young-stroke considerations</h2>
-<p>In patients under roughly 50, broaden the differential. <strong>Cervical artery dissection</strong> presents with neck or face pain, a partial Horner syndrome, and sometimes recent trauma or neck manipulation; diagnose with vessel-wall imaging. A <strong>patent foramen ovale</strong> with paradoxical embolism is supported by a positive bubble study and a high RoPE score, and closure benefits selected patients under 60 after specialist evaluation. Consider <strong>antiphospholipid syndrome</strong> and malignancy-associated hypercoagulability, <strong>reversible cerebral vasoconstriction syndrome</strong> (recurrent thunderclap headache, "string-of-beads" angiography), CNS <strong>vasculitis</strong>, and genetic causes such as CADASIL, Fabry disease, MELAS, and sickle cell disease. <strong>Cerebral venous sinus thrombosis</strong> deserves special mention: it causes headache, seizures, and infarcts that cross arterial territories (often with hemorrhage), and is treated with anticoagulation even when hemorrhage is present.</p>
+<h2 id="special"><span class="num">10</span> Special &amp; young-stroke considerations</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Under ~50, broaden the net: <strong>dissection, PFO, hypercoagulable, RCVS, vasculitis, genetic</strong>.</li>
+    <li><strong>Cerebral venous sinus thrombosis</strong> is treated with anticoagulation <em>even with hemorrhage</em>.</li>
+  </ul>
+</div>
+<ul>
+  <li><strong>Cervical artery dissection</strong> — neck/face pain, partial Horner, recent trauma/manipulation; vessel-wall imaging.</li>
+  <li><strong>PFO / paradoxical embolism</strong> — bubble study, RoPE score; closure in selected &lt;60 y.</li>
+  <li><strong>Hypercoagulable</strong> — antiphospholipid syndrome, malignancy; <strong>RCVS</strong> (thunderclap + "string-of-beads"); CNS <strong>vasculitis</strong>.</li>
+  <li><strong>Genetic</strong> — CADASIL, Fabry, MELAS, sickle cell.</li>
+  <li><strong>CVST</strong> — headache, seizures, infarcts crossing arterial territories (often hemorrhagic); anticoagulate.</li>
+</ul>
 
 <hr>
-<h2 id="evidence">11. Evidence library (provided sources)</h2>
-<p>The following papers from the <em>Module 2 resource</em> folder were used to update this module. Grouped by theme.</p>
+<h2 id="criteria"><span class="num">11</span> Landmark trials — who was included &amp; excluded</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Every practice-changing number came from a <strong>specific enrolled population</strong> — the eligibility criteria <em>are</em> the indication. Applying a result outside the trial population is off-label extrapolation.</li>
+    <li>The recurring gatekeepers: <strong>time window, imaging (hemorrhage/early-infarct/ASPECTS/mismatch), age, NIHSS severity, blood pressure, glucose, coagulation, and baseline function (pre-stroke mRS).</strong></li>
+    <li>Modern guidelines have <em>widened</em> several of these (e.g., alteplase now used &gt;80 y and NIHSS &gt;25 in selected patients) — the columns below are the <strong>original trial</strong> criteria, which explain why the exclusions exist.</li>
+  </ul>
+</div>
+
+<h3>IV thrombolysis</h3>
+<h4>NINDS (alteplase 0–3 h, NEJM 1995)</h4>
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Ischemic stroke with a <strong>clearly defined onset within 3 h</strong> and a measurable deficit</li>
+    <li>CT showing <strong>no intracranial hemorrhage</strong></li>
+    <li>Age ≥18 (no upper limit)</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Another stroke or serious head trauma in the prior <strong>3 months</strong>; major surgery within <strong>14 days</strong></li>
+    <li>Any history of intracranial hemorrhage; symptoms suggesting SAH</li>
+    <li><strong>Rapidly improving or minor</strong> symptoms; seizure at onset</li>
+    <li>GI or urinary hemorrhage within 21 days; arterial puncture at a non-compressible site</li>
+    <li><strong>BP &gt;185/110</strong>; anticoagulants/heparin with abnormal coagulation; <strong>PT &gt;15 s, platelets &lt;100,000</strong></li>
+    <li><strong>Glucose &lt;50 or &gt;400 mg/dL</strong></li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+<p><em>Result:</em> global OR 1.7 (1.2–2.6) for favorable 90-day outcome; symptomatic ICH 6.4% vs 0.6%.</p>
+
+<h4>ECASS III (alteplase 3–4.5 h, NEJM 2008)</h4>
+<table>
+<thead><tr><th>Included</th><th>Excluded (in addition to standard 0–3 h exclusions)</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Acute ischemic stroke, onset <strong>3–4.5 h</strong> before treatment</li>
+    <li><strong>Age 18–80 years</strong></li>
+    <li>No hemorrhage or large (&gt;⅓ MCA) early infarct on imaging</li>
+  </ul>
+</td><td>
+  <ul>
+    <li><strong>Age &gt;80 years</strong></li>
+    <li><strong>NIHSS &gt;25</strong> (severe stroke) or large infarct on imaging</li>
+    <li><strong>Oral anticoagulant use</strong> (regardless of INR)</li>
+    <li>Combination of <strong>prior stroke AND diabetes</strong></li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+<p><em>Result:</em> favorable outcome (mRS 0–1) 52.4% vs 45.2%; more symptomatic ICH but no mortality difference. <span class="src">These four extra exclusions are historical; later guidelines relaxed them.</span></p>
+
+<h4>Tenecteplase</h4>
+<p>Randomized comparisons enrolled patients otherwise <strong>eligible for alteplase</strong> (within the standard time window, no hemorrhage), testing tenecteplase — most robustly at <strong>0.25 mg/kg</strong>, and especially in the <strong>large-vessel-occlusion, pre-thrombectomy</strong> population. Exclusions mirror the alteplase criteria above.</p>
+
+<h3>Mechanical thrombectomy</h3>
+<h4>HERMES pooled analysis (MR CLEAN, ESCAPE, SWIFT PRIME, EXTEND-IA, REVASCAT; Lancet 2016)</h4>
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li><strong>Proximal anterior-circulation LVO</strong> (intracranial ICA or M1; some M2)</li>
+    <li>Thrombectomy achievable <strong>within ~6 h</strong> of onset (pooled up to 12 h in the analysis)</li>
+    <li>Most received <strong>IV alteplase</strong> where eligible; good pre-stroke function</li>
+    <li>Favorable/moderate early-ischemic imaging (component trials commonly required <strong>ASPECTS ≥6</strong>)</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Large established infarct core (low ASPECTS) — varied by component trial</li>
+    <li>Posterior-circulation and distal occlusions</li>
+    <li>Poor baseline function / significant pre-stroke disability</li>
+    <li>Standard thrombolysis contraindications for those who also received alteplase</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+<p><em>Result:</em> adjusted common OR 2.49 (1.76–3.53); NNT 2.6 to reduce disability by ≥1 mRS level; benefit consistent across age (incl. ≥80), sex, severity, and occlusion site.</p>
+
+<h4>Late window — DAWN (6–24 h) &amp; DEFUSE-3 (6–16 h)</h4>
+<table>
+<thead><tr><th>Trial</th><th>Time &amp; imaging selection (included)</th><th>Key exclusions</th></tr></thead>
+<tbody>
+<tr><td><strong>DAWN</strong></td><td>Anterior LVO, <strong>6–24 h</strong>; <strong>clinical–core mismatch</strong> (deficit disproportionately large for a small core) by age-banded rules — e.g., ≥80 y: NIHSS ≥10 &amp; core &lt;21 mL; &lt;80 y: NIHSS ≥10 &amp; core &lt;31 mL, or NIHSS ≥20 &amp; core 31–&lt;51 mL</td><td>Large core for the NIHSS band; pre-stroke mRS &gt;1; established large infarct</td></tr>
+<tr><td><strong>DEFUSE-3</strong></td><td>Anterior LVO, <strong>6–16 h</strong>; <strong>perfusion–core mismatch</strong>: ischemic core &lt;70 mL, mismatch ratio ≥1.8, and mismatch volume ≥15 mL (CT/MR perfusion)</td><td>Core ≥70 mL; insufficient mismatch; pre-stroke disability</td></tr>
+</tbody>
+</table>
+<p><em>Result:</em> pooled late-window thrombectomy markedly improved 90-day functional independence (OR ~5) without excess symptomatic ICH.</p>
+
+<h3>Secondary prevention</h3>
+<h4>CHANCE &amp; POINT (short-course dual antiplatelet, pooled analysis)</h4>
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li><strong>Minor ischemic stroke (NIHSS ≤3)</strong> or <strong>high-risk TIA (ABCD² ≥4)</strong></li>
+    <li>Randomized to clopidogrel–aspirin vs aspirin <strong>within 24 h (CHANCE)</strong> or <strong>12 h (POINT)</strong> of onset</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Disabling stroke / higher NIHSS; cardioembolic source needing anticoagulation</li>
+    <li>Contraindication to antiplatelets; planned thrombolysis/thrombectomy</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+<p><em>Result:</em> fewer major ischemic events at 90 days (6.5% vs 9.1% pooled), with benefit <strong>concentrated in the first ~21 days</strong> (bleeding accrues thereafter) → short course then single agent.</p>
+
+<h4>AF + atherosclerosis / stable CAD (edoxaban monotherapy trial)</h4>
+<table>
+<thead><tr><th>Included</th><th>Excluded / comparison</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li><strong>Atrial fibrillation</strong> (anticoagulation indicated by CHA₂DS₂-VASc) <strong>plus stable coronary artery disease</strong> (prior revascularization or medically managed, ≥6–12 months stable)</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Recent acute coronary syndrome / recent PCI (i.e., <em>not</em> stable)</li>
+    <li>Compared <strong>edoxaban monotherapy vs edoxaban + single antiplatelet</strong></li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+<p><em>Result:</em> monotherapy gave a better net outcome (fewer combined ischemic + bleeding events) → anticoagulant monotherapy preferred once CAD is stable.</p>
+
+<h4>Acute ICH blood pressure (INTERACT2 / ATACH-2 trajectory analysis)</h4>
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Spontaneous <strong>intracerebral hemorrhage within ~4.5–6 h</strong> of onset</li>
+    <li><strong>Elevated systolic BP 150–220 mm Hg</strong></li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Structural cause (aneurysm, AVM, tumour), planned early surgery</li>
+    <li>Very large hematoma / imminent herniation; GCS very low (varied by trial)</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+<p><em>Result:</em> smooth, sustained lowering to <strong>SBP 120–140</strong> is best; large abrupt drops within 1 h (e.g., &gt;200 → &lt;140) diminish or reverse benefit; targeting &lt;120 (ATACH-2) added no benefit and more renal events.</p>
+
+<h4>PFO closure (cryptogenic stroke)</h4>
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li><strong>Younger patients (broadly ~18–60 y)</strong> with a <strong>cryptogenic embolic stroke</strong> after thorough workup</li>
+    <li>PFO confirmed, ideally with <strong>high-risk features</strong> (large right-to-left shunt and/or atrial septal aneurysm)</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Another identified stroke mechanism (AF, large-artery, small-vessel)</li>
+    <li>Older patients / small low-risk PFO where benefit is unproven</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+<p><em>Result:</em> with good patient selection, transcatheter closure reduces recurrent stroke versus antithrombotic therapy alone.</p>
+
+<div class="warn"><strong>Reading criteria on rounds:</strong> when someone quotes a trial, ask "was <em>this</em> patient eligible?" A late-window thrombectomy candidate needs a qualifying mismatch; a thrombolysis candidate needs the time window and no exclusion; a PFO-closure candidate needs to be young with a truly cryptogenic stroke. The eligibility criteria are the indication.</div>
+
+<hr>
+<h2 id="evidence"><span class="num">12</span> Evidence library (provided sources)</h2>
+<p>The <em>Module 2 resource</em> papers used to update this module, grouped by theme.</p>
 <h4>Acute reperfusion — thrombolysis</h4>
 <ul>
-  <li>Tissue Plasminogen Activator for Acute Ischemic Stroke (NINDS, NEJM 1995) — established IV alteplase ≤3 h.</li>
-  <li>Thrombolysis with Alteplase 3 to 4.5 Hours after Acute Ischemic Stroke (ECASS III) — extended window.</li>
-  <li>Tenecteplase Thrombolysis for Acute Ischemic Stroke — pharmacology &amp; randomized comparisons.</li>
-  <li>ESO Guidelines on Intravenous Thrombolysis for Acute Ischaemic Stroke.</li>
+  <li>NINDS (NEJM 1995); ECASS III (NEJM 2008); Tenecteplase Thrombolysis for Acute Ischemic Stroke; ESO Guidelines on IV Thrombolysis.</li>
 </ul>
 <h4>Acute reperfusion — thrombectomy</h4>
 <ul>
-  <li>Endovascular Thrombectomy after Large-Vessel Ischaemic Stroke: IPD meta-analysis of five trials (HERMES).</li>
-  <li>Extended Window for Stroke Thrombectomy (DAWN / DEFUSE-3 synthesis).</li>
-  <li>ESO/ESMINT Guidelines on Mechanical Thrombectomy in Acute Ischemic Stroke.</li>
-  <li>Advances in Treatments for Acute Ischemic Stroke; Management of Acute Ischemic Stroke; Acute Ischemic Stroke (overview).</li>
+  <li>HERMES IPD meta-analysis; Extended Window for Stroke Thrombectomy (DAWN/DEFUSE-3); ESO/ESMINT Guidelines on Mechanical Thrombectomy; Advances/Management of Acute Ischemic Stroke overviews.</li>
 </ul>
 <h4>Minor stroke &amp; secondary prevention</h4>
 <ul>
-  <li>Outcomes Associated With Clopidogrel-Aspirin Use in Minor Stroke (CHANCE + POINT pooled).</li>
-  <li>Acute Treatment of Disabling and Nondisabling Minor Ischemic Stroke — expert guidance.</li>
-  <li>Canadian Stroke Best Practice Recommendations: Secondary Prevention of Stroke (2020 update).</li>
-  <li>Primary and Secondary Prevention of Ischemic Stroke and Cerebral Hemorrhage (JACC Focus Seminar).</li>
-  <li>Optimal Antithrombotics for Ischemic Stroke with Concurrent AF and Atherosclerosis (RCT).</li>
-  <li>Edoxaban Antithrombotic Therapy for AF and Stable Coronary Artery Disease.</li>
-  <li>Cryptogenic Stroke and Patent Foramen Ovale.</li>
+  <li>Clopidogrel-Aspirin in Minor Stroke (CHANCE + POINT); Acute Treatment of Minor Ischemic Stroke; Canadian Secondary Prevention 2020; JACC Prevention Focus Seminar; Optimal Antithrombotics for AF + Atherosclerosis; Edoxaban for AF + Stable CAD; Cryptogenic Stroke and PFO.</li>
 </ul>
-<h4>Intracerebral hemorrhage</h4>
+<h4>Intracerebral hemorrhage &amp; general care</h4>
 <ul>
-  <li>Systolic Blood Pressure Trajectory and Outcomes in Acute ICH (pooled INTERACT/ATACH-II).</li>
-  <li>Clinical Strategies Against Early Hematoma Expansion Following ICH.</li>
-  <li>Intracerebral Haemorrhage — Mechanisms, Diagnosis and Prospects for Treatment and Prevention.</li>
-</ul>
-<h4>General care &amp; guidelines</h4>
-<ul>
-  <li>Fever Prevention in Patients With Acute Vascular Brain Injury — the INTREPID RCT.</li>
-  <li>2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke (AHA/ASA).</li>
-  <li>Clinical Practice Guidelines for Ischemic Stroke (Thai national guideline).</li>
-  <li>Stroke: Epidemiology, Risk Factors, Signaling Pathways, and Clinical Management.</li>
+  <li>Systolic BP Trajectory in Acute ICH (pooled INTERACT/ATACH-II); Clinical Strategies Against Early Hematoma Expansion; Intracerebral Haemorrhage mechanisms/diagnosis/treatment; INTREPID fever-prevention RCT; 2026 AHA/ASA AIS guideline; Thai national guideline; Stroke epidemiology/management review.</li>
 </ul>
 
 <hr>
-<h2 id="sources">Sources</h2>
-<p class="src">Adams &amp; Victor's Principles of Neurology, 12th ed., Ch. 33 (Cerebrovascular Diseases). Merritt's Neurology, 14th ed., Ch. 16 and 36–41, 45. 2026 AHA/ASA Guideline for the Early Management of Patients with Acute Ischemic Stroke. Landmark trials referenced: NINDS (1995), ECASS III (2008), EXTEND-IA TNK (2018), WAKE-UP (2018), the HERMES pooled analysis (2015), DAWN (2018), DEFUSE-3 (2018), INTERACT2, ATACH-2, NASCET, ECST, SAMMPRIS, CHANCE, POINT, NAVIGATE-ESUS, and RE-SPECT ESUS. Educational reference for residency training — confirm all management decisions against current guidelines and institutional protocols at the point of care.</p>
+<h2 id="sources"><span class="num">13</span> Sources</h2>
+<p class="src">Adams &amp; Victor's Principles of Neurology, 12th ed., Ch. 33. Merritt's Neurology, 14th ed., Ch. 16 and 36–41, 45. Landmark trials: NINDS (1995), ECASS III (2008), tenecteplase comparisons, HERMES (2016), DAWN, DEFUSE-3, INTERACT2, ATACH-2, NASCET, ECST, SAMMPRIS, CHANCE, POINT, NAVIGATE-ESUS, RE-SPECT ESUS; INTREPID; ESO/ESMINT and AHA/ASA guidelines — all as provided in the Module 2 resource folder. Educational reference for residency training — confirm all management against current guidelines and institutional protocols at the point of care.</p>
 
 </body>
 </html>
