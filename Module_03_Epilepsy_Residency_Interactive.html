@@ -3,356 +3,407 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Residency Deep-Dive — Epilepsy & Seizure Disorders</title>
+<title>Module 3 — Epilepsy (Interactive)</title>
 <style>
   :root{
-    --bg:#0f1320;--panel:#181d2c;--panel-2:#1f2638;--line:#2a3148;
-    --ink:#e7ecf5;--muted:#9aa4ba;--accent:#0ea5a4;--accent-2:#7ee0df;
-    --good:#5fd28a;--bad:#ff6b6b;--warn:#ffb95c;--time:#5fb0ff;--soft:#222a3e;
+    --bg:#0f1320;--panel:#171c2e;--panel2:#1d2438;--ink:#e6ecf5;--muted:#93a0b8;
+    --line:#28324c;--accent:#0ea5a4;--accent2:#5fb0ff;--key:#5fb0ff;
+    --good:#34d399;--warn:#fbbf24;--bad:#f87171;--chip:#20304f;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#0c0f1a,#0f1320 35%,#0f1320);color:var(--ink);min-height:100vh}
-  .wrap{max-width:980px;margin:0 auto;padding:28px 22px 80px}
-  .top-link{color:var(--time);text-decoration:none;font-size:.85rem}
-  .top-link:hover{text-decoration:underline}
-  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin:14px 0 20px}
-  header h1{margin:0 0 6px;font-size:1.75rem;letter-spacing:.3px}
-  header .sub{color:var(--muted);font-size:.95rem}
-  header .badge{display:inline-block;padding:2px 10px;border-radius:10px;background:rgba(14,165,164,.16);color:var(--accent-2);font-size:.78rem;margin:8px 6px 0 0}
-  header .badge.lvl{background:rgba(95,176,255,.16);color:#cfe6ff}
-
-  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px}
-  nav.tabs button{background:transparent;color:var(--muted);border:none;padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit;font-size:.9rem;transition:all .15s ease}
-  nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
-  nav.tabs button.active{background:var(--accent);color:#04201f;font-weight:600}
-
-  section.tab-panel{display:none}
-  section.tab-panel.active{display:block;animation:fade .25s ease}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  .wrap{max-width:980px;margin:0 auto;padding:22px 18px 90px}
+  a.back{display:inline-block;color:var(--accent2);text-decoration:none;font-size:.9rem;margin-bottom:14px}
+  a.back:hover{text-decoration:underline}
+  h1{font-size:1.7rem;margin:.1em 0 .1em}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:.95rem}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--line)}
+  nav.tabs button{background:var(--panel);color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:7px 14px;font-size:.85rem;cursor:pointer;transition:.15s}
+  nav.tabs button:hover{color:var(--ink);border-color:var(--accent)}
+  nav.tabs button.active{background:var(--accent);color:#04211f;border-color:var(--accent);font-weight:600}
+  .tab-panel{display:none;animation:fade .25s}
+  .tab-panel.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-
-  h2{font-size:1.3rem;margin:1.3em 0 .5em;color:var(--accent-2)}
-  h3{font-size:1.06rem;margin:1.1em 0 .4em;color:#bdeeea}
-  p{line-height:1.65}
-  ul,ol{line-height:1.6}
-  .muted{color:var(--muted)}
-  .lead{color:#cdd6e8;font-size:1.02rem;line-height:1.7}
-
-  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;overflow:hidden}
-  details.acc[open]{background:var(--panel-2)}
-  details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
-  details.acc summary::-webkit-details-marker{display:none}
-  details.acc summary::after{content:"+";color:var(--accent);font-size:1.3rem;margin-left:10px;transition:transform .2s}
-  details.acc[open] summary::after{content:"−"}
-  details.acc .body{padding:0 18px 16px;color:var(--ink)}
-  details.acc .body p{margin:.4em 0}
-  details.acc .body ul{margin:.3em 0 .6em 1.2em}
-
-  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.92rem}
+  h2{font-size:1.28rem;color:var(--accent2);margin-top:1.1em}
+  h3{font-size:1.05rem;margin-top:1.2em;color:#cfe0ff}
+  p{margin:.55em 0}
+  ul{margin:.4em 0 .8em 1.1em}li{margin:.28em 0}
+  .key{background:linear-gradient(180deg,#132139,#111a2e);border:1px solid #24406b;border-left:4px solid var(--key);border-radius:10px;padding:12px 15px;margin:.7em 0 1.1em}
+  .key .kh{font-size:.7rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--key);margin-bottom:.4em}
+  .key ul{margin:.2em 0 0 1em}.key li{color:#c7d8f2}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.88rem}
   th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
-  th{background:var(--soft);color:var(--accent-2);font-weight:600}
-
-  .pearl,.warn,.trial,.time{padding:10px 14px;border-radius:8px;margin:.8em 0;border-left:4px solid}
-  .pearl{background:rgba(14,165,164,.10);border-color:var(--accent);color:#c8f3f0}
-  .warn{background:rgba(255,185,92,.10);border-color:var(--warn);color:#ffe2b8}
-  .trial{background:rgba(95,210,138,.10);border-color:var(--good);color:#d6f6e3}
-  .time{background:rgba(95,176,255,.10);border-color:var(--time);color:#d5e8ff}
-  .obj{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px;margin:10px 0}
-  .obj ol{margin:.3em 0 .2em 1.2em}
-
-  /* status stepper */
-  .stepper{display:flex;flex-direction:column;gap:10px;margin:14px 0}
-  .step{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--time);border-radius:8px;padding:12px 16px}
-  .step .badge-t{display:inline-block;font-size:.72rem;background:rgba(95,176,255,.16);color:#cfe6ff;padding:2px 8px;border-radius:10px;margin-bottom:6px}
-  .step.first{border-left-color:var(--accent)}.step.first .badge-t{background:rgba(14,165,164,.18);color:var(--accent-2)}
-  .step.second{border-left-color:var(--good)}.step.second .badge-t{background:rgba(95,210,138,.18);color:#d6f6e3}
-  .step.third{border-left-color:var(--warn)}.step.third .badge-t{background:rgba(255,185,92,.18);color:#ffe2b8}
-
-  .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0 6px}
-  .flashcard{perspective:1000px;min-height:180px;cursor:pointer}
-  .flashcard .face{position:relative;width:100%;height:180px;transition:transform .55s;transform-style:preserve-3d}
-  .flashcard.flipped .face{transform:rotateY(180deg)}
-  .flashcard .front,.flashcard .back{position:absolute;inset:0;backface-visibility:hidden;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-  .flashcard .front{color:var(--accent-2);font-size:1rem;font-weight:600}
-  .flashcard .back{transform:rotateY(180deg);background:var(--panel-2);color:var(--ink);font-size:.86rem;line-height:1.45}
-  .flashcard .tag{position:absolute;top:8px;left:10px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-
-  .quiz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
-  .quiz h4{margin:0 0 8px;color:var(--accent-2);font-size:1rem}
-  .quiz .stem{margin:0 0 12px;line-height:1.55}
-  .quiz .choices{display:flex;flex-direction:column;gap:8px}
-  .quiz .choice{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;transition:background .15s,border-color .15s}
-  .quiz .choice:hover{border-color:var(--accent)}
-  .quiz .choice.correct{background:rgba(95,210,138,.15);border-color:var(--good);color:#dffce9}
-  .quiz .choice.wrong{background:rgba(255,107,107,.12);border-color:var(--bad);color:#ffd8d8}
-  .quiz .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.92rem;display:none}
-  .quiz .feedback.show{display:block}
-  .quiz .feedback.good{background:rgba(95,210,138,.12);color:#dffce9;border:1px solid var(--good)}
-  .quiz .feedback.bad{background:rgba(255,107,107,.10);color:#ffd8d8;border:1px solid var(--bad)}
-
-  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
-  .case .vig{background:var(--panel-2);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:8px}
-
-  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+  th{background:var(--panel2);color:#bcd2ff}
+  tbody tr:nth-child(even){background:#131a2c}
+  .box{border-radius:10px;padding:12px 15px;margin:.8em 0;border:1px solid var(--line);background:var(--panel)}
+  .box.good{border-left:4px solid var(--good)}
+  .box.warn{border-left:4px solid var(--warn)}
+  .box.info{border-left:4px solid var(--accent2)}
+  .box b{color:#fff}
+  /* flashcards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:1em 0}
+  .flashcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;min-height:120px;cursor:pointer;perspective:1000px}
+  .flashcard .inner{position:relative;width:100%;min-height:120px;transition:transform .5s;transform-style:preserve-3d}
+  .flashcard.flip .inner{transform:rotateY(180deg)}
+  .flashcard .f,.flashcard .b{position:absolute;inset:0;backface-visibility:hidden;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:12px}
+  .flashcard .f{font-weight:600;color:#dbe7ff}
+  .flashcard .b{transform:rotateY(180deg);background:var(--panel2);color:#c9f5e9;font-size:.9rem}
+  /* quiz */
+  .q{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;margin:.9em 0}
+  .q p.stem{font-weight:600;margin:.1em 0 .6em}
+  .opt{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:9px 12px;margin:6px 0;cursor:pointer;font-size:.9rem}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{background:#123524;border-color:var(--good);color:#b6f5d4}
+  .opt.wrong{background:#3a1a1a;border-color:var(--bad);color:#f7c4c4}
+  .expl{display:none;margin-top:.6em;font-size:.87rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:.5em}
+  .expl.show{display:block}
+  /* accordion */
+  details.acc{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:.6em 0;padding:0 14px}
+  details.acc summary{cursor:pointer;padding:12px 0;font-weight:600;color:#cfe0ff;list-style:none}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::before{content:"▸ ";color:var(--accent)}
+  details.acc[open] summary::before{content:"▾ "}
+  details.acc .body{padding:0 0 12px;font-size:.9rem;color:#c7d1e3}
+  /* stepper tool */
+  .stepper{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin:1em 0}
+  .step{display:none}.step.active{display:block}
+  .stepbar{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .stepbar span{flex:1;min-width:60px;height:6px;border-radius:3px;background:var(--panel2)}
+  .stepbar span.on{background:var(--accent)}
+  .stepnav{display:flex;justify-content:space-between;margin-top:14px}
+  .btn{background:var(--accent);color:#04211f;border:none;border-radius:8px;padding:8px 16px;font-weight:600;cursor:pointer}
+  .btn.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .btn:disabled{opacity:.4;cursor:default}
+  .clock{font-size:1.4rem;font-weight:700;color:var(--warn)}
+  .src{font-size:.8rem;color:var(--muted);margin-top:2em;border-top:1px solid var(--line);padding-top:1em}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a href="Neurology_Curriculum_Index.html" class="top-link">← Curriculum</a> &nbsp;·&nbsp;
-  <a href="Residency_Curriculum_Index.html" class="top-link">Residency Program</a> &nbsp;·&nbsp;
-  <a href="Module_03_Epilepsy_Residency_Reference.html" class="top-link">📖 Reference version</a>
-  <header>
-    <h1>Epilepsy &amp; Seizure Disorders</h1>
-    <div class="sub">Residency deep-dive · PGY-2 core · classify, treat, run the status protocol, refer for surgery</div>
-    <span class="badge lvl">Resident level</span>
-    <span class="badge">ILAE 2017</span>
-    <span class="badge">ASM selection</span>
-    <span class="badge">Status epilepticus</span>
-    <span class="badge">Surgery</span>
-  </header>
+<a href="Neurology_Curriculum_Index.html" class="back">← Back to Curriculum</a>
+<h1>Module 3 — Epilepsy &amp; Seizure Disorders</h1>
+<p class="sub">Interactive residency module · classify → treat → escalate. Reference version: <a href="Module_03_Epilepsy_Residency_Reference.html" style="color:var(--accent2)">printable reference ↗</a></p>
 
-  <nav class="tabs" id="tabs">
-    <button class="active" data-tab="obj">Objectives</button>
-    <button data-tab="classify">Classification</button>
-    <button data-tab="types">Seizure Types</button>
-    <button data-tab="asm">Drug Therapy</button>
-    <button data-tab="status">Status Epilepticus</button>
-    <button data-tab="surgery">Surgery</button>
-    <button data-tab="library">Evidence Library</button>
-    <button data-tab="cards">Flashcards</button>
-    <button data-tab="cases">Cases</button>
-    <button data-tab="quiz">Self-Assessment</button>
-  </nav>
+<nav class="tabs" id="tabs">
+  <button class="active" data-tab="over">Overview</button>
+  <button data-tab="class">Classification</button>
+  <button data-tab="types">Seizure types</button>
+  <button data-tab="drug">Drug choice</button>
+  <button data-tab="status">Status protocol</button>
+  <button data-tab="tool">SE stepper</button>
+  <button data-tab="surg">Surgery</button>
+  <button data-tab="trials">Trial criteria</button>
+  <button data-tab="cards">Flashcards</button>
+  <button data-tab="quiz">Quiz</button>
+  <button data-tab="evid">Evidence</button>
+</nav>
 
-  <!-- OBJECTIVES -->
-  <section class="tab-panel active" id="obj">
-    <h2>From "had a seizure" to a management plan</h2>
-    <p class="lead">The general-physician Module 3 teaches recognition and when to refer. This version assumes you classify with the ILAE 2017 framework, choose the right antiseizure medication on trial evidence, run the status-epilepticus protocol from minute five, and identify who belongs at an epilepsy surgery center.</p>
-    <div class="obj">
-      <strong>By the end you should be able to:</strong>
-      <ol>
-        <li>Classify by the ILAE 2017 three levels (seizure type → epilepsy type → syndrome) with etiology at each step.</li>
-        <li>Separate provoked from unprovoked seizures and decide when to start treatment.</li>
-        <li>Select first-line therapy by epilepsy type, citing SANAD and the monotherapy meta-analysis.</li>
-        <li>Run the status-epilepticus protocol with correct drugs, doses, and timing (ESETT).</li>
-        <li>Recognize drug-resistant epilepsy and refer for surgical evaluation without delay.</li>
-      </ol>
-    </div>
-    <div class="time"><strong>Treat status from 5 minutes.</strong> The ILAE 2015 definition sets t1 = 5 min (start treatment) and t2 = 30 min (long-term injury begins) for convulsive seizures. Don't wait.</div>
-    <div class="warn"><strong>Educational use only.</strong> Verify drugs, doses, and protocols against current guidelines and institutional policy at the point of care.</div>
-  </section>
+<!-- OVERVIEW -->
+<section class="tab-panel active" data-panel="over">
+<h2>The through-line</h2>
+<div class="key"><div class="kh">▎Core loop</div><ul>
+  <li><b>Classify precisely</b> with ILAE 2017 (seizure type → epilepsy type → syndrome, etiology at every step).</li>
+  <li><b>Match the drug to the epilepsy type</b> — lamotrigine/levetiracetam for focal, valproate for generalized (but not in childbearing potential).</li>
+  <li><b>Treat status from minute 5</b> — full-dose benzodiazepine first, then LEV/fosphenytoin/valproate.</li>
+</ul></div>
+<div class="box info"><b>Two definitions to have cold:</b> Epilepsy = 2 unprovoked seizures &gt;24 h apart, OR 1 unprovoked seizure with ≥60% 10-yr recurrence risk, OR an epilepsy syndrome. Drug-resistant epilepsy = failure of 2 tolerated, appropriate, adequately-dosed ASM regimens.</div>
+<div class="box warn"><b>Timepoints:</b> t1 = 5 min → start treating convulsive SE. t2 = 30 min → neuronal injury begins. Never wait for 30.</div>
+</section>
 
-  <!-- CLASSIFICATION -->
-  <section class="tab-panel" id="classify">
-    <h2>ILAE 2017 — three levels, etiology throughout</h2>
-    <table>
-      <thead><tr><th>Level</th><th>Categories</th></tr></thead>
-      <tbody>
-        <tr><td>1 · Seizure type</td><td>Focal onset · Generalized onset · Unknown onset (motor / non-motor; focal by awareness)</td></tr>
-        <tr><td>2 · Epilepsy type</td><td>Focal · Generalized · Combined generalized &amp; focal · Unknown</td></tr>
-        <tr><td>3 · Epilepsy syndrome</td><td>Specific syndrome (JME, CAE, mesial TLE, Lennox-Gastaut, …)</td></tr>
-      </tbody>
-    </table>
-    <p>The <strong>six etiologic groups</strong> — structural, genetic, infectious, metabolic, immune, unknown — are considered at every level because each has therapeutic consequences. The term <strong>developmental and epileptic encephalopathy (DEE)</strong> captures impairment from both the underlying disease and the epileptic activity.</p>
-    <div class="pearl"><strong>2017 terminology updates:</strong> "partial" → <em>focal</em>; "simple/complex partial" → <em>focal aware / focal impaired awareness</em>; "secondarily generalized" → <em>focal to bilateral tonic–clonic</em>.</div>
-  </section>
+<!-- CLASSIFICATION -->
+<section class="tab-panel" data-panel="class">
+<h2>ILAE 2017 — three levels</h2>
+<div class="key"><div class="kh">▎Key points</div><ul>
+  <li>Three sequential levels: <b>seizure type → epilepsy type → epilepsy syndrome</b>.</li>
+  <li>Six etiologies: <b>structural, genetic, infectious, metabolic, immune, unknown</b> — considered at every level.</li>
+  <li>New words: focal (not partial); focal aware / focal impaired awareness; focal to bilateral tonic–clonic.</li>
+</ul></div>
+<table>
+<thead><tr><th>Level</th><th>Categories</th><th>Use it to…</th></tr></thead>
+<tbody>
+<tr><td>Seizure type</td><td>Focal / Generalized / Unknown onset (motor vs non-motor)</td><td>Name the event</td></tr>
+<tr><td>Epilepsy type</td><td>Focal / Generalized / Combined / Unknown</td><td>Frame workup + drug</td></tr>
+<tr><td>Syndrome</td><td>JME, MTLE, CAE, LGS…</td><td>Prognosis + surgery</td></tr>
+</tbody></table>
+<div class="box info"><b>DEE</b> = developmental &amp; epileptic encephalopathy — both the condition and the epileptic activity impair development.</div>
+</section>
 
-  <!-- SEIZURE TYPES -->
-  <section class="tab-panel" id="types">
-    <h2>Seizure types &amp; semiology</h2>
-    <table>
-      <thead><tr><th>Type</th><th>Hallmarks</th><th>Clue</th></tr></thead>
-      <tbody>
-        <tr><td>Focal impaired awareness</td><td>Behavioral arrest, automatisms, postictal confusion</td><td>Often temporal; preceded by aura</td></tr>
-        <tr><td>Focal aware</td><td>Awareness retained; motor/sensory/autonomic/psychic</td><td>Jacksonian march = motor cortex</td></tr>
-        <tr><td>Absence</td><td>Brief staring &lt;10 s, no postictal state</td><td>3-Hz spike-wave; childhood/juvenile</td></tr>
-        <tr><td>Myoclonic</td><td>Shock-like jerks, often on waking</td><td>JME</td></tr>
-        <tr><td>Generalized tonic–clonic</td><td>Tonic→clonic, postictal somnolence, lateral tongue-bite</td><td>Primary vs focal-to-bilateral alters drug</td></tr>
-        <tr><td>Atonic / tonic</td><td>Drop attacks, injury risk</td><td>Lennox-Gastaut / DEE</td></tr>
-      </tbody>
-    </table>
-    <div class="warn"><strong>Mimics:</strong> convulsive syncope, PNES (closed eyes, asynchronous movements, fluctuating course, preserved awareness during bilateral motor activity), migraine/TIA. Video-EEG is the arbiter.</div>
-  </section>
+<!-- SEIZURE TYPES -->
+<section class="tab-panel" data-panel="types">
+<h2>Seizure types &amp; semiology</h2>
+<div class="key"><div class="kh">▎Key points</div><ul>
+  <li>Read <b>onset first</b>, then awareness, then first prominent sign.</li>
+  <li>Distinguish primary generalized from focal-to-bilateral — it changes the drug.</li>
+  <li>Video-EEG settles mimics: syncope, PNES, migraine/TIA.</li>
+</ul></div>
+<table>
+<thead><tr><th>Type</th><th>Hallmark</th><th>Clue</th></tr></thead>
+<tbody>
+<tr><td>Focal impaired awareness</td><td>Arrest, automatisms, postictal confusion</td><td>Temporal; aura</td></tr>
+<tr><td>Focal aware</td><td>Awareness kept; motor/sensory/psychic</td><td>Jacksonian march</td></tr>
+<tr><td>Absence</td><td>&lt;10 s stare, no postictal, 3-Hz SW</td><td>CAE/JAE</td></tr>
+<tr><td>Myoclonic</td><td>Shock-like jerks on waking</td><td>JME</td></tr>
+<tr><td>GTC</td><td>Tonic→clonic, tongue-bite, incontinence</td><td>Primary vs focal-to-bilateral</td></tr>
+<tr><td>Atonic/tonic</td><td>Drop attacks</td><td>LGS/DEE</td></tr>
+</tbody></table>
+<div class="box warn"><b>PNES flags:</b> closed eyes, asynchronous/pelvic-thrust movements, fluctuating course, preserved awareness during bilateral motor activity, long duration. Confirm with video-EEG — don't escalate ASMs blindly.</div>
+</section>
 
-  <!-- DRUG THERAPY -->
-  <section class="tab-panel" id="asm">
-    <h2>Antiseizure-medication selection</h2>
-    <div class="trial"><strong>SANAD I (Lancet 2007).</strong> Arm A (focal/unclassified): <strong>lamotrigine</strong> clinically better than carbamazepine for time to treatment failure → first-line for focal. Arm B (generalized/unclassified): <strong>valproate</strong> superior (treatment failure &amp; 12-month remission) → first-line for generalized where appropriate.</div>
-    <div class="trial"><strong>Monotherapy network meta-analysis (IPD).</strong> Focal: <strong>lamotrigine</strong> best for treatment failure, <strong>levetiracetam</strong> comparable (HR LTG vs LEV ≈ 1.01); CBZ/OXC/VPA/PHT/TPM worse on failure-for-any-reason. Generalized: <strong>valproate</strong> most effective. NICE-type first-line: LTG/LEV for focal; valproate for generalized (teratogenicity caveat).</div>
-    <table>
-      <thead><tr><th>Scenario</th><th>Preferred</th><th>Notes</th></tr></thead>
-      <tbody>
-        <tr><td>Focal epilepsy</td><td>Lamotrigine or levetiracetam</td><td>LTG titrate slowly (rash/SJS)</td></tr>
-        <tr><td>Generalized epilepsy</td><td>Valproate (if not childbearing potential)</td><td>Else LEV/LTG</td></tr>
-        <tr><td>Absence</td><td>Ethosuximide or valproate</td><td>Ethosuximide for absence-only</td></tr>
-        <tr><td>Childbearing potential</td><td>Levetiracetam, lamotrigine</td><td>Avoid valproate; folate</td></tr>
-      </tbody>
-    </table>
-    <div class="warn"><strong>Pitfalls:</strong> carbamazepine, oxcarbazepine, phenytoin, gabapentin can <em>worsen</em> absence/myoclonic seizures. Valproate is teratogenic + neurodevelopmental risk. Lamotrigine needs slow titration. Enzyme inducers (CBZ/PHT) cause interactions (incl. contraceptives). Screen HLA-B*15:02 before carbamazepine in at-risk Asian populations.</div>
-  </section>
+<!-- DRUG -->
+<section class="tab-panel" data-panel="drug">
+<h2>Choosing the first drug</h2>
+<div class="key"><div class="kh">▎Key points</div><ul>
+  <li><b>Focal:</b> lamotrigine or levetiracetam first-line.</li>
+  <li><b>Generalized:</b> valproate most effective — avoid in childbearing potential.</li>
+  <li>Some drugs <b>worsen</b> generalized seizures (see amber box).</li>
+</ul></div>
+<table>
+<thead><tr><th>Scenario</th><th>Preferred</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Focal epilepsy</td><td>Lamotrigine / levetiracetam</td><td>LTG better tolerated; titrate slow (rash)</td></tr>
+<tr><td>Generalized</td><td>Valproate</td><td>Most effective if not childbearing potential</td></tr>
+<tr><td>Absence</td><td>Ethosuximide / valproate</td><td>Ethosuximide for absence-only</td></tr>
+<tr><td>Childbearing potential</td><td>Levetiracetam / lamotrigine</td><td>Avoid valproate; folate</td></tr>
+</tbody></table>
+<div class="box good"><b>SANAD:</b> lamotrigine beat carbamazepine for focal (Arm A); valproate beat LTG/TPM for generalized (Arm B). Monotherapy meta-analysis: LTG ≈ LEV for focal; valproate best for generalized.</div>
+<div class="box warn"><b>Avoid in generalized epilepsy</b> (can worsen absence/myoclonus): carbamazepine, oxcarbazepine, phenytoin, gabapentin, tiagabine. <b>Also:</b> HLA-B*15:02 screen before CBZ in at-risk Asian populations; valproate is teratogenic + neurodevelopmentally harmful; CBZ/PHT are enzyme inducers.</div>
+</section>
 
-  <!-- STATUS -->
-  <section class="tab-panel" id="status">
-    <h2>Status epilepticus — stepwise protocol</h2>
-    <p>ILAE 2015 time points: <strong>t1 = 5 min</strong> (start treatment) and <strong>t2 = 30 min</strong> (long-term injury) for convulsive status.</p>
-    <div class="stepper">
-      <div class="step"><span class="badge-t">0–5 min · Stabilize</span><div>ABCs, oxygen, IV access, <strong>fingerstick glucose</strong>, thiamine if indicated, cardiac/EEG monitoring, time the seizure.</div></div>
-      <div class="step first"><span class="badge-t">5–20 min · First-line (benzodiazepine, full dose)</span><div>IV <strong>lorazepam 0.1 mg/kg</strong> (max 4 mg/dose) · or IM <strong>midazolam 10 mg</strong> · or IV <strong>diazepam 0.15–0.2 mg/kg</strong>. Under-dosing is the commonest error.</div></div>
-      <div class="step second"><span class="badge-t">20–40 min · Second-line (IV ASM)</span><div><strong>Levetiracetam, fosphenytoin, OR valproate</strong> — all comparable per ESETT. Choose by patient factors (avoid VPA in pregnancy/hepatic disease; FOS cautions in cardiac disease).</div></div>
-      <div class="step third"><span class="badge-t">&gt;40 min · Refractory</span><div>Anesthetic infusion (midazolam, propofol, or pentobarbital) with <strong>continuous EEG</strong>. Search for and treat the cause (incl. autoimmune/NORSE).</div></div>
-    </div>
-    <div class="trial"><strong>ESETT.</strong> Double-blind 3-arm RCT — levetiracetam vs fosphenytoin vs valproate as second-line: <strong>no significant difference</strong>; each stopped status in roughly half. Pick by availability and contraindications.</div>
-    <div class="pearl"><strong>Refractory</strong> = fails first + second line; <strong>super-refractory</strong> = ≥24 h despite anesthesia. Ongoing seizures drive pharmacoresistance (receptor trafficking) — treat early and adequately.</div>
-  </section>
+<!-- STATUS -->
+<section class="tab-panel" data-panel="status">
+<h2>Status epilepticus — the ladder</h2>
+<div class="key"><div class="kh">▎Key points</div><ul>
+  <li><b>Full-dose benzodiazepine first</b> — under-dosing is the classic error.</li>
+  <li>Second-line: levetiracetam, fosphenytoin, or valproate — all comparable (ESETT).</li>
+  <li>Refractory (&gt;40 min) → anesthetic infusion + continuous EEG.</li>
+</ul></div>
+<table>
+<thead><tr><th>Phase</th><th>Time</th><th>Do</th></tr></thead>
+<tbody>
+<tr><td>Stabilize</td><td>0–5</td><td>ABCs, O₂, IV, glucose, thiamine, monitor</td></tr>
+<tr><td>First-line</td><td>5–20</td><td>Lorazepam 0.1 mg/kg (max 4/dose); or IM midazolam 10 mg; or diazepam 0.15–0.2 mg/kg</td></tr>
+<tr><td>Second-line</td><td>20–40</td><td>LEV / fosphenytoin / valproate (ESETT: equivalent)</td></tr>
+<tr><td>Refractory</td><td>&gt;40</td><td>Midazolam/propofol/pentobarbital infusion + cEEG</td></tr>
+</tbody></table>
+<div class="box good"><b>ESETT:</b> LEV vs fosphenytoin vs valproate — no significant difference (~47% each). Pick by availability &amp; contraindications.</div>
+<div class="box warn"><b>Under-dosing the benzo</b> is the most common mistake — give the full weight-based dose before escalating. IM midazolam works pre-hospital when IV access is delayed.</div>
+</section>
 
-  <!-- SURGERY -->
-  <section class="tab-panel" id="surgery">
-    <h2>Drug-resistant epilepsy &amp; surgery</h2>
-    <p><strong>Drug-resistant epilepsy (ILAE):</strong> failure of two appropriately chosen, adequately dosed, tolerated ASM regimens to achieve sustained seizure freedom → refer to a comprehensive epilepsy center (video-EEG, MRI, neuropsychology, ± PET/SPECT, intracranial EEG).</p>
-    <div class="trial"><strong>Surgery evidence.</strong> Controlled data support <strong>anterior temporal lobectomy</strong> for drug-resistant mesial temporal lobe epilepsy as superior to continued medical therapy for seizure freedom (RCT assessments + AAN practice parameter in the resource set). <strong>SEEG-guided thermocoagulation</strong> vs ATL was tested in a pilot RCT; laser interstitial thermal therapy is an additional minimally invasive option. Palliative: VNS, responsive neurostimulation, DBS, callosotomy.</div>
-    <div class="pearl"><strong>Refer early.</strong> MTLE with hippocampal sclerosis is surgically remediable but often left on years of escalating polytherapy — referral after two failed drugs improves seizure-freedom odds.</div>
-  </section>
+<!-- STEPPER TOOL -->
+<section class="tab-panel" data-panel="tool">
+<h2>Interactive: status epilepticus stepper</h2>
+<p class="sub">Walk the ladder for a convulsing adult. Advance as the clock runs.</p>
+<div class="stepper" id="se">
+  <div class="stepbar"><span class="on"></span><span></span><span></span><span></span></div>
+  <div class="clock" id="clk">t = 0 min</div>
 
-  <!-- EVIDENCE LIBRARY -->
-  <section class="tab-panel" id="library">
-    <h2>Evidence library — provided sources</h2>
-    <p class="muted">The Module 3 resource set used to build this module, grouped by theme.</p>
-    <details class="acc"><summary>Classification &amp; definitions</summary><div class="body"><ul>
-      <li>ILAE Operational Classification of Seizure Types (2017)</li>
-      <li>ILAE Classification of the Epilepsies (2017)</li>
-      <li>Updated Classification of Epileptic Seizures (ILAE)</li>
-      <li>ILAE Syndrome Classifications — neonates/infants &amp; childhood onset</li>
-    </ul></div></details>
-    <details class="acc"><summary>Drug therapy</summary><div class="body"><ul>
-      <li>SANAD — standard vs new antiepileptic drugs (longer-term outcomes)</li>
-      <li>Antiseizure-drug monotherapy — IPD network meta-analysis</li>
-      <li>Choosing a First Drug Treatment after SANAD</li>
-      <li>Neuropharmacology of Antiseizure Drugs</li>
-      <li>Prognosis of Focal Epilepsy Treated with ASMs (review)</li>
-    </ul></div></details>
-    <details class="acc"><summary>Status epilepticus</summary><div class="body"><ul>
-      <li>25 Years of Advances in SE Definition, Classification &amp; Treatment</li>
-      <li>Lessons from the ESETT trial</li>
-      <li>Emergent Management of SE; Anticonvulsant Therapy for SE</li>
-      <li>Pre-hospital &amp; ED Treatment of Convulsive SE (evidence synthesis)</li>
-      <li>IV Sodium Valproate in SE (meta-analysis); Focal SE Pharmacological Treatment</li>
-    </ul></div></details>
-    <details class="acc"><summary>Surgery &amp; general</summary><div class="body"><ul>
-      <li>AAN Practice Parameter — Temporal/Neocortical Resections</li>
-      <li>Resective Epilepsy Surgery — RCT assessment</li>
-      <li>SEEG-guided Thermocoagulation vs ATL — pilot RCT</li>
-      <li>Clinical Outcome of Epilepsy Surgery</li>
-      <li>Epilepsy (overview); Initial Management of Seizure in Adults</li>
-    </ul></div></details>
-  </section>
+  <div class="step active" data-step="0">
+    <h3>0–5 min · Stabilize</h3>
+    <ul><li>Airway, breathing, circulation; oxygen.</li><li>IV access; fingerstick glucose (thiamine before glucose if malnourished/alcohol).</li><li>Cardiac + pulse-ox monitoring; note seizure start time.</li></ul>
+    <div class="box info">Don't leave this phase without the <b>time the seizure started</b> — it drives every downstream decision.</div>
+  </div>
+  <div class="step" data-step="1">
+    <h3>5–20 min · First-line benzodiazepine (FULL dose)</h3>
+    <ul><li>IV lorazepam <b>0.1 mg/kg</b> (max 4 mg/dose), may repeat once; OR</li><li>IM midazolam <b>10 mg</b> (≥40 kg) if no IV; OR</li><li>IV diazepam 0.15–0.2 mg/kg (max 10 mg).</li></ul>
+    <div class="box warn">The commonest error is here: <b>under-dosing</b> and escalating too early.</div>
+  </div>
+  <div class="step" data-step="2">
+    <h3>20–40 min · Second-line IV ASM</h3>
+    <ul><li><b>Levetiracetam</b> 60 mg/kg (max 4500 mg); OR</li><li><b>Fosphenytoin</b> 20 mg PE/kg (max 1500 mg PE) — cardiac monitoring; OR</li><li><b>Valproate</b> 40 mg/kg (max 3000 mg) — avoid in pregnancy/hepatic disease.</li></ul>
+    <div class="box good">ESETT: the three are equivalent — choose on contraindications and availability.</div>
+  </div>
+  <div class="step" data-step="3">
+    <h3>&gt;40 min · Refractory SE</h3>
+    <ul><li>Continuous infusion: midazolam, propofol, or pentobarbital.</li><li><b>Continuous EEG</b> — titrate to seizure suppression / burst-suppression.</li><li>Hunt the cause: imaging, CSF, autoimmune panel (consider NORSE/new-onset refractory SE).</li></ul>
+    <div class="box info">Super-refractory = seizures continuing/recurring ≥24 h after anesthesia started.</div>
+  </div>
 
-  <!-- FLASHCARDS -->
-  <section class="tab-panel" id="cards">
-    <h2>Flashcards — tap to flip</h2>
-    <div class="deck" id="deck"></div>
-  </section>
+  <div class="stepnav">
+    <button class="btn ghost" id="prev" disabled>← Back</button>
+    <button class="btn" id="next">Advance →</button>
+  </div>
+</div>
+</section>
 
-  <!-- CASES -->
-  <section class="tab-panel" id="cases">
-    <h2>Case-based reasoning</h2>
+<!-- SURGERY -->
+<section class="tab-panel" data-panel="surg">
+<h2>Drug-resistant epilepsy &amp; surgery</h2>
+<div class="key"><div class="kh">▎Key points</div><ul>
+  <li><b>Drug-resistant</b> = 2 tolerated, appropriate, adequately-dosed regimens fail → refer to an epilepsy center.</li>
+  <li><b>Anterior temporal lobectomy</b> beats continued medical therapy for drug-resistant MTLE (RCT-supported).</li>
+  <li>Refer <b>early</b> — surgically remediable syndromes are often left on years of polytherapy.</li>
+</ul></div>
+<table>
+<thead><tr><th>Option</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td>Anterior temporal lobectomy</td><td>Curative for MTLE + hippocampal sclerosis</td></tr>
+<tr><td>SEEG radiofrequency thermocoagulation / LITT</td><td>Minimally invasive; lower morbidity, some efficacy trade-off</td></tr>
+<tr><td>VNS / RNS / DBS</td><td>Palliative neuromodulation when resection not possible</td></tr>
+<tr><td>Corpus callosotomy</td><td>Palliative for drop attacks</td></tr>
+</tbody></table>
+</section>
 
-    <div class="case">
-      <div class="vig"><strong>Case 1.</strong> A convulsing patient has been seizing for 8 minutes in the ED. IV access is in; glucose normal.</div>
-      <details class="acc"><summary>Next drug and dose?</summary>
-        <div class="body"><p>This is status epilepticus (&gt;5 min). Give a <strong>full-dose benzodiazepine</strong>: IV lorazepam 0.1 mg/kg (up to 4 mg/dose). If still seizing at ~20 min, move to a second-line IV ASM — <strong>levetiracetam, fosphenytoin, or valproate</strong> (all comparable, ESETT). Avoid the common error of under-dosing the benzodiazepine.</p></div>
-      </details>
-    </div>
+<!-- TRIAL CRITERIA -->
+<section class="tab-panel" data-panel="trials">
+<h2>Who was included &amp; excluded</h2>
+<div class="key"><div class="kh">▎Why it matters</div><ul>
+  <li>The eligibility criteria are the indication — they tell you where the result applies.</li>
+  <li>ESETT: established (benzo-refractory) convulsive SE. SANAD: newly diagnosed epilepsy, by seizure type.</li>
+</ul></div>
 
-    <div class="case">
-      <div class="vig"><strong>Case 2.</strong> A 19-year-old woman has early-morning jerks, two GTCs on waking after sleep deprivation, and a photoparoxysmal EEG response.</div>
-      <details class="acc"><summary>Diagnosis and drug choice?</summary>
-        <div class="body"><p><strong>Juvenile myoclonic epilepsy</strong> (generalized). Valproate is most effective but <strong>avoid in a person of childbearing potential</strong> — choose <strong>levetiracetam or lamotrigine</strong>, add folate, and avoid carbamazepine/oxcarbazepine (can worsen myoclonus/absence).</p></div>
-      </details>
-    </div>
+<details class="acc"><summary>ESETT — established status epilepticus, 2nd-line drug</summary>
+<div class="body">
+<b>Included:</b> age ≥2 y; established convulsive SE (seizures persisting despite an <b>adequate benzodiazepine dose</b>). Randomized to one weight-based dose of LEV / fosphenytoin / valproate over 10 min, double-blind.<br><br>
+<b>Excluded / design:</b> seizure already stopped by benzo (not "established"); known contraindication/allergy to a study drug; specific precipitants needing dedicated therapy at discretion. Primary endpoint = clinical seizure cessation + improving responsiveness at 60 min with no added ASM.<br><br>
+<b>Result:</b> ~47% cessation with each drug — <b>no difference</b>. → choose by availability/contraindications.<br>
+<b>Bedside caveat:</b> ESETT applies only <i>after</i> an adequate benzo has failed — it does not license skipping or under-dosing the benzodiazepine.
+</div></details>
 
-    <div class="case">
-      <div class="vig"><strong>Case 3.</strong> A 34-year-old with focal impaired-awareness seizures and right hippocampal sclerosis on MRI continues to seize despite adequate trials of two well-chosen ASMs.</div>
-      <details class="acc"><summary>What now?</summary>
-        <div class="body"><p>This is <strong>drug-resistant epilepsy</strong> (two failed appropriate ASMs) in a <strong>surgically remediable syndrome</strong> (MTLE with hippocampal sclerosis). Refer to a comprehensive epilepsy center for pre-surgical evaluation — anterior temporal lobectomy is superior to continued medical therapy for seizure freedom.</p></div>
-      </details>
-    </div>
-  </section>
+<details class="acc"><summary>SANAD Arm A — focal / unclassified epilepsy</summary>
+<div class="body">
+<b>Included:</b> newly diagnosed patients for whom <b>carbamazepine</b> would be standard — 88% focal (partial), 10% unclassified; clinician uncertain of best drug.<br>
+<b>Comparison:</b> CBZ vs gabapentin vs lamotrigine vs oxcarbazepine vs topiramate.<br>
+<b>Result:</b> <b>lamotrigine best</b> for time to treatment failure → first-line focal.
+</div></details>
 
-  <!-- QUIZ -->
-  <section class="tab-panel" id="quiz">
-    <h2>Self-assessment</h2>
-    <p class="muted">Pick an answer to reveal the explanation.</p>
-    <div id="quizHost"></div>
-  </section>
+<details class="acc"><summary>SANAD Arm B — generalized / unclassifiable epilepsy</summary>
+<div class="body">
+<b>Included:</b> newly diagnosed patients for whom <b>valproate</b> would be standard — 63% idiopathic generalized, 25% unclassified.<br>
+<b>Comparison:</b> valproate vs lamotrigine vs topiramate.<br>
+<b>Result:</b> <b>valproate best</b> for treatment failure and 12-month remission.<br>
+<b>Bedside caveat:</b> map the arm to <i>seizure type</i> — don't apply "valproate wins" to focal epilepsy or "lamotrigine wins" to generalized.
+</div></details>
 
-  <footer>
-    Residency deep-dive · Epilepsy &amp; Seizure Disorders. Synthesized from Adams &amp; Victor's Principles of Neurology (12e, Ch. 15), the ILAE 2017 classification papers, SANAD, the ASM monotherapy network meta-analysis, the ILAE 2015 SE definition, and ESETT. Educational reference — verify against current guidelines at the point of care.
-  </footer>
+<details class="acc"><summary>Excluded across SANAD</summary>
+<div class="body">Patients where the clinician was already confident of the best drug, or with a clear contraindication to a study drug. SANAD II later reaffirmed lamotrigine (focal) and valproate (generalized).</div></details>
+</section>
+
+<!-- FLASHCARDS -->
+<section class="tab-panel" data-panel="cards">
+<h2>Flashcards</h2>
+<p class="sub">Click to flip.</p>
+<div class="cards" id="fc"></div>
+</section>
+
+<!-- QUIZ -->
+<section class="tab-panel" data-panel="quiz">
+<h2>Quick quiz</h2>
+<div id="quiz"></div>
+</section>
+
+<!-- EVIDENCE -->
+<section class="tab-panel" data-panel="evid">
+<h2>Evidence library</h2>
+<h3>Classification</h3>
+<ul><li>ILAE 2017 operational seizure classification &amp; classification of the epilepsies (Fisher, Scheffer et al.); ILAE syndrome papers.</li></ul>
+<h3>Drug therapy</h3>
+<ul><li>SANAD I &amp; II; antiseizure-medication monotherapy IPD network meta-analysis; choosing a first drug; neuropharmacology of ASMs.</li></ul>
+<h3>Status epilepticus</h3>
+<ul><li>ILAE 2015 operational definition (t1/t2); ESETT; emergent SE management &amp; pre-hospital treatment reviews; IV valproate meta-analysis.</li></ul>
+<h3>Surgery</h3>
+<ul><li>AAN practice parameter (temporal/neocortical resection); resective-surgery RCT assessments; SEEG-thermocoagulation vs ATL pilot RCT.</li></ul>
+<p class="src">Synthesized from Adams &amp; Victor 12e Ch. 15 and the Module 3 resource folder. Educational use — verify against current guidelines and labeling.</p>
+</section>
+
 </div>
 
 <script>
-  document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+// tabs
+document.querySelectorAll('#tabs button').forEach(b=>{
+  b.addEventListener('click',()=>{
     document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+    b.classList.add('active');
+    document.querySelector('[data-panel="'+b.dataset.tab+'"]').classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});
-  }));
-
-  const cards=[
-    ['Terminology','"Complex partial" is now called','Focal impaired awareness seizure'],
-    ['Terminology','"Secondarily generalized" is now','Focal to bilateral tonic–clonic'],
-    ['Classification','ILAE 2017 three levels','Seizure type → epilepsy type → syndrome'],
-    ['Etiology','The six ILAE etiologic groups','Structural, genetic, infectious, metabolic, immune, unknown'],
-    ['Definition','Epilepsy after one unprovoked seizure if recurrence risk ≥','60% over 10 years'],
-    ['Status','t1 (start treatment) for convulsive SE','5 minutes'],
-    ['Status','Second-line SE options (ESETT, equivalent)','Levetiracetam, fosphenytoin, valproate'],
-    ['Status','Commonest SE management error','Under-dosing the benzodiazepine'],
-    ['Drug','First-line for focal epilepsy (SANAD/meta-analysis)','Lamotrigine or levetiracetam'],
-    ['Drug','First-line for generalized epilepsy','Valproate (avoid in childbearing potential)'],
-    ['Drug','Avoid in absence/myoclonic seizures','Carbamazepine, oxcarbazepine, phenytoin, gabapentin'],
-    ['Surgery','Drug-resistant epilepsy =','Failure of 2 appropriate, tolerated ASM regimens']
-  ];
-  const deck=document.getElementById('deck');
-  cards.forEach(c=>{
-    const d=document.createElement('div');d.className='flashcard';
-    d.innerHTML=`<div class="face"><div class="front"><span class="tag">${c[0]}</span>${c[1]}</div><div class="back"><span class="tag">${c[0]}</span>${c[2]}</div></div>`;
-    d.addEventListener('click',()=>d.classList.toggle('flipped'));
-    deck.appendChild(d);
   });
+});
 
-  const qs=[
-    {q:'A generalized convulsive seizure has lasted 6 minutes. The best first-line treatment is:',
-     a:['IV levetiracetam','A full-dose benzodiazepine (e.g., lorazepam 0.1 mg/kg)','IV valproate','Anesthetic infusion with cEEG'],c:1,
-     e:'Status epilepticus is treated from 5 min; first-line is an adequately dosed benzodiazepine. ASMs are second-line; anesthesia is third-line (refractory).'},
-    {q:'In ESETT, comparing levetiracetam, fosphenytoin, and valproate as second-line therapy:',
-     a:['Levetiracetam was clearly superior','Fosphenytoin was clearly superior','There was no significant difference','Valproate was inferior'],c:2,
-     e:'ESETT found no significant difference among the three — each stopped status in roughly half. Choose by availability and contraindications.'},
-    {q:'For a young woman of childbearing potential with juvenile myoclonic epilepsy, the best first choice is:',
-     a:['Valproate','Levetiracetam or lamotrigine','Carbamazepine','Phenytoin'],c:1,
-     e:'Valproate is most effective for generalized epilepsy but teratogenic; LEV/LTG are preferred in childbearing potential. CBZ/PHT can worsen myoclonus.'},
-    {q:'Per SANAD and the monotherapy network meta-analysis, first-line for FOCAL epilepsy is:',
-     a:['Valproate','Lamotrigine (or levetiracetam)','Phenytoin','Ethosuximide'],c:1,
-     e:'Lamotrigine performed best for treatment failure in focal epilepsy, with levetiracetam comparable; valproate remains first-line for generalized epilepsy.'},
-    {q:'Drug-resistant epilepsy is defined by the ILAE as failure of:',
-     a:['One ASM at any dose','Two appropriately chosen, adequately dosed, tolerated ASM regimens','Three ASMs including one injectable','Five years of therapy'],c:1,
-     e:'Two appropriate, tolerated ASM regimens failing to achieve sustained seizure freedom defines drug resistance — trigger a surgical-evaluation referral.'}
-  ];
-  const host=document.getElementById('quizHost');
-  qs.forEach((item,i)=>{
-    const box=document.createElement('div');box.className='quiz';
-    let ch='';item.a.forEach((opt,j)=>ch+=`<button class="choice" data-i="${i}" data-j="${j}">${opt}</button>`);
-    box.innerHTML=`<h4>Question ${i+1}</h4><div class="stem">${item.q}</div><div class="choices">${ch}</div><div class="feedback" id="fb${i}"></div>`;
-    host.appendChild(box);
-  });
-  host.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
-    const i=+btn.dataset.i,j=+btn.dataset.j,item=qs[i],parent=btn.closest('.quiz');
-    if(parent.dataset.done)return;parent.dataset.done='1';
-    parent.querySelectorAll('.choice').forEach(c=>c.disabled=true);
-    if(j===item.c)btn.classList.add('correct');
-    else{btn.classList.add('wrong');parent.querySelectorAll('.choice')[item.c].classList.add('correct');}
-    const fb=document.getElementById('fb'+i);fb.className='feedback show '+(j===item.c?'good':'bad');
-    fb.innerHTML=(j===item.c?'<strong>Correct. </strong>':'<strong>Not quite. </strong>')+item.e;
-  }));
+// SE stepper
+(function(){
+  const times=['t = 0 min','t = 5 min','t = 20 min','t = 40+ min'];
+  let i=0;
+  const steps=document.querySelectorAll('#se .step');
+  const bars=document.querySelectorAll('#se .stepbar span');
+  const clk=document.getElementById('clk');
+  const prev=document.getElementById('prev'), next=document.getElementById('next');
+  function render(){
+    steps.forEach((s,k)=>s.classList.toggle('active',k===i));
+    bars.forEach((s,k)=>s.classList.toggle('on',k<=i));
+    clk.textContent=times[i];
+    prev.disabled=i===0; next.disabled=i===steps.length-1;
+    next.textContent=i===steps.length-1?'End of ladder':'Advance →';
+  }
+  prev.onclick=()=>{if(i>0){i--;render();}};
+  next.onclick=()=>{if(i<steps.length-1){i++;render();}};
+  render();
+})();
+
+// flashcards
+const CARDS=[
+  ['ILAE definition of epilepsy','2 unprovoked seizures &gt;24h apart, OR 1 unprovoked seizure with ≥60% 10-yr recurrence, OR an epilepsy syndrome'],
+  ['First-line drug: focal epilepsy','Lamotrigine or levetiracetam (SANAD Arm A; monotherapy meta-analysis)'],
+  ['First-line drug: generalized epilepsy','Valproate (most effective) — but avoid in childbearing potential'],
+  ['Drugs that worsen generalized seizures','CBZ, oxcarbazepine, phenytoin, gabapentin, tiagabine'],
+  ['SE timepoints t1 / t2','t1 = 5 min (treat), t2 = 30 min (injury begins)'],
+  ['First-line for convulsive SE','Full-dose benzodiazepine: lorazepam 0.1 mg/kg, IM midazolam 10 mg, or diazepam'],
+  ['Second-line SE (ESETT)','Levetiracetam, fosphenytoin, or valproate — all equivalent'],
+  ['Commonest SE error','Under-dosing the benzodiazepine and escalating too early'],
+  ['Drug-resistant epilepsy','Failure of 2 tolerated, appropriate, adequately-dosed ASM regimens'],
+  ['Surgically remediable prototype','Mesial temporal lobe epilepsy + hippocampal sclerosis → anterior temporal lobectomy'],
+  ['ESETT result','No significant difference — ~47% seizure cessation with each of the 3 drugs'],
+  ['SANAD arms','Arm A focal → lamotrigine best; Arm B generalized → valproate best'],
+  ['Screen before carbamazepine','HLA-B*15:02 in at-risk Asian populations (SJS/TEN risk)'],
+  ['Childbearing potential — avoid','Valproate (teratogenic + neurodevelopmental harm); prefer LEV/LTG + folate'],
+  ['Super-refractory SE','Seizures continuing/recurring ≥24 h after anesthesia started']
+];
+const fc=document.getElementById('fc');
+CARDS.forEach(c=>{
+  const d=document.createElement('div');d.className='flashcard';
+  d.innerHTML='<div class="inner"><div class="f">'+c[0]+'</div><div class="b">'+c[1]+'</div></div>';
+  d.onclick=()=>d.classList.toggle('flip');
+  fc.appendChild(d);
+});
+
+// quiz
+const QUIZ=[
+  {q:'A 24-y-old woman with juvenile myoclonic epilepsy needs a maintenance drug. Best choice?',
+   o:['Valproate','Levetiracetam or lamotrigine','Carbamazepine','Phenytoin'],a:1,
+   e:'Valproate is most effective for generalized epilepsy but is teratogenic and neurodevelopmentally harmful — avoid in childbearing potential. LEV/LTG are preferred. CBZ/PHT can worsen myoclonus.'},
+  {q:'Convulsive seizure ongoing at 8 minutes, IV in place. Next step?',
+   o:['IV levetiracetam','Full-dose IV lorazepam','Intubate + propofol','Wait until 30 min'],a:1,
+   e:'First-line is a full-dose benzodiazepine (lorazepam 0.1 mg/kg). Second-line ASMs come at 20–40 min; anesthesia is for refractory SE >40 min.'},
+  {q:'ESETT compared which drugs as second-line status therapy?',
+   o:['Lorazepam vs diazepam vs midazolam','Levetiracetam vs fosphenytoin vs valproate','Lamotrigine vs valproate vs topiramate','Phenytoin vs phenobarbital'],a:1,
+   e:'ESETT was a 3-arm trial of levetiracetam, fosphenytoin, and valproate as second-line therapy — no significant difference among them.'},
+  {q:'SANAD Arm A (focal/unclassified) identified which best first-line drug?',
+   o:['Carbamazepine','Gabapentin','Lamotrigine','Topiramate'],a:2,
+   e:'Lamotrigine outperformed carbamazepine for time to treatment failure in focal epilepsy (tolerability-driven), making it first-line for focal seizures.'},
+  {q:'How is drug-resistant epilepsy defined by the ILAE?',
+   o:['Failure of any 1 drug','Failure of 2 tolerated, appropriate, adequately-dosed regimens','Seizures for >10 years','Need for 3+ drugs'],a:1,
+   e:'Failure of two appropriately chosen, adequately dosed, tolerated ASM schedules to achieve sustained seizure freedom → refer to a comprehensive epilepsy center.'},
+  {q:'Which is the prototypical surgically remediable epilepsy syndrome?',
+   o:['Juvenile myoclonic epilepsy','Childhood absence epilepsy','Mesial temporal lobe epilepsy with hippocampal sclerosis','Lennox-Gastaut syndrome'],a:2,
+   e:'MTLE with hippocampal sclerosis is often drug-resistant, and anterior temporal lobectomy is superior to continued medical therapy (RCT-supported).'}
+];
+const qc=document.getElementById('quiz');
+QUIZ.forEach((item,qi)=>{
+  const d=document.createElement('div');d.className='q';
+  let h='<p class="stem">'+(qi+1)+'. '+item.q+'</p>';
+  item.o.forEach((o,oi)=>{h+='<button class="opt" data-q="'+qi+'" data-o="'+oi+'">'+o+'</button>';});
+  h+='<div class="expl" id="e'+qi+'">'+item.e+'</div>';
+  d.innerHTML=h;qc.appendChild(d);
+});
+qc.querySelectorAll('.opt').forEach(btn=>{
+  btn.onclick=()=>{
+    const qi=+btn.dataset.q, oi=+btn.dataset.o;
+    const opts=qc.querySelectorAll('.opt[data-q="'+qi+'"]');
+    opts.forEach(o=>o.disabled=true);
+    if(oi===QUIZ[qi].a){btn.classList.add('correct');}
+    else{btn.classList.add('wrong');opts[QUIZ[qi].a].classList.add('correct');}
+    document.getElementById('e'+qi).classList.add('show');
+  };
+});
 </script>
 </body>
 </html>

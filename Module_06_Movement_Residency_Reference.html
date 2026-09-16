@@ -11,41 +11,53 @@
     --pearl-bg:#ecfdf7;--pearl-bd:#0f766e;--pearl-ink:#0a4f49;
     --trial-bg:#eefcf3;--trial-bd:#1f9d57;--trial-ink:#125a32;
     --time-bg:#eef7ff;--time-bd:#3a86b0;--time-ink:#163a6a;
+    --key-bg:#f0f9ff;--key-bd:#0284c7;--key-ink:#0c4a6e;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{font-family:'Charter','Iowan Old Style','Georgia',serif;color:var(--ink);background:#fff;line-height:1.58;max-width:880px;margin:0 auto;padding:48px 28px 96px}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif;color:var(--ink);background:#fff;line-height:1.58;max-width:900px;margin:0 auto;padding:48px 28px 96px}
   h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;color:var(--ink);line-height:1.25}
   h1{font-size:2rem;margin:0 0 .2em;border-bottom:3px solid var(--accent);padding-bottom:.3em}
-  h2{font-size:1.4rem;margin-top:2.3em;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:.25em}
-  h3{font-size:1.16rem;margin-top:1.7em;color:#123c38}
-  h4{font-size:1.0rem;margin-top:1.3em;color:#444}
+  h2{font-size:1.42rem;margin-top:2.2em;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:.25em}
+  h2 .num{display:inline-block;min-width:1.6em;color:#9fb8b4}
+  h3{font-size:1.16rem;margin-top:1.5em;color:#123c38}
+  h4{font-size:1.0rem;margin-top:1.2em;color:#444}
   p{margin:.6em 0}
   ul,ol{margin:.4em 0 .8em 1.2em;padding:0}
   li{margin:.28em 0}
-  .meta{color:var(--muted);font-style:italic;margin:.2em 0 1.6em}
+  .meta{color:var(--muted);font-style:italic;margin:.2em 0 1.4em}
   .lvl{display:inline-block;font-family:'Helvetica Neue',sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;background:var(--accent);color:#fff;padding:.18em .6em;border-radius:10px;margin-left:.4em}
   .toc{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:14px 22px;margin:22px 0}
   .toc h3{margin:0 0 .4em;color:var(--accent);font-size:1.05rem}
-  .toc ol{margin:.2em 0 .2em 1.3em}
+  .toc ol{margin:.2em 0 .2em 1.3em;columns:2;column-gap:2rem}
   .toc a{color:var(--ink);text-decoration:none}
   .toc a:hover{text-decoration:underline}
-  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.93rem}
+  .key{background:var(--key-bg);border:1px solid #bae6fd;border-left:4px solid var(--key-bd);border-radius:8px;padding:12px 16px 12px 18px;margin:.6em 0 1.1em}
+  .key .kh{font-family:'Helvetica Neue',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--key-bd);margin-bottom:.35em}
+  .key ul{margin:.2em 0 0 1.1em}
+  .key li{margin:.2em 0;color:#0c4a6e}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
   th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
   th{background:var(--soft);font-weight:600;font-family:'Helvetica Neue','Segoe UI',sans-serif;color:#0d5f59}
   tbody tr:nth-child(even){background:#fafdfc}
+  td strong,li strong{color:#0a3b36}
+  .tw{overflow-x:auto;margin:1em 0}
+  .tw table{margin:0}
   .pearl,.warn,.trial,.time{border-left:4px solid;padding:10px 14px;margin:.9em 0;border-radius:0 4px 4px 0}
   .pearl{background:var(--pearl-bg);border-color:var(--pearl-bd);color:var(--pearl-ink)}
   .warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-ink)}
   .trial{background:var(--trial-bg);border-color:var(--trial-bd);color:var(--trial-ink)}
   .time{background:var(--time-bg);border-color:var(--time-bd);color:var(--time-ink)}
   .src{font-size:.8rem;color:var(--muted)}
+  .tier{display:inline-block;font-family:'Helvetica Neue',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.5px;padding:.12em .5em;border-radius:4px;color:#fff;margin-right:.4em}
+  .tA{background:#b91c1c}.tB{background:#c2621a}.tC{background:#0f766e}.tD{background:#3a86b0}.tE{background:#6b7280}
   hr{border:none;border-top:1px dashed var(--line);margin:2.2em 0}
   .back-button{display:inline-block;margin-bottom:1.4em;padding:.55em 1.1em;background:var(--accent);color:#fff;text-decoration:none;border-radius:5px;font-size:.92rem;font-weight:600;font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif}
   .back-button:hover{background:#0d5f59}
   .alt-link{display:inline-block;margin:0 0 1.4em .5em;font-family:'Helvetica Neue',sans-serif;font-size:.85rem;color:var(--accent);text-decoration:none}
   .alt-link:hover{text-decoration:underline}
-  @media print{body{max-width:100%;padding:24px}.toc{break-inside:avoid}h2{break-after:avoid}.back-button,.alt-link{display:none}}
+  @media print{body{max-width:100%;padding:24px}.toc,.toc ol{columns:1}.key{break-inside:avoid}h2{break-after:avoid}.back-button,.alt-link{display:none}}
+  @media(max-width:620px){.toc ol{columns:1}body{padding:24px 16px 64px}}
 </style>
 </head>
 <body>
@@ -53,143 +65,1290 @@
 <a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
 <a href="Module_06_Movement_Residency_Interactive.html" class="alt-link">⚡ Open the interactive version</a>
 
-<h1>Module 6 — Movement Disorders <span class="lvl">Residency</span></h1>
-<p class="meta">Resident-depth reference · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 4, Disorders of Movement and Posture) and the curated Module 6 resource library (Parkinson-disease therapy trials — LEAP, ADAGIO, EARLYSTIM; essential-tremor focused-ultrasound thalamotomy; dystonia botulinum-toxin trials; VMAT2 inhibitors for chorea and tardive dyskinesia; Tourette behavioural therapy; atypical-parkinsonism, functional-movement-disorder, and restless-legs literature). Companion to the general-physician Module 6 — this version assumes you classify by phenomenology, diagnose PD and its mimics, and build evidence-based therapy across the movement-disorder spectrum.</p>
+<h1>Module 6 — Movement Disorders <span class="lvl">Residency · Enriched</span></h1>
+<p class="meta">Resident-depth reference · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 4) and <em>Merritt's Neurology</em> (14e), integrated with the full Module 6 resource library (111 papers: MDS diagnostic criteria, landmark trials, MDSGene reviews, systematic reviews and practice guidances). This version assumes you <em>are</em> the movement-disorders consult.</p>
 
-<div class="pearl"><strong>Updated with the provided evidence library.</strong> PD therapy integrates the LEAP, ADAGIO, and EARLYSTIM trials; tremor covers MRI-guided focused-ultrasound thalamotomy; hyperkinetic therapy cites the VMAT2-inhibitor and botulinum-toxin evidence. A full annotated <a href="#evidence">evidence library</a> is in §10.</div>
+<div class="key">
+  <div class="kh">▎How to use this module</div>
+  <ul>
+    <li>Every section opens with a <strong>Key points</strong> box — skim those first, then read the detail.</li>
+    <li><strong>Green boxes</strong> are landmark trials (with the numbers you must be able to quote); <strong>amber boxes</strong> are do-not-miss safety points; <strong>blue boxes</strong> are timing and urgency.</li>
+    <li>§3 is the <a href="#invest">investigation strategy</a> written for a hospital without on-site MRI — which tests to send now, which to batch, and what to treat before the result arrives.</li>
+    <li>§20 is the <a href="#criteria">trial inclusion/exclusion</a> section: the eligibility criteria <em>are</em> the indication.</li>
+    <li>The engine of everything: <em>name the movement first, then reason to a cause. Phenomenology before aetiology, every time.</em></li>
+  </ul>
+</div>
+
+<div class="time"><strong>The one-sentence discipline.</strong> A movement disorder is diagnosed by <em>watching</em>, not by imaging. If you cannot name the phenomenology at the bedside, no scan and no antibody panel will rescue the diagnosis — and the two most common errors in this field are calling a dystonic tremor "essential tremor" and calling a functional movement disorder "atypical".</div>
 
 <div class="toc">
 <h3>Contents</h3>
 <ol>
-  <li><a href="#approach">Phenomenology first: the diagnostic approach</a></li>
-  <li><a href="#pd">Parkinson disease: diagnosis</a></li>
-  <li><a href="#pdrx">Parkinson disease: therapy &amp; the key trials</a></li>
-  <li><a href="#atypical">Atypical &amp; secondary parkinsonism</a></li>
-  <li><a href="#tremor">Tremor &amp; essential tremor</a></li>
-  <li><a href="#dystonia">Dystonia</a></li>
-  <li><a href="#chorea">Chorea, Huntington disease &amp; tardive syndromes</a></li>
-  <li><a href="#tics">Tics, Tourette syndrome &amp; RLS</a></li>
-  <li><a href="#functional">Functional movement disorders</a></li>
-  <li><a href="#evidence">Evidence library (provided sources)</a></li>
+  <li><a href="#phen">Phenomenology — the vocabulary</a></li>
+  <li><a href="#approach">The diagnostic approach</a></li>
+  <li><a href="#invest">Investigation strategy &amp; urgency</a></li>
+  <li><a href="#tremor">Tremor &amp; its syndromes</a></li>
+  <li><a href="#pd">Parkinson disease — diagnosis</a></li>
+  <li><a href="#pdrx">Parkinson disease — therapy</a></li>
+  <li><a href="#atyp">Atypical parkinsonism</a></li>
+  <li><a href="#sec">Secondary &amp; drug-induced parkinsonism</a></li>
+  <li><a href="#dyst">Dystonia</a></li>
+  <li><a href="#chorea">Chorea &amp; Huntington disease</a></li>
+  <li><a href="#tics">Tics &amp; Tourette syndrome</a></li>
+  <li><a href="#myo">Myoclonus</a></li>
+  <li><a href="#ataxia">Ataxia</a></li>
+  <li><a href="#rls">Restless legs syndrome</a></li>
+  <li><a href="#sps">Stiff-person spectrum</a></li>
+  <li><a href="#fmd">Functional movement disorders</a></li>
+  <li><a href="#parox">Paroxysmal dyskinesias</a></li>
+  <li><a href="#hfs">Hemifacial spasm</a></li>
+  <li><a href="#dimd">Drug-induced movement disorders</a></li>
+  <li><a href="#wilson">Wilson, NBIA &amp; PFBC</a></li>
+  <li><a href="#emerg">Movement-disorder emergencies</a></li>
+  <li><a href="#criteria">Landmark trials — included &amp; excluded</a></li>
+  <li><a href="#evidence">Evidence library</a></li>
   <li><a href="#sources">Sources</a></li>
 </ol>
 </div>
 
-<h2 id="approach">1. Phenomenology first: the diagnostic approach</h2>
-<p>Movement-disorder diagnosis begins by naming the <strong>phenomenology</strong>, then classifying as <strong>hypokinetic</strong> (parkinsonism — too little movement) or <strong>hyperkinetic</strong> (too much movement), and only then reasoning to an etiology. Getting the phenomenology right is the whole game; a tremor mistaken for ataxia sends the entire workup astray.</p>
+<h2 id="phen"><span class="num">1</span> Phenomenology — the vocabulary</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Split first into <strong>hypokinetic</strong> (too little movement — essentially parkinsonism) and <strong>hyperkinetic</strong> (too much).</li>
+    <li>Then name the hyperkinetic movement by <strong>speed, rhythmicity, suppressibility, stereotypy and whether it flows or jerks</strong>.</li>
+    <li>Two or more phenomenologies coexisting in one patient is common and is itself a clue — myoclonus-dystonia, dystonic tremor, parkinsonism with chorea.</li>
+    <li><strong>Suppressibility + premonitory urge</strong> is nearly specific to tics. <strong>Distractibility + entrainment</strong> points to a functional disorder.</li>
+  </ul>
+</div>
+
+<h3>The hyperkinetic vocabulary</h3>
+<div class="tw">
 <table>
-<thead><tr><th>Phenomenology</th><th>Defining features</th><th>Prototype</th></tr></thead>
+<thead><tr><th>Movement</th><th>Rhythm &amp; speed</th><th>Defining features</th><th>Classic pitfall</th></tr></thead>
 <tbody>
-<tr><td>Tremor</td><td>Rhythmic oscillation; classify by rest / postural / kinetic</td><td>PD (rest), essential tremor (action)</td></tr>
-<tr><td>Bradykinesia / rigidity</td><td>Slowness with decrement; lead-pipe/cogwheel tone</td><td>Parkinsonism</td></tr>
-<tr><td>Chorea</td><td>Brief, random, flowing, unpredictable; flows between body parts</td><td>Huntington disease</td></tr>
-<tr><td>Dystonia</td><td>Sustained/patterned co-contraction → twisting postures; sensory trick (geste)</td><td>Cervical dystonia</td></tr>
-<tr><td>Myoclonus</td><td>Sudden, shock-like, brief jerk</td><td>Cortical/subcortical myoclonus</td></tr>
-<tr><td>Tics</td><td>Stereotyped, suppressible, preceded by premonitory urge</td><td>Tourette syndrome</td></tr>
-<tr><td>Athetosis / ballism</td><td>Slow writhing / large-amplitude proximal flinging</td><td>Hemiballismus (subthalamic)</td></tr>
+<tr><td><strong>Tremor</strong></td><td>Rhythmic, oscillatory about an axis</td><td>The only truly rhythmic hyperkinesia; classify by activation (rest / postural / kinetic / task-specific)</td><td>Dystonic tremor called essential tremor</td></tr>
+<tr><td><strong>Chorea</strong></td><td>Irregular, flowing, unpredictable</td><td>Moves from body part to body part; patient often incorporates it into purposeful movement (parakinesia); motor impersistence — "milkmaid grip", darting tongue</td><td>Mistaken for restlessness or akathisia</td></tr>
+<tr><td><strong>Ballism</strong></td><td>Large-amplitude, proximal, flinging</td><td>Chorea at the violent end of the spectrum; usually unilateral (hemiballism)</td><td>Assumed to always mean subthalamic stroke — hyperglycaemia is at least as common</td></tr>
+<tr><td><strong>Athetosis</strong></td><td>Slow, writhing, distal</td><td>A slow chorea, or a dystonia in motion; usually developmental</td><td>Terminological — many now fold it into dystonia</td></tr>
+<tr><td><strong>Dystonia</strong></td><td>Sustained or intermittent, patterned</td><td>Same muscles every time; twisting, directional; <strong>overflow</strong>, <strong>mirror dystonia</strong>, <strong>sensory trick</strong>, task specificity</td><td>Called functional because it is task-specific or relieved by a trick</td></tr>
+<tr><td><strong>Myoclonus</strong></td><td>Lightning-fast, shock-like</td><td>Positive (contraction) or negative (asterixis = lapse of tone); the fastest movement in neurology</td><td>Asterixis missed because the arms were not held outstretched</td></tr>
+<tr><td><strong>Tics</strong></td><td>Fast but stereotyped, repetitive</td><td><strong>Premonitory urge</strong>, temporary <strong>suppressibility</strong>, relief after release, waxing and waning, suggestibility</td><td>Complex tics misread as compulsions or as functional</td></tr>
+<tr><td><strong>Stereotypy</strong></td><td>Rhythmic, repetitive, patterned</td><td>Identical each time, non-goal-directed, absorbing; no premonitory urge</td><td>Confused with tics in autism and in tardive syndromes</td></tr>
+<tr><td><strong>Akathisia</strong></td><td>No fixed pattern</td><td>An inner <em>sense of restlessness</em> relieved by moving — a sensation first, a movement second</td><td>Treated as agitation with more antipsychotic — the exact wrong move</td></tr>
+<tr><td><strong>Ataxia</strong></td><td>Not a hyperkinesia at all</td><td>Decomposition and dysmetria of an otherwise normal movement</td><td>Sensory ataxia mistaken for cerebellar (check Romberg and proprioception)</td></tr>
 </tbody>
 </table>
-<div class="pearl"><strong>Two bedside discriminators.</strong> A <em>rest</em> tremor that dampens with action suggests parkinsonism; an <em>action</em> tremor that disappears at rest suggests essential tremor. <strong>Suppressibility + a premonitory urge</strong> identifies a tic; <strong>distractibility/variability</strong> identifies a functional movement disorder.</p>
+</div>
 
-<h2 id="pd">2. Parkinson disease: diagnosis</h2>
-<p>Parkinsonism = <strong>bradykinesia</strong> plus <strong>rest tremor</strong> and/or <strong>rigidity</strong>. Idiopathic Parkinson disease is the commonest cause, supported by <strong>asymmetric onset</strong>, a <strong>4–6 Hz pill-rolling rest tremor</strong>, and a robust, sustained response to levodopa. Non-motor features — hyposmia, REM sleep behavior disorder, constipation, depression — often precede motor onset by years. Pathology is α-synuclein Lewy pathology with nigrostriatal dopaminergic loss; the provided global-genetics review underscores monogenic (e.g., <em>LRRK2</em>, <em>GBA</em>, <em>PRKN</em>) and polygenic contributions and their ancestry-dependent frequencies.</p>
-<div class="warn"><strong>Red flags against idiopathic PD ("parkinson-plus" clues):</strong> early falls, early autonomic failure, symmetric onset, poor/absent levodopa response, early dementia or hallucinations, vertical gaze palsy, cerebellar signs, or rapid progression — pursue an atypical diagnosis (§4).</div>
+<div class="pearl"><strong>The distinguishing question for each.</strong> Tremor: is it rhythmic? Chorea: does it flow and wander? Dystonia: is it the same pattern every time, and is there a sensory trick? Myoclonus: is it too fast to be anything else? Tic: is there an urge, and can the patient hold it in? Functional: does it change when you distract, and can you entrain it?</div>
 
-<h2 id="pdrx">3. Parkinson disease: therapy &amp; the key trials</h2>
-<p><strong>Levodopa</strong> (with a decarboxylase inhibitor) remains the most effective symptomatic drug. Other classes: <strong>dopamine agonists</strong> (pramipexole, ropinirole, rotigotine), <strong>MAO-B inhibitors</strong> (rasagiline, selegiline), <strong>COMT inhibitors</strong>, amantadine (also for dyskinesia), and anticholinergics (tremor, younger patients). Long-term levodopa is limited by <strong>motor fluctuations</strong> (wearing-off, on–off) and <strong>dyskinesia</strong>; agonists cause less dyskinesia but more somnolence, edema, and impulse-control disorders.</p>
-<div class="trial"><strong>Levodopa timing — LEAP (NEJM 2019; long-term follow-up 2024).</strong> Early versus delayed levodopa (levodopa/carbidopa 300/75 mg/day for 80 weeks vs delayed start) showed <strong>no disease-modifying effect</strong> — levodopa is symptomatic, not neuroprotective, and does <em>not</em> accelerate progression. The corollary (also in the provided review on delaying levodopa): there is no benefit to withholding levodopa when a patient needs symptom control.</div>
-<div class="trial"><strong>Neuroprotection — ADAGIO (delayed-start rasagiline).</strong> A delayed-start design testing whether rasagiline is disease-modifying; results were dose-inconsistent (1 mg met, 2 mg did not, the hierarchical endpoints), so <strong>disease modification was not established</strong>. Practically, MAO-B inhibitors are useful symptomatic/adjunctive agents, not proven neuroprotectants.</div>
-<div class="trial"><strong>Device therapy — EARLYSTIM (NEJM 2013).</strong> Subthalamic deep-brain stimulation added to medical therapy in patients with <strong>early motor complications</strong> (mean age ~52, disease ~7.5 y) <strong>improved quality of life and motor disability</strong> versus best medical therapy — supporting DBS earlier than the traditional late-stage indication in selected patients.</div>
-<div class="warn"><strong>Impulse-control disorders</strong> (gambling, hypersexuality, compulsive shopping/eating) are dose-related class effects of <strong>dopamine agonists</strong> — screen at every visit, warn patients and families, and reduce/rotate the agonist if they emerge.</div>
-
-<h2 id="atypical">4. Atypical &amp; secondary parkinsonism</h2>
+<h3>Rest, postural, kinetic — the activation axis</h3>
+<div class="tw">
 <table>
-<thead><tr><th>Disorder</th><th>Discriminating features</th></tr></thead>
+<thead><tr><th>Activation state</th><th>How to elicit</th><th>Typical causes</th></tr></thead>
 <tbody>
-<tr><td>Progressive supranuclear palsy (PSP)</td><td>Early falls (backward), <strong>vertical supranuclear gaze palsy</strong>, axial rigidity, poor levodopa response</td></tr>
-<tr><td>Multiple system atrophy (MSA)</td><td>Early autonomic failure (orthostatic hypotension, urogenital), cerebellar (MSA-C) or parkinsonian (MSA-P) signs; "hot cross bun" pons on MRI</td></tr>
-<tr><td>Corticobasal syndrome</td><td>Marked asymmetry, apraxia, alien-limb, cortical sensory loss, dystonia/myoclonus</td></tr>
-<tr><td>Dementia with Lewy bodies</td><td>Early dementia, fluctuations, visual hallucinations, neuroleptic sensitivity (cross-links to Module 7)</td></tr>
-<tr><td>Drug-induced / vascular</td><td>Dopamine-blocker exposure (antipsychotics, metoclopramide); stepwise lower-body parkinsonism</td></tr>
+<tr><td>Rest</td><td>Limb fully supported, patient mentally distracted (serial 7s, counting backwards)</td><td>Parkinson disease; drug-induced parkinsonism; rubral (Holmes) tremor</td></tr>
+<tr><td>Postural</td><td>Arms outstretched, wing-beating posture</td><td>Essential tremor, enhanced physiological tremor, dystonic tremor</td></tr>
+<tr><td>Kinetic / intention</td><td>Finger–nose, finger chase; worsens on approach to target</td><td>Cerebellar outflow tremor, Holmes tremor, MS</td></tr>
+<tr><td>Task- or position-specific</td><td>Writing, holding a cup, standing still</td><td>Primary writing tremor, orthostatic tremor, dystonic tremor</td></tr>
+<tr><td>Re-emergent</td><td>Arms outstretched — tremor disappears, then returns after several seconds</td><td><strong>Parkinson disease</strong> — a rest tremor masquerading as postural</td></tr>
 </tbody>
 </table>
-<p>The provided PSP/MSA cognitive-behavioural and MSA functional-MRI papers emphasize that cognitive and behavioural involvement is common in these "parkinson-plus" syndromes and aids differentiation from idiopathic PD.</p>
-<div class="pearl"><strong>Always take a drug history.</strong> Drug-induced parkinsonism (dopamine-receptor blockers) is the most common reversible mimic — stop the offending agent before labeling a patient with PD.</div>
+</div>
 
-<h2 id="tremor">5. Tremor &amp; essential tremor</h2>
-<p><strong>Essential tremor (ET)</strong> is a bilateral, largely symmetric <strong>action (postural/kinetic) tremor</strong> of the hands/forearms, often with head or voice involvement and a family history; alcohol responsiveness is characteristic. The concept of <strong>"ET-plus"</strong> designates ET with additional soft signs (e.g., questionable dystonic posturing, mild memory impairment). Distinguish from PD (rest tremor, bradykinesia), dystonic tremor, and enhanced physiologic tremor.</p>
-<h4>Treatment</h4>
-<ul>
-  <li><strong>First-line medical:</strong> propranolol and primidone.</li>
-  <li><strong>MRI-guided focused-ultrasound thalamotomy (VIM):</strong> a randomized sham-controlled trial demonstrated significant, durable reduction of medication-refractory hand tremor after <strong>unilateral</strong> incisionless thalamotomy, with sustained benefit at 3-year follow-up; it is now an established option alongside DBS for refractory ET (and for tremor-dominant PD).</li>
-  <li><strong>Deep-brain stimulation (VIM):</strong> effective, and bilateral/adjustable, for refractory tremor.</li>
-</ul>
-<div class="trial"><strong>Focused ultrasound (provided RCT + 3-year follow-up).</strong> Incisionless, MRI-guided thermal ablation of the thalamic VIM improves contralateral hand tremor and quality of life versus sham; gait/balance and sensory paresthesias are the main adverse effects, and current practice treats one side to limit bilateral risks.</div>
+<div class="warn"><strong>Re-emergent tremor is the single most useful bedside sign for separating PD from essential tremor.</strong> In ET, the postural tremor starts the instant the arms come up. In PD, there is a latency of several seconds while the limb "resets", then the rest tremor re-emerges in the new posture. Count the seconds out loud — it forces you to wait long enough.</div>
 
-<h2 id="dystonia">6. Dystonia</h2>
-<p>Dystonia is sustained or intermittent muscle co-contraction producing <strong>twisting, patterned, often directional</strong> postures/movements, frequently with a <strong>sensory trick (geste antagoniste)</strong> that transiently relieves it. Classify by axis: <strong>clinical</strong> (age at onset, body distribution — focal/segmental/generalized, temporal pattern, associated features) and <strong>etiologic</strong> (inherited/acquired/idiopathic; the provided pathogenesis review highlights shared network mechanisms and neurodevelopmental origins). Common focal forms: cervical dystonia, blepharospasm, laryngeal dystonia, writer's cramp.</p>
-<h4>Treatment</h4>
-<ul>
-  <li><strong>Botulinum toxin</strong> — first-line for focal dystonia (e.g., cervical dystonia). The resource set includes randomized data for newer/longer-acting formulations (<strong>daxibotulinumtoxinA</strong>) and quality-of-life gains with a liquid <strong>abobotulinumtoxinA</strong> formulation.</li>
-  <li><strong>Oral agents</strong> (trihexyphenidyl, baclofen, benzodiazepines) for generalized/segmental disease; a <strong>levodopa trial</strong> in any young-onset dystonia to catch <em>dopa-responsive dystonia</em>.</li>
-  <li><strong>DBS (globus pallidus internus)</strong> for medically refractory generalized/segmental and selected cervical dystonia.</li>
-</ul>
-<div class="pearl"><strong>Never miss dopa-responsive dystonia.</strong> Childhood-onset dystonia (often diurnal, worsening through the day) can respond dramatically to low-dose levodopa — a therapeutic trial is mandatory.</div>
+<h2 id="approach"><span class="num">2</span> The diagnostic approach</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Phenomenology → distribution → tempo → age → exposures → associated signs.</strong> In that order, every time.</li>
+    <li><strong>Tempo drives urgency.</strong> Hyperacute or subacute onset means a structural, metabolic, toxic, autoimmune or infectious cause until proven otherwise; years of slow progression means degenerative or genetic.</li>
+    <li><strong>Always take a drug history covering 12 months</strong> — and ask about antiemetics and "dizziness" tablets by name, because patients do not call them psychiatric drugs.</li>
+    <li>In anyone under 50 with an unexplained movement disorder, <strong>Wilson disease must be actively excluded</strong>, not merely considered.</li>
+  </ul>
+</div>
 
-<h2 id="chorea">7. Chorea, Huntington disease &amp; tardive syndromes</h2>
-<p><strong>Chorea</strong> is brief, random, flowing, unpredictable movement. Causes span genetic (<strong>Huntington disease</strong> — autosomal-dominant CAG repeat in <em>HTT</em>; plus the provided review of rare hereditary/acquired choreas), immune/infectious (Sydenham, autoimmune), metabolic (<strong>hyperglycemic non-ketotic chorea</strong> with characteristic striatal T1 hyperintensity), vascular, and drug-induced. Huntington disease combines chorea with cognitive decline and psychiatric disturbance.</p>
-<h4>Symptomatic treatment of chorea</h4>
-<div class="trial"><strong>VMAT2 inhibitors.</strong> <strong>Tetrabenazine</strong> and <strong>deutetrabenazine</strong> reduce chorea in Huntington disease (deutetrabenazine offers a better tolerability/less-frequent-dosing profile than tetrabenazine); the provided safety and efficacy data support their use. For <strong>tardive dyskinesia</strong>, the VMAT2 inhibitors <strong>valbenazine</strong> and <strong>deutetrabenazine</strong> are the evidence-based, FDA-approved treatments (comparative analysis provided).</div>
-<div class="warn"><strong>Tetrabenazine caution:</strong> depression/suicidality and parkinsonism are dose-limiting; screen mood before and during therapy. Prevent tardive dyskinesia by minimizing dopamine-receptor-blocker exposure in the first place.</div>
+<h3>Tempo as the triage tool</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Tempo</th><th>Think</th><th>Act</th></tr></thead>
+<tbody>
+<tr><td>Hyperacute (minutes–hours)</td><td>Stroke (hemiballism from STN/striatum), hypo- or hyperglycaemia, drug reaction (acute dystonic reaction), NMS, serotonin syndrome</td><td>Glucose and CT now; anticholinergic for acute dystonic reaction; stop the offending drug</td></tr>
+<tr><td>Acute–subacute (days–weeks)</td><td>Autoimmune/paraneoplastic, infection and post-infectious, drug-induced, metabolic (hepatic, renal, thyroid), vascular</td><td>Bloods, consider LP and EEG; send antibodies but do not wait for them</td></tr>
+<tr><td>Subacute–chronic (months)</td><td>Wilson, NBIA, structural lesion, tardive syndrome, paraneoplastic</td><td>Imaging, copper studies, review 12-month drug history</td></tr>
+<tr><td>Chronic (years)</td><td>Degenerative (PD, atypical parkinsonism), genetic (HD, SCA, dystonia), essential tremor</td><td>Genetics and imaging as scheduled work, not urgent</td></tr>
+<tr><td>Paroxysmal (episodes, normal between)</td><td>Paroxysmal dyskinesias, seizures, functional, hypoglycaemia, TIA</td><td>Capture an event on video; ask about triggers (sudden movement, exercise, coffee, alcohol)</td></tr>
+</tbody>
+</table>
+</div>
 
-<h2 id="tics">8. Tics, Tourette syndrome &amp; restless legs</h2>
-<p><strong>Tics</strong> are stereotyped, temporarily suppressible movements/vocalizations preceded by a <strong>premonitory urge</strong> and relieved by performing the tic. <strong>Tourette syndrome</strong> requires multiple motor tics plus ≥1 vocal tic with childhood onset; ADHD and OCD are common comorbidities. Note the recent phenomenon of <strong>functional tic-like behaviors</strong> (abrupt onset, older age, complex phrases, lack of premonitory urge) as a distinct entity.</p>
-<div class="trial"><strong>Behavioural therapy first (provided).</strong> <strong>Comprehensive Behavioral Intervention for Tics (CBIT)/habit-reversal training</strong> produces sustained tic reduction in children and adolescents and is a first-line treatment. Pharmacotherapy (alpha-2 agonists such as clonidine/guanfacine; VMAT2 inhibitors; antipsychotics) is added for impairing tics.</div>
-<p><strong>PANDAS</strong> (pediatric autoimmune neuropsychiatric disorder associated with streptococcal infection) is a controversial post-streptococcal abrupt-onset tic/OCD syndrome covered in the resource set. <strong>Restless legs syndrome (RLS)</strong> — an urge to move the legs, worse at rest and in the evening, relieved by movement — is treated by correcting <strong>iron deficiency</strong> (check ferritin; supplement if low), then <strong>alpha-2-delta ligands</strong> (gabapentin/pregabalin) as preferred first-line drug therapy; dopamine agonists are now second-line because of <strong>augmentation</strong>.</p>
+<h3>The six questions that do most of the work</h3>
+<ol>
+  <li><strong>What is the movement?</strong> Name it before you theorise. Video it — on the patient's own phone if necessary.</li>
+  <li><strong>Where is it, and is it symmetric?</strong> Marked asymmetry favours PD, structural lesions, and dystonia; symmetry favours drug-induced, metabolic and genetic causes.</li>
+  <li><strong>How fast did it come on, and is it progressing?</strong> (See the tempo table.)</li>
+  <li><strong>How old is the patient?</strong> Young onset reorders the entire differential toward Wilson, genetic dystonia, NBIA, juvenile HD and drug exposure.</li>
+  <li><strong>What have they taken?</strong> Twelve months, including over-the-counter, herbal, antiemetics, and anything prescribed by another hospital.</li>
+  <li><strong>What else is on the exam?</strong> Eye movements, pyramidal signs, cerebellar signs, cognition, autonomic function, neuropathy — these separate PD from everything that mimics it.</li>
+</ol>
 
-<h2 id="functional">9. Functional movement disorders</h2>
-<p>Functional (psychogenic) movement disorders are common and potentially reversible. Diagnosis has shifted from exclusion to a <strong>positive rule-in approach</strong> based on <strong>internal inconsistency</strong> (distractibility, variability, entrainment of tremor to an external rhythm) and incongruity with recognized disease, with electrophysiology as a useful adjunct. Management rests on a <strong>clear, validating explanation</strong> of the diagnosis, demonstration of the positive signs to the patient, and FND-informed physiotherapy/psychological therapy.</p>
-<div class="pearl"><strong>Make a positive diagnosis.</strong> Tremor <em>entrainment</em> (the functional tremor takes on the frequency of a voluntarily tapped rhythm) and distractibility are rule-in signs — deliver the diagnosis confidently and without stigma (cross-links to Module 21).</div>
+<div class="pearl"><strong>Examine the eyes properly.</strong> Vertical supranuclear gaze palsy (PSP), square-wave jerks (PSP, cerebellar), slow saccades (SCA2, HD), apraxia of eyelid opening (PSP), oculogyric crisis (drug-induced, postencephalitic), Kayser–Fleischer rings (Wilson — needs a slit lamp; a normal bedside look does not exclude them), opsoclonus (paraneoplastic). The eye exam is where atypical parkinsonism declares itself first.</div>
+
+<h2 id="invest"><span class="num">3</span> Investigation strategy &amp; urgency</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>In a hospital without on-site MRI, the useful question is never "what test would I like?" but <strong>"what changes management today, what changes it this week, and what can wait for a single referral visit?"</strong></li>
+    <li><strong>Tier A</strong> tests are available at the bedside or in your own lab and answer reversible questions — do them on everyone with a new movement disorder.</li>
+    <li><strong>Antibody and genetic results take weeks.</strong> Send them, then treat on clinical criteria. Never let a pending antibody delay immunotherapy in a patient who already meets a clinical definition.</li>
+    <li><strong>Batch tier-D tests into one referral trip.</strong> A patient who travels four hours should come back with the MRI, the slit lamp, the panel and the specialist opinion done in the same visit — not four visits.</li>
+  </ul>
+</div>
+
+<h3>The five urgency tiers</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Tier</th><th>Timeframe</th><th>Tests</th><th>Why this tier</th></tr></thead>
+<tbody>
+<tr><td><span class="tier tA">A</span>Now</td><td>Bedside / same hour</td><td>Capillary glucose; electrolytes incl. Ca, Mg, Na; renal and liver function; <strong>ammonia</strong> if encephalopathic; TSH; full blood count; CRP; ECG (<strong>QTc before any VMAT2 inhibitor or antipsychotic</strong>); pregnancy test; <strong>the drug chart</strong>; oxygen saturation and temperature</td><td>Every one of these can reveal a fully reversible cause, and none requires anything you do not have</td></tr>
+<tr><td><span class="tier tB">B</span>Today</td><td>Same day — transfer if you must</td><td>Non-contrast <strong>CT head</strong> (hemiballism, acute focal movement disorder, head trauma, suspected structural lesion); blood gas with lactate; blood cultures if febrile; <strong>CK</strong> if rigidity or suspected NMS; LP if fever, encephalopathy or rapid progression; EEG if myoclonus could be epileptic</td><td>These separate the emergencies — NMS, serotonin syndrome, stroke, encephalitis, non-convulsive status — from everything else</td></tr>
+<tr><td><span class="tier tC">C</span>This week</td><td>Days</td><td><strong>Serum caeruloplasmin + 24-h urinary copper</strong> in anyone &lt;50; <strong>vitamin B12</strong> ± methylmalonic acid; HIV and syphilis serology; ANA; anti-streptolysin O if post-infectious chorea suspected; peripheral smear for <strong>acanthocytes</strong>; iron studies with <strong>ferritin and transferrin saturation</strong> (RLS)</td><td>Treatable diagnoses with a real time cost if missed, but a few days will not change the outcome</td></tr>
+<tr><td><span class="tier tD">D</span>This month</td><td>Batch into one referral visit</td><td><strong>MRI brain</strong> (with susceptibility-weighted sequences if NBIA or PFBC is possible); <strong>slit-lamp examination</strong> for Kayser–Fleischer rings; autoimmune and paraneoplastic antibody panels (serum ± CSF); genetic testing (HD, SCA, dystonia, Wilson ATP7B); DaTscan where available; malignancy screen if paraneoplastic</td><td>None of these will be acted on before the patient sees the specialist anyway — so make the trip do all of them at once</td></tr>
+<tr><td><span class="tier tE">E</span>Elective</td><td>Or omit entirely</td><td>Repeat imaging in a stable chronic disorder; DaTscan where the clinical diagnosis is already secure; broad genetic panels without a phenotype to anchor them; muscle biopsy outside a specific suspicion</td><td>Cost and distance without a management consequence</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>What to treat before the result arrives</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Situation</th><th>Treat now</th><th>Do not wait for</th></tr></thead>
+<tbody>
+<tr><td>Acute dystonic reaction after an antiemetic or antipsychotic</td><td>IV/IM anticholinergic (benztropine or biperiden) or diphenhydramine; repeat if needed; continue orally 48–72 h</td><td>Imaging — the diagnosis is the history</td></tr>
+<tr><td>Rigidity + fever + autonomic instability + raised CK after a dopamine blocker</td><td>Stop the drug, cool, fluids, benzodiazepines; consider bromocriptine/dantrolene; ICU-level monitoring</td><td>The CK result, or a scan</td></tr>
+<tr><td>New chorea with hyperglycaemia</td><td>Correct the glucose — the chorea usually follows</td><td>MRI (the T1 hyperintensity is confirmatory, not necessary)</td></tr>
+<tr><td>Encephalopathy with myoclonus, seizures, psychiatric change</td><td>Empirical aciclovir; consider immunotherapy if the clinical criteria for autoimmune encephalitis are met</td><td>Antibody results — turnaround is weeks</td></tr>
+<tr><td>Subacute movement disorder in a malnourished, post-bariatric, hyperemetic or alcohol-dependent patient</td><td>Parenteral thiamine, before any glucose load</td><td>Thiamine levels</td></tr>
+<tr><td>RLS with ferritin &lt;75 µg/L or transferrin saturation &lt;20%</td><td>Iron repletion — oral with vitamin C, or IV where available</td><td>Sleep study</td></tr>
+<tr><td>Any movement disorder &lt;50 with abnormal liver tests</td><td>Send copper studies and refer for slit lamp; start chelation only with hepatology/neurology input</td><td>Genetic confirmation of ATP7B</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>CT is not a poor man's MRI, but it is not useless either.</strong> CT will show you an acute haemorrhage, a large infarct, hydrocephalus, a mass with oedema, and gross calcification — which means it will diagnose hemiballism from a basal ganglia stroke, and it will pick up the dense bilateral calcification of primary familial brain calcification. It will <em>not</em> show you the hot-cross-bun sign, the hummingbird, midbrain atrophy, the eye-of-the-tiger, or subtle iron deposition. Know which question you are asking before you order it.</div>
+
+<div class="pearl"><strong>Make one referral trip do the work of three.</strong> When you refer, write the request so the receiving centre does the MRI, the slit lamp, the antibody panel and the specialist review in a single attendance. Send the video with the patient. Send your tier-A and tier-C results with them, so nothing is repeated. For a patient travelling from a district in Isan, a wasted trip is not an inconvenience — it is often the reason the diagnosis is never completed.</div>
+
+<h3>Which imaging answers which question</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Question</th><th>Modality</th><th>What you are looking for</th></tr></thead>
+<tbody>
+<tr><td>Acute hemiballism or acute focal dyskinesia</td><td>CT now, MRI later</td><td>Contralateral STN/striatal infarct or haemorrhage; T1 hyperintense putamen of hyperglycaemic chorea</td></tr>
+<tr><td>Parkinsonism — is it atypical?</td><td>MRI (tier D)</td><td>Hummingbird/morning-glory (PSP), hot-cross-bun and putaminal rim (MSA-C/MSA-P), asymmetric parietal atrophy (CBS)</td></tr>
+<tr><td>Young dystonia/parkinsonism</td><td>MRI with SWI</td><td>Eye-of-the-tiger (PKAN), other NBIA iron patterns, Wilson "face of the giant panda"</td></tr>
+<tr><td>Bilateral basal ganglia calcification</td><td>CT is the test of choice</td><td>PFBC — CT is <em>more</em> sensitive than MRI for calcium</td></tr>
+<tr><td>Ataxia</td><td>MRI</td><td>Cerebellar and brainstem atrophy patterns; the "phalanx sign" and pontine changes separating MSA-C from idiopathic late-onset ataxia</td></tr>
+<tr><td>Is this PD or essential tremor, clinically unclear</td><td>DaTscan (tier D/E)</td><td>Presynaptic dopaminergic deficit — normal in ET, dystonic tremor and drug-induced parkinsonism</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="tremor"><span class="num">4</span> Tremor &amp; its syndromes</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>The 2018 MDS consensus classifies tremor on <strong>two axes</strong>: clinical features (axis 1) and aetiology (axis 2). Axis 1 first.</li>
+    <li><strong>Essential tremor</strong> requires isolated bilateral upper-limb action tremor for <strong>at least 3 years</strong>, with no other neurological signs.</li>
+    <li><strong>Essential tremor plus</strong> = ET with additional soft signs (impaired tandem gait, questionable dystonic posturing, mild memory impairment) — a category deliberately created to stop clinicians calling those patients plain ET.</li>
+    <li>If there are <em>definite</em> dystonic, parkinsonian or cerebellar signs, it is not ET at all — it is a tremor of that disorder.</li>
+  </ul>
+</div>
+
+<h3>Separating the common tremors</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Feature</th><th>Essential tremor</th><th>Parkinson disease</th><th>Dystonic tremor</th><th>Enhanced physiological</th></tr></thead>
+<tbody>
+<tr><td>Activation</td><td>Postural + kinetic</td><td>Rest (re-emergent on posture)</td><td>Postural/kinetic, often position-dependent</td><td>Postural, fine, fast</td></tr>
+<tr><td>Frequency</td><td>4–12 Hz</td><td>4–6 Hz</td><td>Irregular, variable</td><td>8–12 Hz</td></tr>
+<tr><td>Symmetry</td><td>Bilateral, may be mildly asymmetric</td><td>Markedly asymmetric</td><td>Asymmetric, jerky, "null point"</td><td>Symmetric</td></tr>
+<tr><td>Head/voice</td><td>Common (head tremor, vocal tremor)</td><td>Jaw and chin, not head</td><td>Head tremor with a directional pull</td><td>Rare</td></tr>
+<tr><td>Alcohol response</td><td>Often marked</td><td>No</td><td>Sometimes</td><td>No</td></tr>
+<tr><td>Family history</td><td>Often positive</td><td>Sometimes</td><td>Sometimes</td><td>No</td></tr>
+<tr><td>Key discriminator</td><td>Isolated, ≥3 years, nothing else on exam</td><td>Bradykinesia with decrement; re-emergent tremor</td><td><strong>Null point</strong>, sensory trick, directional head pull, irregularity</td><td>Reversible trigger: thyroid, drugs, caffeine, anxiety, fever</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>The "null point".</strong> In dystonic head tremor, there is one head position in which the tremor disappears or markedly reduces — the position toward which the dystonia is pulling. Ask the patient to slowly rotate their head through the full range while you watch. Essential head tremor has no null point. This single manoeuvre resolves a large proportion of "refractory ET" referrals.</div>
+
+<div class="warn"><strong>Enhanced physiological tremor is a diagnosis you should make often, because it is reversible.</strong> Thyrotoxicosis, salbutamol and other β-agonists, theophylline, lithium, valproate, SSRIs, tricyclics, amiodarone, caffeine, alcohol withdrawal, hypoglycaemia, fever, anxiety and fatigue all produce it. In a health-worker population it is common enough to be measurable. Check a TSH and read the drug chart before you label anyone with ET.</div>
+
+<h3>The less common tremors you must recognise</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Syndrome</th><th>Recognition</th><th>Management</th></tr></thead>
+<tbody>
+<tr><td><strong>Orthostatic tremor</strong></td><td>13–18 Hz; unsteadiness <em>only on standing still</em>, relieved by walking or sitting; may be felt rather than seen — palpate or auscultate the thigh ("helicopter sign")</td><td>Clonazepam, gabapentin; <strong>perampanel</strong> has cohort evidence for long-term benefit; frequently disabling and under-recognised</td></tr>
+<tr><td><strong>Holmes (rubral) tremor</strong></td><td>Slow (&lt;4.5 Hz), coarse, present at rest, posture <em>and</em> action; follows midbrain/thalamic lesion by weeks to months</td><td>Levodopa trial, clonazepam; refractory cases → stereotactic thalamotomy/DBS</td></tr>
+<tr><td><strong>Cerebellar/outflow tremor</strong></td><td>Intention tremor worsening at target, with dysmetria and dysdiadochokinesia</td><td>Treat the cause; propranolol unhelpful; consider thalamic DBS in disabling cases</td></tr>
+<tr><td><strong>Primary writing tremor</strong></td><td>Task-specific, appears only on writing</td><td>Overlaps with writer's dystonia; botulinum toxin, anticholinergics</td></tr>
+<tr><td><strong>Functional tremor</strong></td><td>Variable frequency, <strong>entrainment</strong> and <strong>distractibility</strong>, sudden onset, co-activation sign</td><td>Positive diagnosis then explanation and physiotherapy (see §16)</td></tr>
+<tr><td><strong>Palatal tremor</strong></td><td>Rhythmic palatal movement ± ear click; symptomatic form from Guillain–Mollaret triangle lesion with inferior olivary hypertrophy</td><td>Clonazepam; treat the cause</td></tr>
+<tr><td><strong>Pseudo-orthostatic tremor</strong></td><td>Standing tremor in Graves disease — resolves with treatment of the thyroid</td><td>Check TSH in every standing tremor</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Treating essential tremor</h3>
+<ol>
+  <li><strong>Establish it is ET</strong> — apply the 3-year rule, exclude dystonic tremor and enhanced physiological tremor.</li>
+  <li><strong>Decide whether it needs treatment at all.</strong> Many patients want an explanation and a prognosis, not a drug.</li>
+  <li><strong>First line:</strong> propranolol (start 10–20 mg, titrate; watch asthma, bradycardia, diabetes) or primidone (start 12.5–25 mg at night — the first dose reaction is why you start low). Either is reasonable first; combining them helps some patients.</li>
+  <li><strong>Second line:</strong> topiramate, gabapentin, alprazolam (use sparingly). Botulinum toxin for head or voice tremor.</li>
+  <li><strong>Refractory and disabling:</strong> MRI-guided focused ultrasound thalamotomy, or thalamic (VIM) DBS. See §20 for exactly who the FUS trial enrolled.</li>
+</ol>
+
+<div class="trial"><strong>Focused ultrasound thalamotomy for ET (NEJM 2016).</strong> Randomised, sham-controlled, 76 patients analysed. Hand-tremor score improved <strong>47%</strong> at 3 months (18.1 → 9.6) versus <strong>0.1%</strong> with sham; between-group difference <strong>8.3 points</strong> (95% CI 5.9–10.7, P&lt;0.001). Adverse events included gait disturbance and paraesthesia/numbness (38%), persisting at 12 months in 9% and 14% respectively. At <strong>3 years</strong>, improvement from baseline remained significant: 38–50% hand tremor, 43–56% disability — with some mild degradation and no progressive or delayed complications.</div>
+
+<h2 id="pd"><span class="num">5</span> Parkinson disease — diagnosis</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>The MDS criteria require <strong>bradykinesia</strong> plus <strong>rest tremor or rigidity</strong>, then apply supportive criteria, absolute exclusions and red flags.</li>
+    <li><strong>Bradykinesia means decrement</strong> — progressive reduction in amplitude or speed on repetition — not merely slowness. If there is no decrement, question the diagnosis.</li>
+    <li><strong>Clinically established PD</strong> needs ≥2 supportive criteria, no absolute exclusions, and no red flags. <strong>Probable PD</strong> tolerates red flags only if balanced by supportive criteria.</li>
+    <li>Prodromal features — <strong>RBD, hyposmia, constipation, depression</strong> — often precede motor onset by a decade and are worth asking about.</li>
+  </ul>
+</div>
+
+<h3>Examining for bradykinesia properly</h3>
+<p>Test finger tapping, hand opening/closing, pronation–supination, toe tapping and heel tapping. Ask for <em>big and fast</em> movements and watch for at least 10–15 repetitions. You are looking for three things: reduced amplitude, reduced speed, and — the specific finding — <strong>decrement or hesitation as the sequence continues</strong>. Fatigue in a fibromyalgic or depressed patient produces slowness without decrement. Spasticity and cerebellar dysmetria also slow movement, but again without decrement.</p>
+
+<div class="tw">
+<table>
+<thead><tr><th>MDS criteria component</th><th>Content</th></tr></thead>
+<tbody>
+<tr><td><strong>Core (required)</strong></td><td>Bradykinesia, plus rest tremor <em>or</em> rigidity</td></tr>
+<tr><td><strong>Supportive</strong></td><td>Clear and dramatic response to dopaminergic therapy; levodopa-induced dyskinesia; rest tremor of a limb documented on exam; olfactory loss or cardiac MIBG denervation</td></tr>
+<tr><td><strong>Absolute exclusions</strong></td><td>Cerebellar signs; downward vertical supranuclear gaze palsy; behavioural-variant FTD or primary progressive aphasia within 5 years; parkinsonism restricted to the legs for &gt;3 years; dopamine-blocker exposure consistent with drug-induced parkinsonism; absence of response to high-dose levodopa despite at least moderate severity; cortical sensory loss/limb apraxia/progressive aphasia; normal presynaptic dopaminergic imaging</td></tr>
+<tr><td><strong>Red flags</strong></td><td>Rapid gait deterioration needing a wheelchair within 5 years; complete absence of motor progression over 5 years; early bulbar or respiratory dysfunction; severe autonomic failure in the first 5 years; recurrent falls from balance impairment within 3 years; disproportionate anterocollis or contractures within 10 years; absence of any non-motor features after 5 years; unexplained pyramidal signs; bilateral symmetric parkinsonism throughout</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>"No response to levodopa" is only an exclusion if the trial was adequate.</strong> That means titrating to at least 1000 mg/day of levodopa (or the maximum tolerated) for several weeks, with an objective before-and-after assessment, in a patient with at least moderate disease. A 300 mg/day trial for two weeks that "did nothing" excludes nothing.</div>
+
+<div class="pearl"><strong>Ask about REM sleep behaviour disorder in every parkinsonian patient — and ask the bed partner, not the patient.</strong> "Does he act out his dreams? Shout, punch, kick, fall out of bed?" Polysomnography-confirmed RBD is one of the strongest prodromal markers of an α-synucleinopathy, and it also shifts you toward DLB and MSA rather than PSP or CBS.</div>
+
+<h3>Genetics worth knowing</h3>
+<p>Monogenic PD accounts for a minority of cases but reshapes counselling. <strong>LRRK2</strong> (autosomal dominant, variable penetrance, notably frequent in some populations, often a benign PD-like course) and <strong>GBA</strong> (a glucocerebrosidase variant — the commonest genetic risk factor, associated with earlier onset and more cognitive decline) are the two you will hear about most. <strong>PRKN</strong>, <strong>PINK1</strong> and <strong>DJ-1</strong> cause young-onset recessive disease with excellent and sustained levodopa response but early dyskinesia. Global genetic studies keep showing that the variant spectrum differs substantially between ancestries, so risk estimates derived from European cohorts transfer imperfectly.</p>
+
+<h2 id="pdrx"><span class="num">6</span> Parkinson disease — therapy</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Levodopa is the most effective drug and delaying it does not protect anyone.</strong> LEAP showed no difference in progression or motor complications at 5 years between starting 40 weeks earlier or later.</li>
+    <li>Motor complications track <strong>disease duration and severity</strong>, not cumulative levodopa exposure. Withholding levodopa from a disabled patient buys nothing and costs years of function.</li>
+    <li><strong>Dopamine agonists carry impulse-control disorders</strong> — and you must ask directly, repeatedly, and preferably with a relative present.</li>
+    <li>Rasagiline's delayed-start design (ADAGIO) was positive at 1 mg and negative at 2 mg — a dissociation that means <strong>neuroprotection is not established</strong>.</li>
+  </ul>
+</div>
+
+<h3>Starting treatment</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Drug class</th><th>Role</th><th>Main trade-offs</th></tr></thead>
+<tbody>
+<tr><td><strong>Levodopa/carbidopa</strong></td><td>Most effective for motor symptoms; first choice in most patients, and clearly first in older or more disabled patients</td><td>Motor fluctuations and dyskinesia with time; nausea early (give with carbidopa, take before meals once tolerated)</td></tr>
+<tr><td><strong>Dopamine agonists</strong> (pramipexole, ropinirole, rotigotine)</td><td>Younger patients, adjunct to reduce off-time</td><td><strong>Impulse-control disorders</strong>, sleep attacks, hallucinations, oedema, worse cognitive tolerance in the elderly</td></tr>
+<tr><td><strong>MAO-B inhibitors</strong> (rasagiline, selegiline, safinamide)</td><td>Mild early monotherapy; adjunct for off-time</td><td>Modest effect; serotonin interactions</td></tr>
+<tr><td><strong>COMT inhibitors</strong> (entacapone, opicapone)</td><td>Extend each levodopa dose in wearing-off</td><td>Diarrhoea, urine discolouration; may increase dyskinesia</td></tr>
+<tr><td><strong>Amantadine</strong></td><td>The drug for <strong>levodopa-induced dyskinesia</strong></td><td>Livedo reticularis, ankle oedema, confusion and hallucinations in the elderly; renally cleared</td></tr>
+<tr><td><strong>Anticholinergics</strong> (trihexyphenidyl)</td><td>Tremor-predominant young patients only</td><td>Cognitive impairment, urinary retention, glaucoma — avoid over 65</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="trial"><strong>LEAP — early versus delayed levodopa (long-term follow-up, Mov Disord 2024).</strong> Patients with early PD randomised to levodopa 100/25 mg three times daily immediately or after a 40-week delay. At 5 years (321 completers), the adjusted total UPDRS did <strong>not</strong> differ between groups (estimated difference 0.24, SE 0.13, P = 0.07; at 3 years 0.17, SE 0.13, P = 0.18). Prevalence of wearing-off and levodopa equivalent daily dose were also not significantly different. <em>Conclusion: starting levodopa 40 weeks earlier neither slowed nor accelerated progression, and did not change motor complications.</em></div>
+
+<div class="trial"><strong>ADAGIO — delayed-start rasagiline (NEJM 2009).</strong> Early-start rasagiline <strong>1 mg/day met all three hierarchical endpoints</strong>: slower worsening between weeks 12–36 (0.09 vs 0.14 UPDRS points/week, P = 0.01) and less worsening at 72 weeks (2.82 vs 4.52 points). Early-start <strong>2 mg/day did not</strong>. A dose-response dissociation of that kind is not what a true disease-modifying effect looks like, so rasagiline is <strong>not</strong> established as neuroprotective — a point examiners like.</div>
+
+<div class="warn"><strong>Impulse-control disorders are missed because nobody asks.</strong> Pathological gambling, compulsive shopping, hypersexuality, binge eating and punding occur in a substantial minority on dopamine agonists — risk rises with agonist dose, younger age, male sex and a personal or family history of addictive behaviour. Ask at every visit, ask the spouse, and ask about money specifically. Management: reduce or withdraw the agonist (watch for dopamine agonist withdrawal syndrome — anxiety, panic, diaphoresis, pain, drug craving, which can be severe), substitute levodopa, and consider CBT.</div>
+
+<h3>Managing motor complications</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Problem</th><th>What it looks like</th><th>First moves</th></tr></thead>
+<tbody>
+<tr><td>Wearing off</td><td>Predictable return of symptoms before the next dose</td><td>Shorten the interval; add COMT inhibitor, MAO-B inhibitor or agonist; take levodopa away from protein</td></tr>
+<tr><td>Delayed on / dose failure</td><td>Dose takes too long to work or does not</td><td>Take on an empty stomach, treat constipation and gastroparesis, consider dispersible levodopa</td></tr>
+<tr><td>Peak-dose dyskinesia</td><td>Choreiform movements at peak plasma level</td><td>Smaller more frequent doses; <strong>amantadine</strong>; reduce total dose if tolerable</td></tr>
+<tr><td>Diphasic dyskinesia</td><td>Dyskinesia at the beginning and end of a dose, often painful dystonic leg movements</td><td>Harder — larger less frequent doses, agonist, consider DBS referral</td></tr>
+<tr><td>Early-morning / off dystonia</td><td>Painful foot or toe dystonia on waking</td><td>Bedtime long-acting levodopa or agonist; botulinum toxin</td></tr>
+<tr><td>Freezing of gait</td><td>Feet glued at initiation, turning, doorways</td><td>Optimise levodopa (on-state freezing is harder); cueing strategies — a laser cane, counting, stepping over a line; physiotherapy</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Device-aided therapy</h3>
+<p>When fluctuations cannot be controlled orally, the options are <strong>deep brain stimulation</strong> (STN or GPi), <strong>continuous intrajejunal levodopa gel</strong>, and <strong>continuous subcutaneous apomorphine</strong>. The ideal DBS candidate mirrors the EARLYSTIM population: levodopa-responsive, without dementia or uncontrolled psychiatric illness, with fluctuations that trouble them. <strong>Levodopa responsiveness predicts DBS responsiveness</strong> — with the single exception of tremor, which can respond to stimulation even when it did not respond to levodopa.</p>
+
+<div class="trial"><strong>EARLYSTIM (NEJM 2013).</strong> STN stimulation plus medical therapy versus medical therapy alone in patients aged <strong>18–60</strong> with disease duration <strong>≥4 years</strong> and motor complications present for <strong>≤3 years</strong>. Primary outcome PDQ-39 quality of life at 2 years: stimulation group improved <strong>7.8 points</strong>, medical therapy worsened 0.2 — between-group difference <strong>8.0 points</strong>, P = 0.002. Neurostimulation was also superior for motor disability, activities of daily living and levodopa-induced complications. <em>The message: DBS is not only a last-resort therapy for very advanced disease.</em></div>
+
+<div class="pearl"><strong>MRI-guided focused ultrasound in tremor-dominant PD.</strong> In the sham-controlled trial, on-medication median tremor scores improved <strong>62%</strong> after FUS thalamotomy versus 22% after sham. It is unilateral and lesional — attractive where DBS programming and follow-up are hard to sustain, but it does not treat bradykinesia, rigidity or fluctuations, and it is not reversible.</div>
+
+<h3>Non-motor management — where most of the quality of life is</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Problem</th><th>Approach</th></tr></thead>
+<tbody>
+<tr><td>Orthostatic hypotension</td><td>Withdraw hypotensives, increase salt and fluid, compression, head-up tilt at night; midodrine or fludrocortisone; droxidopa where available</td></tr>
+<tr><td>Constipation</td><td>Macrogol, fluid, fibre, exercise; it also impairs levodopa absorption</td></tr>
+<tr><td>Psychosis / hallucinations</td><td>Look for infection, dehydration, drug additions; reduce anticholinergics → amantadine → agonists → MAO-B → COMT, in that order; <strong>quetiapine or clozapine only</strong> (pimavanserin where available). Never haloperidol or risperidone</td></tr>
+<tr><td>Dementia</td><td>Rivastigmine has the best evidence</td></tr>
+<tr><td>Depression and anxiety</td><td>Common and often the dominant complaint; treat actively — SSRIs, SNRIs, CBT; anxiety often fluctuates with off-periods</td></tr>
+<tr><td>RBD</td><td>Make the bedroom safe first; melatonin, then clonazepam</td></tr>
+<tr><td>Drooling, pain, urinary urgency</td><td>Botulinum toxin to salivary glands; treat off-period pain by improving on-time</td></tr>
+<tr><td>Pisa syndrome</td><td>Lateral trunk flexion; review recent dopaminergic changes, physiotherapy, consider botulinum toxin; often refractory</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="atyp"><span class="num">7</span> Atypical parkinsonism</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>The alarm bells: <strong>early falls, early autonomic failure, early cognitive or bulbar problems, symmetry, poor levodopa response, and pyramidal or cerebellar signs</strong>.</li>
+    <li><strong>PSP</strong> — falls backward in year one, vertical supranuclear gaze palsy, axial rigidity, applause sign, surprised facies.</li>
+    <li><strong>MSA</strong> — autonomic failure with parkinsonism (MSA-P) or cerebellar ataxia (MSA-C); the 2022 MDS criteria added a <em>clinically established</em> tier and an emphasis on MRI markers.</li>
+    <li><strong>CBS</strong> — markedly asymmetric akinetic-rigid syndrome with apraxia, cortical sensory loss, myoclonus, dystonia and alien limb.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th></th><th>PSP</th><th>MSA</th><th>CBS</th><th>DLB</th></tr></thead>
+<tbody>
+<tr><td>Earliest giveaway</td><td>Backward falls within 1 year; vertical gaze palsy</td><td>Autonomic failure (orthostatic hypotension, urogenital); stridor</td><td>Strikingly asymmetric limb; apraxia</td><td>Fluctuating cognition, visual hallucinations, RBD</td></tr>
+<tr><td>Symmetry</td><td>Symmetric, axial &gt; limb</td><td>Symmetric</td><td>Very asymmetric</td><td>Symmetric</td></tr>
+<tr><td>Eye signs</td><td>Vertical supranuclear gaze palsy (down first), slow vertical saccades, square-wave jerks, apraxia of lid opening</td><td>Nystagmus, mild saccadic abnormality</td><td>Ocular motor apraxia</td><td>Usually normal</td></tr>
+<tr><td>Levodopa</td><td>Poor, transient</td><td>Partial then lost</td><td>Poor</td><td>Partial, often at low dose</td></tr>
+<tr><td>Other signs</td><td>Axial rigidity, retrocollis, pseudobulbar affect, frontal behaviour</td><td>Cerebellar signs, pyramidal signs, stridor, antecollis, Pisa, respiratory sighs</td><td>Myoclonus, alien limb, cortical sensory loss, aphasia</td><td>Neuroleptic sensitivity, autonomic features</td></tr>
+<tr><td>MRI</td><td>Midbrain atrophy — hummingbird / morning-glory</td><td>Hot-cross-bun (pons), putaminal rim, MCP atrophy</td><td>Asymmetric frontoparietal atrophy</td><td>Relatively preserved medial temporal lobe</td></tr>
+<tr><td>Extra tests</td><td>—</td><td>Autonomic testing; MIBG usually normal (vs PD/DLB abnormal)</td><td>—</td><td>DaTscan abnormal; MIBG abnormal; PSG shows RBD</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Stridor in MSA is a mortality signal, not a curiosity.</strong> Nocturnal inspiratory stridor from vocal-cord abductor paresis is associated with sudden death. Ask the family about noisy breathing at night, involve ENT, and consider CPAP — and remember that cognitive and behavioural disturbance, once considered a red flag against MSA, is now recognised to occur in both MSA and PSP and does not by itself exclude the diagnosis.</div>
+
+<div class="pearl"><strong>PSP is more than Richardson syndrome.</strong> Recognised variants include PSP-parkinsonism (asymmetric, tremulous, levodopa-responsive early — often diagnosed as PD for years), PSP with progressive gait freezing, PSP-CBS, PSP with speech/language disorder and PSP-frontal. If a "PD" patient develops falls, gaze problems or axial rigidity later, revisit the diagnosis rather than escalating levodopa.</div>
+
+<p><strong>Treatment.</strong> There is no disease-modifying therapy for any of these. Give an adequate levodopa trial (up to 1000 mg/day) to everyone — some MSA-P and PSP-P patients get real benefit. Beyond that the work is symptomatic and multidisciplinary: physiotherapy and falls prevention, speech and swallow assessment, orthostatic hypotension management, botulinum toxin for focal dystonia and sialorrhoea, and honest, early conversations about prognosis, feeding and advance care planning. DBS is <strong>not</strong> indicated in atypical parkinsonism — systematic review evidence shows poor and unsustained outcomes, and it is included here precisely so you do not refer these patients. For CBS, pharmacological options are limited; treat the myoclonus (levetiracetam or clonazepam) and the dystonia (botulinum toxin) symptomatically.</p>
+
+<h2 id="sec"><span class="num">8</span> Secondary &amp; drug-induced parkinsonism</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Drug-induced parkinsonism is the commonest reversible parkinsonism</strong> and the commonest misdiagnosis of PD. It is usually symmetric and can take <strong>months</strong> to resolve after the drug stops.</li>
+    <li>The offenders are not only antipsychotics: <strong>metoclopramide, prochlorperazine, flunarizine, cinnarizine, valproate, lithium, amiodarone</strong> and tetrabenazine all do it.</li>
+    <li><strong>Vascular parkinsonism</strong> — lower-body predominant, gait apraxia, pyramidal signs, poor levodopa response, extensive white-matter disease.</li>
+    <li>Normal-pressure hydrocephalus, repeated head trauma, manganese and carbon-monoxide exposure, and post-encephalitic states all belong in this differential.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Cause</th><th>Clues</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td><strong>Drug-induced</strong></td><td>Symmetric, subacute over weeks–months, often with akathisia or tardive features; exposure to a dopamine blocker — check antiemetics and "vertigo" drugs</td><td>Stop or substitute; expect improvement over weeks to months (may take &gt;6 months); DaTscan normal if available; anticholinergic only short-term in the young</td></tr>
+<tr><td><strong>Vascular</strong></td><td>Lower-body parkinsonism, wide-based shuffling gait, pyramidal signs, pseudobulbar affect, vascular risk factors, extensive white matter disease</td><td>Vascular secondary prevention; levodopa trial (often disappointing); gait physiotherapy</td></tr>
+<tr><td><strong>Normal-pressure hydrocephalus</strong></td><td>Magnetic gait first, then urinary urgency, then cognition; ventriculomegaly out of proportion to atrophy</td><td>Large-volume tap test; shunt referral in selected patients</td></tr>
+<tr><td><strong>Post-encephalitic</strong></td><td>Parkinsonism after an encephalitic illness; <strong>oculogyric crises</strong>; sleep disturbance; may follow Japanese encephalitis and other flaviviruses — regionally relevant</td><td>Supportive; levodopa response variable; document the antecedent illness</td></tr>
+<tr><td><strong>Toxic</strong></td><td>Manganese (welders, methcathinone users) — cock-walk gait, dystonia, early postural instability, T1 pallidal hyperintensity; carbon monoxide — delayed parkinsonism after recovery</td><td>Remove exposure; levodopa usually unhelpful in manganism</td></tr>
+<tr><td><strong>Structural</strong></td><td>Tumour, subdural, abscess — usually asymmetric with other focal signs</td><td>Imaging</td></tr>
+<tr><td><strong>Wilson</strong></td><td>Under 50, dysarthria, dystonia, tremor, psychiatric change, abnormal liver tests</td><td>See §20 — always exclude in the young</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>The clinic trap.</strong> An elderly patient on metoclopramide for six months develops symmetric parkinsonism. Levodopa is started, produces a partial response (drug-induced parkinsonism often responds partially), and the diagnosis of PD becomes fixed in the notes. Review the drug chart <em>before</em> you start levodopa, not after.</div>
+
+<h2 id="dyst"><span class="num">9</span> Dystonia</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Classify along <strong>two axes</strong>: clinical (age at onset, body distribution, temporal pattern, associated features) and aetiological (nervous system pathology, inherited/acquired/idiopathic).</li>
+    <li>The clinical signatures: <strong>patterned</strong> (same muscles every time), <strong>directional twisting</strong>, <strong>sensory trick</strong> (geste antagoniste), <strong>overflow</strong>, <strong>mirror dystonia</strong>, and worsening with action.</li>
+    <li><strong>Every young-onset dystonia deserves a levodopa trial</strong> — dopa-responsive dystonia is transformative and easily missed.</li>
+    <li><strong>Botulinum toxin is first-line for focal and segmental dystonia</strong>; it is the most effective treatment in the whole field.</li>
+  </ul>
+</div>
+
+<h3>Distribution and the common focal dystonias</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Type</th><th>Features</th><th>Treatment</th></tr></thead>
+<tbody>
+<tr><td><strong>Cervical dystonia</strong> (commonest focal)</td><td>Torticollis, laterocollis, anterocollis, retrocollis ± head tremor; neck pain in most; sensory trick (a finger on the chin)</td><td>Botulinum toxin to the affected muscles — first line</td></tr>
+<tr><td><strong>Blepharospasm</strong></td><td>Bilateral forced eye closure; may progress to functional blindness; sensory tricks — talking, singing, a toothpick</td><td>Botulinum toxin; beware apraxia of lid opening coexisting</td></tr>
+<tr><td><strong>Oromandibular</strong></td><td>Jaw opening/closing, tongue protrusion; with blepharospasm = <strong>Meige syndrome</strong></td><td>Botulinum toxin, carefully dosed</td></tr>
+<tr><td><strong>Laryngeal (spasmodic dysphonia)</strong></td><td>Adductor (strained, strangled voice) or abductor (breathy); task-specific for speech</td><td>Botulinum toxin to thyroarytenoid, with ENT</td></tr>
+<tr><td><strong>Writer's cramp / task-specific</strong></td><td>Appears only with the specific task; musicians, writers, sportspeople</td><td>Botulinum toxin, retraining, technique change</td></tr>
+<tr><td><strong>Generalized</strong></td><td>Usually young onset, often genetic (e.g. <em>TOR1A</em>)</td><td>Levodopa trial, anticholinergics, then <strong>GPi DBS</strong> — which works well in isolated genetic generalized dystonia</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>Give every patient with young-onset dystonia a levodopa trial.</strong> Dopa-responsive dystonia (Segawa, <em>GCH1</em>) classically presents in a child with gait dystonia, diurnal fluctuation (worse in the evening), and sometimes parkinsonism — and responds completely and permanently to small doses of levodopa. Some present atypically, in adults, or as spastic diplegia. The trial costs almost nothing; missing it costs a childhood.</div>
+
+<div class="trial"><strong>Botulinum toxin in cervical dystonia — ASPEN-1 (daxibotulinumtoxinA).</strong> Adults 18–80 with moderate-to-severe CD (TWSTRS total ≥20); excluded if predominant retrocollis or anterocollis, or CD attributable to an underlying aetiology. 357 randomised 3:3:1 to DAXI 125U, 250U or placebo. Both doses beat placebo on TWSTRS (125U −12.0). Median duration of effect <strong>24.1 weeks</strong> (125U) and 22.0 weeks (250U) — notably longer than conventional preparations. Treatment-related dysphagia 4.7%/4.5%, muscle weakness 5.4%/4.5%. <em>Useful for the exclusions as much as the result: predominant anterocollis and retrocollis are the hard cases that trials leave out.</em></div>
+
+<div class="warn"><strong>Do not diagnose functional dystonia because the movement is task-specific, relieved by a sensory trick, or bizarre-looking.</strong> All three are features of organic dystonia. The positive features of a functional movement disorder are different — see §16.</div>
+
+<h3>Acquired and secondary dystonia</h3>
+<p>Ask about perinatal injury, encephalitis, head injury, stroke, and drug exposure. Pharmacovigilance data confirm that a broad range of drugs — antipsychotics above all, but also antiemetics, some antidepressants and antiepileptics — can precipitate dystonia. <strong>Hemidystonia after a contralateral basal ganglia lesion</strong> is a classic acquired pattern and always warrants imaging. Rapid-onset dystonia-parkinsonism (<em>ATP1A3</em>) presents over hours to days with a rostrocaudal gradient, often after a physiological stressor.</p>
+
+<h2 id="chorea"><span class="num">10</span> Chorea &amp; Huntington disease</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Asymmetric or hemichorea means look for a structural or metabolic cause</strong> — stroke, hyperglycaemia, a mass.</li>
+    <li><strong>Non-ketotic hyperglycaemia</strong> is a leading cause of acute hemichorea, especially in older patients with poorly controlled diabetes, and the chorea usually resolves when glucose is corrected.</li>
+    <li>In HD, treat chorea only when it is <strong>disabling</strong> — many patients are less troubled by it than their family is.</li>
+    <li><strong>Check a QTc and screen for depression before any VMAT2 inhibitor.</strong> Tetrabenazine carries a depression and suicidality warning.</li>
+  </ul>
+</div>
+
+<h3>The causes, sorted by how you will meet them</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Group</th><th>Causes</th><th>Discriminating test</th></tr></thead>
+<tbody>
+<tr><td><strong>Metabolic</strong></td><td>Non-ketotic hyperglycaemia, hypo- and hypernatraemia, hypocalcaemia, hepatic and renal failure, hyperthyroidism, polycythaemia</td><td>Glucose, electrolytes, TSH, LFT, FBC — all tier A</td></tr>
+<tr><td><strong>Vascular</strong></td><td>Striatal or subthalamic infarct/haemorrhage (hemichorea, hemiballism)</td><td>CT / MRI</td></tr>
+<tr><td><strong>Drug-induced</strong></td><td>Levodopa, dopamine agonists, antipsychotics (tardive), phenytoin, lamotrigine, cocaine, stimulants, oral contraceptives, opioids (case reports of hydromorphone-induced chorea)</td><td>Drug history over 12 months</td></tr>
+<tr><td><strong>Autoimmune / post-infectious</strong></td><td>Sydenham chorea, antiphospholipid syndrome, SLE, NMDA-receptor encephalitis, coeliac, paraneoplastic (CRMP-5, Hu)</td><td>ASO, ANA, antiphospholipid antibodies, antibody panels</td></tr>
+<tr><td><strong>Infective</strong></td><td>HIV, toxoplasmosis, tuberculoma, CJD</td><td>HIV serology, imaging</td></tr>
+<tr><td><strong>Endocrine / pregnancy</strong></td><td>Chorea gravidarum — often on a background of prior rheumatic fever or antiphospholipid antibodies</td><td>Pregnancy test, antiphospholipid screen</td></tr>
+<tr><td><strong>Genetic</strong></td><td>Huntington disease; HD phenocopies (C9orf72, HDL2, SCA17); neuroacanthocytosis (chorea-acanthocytosis, McLeod); benign hereditary chorea; Wilson; ataxia-telangiectasia</td><td>Genetics; <strong>peripheral smear for acanthocytes</strong>; CK; caeruloplasmin</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>The cheap tests that change the answer.</strong> A capillary glucose, a peripheral blood smear looked at properly for acanthocytes, a CK, and a caeruloplasmin will between them catch hyperglycaemic chorea, neuroacanthocytosis and Wilson disease — three diagnoses that are otherwise missed for years. All four are available to you locally.</div>
+
+<h3>Huntington disease</h3>
+<p>Autosomal dominant CAG repeat expansion in <em>HTT</em>. <strong>≥40 repeats</strong> is fully penetrant; 36–39 shows reduced penetrance; 27–35 is an intermediate allele that does not cause disease but can expand in transmission — particularly through the paternal line, which is the basis of <strong>anticipation</strong>. The triad is motor (chorea early, then dystonia, parkinsonism, and the functionally more important <strong>motor impersistence and bradykinesia</strong>), cognitive (executive dysfunction progressing to subcortical dementia), and psychiatric (depression, irritability, apathy, obsessionality, and a markedly raised suicide risk).</p>
+
+<div class="warn"><strong>Predictive genetic testing in HD must follow a protocol.</strong> Pre-test genetic counselling, a defined interval for reflection, psychological assessment, and support at result disclosure are standard — the suicide risk around testing and diagnosis is real. Never send an <em>HTT</em> test as a routine add-on to a blood panel, and never test an asymptomatic minor.</div>
+
+<h4>Treating chorea in HD</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Option</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Tetrabenazine</strong></td><td>Reduced UHDRS chorea by <strong>5.0 units vs 1.5 on placebo</strong> (adjusted effect −3.5 ± 0.8). Depression and suicidality warning; sedation, parkinsonism, akathisia. Start low, titrate slowly.</td></tr>
+<tr><td><strong>Deutetrabenazine</strong></td><td>First-HD: total maximal chorea improved <strong>12.1 → 7.7</strong> vs 13.2 → 11.3 on placebo over 12 weeks. Deuteration slows metabolism, allowing twice-daily dosing and a smoother peak — better tolerability for a similar effect.</td></tr>
+<tr><td><strong>Antipsychotics</strong> (olanzapine, risperidone, tiapride)</td><td>Useful when chorea coexists with psychiatric symptoms or weight loss; cost and availability often make them the practical choice; tardive risk with long-term use</td></tr>
+<tr><td><strong>Amantadine, riluzole</strong></td><td>Weak and inconsistent evidence</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>The rest of HD care matters more than the chorea.</strong> Maintain weight aggressively (energy requirements are high — full-fat everything, supplements, no dietary restriction). Treat depression and irritability properly (SSRIs first line). Manage swallowing early with speech and language therapy. Offer genetic counselling to the whole family. Plan advance care while the patient can participate.</p>
+
+<h2 id="tics"><span class="num">11</span> Tics &amp; Tourette syndrome</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Tourette syndrome requires <strong>multiple motor tics and ≥1 vocal tic</strong>, present for <strong>&gt;1 year</strong>, with onset before age 18.</li>
+    <li>The tics are usually <em>not</em> the main problem — <strong>ADHD and OCD</strong> drive more impairment, and should be treated first.</li>
+    <li><strong>Behavioural therapy (CBIT/HRT) is first-line</strong>, with meta-analytic evidence of sustained benefit; treat with drugs only when tics are painful, injurious or socially disabling.</li>
+    <li>Tics improve in most patients through late adolescence — a fact worth telling every family at the first visit.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Treatment</th><th>Place</th><th>Cautions</th></tr></thead>
+<tbody>
+<tr><td><strong>Education and reassurance</strong></td><td>Always first. Explain the natural history, remove pressure to suppress at school</td><td>—</td></tr>
+<tr><td><strong>CBIT / habit reversal training</strong></td><td>First-line active treatment; meta-analysis of RCTs in patients ≤18 shows benefit sustained at follow-up</td><td>Requires a trained therapist and a motivated child</td></tr>
+<tr><td><strong>Alpha-2 agonists</strong> (clonidine, guanfacine)</td><td>Especially when ADHD coexists</td><td>Sedation, hypotension</td></tr>
+<tr><td><strong>Antipsychotics</strong> (risperidone, aripiprazole, haloperidol, pimozide, tiapride)</td><td>Most effective for tics in network meta-analyses</td><td>Weight gain, metabolic syndrome, prolactin, <strong>tardive syndromes — including tardive dystonia in Tourette</strong></td></tr>
+<tr><td><strong>VMAT2 inhibitors</strong></td><td>Alternative to antipsychotics</td><td>Depression, parkinsonism</td></tr>
+<tr><td><strong>Botulinum toxin</strong></td><td>For a single disabling or painful tic, including phonic tics</td><td>Focal weakness; hypophonia for vocal tics</td></tr>
+<tr><td><strong>DBS</strong></td><td>Severe, refractory, adult</td><td>Specialist centres only</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>Functional tic-like behaviours are a distinct entity and increasingly common.</strong> They differ from Tourette: onset is abrupt and usually in adolescent girls rather than young boys, there is no rostrocaudal progression, tics are complex and often involve coprolalia from the start, they are frequently influenced by social media exposure, family history is absent, and suppressibility and premonitory urge are atypical. Recognising this matters because the management is behavioural, not antipsychotic.</div>
+
+<div class="warn"><strong>PANDAS remains contested.</strong> The proposed entity — abrupt-onset OCD or tics after group A streptococcal infection — has never been securely established as a distinct disease. Treat the tics and the OCD on their merits; do not commit a child to long-term antibiotics or immunotherapy on this basis outside a specialist setting.</div>
+
+<h2 id="myo"><span class="num">12</span> Myoclonus</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Classify by <strong>anatomical generator</strong> — cortical, subcortical/brainstem, spinal, peripheral — because the generator dictates the drug.</li>
+    <li><strong>Cortical myoclonus</strong>: distal, stimulus-sensitive, action-activated, giant SEPs, EEG correlate. Treat with <strong>levetiracetam, valproate, piracetam</strong>.</li>
+    <li><strong>Subcortical/brainstem</strong>: generalized, startle-like. <strong>Clonazepam</strong> is the mainstay.</li>
+    <li><strong>Acute myoclonus in a sick patient is metabolic or toxic until proven otherwise</strong> — uraemia, hepatic failure, hyponatraemia, and a long list of drugs.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Generator</th><th>Clinical signature</th><th>Causes</th><th>First-line drugs</th></tr></thead>
+<tbody>
+<tr><td><strong>Cortical</strong></td><td>Distal, focal or multifocal, stimulus-sensitive, worse with action; may be epileptic</td><td>Post-anoxic (Lance–Adams), progressive myoclonic epilepsies, coeliac, metabolic, neurodegenerative</td><td>Levetiracetam, valproate, piracetam, clonazepam</td></tr>
+<tr><td><strong>Cortical–subcortical</strong></td><td>Generalized, with epileptiform discharges — the myoclonus of juvenile myoclonic epilepsy</td><td>Idiopathic generalized epilepsy</td><td>Valproate, levetiracetam</td></tr>
+<tr><td><strong>Subcortical / brainstem</strong></td><td>Generalized axial jerks, startle-like, reticular reflex myoclonus; hyperekplexia</td><td>Post-anoxic, brainstem lesion, toxic-metabolic, <em>GLRA1</em> hyperekplexia</td><td>Clonazepam</td></tr>
+<tr><td><strong>Segmental / spinal</strong></td><td>Rhythmic or semi-rhythmic in a myotomal distribution; persists in sleep; propriospinal myoclonus produces truncal flexion jerks on lying down</td><td>Cord lesion — tumour, demyelination (including MS), infection, trauma, ischaemia</td><td>Clonazepam, levetiracetam; treat the lesion. <em>Note: many "propriospinal" cases prove to be functional</em></td></tr>
+<tr><td><strong>Peripheral</strong></td><td>Confined to the territory of one nerve or plexus; hemifacial spasm is the archetype</td><td>Nerve injury, compression, plexopathy</td><td>Botulinum toxin; treat the nerve</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Negative myoclonus — asterixis</h3>
+<p>A brief lapse of tonic muscle contraction, elicited by asking the patient to hold the arms outstretched with wrists dorsiflexed — the "flapping tremor", which is not a tremor at all. <strong>Bilateral asterixis means metabolic encephalopathy</strong> (hepatic, uraemic, hypercapnic, drug-induced — gabapentin, phenytoin, valproate, lithium, ceftazidime). <strong>Unilateral asterixis is a focal lesion</strong> — usually contralateral thalamus, internal capsule or midbrain — and is a genuinely localising sign that is repeatedly missed because nobody holds the arms up for long enough. Hold the posture for 30 seconds.</p>
+
+<div class="pearl"><strong>Myoclonus-dystonia</strong> (<em>SGCE</em>) presents in childhood with alcohol-responsive myoclonus of the neck, trunk and arms plus mild dystonia, and frequently with psychiatric comorbidity. The alcohol responsiveness is a strong clue. Perampanel has emerging evidence for the subcortical myoclonus component; clonazepam and valproate are the conventional options, and GPi DBS is used in refractory cases.</div>
+
+<div class="warn"><strong>Drug-induced myoclonus is broad and under-recognised.</strong> Opioids (especially at high dose or in renal failure), gabapentinoids, antidepressants, antipsychotics, antibiotics (cephalosporins, carbapenems, quinolones), lithium, levodopa, contrast agents, and antiepileptics themselves. In a hospitalised patient with new myoclonus, read the chart before you order an EEG.</div>
+
+<h2 id="ataxia"><span class="num">13</span> Ataxia</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>First separate <strong>cerebellar</strong> from <strong>sensory</strong> from <strong>vestibular</strong> ataxia — Romberg, proprioception and nystagmus do this at the bedside.</li>
+    <li>Then use <strong>tempo</strong>: hyperacute (stroke, haemorrhage), acute/subacute (toxic, post-infectious, autoimmune, Wernicke), chronic progressive (degenerative, genetic, paraneoplastic).</li>
+    <li><strong>The treatable causes must be excluded in everyone</strong>: thiamine, vitamin E, vitamin B12, hypothyroidism, coeliac, Wilson, anti-GAD and other autoimmune ataxias, and drugs (phenytoin, lithium, alcohol).</li>
+    <li>Late-onset sporadic ataxia is not a diagnosis — <strong>FGF14 (SCA27B)</strong> repeat expansion is now recognised as a common and previously missed cause.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Type</th><th>Bedside discriminators</th></tr></thead>
+<tbody>
+<tr><td><strong>Cerebellar</strong></td><td>Dysmetria, dysdiadochokinesia, intention tremor, scanning dysarthria, nystagmus, wide-based gait; <strong>Romberg negative or only mildly positive</strong>; eyes open or closed makes little difference</td></tr>
+<tr><td><strong>Sensory</strong></td><td>Loss of joint position and vibration sense; <strong>Romberg strongly positive</strong>; stamping high-stepping gait; patient watches their feet; absent reflexes</td></tr>
+<tr><td><strong>Vestibular</strong></td><td>Vertigo, nystagmus, falls to one side; normal limb coordination when tested lying down</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The acquired causes worth chasing</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Category</th><th>Examples</th><th>Test</th></tr></thead>
+<tbody>
+<tr><td>Nutritional</td><td><strong>Thiamine (Wernicke)</strong>, vitamin E, vitamin B12, copper deficiency</td><td>Treat thiamine empirically; B12 with MMA; vitamin E; copper</td></tr>
+<tr><td>Toxic</td><td>Alcohol, phenytoin, lithium, chemotherapy (5-FU, cytarabine), solvents, heavy metals</td><td>Drug levels, exposure history</td></tr>
+<tr><td>Autoimmune</td><td>Anti-GAD, gluten ataxia, Hashimoto, post-infectious cerebellitis</td><td>Anti-GAD, TPO, coeliac serology; <strong>tier D antibody panel</strong></td></tr>
+<tr><td>Paraneoplastic</td><td>Anti-Yo (ovary/breast), Hu, Tr/DNER (Hodgkin), CV2/CRMP-5</td><td>Paraneoplastic panel + malignancy screen</td></tr>
+<tr><td>Infective / post-infectious</td><td>Acute cerebellitis (children — can be fulminant with raised ICP requiring decompression), varicella, EBV, mycoplasma</td><td>Imaging, LP</td></tr>
+<tr><td>Structural / vascular</td><td>Cerebellar infarct or haemorrhage, tumour, abscess, hydrocephalus</td><td><strong>Urgent CT</strong> — cerebellar swelling is a neurosurgical emergency</td></tr>
+<tr><td>Endocrine</td><td>Hypothyroidism</td><td>TSH</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Acute cerebellitis in a child can be fulminant.</strong> Cerebellar oedema compresses the fourth ventricle, producing hydrocephalus and tonsillar herniation. Case series show that the ones who survive intact are the ones who got imaging early and neurosurgical decompression when indicated. A vomiting, drowsy, ataxic child is not gastroenteritis.</div>
+
+<h3>Genetic ataxias — orientation</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Group</th><th>Recognition</th></tr></thead>
+<tbody>
+<tr><td><strong>Autosomal dominant SCAs</strong></td><td>SCA1/2/3/6/7 commonest. SCA2 — slow saccades; SCA3 (Machado-Joseph) — bulging eyes, dystonia, pyramidal and amyotrophy, the commonest worldwide; SCA6 — pure late-onset cerebellar; SCA7 — <strong>retinal degeneration with visual loss</strong>; SCA17 — HD phenocopy</td></tr>
+<tr><td><strong>SCA27B / <em>FGF14</em></strong></td><td>A GAA repeat expansion causing <strong>late-onset, often episodic, downbeat-nystagmus-prominent ataxia</strong>. It is common, standard panels missed it, and it is <strong>responsive to 4-aminopyridine</strong> in many patients — a diagnostic blind spot with a treatment attached</td></tr>
+<tr><td><strong>Friedreich ataxia</strong></td><td>Commonest recessive ataxia; <em>FXN</em> GAA expansion; ataxia with <strong>areflexia but extensor plantars</strong>, scoliosis, pes cavus, cardiomyopathy, diabetes. <strong>Omaveloxolone</strong> is now approved; gene and cell therapies are in development</td></tr>
+<tr><td><strong>Ataxia-telangiectasia</strong></td><td>Childhood ataxia, oculocutaneous telangiectasia, immunodeficiency, malignancy risk, raised alpha-fetoprotein</td></tr>
+<tr><td><strong>ARSACS</strong></td><td>Spastic ataxia with retinal nerve fibre thickening and a characteristic pontine hypointense stripe on MRI; recessive, <em>SACS</em></td></tr>
+<tr><td><strong>Episodic ataxias</strong></td><td>EA1 (myokymia, brief attacks) and EA2 (longer attacks, interictal nystagmus, <strong>responds to acetazolamide</strong>)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>Separating MSA-C from idiopathic late-onset cerebellar ataxia matters for prognosis.</strong> Look for autonomic failure, early falls, pyramidal signs, and the MRI markers — the hot-cross-bun sign, middle cerebellar peduncle atrophy, and the "phalanx sign" described for discriminating MSA-C from ILOCA. Predictive-factor studies show a substantial proportion of apparently idiopathic late-onset ataxias convert to MSA-C over follow-up, so review them rather than discharging them.</div>
+
+<h2 id="rls"><span class="num">14</span> Restless legs syndrome</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Five essential criteria (URGE): an <strong>U</strong>rge to move, worse at <strong>R</strong>est, relieved by movement (<strong>G</strong>etting up), worse in the <strong>E</strong>vening/night — <em>and</em> not better explained by another condition (leg cramps, positional discomfort, neuropathy, akathisia).</li>
+    <li><strong>Check ferritin and transferrin saturation in everyone.</strong> Iron repletion is the single most effective disease-modifying intervention, and the threshold is much higher than for anaemia: treat if <strong>ferritin &lt;75 µg/L or TSAT &lt;20%</strong>.</li>
+    <li><strong>Alpha-2-delta ligands (gabapentin, pregabalin, gabapentin enacarbil) are now preferred first-line over dopamine agonists</strong> because agonists cause augmentation.</li>
+    <li><strong>Augmentation</strong> — earlier onset, greater intensity, spread to the arms, shorter latency at rest — is the central long-term hazard of dopaminergic treatment and is often mistaken for disease progression, then treated with more agonist.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Step</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>1 — Confirm and exclude mimics</td><td>Apply the five criteria; exclude neuropathy, akathisia, nocturnal cramps, vascular claudication, positional discomfort</td></tr>
+<tr><td>2 — Look for secondary causes</td><td><strong>Iron deficiency</strong>, pregnancy, renal failure/dialysis, and <strong>drugs</strong>: antidepressants (especially mirtazapine and SSRIs), antipsychotics, antihistamines, metoclopramide</td></tr>
+<tr><td>3 — Non-drug measures</td><td>Sleep hygiene, moderate exercise, reduce caffeine/alcohol/nicotine; withdraw the offending drug where possible</td></tr>
+<tr><td>4 — Iron</td><td>Oral iron with vitamin C on an empty stomach (alternate days improves absorption) if ferritin &lt;75; IV iron where available and for malabsorption or intolerance</td></tr>
+<tr><td>5 — First-line drug</td><td><strong>Alpha-2-delta ligand</strong>: gabapentin, pregabalin, or gabapentin enacarbil. Sedation, dizziness, weight gain; reduce in renal impairment</td></tr>
+<tr><td>6 — Alternatives</td><td>Low-dose dopamine agonist (accepting augmentation risk); oxycodone/low-dose opioids for severe refractory RLS in specialist hands</td></tr>
+<tr><td>7 — Manage augmentation</td><td>Do <strong>not</strong> increase the agonist. Check iron again, split or bring the dose earlier as a temporary measure, then cross-taper to an alpha-2-delta ligand or opioid with specialist support</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>The commonest RLS error is treating augmentation with a bigger dopamine agonist dose.</strong> Symptoms improve for weeks, then return worse and earlier in the day, and the cycle repeats until the patient is on a high dose with round-the-clock symptoms. If a patient on an agonist reports their RLS has "spread" or now starts in the afternoon, think augmentation first — not progression.</div>
+
+<h2 id="sps"><span class="num">15</span> Stiff-person spectrum disorders</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Axial and proximal rigidity with superimposed painful spasms</strong>, exaggerated lumbar lordosis, and a startle-triggered, stimulus-sensitive quality.</li>
+    <li><strong>High-titre anti-GAD65</strong> is the classic association; anti-amphiphysin points to a <strong>paraneoplastic</strong> cause (breast, small-cell lung) and demands a malignancy search; glycine receptor antibodies associate with PERM.</li>
+    <li>It is strongly associated with <strong>other autoimmune disease</strong> — meta-analysis confirms a high rate of comorbid autoimmunity, type 1 diabetes and thyroid disease above all.</li>
+    <li>Two arms of treatment: <strong>symptomatic GABAergic</strong> (benzodiazepines, baclofen) and <strong>immunotherapy</strong> (IVIG has the best trial evidence; steroids, rituximab, plasma exchange).</li>
+  </ul>
+</div>
+
+<p>The spectrum runs from <strong>focal/stiff-limb syndrome</strong>, through <strong>classic stiff-person syndrome</strong>, to <strong>PERM</strong> (progressive encephalomyelitis with rigidity and myoclonus — brainstem signs, autonomic instability, often glycine-receptor antibody positive and often severe). Electromyography shows continuous motor unit activity in an agonist–antagonist pair at rest that cannot be voluntarily relaxed.</p>
+
+<div class="pearl"><strong>It is very commonly misdiagnosed as functional or psychiatric</strong>, because the spasms are triggered by emotion and startle, the patients develop marked task-specific phobias (crossing a road, open spaces) that look like agoraphobia, and early examination between spasms can be near-normal. Anxiety in stiff-person syndrome is usually a consequence of the falls and the spasms, not the cause of them. Take a careful history of stimulus-triggered stiffening and look for the fixed lumbar lordosis.</div>
+
+<div class="warn"><strong>Do not stop benzodiazepines abruptly in these patients.</strong> They are often on very high doses of diazepam or clonazepam for genuine reasons, and abrupt reduction — sometimes attempted by a team who see the dose and assume dependence — can precipitate severe spasms, autonomic instability and death.</div>
+
+<h2 id="fmd"><span class="num">16</span> Functional movement disorders</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>This is a <strong>positive, rule-in diagnosis</strong> made on specific examination signs — not a diagnosis of exclusion, and not a diagnosis made because the tests were normal.</li>
+    <li>The core signs: <strong>distractibility, entrainment, variability, incongruence, suggestibility</strong>, and the <strong>Hoover sign</strong> for functional weakness.</li>
+    <li>Functional and organic movement disorders <strong>coexist in a substantial minority</strong> — finding functional signs does not exclude Parkinson disease.</li>
+    <li><strong>How you explain the diagnosis is itself the treatment.</strong> Explanation plus specialist physiotherapy is the evidence-based pathway.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Sign</th><th>How to elicit</th><th>What it shows</th></tr></thead>
+<tbody>
+<tr><td><strong>Distractibility</strong></td><td>Complex motor or cognitive task with the other limb (sequential finger tapping, serial 7s)</td><td>Tremor reduces or stops</td></tr>
+<tr><td><strong>Entrainment</strong></td><td>Ask the patient to tap a rhythm with the unaffected hand</td><td>Tremor frequency shifts to match the tapped rhythm, or the patient cannot perform the tapping at all</td></tr>
+<tr><td><strong>Variability</strong></td><td>Observe over time</td><td>Frequency, amplitude and distribution change during the consultation</td></tr>
+<tr><td><strong>Co-activation sign</strong></td><td>Passively move the limb</td><td>Simultaneous agonist and antagonist contraction; resistance that disappears if you distract</td></tr>
+<tr><td><strong>Hoover sign</strong></td><td>Hand under the "good" heel while the patient lifts the weak leg</td><td>Involuntary extension of the weak hip when the good hip flexes against resistance</td></tr>
+<tr><td><strong>Whack-a-mole sign</strong></td><td>Restrain the affected body part</td><td>The movement appears somewhere else</td></tr>
+<tr><td><strong>Fixed dystonia pattern</strong></td><td>Observe posture</td><td>Sudden onset, fixed clenched fist or inverted plantar-flexed foot, often after minor injury, often with pain (CRPS overlap) — a pattern unusual for organic dystonia</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Explaining the diagnosis</h3>
+<ol>
+  <li><strong>Name it.</strong> "You have a functional movement disorder." Give it a real name rather than a list of things it is not.</li>
+  <li><strong>Show them the sign.</strong> Demonstrate the entrainment or the Hoover sign. This is the most persuasive thing you can do — the diagnosis is visible.</li>
+  <li><strong>Explain the mechanism.</strong> A problem with the <em>software</em>, not the <em>hardware</em>: the nervous system is structurally intact but the movement is not being generated normally. Emphasise that the movements are genuinely involuntary.</li>
+  <li><strong>Say it is not imagined and not their fault</strong>, and that it is potentially reversible.</li>
+  <li><strong>Refer to physiotherapy</strong> with a functional-disorder approach — retraining normal movement, not strengthening. Psychological therapy where there are relevant comorbidities, but do not present it as a psychiatric diagnosis.</li>
+</ol>
+
+<div class="warn"><strong>Two errors, in opposite directions.</strong> Diagnosing "functional" because the imaging was normal and the presentation was odd — many organic movement disorders are odd, and dystonia in particular has been repeatedly misdiagnosed this way for decades. And missing a functional overlay in a patient with established PD, where fluctuating, distractible symptoms lead to endless and futile increases in dopaminergic medication.</div>
+
+<h2 id="parox"><span class="num">17</span> Paroxysmal dyskinesias</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Episodic dyskinesia — dystonia, chorea or both — with a <strong>normal neurological examination between attacks</strong>. Classify by trigger.</li>
+    <li><strong>PKD</strong> (kinesigenic): triggered by a sudden movement or startle; brief (seconds to &lt;1 min), very frequent; <em>PRRT2</em>; <strong>exquisitely responsive to low-dose carbamazepine</strong>.</li>
+    <li><strong>PNKD</strong> (non-kinesigenic): triggered by coffee, alcohol, stress, fatigue; longer (minutes to hours), less frequent; <em>PNKD/MR-1</em>; avoid triggers, benzodiazepines.</li>
+    <li><strong>PED</strong> (exertion-induced): after sustained exercise; <em>SLC2A1</em> (GLUT1 deficiency) — and that one is treatable with a <strong>ketogenic diet</strong>. Check CSF glucose ratio.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th></th><th>PKD</th><th>PNKD</th><th>PED</th></tr></thead>
+<tbody>
+<tr><td>Trigger</td><td>Sudden voluntary movement, startle, change of direction</td><td>Coffee, alcohol, stress, fatigue, hunger</td><td>Prolonged exercise (10–15 min of walking)</td></tr>
+<tr><td>Duration</td><td>Seconds to &lt;1 minute</td><td>Minutes to hours</td><td>Minutes</td></tr>
+<tr><td>Frequency</td><td>Up to many per day</td><td>Occasional — days to months apart</td><td>Variable</td></tr>
+<tr><td>Age of onset</td><td>Childhood–adolescence</td><td>Infancy–childhood</td><td>Childhood</td></tr>
+<tr><td>Gene</td><td><em>PRRT2</em></td><td><em>PNKD</em> (MR-1)</td><td><em>SLC2A1</em> (GLUT1)</td></tr>
+<tr><td>Treatment</td><td><strong>Carbamazepine or oxcarbazepine, low dose — dramatic</strong></td><td>Trigger avoidance; clonazepam</td><td><strong>Ketogenic diet</strong>; avoid prolonged exertion</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>Large genetically proven cohorts have reshaped this field.</strong> Analysis of 500 genetically confirmed cases supports classifying by trigger rather than by phenomenology, shows considerable phenotypic overlap between genes, and confirms that secondary causes — multiple sclerosis, stroke, hypoparathyroidism and other metabolic disease, and hyperglycaemia — must be excluded, particularly in adult-onset cases. Adult onset is the red flag for a secondary cause.</div>
+
+<div class="warn"><strong>PKD is frequently misdiagnosed as epilepsy and treated with the wrong drug at the wrong dose for years.</strong> There is no impairment of awareness, no post-ictal state, and the trigger is movement. It is also frequently called functional because the attacks are brief, triggered and unwitnessed. A low-dose carbamazepine trial is both diagnostic and therapeutic.</div>
+
+<h2 id="hfs"><span class="num">18</span> Hemifacial spasm</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Unilateral, involuntary, synchronous contraction of muscles supplied by the facial nerve</strong>, usually starting in orbicularis oculi and spreading down the face; it <strong>persists in sleep</strong>.</li>
+    <li>Most cases are caused by <strong>neurovascular compression</strong> of the facial nerve root exit zone, usually by the AICA, PICA or vertebral artery.</li>
+    <li><strong>Botulinum toxin is first-line</strong> — effective in the great majority, repeated every 3–4 months.</li>
+    <li><strong>Microvascular decompression is the only curative option</strong>, with high long-term cure rates in systematic reviews, at the cost of hearing loss and facial weakness in a small percentage.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Differential</th><th>Distinguishing features</th></tr></thead>
+<tbody>
+<tr><td><strong>Blepharospasm</strong></td><td>Bilateral, symmetric, confined to the eyes, sensory tricks, stops in sleep</td></tr>
+<tr><td><strong>Facial myokymia</strong></td><td>Continuous fine rippling; think <strong>brainstem lesion — MS or pontine glioma</strong>. Always image</td></tr>
+<tr><td><strong>Facial tics</strong></td><td>Suppressible, premonitory urge, may be bilateral, stereotyped</td></tr>
+<tr><td><strong>Post-paralytic facial synkinesis</strong></td><td>Follows Bell palsy; co-contraction with voluntary movement, plus weakness</td></tr>
+<tr><td><strong>Functional facial spasm</strong></td><td>Often tonic lip pulling, variable, distractible; frequently downward mouth deviation</td></tr>
+<tr><td><strong>Focal seizure</strong></td><td>Spreads in a Jacksonian fashion, may impair awareness</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Image everyone once.</strong> Although most hemifacial spasm is from vascular compression, a minority is caused by a cerebellopontine angle tumour, an arteriovenous malformation, or a demyelinating lesion. MRI with dedicated posterior fossa sequences is a tier-D investigation, but it should actually happen — and any atypical feature (facial weakness, hearing loss, other cranial nerve signs, bilateral involvement, onset in the lower face) moves it up the list.</div>
+
+<h2 id="dimd"><span class="num">19</span> Drug-induced movement disorders</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Timing separates them.</strong> Acute dystonic reaction — hours to days. Akathisia — days to weeks. Parkinsonism — weeks to months. Tardive syndromes — months to years, and by definition after ≥3 months of exposure (≥1 month over age 60).</li>
+    <li><strong>Akathisia is the one that gets treated with more of the drug that caused it.</strong> Ask about the inner restlessness, not just the movement.</li>
+    <li><strong>Tardive dyskinesia is often irreversible</strong> — and increasing the dose masks it temporarily, which is how it becomes permanent.</li>
+    <li><strong>VMAT2 inhibitors (valbenazine, deutetrabenazine) are the evidence-based treatment for tardive dyskinesia</strong>; anticholinergics help tardive dystonia but <em>worsen</em> tardive dyskinesia.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Syndrome</th><th>Onset</th><th>Features</th><th>Management</th></tr></thead>
+<tbody>
+<tr><td><strong>Acute dystonic reaction</strong></td><td>Hours–days (often after the first dose)</td><td>Oculogyric crisis, torticollis, trismus, laryngospasm; young men most at risk; frightening and painful</td><td><strong>IV/IM anticholinergic</strong> (benztropine, biperiden) or diphenhydramine; repeat; oral cover 48–72 h. Laryngospasm is an airway emergency</td></tr>
+<tr><td><strong>Akathisia</strong></td><td>Days–weeks</td><td>Inner restlessness, inability to sit still, pacing, rocking; strongly associated with distress and suicidality</td><td>Reduce or change the drug; <strong>propranolol</strong>; mirtazapine, benzodiazepines; anticholinergics less effective</td></tr>
+<tr><td><strong>Drug-induced parkinsonism</strong></td><td>Weeks–months</td><td>Symmetric bradykinesia and rigidity, often with tremor</td><td>Withdraw or substitute; may take &gt;6 months to resolve; avoid starting levodopa reflexively</td></tr>
+<tr><td><strong>Tardive dyskinesia</strong></td><td>Months–years</td><td>Orobuccolingual stereotypy, chewing, tongue movements, choreiform limb and trunk movements</td><td><strong>Valbenazine or deutetrabenazine</strong>; switch to a lower-risk antipsychotic (clozapine) if it must be continued; <strong>do not give anticholinergics</strong></td></tr>
+<tr><td><strong>Tardive dystonia</strong></td><td>Months–years</td><td>Often retrocollis and truncal extension; younger patients; more disabling and more persistent than TD</td><td>Anticholinergics <em>do</em> help here; botulinum toxin; VMAT2 inhibitors; GPi DBS in severe cases</td></tr>
+<tr><td><strong>Tardive akathisia</strong></td><td>Late</td><td>Persistent restlessness after drug withdrawal or dose reduction</td><td>As for tardive dyskinesia</td></tr>
+<tr><td><strong>Neuroleptic malignant syndrome</strong></td><td>Days–weeks</td><td>Lead-pipe rigidity, hyperthermia, autonomic instability, altered consciousness, raised CK</td><td><strong>Emergency</strong> — see §21</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="trial"><strong>VMAT2 inhibitors in tardive dyskinesia.</strong> Four double-blind trials underpin current practice: deutetrabenazine (ARM-TD, AIM-TD) and valbenazine (KINECT-3, J-KINECT). Both produced significant AIMS improvement versus placebo with low rates of serious adverse events and no significant excess of QT prolongation or parkinsonism in these trials. In practice the choice is driven by availability and dosing convenience — valbenazine is once daily; deutetrabenazine is twice daily with food and requires titration.</div>
+
+<div class="warn"><strong>Anticholinergics: right drug, wrong syndrome.</strong> They are the treatment for acute dystonic reaction and they help tardive dystonia — but they <strong>worsen tardive dyskinesia</strong>, and in the elderly they cause confusion, urinary retention and falls. An evidence-based review of anticholinergic use in drug-induced movement disorders makes the same point: prophylactic long-term anticholinergics with antipsychotics are not justified, and they are continued far too often after the original indication has gone.</div>
+
+<h2 id="wilson"><span class="num">20</span> Wilson disease, NBIA &amp; PFBC</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Wilson disease is treatable and fatal if missed.</strong> Exclude it in every patient under 50 with an unexplained movement disorder, and in anyone with a movement disorder plus abnormal liver function or unexplained psychiatric illness.</li>
+    <li>No single test is sufficient. <strong>A normal caeruloplasmin does not exclude Wilson</strong> — it is an acute-phase reactant and is normal in a meaningful minority.</li>
+    <li><strong>Neurological Wilson almost always has Kayser–Fleischer rings</strong> on slit lamp — but hepatic presentations often do not, so their absence never excludes the disease.</li>
+    <li><strong>Never start D-penicillamine alone in a patient with neurological Wilson without specialist input</strong> — paradoxical neurological worsening is well described.</li>
+  </ul>
+</div>
+
+<h3>Making the diagnosis of Wilson disease</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Test</th><th>Typical result</th><th>The trap</th></tr></thead>
+<tbody>
+<tr><td>Serum caeruloplasmin</td><td>Low (&lt;0.2 g/L)</td><td>Normal in inflammation, pregnancy, oestrogen use, and in a substantial minority of confirmed cases; low in protein loss, malnutrition, heterozygote carriers</td></tr>
+<tr><td>24-hour urinary copper</td><td>&gt;100 µg/24 h (&gt;1.6 µmol)</td><td>Needs a correctly collected, complete, copper-free container; falsely high with contamination</td></tr>
+<tr><td>Slit-lamp for KF rings</td><td>Present in almost all neurological cases</td><td>Requires an ophthalmologist and a slit lamp — <strong>a bedside torch examination is not adequate</strong></td></tr>
+<tr><td>Serum free (non-caeruloplasmin-bound) copper</td><td>Elevated</td><td>Calculation is unreliable if caeruloplasmin is measured immunologically</td></tr>
+<tr><td>Liver biopsy copper</td><td>&gt;250 µg/g dry weight</td><td>Sampling error; invasive</td></tr>
+<tr><td>MRI brain</td><td>Putaminal, midbrain and pontine changes; "face of the giant panda"</td><td>Non-specific; tier D</td></tr>
+<tr><td><em>ATP7B</em> genetics</td><td>Two pathogenic variants</td><td>Definitive but slow; many private variants</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Treatment</strong> is lifelong: chelation with <strong>D-penicillamine</strong> (with pyridoxine) or <strong>trientine</strong>, or <strong>zinc</strong> (which blocks intestinal copper absorption and is often preferred for maintenance and in presymptomatic patients). Avoid high-copper foods — shellfish, liver, nuts, chocolate, mushrooms. Screen all first-degree relatives; a sibling has a 25% chance of being affected, and treating a presymptomatic sibling prevents the disease entirely. That family screening is one of the highest-value things you will do in this module.</p>
+
+<h3>NBIA and PFBC</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Disorder</th><th>Recognition</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>PKAN</strong> (<em>PANK2</em>)</td><td>Childhood dystonia, parkinsonism, pigmentary retinopathy; <strong>eye-of-the-tiger</strong> on T2 MRI</td><td>Commonest NBIA; classic and atypical forms</td></tr>
+<tr><td>Other NBIA</td><td><em>PLA2G6</em>, mitochondrial membrane protein-associated neurodegeneration, beta-propeller protein-associated neurodegeneration, aceruloplasminaemia, neuroferritinopathy</td><td>Seizures are common across NBIA subtypes; emerging precision therapies target the specific metabolic defect</td></tr>
+<tr><td><strong>PFBC</strong> (primary familial brain calcification)</td><td>Bilateral symmetric basal ganglia and dentate calcification; parkinsonism, ataxia, chorea, psychiatric features, headache, seizures; often incidental</td><td><strong>CT is the imaging test of choice</strong> — more sensitive than MRI for calcium. Exclude hypoparathyroidism and other secondary causes first (calcium, phosphate, PTH). <em>SLC20A2</em> is the commonest gene in MDSGene analysis</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>Before calling basal ganglia calcification "primary", check calcium, phosphate and PTH.</strong> Hypoparathyroidism and pseudohypoparathyroidism are treatable causes of exactly this picture, and those three tests are tier A.</div>
+
+<h2 id="emerg"><span class="num">21</span> Movement-disorder emergencies</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Four things must be recognised within minutes: <strong>NMS, serotonin syndrome, acute dystonic reaction with laryngospasm, and parkinsonism-hyperpyrexia syndrome</strong>.</li>
+    <li><strong>NMS versus serotonin syndrome</strong> turns on the muscle findings and the reflexes: lead-pipe rigidity and hyporeflexia in NMS; <strong>clonus, hyperreflexia and myoclonus</strong> in serotonin syndrome, greatest in the legs.</li>
+    <li><strong>Parkinsonism-hyperpyrexia</strong> follows abrupt withdrawal of dopaminergic therapy — including a missed drug chart on admission, or nil-by-mouth before surgery.</li>
+    <li>Status dystonicus is a true emergency with rhabdomyolysis and renal failure as the endpoint.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th></th><th>NMS</th><th>Serotonin syndrome</th><th>Malignant hyperthermia</th><th>Parkinsonism-hyperpyrexia</th></tr></thead>
+<tbody>
+<tr><td>Trigger</td><td>Dopamine blocker started or increased</td><td>Serotonergic drug, often a combination</td><td>Volatile anaesthetic, suxamethonium</td><td>Dopaminergic drug stopped, reduced, or DBS failure</td></tr>
+<tr><td>Onset</td><td>Days to weeks</td><td><strong>Within 24 hours</strong></td><td>Minutes intraoperatively</td><td>Days after withdrawal</td></tr>
+<tr><td>Muscle tone</td><td><strong>Lead-pipe rigidity</strong>, generalized</td><td>Rigidity greater in the <strong>legs</strong>, with <strong>clonus</strong></td><td>Masseter spasm then generalized</td><td>Severe rigidity</td></tr>
+<tr><td>Reflexes</td><td>Normal or reduced</td><td><strong>Hyperreflexia, inducible clonus</strong></td><td>—</td><td>Reduced</td></tr>
+<tr><td>Pupils / GI</td><td>Normal</td><td><strong>Mydriasis, diarrhoea, hyperactive bowel sounds</strong></td><td>—</td><td>Normal</td></tr>
+<tr><td>Treatment</td><td>Stop the drug; cooling, fluids, benzodiazepines; bromocriptine or dantrolene; ICU</td><td>Stop the drug; benzodiazepines; <strong>cyproheptadine</strong>; ICU</td><td><strong>Dantrolene</strong>; stop the trigger</td><td><strong>Restart dopaminergic therapy</strong> — NG tube, rotigotine patch, or apomorphine; supportive care</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>The commonest way a hospital causes parkinsonism-hyperpyrexia syndrome is by making a PD patient nil by mouth.</strong> Every admitted PD patient needs their exact levodopa timings prescribed and given on time — not with the medication round. If they cannot swallow, convert to a <strong>rotigotine patch</strong> or give levodopa via NG tube; do not simply omit doses. Print the conversion table and keep it in the ward folder.</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Emergency</th><th>Recognition</th><th>Immediate action</th></tr></thead>
+<tbody>
+<tr><td><strong>Status dystonicus</strong></td><td>Increasingly frequent and severe generalized dystonic spasms; bulbar and respiratory compromise; rising CK; often triggered by infection, drug change or pain in a patient with known dystonia</td><td>ICU; treat the trigger; sedation with benzodiazepines, then anaesthetic agents; rehydration and renal protection against rhabdomyolysis; urgent consideration of GPi DBS or intrathecal baclofen</td></tr>
+<tr><td><strong>Acute dystonic reaction with laryngospasm</strong></td><td>Stridor, inability to speak, after an antiemetic or antipsychotic</td><td>Airway first, then IV anticholinergic — this is reversible within minutes</td></tr>
+<tr><td><strong>Acute hemiballism</strong></td><td>Sudden violent flinging of one side</td><td>Glucose, then CT; padding and sedation to prevent exhaustion and injury; treat hyperglycaemia; VMAT2 inhibitor or antipsychotic if it persists</td></tr>
+<tr><td><strong>Serotonin syndrome from a movement-disorder drug combination</strong></td><td>MAO-B inhibitor plus tramadol, pethidine, linezolid or an SSRI/SNRI</td><td>Recognise the interaction before you prescribe — this is one of the few places rasagiline or selegiline becomes dangerous</td></tr>
+</tbody>
+</table>
+</div>
 
 <hr>
-<h2 id="evidence">10. Evidence library (provided sources)</h2>
-<p>Papers from the <em>Module 6 resource</em> folder used to build this module, grouped by theme.</p>
-<h4>Parkinson disease — therapy &amp; genetics</h4>
+<h2 id="criteria"><span class="num">22</span> Landmark trials — who was included &amp; excluded</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Every practice-changing number below came from a <strong>specific enrolled population</strong> — the eligibility criteria <em>are</em> the indication.</li>
+    <li>The recurring gatekeepers in movement disorders: <strong>age, disease duration, severity threshold on a named scale, prior drug failures, cognitive and psychiatric screening, and QTc</strong>.</li>
+    <li>Note how often <strong>cognitive impairment and depression are exclusions</strong> — which is precisely why you must screen for both before offering these treatments.</li>
+  </ul>
+</div>
+
+<h3>Parkinson disease</h3>
+<h4>LEAP — early versus delayed levodopa (long-term follow-up, Mov Disord 2024)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Diagnosis of Parkinson disease <strong>within the previous 2 years</strong> by standard clinical criteria</li>
+    <li><strong>Insufficient disability to warrant antiparkinson medication</strong> at entry</li>
+    <li>Age <strong>≥30 years</strong>; life expectancy &gt;2 years</li>
+    <li>For the follow-up: completed the first 80 weeks and consented</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Any <strong>previous antiparkinson medication</strong></li>
+    <li><strong>Tremor as the most prominent symptom</strong> — a severe near-continuous or disabling rest tremor</li>
+    <li><strong>Dementia</strong></li>
+    <li>Features indicating <strong>atypical or secondary parkinsonism</strong></li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> at 5 years (321 completers) no difference in adjusted total UPDRS (difference 0.24, SE 0.13, P = 0.07); no difference in wearing-off prevalence or levodopa equivalent daily dose. <span class="src">Note the exclusions: this does not tell you about tremor-dominant or already-disabled patients.</span></p>
+
+<h4>ADAGIO — delayed-start rasagiline (NEJM 2009)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Men and women aged <strong>30–80 years</strong>, <strong>not currently receiving</strong> any PD treatment</li>
+    <li>PD diagnosed by ≥2 of 3 cardinal features (rest tremor, bradykinesia, rigidity); if no rest tremor, <strong>unilateral onset</strong> required</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Any antiparkinsonian medication for <strong>&gt;3 weeks</strong> previously; rasagiline or selegiline at any dose, or coenzyme Q10 &gt;300 mg/day, within <strong>120 days</strong></li>
+    <li><strong>Disease duration &gt;18 months</strong> since diagnosis</li>
+    <li><strong>Hoehn and Yahr stage ≥3</strong></li>
+    <li>Atypical or secondary parkinsonism</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> early-start <strong>1 mg/day met all three</strong> hierarchical endpoints (0.09 vs 0.14 UPDRS points/week between weeks 12–36, P = 0.01; 2.82 vs 4.52 points worsening at 72 weeks). Early-start <strong>2 mg/day did not</strong>. <span class="src">The dose dissociation is the reason neuroprotection is not accepted.</span></p>
+
+<h4>EARLYSTIM — STN stimulation with early motor complications (NEJM 2013)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Age <strong>18–60 years</strong></li>
+    <li>Disease duration <strong>≥4 years</strong></li>
+    <li>Hoehn and Yahr <strong>&lt;3 in the on-medication state</strong></li>
+    <li><strong>≥50% improvement in motor signs with dopaminergic medication</strong> (UPDRS-III)</li>
+    <li>Fluctuations or dyskinesia present for <strong>≤3 years</strong></li>
+    <li>UPDRS-II &gt;6 in the worst condition despite treatment, or mild-to-moderate social/occupational impairment</li>
+  </ul>
+</td><td>
+  <ul>
+    <li><strong>Dementia</strong> (Mattis Dementia Rating Scale ≤130)</li>
+    <li><strong>Major depression with suicidal thoughts</strong> (Beck Depression Inventory II &gt;25)</li>
+    <li><strong>Acute psychosis</strong></li>
+    <li>Any medical or psychological problem interfering with the protocol</li>
+    <li>Disease duration &lt;4 years — <em>deliberately, because atypical parkinsonism would be expected to declare itself by then</em></li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> PDQ-39 improved 7.8 points with stimulation, worsened 0.2 with medical therapy; between-group difference <strong>8.0 points</strong> (P = 0.002), plus superiority for motor disability, ADLs and motor complications.</p>
+
+<h3>Tremor</h3>
+<h4>Focused ultrasound thalamotomy for essential tremor (NEJM 2016)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Essential tremor diagnosed by a movement-disorders neurologist</li>
+    <li><strong>Moderate-to-severe</strong> postural or intention hand tremor (CRST component score <strong>≥2</strong>)</li>
+    <li><strong>Disabling</strong> — score ≥2 on any of the 8 CRST disability items</li>
+    <li>Tremor <strong>refractory to ≥2 medication trials</strong>, including ≥1 first-line agent (<strong>propranolol or primidone</strong>)</li>
+    <li>Stable doses for 30 days; adequate <strong>skull density ratio ≥0.45</strong> on screening CT</li>
+  </ul>
+</td><td>
+  <ul>
+    <li><strong>Neurodegenerative condition</strong></li>
+    <li>Unstable cardiac disease; coagulopathy; DVT risk factors</li>
+    <li><strong>Severe depression</strong> (PHQ-9 ≥20)</li>
+    <li><strong>Cognitive impairment</strong> (MMSE &lt;24)</li>
+    <li>Previous brain procedure — TMS, DBS, stereotactic lesioning or ECT</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> hand tremor improved <strong>47%</strong> vs <strong>0.1%</strong> sham; between-group difference <strong>8.3 points</strong> (95% CI 5.9–10.7, P&lt;0.001). Gait disturbance and paraesthesia/numbness (38%) persisted at 12 months in 9% and 14%. At 3 years, 38–50% hand-tremor improvement sustained. <span class="src">The skull density ratio is the criterion most often forgotten — some patients are anatomically ineligible.</span></p>
+
+<h4>Focused ultrasound thalamotomy in tremor-dominant PD (JAMA Neurol 2017)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Adults with idiopathic <strong>tremor-dominant PD</strong> confirmed by UK Brain Bank criteria by a movement-disorders neurologist</li>
+    <li>Tremor deemed <strong>medication-refractory, severe and disabling</strong></li>
+    <li>Randomised 2:1 to FUS thalamotomy or sham; 27 patients (26 male, median age 67.8)</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>As per the ET trial: significant cognitive impairment, unstable medical disease, coagulopathy, inadequate skull density ratio</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> on-medication median tremor scores improved <strong>62%</strong> (IQR 22–79%) vs <strong>22%</strong> after sham. Adverse events: orofacial paraesthesia (20%), finger paraesthesia (5%), ataxia (5%). <span class="src">Unilateral and lesional — it treats tremor only, not bradykinesia, rigidity or fluctuations.</span></p>
+
+<h3>Chorea</h3>
+<h4>Tetrabenazine in Huntington disease (TETRA-HD, Neurology 2006)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>HD confirmed by characteristic chorea, family history and <strong>expanded CAG repeat (n ≥37)</strong></li>
+    <li><strong>Independently ambulatory</strong></li>
+    <li>Screening <strong>total functional capacity &gt;5</strong></li>
+    <li><strong>Total maximal chorea ≥10</strong> on the UHDRS motor subscale</li>
+    <li>Accompanied by a caregiver</li>
+  </ul>
+</td><td>
+  <ul>
+    <li><strong>Disabling depression, dysphagia or dysarthria</strong></li>
+    <li>Previous tetrabenazine; current dopamine-depleting drugs, D2 blockers, MAOIs, levodopa, dopamine agonists, amantadine or memantine (D2 blockers allowed if off ≥4 weeks)</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> chorea fell <strong>5.0 UHDRS units</strong> versus <strong>1.5</strong> on placebo (adjusted effect −3.5 ± 0.8).</p>
+
+<h4>Deutetrabenazine in Huntington disease (First-HD, JAMA 2016)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Ambulatory adults with manifest HD; characteristic motor findings and <strong>CAG ≥36</strong></li>
+    <li><strong>UHDRS total maximal chorea ≥8</strong> at screening and baseline</li>
+    <li>Total functional capacity <strong>≥5</strong> (stages I–III)</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Serious untreated or undertreated <strong>psychiatric illness</strong> (stable antidepressants allowed)</li>
+    <li><strong>HADS depression subscale ≥11</strong>, or any history of significant suicidal thoughts or behaviour</li>
+    <li><strong>Prolonged QTc</strong>, left bundle-branch block, hepatic or renal impairment</li>
+    <li><strong>Swallowing Disturbance Questionnaire ≥11</strong>; UPDRS speech item ≥3</li>
+    <li>QT-prolonging drugs other than escitalopram/citalopram</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> total maximal chorea <strong>12.1 → 7.7</strong> with deutetrabenazine versus <strong>13.2 → 11.3</strong> with placebo over 12 weeks. <span class="src">The depression, suicidality, QTc and swallowing exclusions are the safety checklist you should run before prescribing either drug.</span></p>
+
+<h3>Dystonia</h3>
+<h4>DaxibotulinumtoxinA in cervical dystonia (ASPEN-1)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li>Adults <strong>18–80 years</strong></li>
+    <li><strong>Moderate-to-severe cervical dystonia</strong> — TWSTRS total score <strong>≥20</strong></li>
+    <li>Randomised 3:3:1 to DAXI 125U, DAXI 250U or placebo (n = 357); 83% had prior botulinum toxin</li>
+  </ul>
+</td><td>
+  <ul>
+    <li><strong>Predominant retrocollis or anterocollis</strong> posture</li>
+    <li>Cervical dystonia <strong>attributable to an underlying aetiology</strong> (i.e. secondary dystonia)</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> TWSTRS improvement −12.0 (125U) versus placebo; median duration of effect <strong>24.1 weeks</strong> (125U). Treatment-related dysphagia 4.7%, muscle weakness 5.4%.</p>
+
+<h3>Tics</h3>
+<h4>Behavioural therapy in Tourette syndrome (meta-analysis of RCTs)</h4>
+<div class="tw">
+<table>
+<thead><tr><th>Included</th><th>Excluded</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li><strong>Randomised controlled trials</strong> only</li>
+    <li>Participants <strong>aged ≤18</strong> with Tourette syndrome or chronic tic disorder</li>
+    <li>Intervention was <strong>behavioural therapy</strong> (CBIT, HRT, CBT) versus a non-behavioural comparator</li>
+    <li>Reported <strong>YGTSS or PTQ</strong> outcomes</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Non-randomised studies</li>
+    <li>Participants aged <strong>&gt;18</strong></li>
+    <li>Non-behavioural interventions</li>
+    <li>No YGTSS or PTQ measure available</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+<p><em>Result:</em> behavioural therapy produced significant tic reduction with benefit sustained at follow-up. <span class="src">Note the age ceiling — the adult evidence base is much thinner, which matters when you are asked to treat a 25-year-old.</span></p>
+
+<hr>
+<h2 id="evidence"><span class="num">23</span> Evidence library</h2>
+<div class="key"><div class="kh">▎Key points</div><ul><li>All <strong>110 papers</strong> in the Module 6 resource folder, grouped by theme, so you can find the source behind any statement in this module.</li><li>Titles are given as supplied. Journal and year are cited in the text only where they were read directly from the paper — no identifiers have been inferred.</li></ul></div>
+<h3>Parkinson disease — diagnosis, genetics &amp; risk <span class="src">(4)</span></h3>
 <ul>
-  <li>Long-Term Follow-Up of the LEAP Study — Early vs Delayed Levodopa; "Does Delaying Levodopa Prevent Motor Complications?"</li>
-  <li>A Double-Blind, Delayed-Start Trial of Rasagiline (ADAGIO); Rasagiline, Parkinson Neuroprotection and Delayed-Start Trials.</li>
-  <li>Neurostimulation for Parkinson's Disease with Early Motor Complications (EARLYSTIM); a randomized controlled trial comparing (DBS).</li>
-  <li>Management of Impulse Control and Related Disorders in Parkinson's Disease.</li>
-  <li>Uncovering the Genetic Basis of Parkinson's Disease Globally.</li>
+<li>Management of Impulse Control and Related Disorders in Parkinson&#x27;s Disease</li>
+<li>Pisa syndrome in Parkinson disease and parkinsonism - clinical features pathophysiology treatment</li>
+<li>Uncovering the genetic basis of Parkinson&#x27;s disease globally</li>
+<li>Update - Protective and risk factors for Parkinson disease</li>
 </ul>
-<h4>Tremor &amp; focused ultrasound</h4>
+<h3>Parkinson disease — landmark therapy trials <span class="src">(5)</span></h3>
 <ul>
-  <li>A Randomized Trial of Focused Ultrasound Thalamotomy for Essential Tremor; Three-Year Follow-Up.</li>
-  <li>Safety and Efficacy of Focused Ultrasound Thalamotomy for Tremor-Dominant PD; Focused Ultrasound Therapy for Movement Disorders.</li>
-  <li>Treatment for Essential Tremor; Essential Tremor-Plus.</li>
+<li>A Double-Blind, Delayed-Start Trial of Rasagiline in Parkinson&#x27;s Disease</li>
+<li>Movement Disord Clin Pract - 2024 - Ramanzini - Does Delaying Levodopa Prevent Motor Complications in Parkinson s Disease</li>
+<li>Movement Disorders - 2024 - Frequin - Long‐Term Follow‐Up of the LEAP Study Early Versus Delayed Levodopa in Early</li>
+<li>Neurostimulation for Parkinson&#x27;s Disease with Early Motor Complications</li>
+<li>Rasagiline, Parkinson neuroprotection, and delayed-start trials</li>
 </ul>
-<h4>Dystonia</h4>
+<h3>Atypical parkinsonism <span class="src">(10)</span></h3>
 <ul>
-  <li>Diagnosis and Pathogenesis of Dystonia.</li>
-  <li>Efficacy and Safety of DaxibotulinumtoxinA in Cervical Dystonia; Quality-of-Life Improvements with a Liquid AbobotulinumtoxinA Formulation.</li>
+<li>Cognitive and behavioral disturbances in PSP and MSA</li>
+<li>Deep brain stimulation for atypical parkinsonism - systematic review</li>
+<li>Functional MRI in Multiple System Atrophy</li>
+<li>MDS Criteria for the Diagnosis of Multiple System Atrophy</li>
+<li>Multiple system atrophy - advances in pathophysiology diagnosis and treatment</li>
+<li>Pharmacological interventions in corticobasal degeneration - a review</li>
+<li>Progressive Supranuclear Palsy - A Global Review</li>
+<li>Validation of consensus criteria for diagnosis of corticobasal degeneration</li>
+<li>s00702-026-03146-8-1</li>
+<li>s40120-025-00884-x</li>
 </ul>
-<h4>Chorea, Huntington &amp; tardive dyskinesia</h4>
+<h3>Secondary &amp; post-infectious parkinsonism <span class="src">(2)</span></h3>
 <ul>
-  <li>Effect of Deutetrabenazine on Chorea in Huntington Disease; The Safety of Deutetrabenazine for Chorea; Tetrabenazine as Antichorea Therapy.</li>
-  <li>Comparative Analysis of Deutetrabenazine and Valbenazine as VMAT2 Inhibitors for Tardive Dyskinesia; Vesicular Monoamine Transport Inhibitors.</li>
-  <li>Review of Hereditary and Acquired Rare Choreas; Cerebellar Ataxia and Chorea; Hyperglycemic Chorea; Treatment of Hyperkinetic Movement Disorders; Flapping Tremor (asterixis).</li>
+<li>Postencephalitic Parkinsonism - Pathological and Clinical Features</li>
+<li>Postencephalitic parkinsonism - clinico-imaging correlation</li>
 </ul>
-<h4>Tics, Tourette, RLS, atypical &amp; functional</h4>
+<h3>Tremor <span class="src">(19)</span></h3>
 <ul>
-  <li>Sustained Tic Reduction through Behavioural Therapy; A Comprehensive Approach to Managing Tourette Syndrome; Tourette Syndrome and Other Tic Disorders of Childhood; Functional Tics and Tic-like Behaviors; PANDAS Syndrome.</li>
-  <li>Restless Legs Syndrome; Treatment of RLS and Periodic Limb Movement Disorder.</li>
-  <li>Cognitive and Behavioural Disturbances in PSP and MSA; Functional MRI in Multiple System Atrophy.</li>
-  <li>Functional Movement Disorders — Diagnosis, Pathophysiology, and Treatment; The Efficacy and Safety of Cannabinoids.</li>
+<li>A Randomized Trial of Focused Ultrasound Thalamotomy for Essential Tremor</li>
+<li>Cerebellar and Outflow Tremor - review</li>
+<li>Drug-induced tremor - clinical features diagnostic approach and management</li>
+<li>Enhanced physiologic tremor among health personnel - prevalence study</li>
+<li>Essential tremor-plus</li>
+<li>Flapping Tremor</li>
+<li>Focused ultrasound therapy for movement disorders</li>
+<li>Functional Tremor</li>
+<li>Kinetic-rest tremor dominance - dystonic tremor vs Parkinson disease</li>
+<li>Multidimensional Phenotyping of Orthostatic Tremor and Myoclonus</li>
+<li>Perampanel for Primary Orthostatic Tremor - long-term outcomes cohort study</li>
+<li>Pseudo-Orthostatic Tremor in Graves Disease</li>
+<li>Radiofrequency thalamotomy for posttraumatic Holmes tremor - case</li>
+<li>Safety and Efficacy of Focused Ultrasound Thalamotomy for Patients With Medication-Refractory, Tremor-Dominant Parkinson Disease</li>
+<li>Three-year follow-up of prospective trial of focused ultrasound thalamotomy for essential tremor</li>
+<li>Treatment for essential tremor</li>
+<li>Treatment of dystonic tremor - systematic review</li>
+<li>Tremor Syndromes - An Updated Review</li>
+<li>a_randomized_controlled_trial_comparing.7</li>
+</ul>
+<h3>Dystonia <span class="src">(5)</span></h3>
+<ul>
+<li>Diagnosis and pathogenesis of dystonia clinical heterogeneity, shared mechanisms, and neurodevelopmental origins</li>
+<li>Efficacy and safety of DaxibotulinumtoxinA for injection in adults with cervical dystonia</li>
+<li>High-Risk Medications for Drug-Induced Dystonia - FAERS pharmacovigilance study</li>
+<li>Quality of life improvements in patients with cervical dystonia following treatment with a liquid formulation of abobotulinumtoxinA</li>
+<li>Tardive dystonia in Gilles de la Tourette syndrome</li>
+</ul>
+<h3>Chorea &amp; Huntington disease <span class="src">(11)</span></h3>
+<ul>
+<li>Asymmetric Chorea - clues to etiology incl drug-induced</li>
+<li>Cerebellar Ataxia and Chorea</li>
+<li>Chorea gravidarum - case report and literature review</li>
+<li>Chorea-Acanthocytosis as core Neuroacanthocytosis syndrome</li>
+<li>Diagnostic Uncertainties Chorea</li>
+<li>Effect of Deutetrabenazine on Chorea Among Patients With Huntington Disease</li>
+<li>Hydromorphone-induced chorea - opioid neurotoxicity case report</li>
+<li>Hyperglycemic chorea clinical insights and a narrative review of case reports</li>
+<li>Review of Hereditary and Acquired Rare Choreas</li>
+<li>Tetrabenazine as antichorea therapy in Huntington disease</li>
+<li>The Safety of Deutetrabenazine for Chorea in Huntington Disease</li>
+</ul>
+<h3>Tics &amp; Tourette syndrome <span class="src">(8)</span></h3>
+<ul>
+<li>A Comprehensive Approach to Managing Gilles de la Tourette Syndrome</li>
+<li>Comparative efficacy, tolerability, and acceptability of pharmacological interventions for the treatment of children, adolescents, and young adults with Tourette&#x27;s syndrome</li>
+<li>Functional tics and tic-like behaviors</li>
+<li>PANDAS Syndrome</li>
+<li>Sustained tic reduction through behavioural therapy in children and adolescents with Tourette syndrome</li>
+<li>The efficacy and safety of cannabinoids for the treatment of mental disorders and substance use disorders</li>
+<li>Tourette syndrome and other tic disorders of childhood</li>
+<li>When is pharmacotherapy necessary for Tourette syndrome The risks vs reward</li>
+</ul>
+<h3>Myoclonus <span class="src">(7)</span></h3>
+<ul>
+<li>A Reappraisal on cortical myoclonus and brief Remarks on myoclonus of different Origins</li>
+<li>Drug-Induced Myoclonus - a systematic review</li>
+<li>Myoclonus-dystonia - classification phenomenology pathogenesis and treatment</li>
+<li>Perampanel for subcortical myoclonus in myoclonus-dystonia syndrome</li>
+<li>Peripheral myoclonus - spinal mechanism case report</li>
+<li>Spinal Segmental Myoclonus in Primary Progressive Multiple Sclerosis</li>
+<li>myoclonus__an_update.11</li>
+</ul>
+<h3>Ataxia <span class="src">(16)</span></h3>
+<ul>
+<li>ARSACS - Indian cohort clinical radiological genetic spectrum</li>
+<li>Acute Fulminant Cerebellitis in Children - case series</li>
+<li>Advances in Gene and Cellular Therapy in Friedreich Ataxia</li>
+<li>An Update on the Adult-Onset Hereditary Cerebellar Ataxias</li>
+<li>Biomarkers in Ataxia-Telangiectasia - systematic review</li>
+<li>FGF14-related late-onset ataxia SCA27A - phenotypic spectrum</li>
+<li>Joubert syndrome - Molecular basis and treatment</li>
+<li>Latest Developments for Treatment of Ataxia Telangiectasia - narrative review</li>
+<li>Missed FGF14 repeat expansion - diagnostic blind spot</li>
+<li>Neuroimaging in Cerebellar Ataxias</li>
+<li>Phalanx sign - discriminating MSA-C from ILOCA</li>
+<li>Pharmacological treatments for Friedreich ataxia</li>
+<li>Post-Infectious Cerebellitis - Systematic Review</li>
+<li>Predictive clinical factors ILOCA to MSA-C progression</li>
+<li>SQSTM1 SYNE1 novel variants - recessive ataxia genetic investigation</li>
+<li>The genetics of cerebellar malformations</li>
+</ul>
+<h3>Restless legs syndrome <span class="src">(5)</span></h3>
+<ul>
+<li>Restless Legs Syndrome Contemporary Diagnosis and Treatment</li>
+<li>Restless legs syndrome - pathophysiology and treatment</li>
+<li>Restless legs syndrome pathophysiology and modern management</li>
+<li>Restless legs syndrome.</li>
+<li>Treatment of restless legs syndrome and periodic limb movement disorder</li>
+</ul>
+<h3>Stiff-person spectrum <span class="src">(2)</span></h3>
+<ul>
+<li>Comorbid autoimmune disease in stiff-person syndrome spectrum - systematic review and meta-analysis</li>
+<li>Understanding stiff-person syndrome Epidemiological trends, diagnostic challenges, and treatment advances</li>
+</ul>
+<h3>Functional movement disorders <span class="src">(1)</span></h3>
+<ul>
+<li>Functional movement disorders_ diagnosis, pathophysiology, and treatment</li>
+</ul>
+<h3>Paroxysmal dyskinesias &amp; hemifacial spasm <span class="src">(3)</span></h3>
+<ul>
+<li>Botulinum toxin treatment for hemifacial spasm</li>
+<li>Microvascular decompression for hemifacial spasm - systematic review</li>
+<li>Paroxysmal dyskinesias revisited - 500 genetically proven cases and new classification</li>
+</ul>
+<h3>Drug-induced movement disorders <span class="src">(5)</span></h3>
+<ul>
+<li>A European perspective on tardive dyskinesia</li>
+<li>An Evidence-Based Update on Anticholinergic Use for Drug-Induced Movement Disorders</li>
+<li>Treatment of hyperkinetic movement disorders</li>
+<li>Vesicular monoamine transport inhibitors</li>
+<li>omparative Analysis of Deutetrabenazine and Valbenazine as VMAT2 Inhibitors for Tardive Dyskinesia</li>
+</ul>
+<h3>Wilson, NBIA &amp; PFBC <span class="src">(5)</span></h3>
+<ul>
+<li>Genotype-Phenotype Relations in PFBC - MDSGene Review</li>
+<li>Pitfalls in the Diagnosis of Wilson Disease</li>
+<li>Precision Medicine in NBIA Disorders - update on emerging treatments</li>
+<li>Seizure in Neurodegeneration with Brain Iron Accumulation - systematic review</li>
+<li>Wilson disease - 2022 AASLD Practice Guidance executive summary</li>
+</ul>
+<h3>Gait, posture &amp; autoimmune overlap <span class="src">(2)</span></h3>
+<ul>
+<li>Advanced Science - 2026 - Thilak - Autoimmune Encephalitis in Acute Care Pathology Diagnosis and Management</li>
+<li>Neurological disorders of gait, balance and posture a sign-based approach</li>
 </ul>
 
 <hr>
-<h2 id="sources">Sources</h2>
-<p class="src">Adams &amp; Victor's Principles of Neurology, 12th ed., Ch. 4 (Disorders of Movement and Posture). Parkinson-disease therapy: LEAP (NEJM 2019; long-term follow-up 2024), ADAGIO delayed-start rasagiline, and EARLYSTIM (NEJM 2013). Essential tremor: randomized focused-ultrasound thalamotomy trial and 3-year follow-up. Dystonia: botulinum-toxin trials and dystonia pathogenesis review. Chorea/Huntington and tardive dyskinesia: tetrabenazine/deutetrabenazine/valbenazine (VMAT2-inhibitor) literature. Tics/Tourette: behavioural-therapy (CBIT) evidence. Restless legs, atypical parkinsonism (PSP/MSA), and functional movement disorders as provided in the Module 6 resource folder. Educational reference for residency training — confirm all management against current guidelines and product labeling at the point of care.</p>
+<h2 id="sources"><span class="num">24</span> Sources</h2>
+<p><strong>Core textbooks.</strong> Ropper AH, Samuels MA, Klein JP, Prasad S. <em>Adams and Victor's Principles of Neurology</em>, 12th edition — Chapter 4, Disorders of Movement and Posture. Louis ED, Mayer SA, Noble JM (eds). <em>Merritt's Neurology</em>, 14th edition — movement disorders chapters.</p>
+
+<p><strong>Primary literature.</strong> The 110 papers listed in §23, supplied in the <em>Module 6 resource</em> folder: MDS diagnostic criteria for multiple system atrophy and consensus criteria for corticobasal degeneration; the landmark therapeutic trials in Parkinson disease (LEAP long-term follow-up, ADAGIO, EARLYSTIM), essential tremor (randomised sham-controlled focused-ultrasound thalamotomy with 3-year follow-up) and tremor-dominant Parkinson disease; the VMAT2 inhibitor trials in Huntington chorea and tardive dyskinesia; botulinum toxin trials in cervical dystonia; behavioural-therapy meta-analysis in Tourette syndrome; MDSGene reviews of primary familial brain calcification; the 2022 AASLD practice guidance on Wilson disease; and systematic reviews across ataxia, myoclonus, restless legs syndrome, stiff-person spectrum, functional movement disorders, paroxysmal dyskinesias and hemifacial spasm.</p>
+
+<p><strong>A note on citation.</strong> Journal and year are given in the text only where they were read directly from the paper. No PMIDs or DOIs have been generated for papers whose identifiers were not present in the source documents.</p>
+
+<div class="key">
+  <div class="kh">▎Companion material</div>
+  <ul>
+    <li><a href="Module_06_Movement_Residency_Interactive.html">Module 6 Residency Interactive</a> — classifier and planner tools, trial-criteria accordions, flashcards, cases and self-assessment.</li>
+    <li><a href="Module_06_Movement_Reference.html">Module 6 General Physician Reference</a> — the same field at general-physician depth.</li>
+    <li><a href="Residency_Question_Bank.html">Residency Question Bank</a> — RITE-style items, case-based questions and OSCE stations.</li>
+  </ul>
+</div>
+
+<p class="src" style="margin-top:2.5em">Module 6 — Movement Disorders · Residency track, enriched edition · Neurology Curriculum</p>
 
 </body>
 </html>

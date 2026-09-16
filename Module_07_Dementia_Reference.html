@@ -2,477 +2,888 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Module 7 — Dementia & Cognitive Disorders (Reference)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 7 — Dementia &amp; Cognitive Impairment (Reference)</title>
 <style>
   :root{
-    --ink:#1b1d23; --muted:#5b6473; --line:#e3e6ec; --accent:#8a5a1a; --soft:#fbf5ec;
-    --warn-bg:#fff4e8; --warn-bd:#e29a4c; --warn-ink:#7a4a10;
-    --pearl-bg:#f5ecdc; --pearl-bd:#8a5a1a; --pearl-ink:#4a2f0a;
-    --refer-bg:#fee5e2; --refer-bd:#c5453a; --refer-ink:#7c1f17;
+    --ink:#22190f;--muted:#6a5c4a;--line:#e8e0d4;--accent:#8a5a1a;--soft:#fdf8f1;
+    --warn-bg:#fff4e8;--warn-bd:#e29a4c;--warn-ink:#7a4a10;
+    --pearl-bg:#fdf3e5;--pearl-bd:#8a5a1a;--pearl-ink:#5c3a0d;
+    --trial-bg:#eefcf3;--trial-bd:#1f9d57;--trial-ink:#125a32;
+    --time-bg:#eef7ff;--time-bd:#3a86b0;--time-ink:#163a6a;
+    --key-bg:#f0f9ff;--key-bd:#0284c7;--key-ink:#0c4a6e;
+    --new-bg:#f5f0ff;--new-bd:#7c5cd6;--new-ink:#3f2b75;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{font-family:'Charter','Iowan Old Style','Georgia',serif; color:var(--ink); background:#fff; line-height:1.55; max-width:880px; margin:0 auto; padding:48px 28px 96px}
-  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif; color:var(--ink); line-height:1.25}
-  h1{font-size:2.0rem; margin:0 0 .2em; border-bottom:3px solid var(--accent); padding-bottom:.3em}
-  h2{font-size:1.45rem; margin-top:2.4em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.25em}
-  h3{font-size:1.18rem; margin-top:1.8em; color:#5a3a0a}
-  h4{font-size:1.02rem; margin-top:1.4em; color:#444}
+  body{font-family:'Charter','Iowan Old Style','Georgia',serif;color:var(--ink);background:#fff;line-height:1.58;max-width:900px;margin:0 auto;padding:48px 28px 96px}
+  h1,h2,h3,h4{font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;color:var(--ink);line-height:1.25}
+  h1{font-size:2rem;margin:0 0 .2em;border-bottom:3px solid var(--accent);padding-bottom:.3em}
+  h2{font-size:1.42rem;margin-top:2.2em;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:.25em}
+  h2 .num{display:inline-block;min-width:1.6em;color:#c6ac86}
+  h3{font-size:1.16rem;margin-top:1.5em;color:#5c3a0d}
+  h4{font-size:1.0rem;margin-top:1.2em;color:#4a4036}
   p{margin:.6em 0}
-  ul,ol{margin:.4em 0 .8em 1.2em; padding:0}
-  li{margin:.25em 0}
-  .meta{color:var(--muted); font-style:italic; margin:.2em 0 2em}
-  .toc{background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:14px 22px; margin:24px 0}
-  .toc h3{margin:0 0 .4em; color:var(--accent); font-size:1.05rem}
-  .toc a{color:var(--ink); text-decoration:none}
+  ul,ol{margin:.4em 0 .8em 1.2em;padding:0}
+  li{margin:.28em 0}
+  .meta{color:var(--muted);font-style:italic;margin:.2em 0 1.4em}
+  .lvl{display:inline-block;font-family:'Helvetica Neue',sans-serif;font-style:normal;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;background:var(--accent);color:#fff;padding:.18em .6em;border-radius:10px;margin-left:.4em}
+  .toc{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:14px 22px;margin:22px 0}
+  .toc h3{margin:0 0 .4em;color:var(--accent);font-size:1.05rem}
+  .toc ol{margin:.2em 0 .2em 1.3em;columns:2;column-gap:2rem}
+  .toc a{color:var(--ink);text-decoration:none}
   .toc a:hover{text-decoration:underline}
-  table{border-collapse:collapse; width:100%; margin:1em 0; font-size:.94rem}
-  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
-  th{background:var(--soft); font-weight:600; font-family:'Helvetica Neue','Segoe UI',sans-serif}
-  tbody tr:nth-child(even){background:#fafbfd}
-  .pearl,.warn,.refer{border-left:4px solid; padding:10px 14px; margin:.9em 0; border-radius:0 4px 4px 0}
-  .pearl{background:var(--pearl-bg); border-color:var(--pearl-bd); color:var(--pearl-ink)}
-  .warn{background:var(--warn-bg); border-color:var(--warn-bd); color:var(--warn-ink)}
-  .refer{background:var(--refer-bg); border-color:var(--refer-bd); color:var(--refer-ink)}
-  .src{font-size:.8rem; color:var(--muted)}
-  hr{border:none; border-top:1px dashed var(--line); margin:2.4em 0}
-
-  .back-button{
-    display:inline-block; margin-bottom:1.5em; padding:0.6em 1.2em;
-    background:#667eea; color:white; text-decoration:none; border-radius:4px;
-    font-size:0.95rem; font-weight:500; transition:background 0.3s ease;
-    font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
-  }
-  .back-button:hover{background:#5568d3}
-
-  @media print{ body{max-width:100%; padding:24px} .toc{break-inside:avoid} h2{break-after:avoid} }
+  .key{background:var(--key-bg);border:1px solid #bae6fd;border-left:4px solid var(--key-bd);border-radius:8px;padding:12px 16px 12px 18px;margin:.6em 0 1.1em}
+  .key .kh{font-family:'Helvetica Neue',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--key-bd);margin-bottom:.35em}
+  .key ul{margin:.2em 0 0 1.1em}
+  .key li{margin:.2em 0;color:#0c4a6e}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:600;font-family:'Helvetica Neue','Segoe UI',sans-serif;color:#7a4e14}
+  tbody tr:nth-child(even){background:#fefcf9}
+  td strong,li strong{color:#5c3a0d}
+  .tw{overflow-x:auto;margin:1em 0}
+  .tw table{margin:0}
+  .pearl,.warn,.trial,.time,.newbox{border-left:4px solid;padding:10px 14px;margin:.9em 0;border-radius:0 4px 4px 0}
+  .pearl{background:var(--pearl-bg);border-color:var(--pearl-bd);color:var(--pearl-ink)}
+  .warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-ink)}
+  .trial{background:var(--trial-bg);border-color:var(--trial-bd);color:var(--trial-ink)}
+  .time{background:var(--time-bg);border-color:var(--time-bd);color:var(--time-ink)}
+  .newbox{background:var(--new-bg);border-color:var(--new-bd);color:var(--new-ink)}
+  .src{font-size:.8rem;color:var(--muted)}
+  .tier{display:inline-block;font-family:'Helvetica Neue',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.5px;padding:.12em .5em;border-radius:4px;color:#fff;margin-right:.4em}
+  .tA{background:#b91c1c}.tB{background:#c2621a}.tC{background:#8a5a1a}.tD{background:#3a86b0}.tE{background:#6b7280}
+  hr{border:none;border-top:1px dashed var(--line);margin:2.2em 0}
+  .back-button{display:inline-block;margin-bottom:1.4em;padding:.55em 1.1em;background:var(--accent);color:#fff;text-decoration:none;border-radius:5px;font-size:.92rem;font-weight:600;font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif}
+  .back-button:hover{background:#6e4715}
+  .alt-link{display:inline-block;margin:0 0 1.4em .5em;font-family:'Helvetica Neue',sans-serif;font-size:.85rem;color:var(--accent);text-decoration:none}
+  .alt-link:hover{text-decoration:underline}
+  @media print{body{max-width:100%;padding:24px}.toc,.toc ol{columns:1}.key{break-inside:avoid}h2{break-after:avoid}.back-button,.alt-link{display:none}}
+  @media(max-width:620px){.toc ol{columns:1}body{padding:24px 16px 64px}}
 </style>
 </head>
 <body>
 
-<a href="index.html" class="back-button">← Back to Curriculum</a>
+<a href="Neurology_Curriculum_Index.html" class="back-button">← Back to Curriculum</a>
+<a href="Module_07_Dementia_Interactive.html" class="alt-link">⚡ Open the interactive version</a>
 
-<h1>Module 7 — Dementia &amp; Cognitive Disorders</h1>
-<p class="meta">Integrated reference for the general physician · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 20 Dementia, Amnesic Syndrome, Neurology of Intelligence) and <em>Merritt's Neurology</em> (14e, Ch. 12 Approach to Dementia &amp; Memory Loss, Ch. 50 Mild Cognitive Impairment, Ch. 51 Alzheimer Disease, Ch. 52 Frontotemporal Dementia, Ch. 53 Lewy Body Dementias, Ch. 54 Vascular Dementia) · With 2023–2024 update on anti-amyloid monoclonal antibodies (lecanemab, donanemab)</p>
+<h1>Module 7 — Dementia &amp; Cognitive Impairment <span class="lvl">2nd edition</span></h1>
+<p class="meta">General physician reference · Synthesized from <em>Adams &amp; Victor's Principles of Neurology</em> (12e, Ch. 20) and <em>Merritt's Neurology</em> (14e), integrated with the full Module 7 resource library (38 papers: the revised Alzheimer's Association criteria, the plasma biomarker validation studies, the anti-amyloid antibody trials and their real-world safety data, the autoimmune encephalitis criteria, and systematic reviews across DLB, FTD, vascular and young-onset dementia).</p>
+
+<div class="key">
+  <div class="kh">▎How to use this module</div>
+  <ul>
+    <li>Every section opens with a <strong>Key points</strong> box — skim those first, then read the detail.</li>
+    <li><strong>Purple boxes</strong> mark what is new or changed since the first edition; <strong>green boxes</strong> are trials with the numbers worth quoting; <strong>amber boxes</strong> are do-not-miss safety points.</li>
+    <li>§3 is the <a href="#invest">investigation strategy</a> written for a hospital without on-site MRI, CSF biomarkers or plasma p-tau — which tests to do now, which to batch, and what to treat before the result arrives.</li>
+    <li>The engine of everything: <em>establish that there is real cognitive decline from a previous level, find the treatable contributors in every single patient, then name the syndrome.</em></li>
+  </ul>
+</div>
+
+<div class="time"><strong>The one thing to hold on to.</strong> The single highest-value act in a dementia clinic is not naming the degenerative disease — it is finding the <em>reversible contribution</em> sitting on top of it. Depression, drugs, thyroid disease, B12 deficiency, sleep apnoea, alcohol, hearing loss, delirium and subdural haematoma are all common, all treatable, and all repeatedly missed because the diagnosis of "dementia" closed the question.</div>
 
 <div class="toc">
 <h3>Contents</h3>
 <ol>
-  <li><a href="#frame">Big picture: normal aging → SCD → MCI → dementia</a></li>
-  <li><a href="#approach">Approach to the patient with memory complaints</a></li>
-  <li><a href="#reversible">Reversible &amp; treatable causes — search every patient</a></li>
-  <li><a href="#mci">Mild cognitive impairment (MCI)</a></li>
+  <li><a href="#spectrum">The cognitive spectrum</a></li>
+  <li><a href="#approach">Approach to the patient</a></li>
+  <li><a href="#invest">Investigation strategy &amp; urgency</a></li>
+  <li><a href="#reversible">Reversible &amp; contributing causes</a></li>
+  <li><a href="#screens">Bedside cognitive testing</a></li>
+  <li><a href="#mci">Mild cognitive impairment</a></li>
   <li><a href="#ad">Alzheimer disease</a></li>
-  <li><a href="#dlb">Dementia with Lewy bodies &amp; Parkinson disease dementia</a></li>
-  <li><a href="#ftd">Frontotemporal dementia (FTD)</a></li>
-  <li><a href="#vasc">Vascular cognitive impairment / dementia</a></li>
-  <li><a href="#mixed">Mixed dementia &amp; less common causes</a></li>
-  <li><a href="#bpsd">Behavioural &amp; psychological symptoms (BPSD)</a></li>
-  <li><a href="#updates">2023–2024 update: anti-amyloid monoclonal antibodies</a></li>
+  <li><a href="#biomarkers">Biomarkers &amp; the revised criteria</a></li>
+  <li><a href="#antiamyloid">Anti-amyloid therapy</a></li>
+  <li><a href="#dlb">Dementia with Lewy bodies &amp; PDD</a></li>
+  <li><a href="#ftd">Frontotemporal dementia &amp; PPA</a></li>
+  <li><a href="#vascular">Vascular cognitive impairment</a></li>
+  <li><a href="#rpd">Rapidly progressive dementia</a></li>
+  <li><a href="#autoimmune">Autoimmune encephalitis</a></li>
+  <li><a href="#prion">Prion disease</a></li>
+  <li><a href="#young">Young-onset dementia</a></li>
+  <li><a href="#special">Special populations</a></li>
+  <li><a href="#bpsd">Neuropsychiatric symptoms</a></li>
+  <li><a href="#care">Symptomatic treatment &amp; care</a></li>
+  <li><a href="#prevention">Risk reduction</a></li>
   <li><a href="#refer">When to refer</a></li>
-  <li><a href="#quick">Quick-reference tables</a></li>
+  <li><a href="#quick">Quick reference</a></li>
+  <li><a href="#evidence">Evidence library</a></li>
+  <li><a href="#sources">Sources</a></li>
 </ol>
 </div>
 
-<h2 id="frame">1 · Big picture: normal aging → SCD → MCI → dementia</h2>
-<p>Cognitive decline runs on a spectrum. Knowing where the patient sits decides next steps.</p>
-
+<h2 id="whatsnew"><span class="num">0</span> What's new in this edition</h2>
+<div class="tw">
 <table>
-<tr><th>Stage</th><th>Patient's complaint</th><th>Objective testing</th><th>Functional impact</th></tr>
-<tr><td>Normal cognitive aging</td><td>Subjective slowing, occasional name-finding</td><td>Within age-adjusted norms</td><td>None</td></tr>
-<tr><td>Subjective cognitive decline (SCD)</td><td>Self-perceived decline</td><td>Normal</td><td>None &mdash; but elevated future risk</td></tr>
-<tr><td>Mild cognitive impairment (MCI)</td><td>Complaint usually present</td><td>Objective deficit in ≥ 1 domain</td><td>ADLs preserved; <em>complex IADLs may be slowed</em></td></tr>
-<tr><td>Dementia (DSM-5: <em>major neurocognitive disorder</em>)</td><td>Often patient lacks insight; family reports</td><td>Significant deficit in ≥ 1 domain</td><td>ADLs impaired &mdash; <strong>this is the defining feature</strong></td></tr>
+<thead><tr><th>Topic</th><th>What changed</th><th>What you do differently</th></tr></thead>
+<tbody>
+<tr><td><strong>Plasma p-tau217</strong></td><td>Now validated prospectively in primary <em>and</em> secondary care, and FDA-cleared. The APS2 test reached AUC 0.97 with PPV 91% and NPV 92%, against a diagnostic accuracy of <strong>61% for primary care physicians</strong> and <strong>73% for dementia specialists</strong> working clinically without biomarkers</td><td>Know that a blood test now outperforms clinical judgement for AD pathology — and know that it tells you about <em>pathology</em>, not about whether that pathology explains this patient's symptoms</td></tr>
+<tr><td><strong>Revised AA criteria (2024)</strong></td><td>AD is now defined <strong>biologically</strong>; tau-PET became a core biomarker and its spatial extent defines biological stages A–D, which are reported separately from clinical stages 1–6</td><td>Use two axes when you read specialist letters: biological stage and clinical stage. Discordance between them usually means <strong>copathology</strong></td></tr>
+<tr><td><strong>Anti-amyloid antibodies</strong></td><td>Lecanemab and donanemab hold full FDA approval; the <strong>EMA refused donanemab</strong>. Real-world clinic data and pooled ARIA analyses now exist</td><td>Counsel with real numbers, not headlines — and know the APOE ε4 dose-effect on ARIA</td></tr>
+<tr><td><strong>Semaglutide (evoke / evoke+)</strong></td><td><strong>Negative.</strong> 3808 participants; no difference in CDR-SB at 104 weeks in either trial</td><td>Do not offer or imply GLP-1 agonists as a dementia treatment</td></tr>
+<tr><td><strong>Valacyclovir in AD</strong></td><td><strong>Negative, and worse than placebo</strong> on cognition (ADAS-Cog difference 3.93 favouring placebo)</td><td>The HSV hypothesis does not translate into treatment. Do not prescribe antivirals for AD</td></tr>
+<tr><td><strong>Vascular contributions (AHA 2025)</strong></td><td>Cognitive impairment reframed as a <strong>multiple-cause process</strong>; reducing vascular risk alone does not fully restore brain health, but remains the most effective available strategy</td><td>Treat vascular risk aggressively in every cognitive patient, while being honest that it is risk reduction, not cure</td></tr>
+<tr><td><strong>Neuropsychiatric symptom trajectories</strong></td><td>Meta-analysis of 5509 patients: <strong>apathy is the commonest symptom at baseline (45%)</strong>, then irritability and depression (35% each); agitation and apathy increase most over time; sleep disturbance tends to improve</td><td>Ask about apathy explicitly — it is the commonest and the most under-recorded, and it is not depression</td></tr>
+<tr><td><strong>Autoimmune encephalitis</strong></td><td>Rising <strong>misdiagnosis</strong> is now the recognised problem, especially misuse of "antibody-negative" criteria</td><td>Apply the criteria as written, including exclusion of alternatives — do not diagnose it on a suggestive story plus a normal panel</td></tr>
+<tr><td><strong>sCJD prodrome</strong></td><td>Mood alterations detectable in prescription data <strong>up to 3 years before</strong> clinical onset</td><td>Not a screening tool — but it explains the frequent psychiatric misdiagnosis at first presentation</td></tr>
+</tbody>
 </table>
+</div>
 
-<p>The six cognitive domains (DSM-5): complex attention · executive function · learning &amp; memory · language · visuospatial perception · social cognition. Different diseases prefer different domains, and that profile is the diagnostic clue.</p>
-
-<div class="pearl"><strong>The single decision that defines dementia:</strong> can the patient still do their usual independent activities of daily living (cooking, finances, medications, transport, shopping)? If yes → MCI. If no → dementia. Document carefully with the informant.</div>
-
-<h2 id="approach">2 · Approach to the patient with memory complaints</h2>
-
-<h3>History — always include an informant</h3>
-<ul>
-  <li><strong>Tempo and pattern:</strong> insidious + steady progression (AD), stepwise (vascular), fluctuating day to day (DLB), rapid &lt; 1 year (CJD, autoimmune, paraneoplastic, NPH, metabolic, depression, drug-related, structural).</li>
-  <li><strong>Domain of onset:</strong> short-term memory (AD), behaviour/personality (bvFTD), language (PPA), visual hallucinations + parkinsonism (DLB), gait + incontinence + cognition (NPH).</li>
-  <li><strong>Functional decline:</strong> getting lost, money management, driving, medications, missed appointments.</li>
-  <li><strong>Behavioural:</strong> apathy, depression, disinhibition, hallucinations, delusions (especially paranoid — common in AD; visual hallucinations very early → DLB).</li>
-  <li><strong>Sleep:</strong> REM sleep behaviour disorder (dream enactment) precedes DLB / PD by years.</li>
-  <li><strong>Motor:</strong> parkinsonism, falls, myoclonus, asymmetric apraxia.</li>
-  <li><strong>Vascular risks &amp; cardiovascular events.</strong></li>
-  <li><strong>Medications:</strong> anticholinergics (oxybutynin, tricyclics, sedating antihistamines, paroxetine), benzodiazepines, opioids, lithium, statins (rare cognitive effect), chemotherapy.</li>
-  <li><strong>Alcohol / substance / nutritional status.</strong></li>
-  <li><strong>Family history</strong> of early-onset dementia, Huntington, ALS.</li>
-  <li><strong>Mood &amp; sleep</strong> &mdash; depression mimics dementia (<em>"pseudodementia"</em>).</li>
-</ul>
-
-<h3>Bedside cognitive screen</h3>
-<table>
-<tr><th>Tool</th><th>Score</th><th>Cut-off (broad)</th><th>Notes</th></tr>
-<tr><td><strong>MoCA</strong> (Montreal Cognitive Assessment)</td><td>/30</td><td>≥ 26 normal · 18–25 MCI · &lt; 18 dementia (varies)</td><td>More sensitive than MMSE, especially for MCI &amp; executive dysfunction; 10 min; copyright but free for clinical use.</td></tr>
-<tr><td><strong>MMSE</strong> (Mini-Mental State Examination)</td><td>/30</td><td>&lt; 24 suggests dementia</td><td>Weighted toward memory &amp; language; insensitive to executive dysfunction (poor for FTD, DLB early).</td></tr>
-<tr><td>Mini-Cog</td><td>3-word recall + clock draw</td><td>2-min screen</td><td>For busy primary care.</td></tr>
-<tr><td>Clock drawing test</td><td>—</td><td>—</td><td>Sensitive to executive, visuospatial, and praxis problems.</td></tr>
-<tr><td><strong>AD8 / IQCODE</strong></td><td>Informant questionnaires</td><td>≥ 2 (AD8)</td><td>Useful when patient lacks insight.</td></tr>
-<tr><td>Verbal fluency</td><td>Animals in 60 s</td><td>&lt; 15 abnormal</td><td>Frontal/temporal screen.</td></tr>
-<tr><td>Frontal Assessment Battery (FAB)</td><td>/18</td><td>—</td><td>For suspected FTD.</td></tr>
-</table>
-
-<p>Adjust for education and language; <strong>formal neuropsychological testing</strong> when bedside is inconclusive, deficit is subtle, the patient is highly educated, or to characterise the cognitive profile.</p>
-
-<h3>Examination</h3>
-<p>General medical exam + focused neuro exam — look for parkinsonism, apraxia, cortical sensory loss, alien-limb phenomenon, myoclonus, focal weakness, ataxia, downgaze palsy (PSP), upper motor neuron + LMN signs (FTD-ALS), gait abnormalities (NPH magnetic gait; vascular small-step gait; cerebellar; sensory ataxic).</p>
-
-<h3>Standard laboratory workup (rule out reversible / contributory)</h3>
-<ul>
-  <li>CBC, electrolytes, calcium, glucose, renal &amp; liver function</li>
-  <li>TSH</li>
-  <li>Vitamin B12 (± folate, methylmalonic acid)</li>
-  <li>Syphilis serology where prevalent or in atypical / rapidly progressive cases</li>
-  <li>HIV in at-risk patients</li>
-  <li>Consider: ESR, CRP, ANA, ceruloplasmin (young patient), 24-h urine copper, heavy metals, paraneoplastic / autoimmune encephalitis panel in rapidly progressive disease</li>
-  <li><strong>Structural brain imaging</strong> — MRI preferred (CT acceptable). Patterns: medial temporal atrophy (AD); frontal/anterior temporal atrophy (FTD); occipital perfusion deficit (DLB); ventricular enlargement out of proportion (NPH); white-matter disease / lacunes (vascular).</li>
-</ul>
-
-<h3>Advanced biomarkers (when diagnosis is unclear or to guide disease-modifying therapy)</h3>
-<table>
-<tr><th>Modality</th><th>Use</th></tr>
-<tr><td>FDG-PET</td><td>Temporoparietal hypometabolism (AD); frontal/anterior temporal (FTD); occipital (DLB)</td></tr>
-<tr><td><strong>Amyloid PET</strong> (florbetapir, florbetaben, flutemetamol)</td><td>Detects amyloid pathology; required before anti-amyloid mAb therapy</td></tr>
-<tr><td>Tau PET (flortaucipir)</td><td>Detects tau pathology; correlates with disease stage</td></tr>
-<tr><td>CSF AD biomarkers (low Aβ42, high p-tau, high total tau)</td><td>Confirms AD biology; alternative to amyloid PET</td></tr>
-<tr><td><strong>Plasma p-tau217 / p-tau181</strong> (2023–2024)</td><td>Emerging blood biomarker for AD with high accuracy; will displace lumbar puncture for many patients</td></tr>
-<tr><td>DaT-SPECT</td><td>Reduced uptake in DLB / PD (also Parkinson-plus); normal in AD &amp; FTD</td></tr>
-<tr><td>EEG</td><td>Periodic sharp wave complexes in CJD; non-convulsive status epilepticus mimicking acute cognitive decline</td></tr>
-</table>
-
-<h2 id="reversible">3 · Reversible &amp; treatable causes — search every patient</h2>
-<p>Reversible causes account for a minority of dementia presentations but are <em>not</em> rare and must not be missed.</p>
-
-<table>
-<tr><th>Cause</th><th>Clues</th><th>Action</th></tr>
-<tr><td><strong>Depression ("pseudodementia")</strong></td><td>Patient says "I don't know" rather than guesses; affect blunted; preserved learning when motivated; better effort on retesting</td><td>Antidepressant trial; reassess</td></tr>
-<tr><td><strong>Delirium</strong></td><td>Acute onset, fluctuating, inattention; identify infection / drug / metabolic / pain trigger</td><td>Treat the cause</td></tr>
-<tr><td><strong>Medications</strong></td><td>Anticholinergics, benzodiazepines, opioids, antiepileptics, lithium, tricyclics, antihistamines, antimuscarinics for OAB</td><td>Deprescribe; trial off-medication</td></tr>
-<tr><td><strong>Vitamin B12 deficiency</strong></td><td>Macrocytosis, peripheral neuropathy, posterior column dysfunction</td><td>Replace</td></tr>
-<tr><td>Thiamine deficiency (Wernicke-Korsakoff)</td><td>Confusion + ophthalmoplegia + ataxia in alcoholic / malnourished</td><td>IV thiamine 200–500 mg TID immediately, then maintenance</td></tr>
-<tr><td><strong>Hypothyroidism</strong> (or hyperthyroidism)</td><td>Constitutional features; TSH abnormal</td><td>Replace / treat</td></tr>
-<tr><td>Hypo/hypercalcaemia, hyponatraemia, uraemia, hepatic encephalopathy</td><td>Lab-based</td><td>Correct cause</td></tr>
-<tr><td><strong>Normal-pressure hydrocephalus (NPH)</strong></td><td>Magnetic gait + urinary incontinence + cognitive decline; MRI: ventricles out of proportion to cortical atrophy</td><td>LP "tap test" 30–50 mL; shunt if gait improves</td></tr>
-<tr><td>Subdural haematoma</td><td>Elderly, anticoagulated, falls; insidious behaviour change + gait</td><td>CT; neurosurgery consult</td></tr>
-<tr><td><strong>Obstructive sleep apnoea</strong></td><td>Snoring, daytime sleepiness, witnessed apnoeas; mild cognitive impairment improves with CPAP</td><td>Sleep study; CPAP</td></tr>
-<tr><td>Neurosyphilis (general paresis)</td><td>Behavioural / cognitive change in HIV+ or untreated syphilis</td><td>VDRL + CSF; treat with IV penicillin</td></tr>
-<tr><td>HIV-associated neurocognitive disorder (HAND)</td><td>HIV+ &amp; subcortical dementia</td><td>Optimise ART</td></tr>
-<tr><td><strong>Autoimmune / paraneoplastic encephalitis</strong></td><td>Subacute (weeks) cognitive decline ± seizures, faciobrachial dystonic seizures (LGI1), psychiatric (NMDA-R)</td><td>Antibody panel; MRI; CSF; immunotherapy (steroids/IVIG/rituximab); search for tumour</td></tr>
-<tr><td>Hashimoto encephalopathy</td><td>Rapidly progressive; high anti-TPO; steroid-responsive</td><td>Steroids</td></tr>
-<tr><td>Limbic encephalitis (autoimmune or HSV)</td><td>Subacute amnesia + temporal MRI changes</td><td>Aciclovir empirically + antibody workup</td></tr>
-<tr><td>CNS vasculitis</td><td>Subacute cognitive decline + headache + focal deficits + abnormal CSF/MRI</td><td>Steroids ± immunosuppression</td></tr>
-<tr><td>Tumour, abscess</td><td>Focal signs / mass on imaging</td><td>Neurosurgical / oncological referral</td></tr>
-</table>
-
-<div class="warn"><strong>Rapidly progressive dementia</strong> (&lt; 1–2 years) demands an urgent workup that goes beyond the standard list: CJD (consider 14-3-3, RT-QuIC), autoimmune / paraneoplastic encephalitis, CNS vasculitis, limbic encephalitis, lymphoma, NPH, neurosyphilis, HIV, Whipple disease. MRI (DWI for CJD ribboning &amp; pulvinar/hockey-stick sign), CSF, EEG, antibody panels, body imaging for occult malignancy.</div>
-
-<h2 id="mci">4 · Mild cognitive impairment (MCI)</h2>
-<p>Objective cognitive deficit in ≥ 1 domain with preserved independent function. Annual conversion rate to dementia is 10–15%. Subtyped by domain affected:</p>
-<ul>
-  <li><strong>Amnestic MCI</strong> (memory predominant) → often progresses to <strong>AD</strong>.</li>
-  <li><strong>Non-amnestic MCI</strong> (executive, language, or visuospatial) → may progress to FTD, DLB, or vascular.</li>
-  <li><strong>Multi-domain MCI</strong> → variable; often a vascular or mixed substrate.</li>
-</ul>
-<p>Management: identify and treat reversible contributors; aggressive cardiovascular risk-factor control; physical activity (best evidence); cognitive engagement; manage sleep, mood, hearing &amp; vision; review medications; counsel on driving and advance planning. <strong>No medication is currently FDA-approved for MCI</strong> — cholinesterase inhibitors do <em>not</em> prevent or delay progression in MCI. Lecanemab (2023) is approved in the US for early symptomatic AD <em>including MCI due to AD</em> when amyloid-confirmed (see § 11).</p>
-
-<h2 id="ad">5 · Alzheimer disease</h2>
-
-<h3>What it is</h3>
-<p>Cortical neurodegenerative disease with extracellular β-amyloid plaques and intracellular hyperphosphorylated tau (neurofibrillary tangles). Loss begins in entorhinal cortex and hippocampus and spreads to temporal, parietal, and frontal neocortex. ~80% of dementia in autopsy series, often with co-pathology (Lewy bodies in 20–40%, vascular changes in ~35%).</p>
-
-<h3>Genetics</h3>
-<ul>
-  <li>Sporadic late-onset AD: <em>APOE</em> ε4 allele is the strongest risk factor (one allele ~3× risk; two alleles ~12–15× risk). APOE ε2 is protective.</li>
-  <li>Early-onset familial AD (&lt; 5%): autosomal dominant mutations in <em>APP</em>, <em>PSEN1</em>, <em>PSEN2</em>.</li>
-</ul>
-
-<h3>Clinical features</h3>
-<ul>
-  <li>Insidious onset, gradual progression over years.</li>
-  <li><strong>Episodic memory deficit</strong> first &mdash; cued recall does NOT help (storage failure), distinguishes from frontal/subcortical retrieval failure.</li>
-  <li>Language: word-finding, then naming, then comprehension.</li>
-  <li>Visuospatial: getting lost in familiar places; difficulty drawing.</li>
-  <li>Executive dysfunction later.</li>
-  <li>BPSD: apathy, depression early; paranoid delusions ("things being stolen"), agitation, sleep disturbance later.</li>
-  <li>Late: incontinence, gait apraxia, mutism, dysphagia.</li>
-  <li>Average course from diagnosis to death: 8–10 years (range 3–20).</li>
-</ul>
-
-<h3>Atypical AD presentations</h3>
-<ul>
-  <li>Posterior cortical atrophy (visual variant) — visuospatial &amp; visual perception problems first, memory later.</li>
-  <li>Logopenic primary progressive aphasia (PPA-L) — word-finding pauses, impaired sentence repetition; usually AD pathology.</li>
-  <li>Frontal/dysexecutive variant — behavioural changes mimicking FTD.</li>
-</ul>
-
-<h3>Diagnosis (NIA-AA 2011, updated 2018 ATN framework)</h3>
-<p>Probable AD: typical amnestic syndrome + insidious onset + progressive decline + no alternative cause + supportive biomarkers (medial temporal atrophy on MRI; CSF Aβ↓ + tau↑; amyloid PET positive). The 2018 ATN framework defines AD by <strong>biomarker positivity</strong> rather than clinical syndrome:</p>
-<ul>
-  <li><strong>A</strong> = amyloid biomarker (CSF Aβ42 or amyloid PET)</li>
-  <li><strong>T</strong> = tau biomarker (CSF p-tau or tau PET)</li>
-  <li><strong>N</strong> = neurodegeneration (MRI atrophy, FDG-PET hypometabolism, CSF total tau)</li>
-</ul>
-<p>A+T+ = Alzheimer biology regardless of symptoms; A+T− = Alzheimer pathological change; A−T+ = non-AD tauopathy.</p>
-
-<h3>Symptomatic treatment</h3>
-<table>
-<tr><th>Drug</th><th>Dose</th><th>Indication</th><th>Notes</th></tr>
-<tr><td>Donepezil</td><td>Start 5 mg/day; up to 10 mg (or 23 mg ER)</td><td>Mild, moderate, severe AD</td><td>Cholinesterase inhibitor. GI side effects, bradycardia, vivid dreams; dose at bedtime if insomnia.</td></tr>
-<tr><td>Rivastigmine</td><td>Oral 3–12 mg/d in 2 doses, or patch 4.6 → 9.5 → 13.3 mg/24 h</td><td>Mild–severe AD; also approved for PDD</td><td>Patch better tolerated than oral.</td></tr>
-<tr><td>Galantamine</td><td>8–24 mg/d (IR) or daily ER</td><td>Mild–moderate AD</td><td>Cholinesterase inhibitor + nicotinic modulator.</td></tr>
-<tr><td>Memantine</td><td>Start 5 mg/d, titrate to 10 mg BID (or 28 mg ER)</td><td>Moderate–severe AD</td><td>NMDA antagonist. Can combine with cholinesterase inhibitor. Renal dose adjust.</td></tr>
-</table>
-
-<p>Modest, symptomatic benefit (~6–12 month cognitive plateau on average); do not modify disease course. Trial discontinuation when severe end-stage. <strong>No evidence that any of these slows MCI progression</strong>.</p>
-
-<h3>What to avoid</h3>
-<div class="warn">
+<h2 id="spectrum"><span class="num">1</span> The cognitive spectrum</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
   <ul>
-    <li><strong>Strong anticholinergics</strong> — diphenhydramine, oxybutynin, tricyclics, paroxetine, scopolamine. They worsen cognition and may double dementia risk over years.</li>
-    <li><strong>Benzodiazepines</strong> — increase falls, sedation, paradoxical agitation; modest evidence for increased dementia risk with chronic use.</li>
-    <li><strong>Typical antipsychotics</strong> (haloperidol) — extrapyramidal effects, increased mortality in dementia; FDA black-box warning. Atypicals similar risk but sometimes necessary for severe BPSD.</li>
-    <li>Routine use of <strong>aducanumab</strong> (controversial, withdrawn from market 2024) and use of newer anti-amyloid agents <em>without ARIA monitoring</em>.</li>
+    <li>The sequence runs <strong>normal ageing → subjective cognitive decline → mild cognitive impairment → dementia</strong>, and the line between each is drawn by <strong>function</strong>, not by test scores.</li>
+    <li><strong>Dementia requires impairment of independent function.</strong> MCI is objective impairment with function preserved. SCD is a complaint with normal testing.</li>
+    <li>Always establish <strong>decline from a previous level</strong> — a lifelong low score is not dementia.</li>
+    <li>Get a <strong>collateral history</strong>. A patient who attends alone and reports memory problems is more likely to have depression or SCD than dementia; the patient brought in by a worried family, insisting nothing is wrong, is the more concerning presentation.</li>
   </ul>
 </div>
 
-<h2 id="dlb">6 · Dementia with Lewy bodies &amp; Parkinson disease dementia</h2>
-
-<p>Both are α-synucleinopathies with cortical Lewy bodies. The arbitrary <strong>"1-year rule"</strong> distinguishes them: if cognitive impairment appears <em>within 1 year</em> of (or before) parkinsonism → <strong>DLB</strong>; if dementia appears <em>after</em> &gt; 1 year of established Parkinson disease → <strong>PDD</strong>. Same disease biology; useful clinically because of different presentation.</p>
-
-<h3>Core clinical features of DLB (need 2 for probable, 1 + biomarker for probable; 4th edition consortium criteria 2017)</h3>
-<ul>
-  <li><strong>Fluctuating cognition</strong> with prominent variations in attention and alertness.</li>
-  <li><strong>Recurrent visual hallucinations</strong> — typically well-formed, detailed, often non-threatening (people, animals).</li>
-  <li><strong>REM sleep behaviour disorder</strong> (RBD) — acting out dreams, often years before cognitive symptoms.</li>
-  <li><strong>Parkinsonism</strong> &mdash; symmetric, less tremor-predominant than PD, axial more than appendicular.</li>
-</ul>
-
-<h3>Supportive features</h3>
-<p>Severe neuroleptic sensitivity (dramatic worsening / parkinsonism with first dose), repeated falls, syncope, transient unresponsiveness, autonomic dysfunction (orthostatic hypotension, urinary problems, constipation), hypersomnia, hyposmia, depression, anxiety, delusions (usually paranoid), apathy.</p>
-
-<h3>Biomarkers</h3>
-<ul>
-  <li><strong>DaT-SPECT</strong> — reduced striatal dopamine transporter (very useful when diagnosis uncertain; positive in DLB / PDD, negative in AD / FTD).</li>
-  <li>MIBG cardiac scintigraphy reduced.</li>
-  <li>Polysomnography confirms RBD.</li>
-  <li>Reduced occipital metabolism on FDG-PET ("cingulate island sign").</li>
-</ul>
-
-<h3>Cognitive profile</h3>
-<p>Early dysexecutive, visuospatial, and attentional deficits. Memory is relatively preserved <em>early</em>. The MMSE often misses early DLB; <strong>MoCA</strong> is more sensitive.</p>
-
-<h3>Treatment</h3>
+<div class="tw">
 <table>
-<tr><th>Target</th><th>Drug / approach</th></tr>
-<tr><td>Cognition &amp; psychotic / behavioural symptoms</td><td><strong>Cholinesterase inhibitors</strong> (rivastigmine or donepezil) — often dramatic; first-line.</td></tr>
-<tr><td>Parkinsonism</td><td>Low-dose levodopa (start low, titrate slowly; may worsen hallucinations)</td></tr>
-<tr><td>RBD</td><td>Melatonin 3–12 mg at night first-line (avoid clonazepam in elderly with falls)</td></tr>
-<tr><td>Visual hallucinations / psychosis</td><td>Cholinesterase inhibitor first; if severe, <strong>quetiapine, clozapine, or pimavanserin</strong>. <em>Avoid haloperidol, risperidone, olanzapine</em> — neuroleptic sensitivity can be life-threatening.</td></tr>
-<tr><td>Orthostatic hypotension</td><td>Compression stockings, salt &amp; fluid, midodrine, fludrocortisone, droxidopa</td></tr>
-<tr><td>REM sleep behaviour disorder</td><td>Bed safety, melatonin; clonazepam if needed</td></tr>
+<thead><tr><th>Stage</th><th>Complaint</th><th>Objective testing</th><th>Function</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td>Normal ageing</td><td>Slower recall of names and words; benign</td><td>Normal for age and education</td><td>Intact</td><td>Reassure; recheck if it progresses</td></tr>
+<tr><td><strong>Subjective cognitive decline</strong></td><td>Persistent self-reported decline</td><td>Normal</td><td>Intact</td><td>Modest increase in future risk. Screen for depression, sleep, drugs, hearing</td></tr>
+<tr><td><strong>Mild cognitive impairment</strong></td><td>Reported by patient or informant</td><td><strong>Impaired</strong> in ≥1 domain</td><td>Preserved independence (may take more effort)</td><td>Heterogeneous — some progress, some remain stable, <strong>some revert</strong></td></tr>
+<tr><td><strong>Dementia (major neurocognitive disorder)</strong></td><td>Reported, usually by an informant</td><td>Impaired in ≥1 domain (usually more)</td><td><strong>Loss of independence</strong></td><td>Name the syndrome, treat contributors, plan care</td></tr>
+</tbody>
 </table>
-
-<div class="warn"><strong>Neuroleptic sensitivity in DLB</strong> &mdash; an antipsychotic challenge in a misdiagnosed DLB patient can precipitate severe parkinsonism, autonomic instability, NMS-like picture, or death. <em>Always ask about visual hallucinations, fluctuations, RBD, parkinsonism before prescribing any antipsychotic to an older adult.</em></div>
-
-<h2 id="ftd">7 · Frontotemporal dementia (FTD)</h2>
-
-<p>Heterogeneous group with frontal and anterior temporal lobe degeneration. The most common dementia under age 60. Pathology: tau, TDP-43, or FUS protein aggregates (FTLD-tau, FTLD-TDP, FTLD-FUS). ~40% familial; genes include <em>C9orf72</em> (most common — also causes ALS), <em>MAPT</em>, <em>GRN</em>.</p>
-
-<h3>Three main FTD phenotypes</h3>
-
-<table>
-<tr><th>Variant</th><th>Hallmarks</th></tr>
-<tr><td><strong>Behavioural variant FTD (bvFTD)</strong></td><td>Insidious change in personality and behaviour: <em>disinhibition</em>, apathy, loss of empathy, perseverative/stereotyped behaviours, dietary change (carbohydrate craving, hyperorality), executive dysfunction. Memory and visuospatial often preserved early. International consensus criteria require ≥ 3 of 6 features with progression.</td></tr>
-<tr><td><strong>Non-fluent / agrammatic primary progressive aphasia (nfvPPA)</strong></td><td>Effortful speech with agrammatism and/or apraxia of speech; comprehension of grammar impaired; single-word comprehension preserved. Left inferior frontal atrophy.</td></tr>
-<tr><td><strong>Semantic variant PPA (svPPA / semantic dementia)</strong></td><td>Loss of word meaning and object recognition (anomia + impaired single-word comprehension); fluent but empty speech. Bilateral (often left &gt; right) anterior temporal atrophy.</td></tr>
-</table>
-<p>The logopenic variant PPA (<strong>lvPPA</strong>) is <em>usually AD pathology</em>, not FTD: word-retrieval pauses, impaired sentence repetition; left temporoparietal atrophy.</p>
-
-<h3>Overlap syndromes (FTD spectrum)</h3>
-<ul>
-  <li><strong>FTD-ALS</strong> — frontotemporal dementia with motor neuron disease (often C9orf72).</li>
-  <li><strong>Progressive supranuclear palsy (PSP)</strong>, <strong>corticobasal syndrome (CBS)</strong> — Parkinson-plus syndromes; PSP and CBS pathology is FTLD-tau.</li>
-</ul>
-
-<h3>Diagnosis</h3>
-<p>Clinical + neuropsychological + MRI showing frontal/anterior temporal atrophy (often asymmetric) + FDG-PET showing frontal/anterior temporal hypometabolism. CSF AD biomarkers often negative (helpful to distinguish from atypical AD).</p>
-
-<h3>Treatment</h3>
-<ul>
-  <li><strong>No disease-modifying therapy.</strong> Cholinesterase inhibitors do not help and may worsen behaviour.</li>
-  <li>SSRIs (trazodone, citalopram, sertraline) may reduce disinhibition, repetitive behaviours, dietary excess.</li>
-  <li>Speech and language therapy for PPA.</li>
-  <li>Caregiver support paramount &mdash; bvFTD is exceptionally hard on families.</li>
-  <li>Genetic counselling for familial cases.</li>
-  <li>Avoid antipsychotics where possible (extrapyramidal sensitivity, especially in tauopathy).</li>
-</ul>
-
-<h2 id="vasc">8 · Vascular cognitive impairment / dementia</h2>
-
-<p>Spectrum from vascular MCI through multi-infarct dementia to subcortical ischaemic vascular dementia (Binswanger). 2–10% of pure dementia; mixed vascular-AD pathology is very common.</p>
-
-<h3>Clinical patterns</h3>
-<ul>
-  <li><strong>Multi-infarct (cortical):</strong> stepwise decline with focal events; cognitive profile depends on territories affected.</li>
-  <li><strong>Strategic-infarct dementia:</strong> single stroke in critical site (thalamus, angular gyrus, caudate) → sudden cognitive change.</li>
-  <li><strong>Subcortical ischaemic (Binswanger):</strong> insidious progression with executive dysfunction, psychomotor slowing, gait apraxia (small-step, wide-based), pseudobulbar affect, urinary urgency.</li>
-  <li><strong>Post-stroke dementia:</strong> incidence ~30% at 1 year after major stroke.</li>
-  <li><strong>CADASIL</strong> (Cerebral Autosomal Dominant Arteriopathy with Subcortical Infarcts and Leukoencephalopathy) &mdash; NOTCH3 mutation; young-onset migraine with aura → recurrent lacunar strokes → vascular dementia; striking white-matter disease with anterior temporal pole involvement.</li>
-</ul>
-
-<h3>Diagnosis</h3>
-<p>Cognitive deficit + neuroimaging evidence of significant vascular disease (large infarcts, strategic infarct, multiple lacunes, extensive white-matter disease) + temporal relationship (deficit onset within 3 months of vascular event for some criteria).</p>
-
-<h3>Treatment</h3>
-<ul>
-  <li><strong>Aggressive vascular risk-factor control</strong> &mdash; the most evidence-based intervention. BP &lt; 130/80, statin, antiplatelet, DM &amp; HbA1c control, smoking cessation, exercise.</li>
-  <li>Cholinesterase inhibitors and memantine: <em>modest cognitive benefit</em> in vascular dementia (smaller than in AD). Reasonable to trial.</li>
-  <li>Treat depression (very common).</li>
-  <li>Manage stroke risks per Module 2.</li>
-</ul>
-
-<h2 id="mixed">9 · Mixed dementia &amp; less common causes</h2>
-<ul>
-  <li><strong>Mixed AD + vascular</strong> is the most common combination at autopsy.</li>
-  <li><strong>Mixed AD + Lewy body</strong> common &mdash; consider when AD patient has prominent visual hallucinations, parkinsonism, or fluctuations.</li>
-  <li><strong>Creutzfeldt-Jakob disease (CJD)</strong> &mdash; rapidly progressive (weeks-months) dementia + myoclonus + cerebellar / pyramidal signs + akinetic mutism; MRI DWI cortical ribboning, basal-ganglia hyperintensity, pulvinar / "hockey-stick" in variant CJD; EEG periodic sharp wave complexes; CSF RT-QuIC highly sensitive &amp; specific. Always fatal within 1 year.</li>
-  <li><strong>Chronic traumatic encephalopathy (CTE)</strong> — repetitive head trauma; tau-positive perivascular sulcal deposits; behavioural and cognitive symptoms years after exposure. Diagnosis at autopsy; criteria evolving for in-vivo diagnosis.</li>
-  <li><strong>Huntington disease</strong> (Module 6) &mdash; subcortical dementia + chorea + psychiatric.</li>
-  <li><strong>Wilson disease</strong> &mdash; young patient with neuropsychiatric + extrapyramidal features.</li>
-  <li><strong>HIV-associated neurocognitive disorder</strong> &mdash; spectrum from asymptomatic neurocognitive impairment to HIV-associated dementia; subcortical pattern; ART improves.</li>
-  <li><strong>Neurosyphilis (general paresis)</strong>, <strong>Whipple disease</strong>, <strong>progressive multifocal leukoencephalopathy</strong>.</li>
-</ul>
-
-<h2 id="bpsd">10 · Behavioural &amp; psychological symptoms of dementia (BPSD)</h2>
-
-<p>BPSD includes apathy, depression, anxiety, agitation, aggression, psychosis, sleep disturbance, sundowning, wandering, eating changes. Drives caregiver burden and institutionalisation more than cognitive decline itself.</p>
-
-<h3>Always first: identify and treat triggers</h3>
-<ul>
-  <li>Pain (constipation, urinary retention, dental, joint, fracture, infection).</li>
-  <li>Infection (UTI, pneumonia) — classic precipitant of acute behaviour change.</li>
-  <li>Drug-related (anticholinergics, opioids, BZD withdrawal, recent medication changes).</li>
-  <li>Hunger, thirst, bowel/bladder full, fatigue.</li>
-  <li>Environmental: change of place, noise, isolation, sundowning.</li>
-  <li>Communication frustration in PPA, hearing/vision impairment.</li>
-</ul>
-
-<h3>Non-pharmacological measures (first-line)</h3>
-<p>Caregiver education and validation, routine, orientation aids, structured activity, social engagement, music therapy, environmental modifications, sleep hygiene, reduce caffeine, treat sensory impairment, address pain proactively.</p>
-
-<h3>Pharmacological options (when non-pharmacological measures fail and there is risk of harm)</h3>
-<table>
-<tr><th>Symptom</th><th>Try</th></tr>
-<tr><td>Depression</td><td>SSRI (sertraline, citalopram — beware QTc &gt; 20 mg/d in older patients; escitalopram preferred where available)</td></tr>
-<tr><td>Apathy</td><td>Methylphenidate (cautious trial), SSRI, treat depression</td></tr>
-<tr><td>Anxiety / agitation</td><td>SSRI; trazodone; pain control; quetiapine low-dose if severe; AVOID benzodiazepines (paradoxical worsening, falls, delirium)</td></tr>
-<tr><td>Psychosis (delusions, hallucinations)</td><td>Address cause; cholinesterase inhibitor (especially DLB); quetiapine or risperidone at lowest dose, shortest duration; clozapine or pimavanserin (especially in DLB / PDD) &mdash; avoid haloperidol</td></tr>
-<tr><td>Aggression</td><td>Identify trigger; SSRI; trazodone; quetiapine; aripiprazole; <strong>brexpiprazole</strong> (FDA-approved 2023 for agitation in AD)</td></tr>
-<tr><td>Sleep disturbance</td><td>Sleep hygiene, daylight, exercise; melatonin; trazodone 25–100 mg; AVOID Z-drugs and BZDs</td></tr>
-<tr><td>Wandering</td><td>Safe environment; ID bracelet; door alarms; daytime activity</td></tr>
-</table>
-
-<div class="warn"><strong>FDA black-box warning</strong> &mdash; all antipsychotics in dementia carry a 1.5–1.7× mortality risk (cardiovascular and infectious). Use lowest dose, shortest duration, with documented informed consent and clear target symptom; re-evaluate every few weeks for de-prescribing.</div>
-
-<h2 id="updates">11 · 2023–2024 update: anti-amyloid monoclonal antibodies</h2>
-
-<p><em>Note: Merritt's 14th edition (2022) predates these approvals; the content below reflects 2023–2024 developments.</em></p>
-
-<table>
-<tr><th>Drug</th><th>FDA approval</th><th>Status</th></tr>
-<tr><td><strong>Aducanumab</strong> (Aduhelm)</td><td>2021 (accelerated)</td><td>Manufacturer withdrew in 2024 due to lack of evidence of clinical benefit and slow uptake.</td></tr>
-<tr><td><strong>Lecanemab</strong> (Leqembi)</td><td>Full approval Jul 2023</td><td>Approved for early symptomatic AD (MCI due to AD or mild AD dementia) with amyloid confirmation. IV infusion every 2 weeks. CLARITY-AD trial: 27% slowing of cognitive decline on CDR-SB at 18 months.</td></tr>
-<tr><td><strong>Donanemab</strong> (Kisunla)</td><td>Full approval Jul 2024</td><td>Approved for same indication. IV every 4 weeks until amyloid clears (typically 6–18 months). TRAILBLAZER-ALZ 2 trial: similar magnitude of benefit, with potential to <em>stop</em> dosing once amyloid cleared.</td></tr>
-</table>
-
-<h3>Eligibility (broadly)</h3>
-<ul>
-  <li>Confirmed AD biology (amyloid PET positive or CSF Aβ42/p-tau ratio supportive).</li>
-  <li>MCI due to AD or mild AD dementia (MMSE typically ≥ 22; CDR ≤ 1).</li>
-  <li>Pre-treatment MRI screening for cerebral microbleeds and superficial siderosis.</li>
-  <li>APOE ε4 genotyping recommended — ε4/ε4 homozygotes have higher rates of ARIA.</li>
-  <li>Not on anticoagulation (relative — bleeding risk).</li>
-</ul>
-
-<h3>Amyloid-related imaging abnormalities (ARIA)</h3>
-<ul>
-  <li><strong>ARIA-E</strong> (oedema) &mdash; vasogenic oedema, usually asymptomatic; ~12% with lecanemab, ~24% with donanemab.</li>
-  <li><strong>ARIA-H</strong> (haemorrhage) &mdash; microbleeds and superficial siderosis; ~17% lecanemab, ~31% donanemab.</li>
-  <li>Higher rates in APOE ε4 homozygotes (up to ~30% ARIA-E with lecanemab).</li>
-  <li>Symptomatic ARIA in ~3% (headache, confusion, focal deficit, seizure) &mdash; rare deaths reported, particularly with anticoagulant use or thrombolysis.</li>
-  <li>MRI monitoring required before infusions 5, 7, 14 (lecanemab) or at scheduled intervals (donanemab).</li>
-</ul>
-
-<h3>Practical implications for the general physician</h3>
-<ul>
-  <li>Refer patients with early symptomatic AD to a memory or neurology clinic to discuss eligibility &mdash; access varies by region and reimbursement.</li>
-  <li>Counsel about modest <em>average</em> benefit (slowing not stopping), infusion burden, ARIA risk, MRI monitoring, cost.</li>
-  <li><strong>Stop anti-amyloid mAb before thrombolysis in stroke</strong>; if patient on lecanemab/donanemab has an acute ischaemic stroke, tPA carries a notably increased ICH risk.</li>
-  <li>Symptomatic therapies (cholinesterase inhibitors, memantine) remain standard; mAbs are <em>additive</em>, not replacement.</li>
-</ul>
-
-<h2 id="refer">12 · When to refer</h2>
-<div class="refer"><strong>Refer to neurology / memory clinic:</strong>
-<ul>
-  <li>Diagnostic uncertainty (atypical presentation, age &lt; 65, rapid progression, prominent psychiatric or motor features).</li>
-  <li>Suspected reversible cause requiring specialist workup (NPH for shunt evaluation, autoimmune encephalitis, CJD, paraneoplastic).</li>
-  <li>Family history of early-onset dementia or known autosomal dominant mutation (consider genetic counselling).</li>
-  <li>For consideration of anti-amyloid monoclonal antibody therapy.</li>
-  <li>BPSD refractory to first-line measures.</li>
-  <li>Driving fitness assessment.</li>
-</ul>
 </div>
-<div class="warn"><strong>Refer to old-age psychiatry:</strong> severe behavioural disturbance, psychiatric comorbidity (e.g.&nbsp;depression with suicidal ideation), need for inpatient assessment, complex pharmacological management.</div>
 
-<h2 id="quick">13 · Quick-reference tables</h2>
+<div class="pearl"><strong>Amnestic versus non-amnestic matters.</strong> Amnestic MCI — the patient who genuinely cannot store new information — most often progresses to Alzheimer disease. Non-amnestic MCI (executive, language, visuospatial) points toward vascular, Lewy body or frontotemporal disease. Ask the informant for a specific recent example rather than a general impression: "Tell me about something that happened last week that showed you there was a problem."</div>
 
-<h3>Cognitive profile → likely cause</h3>
+<div class="warn"><strong>The commonest single error in this field is diagnosing dementia in a delirious patient.</strong> Delirium is acute, fluctuates through the day, and impairs <em>attention</em> above all else. If the patient cannot hold serial 7s or the months backwards, you are testing attention, not memory, and the result tells you nothing about their baseline. Treat the delirium, then reassess cognition weeks later — and remember that delirium and dementia coexist very often, each being a risk factor for the other.</div>
+
+<h2 id="approach"><span class="num">2</span> Approach to the patient</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Five questions in order: <strong>Is there true decline? Which domains? How fast? What else is on the exam? What is reversible?</strong></li>
+    <li><strong>Tempo drives everything.</strong> Months rather than years puts you into the rapidly-progressive-dementia pathway (§13), which is a different and more urgent workup.</li>
+    <li><strong>A motor sign changes the differential entirely</strong> — parkinsonism, ataxia, myoclonus, pyramidal signs or eye-movement abnormality each redirect it.</li>
+    <li>Take a full <strong>drug history</strong>, including anticholinergics, benzodiazepines, opioids, and over-the-counter sleep and allergy preparations.</li>
+  </ul>
+</div>
+
+<h3>Domains, and what each points to</h3>
+<div class="tw">
 <table>
-<tr><th>Predominant deficit</th><th>Think</th></tr>
-<tr><td>Episodic memory (storage failure — cueing doesn't help)</td><td>Alzheimer disease</td></tr>
-<tr><td>Behavioural change + disinhibition + dietary change</td><td>Behavioural variant FTD</td></tr>
-<tr><td>Effortful agrammatic speech</td><td>Non-fluent variant PPA</td></tr>
-<tr><td>Loss of word meaning, fluent empty speech</td><td>Semantic variant PPA</td></tr>
-<tr><td>Word-finding pauses, impaired repetition</td><td>Logopenic PPA (usually AD pathology)</td></tr>
-<tr><td>Fluctuating cognition + visual hallucinations + RBD + parkinsonism</td><td>Dementia with Lewy bodies</td></tr>
-<tr><td>Established PD &gt; 1 year then dementia</td><td>Parkinson disease dementia</td></tr>
-<tr><td>Executive + processing-speed slowing, gait, urgency, mood</td><td>Subcortical ischaemic vascular dementia</td></tr>
-<tr><td>Stepwise decline + focal vascular events</td><td>Multi-infarct dementia</td></tr>
-<tr><td>Magnetic gait + urinary incontinence + cognitive decline</td><td>Normal-pressure hydrocephalus</td></tr>
-<tr><td>Rapidly progressive (&lt; 1 y) + myoclonus + DWI ribboning</td><td>CJD</td></tr>
-<tr><td>Subacute decline + temporal MRI changes ± seizures</td><td>Autoimmune / limbic / HSV encephalitis</td></tr>
+<thead><tr><th>Domain affected first</th><th>How it shows up</th><th>Points toward</th></tr></thead>
+<tbody>
+<tr><td><strong>Episodic memory</strong></td><td>Repeats questions, loses recent events, poor delayed recall not helped by cueing</td><td>Alzheimer disease (typical amnestic)</td></tr>
+<tr><td><strong>Executive / attention</strong></td><td>Poor planning, disorganised, slowed, perseverative; retrieval-type memory failure helped by cueing</td><td>Vascular, FTD, DLB/PDD, normal-pressure hydrocephalus, depression</td></tr>
+<tr><td><strong>Language</strong></td><td>Word-finding, naming failure, agrammatism, loss of word meaning</td><td>Primary progressive aphasia variants; logopenic PPA is usually AD pathology</td></tr>
+<tr><td><strong>Visuospatial / visuoperceptual</strong></td><td>Gets lost in familiar places, cannot judge distance, difficulty reading despite normal acuity</td><td>DLB; <strong>posterior cortical atrophy</strong> (usually AD pathology)</td></tr>
+<tr><td><strong>Behaviour / personality</strong></td><td>Disinhibition, apathy, loss of empathy, compulsions, dietary change</td><td>Behavioural-variant FTD; late-onset psychiatric illness is the main differential</td></tr>
+<tr><td><strong>Social cognition</strong></td><td>Loss of manners, tactlessness, misreading others</td><td>bvFTD; also right temporal variant</td></tr>
+</tbody>
 </table>
+</div>
 
-<h3>What to test in every dementia workup</h3>
+<h3>The examination findings that redirect you</h3>
+<div class="tw">
 <table>
-<tr><th>Standard</th><th>If atypical / rapidly progressive</th></tr>
-<tr><td>CBC, electrolytes, calcium, glucose, U&amp;E, LFT</td><td>+ Paraneoplastic / autoimmune encephalitis panel</td></tr>
-<tr><td>TSH</td><td>+ CSF (cell count, protein, RT-QuIC for CJD, AD biomarkers, autoantibodies)</td></tr>
-<tr><td>Vitamin B12</td><td>+ EEG</td></tr>
-<tr><td>Syphilis serology</td><td>+ MRI DWI (CJD), MR angiography (vasculitis)</td></tr>
-<tr><td>HIV (if risk)</td><td>+ Body imaging for occult malignancy</td></tr>
-<tr><td>MRI brain</td><td>+ Genetics (HD, FTD, CADASIL)</td></tr>
+<thead><tr><th>Finding</th><th>Redirects toward</th></tr></thead>
+<tbody>
+<tr><td>Parkinsonism</td><td>DLB (within a year of cognitive onset), PDD (dementia after established PD), PSP, CBS, vascular</td></tr>
+<tr><td><strong>Myoclonus</strong>, especially startle-sensitive</td><td>Prion disease, advanced AD, metabolic, autoimmune</td></tr>
+<tr><td>Ataxia</td><td>Prion disease, alcohol/thiamine, paraneoplastic, SCA, Wilson</td></tr>
+<tr><td>Vertical gaze palsy</td><td>PSP; Niemann–Pick C in the young</td></tr>
+<tr><td>Pyramidal signs</td><td>Vascular, FTD-MND, structural</td></tr>
+<tr><td>Gait apraxia + urinary urgency</td><td>Normal-pressure hydrocephalus</td></tr>
+<tr><td><strong>Apraxia of eyelid opening</strong></td><td>PSP, CBS, advanced PD. (Distinct from <em>awakening ptosis</em>, a benign self-limiting entity confined to waking that resolves on mechanical lid elevation)</td></tr>
+<tr><td>Peripheral neuropathy</td><td>B12, thiamine, alcohol, paraproteinaemia, HIV</td></tr>
+<tr><td>Seizures</td><td>Autoimmune encephalitis, vascular, advanced AD, structural</td></tr>
+</tbody>
 </table>
+</div>
 
-<h3>Drugs to think twice about in dementia / elderly</h3>
+<div class="pearl"><strong>An algorithmic approach that works in a busy clinic.</strong> Establish the presence and severity of impairment; systematically test each domain; then branch on two questions — <em>is it rapidly progressive?</em> and <em>are there motor abnormalities?</em> Those two branches carry almost all the urgent and treatable diagnoses, and a patient who is negative on both can be worked up at a slower and cheaper tempo.</div>
+
+<h2 id="invest"><span class="num">3</span> Investigation strategy &amp; urgency</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>In a hospital without on-site MRI, CSF biomarkers or plasma p-tau, the useful question is <strong>"what changes management today, this week, or at the single referral visit?"</strong></li>
+    <li><strong>Tier A is the reversible-cause screen, and it is not optional in anyone.</strong> Every item is available in your own lab and every one can change the outcome.</li>
+    <li><strong>Tempo sets the tier.</strong> A dementia evolving over years is a tier-C/D workup. A dementia evolving over weeks to months is a tier-A/B emergency — see §13.</li>
+    <li><strong>Batch tier-D tests into one referral trip.</strong> MRI, neuropsychology, LP and the specialist opinion should happen in a single attendance, not four.</li>
+  </ul>
+</div>
+
+<h3>The five urgency tiers</h3>
+<div class="tw">
 <table>
-<tr><th>Class</th><th>Examples</th><th>Why concern</th></tr>
-<tr><td>Anticholinergics</td><td>Oxybutynin, diphenhydramine, tricyclics, hyoscine, atropine drops, paroxetine</td><td>Worsens cognition; cumulative anticholinergic burden raises dementia risk</td></tr>
-<tr><td>Benzodiazepines, Z-drugs</td><td>Diazepam, lorazepam, zolpidem</td><td>Falls, sedation, paradoxical agitation, possibly increased dementia risk with chronic use</td></tr>
-<tr><td>Typical antipsychotics</td><td>Haloperidol, fluphenazine</td><td>Mortality, EPS, neuroleptic sensitivity (DLB)</td></tr>
-<tr><td>Atypical antipsychotics</td><td>Olanzapine, risperidone, quetiapine</td><td>Black-box mortality warning; use only with clear target and review</td></tr>
-<tr><td>Opioids (long-acting / strong)</td><td>Tramadol, oxycodone, morphine</td><td>Sedation, delirium, falls</td></tr>
-<tr><td>Drugs that lower seizure threshold</td><td>Bupropion, tramadol, theophylline</td><td>Worsens cognition, falls</td></tr>
+<thead><tr><th>Tier</th><th>Timeframe</th><th>Tests</th><th>Why this tier</th></tr></thead>
+<tbody>
+<tr><td><span class="tier tA">A</span>Now</td><td>This visit, your own lab</td><td><strong>FBC, renal function and electrolytes (incl. Ca), liver function, glucose/HbA1c, TSH, vitamin B12</strong> (± folate), CRP; <strong>HIV and syphilis serology</strong>; urinalysis if delirium suspected; <strong>the full drug chart</strong> including over-the-counter; <strong>a depression screen</strong>; <strong>hearing and vision check</strong>; ECG</td><td>Each can reveal a reversible or contributing cause, and none needs anything you do not have. This is the screen that changes outcomes</td></tr>
+<tr><td><span class="tier tB">B</span>Today</td><td>Same day — transfer if necessary</td><td><strong>Non-contrast CT head</strong> if: rapid progression, head injury or fall, anticoagulation, focal signs, seizures, headache, age &lt;65, or gait/urinary change; blood gas; blood cultures and CXR if febrile or delirious; <strong>EEG</strong> if myoclonus, seizures or fluctuating consciousness; <strong>LP</strong> if fever, rapid progression or suspected infection or inflammation</td><td>This tier catches subdural haematoma, tumour, hydrocephalus, non-convulsive status, encephalitis — the things that must not wait</td></tr>
+<tr><td><span class="tier tC">C</span>This week</td><td>Days</td><td>Autoimmune screen (ANA, ENA) if the picture is inflammatory; thiamine given empirically rather than measured; coeliac serology; paraproteins; heavy metals only with a real exposure history; sleep-apnoea assessment (STOP-BANG and overnight oximetry if available)</td><td>Treatable contributors with a real but not immediate time cost</td></tr>
+<tr><td><span class="tier tD">D</span>This month</td><td>Batch into one referral visit</td><td><strong>MRI brain</strong> with coronal hippocampal views and susceptibility-weighted sequences; <strong>formal neuropsychology</strong>; <strong>CSF AD biomarkers</strong> or <strong>plasma p-tau217</strong> where available; autoimmune and paraneoplastic antibody panels (paired serum and CSF); DaTscan; FDG-PET; genetic counselling and testing in young-onset or strong family history; <strong>14-3-3 and RT-QuIC</strong> if prion disease is suspected</td><td>None of these will be acted on before the specialist sees the patient — so make the trip do all of them at once</td></tr>
+<tr><td><span class="tier tE">E</span>Elective</td><td>Or omit</td><td>Repeat imaging in stable disease; amyloid-PET where no anti-amyloid therapy is accessible; broad genetic panels without a phenotype; routine EEG in typical slowly progressive dementia</td><td>Cost and distance without a management consequence</td></tr>
+</tbody>
 </table>
+</div>
+
+<div class="warn"><strong>When CT is enough, and when it is not.</strong> CT will show you a subdural haematoma, a tumour with oedema, hydrocephalus, a large infarct and gross atrophy — which means it rules out the surgical causes, and that is its job. It will <em>not</em> reliably show hippocampal atrophy, the extent of small-vessel disease, cortical microbleeds and superficial siderosis, early cortical ribboning in CJD, or the medial temporal changes of limbic encephalitis. If your clinical question is "is there something surgical or structural here?", CT answers it today. If your question is "which degenerative disease is this?", CT will not answer it and MRI belongs in the batched referral.</div>
+
+<h3>What to treat before the result arrives</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Situation</th><th>Treat now</th><th>Do not wait for</th></tr></thead>
+<tbody>
+<tr><td>Any malnourished, alcohol-dependent, post-bariatric or persistently vomiting patient with confusion</td><td><strong>Parenteral thiamine, before any glucose load</strong></td><td>Thiamine levels — do not measure, just give it</td></tr>
+<tr><td>Cognitive decline with a long anticholinergic or benzodiazepine list</td><td>Start deprescribing at this visit</td><td>Imaging or specialist review</td></tr>
+<tr><td>Prominent low mood, poor sleep, weight loss, and a patient who says "I don't know" rather than confabulating</td><td>An adequate antidepressant trial, and reassess cognition at 3 months</td><td>A dementia label — depression is both a mimic and a genuine risk factor</td></tr>
+<tr><td>Subacute cognitive decline with seizures, psychiatric change or movement disorder</td><td><strong>Empirical aciclovir</strong>; consider immunotherapy if the clinical criteria for autoimmune encephalitis are met</td><td>Antibody results — turnaround is weeks</td></tr>
+<tr><td>B12 low or borderline with neurological features</td><td>Replace immediately (parenteral if neurological)</td><td>Methylmalonic acid confirmation</td></tr>
+<tr><td>Delirium in a hospitalised patient</td><td>Find and treat the cause; stop the offending drugs; non-pharmacological measures first</td><td>Any cognitive testing that will be uninterpretable until the delirium clears</td></tr>
+<tr><td>Cognitive decline with untreated hearing loss</td><td>Refer for a hearing aid</td><td>Everything else — this is one of the largest modifiable risk factors and a direct cause of apparent cognitive failure in consultation</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>Make one referral trip do the work of three.</strong> Write the referral so the receiving centre performs the MRI, the neuropsychology, the LP and the specialist review at a single attendance. State in the first line what the syndrome is and how fast it is moving. Send your tier-A results on paper so nothing is repeated. Name the sequences you want — "MRI with coronal hippocampal views and SWI" — because a routine protocol may not include them. For a patient travelling several hours from a district in Isan, a wasted trip is often the reason the diagnosis is never completed at all.</div>
+
+<div class="newbox"><strong>On plasma p-tau217, since you will be asked about it.</strong> The evidence is now strong: in a prospective study of over 1200 patients, the plasma APS2 test reached an AUC of 0.97 with PPV 91% and NPV 92% in primary care — against clinical diagnostic accuracy of 61% for primary care physicians and 73% for dementia specialists. A fully automated platform achieved 85% accuracy in primary care and 89–91% in secondary care, rising to 92–94% with a two-cutoff approach that leaves 12–17% of results in an intermediate band. Accuracy fell somewhat over age 80 but was unaffected by chronic kidney disease, diabetes, sex or APOE genotype. <strong>Two caveats that matter more than the numbers.</strong> First, the test reports <em>amyloid pathology</em>, which is common in the old and does not by itself prove that pathology is causing this patient's symptoms — a positive test in someone whose syndrome is clearly frontotemporal or vascular has told you about a copathology, not a diagnosis. Second, it is licensed for patients already under evaluation for MCI or early dementia, not for screening the worried well.</div>
+
+<h2 id="reversible"><span class="num">4</span> Reversible &amp; contributing causes</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Fully reversible dementia is uncommon; <strong>reversible contribution to an existing dementia is very common</strong>, and that is what you are hunting.</li>
+    <li>Run the screen on <strong>every patient</strong>, including those with an obvious degenerative syndrome.</li>
+    <li><strong>Drugs, depression, sleep and sensory loss</strong> account for more treatable disability than all the rare causes combined.</li>
+    <li>Reassess after treating — improvement confirms the contribution; failure to improve is itself useful information.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Category</th><th>Specifics</th><th>How to find it</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td><strong>Drugs</strong></td><td>Anticholinergics (oxybutynin, amitriptyline, older antihistamines, some antipsychotics), benzodiazepines, Z-drugs, opioids, anticonvulsants, lithium, steroids, polypharmacy</td><td>Full 12-month drug chart including over-the-counter and traditional remedies; calculate anticholinergic burden</td><td>Deprescribe systematically, one at a time; reassess at 3 months</td></tr>
+<tr><td><strong>Depression</strong></td><td>"Pseudodementia" — though it is often both. Poor effort, "don't know" answers, prominent low mood and sleep change, subacute onset the patient can date</td><td>Formal screening (PHQ-9, GDS); collateral history about mood preceding cognition</td><td>Adequate antidepressant trial at adequate dose and duration, then reassess cognition</td></tr>
+<tr><td><strong>Thyroid</strong></td><td>Hypothyroidism above all</td><td>TSH — tier A</td><td>Replace; do not expect dramatic cognitive reversal, but treat it</td></tr>
+<tr><td><strong>B12 / folate</strong></td><td>Deficiency with or without anaemia; consider metformin, PPI use, gastrectomy, vegan diet</td><td>B12 — tier A; MMA if borderline</td><td>Replace, parenterally if neurological features</td></tr>
+<tr><td><strong>Thiamine</strong></td><td>Wernicke encephalopathy and Korsakoff syndrome — alcohol, malnutrition, hyperemesis, bariatric surgery, dialysis</td><td>Clinical suspicion only</td><td><strong>Give parenteral thiamine empirically, before glucose</strong></td></tr>
+<tr><td><strong>Sleep apnoea</strong></td><td>Very common, very treatable, presents as inattention and daytime cognitive failure</td><td>Snoring and witnessed apnoeas from the bed partner; STOP-BANG; overnight oximetry</td><td>CPAP where available; weight, alcohol and positional measures</td></tr>
+<tr><td><strong>Sensory loss</strong></td><td>Hearing loss especially; also vision</td><td>Whisper test, audiometry, visual acuity</td><td>Hearing aid, cataract surgery. Test cognition <em>with</em> the aids in place, or the score is meaningless</td></tr>
+<tr><td><strong>Alcohol</strong></td><td>Direct toxicity, thiamine deficiency, head injury, hepatic encephalopathy</td><td>Honest history, GGT, MCV</td><td>Abstinence, thiamine, nutrition</td></tr>
+<tr><td><strong>Structural</strong></td><td>Chronic subdural haematoma, tumour, <strong>normal-pressure hydrocephalus</strong></td><td><strong>CT — tier B</strong> where indicated</td><td>Neurosurgical referral; tap test for NPH</td></tr>
+<tr><td><strong>Infection</strong></td><td>HIV, neurosyphilis, chronic meningitis; in this region also consider tuberculous and cryptococcal disease</td><td>HIV and syphilis serology — tier A; LP where indicated</td><td>Treat the infection</td></tr>
+<tr><td><strong>Metabolic / organ failure</strong></td><td>Hepatic, renal, hypercalcaemia, hyponatraemia, hypoglycaemia</td><td>Tier-A bloods</td><td>Correct</td></tr>
+<tr><td><strong>Autoimmune</strong></td><td>Autoimmune encephalitis, CNS vasculitis, neurosarcoidosis, Hashimoto encephalopathy</td><td>See §14</td><td>Immunotherapy on clinical criteria</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Do not stop at the first finding.</strong> Cognitive impairment in the old is usually multifactorial — the AHA's 2025 statement makes exactly this point, reframing age-related cognitive impairment as a multiple-cause process. Finding a low B12 does not mean you have explained the patient. Treat it, and keep looking.</div>
+
+<h2 id="screens"><span class="num">5</span> Bedside cognitive testing</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Pick a test you can administer the same way every time, and <strong>record the raw score with the date</strong> so change can be measured.</li>
+    <li><strong>MoCA is more sensitive for MCI</strong> and for executive and visuospatial deficits; <strong>MMSE</strong> is weak at both ends and is heavily affected by education.</li>
+    <li>Correct for <strong>education and language</strong>, and test through the patient's hearing aid and glasses. A Thai-language validated version matters more than the theoretical superiority of any instrument.</li>
+    <li><strong>Test attention before you interpret memory.</strong> If attention is impaired, you are probably looking at delirium.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Instrument</th><th>Time</th><th>Strengths</th><th>Weaknesses</th></tr></thead>
+<tbody>
+<tr><td><strong>Mini-Cog</strong> (3-word recall + clock)</td><td>3 min</td><td>Very quick; minimal education and language bias; good for a busy general clinic</td><td>Coarse — a screen, not an assessment</td></tr>
+<tr><td><strong>MMSE</strong></td><td>10 min</td><td>Familiar, widely used, good for tracking moderate disease</td><td>Ceiling effect in the educated, floor in the advanced; almost no executive testing; heavy language load</td></tr>
+<tr><td><strong>MoCA</strong></td><td>10–15 min</td><td>Much better for MCI, executive function and visuospatial domains; add 1 point if ≤12 years of education</td><td>Longer; requires training; also language-dependent</td></tr>
+<tr><td><strong>Clock drawing</strong></td><td>2 min</td><td>Executive and visuospatial in one task; excellent value</td><td>Multiple scoring systems</td></tr>
+<tr><td><strong>Verbal fluency</strong> (animals/60 s)</td><td>1 min</td><td>Sensitive; semantic fluency drops early in AD, phonemic in FTD and vascular</td><td>Education-dependent</td></tr>
+<tr><td><strong>IQCODE / AD8</strong> (informant)</td><td>5 min</td><td>Measures <em>change</em> rather than level — bypasses education bias entirely</td><td>Needs a reliable informant; affected by informant anxiety</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>The cueing test that separates two kinds of memory failure.</strong> Give three words. At delayed recall, if the patient cannot produce them, offer a category cue ("one was a fruit") and then a recognition list. In <strong>Alzheimer disease the cue does not help</strong> — the information was never stored. In executive or retrieval-type failure (vascular, depression, FTD, PDD) <strong>cueing and recognition rescue the answer</strong>, because the material was stored but cannot be retrieved. This single manoeuvre costs thirty seconds and is more informative than the total score.</div>
+
+<div class="newbox"><strong>Digital and self-administered testing.</strong> A self-administered digital battery tested in primary care achieved 85% accuracy with a single cutoff — significantly better than the primary care physicians' own assessment at 73%, and better than MMSE, MoCA and Mini-Cog. Combined with a blood biomarker it identified biomarker-verified clinical AD with 90% accuracy, versus 70% for standard of care. This is a signal of where screening is heading, but it is not yet a reason to abandon a validated local paper test that your staff can administer reliably in Thai.</div>
+
+<h2 id="mci"><span class="num">6</span> Mild cognitive impairment</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Objective impairment in ≥1 cognitive domain with <strong>independence preserved</strong>.</li>
+    <li>Outcomes are genuinely heterogeneous — a proportion progress, a proportion stay stable, and <strong>a meaningful proportion revert to normal</strong>, usually those whose MCI was driven by a treatable contributor.</li>
+    <li><strong>Amnestic MCI</strong> predicts Alzheimer disease; <strong>non-amnestic</strong> points to vascular, Lewy body or frontotemporal disease.</li>
+    <li>There is <strong>no drug treatment for MCI</strong> — cholinesterase inhibitors do not prevent progression. What works is treating the contributors and managing vascular risk.</li>
+  </ul>
+</div>
+
+<p><strong>What to actually do.</strong> Run the full tier-A reversible screen. Review and reduce the drug list. Treat depression, sleep apnoea and hearing loss. Manage blood pressure, diabetes, lipids and smoking. Encourage physical activity, social engagement and cognitive activity. Discuss driving honestly, and review at 6–12 months with the same test, recorded the same way. Explain the genuine uncertainty rather than either reassuring falsely or delivering a pre-diagnosis of Alzheimer disease.</p>
+
+<div class="pearl"><strong>PD-MCI is a specific entity.</strong> The MDS Task Force review found that in Parkinson disease, <strong>single-domain MCI is more common than multiple-domain</strong>, and <strong>non-amnestic single-domain is more common than amnestic</strong> — the opposite emphasis to the general MCI literature. Executive, attentional and visuospatial deficits dominate. This matters because the pattern of cognitive failure in a parkinsonian patient is not the pattern you screen for with a memory-weighted test: use a MoCA rather than an MMSE.</div>
+
+<h2 id="ad"><span class="num">7</span> Alzheimer disease</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>The commonest dementia. Typical presentation is <strong>insidious, progressive episodic memory loss not rescued by cueing</strong>, later joined by language, visuospatial and executive decline.</li>
+    <li><strong>Atypical presentations are not rare</strong>, especially in young-onset disease: posterior cortical atrophy (visual), logopenic PPA (language), dysexecutive and behavioural variants.</li>
+    <li>Pathology is amyloid plaques and tau neurofibrillary tangles, with tau burden and spread tracking clinical severity far more closely than amyloid does.</li>
+    <li><strong>Copathology is the rule, not the exception</strong>, particularly over 80 — vascular disease, Lewy bodies and TDP-43 commonly coexist.</li>
+  </ul>
+</div>
+
+<h3>Clinical course and what to tell the family</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Stage</th><th>Typical picture</th><th>Priorities</th></tr></thead>
+<tbody>
+<tr><td>Mild</td><td>Recent memory loss, word-finding, repeating questions; managing finances and medications slips first; insight often partly preserved and distressing</td><td>Diagnosis discussion, driving, finances and legal planning while capacity allows, advance care planning, carer education, cholinesterase inhibitor</td></tr>
+<tr><td>Moderate</td><td>Needs help with dressing, bathing, cooking; disorientation; behavioural and psychological symptoms peak; wandering; sleep disruption</td><td>Safety at home (gas, locks, wandering), carer support and respite, BPSD management, memantine, driving cessation</td></tr>
+<tr><td>Severe</td><td>Dependent for all personal care, minimal speech, immobility, incontinence, swallowing failure</td><td>Comfort, skin and mouth care, careful feeding rather than tube feeding, infection and pain management, palliative approach</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Tube feeding does not help in advanced dementia.</strong> It does not prolong life, prevent aspiration or improve pressure sores, and it adds restraint, discomfort and complications. Careful hand feeding with modified consistency, upright positioning and attention to oral care is the right answer. Have this conversation early, before a crisis admission forces it at the bedside at 2 a.m.</div>
+
+<h3>Atypical presentations worth recognising</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Variant</th><th>Presentation</th><th>Trap</th></tr></thead>
+<tbody>
+<tr><td><strong>Posterior cortical atrophy</strong></td><td>Visual disorientation, difficulty reading and judging distance, apraxia, Balint and Gerstmann features — with <em>normal acuity</em></td><td>Repeated referral to ophthalmology and repeated new spectacles for years before anyone examines cognition</td></tr>
+<tr><td><strong>Logopenic PPA</strong></td><td>Word-finding pauses, impaired sentence repetition, phonological errors; grammar and word meaning preserved</td><td>Assumed to be FTD — but the underlying pathology is usually Alzheimer</td></tr>
+<tr><td><strong>Dysexecutive / frontal variant</strong></td><td>Planning and behavioural failure with relatively preserved memory</td><td>Mistaken for bvFTD</td></tr>
+<tr><td><strong>Early-onset amnestic AD</strong></td><td>Same syndrome under 65, often faster progression</td><td>Attributed to stress, depression or burnout for years — see §16</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="biomarkers"><span class="num">8</span> Biomarkers &amp; the revised criteria</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>The 2024 Alzheimer's Association revision defines AD <strong>biologically</strong>, by biomarkers, independent of symptoms — a research-driven change with real clinical consequences.</li>
+    <li><strong>Tau-PET became a core biomarker</strong>, and its spatial extent defines biological stages; these are reported <em>separately</em> from clinical stages.</li>
+    <li><strong>Core 1</strong> biomarkers (amyloid PET, CSF Aβ42:40, p-tau217 and equivalents) establish that AD pathology is present. <strong>Core 2</strong> (tau-PET, some fluid markers) tracks stage and prognosis.</li>
+    <li><strong>Biological and clinical stage often disagree — and the discordance is informative.</strong> Patients more impaired than their tau burden predicts usually have copathology.</li>
+  </ul>
+</div>
+
+<div class="newbox"><strong>The two-axis framework, in plain terms.</strong> A specialist letter may now describe a patient as, say, biologically stage B with clinical stage 3. The biological axis runs from <em>initial</em> (amyloid-positive only) through to <em>advanced</em> (amyloid-positive with elevated and widespread tau). The clinical axis runs from cognitively unimpaired through MCI to dementia. A BioFINDER-2 and ADNI analysis of 1218 amyloid-positive participants with tau-PET found that people whose cognitive impairment outstripped their tau burden were more likely to carry copathologies and comorbidities — which is why the authors argue for measuring <strong>non-AD biomarkers</strong> in exactly those patients. The practical translation: when a patient looks worse than their AD biomarkers say they should, go looking for the second disease rather than assuming aggressive Alzheimer disease.</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Biomarker</th><th>What it tells you</th><th>Availability reality</th></tr></thead>
+<tbody>
+<tr><td><strong>Plasma p-tau217 / APS2</strong></td><td>Presence of AD pathology, with accuracy exceeding clinical judgement</td><td>FDA-cleared; two tests now on the market. Referral-centre access in Thailand; not a district-hospital test yet — but ask, because this is moving fast</td></tr>
+<tr><td><strong>Plasma eMTBR-tau243</strong></td><td>Combined with %p-tau217, reproduces PET-based <strong>biological staging</strong> from blood, with concordance to neuropathology</td><td>Research; the direction of travel is blood-based staging replacing PET</td></tr>
+<tr><td>CSF Aβ42:Aβ40 and p-tau</td><td>Established Core 1 markers</td><td>Requires LP and a laboratory that handles the assay properly</td></tr>
+<tr><td>Amyloid PET</td><td>Amyloid burden</td><td>Expensive, limited; justified mainly where anti-amyloid therapy is actually accessible</td></tr>
+<tr><td>Tau PET</td><td>Tangle burden and spatial extent — now a core biomarker</td><td>Very limited access</td></tr>
+<tr><td>MRI</td><td>Atrophy pattern, vascular burden, microbleeds, alternative structural causes</td><td>Tier D — the one advanced test you should reliably batch into the referral</td></tr>
+<tr><td>FDG-PET</td><td>Hypometabolism pattern separating AD from FTD</td><td>Limited; useful where the clinical distinction is genuinely unclear</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>The central caution about biological diagnosis.</strong> Amyloid positivity rises steeply with age and is present in a substantial proportion of cognitively normal older people. A positive biomarker in a patient whose syndrome is clearly frontotemporal, vascular or functional tells you they have a copathology — it does not rename their illness. Biomarkers answer "is AD pathology present?"; only the clinical syndrome answers "is AD pathology causing this?" Do not let a test result overrule a careful history.</div>
+
+<h2 id="antiamyloid"><span class="num">9</span> Anti-amyloid therapy</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Lecanemab and donanemab hold full FDA approval</strong> for early symptomatic AD — MCI or mild dementia with confirmed amyloid pathology. The <strong>EMA refused donanemab</strong>, and European access remains restricted.</li>
+    <li>They slow decline modestly; they do not stop, reverse or cure. The honest framing is a <strong>delay measured in months over 18 months of treatment</strong>, whose day-to-day meaning for an individual patient is debated.</li>
+    <li><strong>ARIA is the defining risk</strong>, it is common, and it is strongly dose-related to <strong>APOE ε4</strong>.</li>
+    <li>They require infusions, serial MRI monitoring, amyloid confirmation and a service able to manage ARIA — which is why access, not evidence, is the binding constraint for most of the world.</li>
+  </ul>
+</div>
+
+<div class="trial"><strong>ARIA with donanemab — pooled analysis of 3030 participants (JAMA Neurology 2025).</strong> ARIA-E occurred in <strong>24.4%</strong> of donanemab-treated participants in the placebo-controlled trials (19.8% in the open-label addendum) versus <strong>1.9%</strong> on placebo. ARIA-H occurred in <strong>31.3%</strong> versus 13.0%. Most ARIA-E was mild or moderate; <strong>serious ARIA-E 1.5%</strong>, <strong>symptomatic ARIA-E 5.8%</strong> — most often headache and confusion. <strong>58.3% of first ARIA-E events occurred by the third infusion</strong> (about month 3). Independent risk factors: <strong>APOE ε4 allele number</strong>, more microhaemorrhages, cortical superficial siderosis, higher amyloid plaque burden and elevated mean arterial pressure; antihypertensive use was associated with <em>reduced</em> risk.</div>
+
+<div class="trial"><strong>Lecanemab in real-world practice (JAMA Neurology 2025).</strong> 234 patients treated at a single specialty memory clinic over 14 months. <strong>Infusion-related reactions in 37%</strong>, typically mild. Of 194 patients at risk, <strong>22% developed at least one ARIA finding</strong> — 15% ARIA-E with or without ARIA-H, 6.7% isolated ARIA-H. ARIA-E clustered early (11% by 2 months, 13% by 4 months) and was rare after 6 months, while isolated ARIA-H accrued slowly. ARIA-E rates by genotype: <strong>38% in APOE ε4 homozygotes, 15% in heterozygotes</strong>. The authors' conclusion was that the adverse-event burden was manageable in a specialist setting — which is precisely the qualifier to carry into any discussion about offering it elsewhere.</div>
+
+<div class="warn"><strong>What this means for your practice.</strong> You are unlikely to be prescribing these drugs, but you will be asked about them — by families who have read the news, and by patients considering paying for private treatment. Three things to say clearly. <strong>They are for early disease only</strong>: MCI or mild dementia with biomarker-confirmed amyloid, not moderate or advanced dementia, where there is no evidence of benefit and clear evidence of harm. <strong>APOE ε4 homozygotes carry substantially higher ARIA risk</strong>, and genotyping before treatment is now standard. <strong>Anticoagulation is a serious concern</strong> given the microhaemorrhage and siderosis risk. A patient several hours from an MRI scanner and a centre that can manage ARIA is not a candidate, however early their disease.</div>
+
+<h3>Therapies that did not work — and why that is useful</h3>
+<div class="trial"><strong>Semaglutide in early AD — evoke and evoke+ (2026).</strong> 3808 participants randomised to oral semaglutide 14 mg or placebo for up to 156 weeks. Mean age 72.2, mean baseline CDR-SB 3.7. Change in CDR-SB at week 104: <strong>2.3 vs 2.3 in evoke (difference −0.08, 95% CI −0.35 to 0.20, p = 0.57)</strong> and <strong>2.2 vs 2.1 in evoke+ (difference 0.10, 95% CI −0.17 to 0.38, p = 0.46)</strong>. Both trials were discontinued for negative clinical outcome. <em>GLP-1 agonists do not treat Alzheimer disease. Say so when asked.</em></div>
+
+<div class="trial"><strong>Valacyclovir in early symptomatic AD (JAMA 2026).</strong> 120 HSV-seropositive participants. At 78 weeks the change in ADAS-Cog was <strong>10.86 with valacyclovir versus 6.92 with placebo — a between-group difference of 3.93 (95% CI 1.03 to 6.83, p = 0.01) favouring placebo</strong>, i.e. greater cognitive <em>worsening</em> on treatment; function (ADCS-ADL) also favoured placebo. <em>Not efficacious, and not recommended. The herpes hypothesis remains biologically interesting and therapeutically empty.</em></div>
+
+<div class="pearl"><strong>A useful thing to tell families.</strong> Lower post-treatment amyloid correlates with slower clinical progression across the donanemab trial population (R² 0.87 for CDR-SB), and with falls in p-tau217, p-tau181 and GFAP — so the biology is real and the target is right. That is genuinely encouraging for the future. It is also compatible with the present reality that the clinical effect size is modest, the monitoring burden is heavy, and for most patients in most of the world the intervention that will change their next five years is treating their blood pressure, their hearing and their depression.</div>
+
+<h2 id="dlb"><span class="num">10</span> Dementia with Lewy bodies &amp; Parkinson disease dementia</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Four core features: <strong>fluctuating cognition, recurrent well-formed visual hallucinations, REM sleep behaviour disorder, and spontaneous parkinsonism</strong>.</li>
+    <li>The <strong>one-year rule</strong> separates the labels: dementia within a year of parkinsonism (or before it) is DLB; dementia arising in established Parkinson disease is PDD. The biology is the same and the treatment is the same.</li>
+    <li><strong>Severe neuroleptic sensitivity</strong> is a supportive feature and a potentially fatal trap.</li>
+    <li>DLB is <strong>frequently misdiagnosed</strong>, is more disabling than other dementias at equivalent stage, and carries frequent copathology — cerebral microbleeds are actually more prevalent in DLB (36%) than in AD (32%), against 5–15% in controls.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Feature</th><th>What to ask or look for</th></tr></thead>
+<tbody>
+<tr><td><strong>Fluctuation</strong></td><td>Ask the carer: "Are there times when he is completely lucid and other times when he seems switched off?" Staring spells, daytime drowsiness, disorganised speech that comes and goes. Frequently mistaken for delirium — or dismissed as the patient "having a bad day"</td></tr>
+<tr><td><strong>Visual hallucinations</strong></td><td>Detailed, well-formed, often people, children or animals; typically non-threatening early and with retained insight. Ask directly — patients conceal them</td></tr>
+<tr><td><strong>RBD</strong></td><td>Ask the <em>bed partner</em>: shouting, punching, kicking, falling out of bed while dreaming. May precede cognitive symptoms by many years</td></tr>
+<tr><td><strong>Parkinsonism</strong></td><td>Usually symmetric, bradykinesia and rigidity more than tremor</td></tr>
+<tr><td>Supportive</td><td>Severe autonomic dysfunction (orthostatic hypotension, constipation, urinary problems), repeated falls, syncope, hypersomnia, hyposmia, systematised delusions, apathy, anxiety, depression</td></tr>
+<tr><td>Indicative biomarkers</td><td>Reduced dopamine-transporter uptake (DaTscan); <strong>abnormal cardiac MIBG scintigraphy</strong>; <strong>polysomnography-confirmed REM sleep without atonia</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Neuroleptic sensitivity can kill.</strong> Haloperidol and other typical antipsychotics — and risperidone — can precipitate severe rigidity, irreversible parkinsonism, autonomic collapse and death in DLB. Before you give any antipsychotic to an agitated elderly patient with hallucinations, ask whether this could be Lewy body disease. If you must treat psychosis, the answer is <strong>quetiapine or clozapine</strong> (or pimavanserin where available), at low dose, after first removing anticholinergics and dopaminergic drugs and looking for a reversible trigger — infection, pain, constipation, urinary retention, dehydration, a new drug.</div>
+
+<div class="pearl"><strong>Psychosis management in Lewy body dementia, in order.</strong> First, <strong>deprescribe</strong> the offending agents — anticholinergics above all, then dopaminergic drugs. Second, look for a reversible trigger. Third, non-pharmacological measures, including light, routine and reduced visual ambiguity (patterned wallpaper and poor lighting genuinely generate hallucinations). Fourth, and only then, drugs: a <strong>cholinesterase inhibitor is the most useful pharmacological step</strong> and often reduces hallucinations, then quetiapine, clozapine or pimavanserin. Avoid all first-generation antipsychotics.</div>
+
+<p><strong>Treatment beyond psychosis.</strong> Cholinesterase inhibitors work better in DLB and PDD than in Alzheimer disease — rivastigmine has the best evidence, and the response can be striking. Treat RBD by making the bedroom safe first, then melatonin, then clonazepam. Manage orthostatic hypotension. Levodopa may help the parkinsonism but can worsen hallucinations, so titrate slowly and accept a lower motor target. Avoid anticholinergics entirely, including for bladder symptoms.</p>
+
+<h2 id="ftd"><span class="num">11</span> Frontotemporal dementia &amp; primary progressive aphasia</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>A leading cause of <strong>young-onset dementia</strong>. Pooled global prevalence is around <strong>30 per 100,000</strong>, though heterogeneity between studies is extreme and that figure should be treated as an order of magnitude, not a precise number.</li>
+    <li>Two broad presentations: <strong>disorders of social behaviour</strong> (bvFTD) and <strong>disorders of language</strong> (PPA).</li>
+    <li>Three genes — <strong>C9orf72, GRN, MAPT</strong> — account for a substantial proportion of familial cases, with major implications for families and a role for presymptomatic counselling.</li>
+    <li><strong>The main differential is psychiatric.</strong> bvFTD is repeatedly diagnosed as late-onset depression, bipolar disorder or a midlife crisis for years before the diagnosis is made.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Variant</th><th>Core clinical features</th><th>Atrophy</th></tr></thead>
+<tbody>
+<tr><td><strong>bvFTD</strong></td><td>Early disinhibition; apathy or inertia; <strong>loss of sympathy and empathy</strong>; perseverative, stereotyped or compulsive behaviour; <strong>hyperorality and dietary change</strong> (sweet craving, binge eating); dysexecutive profile with relatively spared memory and visuospatial function</td><td>Frontal and anterior temporal, often asymmetric</td></tr>
+<tr><td><strong>Semantic variant PPA</strong></td><td>Loss of <em>word meaning</em>; impaired naming and single-word comprehension; surface dyslexia; fluent but empty speech; later, loss of object knowledge and prosopagnosia</td><td>Anterior temporal, typically left &gt; right</td></tr>
+<tr><td><strong>Non-fluent / agrammatic PPA</strong></td><td>Effortful halting speech, <strong>agrammatism</strong>, apraxia of speech; comprehension of single words preserved</td><td>Left posterior frontoinsular</td></tr>
+<tr><td><strong>Logopenic PPA</strong></td><td>Word-finding pauses, <strong>impaired sentence repetition</strong>, phonological errors; grammar and word meaning preserved</td><td>Left temporoparietal — <strong>usually AD pathology</strong></td></tr>
+<tr><td><strong>FTD with motor neuron disease</strong></td><td>Behavioural or language syndrome with fasciculations, wasting, bulbar or pyramidal signs; often <em>C9orf72</em>; faster course</td><td>Frontal plus motor system</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>The questions that find bvFTD.</strong> Direct them to the informant, not the patient, whose insight is characteristically absent. Has he become tactless or said hurtful things he would never have said? Has she stopped caring about people she used to care about? Any new rigid routines, hoarding, or checking? Any change in what he eats — particularly a new sweet tooth, or eating things he would not previously have eaten? Any new indifference to hygiene or appearance? Apathy plus loss of empathy plus dietary change is a far more specific combination than any single feature.</div>
+
+<div class="warn"><strong>There is no disease-modifying treatment, and cholinesterase inhibitors do not help — they may worsen behaviour.</strong> Management is behavioural and environmental, with SSRIs for compulsions, disinhibition and eating behaviour, and antipsychotics used sparingly and at low dose. The most valuable things you provide are the diagnosis itself (which reframes years of family conflict), carer support, financial and legal protection while capacity allows — these patients make catastrophic financial decisions — and genetic counselling for the family.</div>
+
+<h2 id="vascular"><span class="num">12</span> Vascular cognitive impairment</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Spans the range from mild vascular cognitive impairment to vascular dementia, and <strong>mixed AD–vascular pathology is probably the commonest substrate of dementia in the old</strong>.</li>
+    <li>Typical profile is <strong>executive and attentional slowing</strong> with retrieval-type memory failure that <em>is</em> helped by cueing — different from the storage failure of AD.</li>
+    <li>The AHA's 2025 statement reframes cognitive ageing as a <strong>multiple-cause process</strong>: reducing vascular risk alone does not fully restore brain health, but it remains <strong>the most effective strategy available</strong>.</li>
+    <li>Look for the pattern: stepwise or abrupt change, early gait disturbance, urinary symptoms, pseudobulbar affect, focal signs, and vascular risk factors.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Subtype</th><th>Mechanism</th><th>Clues</th></tr></thead>
+<tbody>
+<tr><td><strong>Small-vessel / subcortical</strong></td><td>Lacunes and confluent white-matter disease</td><td>Gradual executive slowing, gait apraxia, urinary urgency, pseudobulbar affect. The commonest form, and often called "just age-related changes" on a report</td></tr>
+<tr><td><strong>Multi-infarct</strong></td><td>Multiple cortical infarcts</td><td>Stepwise decline with focal deficits</td></tr>
+<tr><td><strong>Strategic infarct</strong></td><td>A single infarct in a critical site — thalamus, angular gyrus, caudate, basal forebrain</td><td>Abrupt severe cognitive change from one small lesion</td></tr>
+<tr><td><strong>Hypoperfusion</strong></td><td>Watershed injury after cardiac arrest, shock, severe stenosis</td><td>Temporal link to a hypotensive event</td></tr>
+<tr><td><strong>Haemorrhagic / CAA</strong></td><td>Cerebral amyloid angiopathy</td><td>Lobar microbleeds and superficial siderosis on SWI, recurrent lobar haemorrhage, transient focal neurological episodes. <strong>Also the key contraindication concern for anti-amyloid therapy</strong></td></tr>
+<tr><td><strong>Genetic</strong></td><td>CADASIL and related</td><td>Young onset, migraine with aura, family history, anterior temporal pole white-matter change</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>What to do.</strong> Treat blood pressure — this is the intervention with the best evidence for preventing cognitive decline. Treat diabetes and lipids, stop smoking, treat atrial fibrillation appropriately, and prescribe physical activity, which the AHA statement singles out as the most effective available strategy for preserving brain health. Cholinesterase inhibitors have marginal effects in pure vascular dementia, but where mixed pathology is likely — which is most patients — a trial is reasonable. Treat depression, which is common and adds substantially to disability.</p>
+
+<div class="pearl"><strong>Do not dismiss white-matter hyperintensities as incidental.</strong> Their volume correlates with worse cognition, in Lewy body disease as well as in pure vascular disease. A report of "moderate small-vessel ischaemic change" in a patient with executive slowing is a finding, not background noise — and it is the one dementia substrate you can genuinely modify.</div>
+
+<h2 id="rpd"><span class="num">13</span> Rapidly progressive dementia</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Dementia progressing over <strong>weeks to months</strong> rather than years. This is a different clinical pathway with a different tempo of investigation.</li>
+    <li><strong>Assume it is treatable until proven otherwise.</strong> The prion diagnosis is the one you make last, not first.</li>
+    <li>Mnemonic: <strong>VITAMINS</strong> — Vascular, Infectious, Toxic-metabolic, Autoimmune, Metastatic/neoplastic, Iatrogenic, Neurodegenerative, Systemic/seizures.</li>
+    <li><strong>Escalate the investigation tier.</strong> What is tier D in a slowly progressive dementia becomes tier B here: MRI, LP and EEG need to happen in days, not months, and that justifies transfer.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Category</th><th>Causes</th><th>Key investigation</th></tr></thead>
+<tbody>
+<tr><td><strong>Autoimmune</strong></td><td>Autoimmune and paraneoplastic encephalitis, CNS vasculitis, neurosarcoidosis, Hashimoto encephalopathy, coeliac</td><td>MRI, LP with cell count and oligoclonal bands, paired serum and CSF antibodies, malignancy screen</td></tr>
+<tr><td><strong>Infectious</strong></td><td>HSV and other viral encephalitis, HIV, neurosyphilis, tuberculous and cryptococcal meningitis, Whipple, PML</td><td>LP with PCR, HIV and syphilis serology, MRI</td></tr>
+<tr><td><strong>Neoplastic</strong></td><td>CNS lymphoma, gliomatosis, carcinomatous meningitis, metastases</td><td>MRI with contrast, CSF cytology and flow cytometry</td></tr>
+<tr><td><strong>Toxic-metabolic</strong></td><td>B12 and thiamine deficiency, hepatic and uraemic encephalopathy, hypercalcaemia, thyroid, heavy metals, drugs, alcohol</td><td>Tier-A bloods, drug chart — and <strong>do these first, because they are same-day and reversible</strong></td></tr>
+<tr><td><strong>Vascular</strong></td><td>Multiple infarcts, CAA-related inflammation, endocarditis with emboli, CNS vasculitis</td><td>MRI with SWI, echocardiogram, cultures, ESR/CRP</td></tr>
+<tr><td><strong>Seizure</strong></td><td>Non-convulsive status epilepticus</td><td><strong>EEG</strong> — a genuinely reversible cause repeatedly missed in a confused elderly patient</td></tr>
+<tr><td><strong>Prion</strong></td><td>Sporadic CJD and variants</td><td>MRI DWI, EEG, CSF 14-3-3 and <strong>RT-QuIC</strong></td></tr>
+<tr><td><strong>Rapidly progressive degenerative</strong></td><td>Rapid AD, DLB, FTD-MND, PSP/CBS</td><td>Diagnosis of exclusion after the above</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Two reversible causes that get missed in exactly this scenario.</strong> <strong>Non-convulsive status epilepticus</strong> — a fluctuating, confused, sometimes agitated elderly patient with subtle facial or limb twitching. An EEG takes an hour and changes everything. <strong>Autoimmune encephalitis</strong> — subacute cognitive decline with seizures, psychiatric symptoms or a movement disorder, where the antibody result takes weeks and the treatment window does not wait. If the clinical criteria are met, treat.</div>
+
+<h2 id="autoimmune"><span class="num">14</span> Autoimmune encephalitis</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Subacute (under 3 months) working memory deficit, altered mental status or psychiatric symptoms, <strong>plus</strong> supporting evidence — focal CNS findings, new seizures, CSF pleocytosis or suggestive MRI — <strong>and reasonable exclusion of alternatives</strong>.</li>
+    <li><strong>Misdiagnosis is now the recognised problem.</strong> It arises from not applying the clinical requirements, from inadequate assessment of MRI and CSF inflammation, and from over-reliance on narrow cell-based antibody panels.</li>
+    <li><strong>"Antibody-negative autoimmune encephalitis" is a restrictive category, not a fallback.</strong> It requires that alternatives be excluded and that inflammatory evidence be present — not merely that the panel came back negative in a patient you suspect.</li>
+    <li>Treat on clinical criteria; do not wait for antibodies. But equally, do not treat a patient who does not meet them.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Syndrome</th><th>Picture</th><th>Association</th></tr></thead>
+<tbody>
+<tr><td><strong>NMDA receptor</strong></td><td>Psychiatric prodrome, then seizures, dyskinesias (especially orofacial), autonomic instability, reduced consciousness; younger patients</td><td>Ovarian teratoma; may follow HSV encephalitis</td></tr>
+<tr><td><strong>LGI1</strong></td><td>Limbic encephalitis with <strong>faciobrachial dystonic seizures</strong> and <strong>hyponatraemia</strong>; older patients; frequently presents as rapidly progressive dementia</td><td>Usually non-paraneoplastic</td></tr>
+<tr><td><strong>CASPR2</strong></td><td>Limbic encephalitis, neuromyotonia, Morvan syndrome, neuropathic pain</td><td>Thymoma</td></tr>
+<tr><td><strong>GABA-B</strong></td><td>Limbic encephalitis with prominent early seizures</td><td>Small-cell lung cancer</td></tr>
+<tr><td><strong>GAD65</strong></td><td>Limbic encephalitis, stiff-person spectrum, cerebellar ataxia, <strong>temporal lobe epilepsy</strong></td><td>Other autoimmunity; ask for a <strong>titre</strong>, not a plus/minus</td></tr>
+<tr><td><strong>Hu, CV2/CRMP5, Ma2</strong></td><td>Paraneoplastic limbic and brainstem encephalitis</td><td>High-risk paraneoplastic — search hard for malignancy</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="newbox"><strong>Autoimmune encephalitis-associated epilepsy.</strong> A subset of patients develop seizures that persist and resist immunotherapy — temporal lobe epilepsy with GAD antibodies, epilepsy with high-risk paraneoplastic antibodies, and epilepsy following adequately treated surface-antibody encephalitis. These share a mechanism of structural injury and focal neuronal loss, typically cytotoxic T-cell mediated. The practical point: once that damage is established, the treatment goal shifts from immunotherapy to <strong>antiseizure management</strong>, and continuing to escalate immunosuppression in a patient whose active inflammation has resolved exposes them to harm without benefit.</div>
+
+<div class="warn"><strong>The discipline that prevents misdiagnosis.</strong> Autoimmune encephalitis is reversible, which is exactly why it is over-diagnosed — the temptation to "just try steroids" in an undiagnosed deteriorating patient is strong. Apply the criteria as written. Require genuine evidence of inflammation. Exclude the alternatives, particularly prion disease, CNS lymphoma, infection and a rapidly progressive degenerative dementia. A negative panel in a patient with no inflammatory markers and a normal MRI is evidence <em>against</em>, not evidence for antibody-negative disease.</div>
+
+<h2 id="prion"><span class="num">15</span> Prion disease</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Sporadic CJD accounts for 85–90% of prion disease, affecting 1–2 per million per year, with most patients dying <strong>within 5–6 months</strong> of onset — though survival ranges from weeks to several years.</li>
+    <li>Classic triad: <strong>rapidly progressive dementia, myoclonus, and ataxia</strong>, with visual, pyramidal and extrapyramidal signs, evolving to akinetic mutism.</li>
+    <li><strong>MRI DWI is the most useful test</strong> — cortical ribboning and basal ganglia hyperintensity. <strong>RT-QuIC</strong> on CSF has transformed antemortem diagnostic accuracy.</li>
+    <li>A <strong>psychiatric prodrome is common</strong> and can long precede motor signs, which is why so many patients are first treated for depression.</li>
+  </ul>
+</div>
+
+<div class="newbox"><strong>The prodrome is longer than we taught.</strong> An Austrian case-control study linking autopsy-confirmed sCJD cases to national insurance claims found evidence of <strong>mood alterations as early as 3 years before symptom onset</strong>, with increased psychotropic prescribing compared to matched controls. This is not a screening tool — sCJD remains an extraordinarily rare cause of low mood — but it explains the very common history of a patient treated for depression for months before the neurological picture declared itself, and it argues for vigilance when mood change is followed by any neurological sign.</div>
+
+<div class="pearl"><strong>Atypical imaging happens.</strong> The classic pattern is cortical ribboning with basal ganglia involvement, but restricted diffusion can be strikingly focal — an isolated diffuse precentral gyrus signal has been reported in a patient presenting with limb weakness and involuntary movements. If the clinical picture is a rapidly progressive dementia with myoclonus, an unusual DWI distribution does not exclude the diagnosis; repeat the MRI, because the pattern typically evolves and spreads.</div>
+
+<p><strong>Practical management.</strong> There is no treatment. What you provide is a secure diagnosis so families stop searching, symptom control (clonazepam or levetiracetam for myoclonus), early palliative involvement, and realistic prognostic information. Notify according to national requirements. Standard infection-control precautions apply for routine care, but neurosurgical and ophthalmic instruments require special handling — tell the surgical team before any procedure, including biopsy.</p>
+
+<h2 id="young"><span class="num">16</span> Young-onset dementia</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>Onset before 65. The differential is <strong>much broader</strong> than in late-onset disease, and a far higher proportion is genetic, metabolic, inflammatory, infective or toxic.</li>
+    <li><strong>Diagnostic delay is the defining problem</strong>, and the recurring question is "is this young-onset dementia or is this psychiatric?"</li>
+    <li>Presentation is more often <strong>behaviour, language, personality change and executive dysfunction</strong> than pure memory loss.</li>
+    <li>Investigate more, and more aggressively: neuroimaging, LP, formal neuropsychology and genetic testing are all justified here in a way they are not at 82.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Group</th><th>Consider</th></tr></thead>
+<tbody>
+<tr><td><strong>Primary degenerative</strong></td><td>Young-onset AD including <strong>posterior cortical atrophy</strong> and logopenic PPA; FTD and its variants; DLB; Huntington disease</td></tr>
+<tr><td><strong>Genetic / familial</strong></td><td><em>APP, PSEN1, PSEN2</em>; <em>C9orf72, GRN, MAPT</em>; CADASIL; Huntington; mitochondrial disease; leukodystrophies (adrenoleukodystrophy, metachromatic)</td></tr>
+<tr><td><strong>Metabolic / storage</strong></td><td><strong>Wilson disease</strong>; Niemann–Pick type C (vertical gaze palsy, splenomegaly); mitochondrial; porphyria</td></tr>
+<tr><td><strong>Inflammatory / autoimmune</strong></td><td>MS, autoimmune encephalitis, CNS vasculitis, neurosarcoidosis, SLE, coeliac</td></tr>
+<tr><td><strong>Infective</strong></td><td>HIV-associated neurocognitive disorder, neurosyphilis, PML, chronic meningitis, Whipple</td></tr>
+<tr><td><strong>Acquired</strong></td><td>Alcohol-related brain damage, chronic traumatic encephalopathy and repeated head injury, anoxic injury, chronic solvent or drug exposure</td></tr>
+<tr><td><strong>Psychiatric mimics</strong></td><td>Severe depression, bipolar disorder, schizophrenia, functional cognitive disorder — the differential in both directions</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Never diagnose young-onset dementia without excluding Wilson disease, HIV, syphilis, B12 deficiency and thyroid disease</strong> — every one of which is on your tier-A or tier-C list and every one of which is treatable. And in a patient under 50 with cognitive and psychiatric change, especially with any movement disorder or abnormal liver function, actively pursue Wilson disease with caeruloplasmin, 24-hour urinary copper and a slit-lamp examination.</div>
+
+<div class="pearl"><strong>The care needs are different, and that is the part most often neglected.</strong> These patients are typically in work, often the household earner, frequently with dependent children, and services designed for the elderly fit badly. Practical priorities: employment and income protection before capacity is lost; driving; a plan for talking to children, whose distress is often invisible in the consultation; genetic counselling for the family; and age-appropriate day services rather than a placement among people thirty years older. Most will live a decade or more, largely in the community.</div>
+
+<h2 id="special"><span class="num">17</span> Special populations</h2>
+<h3>Down syndrome</h3>
+<p>Very high lifetime risk of Alzheimer disease, driven by trisomy of chromosome 21 and therefore of <em>APP</em>, with onset typically decades earlier than in the general population. Diagnosis is genuinely difficult because of pre-existing cognitive impairment, so <strong>change from the individual's own baseline is the only usable standard</strong> — which requires that a baseline was recorded. A systematic review of studies from 2014–2024 found that early dementia in Down syndrome presents with decline in executive function, memory, language and attention together with behavioural change, and that <strong>behavioural symptoms — agitation, hallucinations — may be the earliest detectable markers</strong>, appearing before measurable cognitive decline. Use informant-based instruments designed for intellectual disability rather than standard cognitive screens, and establish a baseline in adulthood so future change can be measured.</p>
+
+<h3>Parkinson disease</h3>
+<p>See §10 for PDD. For PD-MCI, the MDS Task Force review is the reference point: single-domain impairment is more common than multiple-domain, and non-amnestic is more common than amnestic. Screen with an instrument that tests executive and visuospatial function.</p>
+
+<h3>The cerebellum and cognition</h3>
+<p>Worth knowing because it is counter-intuitive and gets missed. The <strong>cerebellar cognitive affective syndrome</strong> — impairments of executive control, attention, working memory, visuospatial processing, language fluency and social cognition, with flattened or disinhibited affect — arises from disruption of cerebrocerebellar networks. It is now recognised in <strong>Chiari I malformation</strong>, where cognitive and affective disturbance is common and correlates poorly with radiographic severity, tonsillar descent or pain. The practical implication: in a patient with a posterior fossa abnormality and cognitive complaints, do not assume the two are unrelated, and do not assume that a "mild" structural finding excludes a real cognitive syndrome.</p>
+
+<h3>Focal cortical syndromes</h3>
+<p>Occasionally a cognitive presentation is genuinely focal rather than diffuse. <strong>Auditory agnosia</strong> — impaired recognition of sounds with normal hearing — may be global, verbal (strictly associated with language-dominant hemisphere lesions) or non-verbal; global forms usually follow bilateral temporal damage. It is rare, but it is the kind of deficit that gets recorded as "confused" or as deafness. Similarly, <strong>apraxia of eyelid opening</strong> belongs with PSP, CBS and advanced PD, and should be distinguished from <strong>awakening ptosis</strong> — a benign, self-limiting entity confined to waking from sleep, resolving within minutes or on mechanical lid elevation, typically in women around 60, usually remitting spontaneously within 18 months.</p>
+
+<h2 id="bpsd"><span class="num">18</span> Neuropsychiatric symptoms</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Apathy is the commonest neuropsychiatric symptom</strong> — 45% at baseline in meta-analysis, ahead of irritability and depression at 35% each — and it is the most under-recorded because it does not disturb anybody but the patient.</li>
+    <li>Most symptoms <strong>increase over time</strong>; agitation (+16%) and apathy (+15%) emerge most at long-term follow-up, while <strong>sleep disturbance tends to improve</strong>.</li>
+    <li><strong>Always look for a trigger first</strong>: pain, infection, constipation, urinary retention, dehydration, a new drug, sensory deprivation, an environmental change.</li>
+    <li><strong>Non-pharmacological measures first, always.</strong> Antipsychotics carry increased mortality and stroke risk in dementia, and are contraindicated in DLB.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Symptom</th><th>First moves</th><th>If drugs are needed</th></tr></thead>
+<tbody>
+<tr><td><strong>Apathy</strong></td><td>Distinguish from depression — apathy is loss of motivation <em>without</em> sadness or guilt. Structured activity, prompting, routine</td><td>Limited evidence; cholinesterase inhibitors may help modestly. Antidepressants do not treat apathy without depression</td></tr>
+<tr><td><strong>Depression</strong></td><td>Markedly under-diagnosed in AD and mostly untreated or under-dosed. Differentiate from apathy and from pathological crying</td><td><strong>Sertraline</strong> and moclobemide have RCT support in AD. Treat at an adequate dose — untreated major depression in AD may last around 12 months</td></tr>
+<tr><td><strong>Agitation / aggression</strong></td><td>Identify the trigger; simplify the environment; consistent caregiving; address pain <em>empirically</em> — untreated pain is a leading cause</td><td>Consider an SSRI (citalopram has evidence); antipsychotics only for severe risk, lowest dose, shortest time, with a documented review date</td></tr>
+<tr><td><strong>Psychosis</strong></td><td>Exclude delirium and drugs. In DLB, deprescribe anticholinergics and dopaminergics first</td><td>Quetiapine or clozapine; pimavanserin where available. <strong>Never haloperidol or risperidone in DLB</strong></td></tr>
+<tr><td><strong>Sleep disturbance</strong></td><td>Sleep hygiene, daylight exposure, activity, reduce daytime napping. Reassuringly, this is the one symptom that tends to improve over time</td><td>Melatonin; avoid benzodiazepines and Z-drugs, which worsen cognition and falls</td></tr>
+<tr><td><strong>Wandering</strong></td><td>Safe walking space, identification, door alarms, exercise, meaningful activity</td><td>Drugs do not treat wandering — sedation only causes falls</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn"><strong>Before prescribing an antipsychotic in dementia, state the indication and the review date in the notes.</strong> They increase mortality and stroke risk, and once started they are rarely stopped. Ask: what is the behaviour, what triggers it, who is it harming, what has been tried, and when will I review? If you cannot answer all five, the prescription is not ready.</div>
+
+<div class="pearl"><strong>Apathy is not depression, and the distinction changes treatment.</strong> The apathetic patient has lost motivation and initiation but does not report sadness, guilt, hopelessness or self-criticism. The depressed patient does. Families routinely describe both as "he's given up", and antidepressants prescribed for apathy alone tend to add side effects without benefit. Ask specifically about mood, tearfulness, self-blame and wishes to be dead — and note that apathy in AD also predicts faster functional decline, so recording it matters even when there is no good drug for it.</div>
+
+<h2 id="care"><span class="num">19</span> Symptomatic treatment &amp; care</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li><strong>Cholinesterase inhibitors</strong> (donepezil, rivastigmine, galantamine) give modest symptomatic benefit in AD, and work better in <strong>DLB and PDD</strong>.</li>
+    <li><strong>Memantine</strong> for moderate to severe AD, alone or added to a cholinesterase inhibitor. Not useful in mild disease, FTD or pure vascular dementia.</li>
+    <li><strong>Avoid cholinesterase inhibitors in FTD</strong> — they may worsen behaviour.</li>
+    <li>Most of what determines quality of life is <strong>not pharmacological</strong>: carer support, safety, activity, continence, nutrition, and planning done early.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Drug</th><th>Use in</th><th>Practical notes</th></tr></thead>
+<tbody>
+<tr><td>Donepezil</td><td>AD (all stages), DLB, PDD</td><td>Once daily; start 5 mg, increase to 10 mg after 4 weeks. GI upset, bradycardia, vivid dreams, cramps. Check pulse before starting</td></tr>
+<tr><td>Rivastigmine</td><td>AD, <strong>DLB and PDD (best evidence)</strong></td><td>Patch has better GI tolerability than capsules</td></tr>
+<tr><td>Galantamine</td><td>AD</td><td>Twice daily; similar profile</td></tr>
+<tr><td>Memantine</td><td>Moderate–severe AD</td><td>Generally well tolerated; reduce in renal impairment</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The non-drug work, which matters more</h3>
+<ul>
+  <li><strong>Carer support.</strong> Carer strain predicts institutionalisation more reliably than the patient's cognitive score. Ask the carer directly how they are managing, every visit. Arrange respite before crisis.</li>
+  <li><strong>Driving.</strong> Raise it early, before it becomes a confrontation. Dementia is not automatically a bar at diagnosis, but progression makes it one; document the discussion.</li>
+  <li><strong>Legal and financial planning.</strong> Power of attorney, wills and advance directives while the patient retains capacity. In FTD this is urgent — catastrophic financial decisions are part of the disease.</li>
+  <li><strong>Safety.</strong> Gas and cooking, medication supervision, wandering, firearms, scams and financial exploitation.</li>
+  <li><strong>Nutrition, continence and mobility</strong>, all of which deteriorate predictably and all of which respond to anticipation.</li>
+  <li><strong>Advance care planning.</strong> Hospitalisation preferences, antibiotics, feeding — decided in clinic with the patient, not in the emergency department without them.</li>
+</ul>
+
+<h2 id="prevention"><span class="num">20</span> Risk reduction</h2>
+<div class="key">
+  <div class="kh">▎Key points</div>
+  <ul>
+    <li>A substantial proportion of dementia risk is attributable to <strong>modifiable factors</strong> — which is the most hopeful fact in this module.</li>
+    <li>The Nottingham consensus produced <strong>56 policy recommendations</strong> across public health messaging, individual interventions, population interventions and research, with <strong>health inequality</strong> as a priority across all four domains.</li>
+    <li>The AHA's 2025 position: reducing vascular risk alone does not fully restore brain health, but <strong>intensifying control of modifiable vascular risk factors — physical activity above all — remains the most effective available strategy</strong>.</li>
+    <li>Risk reduction is worth raising with <strong>every patient and every family member</strong>, because the family are asking about their own risk even when they do not say so.</li>
+  </ul>
+</div>
+
+<div class="tw">
+<table>
+<thead><tr><th>Factor</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td><strong>Hearing loss</strong></td><td>Test and treat. One of the largest single modifiable contributors, and trivially actionable</td></tr>
+<tr><td><strong>Hypertension</strong></td><td>Treat, particularly from midlife — the vascular intervention with the strongest cognitive evidence</td></tr>
+<tr><td><strong>Physical inactivity</strong></td><td>Regular aerobic activity — singled out by the AHA as the most effective available strategy</td></tr>
+<tr><td><strong>Smoking, excess alcohol</strong></td><td>Cessation and reduction</td></tr>
+<tr><td><strong>Diabetes, obesity, dyslipidaemia</strong></td><td>Standard management</td></tr>
+<tr><td><strong>Depression, social isolation</strong></td><td>Treat; support social participation</td></tr>
+<tr><td><strong>Low education / cognitive inactivity</strong></td><td>Lifelong learning and cognitive engagement</td></tr>
+<tr><td><strong>Head injury</strong></td><td>Helmets, falls prevention</td></tr>
+<tr><td><strong>Air pollution</strong></td><td>A population-level factor — relevant to policy, and relevant to the seasonal burning that affects northern and northeastern Thailand</td></tr>
+<tr><td><strong>Sleep apnoea</strong></td><td>Identify and treat</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pearl"><strong>The inequality point is the one to carry into local practice.</strong> The Nottingham panel made addressing health inequalities a priority across every domain, because prevention campaigns reliably reach the people who least need them. In a district setting the corollary is concrete: hearing aids, blood-pressure control and treating depression are the interventions most likely to be missed in the poorest patients and most likely to help them, and they cost very little.</div>
+
+<h2 id="refer"><span class="num">21</span> When to refer</h2>
+<div class="tw">
+<table>
+<thead><tr><th>Refer urgently (days)</th><th>Refer routinely (batched)</th><th>Manage locally</th></tr></thead>
+<tbody>
+<tr><td>
+  <ul>
+    <li><strong>Rapidly progressive dementia</strong> — weeks to months</li>
+    <li>Suspected <strong>autoimmune encephalitis</strong> or CNS infection</li>
+    <li>New <strong>seizures</strong> or suspected non-convulsive status</li>
+    <li>Structural lesion on CT — subdural, tumour, hydrocephalus</li>
+    <li>Cognitive decline with <strong>fever</strong> or systemic illness</li>
+    <li>Severe behavioural disturbance with risk to the patient or others</li>
+  </ul>
+</td><td>
+  <ul>
+    <li><strong>Young-onset</strong> (&lt;65) — always</li>
+    <li>Diagnostic uncertainty, or an atypical syndrome</li>
+    <li>Prominent early <strong>motor signs</strong></li>
+    <li>Strong <strong>family history</strong> or suspected genetic cause</li>
+    <li>Consideration of <strong>anti-amyloid therapy</strong></li>
+    <li>Refractory neuropsychiatric symptoms</li>
+    <li>Need for formal neuropsychology or MRI</li>
+  </ul>
+</td><td>
+  <ul>
+    <li>Typical slowly progressive dementia in an older patient after a complete tier-A workup</li>
+    <li>Cholinesterase inhibitor and memantine initiation and titration</li>
+    <li>Reversible-cause treatment and deprescribing</li>
+    <li>Vascular risk factor management</li>
+    <li>Carer support, safety, capacity and advance planning</li>
+    <li>Most BPSD, using non-pharmacological measures first</li>
+  </ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="quick"><span class="num">22</span> Quick reference</h2>
+<h3>Pattern recognition at a glance</h3>
+<div class="tw">
+<table>
+<thead><tr><th></th><th>Alzheimer</th><th>DLB / PDD</th><th>FTD</th><th>Vascular</th></tr></thead>
+<tbody>
+<tr><td>First deficit</td><td>Episodic memory</td><td>Attention, visuospatial, fluctuation</td><td>Behaviour or language</td><td>Executive, processing speed</td></tr>
+<tr><td>Memory failure type</td><td><strong>Storage</strong> — cueing does not help</td><td>Retrieval — cueing helps</td><td>Retrieval — cueing helps</td><td>Retrieval — cueing helps</td></tr>
+<tr><td>Course</td><td>Gradual, steady</td><td>Fluctuating</td><td>Gradual, behaviour-led</td><td>Stepwise or gradual</td></tr>
+<tr><td>Hallucinations</td><td>Late</td><td><strong>Early, well-formed, visual</strong></td><td>Uncommon</td><td>Uncommon</td></tr>
+<tr><td>Motor signs</td><td>Late; myoclonus very late</td><td><strong>Parkinsonism, RBD</strong></td><td>MND features in a subset</td><td>Focal signs, gait apraxia</td></tr>
+<tr><td>Typical age</td><td>&gt;65 (young-onset variants exist)</td><td>&gt;60</td><td><strong>45–65</strong></td><td>&gt;65</td></tr>
+<tr><td>Key caution</td><td>Copathology is the rule</td><td><strong>Neuroleptic sensitivity</strong></td><td>Psychiatric misdiagnosis; financial risk</td><td>Treat the vascular risk</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The tier-A screen, as a checklist</h3>
+<p>FBC · renal function and electrolytes including calcium · liver function · glucose or HbA1c · TSH · vitamin B12 · HIV serology · syphilis serology · CRP · full drug chart including over-the-counter · depression screen · hearing and vision check · ECG. Plus <strong>CT head</strong> (tier B) if rapid progression, head injury, anticoagulation, focal signs, seizures, headache, age under 65, or gait and urinary change.</p>
+
+<h3>Five things not to do</h3>
+<ol>
+  <li>Do not diagnose dementia in a <strong>delirious</strong> patient, or during an acute admission.</li>
+  <li>Do not give <strong>haloperidol or risperidone</strong> to a patient who might have Lewy body disease.</li>
+  <li>Do not prescribe a <strong>cholinesterase inhibitor in FTD</strong>.</li>
+  <li>Do not offer <strong>tube feeding</strong> in advanced dementia.</li>
+  <li>Do not accept a single <strong>reversible finding</strong> as the whole explanation — keep looking.</li>
+</ol>
 
 <hr>
-<p class="src">Sources: Adams &amp; Victor's <em>Principles of Neurology</em> 12e, Ch. 20 (Dementia, the Amnesic Syndrome, and the Neurology of Intelligence and Memory); Merritt's <em>Neurology</em> 14e, Ch. 12 (Dementia and Memory Loss — approach), Ch. 50 (Mild Cognitive Impairment), Ch. 51 (Alzheimer Disease — symptomatic treatment), Ch. 52 (Frontotemporal Dementia &mdash; bvFTD &amp; PPA variants), Ch. 53 (Lewy Body Dementias &mdash; core features, neuroleptic sensitivity), Ch. 54 (Vascular Dementia). 2023–2024 anti-amyloid mAb section drawn from CLARITY-AD (lecanemab, NEJM 2023) and TRAILBLAZER-ALZ 2 (donanemab, JAMA 2023) trials and FDA labelling.</p>
+<h2 id="evidence"><span class="num">23</span> Evidence library</h2>
+<div class="key"><div class="kh">▎Key points</div><ul><li>All <strong>38 papers</strong> in the Module 7 resource folder, grouped by theme, so you can find the source behind any statement in this module.</li><li>Titles are given as supplied. Journal and year are cited in the text only where they were read directly from the paper — no identifiers have been inferred.</li></ul></div>
+<h3>Alzheimer disease — biology, criteria &amp; staging <span class="src">(3)</span></h3>
+<ul>
+<li>Alzheimer&#x27;s disease</li>
+<li>Application of the revised criteria for diagnosis and staging of Alzheimer&#x27;s disease</li>
+<li>Evaluation of the Revised Criteria for Biological and Clinical Staging of Alzheimer Disease</li>
+</ul>
+<h3>Blood &amp; fluid biomarkers <span class="src">(5)</span></h3>
+<ul>
+<li>Alzheimer Disease Blood Test Cleared for Primary Care, but Questions Remain About Its Use</li>
+<li>Blood Biomarkers to Detect Alzheimer Disease in Primary Care and Secondary Care</li>
+<li>Plasma eMTBR-tau243 and _p-tau217 for Biological Staging of Alzheimer Disease</li>
+<li>Plasma phospho-tau217 for Alzheimer’s disease diagnosis in primary and secondary care using a fully automated platform</li>
+<li>Primary care detection of Alzheimer’s disease using a self-administered digital cognitive test and blood biomarkers</li>
+</ul>
+<h3>Anti-amyloid immunotherapy <span class="src">(6)</span></h3>
+<ul>
+<li>Amyloid-Related Imaging Abnormalities With Donanemab in Early Symptomatic Alzheimer Disease</li>
+<li>Amyloid-lowering immunotherapies for Alzheimer disease</li>
+<li>FDA Green-Lights Second Alzheimer Drug, Donanemab</li>
+<li>Lecanemab Treatment in a Specialty Memory Clinic</li>
+<li>Posttreatment Amyloid Levels and Clinical Outcomes Following Donanemab for Early Symptomatic Alzheimer Disease</li>
+<li>The regulatory rollercoaster continues—EMA refuses donanemab</li>
+</ul>
+<h3>Negative and cautionary therapeutic trials <span class="src">(2)</span></h3>
+<ul>
+<li>Efficacy and safety of oral semaglutide 14 mg (flexible dose) in early-stage symptomatic Alzheimer&#x27;s disease (evoke and evoke+)</li>
+<li>Valacyclovir Treatment of Early Symptomatic Alzheimer Disease</li>
+</ul>
+<h3>Dementia with Lewy bodies &amp; Parkinson disease <span class="src">(3)</span></h3>
+<ul>
+<li>Diagnostic and other biomarkers of dementia with Lewy bodies</li>
+<li>MDS Task Force Mild Cognitive Impairment in Parkinson Disease Critical Review</li>
+<li>Psychosis Management in Lewy Body Dementia</li>
+</ul>
+<h3>Frontotemporal dementia <span class="src">(2)</span></h3>
+<ul>
+<li>Frontotemporal Dementia Clinical Review PPA</li>
+<li>Prevalence of Frontotemporal Dementia Systematic Review Meta-Analysis</li>
+</ul>
+<h3>Vascular contributions <span class="src">(1)</span></h3>
+<ul>
+<li>Vascular Contributions to Cognitive Impairment and Brain Health AHA Statement</li>
+</ul>
+<h3>Rapidly progressive dementia &amp; prion disease <span class="src">(4)</span></h3>
+<ul>
+<li>A 78-Year-Old Woman with Rapidly Progressive Dementia</li>
+<li>Isolated Diffuse Precentral Gyrus Signals in Creutzfeldt-Jakob Disease</li>
+<li>Life Expectancy for Patients With Sporadic Creutzfeldt-Jakob Disease</li>
+<li>Mood Alterations in the Prodromal Phase of Sporadic Creutzfeldt-Jakob Disease</li>
+</ul>
+<h3>Autoimmune encephalitis <span class="src">(3)</span></h3>
+<ul>
+<li>Autoimmune encephalitis-associated epilepsy</li>
+<li>Beyond Autoimmune Encephalitis—Insights and Cross-Disciplinary Lessons</li>
+<li>Diagnostic criteria for autoimmune encephalitis</li>
+</ul>
+<h3>Young-onset dementia &amp; special populations <span class="src">(3)</span></h3>
+<ul>
+<li>Chiari I Malformation Cerebellar Cognitive Affective Dysfunction</li>
+<li>Down Syndrome Dementia Cognitive Function Systematic Review</li>
+<li>Young-Onset Dementia Diagnosis Management Care Narrative Review</li>
+</ul>
+<h3>Neuropsychiatric symptoms <span class="src">(2)</span></h3>
+<ul>
+<li>Depression in Alzheimer Disease Phenomenology Clinical Correlates Treatment</li>
+<li>Natural Evolution Heterogeneity Neuropsychiatric Symptoms Neurocognitive Disorders</li>
+</ul>
+<h3>Clinical approach &amp; focal cognitive syndromes <span class="src">(3)</span></h3>
+<ul>
+<li>Auditory Agnosias Short Review Neurofunctional Evidence</li>
+<li>Awakening Ptosis Apraxia of Eyelid Opening Clinical Review</li>
+<li>Neurologist Practical Approach to Cognitive Impairment</li>
+</ul>
+<h3>Risk reduction &amp; policy <span class="src">(1)</span></h3>
+<ul>
+<li>The Nottingham consensus on dementia risk reduction policy</li>
+</ul>
+
+<hr>
+<h2 id="sources"><span class="num">24</span> Sources</h2>
+<p><strong>Core textbooks.</strong> Ropper AH, Samuels MA, Klein JP, Prasad S. <em>Adams and Victor's Principles of Neurology</em>, 12th edition — Chapter 20, Dementia and the Amnesic Syndrome. Louis ED, Mayer SA, Noble JM (eds). <em>Merritt's Neurology</em>, 14th edition — dementia and cognitive disorder chapters.</p>
+
+<p><strong>Primary literature.</strong> The 38 papers listed in §23, supplied in the <em>Module 7 resource</em> folder. The statements in this module that carry specific numbers are drawn from: the prospective primary- and secondary-care validation of plasma AD biomarkers (JAMA 2024) and the fully automated p-tau217 platform study; the self-administered digital cognitive test study in primary care; the revised Alzheimer's Association criteria and the BioFINDER-2/ADNI evaluation of biological versus clinical staging (JAMA Neurol 2025); the pooled donanemab ARIA analysis (JAMA Neurol 2025) and the real-world lecanemab memory-clinic series (JAMA Neurol 2025); the evoke and evoke+ semaglutide trials (2026); the valacyclovir trial (JAMA 2026); the AHA scientific statement on vascular contributions to cognitive impairment and brain health (2025); the meta-analysis of neuropsychiatric symptom trajectories; the DLB biomarker review; the FTD prevalence meta-analysis; the autoimmune encephalitis diagnostic-criteria critique and the autoimmune-encephalitis-associated-epilepsy concept paper; the sCJD prodromal mood and life-expectancy studies; the Down syndrome dementia systematic review; the young-onset dementia narrative review; and the Nottingham consensus on dementia risk reduction policy.</p>
+
+<p><strong>A note on citation.</strong> Journal and year are given in the text only where they were read directly from the source document. No PMIDs or DOIs have been generated for papers whose identifiers were not present in the text.</p>
+
+<div class="key">
+  <div class="kh">▎Companion material</div>
+  <ul>
+    <li><a href="Module_07_Dementia_Interactive.html">Module 7 Interactive</a> — dementia differentiator, investigation planner, reversible-cause sweep, cognitive-screen selector, flashcards, cases and self-assessment.</li>
+    <li><a href="Module_07_Dementia_Residency_Reference.html">Module 7 Residency Reference</a> — the same field at resident depth.</li>
+    <li><a href="Neurology_Curriculum_Index.html">Curriculum index</a>.</li>
+  </ul>
+</div>
+
+<p class="src" style="margin-top:2.5em">Module 7 — Dementia &amp; Cognitive Impairment · 2nd edition · Neurology Curriculum</p>
 
 </body>
 </html>
